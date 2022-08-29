@@ -6,7 +6,7 @@ import { BsArrowRightShort, BsArrowLeftShort } from "react-icons/bs";
 import { FiEyeOff, FiEye, FiImage } from "react-icons/fi";
 import { AiFillCheckCircle } from "react-icons/ai";
 import { MdCameraAlt, MdArrowDropDown } from "react-icons/md";
-import { Link,useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { data, data5 } from "../Data/data";
 
 import Login1 from "../../Images/Sign_up.png";
@@ -18,7 +18,6 @@ import {
   FormControlLabel,
   FormControl,
   Input,
-  Avatar,
   Modal,
   Typography,
   Box,
@@ -29,7 +28,6 @@ import {
 
 const Signup = () => {
   const { innerWidth: width } = window;
-  const [file, setFile] = React.useState("");
   const [file2, setFile2] = React.useState("");
   const [file3, setFile3] = React.useState("");
   const [firstname, setFirstname] = React.useState("");
@@ -50,7 +48,6 @@ const Signup = () => {
   const [branchname, setBranchname] = React.useState("");
   const [accountname, setAccountname] = React.useState("");
   const [accountnumber, setAccountnumber] = React.useState("");
-  const [languages, setLanguages] = React.useState("");
 
   const [type, setType] = React.useState("password");
   const [type2, setType2] = React.useState("password");
@@ -64,6 +61,22 @@ const Signup = () => {
   const [checked, setChecked] = React.useState(false);
   const [checked2, setChecked2] = React.useState(false);
 
+  const [images, setImages] = React.useState([]);
+  const [imageURLs, setImageURLs] = React.useState([]);
+  const [languages, setLanguages] = React.useState("");
+  const [answerLanguages, setAnswerLanguages] = React.useState("");
+
+  React.useEffect(() => {
+    if (images.length < 1) return;
+    const newImageUrls = [];
+    images.forEach((image) => newImageUrls.push(URL.createObjectURL(image)));
+    setImageURLs(newImageUrls);
+  }, [images]);
+
+  function onImageChange(e) {
+    setImages([...e.target.files]);
+  }
+
   const navigate = useNavigate();
 
   const handleOpen = () => setOpen(true);
@@ -76,7 +89,7 @@ const Signup = () => {
 
   const handleClose2 = () => setOpen2(false);
   const handleClose3 = () => setOpen3(false);
-  
+
   const handleClose4 = () => {
     setOpen3(false);
     setChecked2(false);
@@ -85,9 +98,8 @@ const Signup = () => {
 
   const handleClose5 = () => {
     setOpen4(false);
-    navigate('/Login')
-  }
-  
+    navigate("/Login");
+  };
 
   const handleClickShowPassword = (i) => {
     if (i === 1) {
@@ -139,7 +151,7 @@ const Signup = () => {
         >
           <img
             src={Login1}
-            alt="Signup"
+            alt="resgister"
             style={{ width: 460, position: "absolute", top: " 10%", left: 100 }}
           />
         </div>
@@ -158,7 +170,7 @@ const Signup = () => {
               <div
                 style={{
                   position: "fixed",
-                  top: 20,
+                  top: 10,
                   left: width * 0.59,
                   textAlign: "-webkit-center",
                   width: 500,
@@ -222,7 +234,7 @@ const Signup = () => {
                       name="row-radio-buttons-group"
                     >
                       <FormControlLabel
-                        checked={() => setScreen("")}
+                        checked={true}
                         onChange={handleChange}
                         name="radio-buttons"
                         value=""
@@ -242,7 +254,7 @@ const Signup = () => {
                 </div>
 
                 <div style={{ textAlign: "left", marginTop: 10 }}>
-                  <text
+                  <p
                     style={{
                       fontWeight: 500,
                       fontSize: 15,
@@ -250,8 +262,7 @@ const Signup = () => {
                     }}
                   >
                     Name
-                  </text>
-                  <br />
+                  </p>
                   <input
                     type="text"
                     value={firstname}
@@ -272,7 +283,7 @@ const Signup = () => {
                 </div>
 
                 <div style={{ textAlign: "left" }}>
-                  <text
+                  <p
                     style={{
                       fontWeight: 500,
                       fontSize: 15,
@@ -280,8 +291,7 @@ const Signup = () => {
                     }}
                   >
                     E-mail
-                  </text>
-                  <br />
+                  </p>
                   <input
                     type="text"
                     value={email}
@@ -302,7 +312,7 @@ const Signup = () => {
                 </div>
 
                 <div style={{ textAlign: "left" }}>
-                  <text
+                  <p
                     style={{
                       fontWeight: 500,
                       fontSize: 15,
@@ -310,8 +320,8 @@ const Signup = () => {
                     }}
                   >
                     Password
-                  </text>
-                  <br />
+                  </p>
+
                   <input
                     type={type}
                     value={password}
@@ -340,7 +350,7 @@ const Signup = () => {
                 </div>
 
                 <div style={{ textAlign: "left" }}>
-                  <text
+                  <p
                     style={{
                       fontWeight: 500,
                       fontSize: 15,
@@ -348,8 +358,8 @@ const Signup = () => {
                     }}
                   >
                     Confirm password
-                  </text>
-                  <br />
+                  </p>
+
                   <input
                     type={type2}
                     value={confirmpassword}
@@ -378,7 +388,7 @@ const Signup = () => {
                 </div>
 
                 <div style={{ textAlign: "left", marginBottom: 10 }}>
-                  <text
+                  <p
                     style={{
                       fontWeight: 500,
                       fontSize: 15,
@@ -386,8 +396,8 @@ const Signup = () => {
                     }}
                   >
                     Mobile phone
-                  </text>
-                  <br />
+                  </p>
+
                   <input
                     type="text"
                     value={mobilephone}
@@ -501,7 +511,7 @@ const Signup = () => {
                         style={{ marginRight: 50 }}
                       />
                       <FormControlLabel
-                        checked={() => setScreen("For Translators")}
+                        checked={true}
                         onChange={handleChange}
                         name="radio-buttons"
                         value="For Translators"
@@ -513,7 +523,7 @@ const Signup = () => {
                 </div>
 
                 <div style={{ textAlign: "left", marginTop: 10 }}>
-                  <text
+                  <p
                     style={{
                       fontWeight: 500,
                       fontSize: 15,
@@ -521,8 +531,7 @@ const Signup = () => {
                     }}
                   >
                     Name
-                  </text>
-                  <br />
+                  </p>
                   <input
                     type="text"
                     value={firstname}
@@ -543,7 +552,7 @@ const Signup = () => {
                 </div>
 
                 <div style={{ textAlign: "left" }}>
-                  <text
+                  <p
                     style={{
                       fontWeight: 500,
                       fontSize: 15,
@@ -551,8 +560,7 @@ const Signup = () => {
                     }}
                   >
                     E-mail
-                  </text>
-                  <br />
+                  </p>
                   <input
                     type="text"
                     value={email}
@@ -573,7 +581,7 @@ const Signup = () => {
                 </div>
 
                 <div style={{ textAlign: "left" }}>
-                  <text
+                  <p
                     style={{
                       fontWeight: 500,
                       fontSize: 15,
@@ -581,8 +589,7 @@ const Signup = () => {
                     }}
                   >
                     Password
-                  </text>
-                  <br />
+                  </p>
                   <input
                     type={type}
                     value={password}
@@ -611,7 +618,7 @@ const Signup = () => {
                 </div>
 
                 <div style={{ textAlign: "left" }}>
-                  <text
+                  <p
                     style={{
                       fontWeight: 500,
                       fontSize: 15,
@@ -619,8 +626,8 @@ const Signup = () => {
                     }}
                   >
                     Confirm password
-                  </text>
-                  <br />
+                  </p>
+
                   <input
                     type={type2}
                     value={confirmpassword}
@@ -649,7 +656,7 @@ const Signup = () => {
                 </div>
 
                 <div style={{ textAlign: "left", marginBottom: 10 }}>
-                  <text
+                  <p
                     style={{
                       fontWeight: 500,
                       fontSize: 15,
@@ -657,8 +664,7 @@ const Signup = () => {
                     }}
                   >
                     Mobile phone
-                  </text>
-                  <br />
+                  </p>
                   <input
                     type="text"
                     value={mobilephone}
@@ -725,15 +731,16 @@ const Signup = () => {
                   onClick={() => setScreen("")}
                 >
                   <BsArrowLeftShort />
-                  <text
+                  <p
                     style={{
                       color: "#D9D9D9",
                       fontSize: 18,
                       textDecorationLine: "none",
+                      float: "right",
                     }}
                   >
                     Back
-                  </text>
+                  </p>
                 </button>
 
                 <button
@@ -748,23 +755,24 @@ const Signup = () => {
                   }}
                   onClick={() => setScreen("5")}
                 >
-                  <text
+                  <p
                     style={{
                       color: "#D9D9D9",
                       fontSize: 18,
                       textDecorationLine: "none",
+                      float: "left",
                     }}
                   >
                     Skip
-                  </text>
+                  </p>
                   <BsArrowRightShort />
                 </button>
 
                 <h2 className="textSignup">Sign up</h2>
                 <div style={{ margin: 25 }}>
-                  <text>Upload Image</text>
+                  <p>Upload Image</p>
                 </div>
-                {file === "" ? (
+                {images.length < 1 ? (
                   <div
                     style={{
                       background: "#FFFFFF",
@@ -785,7 +793,7 @@ const Signup = () => {
                         id="icon-button-file"
                         type="file"
                         style={{ display: "none" }}
-                        onChange={(e) => setFile(e.target.value)}
+                        onChange={onImageChange}
                       />
                       <IconButton
                         color="primary"
@@ -795,7 +803,7 @@ const Signup = () => {
                         <MdCameraAlt
                           style={{ fontSize: 35, position: "absolute" }}
                         />
-                        <text
+                        <p
                           style={{
                             fontSize: 8,
                             position: "absolute",
@@ -804,7 +812,7 @@ const Signup = () => {
                           }}
                         >
                           Upload File
-                        </text>
+                        </p>
                       </IconButton>
                     </label>
                   </div>
@@ -825,23 +833,27 @@ const Signup = () => {
                         id="icon-button-file"
                         type="file"
                         style={{ display: "none" }}
-                        onChange={(e) => setFile(e.target.value)}
+                        onChange={onImageChange}
                       />
                       <IconButton
                         color="primary"
                         aria-label="upload picture"
                         component="span"
                       >
-                        <Avatar
-                          alt="avatar"
-                          src={require("../../Images/Avatar2.png")}
-                          id={"avatar3"}
-                          style={{
-                            float: "none",
-                            position: "relative",
-                            width: "100%",
-                          }}
-                        />
+                        {imageURLs.map((imageSrc, idx) => (
+                          <img
+                            key={idx}
+                            src={imageSrc}
+                            alt="imageURLs"
+                            style={{
+                              position: "absolute",
+                              width: 90,
+                              height: 90,
+                              borderRadius: "100%",
+                              top: -20,
+                            }}
+                          />
+                        ))}
                       </IconButton>
                     </label>
                   </div>
@@ -894,16 +906,17 @@ const Signup = () => {
                   onClick={() => setScreen("For Translators")}
                 >
                   <BsArrowLeftShort />
-                  <text
+                  <p
                     to="/"
                     style={{
                       color: "#D9D9D9",
                       fontSize: 18,
                       textDecorationLine: "none",
+                      float: "right",
                     }}
                   >
                     Back
-                  </text>
+                  </p>
                 </button>
 
                 <button
@@ -918,23 +931,24 @@ const Signup = () => {
                   }}
                   onClick={() => setScreen("6")}
                 >
-                  <text
+                  <p
                     style={{
                       color: "#D9D9D9",
                       fontSize: 18,
                       textDecorationLine: "none",
+                      float: "left",
                     }}
                   >
                     Skip
-                  </text>
+                  </p>
                   <BsArrowRightShort />
                 </button>
 
                 <h2 className="textSignup">Sign up</h2>
                 <div style={{ margin: 25 }}>
-                  <text>Upload Image</text>
+                  <p>Upload Image</p>
                 </div>
-                {file === "" ? (
+                {images.length < 1 ? (
                   <div
                     style={{
                       background: "#FFFFFF",
@@ -955,7 +969,7 @@ const Signup = () => {
                         id="icon-button-file"
                         type="file"
                         style={{ display: "none" }}
-                        onChange={(e) => setFile(e.target.value)}
+                        onChange={onImageChange}
                       />
                       <IconButton
                         color="primary"
@@ -965,7 +979,7 @@ const Signup = () => {
                         <MdCameraAlt
                           style={{ fontSize: 35, position: "absolute" }}
                         />
-                        <text
+                        <p
                           style={{
                             fontSize: 8,
                             position: "absolute",
@@ -974,7 +988,7 @@ const Signup = () => {
                           }}
                         >
                           Upload File
-                        </text>
+                        </p>
                       </IconButton>
                     </label>
                   </div>
@@ -995,23 +1009,27 @@ const Signup = () => {
                         id="icon-button-file"
                         type="file"
                         style={{ display: "none" }}
-                        onChange={(e) => setFile(e.target.value)}
+                        onChange={onImageChange}
                       />
                       <IconButton
                         color="primary"
                         aria-label="upload picture"
                         component="span"
                       >
-                        <Avatar
-                          alt="avatar"
-                          src={require("../../Images/Avatar2.png")}
-                          id={"avatar3"}
-                          style={{
-                            float: "none",
-                            position: "relative",
-                            width: "100%",
-                          }}
-                        />
+                        {imageURLs.map((imageSrc, idx) => (
+                          <img
+                            key={idx}
+                            src={imageSrc}
+                            alt="imageURLs"
+                            style={{
+                              position: "absolute",
+                              width: 90,
+                              height: 90,
+                              borderRadius: "100%",
+                              top: -20,
+                            }}
+                          />
+                        ))}
                       </IconButton>
                     </label>
                   </div>
@@ -1064,21 +1082,22 @@ const Signup = () => {
                   onClick={() => setScreen("3")}
                 >
                   <BsArrowLeftShort />
-                  <text
+                  <p
                     style={{
                       color: "#D9D9D9",
                       fontSize: 18,
                       textDecorationLine: "none",
+                      float: "right",
                     }}
                   >
                     Back
-                  </text>
+                  </p>
                 </button>
 
                 <h2 className="textSignup">Sign up</h2>
 
                 <div style={{ textAlign: "left", marginTop: 10 }}>
-                  <text
+                  <p
                     style={{
                       fontWeight: 500,
                       fontSize: 15,
@@ -1086,8 +1105,7 @@ const Signup = () => {
                     }}
                   >
                     Address
-                  </text>
-                  <br />
+                  </p>
                   <input
                     type="text"
                     value={address}
@@ -1108,7 +1126,7 @@ const Signup = () => {
                 </div>
 
                 <div style={{ textAlign: "left" }}>
-                  <text
+                  <p
                     style={{
                       fontWeight: 500,
                       fontSize: 15,
@@ -1116,8 +1134,7 @@ const Signup = () => {
                     }}
                   >
                     District
-                  </text>
-                  <br />
+                  </p>
                   <input
                     type="text"
                     value={district}
@@ -1138,7 +1155,7 @@ const Signup = () => {
                 </div>
 
                 <div style={{ textAlign: "left" }}>
-                  <text
+                  <p
                     style={{
                       fontWeight: 500,
                       fontSize: 15,
@@ -1146,8 +1163,7 @@ const Signup = () => {
                     }}
                   >
                     Province
-                  </text>
-                  <br />
+                  </p>
                   <input
                     type="text"
                     value={province}
@@ -1169,7 +1185,7 @@ const Signup = () => {
                 </div>
 
                 <div style={{ textAlign: "left" }}>
-                  <text
+                  <p
                     style={{
                       fontWeight: 500,
                       fontSize: 15,
@@ -1177,8 +1193,7 @@ const Signup = () => {
                     }}
                   >
                     Country
-                  </text>
-                  <br />
+                  </p>
                   <input
                     type="text"
                     value={country}
@@ -1200,7 +1215,7 @@ const Signup = () => {
                 </div>
 
                 <div style={{ textAlign: "left", marginBottom: 10 }}>
-                  <text
+                  <p
                     style={{
                       fontWeight: 500,
                       fontSize: 15,
@@ -1208,8 +1223,7 @@ const Signup = () => {
                     }}
                   >
                     Postal Code
-                  </text>
-                  <br />
+                  </p>
                   <input
                     type="text"
                     value={postalcode}
@@ -1423,15 +1437,16 @@ const Signup = () => {
                   onClick={() => setScreen("4")}
                 >
                   <BsArrowLeftShort />
-                  <text
+                  <p
                     style={{
                       color: "#D9D9D9",
                       fontSize: 18,
                       textDecorationLine: "none",
+                      float: "right",
                     }}
                   >
                     Back
-                  </text>
+                  </p>
                 </button>
 
                 <h2 className="textSignup">Sign up</h2>
@@ -1463,7 +1478,7 @@ const Signup = () => {
                 </div>
 
                 <div style={{ textAlign: "left", marginTop: 10 }}>
-                  <text
+                  <p
                     style={{
                       fontWeight: 500,
                       fontSize: 15,
@@ -1471,8 +1486,7 @@ const Signup = () => {
                     }}
                   >
                     Company name
-                  </text>
-                  <br />
+                  </p>
                   <input
                     type="text"
                     value={companyname}
@@ -1493,7 +1507,7 @@ const Signup = () => {
                 </div>
 
                 <div style={{ textAlign: "left" }}>
-                  <text
+                  <p
                     style={{
                       fontWeight: 500,
                       fontSize: 15,
@@ -1501,8 +1515,7 @@ const Signup = () => {
                     }}
                   >
                     Juristic Person Number
-                  </text>
-                  <br />
+                  </p>
                   <input
                     type="text"
                     value={juristicPersonNumber}
@@ -1523,7 +1536,7 @@ const Signup = () => {
                 </div>
 
                 <div style={{ textAlign: "left", marginBottom: 10 }}>
-                  <text
+                  <p
                     style={{
                       fontWeight: 500,
                       fontSize: 15,
@@ -1531,8 +1544,7 @@ const Signup = () => {
                     }}
                   >
                     Website
-                  </text>
-                  <br />
+                  </p>
                   <input
                     type="text"
                     value={website}
@@ -1599,15 +1611,16 @@ const Signup = () => {
                   onClick={() => setScreen("4")}
                 >
                   <BsArrowLeftShort />
-                  <text
+                  <p
                     style={{
                       color: "#D9D9D9",
                       fontSize: 18,
                       textDecorationLine: "none",
+                      float: "right",
                     }}
                   >
                     Back
-                  </text>
+                  </p>
                 </button>
 
                 <h2 className="textSignup" style={{ marginTop: 30 }}>
@@ -1640,7 +1653,7 @@ const Signup = () => {
                   </FormControl>
                 </div>
                 <div style={{ textAlign: "left" }}>
-                  <text
+                  <p
                     style={{
                       fontWeight: 500,
                       fontSize: 20,
@@ -1648,9 +1661,8 @@ const Signup = () => {
                     }}
                   >
                     Upload a picture of your ID card.
-                  </text>
-                  <br />
-                  <text
+                  </p>
+                  <p
                     style={{
                       fontWeight: 500,
                       fontSize: 14,
@@ -1659,7 +1671,7 @@ const Signup = () => {
                   >
                     (such as JPG, PDF, PNG and the file size does not exceed
                     25Mb.)
-                  </text>
+                  </p>
                   <div style={{ textAlign: "center" }}>
                     {file2 === "" ? (
                       <div
@@ -1697,7 +1709,7 @@ const Signup = () => {
                                 marginTop: 30,
                               }}
                             />
-                            <text
+                            <p
                               style={{
                                 fontSize: 10,
                                 position: "absolute",
@@ -1706,7 +1718,7 @@ const Signup = () => {
                               }}
                             >
                               Upload File
-                            </text>
+                            </p>
                           </IconButton>
                         </label>
                       </div>
@@ -1746,7 +1758,7 @@ const Signup = () => {
                                 marginTop: 30,
                               }}
                             />
-                            <text
+                            <p
                               style={{
                                 fontSize: 10,
                                 position: "absolute",
@@ -1755,13 +1767,13 @@ const Signup = () => {
                               }}
                             >
                               {file2}
-                            </text>
+                            </p>
                           </IconButton>
                         </label>
                       </div>
                     )}
                   </div>
-                  <text
+                  <p
                     style={{
                       color: "#666666",
                       textDecorationLine: "underline",
@@ -1769,7 +1781,7 @@ const Signup = () => {
                     }}
                   >
                     An example of uploading a picture of your ID card.
-                  </text>
+                  </p>
                 </div>
                 <hr style={{ width: "97%", height: 2 }} />
                 <button
@@ -1818,15 +1830,16 @@ const Signup = () => {
                   onClick={() => setScreen("6")}
                 >
                   <BsArrowLeftShort />
-                  <text
+                  <p
                     style={{
                       color: "#D9D9D9",
                       fontSize: 18,
                       textDecorationLine: "none",
+                      float: "right",
                     }}
                   >
                     Back
-                  </text>
+                  </p>
                 </button>
 
                 <h2 className="textSignup" style={{ marginTop: 30 }}>
@@ -1860,7 +1873,7 @@ const Signup = () => {
                 </div>
 
                 <div style={{ textAlign: "left", marginTop: 10 }}>
-                  <text
+                  <p
                     style={{
                       fontWeight: 500,
                       fontSize: 15,
@@ -1868,8 +1881,7 @@ const Signup = () => {
                     }}
                   >
                     Address
-                  </text>
-                  <br />
+                  </p>
                   <input
                     type="text"
                     value={address}
@@ -1890,7 +1902,7 @@ const Signup = () => {
                 </div>
 
                 <div style={{ textAlign: "left" }}>
-                  <text
+                  <p
                     style={{
                       fontWeight: 500,
                       fontSize: 15,
@@ -1898,8 +1910,7 @@ const Signup = () => {
                     }}
                   >
                     District
-                  </text>
-                  <br />
+                  </p>
                   <input
                     type="text"
                     value={district}
@@ -1920,7 +1931,7 @@ const Signup = () => {
                 </div>
 
                 <div style={{ textAlign: "left" }}>
-                  <text
+                  <p
                     style={{
                       fontWeight: 500,
                       fontSize: 15,
@@ -1928,8 +1939,7 @@ const Signup = () => {
                     }}
                   >
                     Province
-                  </text>
-                  <br />
+                  </p>
                   <input
                     type="text"
                     value={province}
@@ -1951,7 +1961,7 @@ const Signup = () => {
                 </div>
 
                 <div style={{ textAlign: "left" }}>
-                  <text
+                  <p
                     style={{
                       fontWeight: 500,
                       fontSize: 15,
@@ -1959,8 +1969,7 @@ const Signup = () => {
                     }}
                   >
                     Country
-                  </text>
-                  <br />
+                  </p>
                   <input
                     type="text"
                     value={country}
@@ -1982,7 +1991,7 @@ const Signup = () => {
                 </div>
 
                 <div style={{ textAlign: "left", marginBottom: 10 }}>
-                  <text
+                  <p
                     style={{
                       fontWeight: 500,
                       fontSize: 15,
@@ -1990,8 +1999,7 @@ const Signup = () => {
                     }}
                   >
                     Postal Code
-                  </text>
-                  <br />
+                  </p>
                   <input
                     type="text"
                     value={postalcode}
@@ -2058,15 +2066,16 @@ const Signup = () => {
                   onClick={() => setScreen("Freelance Translators")}
                 >
                   <BsArrowLeftShort />
-                  <text
+                  <p
                     style={{
                       color: "#D9D9D9",
                       fontSize: 18,
                       textDecorationLine: "none",
+                      float: "right",
                     }}
                   >
                     Back
-                  </text>
+                  </p>
                 </button>
 
                 <h2 className="textSignup" style={{ marginTop: 30 }}>
@@ -2099,7 +2108,7 @@ const Signup = () => {
                   </FormControl>
                 </div>
                 <div style={{ textAlign: "left" }}>
-                  <text
+                  <p
                     style={{
                       fontWeight: 700,
                       fontSize: 16,
@@ -2107,9 +2116,8 @@ const Signup = () => {
                     }}
                   >
                     Education/Certificate/Proof of Language Competency.
-                  </text>
-                  <br />
-                  <text
+                  </p>
+                  <p
                     style={{
                       fontWeight: 500,
                       fontSize: 14,
@@ -2118,7 +2126,7 @@ const Signup = () => {
                   >
                     (such as JPG, PDF, PNG and the file size does not exceed
                     25Mb.)
-                  </text>
+                  </p>
                   <div style={{ textAlign: "center" }}>
                     {file2 === "" ? (
                       <div
@@ -2156,7 +2164,7 @@ const Signup = () => {
                                 marginTop: 30,
                               }}
                             />
-                            <text
+                            <p
                               style={{
                                 fontSize: 10,
                                 position: "absolute",
@@ -2165,7 +2173,7 @@ const Signup = () => {
                               }}
                             >
                               Upload File
-                            </text>
+                            </p>
                           </IconButton>
                         </label>
                       </div>
@@ -2205,7 +2213,7 @@ const Signup = () => {
                                 marginTop: 30,
                               }}
                             />
-                            <text
+                            <p
                               style={{
                                 fontSize: 10,
                                 position: "absolute",
@@ -2214,7 +2222,7 @@ const Signup = () => {
                               }}
                             >
                               {file2}
-                            </text>
+                            </p>
                           </IconButton>
                         </label>
                       </div>
@@ -2268,15 +2276,16 @@ const Signup = () => {
                   onClick={() => setScreen("8")}
                 >
                   <BsArrowLeftShort />
-                  <text
+                  <p
                     style={{
                       color: "#D9D9D9",
                       fontSize: 18,
                       textDecorationLine: "none",
+                      float: "right",
                     }}
                   >
                     Back
-                  </text>
+                  </p>
                 </button>
 
                 <h2 className="textSignup" style={{ marginTop: 30 }}>
@@ -2310,7 +2319,7 @@ const Signup = () => {
                 </div>
 
                 <div style={{ textAlign: "left", marginTop: 10 }}>
-                  <text
+                  <p
                     style={{
                       fontWeight: 500,
                       fontSize: 15,
@@ -2318,8 +2327,7 @@ const Signup = () => {
                     }}
                   >
                     Bank name
-                  </text>
-                  <br />
+                  </p>
                   <input
                     type="text"
                     value={bankname}
@@ -2340,7 +2348,7 @@ const Signup = () => {
                 </div>
 
                 <div style={{ textAlign: "left" }}>
-                  <text
+                  <p
                     style={{
                       fontWeight: 500,
                       fontSize: 15,
@@ -2348,8 +2356,7 @@ const Signup = () => {
                     }}
                   >
                     Branch name
-                  </text>
-                  <br />
+                  </p>
                   <input
                     type="text"
                     value={branchname}
@@ -2370,7 +2377,7 @@ const Signup = () => {
                 </div>
 
                 <div style={{ textAlign: "left" }}>
-                  <text
+                  <p
                     style={{
                       fontWeight: 500,
                       fontSize: 15,
@@ -2378,8 +2385,7 @@ const Signup = () => {
                     }}
                   >
                     Account name
-                  </text>
-                  <br />
+                  </p>
                   <input
                     type="text"
                     value={accountname}
@@ -2401,7 +2407,7 @@ const Signup = () => {
                 </div>
 
                 <div style={{ textAlign: "left", marginBottom: 10 }}>
-                  <text
+                  <p
                     style={{
                       fontWeight: 500,
                       fontSize: 15,
@@ -2409,8 +2415,7 @@ const Signup = () => {
                     }}
                   >
                     Account number
-                  </text>
-                  <br />
+                  </p>
                   <input
                     type="text"
                     value={accountnumber}
@@ -2477,15 +2482,16 @@ const Signup = () => {
                   onClick={() => setScreen("9")}
                 >
                   <BsArrowLeftShort />
-                  <text
+                  <p
                     style={{
                       color: "#D9D9D9",
                       fontSize: 18,
                       textDecorationLine: "none",
+                      float: "right",
                     }}
                   >
                     Back
-                  </text>
+                  </p>
                 </button>
 
                 <h2 className="textSignup" style={{ marginTop: 30 }}>
@@ -2518,7 +2524,7 @@ const Signup = () => {
                   </FormControl>
                 </div>
                 <div style={{ textAlign: "left" }}>
-                  <text
+                  <p
                     style={{
                       fontWeight: 700,
                       fontSize: 18,
@@ -2526,9 +2532,8 @@ const Signup = () => {
                     }}
                   >
                     Portfolio/CV.
-                  </text>
-                  <br />
-                  <text
+                  </p>
+                  <p
                     style={{
                       fontWeight: 500,
                       fontSize: 14,
@@ -2537,7 +2542,7 @@ const Signup = () => {
                   >
                     (such as JPG, PDF, PNG and the file size does not exceed
                     25Mb.)
-                  </text>
+                  </p>
                   <div style={{ textAlign: "center" }}>
                     {file2 === "" ? (
                       <div
@@ -2575,7 +2580,7 @@ const Signup = () => {
                                 marginTop: 30,
                               }}
                             />
-                            <text
+                            <p
                               style={{
                                 fontSize: 10,
                                 position: "absolute",
@@ -2584,7 +2589,7 @@ const Signup = () => {
                               }}
                             >
                               Upload File
-                            </text>
+                            </p>
                           </IconButton>
                         </label>
                       </div>
@@ -2624,7 +2629,7 @@ const Signup = () => {
                                 marginTop: 30,
                               }}
                             />
-                            <text
+                            <p
                               style={{
                                 fontSize: 10,
                                 position: "absolute",
@@ -2633,7 +2638,7 @@ const Signup = () => {
                               }}
                             >
                               {file2}
-                            </text>
+                            </p>
                           </IconButton>
                         </label>
                       </div>
@@ -2687,15 +2692,16 @@ const Signup = () => {
                   onClick={() => setScreen("10")}
                 >
                   <BsArrowLeftShort />
-                  <text
+                  <p
                     style={{
                       color: "#D9D9D9",
                       fontSize: 18,
                       textDecorationLine: "none",
+                      float: "right",
                     }}
                   >
                     Back
-                  </text>
+                  </p>
                 </button>
 
                 <h2 className="textSignup" style={{ marginTop: 30 }}>
@@ -2728,7 +2734,7 @@ const Signup = () => {
                   </FormControl>
                 </div>
                 <div style={{ textAlign: "left" }}>
-                  <text
+                  <p
                     style={{
                       fontWeight: 500,
                       fontSize: 20,
@@ -2736,9 +2742,8 @@ const Signup = () => {
                     }}
                   >
                     Upload a picture to use as a watermark.
-                  </text>
-                  <br />
-                  <text
+                  </p>
+                  <p
                     style={{
                       fontWeight: 500,
                       fontSize: 14,
@@ -2747,7 +2752,7 @@ const Signup = () => {
                   >
                     (such as JPG, PDF, PNG and the file size does not exceed
                     25Mb.)
-                  </text>
+                  </p>
                   <div style={{ textAlign: "center" }}>
                     {file2 === "" ? (
                       <div
@@ -2785,7 +2790,7 @@ const Signup = () => {
                                 marginTop: 30,
                               }}
                             />
-                            <text
+                            <p
                               style={{
                                 fontSize: 10,
                                 position: "absolute",
@@ -2794,7 +2799,7 @@ const Signup = () => {
                               }}
                             >
                               Upload File
-                            </text>
+                            </p>
                           </IconButton>
                         </label>
                       </div>
@@ -2834,7 +2839,7 @@ const Signup = () => {
                                 marginTop: 30,
                               }}
                             />
-                            <text
+                            <p
                               style={{
                                 fontSize: 10,
                                 position: "absolute",
@@ -2843,13 +2848,13 @@ const Signup = () => {
                               }}
                             >
                               {file2}
-                            </text>
+                            </p>
                           </IconButton>
                         </label>
                       </div>
                     )}
                   </div>
-                  <text
+                  <p
                     style={{
                       color: "#666666",
                       textDecorationLine: "underline",
@@ -2857,7 +2862,7 @@ const Signup = () => {
                     }}
                   >
                     An example of uploading a picture of your ID card.
-                  </text>
+                  </p>
                 </div>
                 <hr style={{ width: "97%", height: 2 }} />
                 <button
@@ -2906,15 +2911,16 @@ const Signup = () => {
                   onClick={() => setScreen("11")}
                 >
                   <BsArrowLeftShort />
-                  <text
+                  <p
                     style={{
                       color: "#D9D9D9",
                       fontSize: 18,
                       textDecorationLine: "none",
+                      float: "right",
                     }}
                   >
                     Back
-                  </text>
+                  </p>
                 </button>
 
                 <h2 className="textSignup" style={{ marginTop: 30 }}>
@@ -2948,7 +2954,7 @@ const Signup = () => {
                 </div>
 
                 <div style={{ textAlign: "left", marginTop: 10 }}>
-                  <text
+                  <p
                     style={{
                       fontWeight: 500,
                       fontSize: 15,
@@ -2956,8 +2962,7 @@ const Signup = () => {
                     }}
                   >
                     Bank name
-                  </text>
-                  <br />
+                  </p>
                   <input
                     type="text"
                     value={bankname}
@@ -2978,7 +2983,7 @@ const Signup = () => {
                 </div>
 
                 <div style={{ textAlign: "left" }}>
-                  <text
+                  <p
                     style={{
                       fontWeight: 500,
                       fontSize: 15,
@@ -2986,8 +2991,7 @@ const Signup = () => {
                     }}
                   >
                     Branch name
-                  </text>
-                  <br />
+                  </p>
                   <input
                     type="text"
                     value={branchname}
@@ -3008,7 +3012,7 @@ const Signup = () => {
                 </div>
 
                 <div style={{ textAlign: "left" }}>
-                  <text
+                  <p
                     style={{
                       fontWeight: 500,
                       fontSize: 15,
@@ -3016,8 +3020,7 @@ const Signup = () => {
                     }}
                   >
                     Account name
-                  </text>
-                  <br />
+                  </p>
                   <input
                     type="text"
                     value={accountname}
@@ -3039,7 +3042,7 @@ const Signup = () => {
                 </div>
 
                 <div style={{ textAlign: "left", marginBottom: 10 }}>
-                  <text
+                  <p
                     style={{
                       fontWeight: 500,
                       fontSize: 15,
@@ -3047,8 +3050,7 @@ const Signup = () => {
                     }}
                   >
                     Account number
-                  </text>
-                  <br />
+                  </p>
                   <input
                     type="text"
                     value={accountnumber}
@@ -3115,15 +3117,16 @@ const Signup = () => {
                   onClick={() => setScreen("12")}
                 >
                   <BsArrowLeftShort />
-                  <text
+                  <p
                     style={{
                       color: "#D9D9D9",
                       fontSize: 18,
                       textDecorationLine: "none",
+                      float: "right",
                     }}
                   >
                     Back
-                  </text>
+                  </p>
                 </button>
 
                 <h2 className="textSignup" style={{ marginTop: 30 }}>
@@ -3156,7 +3159,7 @@ const Signup = () => {
                   </FormControl>
                 </div>
                 <div style={{ textAlign: "left" }}>
-                  <text
+                  <p
                     style={{
                       fontWeight: 700,
                       fontSize: 17,
@@ -3164,9 +3167,8 @@ const Signup = () => {
                     }}
                   >
                     Company Registration Certificate.
-                  </text>
-                  <br />
-                  <text
+                  </p>
+                  <p
                     style={{
                       fontWeight: 500,
                       fontSize: 14,
@@ -3175,7 +3177,7 @@ const Signup = () => {
                   >
                     (such as JPG, PDF, PNG and the file size does not exceed
                     25Mb.)
-                  </text>
+                  </p>
                   <div style={{ textAlign: "center" }}>
                     {file3 === "" ? (
                       <div
@@ -3212,7 +3214,7 @@ const Signup = () => {
                                 position: "absolute",
                               }}
                             />
-                            <text
+                            <p
                               style={{
                                 fontSize: 10,
                                 position: "absolute",
@@ -3221,7 +3223,7 @@ const Signup = () => {
                               }}
                             >
                               Upload File
-                            </text>
+                            </p>
                           </IconButton>
                         </label>
                       </div>
@@ -3260,7 +3262,7 @@ const Signup = () => {
                                 position: "absolute",
                               }}
                             />
-                            <text
+                            <p
                               style={{
                                 fontSize: 10,
                                 position: "absolute",
@@ -3269,13 +3271,13 @@ const Signup = () => {
                               }}
                             >
                               {file3}
-                            </text>
+                            </p>
                           </IconButton>
                         </label>
                       </div>
                     )}
                   </div>
-                  <text
+                  <p
                     style={{
                       color: "#666666",
                       textDecorationLine: "underline",
@@ -3284,12 +3286,12 @@ const Signup = () => {
                   >
                     An example of uploading a picture of your company
                     registration certificate.
-                  </text>
+                  </p>
                 </div>
                 <hr style={{ width: "97%", height: 2 }} />
                 <div style={{}}>
                   <div style={{ marginBottom: 10 }}>
-                    <text
+                    <p
                       style={{
                         fontWeight: "bold",
                         fontSize: 14,
@@ -3298,7 +3300,7 @@ const Signup = () => {
                     >
                       Languages in which the company can accept translation
                       work.
-                    </text>
+                    </p>
                   </div>
 
                   <Autocomplete
@@ -3331,7 +3333,7 @@ const Signup = () => {
                       </Box>
                     )}
                     renderInput={(params) => (
-                      <TextField
+                      <pField
                         {...params}
                         label="Select"
                         inputProps={{
@@ -3525,15 +3527,16 @@ const Signup = () => {
                   onClick={() => setScreen("13")}
                 >
                   <BsArrowLeftShort />
-                  <text
+                  <p
                     style={{
                       color: "#D9D9D9",
                       fontSize: 18,
                       textDecorationLine: "none",
+                      float: "right",
                     }}
                   >
                     Back
-                  </text>
+                  </p>
                 </button>
 
                 <h2 className="textSignup" style={{ marginTop: 30 }}>
@@ -3564,7 +3567,7 @@ const Signup = () => {
                         marginLeft: 20,
                       }}
                     >
-                      <text>1</text>
+                      <p>1</p>
                     </div>
                     <div
                       style={{
@@ -3574,7 +3577,7 @@ const Signup = () => {
                         fontWeight: 700,
                       }}
                     >
-                      <text>Skill</text>
+                      <p>Skill</p>
                     </div>
                   </div>
 
@@ -3602,7 +3605,7 @@ const Signup = () => {
                         marginLeft: 20,
                       }}
                     >
-                      <text>2</text>
+                      <p>2</p>
                     </div>
                     <div
                       style={{
@@ -3612,13 +3615,13 @@ const Signup = () => {
                         fontWeight: 700,
                       }}
                     >
-                      <text>Language Competency Test</text>
+                      <p>Language Competency Test</p>
                     </div>
                   </div>
                 </div>
 
                 <div style={{ marginBottom: 10, textAlign: "left" }}>
-                  <text
+                  <p
                     style={{
                       fontWeight: "bold",
                       fontSize: 18,
@@ -3626,7 +3629,7 @@ const Signup = () => {
                     }}
                   >
                     What languages can you translate?
-                  </text>
+                  </p>
                 </div>
 
                 <Autocomplete
@@ -3636,7 +3639,7 @@ const Signup = () => {
                   options={data}
                   autoHighlight
                   getOptionLabel={(option) => option.label}
-                  onChange={(event, value) => setLanguages(value?.label)}
+                  onChange={(event, value) => setLanguages()}
                   popupIcon={
                     <MdArrowDropDown
                       style={{ color: "#333333", width: 30, height: 33 }}
@@ -3645,16 +3648,9 @@ const Signup = () => {
                   renderOption={(props, option) => (
                     <Box
                       component="li"
-                      sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
+                      sx={{ mr: 2, flexShrink: 0 }}
                       {...props}
                     >
-                      <img
-                        loading="lazy"
-                        width="20"
-                        src={`https://flagcdn.com/w20/${option.code.toLowerCase()}.png`}
-                        srcSet={`https://flagcdn.com/w40/${option.code.toLowerCase()}.png 2x`}
-                        alt=""
-                      />
                       {option.label}
                     </Box>
                   )}
@@ -3664,14 +3660,14 @@ const Signup = () => {
                       label="Select"
                       inputProps={{
                         ...params.inputProps,
-                        autoComplete: "new-password",
+                        autoComplete: "",
                       }}
                     />
                   )}
                 />
 
                 <div style={{ marginBottom: 10, textAlign: "left" }}>
-                  <text
+                  <p
                     style={{
                       fontWeight: "bold",
                       fontSize: 18,
@@ -3679,7 +3675,7 @@ const Signup = () => {
                     }}
                   >
                     What kind of documents can you translate?
-                  </text>
+                  </p>
                 </div>
 
                 <Autocomplete
@@ -3689,7 +3685,7 @@ const Signup = () => {
                   options={data5}
                   autoHighlight
                   getOptionLabel={(option) => option.label}
-                  onChange={(event, value) => setLanguages(value?.label)}
+                  onChange={(event, value) => setLanguages()}
                   popupIcon={
                     <MdArrowDropDown
                       style={{ color: "#333333", width: 30, height: 33 }}
@@ -3698,16 +3694,9 @@ const Signup = () => {
                   renderOption={(props, option) => (
                     <Box
                       component="li"
-                      sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
+                      sx={{ mr: 2, flexShrink: 0 }}
                       {...props}
                     >
-                      <img
-                        loading="lazy"
-                        width="20"
-                        src={`https://flagcdn.com/w20/${option.code.toLowerCase()}.png`}
-                        srcSet={`https://flagcdn.com/w40/${option.code.toLowerCase()}.png 2x`}
-                        alt=""
-                      />
                       {option.label}
                     </Box>
                   )}
@@ -3717,7 +3706,7 @@ const Signup = () => {
                       label="Select"
                       inputProps={{
                         ...params.inputProps,
-                        autoComplete: "new-password",
+                        autoComplete: "",
                       }}
                     />
                   )}
@@ -3767,18 +3756,19 @@ const Signup = () => {
                     background: "transparent",
                     border: "transparent",
                   }}
-                  onClick={() => setScreen("13")}
+                  onClick={() => setScreen("15")}
                 >
                   <BsArrowLeftShort />
-                  <text
+                  <p
                     style={{
                       color: "#D9D9D9",
                       fontSize: 18,
                       textDecorationLine: "none",
+                      float: "right",
                     }}
                   >
                     Back
-                  </text>
+                  </p>
                 </button>
 
                 <h2 className="textSignup" style={{ marginTop: 30 }}>
@@ -3809,7 +3799,7 @@ const Signup = () => {
                         marginLeft: 20,
                       }}
                     >
-                      <text>1</text>
+                      <p>1</p>
                     </div>
                     <div
                       style={{
@@ -3819,7 +3809,7 @@ const Signup = () => {
                         fontWeight: 700,
                       }}
                     >
-                      <text>Skill</text>
+                      <p>Skill</p>
                     </div>
                   </div>
 
@@ -3847,7 +3837,7 @@ const Signup = () => {
                         marginLeft: 20,
                       }}
                     >
-                      <text>2</text>
+                      <p>2</p>
                     </div>
                     <div
                       style={{
@@ -3857,13 +3847,13 @@ const Signup = () => {
                         fontWeight: 700,
                       }}
                     >
-                      <text>Language Competency Test</text>
+                      <p>Language Competency Test</p>
                     </div>
                   </div>
                 </div>
 
                 <div style={{ marginBottom: 10, textAlign: "left" }}>
-                  <text
+                  <p
                     style={{
                       fontWeight: "bold",
                       fontSize: 18,
@@ -3871,7 +3861,7 @@ const Signup = () => {
                     }}
                   >
                     Language to answer
-                  </text>
+                  </p>
                 </div>
 
                 <Autocomplete
@@ -3881,7 +3871,8 @@ const Signup = () => {
                   options={data}
                   autoHighlight
                   getOptionLabel={(option) => option.label}
-                  onChange={(event, value) => setLanguages(value?.label)}
+                  // defaultValue={""}
+                  onChange={(event,value) => console.log("hi :",value)}
                   popupIcon={
                     <MdArrowDropDown
                       style={{ color: "#333333", width: 30, height: 33 }}
@@ -3890,16 +3881,9 @@ const Signup = () => {
                   renderOption={(props, option) => (
                     <Box
                       component="li"
-                      sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
+                      sx={{ mr: 2, flexShrink: 0 }}
                       {...props}
                     >
-                      <img
-                        loading="lazy"
-                        width="20"
-                        src={`https://flagcdn.com/w20/${option.code.toLowerCase()}.png`}
-                        srcSet={`https://flagcdn.com/w40/${option.code.toLowerCase()}.png 2x`}
-                        alt=""
-                      />
                       {option.label}
                     </Box>
                   )}
@@ -3909,14 +3893,14 @@ const Signup = () => {
                       label="Select"
                       inputProps={{
                         ...params.inputProps,
-                        autoComplete: "new-password",
+                        autoComplete: "",
                       }}
                     />
                   )}
                 />
 
                 <div style={{ marginBottom: 10, textAlign: "left" }}>
-                  <text
+                  <p
                     style={{
                       fontWeight: "bold",
                       fontSize: 18,
@@ -3924,9 +3908,9 @@ const Signup = () => {
                     }}
                   >
                     Question
-                  </text>
+                  </p>
                 </div>
-                
+
                 <textarea
                   // value={}
                   // onChange={}
@@ -3938,10 +3922,9 @@ const Signup = () => {
                     boxSizing: "border-box",
                     borderRadius: 5,
                     padding: 20,
-                    
                   }}
                 />
-                 <button
+                <button
                   style={{
                     width: "100%",
                     borderRadius: 20,
@@ -3958,150 +3941,150 @@ const Signup = () => {
                 </button>
 
                 <Modal
-                keepMounted
-                open={open3}
-                onClose={handleClose3}
-                aria-labelledby="keep-mounted-modal-title"
-                aria-describedby="keep-mounted-modal-description"
-              >
-                <Box
-                  sx={{
-                    position: "absolute",
-                    top: "50%",
-                    left: "50%",
-                    transform: "translate(-50%, -70%)",
-                    width: 600,
-                    bgcolor: "background.paper",
-                    boxShadow: 24,
-                    p: 4,
-                    borderRadius: 5,
-                    border: "1px solid #E5E5E5",
-                    textAlign: "center",
-                  }}
+                  keepMounted
+                  open={open3}
+                  onClose={handleClose3}
+                  aria-labelledby="keep-mounted-modal-title"
+                  aria-describedby="keep-mounted-modal-description"
                 >
-                  <img src={logo} alt="Logo" style={{ width: 100 }} />
-                  <Typography
-                    id="keep-mounted-modal-description"
-                    sx={{ mt: 2, fontWeight: 700 }}
-                  >
-                    Terms and Conditions
-                  </Typography>
-                  <Typography
-                    id="keep-mounted-modal-description"
+                  <Box
                     sx={{
-                      mt: 2,
-                      textAlign: "left",
-                      overflowY: "auto",
-                      height: 125,
+                      position: "absolute",
+                      top: "50%",
+                      left: "50%",
+                      transform: "translate(-50%, -70%)",
+                      width: 600,
+                      bgcolor: "background.paper",
+                      boxShadow: 24,
+                      p: 4,
+                      borderRadius: 5,
+                      border: "1px solid #E5E5E5",
+                      textAlign: "center",
                     }}
                   >
-                    The company agrees to provide truthful information. and can
-                    receive translation work and forward it to translators who
-                    are competent in the languages stated by the company above.
-                    and will be responsible for all translation works translated
-                    from the company
-                  </Typography>
-                  <div
-                    style={{
-                      textAlign: "left",
-                      borderTop: "1px solid #C4C4C4",
-                    }}
-                  >
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          checked={checked2}
-                          onChange={handleChange2}
-                          inputProps={{ "aria-label": "controlled" }}
-                        />
-                      }
-                      label="accept the terms and conditions"
-                    />
-                  </div>
-                  <div>
-                    {checked2 === false ? (
-                      <button
-                        style={{
-                          width: "30%",
-                          borderRadius: 20,
-                          background: "#E0E0E0",
-                          height: 40,
-                          color: "#FFFFFF",
-                          fontSize: 18,
-                          borderColor: "transparent",
-                          position: "relative",
-                          left: "35%",
-                        }}
-                        disabled
-                        onClick={handleOpen}
-                      >
-                        Submit
-                      </button>
-                    ) : (
-                      <button
-                        style={{
-                          width: "30%",
-                          borderRadius: 20,
-                          background: "#001E33",
-                          height: 40,
-                          color: "#FFFFFF",
-                          fontSize: 18,
-                          borderColor: "transparent",
-                          position: "relative",
-                          left: "35%",
-                        }}
-                        onClick={handleClose4}
-                      >
-                        Submit
-                      </button>
-                    )}
-                  </div>
-                </Box>
-              </Modal>
+                    <img src={logo} alt="Logo" style={{ width: 100 }} />
+                    <Typography
+                      id="keep-mounted-modal-description"
+                      sx={{ mt: 2, fontWeight: 700 }}
+                    >
+                      Terms and Conditions
+                    </Typography>
+                    <Typography
+                      id="keep-mounted-modal-description"
+                      sx={{
+                        mt: 2,
+                        textAlign: "left",
+                        overflowY: "auto",
+                        height: 125,
+                      }}
+                    >
+                      The company agrees to provide truthful information. and
+                      can receive translation work and forward it to translators
+                      who are competent in the languages stated by the company
+                      above. and will be responsible for all translation works
+                      translated from the company
+                    </Typography>
+                    <div
+                      style={{
+                        textAlign: "left",
+                        borderTop: "1px solid #C4C4C4",
+                      }}
+                    >
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            checked={checked2}
+                            onChange={handleChange2}
+                            inputProps={{ "aria-label": "controlled" }}
+                          />
+                        }
+                        label="accept the terms and conditions"
+                      />
+                    </div>
+                    <div>
+                      {checked2 === false ? (
+                        <button
+                          style={{
+                            width: "30%",
+                            borderRadius: 20,
+                            background: "#E0E0E0",
+                            height: 40,
+                            color: "#FFFFFF",
+                            fontSize: 18,
+                            borderColor: "transparent",
+                            position: "relative",
+                            left: "35%",
+                          }}
+                          disabled
+                          onClick={handleOpen}
+                        >
+                          Submit
+                        </button>
+                      ) : (
+                        <button
+                          style={{
+                            width: "30%",
+                            borderRadius: 20,
+                            background: "#001E33",
+                            height: 40,
+                            color: "#FFFFFF",
+                            fontSize: 18,
+                            borderColor: "transparent",
+                            position: "relative",
+                            left: "35%",
+                          }}
+                          onClick={handleClose4}
+                        >
+                          Submit
+                        </button>
+                      )}
+                    </div>
+                  </Box>
+                </Modal>
 
-              <Modal
-                keepMounted
-                open={open4}
-                onClose={handleClose5}
-                aria-labelledby="keep-mounted-modal-title"
-                aria-describedby="keep-mounted-modal-description"
-              >
-                <Box
-                  sx={{
-                    position: "absolute",
-                    top: "50%",
-                    left: "50%",
-                    transform: "translate(-50%, -70%)",
-                    width: 400,
-                    bgcolor: "background.paper",
-                    boxShadow: 24,
-                    p: 4,
-                    borderRadius: 5,
-                    border: "1px solid #E5E5E5",
-                    textAlign: "center",
-                  }}
+                <Modal
+                  keepMounted
+                  open={open4}
+                  onClose={handleClose5}
+                  aria-labelledby="keep-mounted-modal-title"
+                  aria-describedby="keep-mounted-modal-description"
                 >
-                  <AiFillCheckCircle
-                    style={{ width: 100, height: 80, color: "#46BC52" }}
-                  />
-                  <Typography
-                    id="keep-mounted-modal-description"
-                    sx={{ mt: 2, fontWeight: 700 }}
+                  <Box
+                    sx={{
+                      position: "absolute",
+                      top: "50%",
+                      left: "50%",
+                      transform: "translate(-50%, -70%)",
+                      width: 400,
+                      bgcolor: "background.paper",
+                      boxShadow: 24,
+                      p: 4,
+                      borderRadius: 5,
+                      border: "1px solid #E5E5E5",
+                      textAlign: "center",
+                    }}
                   >
-                    Your translator application has been sent. Wait for
-                    confirmation by email
-                  </Typography>
-                </Box>
-              </Modal>
+                    <AiFillCheckCircle
+                      style={{ width: 100, height: 80, color: "#46BC52" }}
+                    />
+                    <Typography
+                      id="keep-mounted-modal-description"
+                      sx={{ mt: 2, fontWeight: 700 }}
+                    >
+                      Your translator application has been sent. Wait for
+                      confirmation by email
+                    </Typography>
+                  </Box>
+                </Modal>
               </div>
             </div>
           ) : null}
           <div style={{ top: "95%", position: "absolute", marginLeft: "25%" }}>
             <div style={{ float: "right" }}>
-              <text>Privacy policy</text>
+              <p>Privacy policy</p>
             </div>
             <div style={{ float: "right", marginRight: 50 }}>
-              <text>Copyrights Give Network 2021.</text>
+              <p>Copyrights Give Network 2021.</p>
             </div>
           </div>
         </div>

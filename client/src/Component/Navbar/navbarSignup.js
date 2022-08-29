@@ -11,7 +11,7 @@ const navbarLogin = () => {
       style={{ transition: "initial", boxShadow: "none", position: "initial" }}
     >
       <Container fluid style={{ backgroundColor: "transparent" }}>
-        <Navbar.Brand href="#">
+        <Navbar.Brand href="/">
           <img src={logo} alt="Logo" />
         </Navbar.Brand>
         {/* <Navbar.Toggle aria-controls="navbarScroll" />

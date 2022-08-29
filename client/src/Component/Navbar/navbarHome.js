@@ -1,5 +1,6 @@
 import * as React from "react";
 import logo from "../../logo.svg";
+import "./Navbar.css"
 import { Navbar, Container, Nav } from "react-bootstrap";
 
 import { Link } from "react-router-dom";
@@ -29,37 +30,37 @@ const navbarHome = () => {
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <div className="dd" style={{ left: width * 0.3 }}>
-            <div className="box3">
-              <text
+            <div className="NavLi">
+              <p
                 style={{ fontWeight: "bold", fontSize: 24, lineHeight: 28 }}
               >
                 Home
-              </text>
+              </p>
             </div>
             <div
-              className="box3"
+              className="NavLi"
               // onClick={() => promotion(0)}
               style={{ color: "black" }}
             >
-              <text>Services</text>
+              <p>Services</p>
             </div>
             <div
-              className="box3"
+              className="NavLi"
               // onClick={() => promotion(1)}
               style={{ color: "black" }}
             >
-              <text>Blogs</text>
+              <p>Blogs</p>
             </div>
             <div
-              className="box3"
+              className="NavLi"
               // onClick={() => promotion(1)}
               style={{ color: "black" }}
             >
-              <text>Why us</text>
+              <p>Why us</p>
             </div>
           </div>
           <div className="dd" style={{ left: width * 0.86 }}>
-            <button className="box2">
+            <button className="buttonLogin">
               <Link
                 to="/Login"
                 style={{
