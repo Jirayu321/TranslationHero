@@ -64,7 +64,7 @@ const Signup = () => {
   const [images, setImages] = React.useState([]);
   const [imageURLs, setImageURLs] = React.useState([]);
   const [languages, setLanguages] = React.useState("");
-  const [answerLanguages, setAnswerLanguages] = React.useState("");
+  // const [answerLanguages, setAnswerLanguages] = React.useState("");
 
   React.useEffect(() => {
     if (images.length < 1) return;
@@ -165,12 +165,13 @@ const Signup = () => {
             background: "#FFF3CC",
           }}
         >
+          
           {screen === "" ? (
             <div>
               <div
                 style={{
                   position: "fixed",
-                  top: 10,
+                  top: 20,
                   left: width * 0.59,
                   textAlign: "-webkit-center",
                   width: 500,
@@ -343,7 +344,7 @@ const Signup = () => {
                   <IconButton
                     onClick={() => handleClickShowPassword(1)}
                     edge="end"
-                    style={{ position: "absolute", right: 40, top: 386 }}
+                    style={{ position: "absolute", right: 40, top: 380 }}
                   >
                     {values ? <FiEye /> : <FiEyeOff />}
                   </IconButton>
@@ -381,7 +382,7 @@ const Signup = () => {
                   <IconButton
                     onClick={() => handleClickShowPassword(2)}
                     edge="end"
-                    style={{ position: "absolute", right: 40, top: 472 }}
+                    style={{ position: "absolute", right: 40, top: 465 }}
                   >
                     {values2 ? <FiEye /> : <FiEyeOff />}
                   </IconButton>
@@ -611,7 +612,7 @@ const Signup = () => {
                   <IconButton
                     onClick={() => handleClickShowPassword(1)}
                     edge="end"
-                    style={{ position: "absolute", right: 40, top: 386 }}
+                    style={{ position: "absolute", right: 40, top: 380 }}
                   >
                     {values ? <FiEye /> : <FiEyeOff />}
                   </IconButton>
@@ -649,7 +650,7 @@ const Signup = () => {
                   <IconButton
                     onClick={() => handleClickShowPassword(2)}
                     edge="end"
-                    style={{ position: "absolute", right: 40, top: 472 }}
+                    style={{ position: "absolute", right: 40, top: 465 }}
                   >
                     {values2 ? <FiEye /> : <FiEyeOff />}
                   </IconButton>
@@ -3872,7 +3873,7 @@ const Signup = () => {
                   autoHighlight
                   getOptionLabel={(option) => option.label}
                   // defaultValue={""}
-                  onChange={(event,value) => console.log("hi :",value)}
+                  // onChange={(event,value) => console.log("hi :",value)}
                   popupIcon={
                     <MdArrowDropDown
                       style={{ color: "#333333", width: 30, height: 33 }}
@@ -4079,6 +4080,7 @@ const Signup = () => {
               </div>
             </div>
           ) : null}
+
           <div style={{ top: "95%", position: "absolute", marginLeft: "25%" }}>
             <div style={{ float: "right" }}>
               <p>Privacy policy</p>

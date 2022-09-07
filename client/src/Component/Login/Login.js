@@ -76,7 +76,6 @@ const Login = () => {
           >
             <div
               style={{
-                fontFamily: "Roboto",
                 fontWeight: 400,
                 fontSize: 18,
                 textDecorationLine: "none",
@@ -100,7 +99,6 @@ const Login = () => {
             </div>
             <div
               style={{
-                fontFamily: "Roboto",
                 fontWeight: 400,
                 textAlign: "right",
                 marginBottom: 20,
@@ -124,7 +122,7 @@ const Login = () => {
             <div style={{ padding: 20 }}>
               <h2 className="textLogin">Login</h2>
               <div style={{ textAlign: "left" }}>
-                <text
+                <p
                   style={{
                     fontWeight: 500,
                     fontSize: 20,
@@ -132,8 +130,7 @@ const Login = () => {
                   }}
                 >
                   E-mail
-                </text>
-                <br />
+                </p>
                 <input
                   type="text"
                   value={email}
@@ -153,7 +150,7 @@ const Login = () => {
               </div>
 
               <div style={{ textAlign: "left" }}>
-                <text
+                <p
                   style={{
                     fontWeight: 500,
                     fontSize: 20,
@@ -161,8 +158,7 @@ const Login = () => {
                   }}
                 >
                   Password
-                </text>
-                <br />
+                </p>
                 <input
                   type={type}
                   value={password}
@@ -182,7 +178,7 @@ const Login = () => {
                 <IconButton
                   onClick={handleClickShowPassword}
                   edge="end"
-                  style={{ position: "absolute", right: 61, top: 302 }}
+                  style={{ position: "absolute", right: 61, top: 273 }}
                 >
                   {values ? <FiEye /> : <FiEyeOff />}
                 </IconButton>
@@ -214,7 +210,7 @@ const Login = () => {
                 }}
               >
                 <Link
-                  to="/Login"
+                  to="/In"
                   style={{
                     color: "#FFFFFF",
                     fontSize: 18,
@@ -229,10 +225,10 @@ const Login = () => {
           </div>
           <div style={{ top: "90%", position: "absolute", marginLeft: "25%" }}>
             <div style={{ float: "right" }}>
-              <text>Privacy policy</text>
+              <p>Privacy policy</p>
             </div>
             <div style={{ float: "right", marginRight: 50 }}>
-              <text>Copyrights Give Network 2021.</text>
+              <p>Copyrights Give Network 2021.</p>
             </div>
           </div>
         </div>

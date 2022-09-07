@@ -1,3 +1,4 @@
+/* navHome */
 .NavLi {
   position: initial;
   display: -webkit-box;
@@ -75,4 +76,25 @@
   margin-right: 15px;
   right: 160%;
   border: transparent;
+}
+
+/* navHome2 */
+#navbardb2 {
+  background: #fffdf7;
+}
+
+.box4navbarHome2 {
+  width: 70px;
+  height: 38px;
+  background: #fffdf7;
+  box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 3px;
+  padding: 10px;
+  margin-left: 10px;
+}
+.box4navbarHome2_1{
+  width: 70px;
+  height: 38px;
+  background: transparent;
+  margin-left: 10px;
 }

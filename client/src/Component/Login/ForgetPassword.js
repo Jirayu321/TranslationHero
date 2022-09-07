@@ -1,19 +1,39 @@
-import * as React from "react";
-
+import React, { useRef } from "react";
+import emailjs from "@emailjs/browser";
 import Navbars from "../Navbar/navbarLogin";
 
 import Login1 from "../../Images/login.png";
 
 import { BsArrowRightShort, BsArrowLeftShort } from "react-icons/bs";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const ForgetPassword = () => {
   const { innerWidth: width } = window;
+  const form = useRef();
+  const navigate = useNavigate();
+  // const [email, setEmail] = React.useState("");
 
-  const [email, setEmail] = React.useState("");
-
-
-  
+  const send_Mail = (e) => {
+    e.preventDefault();
+    console.log("form.current:",form.current)
+    emailjs
+      .sendForm(
+        "service_u5757dr",
+        "template_xxze5ke",
+        form.current,
+        "Npnv-PIsN0-rxduac"
+      )
+      .then(
+        (result) => {
+          console.log(result.text);
+        },
+        (error) => {
+          console.log(error.text);
+        }
+      );
+    e.target.reset();
+    navigate("/Login");
+  };
 
   return (
     <>
@@ -63,7 +83,6 @@ const ForgetPassword = () => {
           >
             <div
               style={{
-                fontFamily: "Roboto",
                 fontWeight: 400,
                 fontSize: 18,
                 textDecorationLine: "none",
@@ -87,7 +106,6 @@ const ForgetPassword = () => {
             </div>
             <div
               style={{
-                fontFamily: "Roboto",
                 fontWeight: 400,
                 textAlign: "right",
                 marginBottom: 20,
@@ -119,12 +137,12 @@ const ForgetPassword = () => {
                   fontSize: 13,
                 }}
               >
-                <text>
+                <p>
                   Enter your email to receive a link to change your password.
-                </text>
+                </p>
               </div>
               <div style={{ textAlign: "left" }}>
-                <text
+                <p
                   style={{
                     fontWeight: 500,
                     fontSize: 20,
@@ -132,59 +150,49 @@ const ForgetPassword = () => {
                   }}
                 >
                   E-mail
-                </text>
-                <br />
-                <input
-                  type="text"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Example@mail.com"
-                  style={{
-                    background: "#FFFFFF",
-                    border: "1px solid #F1F1F1",
-                    borderRadius: 20,
-                    width: "100%",
-                    height: 30,
-                    padding: 20,
-                    paddingLeft: 12,
-                    margin: 10,
-                  }}
-                />
+                </p>
+                <form ref={form} onSubmit={send_Mail}>
+                  <input
+                    type="email"
+                    name="user_email"
+                    placeholder="Example@mail.com"
+                    style={{
+                      background: "#FFFFFF",
+                      border: "1px solid #F1F1F1",
+                      borderRadius: 20,
+                      width: "100%",
+                      height: 30,
+                      padding: 20,
+                      paddingLeft: 12,
+                      margin: 10,
+                    }}
+                  />
+                  <input
+                    style={{
+                      width: "100%",
+                      borderRadius: 20,
+                      background: "#001E33",
+                      height: 40,
+                      color: "#FFFFFF",
+                      fontSize: 18,
+                      borderColor: "transparent",
+                      marginBottom: 50,
+                      marginTop: 30,
+                    }}
+                    type="submit"
+                    value="Send"
+                  />
+                </form>
               </div>
-
-              <button
-                style={{
-                  width: "100%",
-                  borderRadius: 20,
-                  background: "#001E33",
-                  height: 40,
-                  color: "#FFFFFF",
-                  fontSize: 18,
-                  borderColor: "transparent",
-                  marginBottom: 50,
-                  marginTop: 30,
-                }}
-              >
-                <Link
-                  to="/#"
-                  style={{
-                    color: "#FFFFFF",
-                    fontSize: 18,
-                    textDecorationLine: "none",
-                    fontWeight: 500,
-                  }}
-                >
-                  Sent
-                </Link>
-              </button>
             </div>
           </div>
+
           <div style={{ top: "90%", position: "absolute", marginLeft: "25%" }}>
             <div style={{ float: "right" }}>
-              <text>Privacy policy</text>
+              <p>Privacy policy</p>
             </div>
             <div style={{ float: "right", marginRight: 50 }}>
-              <text>Copyrights Give Network 2021.</text>
+              <p>Copyrights Give Network 2021.</p>
             </div>
           </div>
         </div>

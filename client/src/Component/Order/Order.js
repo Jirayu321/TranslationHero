@@ -1,11 +1,6 @@
 import * as React from "react";
 import {
-  ListItem,
-  ListItemIcon,
   Box,
-  Drawer,
-  Toolbar,
-  List,
   Paper,
   Table,
   TableBody,
@@ -19,10 +14,8 @@ import Navbars from "../Navbar/navbarHome2.js";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { AdapterLuxon } from "@mui/x-date-pickers/AdapterLuxon";
-// import AdapterJalaali from "@date-io/jalaali";
-// import { AdapterDateFns } from '@mui/x-date-pickers-pro/AdapterDateFns';
-import { FaHome, FaLanguage, FaShoppingCart } from "react-icons/fa";
-import { IoChatbubblesSharp, IoNotifications } from "react-icons/io5";
+
+import Drawer from "../Drawer/Drawer";
 
 import All from "../../Images/All.png";
 import All2 from "../../Images/All2.png";
@@ -33,16 +26,10 @@ import Inprocess2 from "../../Images/Inprocess2.png";
 import Succeed from "../../Images/Succeed.png";
 import Succeed2 from "../../Images/Succeed2.png";
 
-const drawerWidth = 100;
 export default function Order() {
   const [type, setType] = React.useState(0);
   const [value, setValue] = React.useState(new Date());
   const [value2, setValue2] = React.useState(new Date());
-  //   const handleChange = (newValue) => {
-  //     setValue(newValue);
-  //   };
-
-  //   const { innerWidth: width } = window;
 
   function createData(
     orderID,
@@ -120,69 +107,69 @@ export default function Order() {
     ),
   ];
 
-  const rows1 = [
-    createData(
-      "098",
-      "General Document",
-      "Novel",
-      "Michael Lee",
-      "$25",
-      "05 June 2022",
-      "00:21:35"
-    ),
+  // const rows1 = [
+  //   createData(
+  //     "098",
+  //     "General Document",
+  //     "Novel",
+  //     "Michael Lee",
+  //     "$25",
+  //     "05 June 2022",
+  //     "00:21:35"
+  //   ),
 
-    createData(
-      "0100",
-      "Official Document",
-      "Identification Card",
-      "Sam Smith",
-      "$42.5",
-      "13 June 2022",
-      "05:21:35"
-    ),
-    createData(
-      "0101",
-      "Official Document",
-      "Certificate of use",
-      "Michael Lee",
-      "$31.2",
-      "14 June 2022",
-      "06:21:35"
-    ),
-  ];
+  //   createData(
+  //     "0100",
+  //     "Official Document",
+  //     "Identification Card",
+  //     "Sam Smith",
+  //     "$42.5",
+  //     "13 June 2022",
+  //     "05:21:35"
+  //   ),
+  //   createData(
+  //     "0101",
+  //     "Official Document",
+  //     "Certificate of use",
+  //     "Michael Lee",
+  //     "$31.2",
+  //     "14 June 2022",
+  //     "06:21:35"
+  //   ),
+  // ];
 
-  const rows2 = [
-    createData(
-      "099",
-      "Official Document",
-      "Identification Card",
-      "Sam Smith",
-      "$42.5",
-      "13 June 2022",
-      "Succeed"
-    ),
-    createData(
-      "0102",
-      "Official Document",
-      "Certificate of use",
-      "Michael Lee",
-      "$31.2",
-      "15 June 2022",
-      "Succeed"
-    ),
-  ];
+  // const rows2 = [
+  //   createData(
+  //     "099",
+  //     "Official Document",
+  //     "Identification Card",
+  //     "Sam Smith",
+  //     "$42.5",
+  //     "13 June 2022",
+  //     "Succeed"
+  //   ),
+  //   createData(
+  //     "0102",
+  //     "Official Document",
+  //     "Certificate of use",
+  //     "Michael Lee",
+  //     "$31.2",
+  //     "15 June 2022",
+  //     "Succeed"
+  //   ),
+  // ];
 
-  const rows3 = [
-    createData(
-      "0103",
-      "Official Document",
-      "Certificate of use",
-      "Michael Lee",
-      "$31.2",
-      "14 June 2022",
-      "Cancle"
-    ),
-  ];
+  // const rows3 = [
+  //   createData(
+  //     "0103",
+  //     "Official Document",
+  //     "Certificate of use",
+  //     "Michael Lee",
+  //     "$31.2",
+  //     "14 June 2022",
+  //     "Cancle"
+  //   ),
+  // ];
 
   return (
     <div className="App-body-Order">
@@ -190,42 +177,7 @@ export default function Order() {
         <Navbars />
       </header>
       <Box sx={{ display: "flex", width: "100% " }}>
-        <Drawer
-          variant="permanent"
-          anchor="left"
-          sx={{
-            width: drawerWidth,
-            [`& .MuiDrawer-paper`]: {
-              width: drawerWidth,
-              boxSizing: "border-box",
-            },
-            background: "#FFFDF7",
-          }}
-          style={{ zIndex: 0, height: "100%" }}
-        >
-          <Toolbar />
-          <Box sx={{ overflow: "hidden" }} className={"manu3"}>
-            <List>
-              {["1", "2", "3", "4", "5"].map((text, index) => (
-                <ListItem button key={text} id={"button_manu"}>
-                  <ListItemIcon id={"button_icons"}>
-                    {index === 0 ? (
-                      <FaHome className="icons" />
-                    ) : index === 1 ? (
-                      <FaLanguage className="icons" />
-                    ) : index === 2 ? (
-                      <FaShoppingCart className="icons" />
-                    ) : index === 3 ? (
-                      <IoChatbubblesSharp className="icons" />
-                    ) : index === 4 ? (
-                      <IoNotifications className="icons" />
-                    ) : null}
-                  </ListItemIcon>
-                </ListItem>
-              ))}
-            </List>
-          </Box>
-        </Drawer>
+        <Drawer />
 
         <div style={{ marginTop: 60, height: 100 }}>
           <h4
@@ -252,7 +204,6 @@ export default function Order() {
               top: "13%",
               backgroundColor: "#FBFBFB",
               boxShadow: "none",
-              borderRadius: 10,
             }}
           >
             <LocalizationProvider
@@ -270,7 +221,7 @@ export default function Order() {
                 renderInput={(Props) => (
                   <React.Fragment>
                     <TextField {...Props} />
-                    <Box sx={{ mx: 2 }}> to </Box>
+                    <Box sx={{ mx: 2 }}> To </Box>
                   </React.Fragment>
                 )}
               />
@@ -399,7 +350,7 @@ export default function Order() {
                   textAlign: "left",
                   position: "absolute",
                   top: 245,
-                  width: "100%",
+                  width: "fit-content"
                 }}
               >
                 <TableContainer component={Paper}>
@@ -429,7 +380,7 @@ export default function Order() {
                         </TableCell>
                       </TableRow>
                     </TableHead>
-                    <TableBody>
+                    {/* <TableBody>
                       {rows1.map((row) => (
                         <TableRow
                           key={row.orderID}
@@ -466,7 +417,7 @@ export default function Order() {
                           )}
                         </TableRow>
                       ))}
-                    </TableBody>
+                    </TableBody> */}
                   </Table>
                 </TableContainer>
               </div>
@@ -577,7 +528,7 @@ export default function Order() {
                   textAlign: "left",
                   position: "absolute",
                   top: 245,
-                  width: "100%",
+                  width: "fit-content"
                 }}
               >
                 <TableContainer component={Paper}>
@@ -607,7 +558,7 @@ export default function Order() {
                         </TableCell>
                       </TableRow>
                     </TableHead>
-                    <TableBody>
+                    {/* <TableBody>
                       {rows2.map((row) => (
                         <TableRow
                           key={row.orderID}
@@ -644,7 +595,7 @@ export default function Order() {
                           )}
                         </TableRow>
                       ))}
-                    </TableBody>
+                    </TableBody> */}
                   </Table>
                 </TableContainer>
               </div>
@@ -755,7 +706,7 @@ export default function Order() {
                   textAlign: "left",
                   position: "absolute",
                   top: 245,
-                  width: "100%",
+                  width: "fit-content"
                 }}
               >
                 <TableContainer component={Paper}>
@@ -785,7 +736,7 @@ export default function Order() {
                         </TableCell>
                       </TableRow>
                     </TableHead>
-                    <TableBody>
+                    {/* <TableBody>
                       {rows3.map((row) => (
                         <TableRow
                           key={row.orderID}
@@ -822,7 +773,7 @@ export default function Order() {
                           )}
                         </TableRow>
                       ))}
-                    </TableBody>
+                    </TableBody> */}
                   </Table>
                 </TableContainer>
               </div>
@@ -963,7 +914,7 @@ export default function Order() {
                         </TableCell>
                       </TableRow>
                     </TableHead>
-                    <TableBody>
+                    {/* <TableBody>
                       {rows.map((row) => (
                         <TableRow
                           key={row.orderID}
@@ -1000,7 +951,7 @@ export default function Order() {
                           )}
                         </TableRow>
                       ))}
-                    </TableBody>
+                    </TableBody> */}
                   </Table>
                 </TableContainer>
               </div>

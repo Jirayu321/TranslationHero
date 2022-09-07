@@ -2,7 +2,7 @@ import * as React from "react";
 import {
   ListItem,
   ListItemIcon,
-  ListItemText,
+  // ListItemText,
   Box,
   Drawer,
   Toolbar,
@@ -35,7 +35,7 @@ import {
   IoDocumentText,
 } from "react-icons/io5";
 
-import { FiLogOut } from "react-icons/fi";
+// import { FiLogOut } from "react-icons/fi";
 
 const drawerWidth = 100;
 export default function Chat() {
@@ -48,7 +48,7 @@ export default function Chat() {
   const [customername, setCustomername] = React.useState("");
   const [jobdescription, setJobdescription] = React.useState("");
   const [deadline, setDeadline] = React.useState(new Date());
-  const [price, setPrice] = React.useState("");
+  // const [price, setPrice] = React.useState("");
 
   const [customerswillget, setCustomerswillget] = React.useState("");
   const [numberofedits, setNumberofedits] = React.useState("");

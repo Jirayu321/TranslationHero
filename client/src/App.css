@@ -76,7 +76,7 @@ p {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  margin-top: 50px;
+  margin-top: 20px;
 }
 /* ForgetPassword */
 
@@ -146,7 +146,17 @@ p {
   padding-top: 10px;
   padding-bottom: 10px;
 }
-#button_manu:hover  #button_icons {
+#button_manu:hover  #button_icons  {
+  background: #fff3cc;
+  -webkit-text-fill-color: #034d82;
+  border-width: 0px 3px;
+  border-style: solid;
+  border-color: #cc9d00;
+  border-radius: 25px 0px;
+}
+
+
+#button_manu:focus  #button_icons {
   background: #fff3cc;
   -webkit-text-fill-color: #034d82;
   border-width: 0px 3px;
@@ -155,16 +165,6 @@ p {
   border-radius: 25px 0px;
   color: #cc9d00;
 }
-
-/* #button_manu:focus  #button_icons {
-  background: #fff3cc;
-  -webkit-text-fill-color: #034d82;
-  border-width: 0px 3px;
-  border-style: solid;
-  border-color: #cc9d00;
-  border-radius: 25px 0px;
-  color: #cc9d00;
-} */
 
 /* order */
 .App-body-Order{
@@ -182,9 +182,7 @@ p {
   height: 100%;
   background: #FFFDF7;
 }
-#navbardb2 {
-  background:  #FFFDF7;;
-}
+
 
 /* ไม่ใช้ */
 .App-body2 {

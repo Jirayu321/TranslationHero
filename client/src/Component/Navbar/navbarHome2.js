@@ -1,10 +1,9 @@
 import * as React from "react";
 import logo from "../../logo.svg";
 import { Navbar, Container, Form, Nav } from "react-bootstrap";
-
-import { FaLanguage, FaMapMarkerAlt } from "react-icons/fa";
-import { Avatar} from "@mui/material";
-
+import "./Navbar.css";
+import { FaLanguage, FaMapMarkerAlt ,FaUserCircle} from "react-icons/fa";
+import { Avatar } from "@mui/material";
 
 const navbarHome2 = () => {
   return (
@@ -20,23 +19,48 @@ const navbarHome2 = () => {
             style={{ maxHeight: "100px" }}
             navbarScroll
           ></Nav>
-          
 
           <Form className="d-flex">
-            <div className="box4">
-              <FaLanguage size="28px" color="#034D82" />
-              <h6 style={{ paddingTop: 10, marginLeft: 10 }}>EN</h6>
+            <div className="box4navbarHome2">
+              <FaLanguage
+                size="20px"
+                color="#808080"
+                style={{ float: "left" }}
+              />
+              <p
+                style={{
+                  marginLeft: 10,
+                  color: "#808080",
+                  fontSize: 13,
+                  float: "left",
+                }}
+              >
+                EN
+              </p>
             </div>
-            <div className="box4">
-              <FaMapMarkerAlt size="20px" color="#034D82" />
-              <h6 style={{ paddingTop: 10, marginLeft: 10 }}>US</h6>
+
+            <div className="box4navbarHome2">
+              <FaMapMarkerAlt
+                size="20px"
+                color="#808080"
+                style={{ float: "left" }}
+              />
+              <p
+                style={{
+                  marginLeft: 10,
+                  color: "#808080",
+                  fontSize: 13,
+                  float: "left",
+                }}
+              >
+                US
+              </p>
             </div>
-            <div className="box4" style={{ width: 40 }}>
-              <Avatar
+
+            <div className="box4navbarHome2_1" style={{ width: 40 }}>
+              <FaUserCircle
                 alt="avatar"
-                src={require("../../Images/Avatar2.png")}
-                id={"avatar3"}
-                style={{ width: "98%" }}
+                style={{ width: "98%",color:"#3333" }}
               />
             </div>
           </Form>

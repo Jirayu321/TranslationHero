@@ -1,11 +1,6 @@
 import * as React from "react";
 import {
-  ListItem,
-  ListItemIcon,
   Box,
-  Drawer,
-  Toolbar,
-  List,
   Paper,
   IconButton,
   InputBase,
@@ -19,7 +14,6 @@ import {
 import SearchIcon from "@mui/icons-material/Search";
 
 import Navbars from "../Navbar/navbarHome2.js";
-// import IM from "../../Images/1.png";
 import Article from "../../Images/Article.png";
 import Novel from "../../Images/Novel.png";
 import Submovie from "../../Images/Submovie.png";
@@ -39,19 +33,15 @@ import Avatar9 from "../../Images/Avatar9.png";
 import Avatar10 from "../../Images/Avatar10.png";
 import Avatar11 from "../../Images/Avatar11.png";
 
-import { FaHome, FaLanguage, FaShoppingCart } from "react-icons/fa";
 import { IoDocumentText, IoIdCardSharp } from "react-icons/io5";
 import { RiUserSearchFill } from "react-icons/ri";
-import { IoChatbubblesSharp, IoNotifications } from "react-icons/io5";
-// import { FiLogOut } from "react-icons/fi";
+import Drawer from "../Drawer/Drawer";
 // import { fontSize } from "@mui/system";
 
-const drawerWidth = 100;
 export default function Home2() {
   //   const [value, setValue] = React.useState(4);
   const [type, setType] = React.useState(1);
   const { innerWidth: width } = window;
-
   function createData(
     orderID,
     orderType,
@@ -107,48 +97,13 @@ export default function Home2() {
         <Navbars />
       </header>
       <Box sx={{ display: "flex", width: "100% " }}>
-        <Drawer
-          variant="permanent"
-          anchor="left"
-          sx={{
-            width: drawerWidth,
-            [`& .MuiDrawer-paper`]: {
-              width: drawerWidth,
-              boxSizing: "border-box",
-            },
-          }}
-          style={{ zIndex: 0, height: "100%" }}
-        >
-          <Toolbar />
-          <Box sx={{ overflow: "hidden" }} className={"manu2"}>
-            <List>
-              {["1", "2", "3", "4", "5"].map((text, index) => (
-                <ListItem button key={text} id={"button_manu"}>
-                  <ListItemIcon id={"button_icons"}>
-                    {index === 0 ? (
-                      <FaHome className="icons" />
-                    ) : index === 1 ? (
-                      <FaLanguage className="icons" />
-                    ) : index === 2 ? (
-                      <FaShoppingCart className="icons" />
-                    ) : index === 3 ? (
-                      <IoChatbubblesSharp className="icons" />
-                    ) : index === 4 ? (
-                      <IoNotifications className="icons" />
-                    ) : null}
-                  </ListItemIcon>
-                </ListItem>
-              ))}
-            </List>
-          </Box>
-        </Drawer>
-
+        <Drawer />
         <div style={{ marginTop: 60, height: 100 }}>
           <h4
             style={{
               fontWeight: 500,
               fontSize: 36,
-              color: " #333333",
+              color: "#034D82",
               marginLeft: 20,
               position: "absolute",
               top: "13%",
@@ -256,7 +211,7 @@ export default function Home2() {
                   display: "flex",
                   flexDirection: "row",
                   overflowX: "scroll",
-                  maxWidth: "100%",
+                  maxWidth: "90%",
                 }}
               >
                 <div
@@ -853,7 +808,7 @@ export default function Home2() {
                   display: "flex",
                   flexDirection: "row",
                   overflowX: "scroll",
-                  maxWidth: "100%",
+                  maxWidth: "90%",
                 }}
               >
                 <div

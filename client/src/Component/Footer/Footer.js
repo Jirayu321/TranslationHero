@@ -93,23 +93,48 @@ const Footer = () => {
           </p>
 
           <div style={{ marginTop: 10 }}>
-            <div
+            <button
               className="boxIconsFooter"
               style={{
                 marginLeft: 0,
               }}
+              onClick={() => {
+                window.open(
+                  "https://www.facebook.com/translation.hero.company"
+                );
+              }}
             >
               <FaFacebookF className="IconsFooter" />
-            </div>
-            <div className="boxIconsFooter">
+            </button>
+
+            <button
+              className="boxIconsFooter"
+              onClick={() => {
+                window.open("https://www.instagram.com/translationhero/");
+              }}
+            >
               <BsInstagram className="IconsFooter" />
-            </div>
-            <div className="boxIconsFooter">
+            </button>
+
+            <button
+              className="boxIconsFooter"
+              onClick={() => {
+                window.open(
+                  "https://www.linkedin.com/in/translation-hero/"
+                );
+              }}
+            >
               <FaLinkedinIn className="IconsFooter" />
-            </div>
-            <div className="boxIconsFooter">
+            </button>
+
+            <button
+              className="boxIconsFooter"
+              onClick={() => {
+                window.open("https://twitter.com/Translationhero");
+              }}
+            >
               <BsTwitter className="IconsFooter" />
-            </div>
+            </button>
           </div>
         </div>
       </div>

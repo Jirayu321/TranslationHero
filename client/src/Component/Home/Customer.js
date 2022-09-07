@@ -8,13 +8,12 @@ import { IconButton, Input, TextField, Autocomplete, Box } from "@mui/material";
 
 import { MdArrowDropDown } from "react-icons/md";
 
-
 const Customer = () => {
   const { innerWidth: width, innerHeight: height } = window;
   const [type, settype] = React.useState(null);
   const [trantype, setTranstype] = React.useState("");
   const [textarea, setTextarea] = React.useState("");
-  const [price, setPrice] = React.useState("35 $");
+  const [price, setPrice] = React.useState("");
   const [tranfrom, setTranfrom] = React.useState("");
   const [tranto, setTranto] = React.useState("");
   const [file, setFile] = React.useState("");
@@ -24,9 +23,29 @@ const Customer = () => {
     setTextarea(event.target.value);
   };
 
+  const set_price = (trantype) => {
+    console.log("trantype :", trantype);
+    if (trantype === "Article") {
+      setPrice("15 $");
+    } else if (trantype === "Identification Card") {
+      setPrice("20 $");
+    } else if (trantype === "Family Status Registration") {
+      setPrice("25 $");
+    } else if (trantype === "Personal information") {
+      setPrice("35 $");
+    } else if (trantype === "Civil Registration Certificate") {
+      setPrice("45 $");
+    } else if (trantype === "Certificate of use (the noun prefix") {
+      setPrice("55 $");
+    } else {
+      setPrice("100 $");
+    }
+  };
+
   const promotion = (x) => {
     setPromo(x);
     window.scrollTo(0, 1500);
+    set_price(trantype);
   };
 
   return (
@@ -317,7 +336,7 @@ const Customer = () => {
                     options={data5}
                     autoHighlight
                     getOptionLabel={(option) => option.label}
-                    onChange={(event, value) => setTranstype(value?.label)}
+                    onChange={(event, value) => setTranstype(value.label)}
                     popupIcon={
                       <MdArrowDropDown
                         style={{ color: "#333333", width: 30, height: 33 }}
@@ -329,13 +348,7 @@ const Customer = () => {
                         sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
                         {...props}
                       >
-                        <img
-                          loading="lazy"
-                          width="20"
-                          src={`https://flagcdn.com/w20/${option.code.toLowerCase()}.png`}
-                          srcSet={`https://flagcdn.com/w40/${option.code.toLowerCase()}.png 2x`}
-                          alt=""
-                        />
+
                         {option.label}
                       </Box>
                     )}
@@ -369,13 +382,7 @@ const Customer = () => {
                         sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
                         {...props}
                       >
-                        <img
-                          loading="lazy"
-                          width="20"
-                          src={`https://flagcdn.com/w20/${option.code.toLowerCase()}.png`}
-                          srcSet={`https://flagcdn.com/w40/${option.code.toLowerCase()}.png 2x`}
-                          alt=""
-                        />
+
                         {option.label}
                       </Box>
                     )}
@@ -409,13 +416,7 @@ const Customer = () => {
                         sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
                         {...props}
                       >
-                        <img
-                          loading="lazy"
-                          width="20"
-                          src={`https://flagcdn.com/w20/${option.code.toLowerCase()}.png`}
-                          srcSet={`https://flagcdn.com/w40/${option.code.toLowerCase()}.png 2x`}
-                          alt=""
-                        />
+
                         {option.label}
                       </Box>
                     )}
@@ -449,13 +450,7 @@ const Customer = () => {
                         sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
                         {...props}
                       >
-                        <img
-                          loading="lazy"
-                          width="20"
-                          src={`https://flagcdn.com/w20/${option.code.toLowerCase()}.png`}
-                          srcSet={`https://flagcdn.com/w40/${option.code.toLowerCase()}.png 2x`}
-                          alt=""
-                        />
+
                         {option.label}
                       </Box>
                     )}
@@ -622,7 +617,6 @@ const Customer = () => {
                     boxSizing: "border-box",
                     borderRadius: 5,
                     padding: 20,
-                    
                   }}
                 />
               </div>

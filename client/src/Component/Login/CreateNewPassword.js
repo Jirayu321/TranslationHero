@@ -2,7 +2,7 @@ import * as React from "react";
 
 import Navbars from "../Navbar/navbarLogin";
 
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { FiEyeOff, FiEye } from "react-icons/fi";
 
 import Login1 from "../../Images/login.png";
@@ -11,7 +11,7 @@ import IconButton from "@mui/material/IconButton";
 
 const CreateNewPassword = () => {
   const { innerWidth: width } = window;
-
+  const navigate = useNavigate();
   const [password, setPassword] = React.useState("");
   const [confirm, setConfirm] = React.useState("");
   const [type, setType] = React.useState("password");
@@ -39,6 +39,7 @@ const CreateNewPassword = () => {
     }
   };
 
+  const Save = () => navigate("/Login");
   return (
     <>
       <header
@@ -79,6 +80,7 @@ const CreateNewPassword = () => {
               left: width * 0.59,
               textAlign: "-webkit-center",
               width: 500,
+              height: 460,
               background: " #FFFFFF",
               boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
               borderRadius: 20,
@@ -89,7 +91,7 @@ const CreateNewPassword = () => {
               <h2 className="textCreateNewPassword">Create New Password</h2>
 
               <div style={{ textAlign: "left" }}>
-                <text
+                <p
                   style={{
                     fontWeight: 500,
                     fontSize: 20,
@@ -97,8 +99,7 @@ const CreateNewPassword = () => {
                   }}
                 >
                   New password
-                </text>
-                <br />
+                </p>
                 <input
                   type={type}
                   value={password}
@@ -125,7 +126,7 @@ const CreateNewPassword = () => {
               </div>
 
               <div style={{ textAlign: "left" }}>
-                <text
+                <p
                   style={{
                     fontWeight: 500,
                     fontSize: 20,
@@ -133,8 +134,7 @@ const CreateNewPassword = () => {
                   }}
                 >
                   Confirm new password
-                </text>
-                <br />
+                </p>
                 <input
                   type={type2}
                   value={confirm}
@@ -170,11 +170,11 @@ const CreateNewPassword = () => {
                   fontSize: 18,
                   borderColor: "transparent",
                   marginBottom: 30,
-                  marginTop: 50,
+                  marginTop: 25,
                 }}
+                onClick={Save}
               >
-                <Link
-                  to="/#"
+                <p
                   style={{
                     color: "#FFFFFF",
                     fontSize: 18,
@@ -183,16 +183,16 @@ const CreateNewPassword = () => {
                   }}
                 >
                   Save
-                </Link>
+                </p>
               </button>
             </div>
           </div>
           <div style={{ top: "90%", position: "absolute", marginLeft: "25%" }}>
             <div style={{ float: "right" }}>
-              <text>Privacy policy</text>
+              <p>Privacy policy</p>
             </div>
             <div style={{ float: "right", marginRight: 50 }}>
-              <text>Copyrights Give Network 2021.</text>
+              <p>Copyrights Give Network 2021.</p>
             </div>
           </div>
         </div>
