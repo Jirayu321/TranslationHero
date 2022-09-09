@@ -2,23 +2,20 @@ import * as React from "react";
 import {
   ListItem,
   ListItemIcon,
-  // ListItemText,
   Box,
   Drawer,
   Toolbar,
   List,
   Avatar,
   Modal,
-  Typography,
   TextField,
-  // FormControlLabel
 } from "@mui/material";
-
+import "./Chat.css";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
 import { AdapterLuxon } from "@mui/x-date-pickers/AdapterLuxon";
 
-import Navbars from "../Navbar/navbarChat";
+import Navbars from "../Navbar/navbarHome2";
 import Status from "./status";
 import { Paper, IconButton, InputBase } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
@@ -35,7 +32,8 @@ import {
   IoDocumentText,
 } from "react-icons/io5";
 
-// import { FiLogOut } from "react-icons/fi";
+
+
 
 const drawerWidth = 100;
 export default function Chat() {
@@ -47,8 +45,9 @@ export default function Chat() {
   const [translatorname, setTranslatorname] = React.useState("");
   const [customername, setCustomername] = React.useState("");
   const [jobdescription, setJobdescription] = React.useState("");
+
   const [deadline, setDeadline] = React.useState(new Date());
-  // const [price, setPrice] = React.useState("");
+  const [price, setPrice] = React.useState("");
 
   const [customerswillget, setCustomerswillget] = React.useState("");
   const [numberofedits, setNumberofedits] = React.useState("");
@@ -299,7 +298,7 @@ export default function Chat() {
               style={{
                 padding: 15,
                 width: "100%",
-                height: "64vh",
+                height: "68vh",
                 overflow: "scroll",
                 position: "absolute",
                 top: 145,
@@ -636,7 +635,7 @@ export default function Chat() {
               </div>
             </div>
 
-            <div style={{ position: "fixed", top: 670, left: 470 }}>
+            <div style={{ position: "fixed", top: 700, left: 470 }}>
               <Paper
                 component="form"
                 sx={{
@@ -683,16 +682,17 @@ export default function Chat() {
                   borderRadius: 5,
                   border: "1px solid #E5E5E5",
                   textAlign: "center",
+                  overflow: "scroll",
                 }}
               >
-                <Typography
+                <p
                   id="keep-mounted-modal-description"
                   sx={{ mt: 2, fontWeight: 700 }}
                 >
                   Quotation
-                </Typography>
+                </p>
 
-                <Typography
+                <div
                   id="keep-mounted-modal-description"
                   sx={{
                     mt: 2,
@@ -721,9 +721,10 @@ export default function Chat() {
                           <TextField
                             {...params}
                             style={{
-                              border: "1px #E5E5E5 solid",
+                              border: "none",
                               borderRadius: 10,
                               width: "40%",
+                              // border: "1px #E5E5E5 solid",
                             }}
                           />
                         )}
@@ -809,6 +810,7 @@ export default function Chat() {
                         fontWeight: 500,
                         fontSize: 16,
                         color: "#242424",
+                        textAlign: "left",
                       }}
                     >
                       Job description
@@ -835,6 +837,7 @@ export default function Chat() {
                         fontWeight: 500,
                         fontSize: 16,
                         color: "#242424",
+                        textAlign: "left",
                       }}
                     >
                       Customers will get
@@ -882,7 +885,7 @@ export default function Chat() {
                             <TextField
                               {...params}
                               style={{
-                                border: "1px #E5E5E5 solid",
+                                // border: "1px #E5E5E5 solid",
                                 borderRadius: 10,
                                 width: "110%",
                               }}
@@ -945,46 +948,10 @@ export default function Chat() {
                       >
                         Price
                       </p>
-                      <LocalizationProvider dateAdapter={AdapterLuxon}>
-                        <MobileDatePicker
-                          inputFormat="dd MMM yyyy"
-                          value={deadline}
-                          onChange={(e) => setDeadline(e)}
-                          renderInput={(params) => (
-                            <TextField
-                              {...params}
-                              style={{
-                                border: "1px #E5E5E5 solid",
-                                borderRadius: 10,
-                                width: "110%",
-                              }}
-                            />
-                          )}
-                        />
-                      </LocalizationProvider>
-                    </div>
-
-                    <div
-                      style={{
-                        textAlign: "left",
-                        float: "left",
-                        marginLeft: 90,
-                      }}
-                    >
-                      <p
-                        style={{
-                          fontWeight: 500,
-                          fontSize: 16,
-                          color: "#242424",
-                          marginBottom: 0,
-                        }}
-                      >
-                        Number of edits
-                      </p>
                       <input
                         type="text"
-                        value={numberofedits}
-                        onChange={(e) => setNumberofedits(e.target.value)}
+                        value={price}
+                        onChange={(e) => setPrice(e.target.value)}
                         placeholder="Name"
                         style={{
                           background: "#FFFFFF",
@@ -995,11 +962,48 @@ export default function Chat() {
                           padding: 20,
                           paddingLeft: 12,
                         }}
+                        maxLength={10}
                       />
                     </div>
+
+                    <div
+                      style={{
+                        textAlign: "right",
+                        float: "left",
+                        marginTop: 30,
+                        width: "60%",
+                      }}
+                    >
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 16,
+                          color: "#242424",
+                          marginBottom: 0,
+                        }}
+                      >
+                        {price}
+                      </p>
+                    </div>
                   </div>
-                  
-                </Typography>
+                  <div style={{ height: 200 }}>
+                    <button
+                      style={{
+                        width: "100%",
+                        height: 40,
+                        background: " #46BC52",
+                        boxShadow: "0px 4px 5px rgba(0, 0, 0, 0.1)",
+                        borderRadius: 3,
+                        textAlign: "center",
+                        border: "none",
+                        color: "#FFFFFF",
+                        marginTop:12
+                      }}
+                    >
+                      Pay
+                    </button>
+                  </div>
+                </div>
               </Box>
             </Modal>
           </>

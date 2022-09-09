@@ -55,7 +55,7 @@ const Translator = () => {
           }}
         >
           <div>
-            <text
+            <p
               style={{
                 fontWeight: "bold",
                 fontSize: 56,
@@ -63,15 +63,15 @@ const Translator = () => {
               }}
             >
               Translator
-            </text>
+            </p>
           </div>
           <div>
-            <text style={{ fontSize: 28, color: "#444444" }}>
+            <p style={{ fontSize: 28, color: "#444444" }}>
               For translators who want to earn extra money or find work related
               to translation Content of documents that need to reduce working
               time translator hero As an alternative, we can help you because we
               have a document translation support system for you.
-            </text>
+            </p>
           </div>
           <div
             style={{
@@ -114,7 +114,7 @@ const Translator = () => {
               marginBottom: 30,
             }}
           >
-            <text
+            <p
               style={{
                 fontWeight: "bold",
                 fontSize: 56,
@@ -122,14 +122,14 @@ const Translator = () => {
               }}
             >
               Pricing Plan
-            </text>
+            </p>
           </div>
 
           <div style={{ display: "inline-flex" }}>
             <div
               style={{
                 width: width * 0.25,
-                height: width * 0.3,
+                height: width * 0.35,
                 background: "#FFFFFF",
                 border: "1px solid #E5E5E5",
                 boxSizing: "border-box",
@@ -140,7 +140,7 @@ const Translator = () => {
               }}
             >
               <div style={{ marginBottom: 20 }}>
-                <text
+                <p
                   style={{
                     color: "#333333",
                     fontWeight: 700,
@@ -148,7 +148,7 @@ const Translator = () => {
                   }}
                 >
                   Economy
-                </text>
+                </p>
               </div>
               <div
                 style={{
@@ -157,7 +157,7 @@ const Translator = () => {
                 }}
               >
                 <FaLanguage size="18px" style={{ marginRight: 10 }} />
-                <text>Machine Translation</text>
+                <p>Machine Translation</p>
               </div>
               <div
                 style={{
@@ -167,19 +167,19 @@ const Translator = () => {
                 }}
               >
                 <FaUserCheck size="18px" />
-                <text> Light Human Review</text>
+                <p> Light Human Review</p>
               </div>
               <div>
-                <text style={{ color: "#858585", fontSize: 14 }}>
+                <p style={{ color: "#858585", fontSize: 14 }}>
                   Guaranteed finished date by
-                </text>
+                </p>
                 <br />
-                <text style={{ color: "#333333", fontSize: 18 }}>
+                <p style={{ color: "#333333", fontSize: 18 }}>
                   Tue 15 Mar 09:00 PM
-                </text>
+                </p>
               </div>
-              <div style={{ marginBottom: 35, marginTop: 35 }}>
-                <text
+              <div style={{ marginBottom: 35, marginTop: 60 }}>
+                <p
                   style={{
                     color: "#333333",
                     fontWeight: 700,
@@ -187,7 +187,7 @@ const Translator = () => {
                   }}
                 >
                   $56.84
-                </text>
+                </p>
               </div>
 
               <button
@@ -211,7 +211,7 @@ const Translator = () => {
             <div
               style={{
                 width: width * 0.25,
-                height: width * 0.3,
+                height: width * 0.35,
                 background: "#FFFFFF",
                 border: "1px solid #E5E5E5",
                 boxSizing: "border-box",
@@ -222,7 +222,7 @@ const Translator = () => {
               }}
             >
               <div style={{ marginBottom: 20 }}>
-                <text
+                <p
                   style={{
                     color: "#333333",
                     fontWeight: 700,
@@ -230,7 +230,7 @@ const Translator = () => {
                   }}
                 >
                   Professional
-                </text>
+                </p>
               </div>
               <div
                 style={{
@@ -239,7 +239,7 @@ const Translator = () => {
                 }}
               >
                 <FaLanguage size="18px" style={{ marginRight: 10 }} />
-                <text>Machine Translation</text>
+                <p>Machine Translation</p>
               </div>
               <div
                 style={{
@@ -248,7 +248,7 @@ const Translator = () => {
                 }}
               >
                 <FaUserCheck size="18px" />
-                <text> Light Human Review</text>
+                <p> Light Human Review</p>
               </div>
               <div
                 style={{
@@ -259,19 +259,19 @@ const Translator = () => {
                 }}
               >
                 <FaMedal size="18px" />
-                <text> Quality Control</text>
+                <p> Quality Control</p>
               </div>
               <div>
-                <text style={{ color: "#858585", fontSize: 14 }}>
+                <p style={{ color: "#858585", fontSize: 14 }}>
                   Guaranteed finished date by
-                </text>
+                </p>
                 <br />
-                <text style={{ color: "#333333", fontSize: 18 }}>
+                <p style={{ color: "#333333", fontSize: 18 }}>
                   Tue 15 Mar 09:00 PM
-                </text>
+                </p>
               </div>
               <div style={{ marginBottom: 35, marginTop: 35 }}>
-                <text
+                <p
                   style={{
                     color: "#333333",
                     fontWeight: 700,
@@ -279,7 +279,7 @@ const Translator = () => {
                   }}
                 >
                   $156.84
-                </text>
+                </p>
               </div>
 
               <button
@@ -303,7 +303,7 @@ const Translator = () => {
             <div
               style={{
                 width: width * 0.25,
-                height: width * 0.3,
+                height: width * 0.35,
                 background: "#FFFFFF",
                 border: "1px solid #E5E5E5",
                 boxSizing: "border-box",
@@ -314,7 +314,7 @@ const Translator = () => {
               }}
             >
               <div style={{ marginBottom: 20 }}>
-                <text
+                <p
                   style={{
                     color: "#333333",
                     fontWeight: 700,
@@ -322,7 +322,7 @@ const Translator = () => {
                   }}
                 >
                   Premium
-                </text>
+                </p>
               </div>
               <div
                 style={{
@@ -331,7 +331,7 @@ const Translator = () => {
                 }}
               >
                 <FaLanguage size="18px" style={{ marginRight: 10 }} />
-                <text>Machine Translation</text>
+                <p>Machine Translation</p>
               </div>
               <div
                 style={{
@@ -340,7 +340,7 @@ const Translator = () => {
                 }}
               >
                 <FaUserCheck size="18px" />
-                <text> Light Human Review</text>
+                <p> Light Human Review</p>
               </div>
               <div
                 style={{
@@ -351,19 +351,19 @@ const Translator = () => {
                 }}
               >
                 <FaMedal size="18px" />
-                <text> Quality Control</text>
+                <p> Quality Control</p>
               </div>
               <div>
-                <text style={{ color: "#858585", fontSize: 14 }}>
+                <p style={{ color: "#858585", fontSize: 14 }}>
                   Guaranteed finished date by
-                </text>
+                </p>
                 <br />
-                <text style={{ color: "#333333", fontSize: 18 }}>
+                <p style={{ color: "#333333", fontSize: 18 }}>
                   Tue 15 Mar 09:00 PM
-                </text>
+                </p>
               </div>
               <div style={{ marginBottom: 35, marginTop: 35 }}>
-                <text
+                <p
                   style={{
                     color: "#333333",
                     fontWeight: 700,
@@ -371,7 +371,7 @@ const Translator = () => {
                   }}
                 >
                   $146.84
-                </text>
+                </p>
               </div>
 
               <button

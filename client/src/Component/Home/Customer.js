@@ -95,7 +95,7 @@ const Customer = () => {
           }}
         >
           <div>
-            <text
+            <p
               style={{
                 fontWeight: "bold",
                 fontSize: 56,
@@ -103,15 +103,15 @@ const Customer = () => {
               }}
             >
               Customer
-            </text>
+            </p>
           </div>
           <div>
-            <text style={{ fontSize: 30, color: "#444444" }}>
+            <p style={{ fontSize: 30, color: "#444444" }}>
               For customers who want to translate documents translator hero
               There is a translation system that calculates all costs. Including
               professional translators who guarantee excellent translation
               quality.
-            </text>
+            </p>
           </div>
           <div
             style={{
@@ -154,7 +154,7 @@ const Customer = () => {
               marginBottom: 10,
             }}
           >
-            <text
+            <p
               style={{
                 fontWeight: "bold",
                 fontSize: 56,
@@ -162,7 +162,7 @@ const Customer = () => {
               }}
             >
               Your Order
-            </text>
+            </p>
           </div>
 
           <div>
@@ -193,7 +193,7 @@ const Customer = () => {
                     aria-label="upload picture"
                     component="span"
                   >
-                    <text
+                    <p
                       style={{
                         fontWeight: "bold",
                         fontSize: 24,
@@ -202,7 +202,7 @@ const Customer = () => {
                       }}
                     >
                       Upload File
-                    </text>
+                    </p>
                   </IconButton>
                 </label>
               </div>
@@ -233,7 +233,7 @@ const Customer = () => {
                     aria-label="upload picture"
                     component="span"
                   >
-                    <text
+                    <p
                       style={{
                         fontWeight: "bold",
                         fontSize: 24,
@@ -242,7 +242,7 @@ const Customer = () => {
                       }}
                     >
                       `${file}`
-                    </text>
+                    </p>
                   </IconButton>
                 </label>
               </div>
@@ -266,7 +266,7 @@ const Customer = () => {
             >
               <div style={{ float: "left", marginLeft: 90 }}>
                 <div style={{ marginBottom: 10 }}>
-                  <text
+                  <p
                     style={{
                       fontWeight: "bold",
                       fontSize: 24,
@@ -274,7 +274,7 @@ const Customer = () => {
                     }}
                   >
                     Document type
-                  </text>
+                  </p>
                 </div>
                 <Autocomplete
                   id="country-select-demo"
@@ -319,7 +319,7 @@ const Customer = () => {
 
               <div style={{ float: "left", marginLeft: 60 }}>
                 <div style={{ marginBottom: 10 }}>
-                  <text
+                  <p
                     style={{
                       fontWeight: "bold",
                       fontSize: 24,
@@ -327,7 +327,7 @@ const Customer = () => {
                     }}
                   >
                     Translation type
-                  </text>
+                  </p>
                 </div>
                 {type === null ? (
                   <Autocomplete
@@ -477,7 +477,7 @@ const Customer = () => {
                 }}
               >
                 <div style={{ marginBottom: 10 }}>
-                  <text
+                  <p
                     style={{
                       fontWeight: "bold",
                       fontSize: 24,
@@ -485,7 +485,7 @@ const Customer = () => {
                     }}
                   >
                     Translate From
-                  </text>
+                  </p>
                 </div>
 
                 <Autocomplete
@@ -531,7 +531,7 @@ const Customer = () => {
 
               <div style={{ float: "left", margin: 30, marginBottom: 20 }}>
                 <div style={{ marginBottom: 10 }}>
-                  <text
+                  <p
                     style={{
                       fontWeight: "bold",
                       fontSize: 24,
@@ -539,7 +539,7 @@ const Customer = () => {
                     }}
                   >
                     Translate To
-                  </text>
+                  </p>
                 </div>
                 <Autocomplete
                   id="country-select-demo"
@@ -594,7 +594,7 @@ const Customer = () => {
                 }}
               >
                 <div style={{ marginBottom: 10 }}>
-                  <text
+                  <p
                     style={{
                       fontWeight: "bold",
                       fontSize: 24,
@@ -602,7 +602,7 @@ const Customer = () => {
                     }}
                   >
                     Text
-                  </text>
+                  </p>
                 </div>
                 <textarea
                   value={textarea}
@@ -638,9 +638,9 @@ const Customer = () => {
                 }}
                 onClick={() => promotion(1)}
               >
-                <text style={{ color: "#FFFFFF", fontSize: 18 }}>
+                <p style={{ color: "#FFFFFF", fontSize: 18 }}>
                   Get Quote
-                </text>
+                </p>
               </button>
             </div>
           </div>
@@ -674,7 +674,7 @@ const Customer = () => {
                   }}
                 >
                   <div>
-                    <text
+                    <p
                       style={{
                         fontWeight: "bold",
                         fontSize: 24,
@@ -682,9 +682,9 @@ const Customer = () => {
                       }}
                     >
                       Document type
-                    </text>
+                    </p>
                     <br />
-                    <text
+                    <p
                       style={{
                         fontWeight: "bold",
                         fontSize: 18,
@@ -692,11 +692,11 @@ const Customer = () => {
                       }}
                     >
                       {type}
-                    </text>
+                    </p>
                   </div>
 
                   <div>
-                    <text
+                    <p
                       style={{
                         fontWeight: "bold",
                         fontSize: 24,
@@ -704,9 +704,9 @@ const Customer = () => {
                       }}
                     >
                       Translate From
-                    </text>
+                    </p>
                     <br />
-                    <text
+                    <p
                       style={{
                         fontWeight: "bold",
                         fontSize: 18,
@@ -714,11 +714,11 @@ const Customer = () => {
                       }}
                     >
                       {tranfrom}
-                    </text>
+                    </p>
                   </div>
 
                   <div>
-                    <text
+                    <p
                       style={{
                         fontWeight: "bold",
                         fontSize: 24,
@@ -726,9 +726,9 @@ const Customer = () => {
                       }}
                     >
                       Text
-                    </text>
+                    </p>
                     <div style={{ width: 400, wordWrap: "break-word" }}>
-                      <text
+                      <p
                         style={{
                           fontWeight: "bold",
                           fontSize: 18,
@@ -736,12 +736,12 @@ const Customer = () => {
                         }}
                       >
                         {textarea}
-                      </text>
+                      </p>
                     </div>
                   </div>
 
                   <div style={{ marginTop: 100 }}>
-                    <text
+                    <p
                       style={{
                         fontWeight: "bold",
                         fontSize: 24,
@@ -749,9 +749,9 @@ const Customer = () => {
                       }}
                     >
                       Price
-                    </text>
+                    </p>
                     <br />
-                    <text
+                    <p
                       style={{
                         fontWeight: "bold",
                         fontSize: 24,
@@ -759,13 +759,13 @@ const Customer = () => {
                       }}
                     >
                       {price}
-                    </text>
+                    </p>
                   </div>
                 </div>
 
                 <div style={{ float: "left" }}>
                   <div>
-                    <text
+                    <p
                       style={{
                         fontWeight: "bold",
                         fontSize: 24,
@@ -773,9 +773,9 @@ const Customer = () => {
                       }}
                     >
                       Translation type
-                    </text>
+                    </p>
                     <br />
-                    <text
+                    <p
                       style={{
                         fontWeight: "bold",
                         fontSize: 18,
@@ -783,11 +783,11 @@ const Customer = () => {
                       }}
                     >
                       {trantype}
-                    </text>
+                    </p>
                   </div>
 
                   <div>
-                    <text
+                    <p
                       style={{
                         fontWeight: "bold",
                         fontSize: 24,
@@ -795,9 +795,9 @@ const Customer = () => {
                       }}
                     >
                       Translate To
-                    </text>
+                    </p>
                     <br />
-                    <text
+                    <p
                       style={{
                         fontWeight: "bold",
                         fontSize: 18,
@@ -805,7 +805,7 @@ const Customer = () => {
                       }}
                     >
                       {tranto}
-                    </text>
+                    </p>
                   </div>
                 </div>
               </div>
