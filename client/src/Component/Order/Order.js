@@ -16,6 +16,7 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { AdapterLuxon } from "@mui/x-date-pickers/AdapterLuxon";
 
 import Drawer from "../Drawer/Drawer";
+import { useLocation } from "react-router-dom";
 
 import All from "../../Images/All.png";
 import All2 from "../../Images/All2.png";
@@ -30,6 +31,7 @@ export default function Order() {
   const [type, setType] = React.useState(0);
   const [value, setValue] = React.useState(new Date());
   const [value2, setValue2] = React.useState(new Date());
+  const location = useLocation();
 
   function createData(
     orderID,
@@ -52,6 +54,63 @@ export default function Order() {
   }
   const rows = [
     createData(
+      "001",
+      "General Document",
+      `${location.state.Doc}`,
+      "Michael Lee",
+      "$25",
+      `${location.state.Day}`,
+      `${location.state.Time}`
+    ),
+    // createData(
+    //   "099",
+    //   "Official Document",
+    //   "Identification Card",
+    //   "Sam Smith",
+    //   "$42.5",
+    //   "13 June 2022",
+    //   "Succeed"
+    // ),
+    // createData(
+    //   "0100",
+    //   "Official Document",
+    //   "Identification Card",
+    //   "Sam Smith",
+    //   "$42.5",
+    //   "13 June 2022",
+    //   "05:21:35"
+    // ),
+    // createData(
+    //   "0101",
+    //   "Official Document",
+    //   "Certificate of use",
+    //   "Michael Lee",
+    //   "$31.2",
+    //   "14 June 2022",
+    //   "06:21:35"
+    // ),
+    // createData(
+    //   "0102",
+    //   "Official Document",
+    //   "Certificate of use",
+    //   "Michael Lee",
+    //   "$31.2",
+    //   "15 June 2022",
+    //   "Succeed"
+    // ),
+    // createData(
+    //   "0103",
+    //   "Official Document",
+    //   "Certificate of use",
+    //   "Michael Lee",
+    //   "$31.2",
+    //   "14 June 2022",
+    //   "Cancle"
+    // ),
+  ];
+
+  const rows1 = [
+    createData(
       "098",
       "General Document",
       "Novel",
@@ -60,83 +119,26 @@ export default function Order() {
       "05 June 2022",
       "00:21:35"
     ),
-    createData(
-      "099",
-      "Official Document",
-      "Identification Card",
-      "Sam Smith",
-      "$42.5",
-      "13 June 2022",
-      "Succeed"
-    ),
-    createData(
-      "0100",
-      "Official Document",
-      "Identification Card",
-      "Sam Smith",
-      "$42.5",
-      "13 June 2022",
-      "05:21:35"
-    ),
-    createData(
-      "0101",
-      "Official Document",
-      "Certificate of use",
-      "Michael Lee",
-      "$31.2",
-      "14 June 2022",
-      "06:21:35"
-    ),
-    createData(
-      "0102",
-      "Official Document",
-      "Certificate of use",
-      "Michael Lee",
-      "$31.2",
-      "15 June 2022",
-      "Succeed"
-    ),
-    createData(
-      "0103",
-      "Official Document",
-      "Certificate of use",
-      "Michael Lee",
-      "$31.2",
-      "14 June 2022",
-      "Cancle"
-    ),
+
+    // createData(
+    //   "0100",
+    //   "Official Document",
+    //   "Identification Card",
+    //   "Sam Smith",
+    //   "$42.5",
+    //   "13 June 2022",
+    //   "05:21:35"
+    // ),
+    // createData(
+    //   "0101",
+    //   "Official Document",
+    //   "Certificate of use",
+    //   "Michael Lee",
+    //   "$31.2",
+    //   "14 June 2022",
+    //   "06:21:35"
+    // ),
   ];
-
-  // const rows1 = [
-  //   createData(
-  //     "098",
-  //     "General Document",
-  //     "Novel",
-  //     "Michael Lee",
-  //     "$25",
-  //     "05 June 2022",
-  //     "00:21:35"
-  //   ),
-
-  //   createData(
-  //     "0100",
-  //     "Official Document",
-  //     "Identification Card",
-  //     "Sam Smith",
-  //     "$42.5",
-  //     "13 June 2022",
-  //     "05:21:35"
-  //   ),
-  //   createData(
-  //     "0101",
-  //     "Official Document",
-  //     "Certificate of use",
-  //     "Michael Lee",
-  //     "$31.2",
-  //     "14 June 2022",
-  //     "06:21:35"
-  //   ),
-  // ];
 
   // const rows2 = [
   //   createData(
@@ -350,7 +352,7 @@ export default function Order() {
                   textAlign: "left",
                   position: "absolute",
                   top: 245,
-                  width: "fit-content"
+                  width: "fit-content",
                 }}
               >
                 <TableContainer component={Paper}>
@@ -380,7 +382,7 @@ export default function Order() {
                         </TableCell>
                       </TableRow>
                     </TableHead>
-                    {/* <TableBody>
+                    <TableBody>
                       {rows1.map((row) => (
                         <TableRow
                           key={row.orderID}
@@ -417,7 +419,7 @@ export default function Order() {
                           )}
                         </TableRow>
                       ))}
-                    </TableBody> */}
+                    </TableBody>
                   </Table>
                 </TableContainer>
               </div>
@@ -528,7 +530,7 @@ export default function Order() {
                   textAlign: "left",
                   position: "absolute",
                   top: 245,
-                  width: "fit-content"
+                  width: "fit-content",
                 }}
               >
                 <TableContainer component={Paper}>
@@ -706,7 +708,7 @@ export default function Order() {
                   textAlign: "left",
                   position: "absolute",
                   top: 245,
-                  width: "fit-content"
+                  width: "fit-content",
                 }}
               >
                 <TableContainer component={Paper}>
@@ -914,7 +916,7 @@ export default function Order() {
                         </TableCell>
                       </TableRow>
                     </TableHead>
-                    {/* <TableBody>
+                    <TableBody>
                       {rows.map((row) => (
                         <TableRow
                           key={row.orderID}
@@ -951,7 +953,7 @@ export default function Order() {
                           )}
                         </TableRow>
                       ))}
-                    </TableBody> */}
+                    </TableBody>
                   </Table>
                 </TableContainer>
               </div>

@@ -12,7 +12,7 @@ import CreateNewPassword from "./Component/Login/CreateNewPassword";
 import Signup from "./Component/Sign_up/Signup";
 import Signupfreelance from "./Component/Sign_up/Signup_freelance";
 import Signupcompany from "./Component/Sign_up/Signup_company";
-import Chat from "./Component/Chat/Chat";
+import Chat from "./Component/Chat/ChatCustomer";
 import Order from "./Component/Order/Order";
 import Notification from "./Component/Notification/Notificaion";
 import Matching from "./Component//Matching/Matching";

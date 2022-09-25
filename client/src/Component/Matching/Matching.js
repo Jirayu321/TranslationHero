@@ -22,8 +22,13 @@ import {
   Typography,
 } from "@mui/material";
 import { data } from "../Data/data";
+import { useNavigate,useLocation } from "react-router-dom";
+import moment from"moment"
+
 
 const Matching = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
   const [languages, setLanguages] = React.useState("");
   const [languages2, setLanguages2] = React.useState("");
   const [page, setPage] = React.useState("Text");
@@ -32,6 +37,13 @@ const Matching = () => {
   const [images, setImages] = React.useState([]);
   const [imageURLs, setImageURLs] = React.useState([]);
   const [open, setOpen] = React.useState(false);
+
+
+const Doc = location.state.name
+// const Type = location.state.type
+const Time = moment(new Date()).format("h:mm:ss") 
+const Day = moment(new Date()).format("DD MMM YYYY") 
+
 
   const handleChange = (event) => {
     setTextarea(event.target.value);
@@ -69,7 +81,7 @@ const Matching = () => {
         <Drawer />
         {findA_Translator === "Translate" ? (
           <>
-            <dinv style={{ marginTop: 60, height: 100 }}>
+            <div style={{ marginTop: 60, height: 100 }}>
               <h4
                 style={{
                   fontWeight: 500,
@@ -82,7 +94,7 @@ const Matching = () => {
               >
                 Translate
               </h4>
-            </dinv>
+            </div>
             <div className="bodyMatching">
               <div style={{ margin: 30 }}>
                 <p
@@ -93,7 +105,7 @@ const Matching = () => {
                     fontSize: 24,
                   }}
                 >
-                  Article
+                  {location.state.name}
                 </p>
 
                 {page === "Text" ? (
@@ -429,7 +441,7 @@ const Matching = () => {
                     fontSize: 24,
                   }}
                 >
-                  Article
+                  {location.state.name}
                 </p>
                 <p
                   style={{
@@ -443,20 +455,50 @@ const Matching = () => {
                 >
                   language :
                 </p>
+                {languages === "English" ? (
+                  <p
+                    style={{
+                      textAlign: "start",
+                      color: "#353535",
+                      fontWeight: 600,
+                      fontSize: 17,
+                      marginTop: 10,
+                      float: "left",
+                      marginLeft: 25,
+                    }}
+                  >
+                    EN
+                  </p>
+                ) : languages === "German" ? (
+                  <p
+                    style={{
+                      textAlign: "start",
+                      color: "#353535",
+                      fontWeight: 600,
+                      fontSize: 17,
+                      marginTop: 10,
+                      float: "left",
+                      marginLeft: 25,
+                    }}
+                  >
+                    DE
+                  </p>
+                ) : languages === "Thai" ? (
+                  <p
+                    style={{
+                      textAlign: "start",
+                      color: "#353535",
+                      fontWeight: 600,
+                      fontSize: 17,
+                      marginTop: 10,
+                      float: "left",
+                      marginLeft: 25,
+                    }}
+                  >
+                    TH
+                  </p>
+                ) : null}
 
-                <p
-                  style={{
-                    textAlign: "start",
-                    color: "#353535",
-                    fontWeight: 600,
-                    fontSize: 17,
-                    marginTop: 10,
-                    float: "left",
-                    marginLeft: 25,
-                  }}
-                >
-                  EN
-                </p>
                 <p
                   style={{
                     float: "left",
@@ -476,18 +518,45 @@ const Matching = () => {
 
                   <FaLongArrowAltLeft style={{ position: "relative" }} />
                 </p>
-                <p
-                  style={{
-                    textAlign: "start",
-                    color: "#353535",
-                    fontWeight: 600,
-                    fontSize: 17,
-                    marginTop: 10,
-                  }}
-                >
-                  TH
-                </p>
-                <div style={{ width: "7%", float: "left" }}>
+
+                {languages2 === "English" ? (
+                  <p
+                    style={{
+                      textAlign: "start",
+                      color: "#353535",
+                      fontWeight: 600,
+                      fontSize: 17,
+                      marginTop: 10,
+                    }}
+                  >
+                    EN
+                  </p>
+                ) : languages2 === "German" ? (
+                  <p
+                    style={{
+                      textAlign: "start",
+                      color: "#353535",
+                      fontWeight: 600,
+                      fontSize: 17,
+                      marginTop: 10,
+                    }}
+                  >
+                    DE
+                  </p>
+                ) : languages2 === "Thai" ? (
+                  <p
+                    style={{
+                      textAlign: "start",
+                      color: "#353535",
+                      fontWeight: 600,
+                      fontSize: 17,
+                      marginTop: 10,
+                    }}
+                  >
+                    TH
+                  </p>
+                ) : null}
+                <div style={{ width: "7%", float: "left", marginRight: 20 }}>
                   <p
                     style={{
                       textAlign: "end",
@@ -506,13 +575,10 @@ const Matching = () => {
                     fontWeight: 600,
                     fontSize: 17,
                     marginTop: 10,
+                    textAlign: "start",
                   }}
                 >
-                  Are you a woman who is struggling with your weight? If you
-                  are, you are definitely not alone.Today, many women are faced
-                  with many issues, including weight. If you are unhappy with
-                  your current weight, you may be interested in changing it,
-                  but, for many, that is often easier said than done.{" "}
+                  {textarea}
                 </p>
               </div>
             </div>
@@ -578,7 +644,9 @@ const Matching = () => {
                         borderRadius: 20,
                         marginTop: 20,
                       }}
-                      onClick={() => handleOpen()}
+                      // onClick={() => handleOpen()}
+                      onClick={()=> navigate("/Order",{state:{Doc:Doc,Time:Time,Day:Day}})}
+
                     >
                       Deal
                     </button>
@@ -603,7 +671,7 @@ const Matching = () => {
                   border: "2px solid #000",
                   boxShadow: 24,
                   p: 4,
-                  textAlign:"center"
+                  textAlign: "center",
                 }}
               >
                 <Typography id="modal-modal-title" variant="h6" component="h2">

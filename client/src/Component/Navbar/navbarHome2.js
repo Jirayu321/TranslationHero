@@ -3,7 +3,7 @@ import logo from "../../logo.svg";
 import { Navbar, Container, Form, Nav } from "react-bootstrap";
 import "./Navbar.css";
 import { FaLanguage, FaMapMarkerAlt ,FaUserCircle} from "react-icons/fa";
-import { Avatar } from "@mui/material";
+// import { Avatar } from "@mui/material";
 
 const navbarHome2 = () => {
   return (

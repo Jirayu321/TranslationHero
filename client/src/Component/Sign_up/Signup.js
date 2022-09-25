@@ -8,6 +8,7 @@ import { AiFillCheckCircle } from "react-icons/ai";
 import { MdCameraAlt, MdArrowDropDown } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
 import { data, data5 } from "../Data/data";
+import emailjs from "@emailjs/browser";
 
 import Login1 from "../../Images/Sign_up.png";
 
@@ -65,6 +66,7 @@ const Signup = () => {
   const [imageURLs, setImageURLs] = React.useState([]);
   const [languages, setLanguages] = React.useState("");
   // const [answerLanguages, setAnswerLanguages] = React.useState("");
+  const Form = React.useRef();
 
   React.useEffect(() => {
     if (images.length < 1) return;
@@ -85,6 +87,31 @@ const Signup = () => {
     setOpen(false);
     setChecked(false);
     setOpen2(true);
+  };
+
+  const send_Mail = (e) => {
+    e.preventDefault();
+    var templateParams = {
+      user_email: `${email}`,
+    };
+    emailjs
+      .send(
+        "service_u5757dr",
+        "template_dueh1d9",
+        templateParams,
+        "Npnv-PIsN0-rxduac"
+      )
+      .then(
+        (result) => {
+          console.log(result.text);
+        },
+        (error) => {
+          console.log(error.text);
+        }
+      );
+    // e.target.reset();
+    handleClose();
+    navigate("/Login");
   };
 
   const handleClose2 = () => setOpen2(false);
@@ -165,7 +192,6 @@ const Signup = () => {
             background: "#FFF3CC",
           }}
         >
-          
           {screen === "" ? (
             <div>
               <div
@@ -295,7 +321,8 @@ const Signup = () => {
                   </p>
                   <input
                     type="text"
-                    value={email}
+                    name="user_email"
+                    // value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Example@mail.com"
                     style={{
@@ -496,6 +523,7 @@ const Signup = () => {
                 </div>
 
                 <h2 className="textSignup">Sign up</h2>
+
                 <div>
                   <FormControl style={{ display: "inherit" }}>
                     <RadioGroup
@@ -564,12 +592,13 @@ const Signup = () => {
                   </p>
                   <input
                     type="text"
-                    value={email}
+                    name="user_email"
+                    // value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Example@mail.com"
                     style={{
                       background: "#FFFFFF",
-                      border: "1px solid #F1F1F1 ",
+                      border: "1px solid #F1F1F1",
                       borderRadius: 20,
                       width: "100%",
                       height: 30,
@@ -591,6 +620,7 @@ const Signup = () => {
                   >
                     Password
                   </p>
+
                   <input
                     type={type}
                     value={password}
@@ -666,6 +696,7 @@ const Signup = () => {
                   >
                     Mobile phone
                   </p>
+
                   <input
                     type="text"
                     value={mobilephone}
@@ -1257,9 +1288,10 @@ const Signup = () => {
                   }}
                   onClick={handleOpen}
                 >
-                  Next
+                  Sign up
                 </button>
               </div>
+
               <Modal
                 keepMounted
                 open={open}
@@ -1347,7 +1379,6 @@ const Signup = () => {
                           left: "35%",
                         }}
                         disabled
-                        onClick={handleOpen}
                       >
                         Submit
                       </button>
@@ -1364,7 +1395,7 @@ const Signup = () => {
                           position: "relative",
                           left: "35%",
                         }}
-                        onClick={handleClose}
+                        onClick={send_Mail}
                       >
                         Submit
                       </button>
@@ -3334,7 +3365,7 @@ const Signup = () => {
                       </Box>
                     )}
                     renderInput={(params) => (
-                      <pField
+                      <TextField
                         {...params}
                         label="Select"
                         inputProps={{

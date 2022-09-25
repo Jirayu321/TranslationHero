@@ -38,7 +38,12 @@ import { RiUserSearchFill } from "react-icons/ri";
 import Drawer from "../Drawer/Drawer";
 // import { fontSize } from "@mui/system";
 
+
+import {  useNavigate } from "react-router-dom";
+
 export default function Home2() {
+  const navigate = useNavigate();
+
   //   const [value, setValue] = React.useState(4);
   const [type, setType] = React.useState(1);
   const { innerWidth: width } = window;
@@ -214,7 +219,7 @@ export default function Home2() {
                   maxWidth: "90%",
                 }}
               >
-                <div
+                <button
                   style={{
                     background: "#FBFBFB",
                     width: 180,
@@ -225,7 +230,9 @@ export default function Home2() {
                     fontSize: 15,
                     fontWeight: 500,
                     marginRight: 30,
+                    border:"none"
                   }}
+                  onClick={()=> navigate("/Matching",{state:{id:1,name:'Article'}})}
                 >
                   <div
                     style={{
@@ -247,9 +254,9 @@ export default function Home2() {
                     />
                   </div>
                   <p>Article</p>
-                </div>
+                </button>
 
-                <div
+                <button
                   style={{
                     background: "#FBFBFB",
                     width: 180,
@@ -260,7 +267,9 @@ export default function Home2() {
                     fontSize: 15,
                     fontWeight: 500,
                     marginRight: 30,
+                    border:"none"
                   }}
+                  onClick={()=> navigate("/Matching",{state:{id:1,name:'Novel'}})}
                 >
                   <div
                     style={{
@@ -282,9 +291,9 @@ export default function Home2() {
                     />
                   </div>
                   <p>Novel</p>
-                </div>
+                </button>
 
-                <div
+                <button
                   style={{
                     background: "#FBFBFB",
                     width: 180,
@@ -295,7 +304,10 @@ export default function Home2() {
                     fontSize: 15,
                     fontWeight: 500,
                     marginRight: 30,
+                    border:"none"
                   }}
+                  onClick={()=> navigate("/Matching",{state:{id:1,name:'Submovie'}})}
+
                 >
                   <div
                     style={{
@@ -317,9 +329,9 @@ export default function Home2() {
                     />
                   </div>
                   <p>Submovie</p>
-                </div>
+                </button>
 
-                <div
+                <button
                   style={{
                     background: "#FBFBFB",
                     width: 180,
@@ -330,7 +342,10 @@ export default function Home2() {
                     fontSize: 20,
                     fontWeight: 500,
                     marginRight: 30,
+                    border:"none"
                   }}
+                  onClick={()=> navigate("/Matching",{state:{id:1,name:'Treatise'}})}
+
                 >
                   <div
                     style={{
@@ -352,9 +367,9 @@ export default function Home2() {
                     />
                   </div>
                   <p>Treatise</p>
-                </div>
+                </button>
 
-                <div
+                <button
                   style={{
                     background: "#FBFBFB",
                     width: 180,
@@ -365,7 +380,10 @@ export default function Home2() {
                     fontSize: 20,
                     fontWeight: 500,
                     marginRight: 30,
+                    border:"none"
                   }}
+                  onClick={()=> navigate("/Matching",{state:{id:1,name:'Essay'}})}
+
                 >
                   <div
                     style={{
@@ -387,7 +405,7 @@ export default function Home2() {
                     />
                   </div>
                   <p>Essay</p>
-                </div>
+                </button>
 
                 <div
                   style={{
