@@ -4,12 +4,12 @@ import {
   Paper,
   IconButton,
   InputBase,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
+  // Table,
+  // TableBody,
+  // TableCell,
+  // TableContainer,
+  // TableHead,
+  // TableRow,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 
@@ -26,16 +26,17 @@ import IdentificationCard from "../../Images/IdentificationCard.png";
 import MarriageCertificate from "../../Images/MarriageCertificate.png";
 import DivorceCertificate from "../../Images/DivorceCertificate.png";
 import DivorceRegistration from "../../Images/DivorceRegistration.png";
+import{HomeEN,HomeDE,HomeTH} from ".././Data/DataLanguage"
 
-import Avatar7 from "../../Images/Avatar7.png";
-import Avatar8 from "../../Images/Avatar8.png";
-import Avatar9 from "../../Images/Avatar9.png";
-import Avatar10 from "../../Images/Avatar10.png";
-import Avatar11 from "../../Images/Avatar11.png";
+// import Avatar7 from "../../Images/Avatar7.png";
+// import Avatar8 from "../../Images/Avatar8.png";
+// import Avatar9 from "../../Images/Avatar9.png";
+// import Avatar10 from "../../Images/Avatar10.png";
+// import Avatar11 from "../../Images/Avatar11.png";
 
 import { IoDocumentText, IoIdCardSharp } from "react-icons/io5";
 import { RiUserSearchFill } from "react-icons/ri";
-import Drawer from "../Drawer/Drawer";
+import Drawer from "../Drawer/DrawerCustomer";
 // import { fontSize } from "@mui/system";
 
 
@@ -124,7 +125,7 @@ export default function Home2() {
               alignItems: "center",
               width: 330,
               position: "absolute",
-              left: "70%",
+              left: "75%",
               top: "13%",
               borderRadius: 20,
               backgroundColor: "#FBFBFB",
@@ -452,7 +453,7 @@ export default function Home2() {
                   width: "100%",
                 }}
               >
-                <p
+                {/* <p
                   style={{
                     textAlign: "center",
                     color: "#034D82",
@@ -461,8 +462,8 @@ export default function Home2() {
                   }}
                 >
                   Your Order
-                </p>
-                <TableContainer component={Paper}>
+                </p> */}
+                {/* <TableContainer component={Paper}>
                   <Table sx={{ minWidth: 1090 }}>
                     <TableHead style={{ background: "#263238" }}>
                       <TableRow>
@@ -512,9 +513,9 @@ export default function Home2() {
                       ))}
                     </TableBody>
                   </Table>
-                </TableContainer>
+                </TableContainer> */}
 
-                <p
+                {/* <p
                   style={{
                     textAlign: "center",
                     color: "#034D82",
@@ -525,8 +526,8 @@ export default function Home2() {
                   }}
                 >
                   Top 5 Translators
-                </p>
-                <div style={{ width: " max-content" }}>
+                </p> */}
+                {/* <div style={{ width: " max-content" }}>
                   <div
                     style={{
                       textAlign: "center",
@@ -754,7 +755,7 @@ export default function Home2() {
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> */}
               </div>
             </>
           ) : type === 2 ? (
@@ -1198,7 +1199,7 @@ export default function Home2() {
                   width: "100%",
                 }}
               >
-                <p
+                {/* <p
                   style={{
                     textAlign: "center",
                     color: "#034D82",
@@ -1207,8 +1208,8 @@ export default function Home2() {
                   }}
                 >
                   Your Order
-                </p>
-                <TableContainer component={Paper}>
+                </p> */}
+                {/* <TableContainer component={Paper}>
                   <Table sx={{ minWidth: 1090 }}>
                     <TableHead style={{ background: "#263238" }}>
                       <TableRow>
@@ -1258,9 +1259,9 @@ export default function Home2() {
                       ))}
                     </TableBody>
                   </Table>
-                </TableContainer>
+                </TableContainer> */}
 
-                <p
+                {/* <p
                   style={{
                     textAlign: "center",
                     color: "#034D82",
@@ -1271,8 +1272,8 @@ export default function Home2() {
                   }}
                 >
                   Top 5 Translators
-                </p>
-                <div style={{ width: " max-content" }}>
+                </p> */}
+                {/* <div style={{ width: " max-content" }}>
                   <div
                     style={{
                       textAlign: "center",
@@ -1500,7 +1501,7 @@ export default function Home2() {
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> */}
               </div>
             </>
           ) : type === 3 ? (
@@ -1573,7 +1574,7 @@ export default function Home2() {
                   width: "100%",
                 }}
               >
-                <p
+                {/* <p
                   style={{
                     textAlign: "center",
                     color: "#034D82",
@@ -1582,8 +1583,8 @@ export default function Home2() {
                   }}
                 >
                   Your Order
-                </p>
-                <TableContainer component={Paper}>
+                </p> */}
+                {/* <TableContainer component={Paper}>
                   <Table sx={{ minWidth: 1090 }}>
                     <TableHead style={{ background: "#263238" }}>
                       <TableRow>
@@ -1633,9 +1634,9 @@ export default function Home2() {
                       ))}
                     </TableBody>
                   </Table>
-                </TableContainer>
+                </TableContainer> */}
 
-                <p
+                {/* <p
                   style={{
                     textAlign: "center",
                     color: "#034D82",
@@ -1646,8 +1647,8 @@ export default function Home2() {
                   }}
                 >
                   Top 5 Translators
-                </p>
-                <div style={{ width: " max-content" }}>
+                </p> */}
+                {/* <div style={{ width: " max-content" }}>
                   <div
                     style={{
                       textAlign: "center",
@@ -1875,7 +1876,7 @@ export default function Home2() {
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> */}
               </div>
             </>
           ) : null}

@@ -15,7 +15,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { AdapterLuxon } from "@mui/x-date-pickers/AdapterLuxon";
 
-import Drawer from "../Drawer/Drawer";
+import Drawer from "../Drawer/DrawerCustomer";
 import { useLocation } from "react-router-dom";
 
 import All from "../../Images/All.png";

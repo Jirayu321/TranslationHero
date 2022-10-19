@@ -16,7 +16,7 @@
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
-  width: 84px;
+  /* width: 100px; */
   height: 40px;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   font-size: 1.25rem;
@@ -82,11 +82,23 @@
 #navbardb2 {
   background: #fffdf7;
 }
+#navbarTranslater {
+  background: #F6FBFE;
+}
 
 .box4navbarHome2 {
   width: 70px;
   height: 38px;
   background: #fffdf7;
+  box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 3px;
+  padding: 10px;
+  margin-left: 10px;
+}
+.boxTranslate {
+  width: 70px;
+  height: 38px;
+  background: #F6FBFE;
   box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.1);
   border-radius: 3px;
   padding: 10px;

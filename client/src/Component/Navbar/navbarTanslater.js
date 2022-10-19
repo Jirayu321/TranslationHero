@@ -3,11 +3,11 @@ import logo from "../../logo.svg";
 import { Navbar, Container, Form, Nav } from "react-bootstrap";
 import "./Navbar.css";
 import { FaLanguage, FaMapMarkerAlt ,FaUserCircle} from "react-icons/fa";
-import { Avatar } from "@mui/material";
+// import { Avatar } from "@mui/material";
 
 const navbarTanslater = () => {
   return (
-    <Navbar expand="lg" id="navbardb2">
+    <Navbar expand="lg" id="navbarTranslater">
       <Container fluid>
         <Navbar.Brand href="/In">
           <img src={logo} alt="Logo" />
@@ -21,7 +21,7 @@ const navbarTanslater = () => {
           ></Nav>
 
           <Form className="d-flex">
-            <div className="box4navbarHome2">
+            <div className="boxTranslate">
               <FaLanguage
                 size="20px"
                 color="#808080"
@@ -39,7 +39,7 @@ const navbarTanslater = () => {
               </p>
             </div>
 
-            <div className="box4navbarHome2">
+            <div className="boxTranslate">
               <FaMapMarkerAlt
                 size="20px"
                 color="#808080"

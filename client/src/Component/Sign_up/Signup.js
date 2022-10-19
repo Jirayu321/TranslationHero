@@ -1,16 +1,69 @@
 import * as React from "react";
 import logo from "../../logo.svg";
-import Navbars from "../Navbar/navbarSignup";
+import Navbars from "../Navbar/navbarLogin";
 // import { FaUserAlt, FaAddressCard } from "react-icons/fa";
 import { BsArrowRightShort, BsArrowLeftShort } from "react-icons/bs";
 import { FiEyeOff, FiEye, FiImage } from "react-icons/fi";
 import { AiFillCheckCircle } from "react-icons/ai";
 import { MdCameraAlt, MdArrowDropDown } from "react-icons/md";
-import { Link, useNavigate } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import { data, data5 } from "../Data/data";
 import emailjs from "@emailjs/browser";
 
 import Login1 from "../../Images/Sign_up.png";
+
+import {
+  REGI01_box1EN,
+  REGI01_box1DE,
+  REGI01_box1TH,
+  REGI01_box2EN,
+  REGI01_box2DE,
+  REGI01_box2TH,
+  REGI01_box3EN,
+  REGI01_box3DE,
+  REGI01_box3TH,
+  REGI01_box4EN,
+  REGI01_box4DE,
+  REGI01_box4TH,
+  REGI01_box5EN,
+  REGI01_box5DE,
+  REGI01_box5TH,
+  // RegisterTranslator
+  REGI02_Box1v02EN,
+  REGI02_Box1v02DE,
+  REGI02_Box1v02TH,
+  REGI02_Box2v02EN,
+  REGI02_Box2v02DE,
+  REGI02_Box2v02TH,
+  REGI02_Box4v01EN,
+  REGI02_Box4v01DE,
+  REGI02_Box4v01TH,
+  REGI02_Box3v02EN,
+  REGI02_Box3v02DE,
+  REGI02_Box3v02TH,
+  REGI02_Box5v02EN,
+  REGI02_Box5v02DE,
+  REGI02_Box5v02TH,
+  REGI02_box5EN,
+  REGI02_box5DE,
+  REGI02_box5TH,
+  // Freelance
+  REGI02_Box1v01EN,
+  REGI02_Box1v01DE,
+  REGI02_Box1v01TH,
+  REGI02_Box2v01EN,
+  REGI02_Box2v01DE,
+  REGI02_Box2v01TH,
+  REGI02_Box3v01EN,
+  REGI02_Box3v01DE,
+  REGI02_Box3v01TH,
+  REGI02_Box5v01EN,
+  REGI02_Box5v01DE,
+  REGI02_Box5v01TH,
+  REGI02_Box6EN,
+  REGI02_Box6DE,
+  REGI02_Box6TH,
+} from "../Data/DataLanguage";
 
 import {
   IconButton,
@@ -27,8 +80,21 @@ import {
   TextField,
 } from "@mui/material";
 
+import { useNavigate, useLocation } from "react-router-dom";
+import example12 from "../../Images/watermark.png";
+import example14 from "../../Images/CompanyCertificate.jpeg";
+import examplefreelance from "../../Images/IDcard.jpeg";
+import example11 from "../../Images/CV.jpeg";
+import example9 from "../../Images/Education.jpeg";
+
 const Signup = () => {
   const { innerWidth: width } = window;
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  let Doc = location?.state?.languages;
+  console.log(Doc);
+
   const [file2, setFile2] = React.useState("");
   const [file3, setFile3] = React.useState("");
   const [firstname, setFirstname] = React.useState("");
@@ -66,7 +132,7 @@ const Signup = () => {
   const [imageURLs, setImageURLs] = React.useState([]);
   const [languages, setLanguages] = React.useState("");
   // const [answerLanguages, setAnswerLanguages] = React.useState("");
-  const Form = React.useRef();
+  // const Form = React.useRef();
 
   React.useEffect(() => {
     if (images.length < 1) return;
@@ -79,14 +145,19 @@ const Signup = () => {
     setImages([...e.target.files]);
   }
 
-  const navigate = useNavigate();
-
   const handleOpen = () => setOpen(true);
+  const [openModal12, setOpenModal12] = React.useState(false);
 
   const handleClose = () => {
-    setOpen(false);
-    setChecked(false);
-    setOpen2(true);
+    if (checked !== false) {
+      console.log("ไง");
+      setOpen(false);
+      setOpen2(true);
+      setChecked(false);
+    }
+    setTimeout(() => {
+      navigate("/Login", { state: { languages: `${Doc}` } });
+    }, 900);
   };
 
   const send_Mail = (e) => {
@@ -111,7 +182,6 @@ const Signup = () => {
       );
     // e.target.reset();
     handleClose();
-    navigate("/Login");
   };
 
   const handleClose2 = () => setOpen2(false);
@@ -125,7 +195,7 @@ const Signup = () => {
 
   const handleClose5 = () => {
     setOpen4(false);
-    navigate("/Login");
+    navigate("/Login", { state: { languages: `${Doc}` } });
   };
 
   const handleClickShowPassword = (i) => {
@@ -158,13 +228,38 @@ const Signup = () => {
     setChecked2(event.target.checked);
   };
 
+  const goHome = (x) => {
+    navigate("/", { state: { languages: `${x}` } });
+  };
+
+  const goLogin = (x) => {
+    navigate("/Login", { state: { languages: `${x}` } });
+  };
+
+  const example = (x) => {
+    if (x === 12) {
+      setOpenModal12(true);
+    }
+  };
+
+  const handleClose12 = () => {
+    setOpenModal12(false);
+  };
   return (
     <>
       <header
         className="App-header"
         style={{ color: "transparent", position: "absolute" }}
       >
-        <Navbars />
+        {Doc === undefined ? (
+          <Navbars navigate={navigate} languages="English" />
+        ) : Doc === "Thai" ? (
+          <Navbars navigate={navigate} languages="Thai" />
+        ) : Doc === "German" ? (
+          <Navbars navigate={navigate} languages="German" />
+        ) : (
+          <Navbars navigate={navigate} languages="English" />
+        )}
       </header>
 
       <div>
@@ -179,7 +274,12 @@ const Signup = () => {
           <img
             src={Login1}
             alt="resgister"
-            style={{ width: 460, position: "absolute", top: " 10%", left: 100 }}
+            style={{
+              width: 460,
+              position: "absolute",
+              top: " 10%",
+              left: 100,
+            }}
           />
         </div>
 
@@ -193,3933 +293,16196 @@ const Signup = () => {
           }}
         >
           {screen === "" ? (
-            <div>
-              <div
-                style={{
-                  position: "fixed",
-                  top: 20,
-                  left: width * 0.59,
-                  textAlign: "-webkit-center",
-                  width: 500,
-                  background: " #FFFFFF",
-                  boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
-                  borderRadius: 20,
-                  padding: 30,
-                }}
-              >
-                <div
-                  style={{
-                    fontWeight: 400,
-                    fontSize: 18,
-                    textDecorationLine: "none",
-                    color: "#D9D9D9",
-                    textAlign: "left",
-                    marginBottom: 20,
-                    float: "left",
-                  }}
-                >
-                  <BsArrowLeftShort />
-                  <Link
-                    to="/"
-                    style={{
-                      color: "#D9D9D9",
-                      fontSize: 18,
-                      textDecorationLine: "none",
-                    }}
-                  >
-                    Home
-                  </Link>
-                </div>
-                <div
-                  style={{
-                    fontWeight: 400,
-                    textAlign: "right",
-                    marginBottom: 20,
-                    float: "right",
-                    color: "#D9D9D9",
-                  }}
-                >
-                  <Link
-                    to="/Login"
-                    style={{
-                      color: "#D9D9D9",
-                      fontSize: 18,
-                      textDecorationLine: "none",
-                    }}
-                  >
-                    Login
-                  </Link>
-                  <BsArrowRightShort />
-                </div>
-
-                <h2 className="textSignup">Sign up</h2>
+            <>
+              {Doc === "English" ? (
                 <div>
-                  <FormControl style={{ display: "inherit" }}>
-                    <RadioGroup
-                      row
-                      aria-labelledby="demo-row-radio-buttons-group-label"
-                      name="row-radio-buttons-group"
+                  <div
+                    style={{
+                      position: "fixed",
+                      top: 20,
+                      left: width * 0.59,
+                      textAlign: "-webkit-center",
+                      width: 500,
+                      background: " #FFFFFF",
+                      boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
+                      borderRadius: 20,
+                      padding: 30,
+                    }}
+                  >
+                    <button
+                      style={{
+                        fontWeight: 400,
+                        fontSize: 18,
+                        textDecorationLine: "none",
+                        textAlign: "left",
+                        marginBottom: 20,
+                        float: "left",
+                        background: "transparent",
+                        border: "none",
+                      }}
+                      onClick={() => goHome(Doc)}
                     >
-                      <FormControlLabel
-                        checked={true}
-                        onChange={handleChange}
-                        name="radio-buttons"
-                        value=""
-                        control={<Radio />}
-                        label="For Customers"
-                        style={{ marginRight: 50 }}
+                      <p id={"Hometext"}>{REGI01_box1EN[0].label}</p>
+                      <BsArrowLeftShort id={"Hometext2"} />
+                    </button>
+
+                    <button
+                      style={{
+                        fontWeight: 400,
+                        textAlign: "right",
+                        marginBottom: 20,
+                        float: "right",
+                        color: "#D9D9D9",
+                        background: "transparent",
+                        border: "none",
+                      }}
+                      onClick={() => goLogin(Doc)}
+                    >
+                      <p id={"Signuptext"}>{REGI01_box1EN[1].label}</p>
+                      <BsArrowRightShort id={"Signuptext2"} />
+                    </button>
+
+                    <h2 className="textSignup">{REGI01_box1EN[2].label}</h2>
+                    <div>
+                      <FormControl style={{ display: "inherit" }}>
+                        <RadioGroup
+                          row
+                          aria-labelledby="demo-row-radio-buttons-group-label"
+                          name="row-radio-buttons-group"
+                        >
+                          <FormControlLabel
+                            checked={true}
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value=""
+                            control={<Radio />}
+                            label={REGI01_box1EN[3].label}
+                            style={{ marginRight: 50 }}
+                          />
+                          <FormControlLabel
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value="For Translators"
+                            control={<Radio />}
+                            label={REGI01_box1EN[4].label}
+                          />
+                        </RadioGroup>
+                      </FormControl>
+                    </div>
+
+                    <div style={{ textAlign: "left", marginTop: 10 }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI01_box1EN[5].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={firstname}
+                        onChange={(e) => setFirstname(e.target.value)}
+                        placeholder={REGI01_box1EN[5].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
                       />
-                      <FormControlLabel
-                        onChange={handleChange}
-                        name="radio-buttons"
-                        value="For Translators"
-                        control={<Radio />}
-                        label="For Translators"
+                    </div>
+
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI01_box1EN[6].label}
+                      </p>
+                      <input
+                        type="text"
+                        name="user_email"
+                        // value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder={REGI01_box1EN[7].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1",
+                          borderRadius: 20,
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
                       />
-                    </RadioGroup>
-                  </FormControl>
-                </div>
+                    </div>
 
-                <div style={{ textAlign: "left", marginTop: 10 }}>
-                  <p
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI01_box1EN[8].label}
+                      </p>
+
+                      <input
+                        type={type}
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        placeholder={REGI01_box1EN[9].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          borderColor: "#F1F1F1",
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                      <IconButton
+                        onClick={() => handleClickShowPassword(1)}
+                        edge="end"
+                        style={{ position: "absolute", right: 40, top: 380 }}
+                      >
+                        {values ? <FiEye /> : <FiEyeOff />}
+                      </IconButton>
+                    </div>
+
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI01_box1EN[10].label}
+                      </p>
+
+                      <input
+                        type={type2}
+                        value={confirmpassword}
+                        onChange={(e) => setConfirmpassword(e.target.value)}
+                        placeholder={REGI01_box1EN[9].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          borderColor: "#F1F1F1",
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                      <IconButton
+                        onClick={() => handleClickShowPassword(2)}
+                        edge="end"
+                        style={{ position: "absolute", right: 40, top: 465 }}
+                      >
+                        {values2 ? <FiEye /> : <FiEyeOff />}
+                      </IconButton>
+                    </div>
+
+                    <div style={{ textAlign: "left", marginBottom: 10 }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI01_box1EN[11].label}
+                      </p>
+
+                      <input
+                        type="text"
+                        value={mobilephone}
+                        onChange={(e) => setMobilephone(e.target.value)}
+                        placeholder={REGI01_box1EN[11].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          borderColor: "#F1F1F1",
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <button
+                      style={{
+                        width: "100%",
+                        borderRadius: 20,
+                        background: " #001E33",
+                        height: 40,
+                        color: "#FFFFFF",
+                        fontSize: 18,
+                        borderColor: "transparent",
+                      }}
+                      onClick={() => setScreen("3")}
+                    >
+                      {REGI01_box1EN[12].label}
+                    </button>
+                  </div>
+                </div>
+              ) : Doc === "Thai" ? (
+                <div>
+                  <div
                     style={{
-                      fontWeight: 500,
-                      fontSize: 15,
-                      color: "#242424",
-                    }}
-                  >
-                    Name
-                  </p>
-                  <input
-                    type="text"
-                    value={firstname}
-                    onChange={(e) => setFirstname(e.target.value)}
-                    placeholder="Name"
-                    style={{
-                      background: "#FFFFFF",
-                      border: "1px solid #F1F1F1 ",
+                      position: "fixed",
+                      top: 20,
+                      left: width * 0.59,
+                      textAlign: "-webkit-center",
+                      width: 500,
+                      background: " #FFFFFF",
+                      boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
                       borderRadius: 20,
-                      width: "100%",
-                      height: 30,
-                      padding: 20,
-                      paddingLeft: 12,
-                      margin: 10,
-                      fontSize: 13,
-                    }}
-                  />
-                </div>
-
-                <div style={{ textAlign: "left" }}>
-                  <p
-                    style={{
-                      fontWeight: 500,
-                      fontSize: 15,
-                      color: "#242424",
+                      padding: 30,
                     }}
                   >
-                    E-mail
-                  </p>
-                  <input
-                    type="text"
-                    name="user_email"
-                    // value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Example@mail.com"
+                    <div
+                      style={{
+                        fontWeight: 400,
+                        fontSize: 18,
+                        textDecorationLine: "none",
+                        textAlign: "left",
+                        marginBottom: 20,
+                        float: "left",
+                        background: "transparent",
+                        border: "none",
+                      }}
+                      onClick={() => goHome(Doc)}
+                    >
+                      <p id={"Hometext"}>{REGI01_box1TH[0].label}</p>
+                      <BsArrowLeftShort id={"Hometext2"} />
+                    </div>
+
+                    <button
+                      style={{
+                        fontWeight: 400,
+                        textAlign: "right",
+                        marginBottom: 20,
+                        float: "right",
+                        color: "#D9D9D9",
+                        background: "transparent",
+                        border: "none",
+                      }}
+                      onClick={() => goLogin(Doc)}
+                    >
+                      <p id={"Signuptext"}>{REGI01_box1TH[1].label}</p>
+                      <BsArrowRightShort id={"Signuptext2"} />
+                    </button>
+
+                    <h2 className="textSignup">{REGI01_box1TH[2].label}</h2>
+                    <div>
+                      <FormControl style={{ display: "inherit" }}>
+                        <RadioGroup
+                          row
+                          aria-labelledby="demo-row-radio-buttons-group-label"
+                          name="row-radio-buttons-group"
+                        >
+                          <FormControlLabel
+                            checked={true}
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value=""
+                            control={<Radio />}
+                            label={REGI01_box1TH[3].label}
+                            style={{ marginRight: 50 }}
+                          />
+                          <FormControlLabel
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value="For Translators"
+                            control={<Radio />}
+                            label={REGI01_box1TH[4].label}
+                          />
+                        </RadioGroup>
+                      </FormControl>
+                    </div>
+
+                    <div style={{ textAlign: "left", marginTop: 10 }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI01_box1TH[5].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={firstname}
+                        onChange={(e) => setFirstname(e.target.value)}
+                        placeholder={REGI01_box1TH[5].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI01_box1TH[6].label}
+                      </p>
+                      <input
+                        type="text"
+                        name="user_email"
+                        // value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder={REGI01_box1TH[7].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1",
+                          borderRadius: 20,
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI01_box1TH[8].label}
+                      </p>
+
+                      <input
+                        type={type}
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        placeholder={REGI01_box1TH[9].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          borderColor: "#F1F1F1",
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                      <IconButton
+                        onClick={() => handleClickShowPassword(1)}
+                        edge="end"
+                        style={{ position: "absolute", right: 40, top: 380 }}
+                      >
+                        {values ? <FiEye /> : <FiEyeOff />}
+                      </IconButton>
+                    </div>
+
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI01_box1TH[10].label}
+                      </p>
+
+                      <input
+                        type={type2}
+                        value={confirmpassword}
+                        onChange={(e) => setConfirmpassword(e.target.value)}
+                        placeholder={REGI01_box1TH[9].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          borderColor: "#F1F1F1",
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                      <IconButton
+                        onClick={() => handleClickShowPassword(2)}
+                        edge="end"
+                        style={{ position: "absolute", right: 40, top: 465 }}
+                      >
+                        {values2 ? <FiEye /> : <FiEyeOff />}
+                      </IconButton>
+                    </div>
+
+                    <div style={{ textAlign: "left", marginBottom: 10 }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI01_box1TH[11].label}
+                      </p>
+
+                      <input
+                        type="text"
+                        value={mobilephone}
+                        onChange={(e) => setMobilephone(e.target.value)}
+                        placeholder={REGI01_box1TH[11].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          borderColor: "#F1F1F1",
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <button
+                      style={{
+                        width: "100%",
+                        borderRadius: 20,
+                        background: " #001E33",
+                        height: 40,
+                        color: "#FFFFFF",
+                        fontSize: 18,
+                        borderColor: "transparent",
+                      }}
+                      onClick={() => setScreen("3")}
+                    >
+                      {REGI01_box1TH[12].label}
+                    </button>
+                  </div>
+                </div>
+              ) : Doc === "German" ? (
+                <div>
+                  <div
                     style={{
-                      background: "#FFFFFF",
-                      border: "1px solid #F1F1F1",
+                      position: "fixed",
+                      top: 20,
+                      left: width * 0.59,
+                      textAlign: "-webkit-center",
+                      width: 500,
+                      background: " #FFFFFF",
+                      boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
                       borderRadius: 20,
-                      width: "100%",
-                      height: 30,
-                      padding: 20,
-                      paddingLeft: 12,
-                      margin: 10,
-                      fontSize: 13,
-                    }}
-                  />
-                </div>
-
-                <div style={{ textAlign: "left" }}>
-                  <p
-                    style={{
-                      fontWeight: 500,
-                      fontSize: 15,
-                      color: "#242424",
+                      padding: 30,
                     }}
                   >
-                    Password
-                  </p>
+                    <div
+                      style={{
+                        fontWeight: 400,
+                        fontSize: 18,
+                        textDecorationLine: "none",
+                        textAlign: "left",
+                        marginBottom: 20,
+                        float: "left",
+                        background: "transparent",
+                        border: "none",
+                      }}
+                      onClick={() => goHome(Doc)}
+                    >
+                      <p id={"Hometext"}>{REGI01_box1DE[0].label}</p>
+                      <BsArrowLeftShort id={"Hometext2"} />
+                    </div>
 
-                  <input
-                    type={type}
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder="Enter your password"
+                    <button
+                      style={{
+                        fontWeight: 400,
+                        textAlign: "right",
+                        marginBottom: 20,
+                        float: "right",
+                        color: "#D9D9D9",
+                        background: "transparent",
+                        border: "none",
+                      }}
+                      onClick={() => goLogin(Doc)}
+                    >
+                      <p id={"Signuptext"}>{REGI01_box1DE[1].label}</p>
+                      <BsArrowRightShort id={"Signuptext2"} />
+                    </button>
+
+                    <h2 className="textSignup">{REGI01_box1DE[2].label}</h2>
+                    <div>
+                      <FormControl style={{ display: "inherit" }}>
+                        <RadioGroup
+                          row
+                          aria-labelledby="demo-row-radio-buttons-group-label"
+                          name="row-radio-buttons-group"
+                        >
+                          <FormControlLabel
+                            checked={true}
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value=""
+                            control={<Radio />}
+                            label={REGI01_box1DE[3].label}
+                            style={{ marginRight: 50 }}
+                          />
+                          <FormControlLabel
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value="For Translators"
+                            control={<Radio />}
+                            label={REGI01_box1DE[4].label}
+                          />
+                        </RadioGroup>
+                      </FormControl>
+                    </div>
+
+                    <div style={{ textAlign: "left", marginTop: 10 }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI01_box1DE[5].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={firstname}
+                        onChange={(e) => setFirstname(e.target.value)}
+                        placeholder={REGI01_box1DE[5].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI01_box1DE[6].label}
+                      </p>
+                      <input
+                        type="text"
+                        name="user_email"
+                        // value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder={REGI01_box1DE[7].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1",
+                          borderRadius: 20,
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI01_box1DE[8].label}
+                      </p>
+
+                      <input
+                        type={type}
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        placeholder={REGI01_box1DE[9].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          borderColor: "#F1F1F1",
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                      <IconButton
+                        onClick={() => handleClickShowPassword(1)}
+                        edge="end"
+                        style={{ position: "absolute", right: 40, top: 380 }}
+                      >
+                        {values ? <FiEye /> : <FiEyeOff />}
+                      </IconButton>
+                    </div>
+
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI01_box1DE[10].label}
+                      </p>
+
+                      <input
+                        type={type2}
+                        value={confirmpassword}
+                        onChange={(e) => setConfirmpassword(e.target.value)}
+                        placeholder={REGI01_box1DE[9].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          borderColor: "#F1F1F1",
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                      <IconButton
+                        onClick={() => handleClickShowPassword(2)}
+                        edge="end"
+                        style={{ position: "absolute", right: 40, top: 465 }}
+                      >
+                        {values2 ? <FiEye /> : <FiEyeOff />}
+                      </IconButton>
+                    </div>
+
+                    <div style={{ textAlign: "left", marginBottom: 10 }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI01_box1DE[11].label}
+                      </p>
+
+                      <input
+                        type="text"
+                        value={mobilephone}
+                        onChange={(e) => setMobilephone(e.target.value)}
+                        placeholder={REGI01_box1DE[11].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          borderColor: "#F1F1F1",
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <button
+                      style={{
+                        width: "100%",
+                        borderRadius: 20,
+                        background: " #001E33",
+                        height: 40,
+                        color: "#FFFFFF",
+                        fontSize: 18,
+                        borderColor: "transparent",
+                      }}
+                      onClick={() => setScreen("3")}
+                    >
+                      {REGI01_box1DE[12].label}
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <div>
+                  <div
                     style={{
-                      background: "#FFFFFF",
-                      border: "1px solid #F1F1F1 ",
+                      position: "fixed",
+                      top: 20,
+                      left: width * 0.59,
+                      textAlign: "-webkit-center",
+                      width: 500,
+                      background: " #FFFFFF",
+                      boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
                       borderRadius: 20,
-                      borderColor: "#F1F1F1",
-                      width: "100%",
-                      height: 30,
-                      padding: 20,
-                      paddingLeft: 12,
-                      margin: 10,
-                      fontSize: 13,
+                      padding: 30,
                     }}
-                  />
-                  <IconButton
-                    onClick={() => handleClickShowPassword(1)}
-                    edge="end"
-                    style={{ position: "absolute", right: 40, top: 380 }}
                   >
-                    {values ? <FiEye /> : <FiEyeOff />}
-                  </IconButton>
+                    <button
+                      style={{
+                        fontWeight: 400,
+                        fontSize: 18,
+                        textDecorationLine: "none",
+                        textAlign: "left",
+                        marginBottom: 20,
+                        float: "left",
+                        background: "transparent",
+                        border: "none",
+                      }}
+                      onClick={() => goHome(Doc)}
+                    >
+                      <p id={"Hometext"}>{REGI01_box1EN[0].label}</p>
+                      <BsArrowLeftShort id={"Hometext2"} />
+                    </button>
+
+                    <button
+                      style={{
+                        fontWeight: 400,
+                        textAlign: "right",
+                        marginBottom: 20,
+                        float: "right",
+                        color: "#D9D9D9",
+                        background: "transparent",
+                        border: "none",
+                      }}
+                      onClick={() => goLogin(Doc)}
+                    >
+                      <p id={"Signuptext"}>{REGI01_box1EN[1].label}</p>
+                      <BsArrowRightShort id={"Signuptext2"} />
+                    </button>
+
+                    <h2 className="textSignup">{REGI01_box1EN[2].label}</h2>
+                    <div>
+                      <FormControl style={{ display: "inherit" }}>
+                        <RadioGroup
+                          row
+                          aria-labelledby="demo-row-radio-buttons-group-label"
+                          name="row-radio-buttons-group"
+                        >
+                          <FormControlLabel
+                            checked={true}
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value=""
+                            control={<Radio />}
+                            label={REGI01_box1EN[3].label}
+                            style={{ marginRight: 50 }}
+                          />
+                          <FormControlLabel
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value="For Translators"
+                            control={<Radio />}
+                            label={REGI01_box1EN[4].label}
+                          />
+                        </RadioGroup>
+                      </FormControl>
+                    </div>
+
+                    <div style={{ textAlign: "left", marginTop: 10 }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI01_box1EN[5].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={firstname}
+                        onChange={(e) => setFirstname(e.target.value)}
+                        placeholder={REGI01_box1EN[5].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI01_box1EN[6].label}
+                      </p>
+                      <input
+                        type="text"
+                        name="user_email"
+                        // value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder={REGI01_box1EN[7].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1",
+                          borderRadius: 20,
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI01_box1EN[8].label}
+                      </p>
+
+                      <input
+                        type={type}
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        placeholder={REGI01_box1EN[9].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          borderColor: "#F1F1F1",
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                      <IconButton
+                        onClick={() => handleClickShowPassword(1)}
+                        edge="end"
+                        style={{ position: "absolute", right: 40, top: 380 }}
+                      >
+                        {values ? <FiEye /> : <FiEyeOff />}
+                      </IconButton>
+                    </div>
+
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI01_box1EN[10].label}
+                      </p>
+
+                      <input
+                        type={type2}
+                        value={confirmpassword}
+                        onChange={(e) => setConfirmpassword(e.target.value)}
+                        placeholder={REGI01_box1EN[9].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          borderColor: "#F1F1F1",
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                      <IconButton
+                        onClick={() => handleClickShowPassword(2)}
+                        edge="end"
+                        style={{ position: "absolute", right: 40, top: 465 }}
+                      >
+                        {values2 ? <FiEye /> : <FiEyeOff />}
+                      </IconButton>
+                    </div>
+
+                    <div style={{ textAlign: "left", marginBottom: 10 }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI01_box1EN[11].label}
+                      </p>
+
+                      <input
+                        type="text"
+                        value={mobilephone}
+                        onChange={(e) => setMobilephone(e.target.value)}
+                        placeholder={REGI01_box1EN[11].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          borderColor: "#F1F1F1",
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <button
+                      style={{
+                        width: "100%",
+                        borderRadius: 20,
+                        background: " #001E33",
+                        height: 40,
+                        color: "#FFFFFF",
+                        fontSize: 18,
+                        borderColor: "transparent",
+                      }}
+                      onClick={() => setScreen("3")}
+                    >
+                      {REGI01_box1EN[12].label}
+                    </button>
+                  </div>
                 </div>
-
-                <div style={{ textAlign: "left" }}>
-                  <p
-                    style={{
-                      fontWeight: 500,
-                      fontSize: 15,
-                      color: "#242424",
-                    }}
-                  >
-                    Confirm password
-                  </p>
-
-                  <input
-                    type={type2}
-                    value={confirmpassword}
-                    onChange={(e) => setConfirmpassword(e.target.value)}
-                    placeholder="Enter your password"
-                    style={{
-                      background: "#FFFFFF",
-                      border: "1px solid #F1F1F1 ",
-                      borderRadius: 20,
-                      borderColor: "#F1F1F1",
-                      width: "100%",
-                      height: 30,
-                      padding: 20,
-                      paddingLeft: 12,
-                      margin: 10,
-                      fontSize: 13,
-                    }}
-                  />
-                  <IconButton
-                    onClick={() => handleClickShowPassword(2)}
-                    edge="end"
-                    style={{ position: "absolute", right: 40, top: 465 }}
-                  >
-                    {values2 ? <FiEye /> : <FiEyeOff />}
-                  </IconButton>
-                </div>
-
-                <div style={{ textAlign: "left", marginBottom: 10 }}>
-                  <p
-                    style={{
-                      fontWeight: 500,
-                      fontSize: 15,
-                      color: "#242424",
-                    }}
-                  >
-                    Mobile phone
-                  </p>
-
-                  <input
-                    type="text"
-                    value={mobilephone}
-                    onChange={(e) => setMobilephone(e.target.value)}
-                    placeholder="Mobile phone"
-                    style={{
-                      background: "#FFFFFF",
-                      border: "1px solid #F1F1F1 ",
-                      borderRadius: 20,
-                      borderColor: "#F1F1F1",
-                      width: "100%",
-                      height: 30,
-                      padding: 20,
-                      paddingLeft: 12,
-                      margin: 10,
-                      fontSize: 13,
-                    }}
-                  />
-                </div>
-
-                <button
-                  style={{
-                    width: "100%",
-                    borderRadius: 20,
-                    background: " #001E33",
-                    height: 40,
-                    color: "#FFFFFF",
-                    fontSize: 18,
-                    borderColor: "transparent",
-                  }}
-                  onClick={() => setScreen("3")}
-                >
-                  Next
-                </button>
-              </div>
-            </div>
+              )}
+            </>
           ) : screen === "For Translators" ? (
-            <div>
-              <div
-                style={{
-                  position: "fixed",
-                  top: 20,
-                  left: width * 0.59,
-                  textAlign: "-webkit-center",
-                  width: 500,
-                  background: " #FFFFFF",
-                  boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
-                  borderRadius: 20,
-                  padding: 30,
-                }}
-              >
-                <div
-                  style={{
-                    fontWeight: 400,
-                    fontSize: 18,
-                    textDecorationLine: "none",
-                    color: "#D9D9D9",
-                    textAlign: "left",
-                    marginBottom: 20,
-                    float: "left",
-                  }}
-                >
-                  <BsArrowLeftShort />
-                  <Link
-                    to="/"
-                    style={{
-                      color: "#D9D9D9",
-                      fontSize: 18,
-                      textDecorationLine: "none",
-                    }}
-                  >
-                    Home
-                  </Link>
-                </div>
-                <div
-                  style={{
-                    fontWeight: 400,
-                    textAlign: "right",
-                    marginBottom: 20,
-                    float: "right",
-                    color: "#D9D9D9",
-                  }}
-                >
-                  <Link
-                    to="/Login"
-                    style={{
-                      color: "#D9D9D9",
-                      fontSize: 18,
-                      textDecorationLine: "none",
-                    }}
-                  >
-                    Login
-                  </Link>
-                  <BsArrowRightShort />
-                </div>
-
-                <h2 className="textSignup">Sign up</h2>
-
+            <>
+              {Doc === "English" ? (
                 <div>
-                  <FormControl style={{ display: "inherit" }}>
-                    <RadioGroup
-                      row
-                      aria-labelledby="demo-row-radio-buttons-group-label"
-                      name="row-radio-buttons-group"
+                  <div
+                    style={{
+                      position: "fixed",
+                      top: 20,
+                      left: width * 0.59,
+                      textAlign: "-webkit-center",
+                      width: 500,
+                      background: " #FFFFFF",
+                      boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
+                      borderRadius: 20,
+                      padding: 30,
+                    }}
+                  >
+                    <button
+                      style={{
+                        fontWeight: 400,
+                        fontSize: 18,
+                        textDecorationLine: "none",
+                        textAlign: "left",
+                        marginBottom: 20,
+                        float: "left",
+                        background: "transparent",
+                        border: "none",
+                      }}
+                      onClick={() => goHome(Doc)}
                     >
-                      <FormControlLabel
-                        onChange={handleChange}
-                        name="radio-buttons"
-                        value=""
-                        control={<Radio />}
-                        label="For Customers"
-                        style={{ marginRight: 50 }}
+                      <p id={"Hometext"}>{REGI01_box1EN[0].label}</p>
+                      <BsArrowLeftShort id={"Hometext2"} />
+                    </button>
+
+                    <button
+                      style={{
+                        fontWeight: 400,
+                        textAlign: "right",
+                        marginBottom: 20,
+                        float: "right",
+                        color: "#D9D9D9",
+                        background: "transparent",
+                        border: "none",
+                      }}
+                      onClick={() => goLogin(Doc)}
+                    >
+                      <p id={"Signuptext"}>{REGI01_box1EN[1].label}</p>
+                      <BsArrowRightShort id={"Signuptext2"} />
+                    </button>
+
+                    <h2 className="textSignup">{REGI01_box1EN[2].label}</h2>
+                    <div>
+                      <FormControl style={{ display: "inherit" }}>
+                        <RadioGroup
+                          row
+                          aria-labelledby="demo-row-radio-buttons-group-label"
+                          name="row-radio-buttons-group"
+                        >
+                          <FormControlLabel
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value=""
+                            control={<Radio />}
+                            label={REGI01_box1EN[3].label}
+                            style={{ marginRight: 50 }}
+                          />
+                          <FormControlLabel
+                            checked={true}
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value="For Translators"
+                            control={<Radio />}
+                            label={REGI01_box1EN[4].label}
+                          />
+                        </RadioGroup>
+                      </FormControl>
+                    </div>
+
+                    <div style={{ textAlign: "left", marginTop: 10 }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI01_box1EN[5].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={firstname}
+                        onChange={(e) => setFirstname(e.target.value)}
+                        placeholder={REGI01_box1EN[5].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
                       />
-                      <FormControlLabel
-                        checked={true}
-                        onChange={handleChange}
-                        name="radio-buttons"
-                        value="For Translators"
-                        control={<Radio />}
-                        label="For Translators"
+                    </div>
+
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI01_box1EN[6].label}
+                      </p>
+                      <input
+                        type="text"
+                        name="user_email"
+                        // value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder={REGI01_box1EN[7].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1",
+                          borderRadius: 20,
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
                       />
-                    </RadioGroup>
-                  </FormControl>
-                </div>
+                    </div>
 
-                <div style={{ textAlign: "left", marginTop: 10 }}>
-                  <p
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI01_box1EN[8].label}
+                      </p>
+
+                      <input
+                        type={type}
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        placeholder={REGI01_box1EN[9].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          borderColor: "#F1F1F1",
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                      <IconButton
+                        onClick={() => handleClickShowPassword(1)}
+                        edge="end"
+                        style={{ position: "absolute", right: 40, top: 380 }}
+                      >
+                        {values ? <FiEye /> : <FiEyeOff />}
+                      </IconButton>
+                    </div>
+
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI01_box1EN[10].label}
+                      </p>
+
+                      <input
+                        type={type2}
+                        value={confirmpassword}
+                        onChange={(e) => setConfirmpassword(e.target.value)}
+                        placeholder={REGI01_box1EN[9].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          borderColor: "#F1F1F1",
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                      <IconButton
+                        onClick={() => handleClickShowPassword(2)}
+                        edge="end"
+                        style={{ position: "absolute", right: 40, top: 465 }}
+                      >
+                        {values2 ? <FiEye /> : <FiEyeOff />}
+                      </IconButton>
+                    </div>
+
+                    <div style={{ textAlign: "left", marginBottom: 10 }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI01_box1EN[11].label}
+                      </p>
+
+                      <input
+                        type="text"
+                        value={mobilephone}
+                        onChange={(e) => setMobilephone(e.target.value)}
+                        placeholder={REGI01_box1EN[11].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          borderColor: "#F1F1F1",
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <button
+                      style={{
+                        width: "100%",
+                        borderRadius: 20,
+                        background: " #001E33",
+                        height: 40,
+                        color: "#FFFFFF",
+                        fontSize: 18,
+                        borderColor: "transparent",
+                      }}
+                      onClick={() => setScreen("4")}
+                    >
+                      {REGI01_box1EN[12].label}
+                    </button>
+                  </div>
+                </div>
+              ) : Doc === "Thai" ? (
+                <div>
+                  <div
                     style={{
-                      fontWeight: 500,
-                      fontSize: 15,
-                      color: "#242424",
-                    }}
-                  >
-                    Name
-                  </p>
-                  <input
-                    type="text"
-                    value={firstname}
-                    onChange={(e) => setFirstname(e.target.value)}
-                    placeholder="Name"
-                    style={{
-                      background: "#FFFFFF",
-                      border: "1px solid #F1F1F1 ",
+                      position: "fixed",
+                      top: 20,
+                      left: width * 0.59,
+                      textAlign: "-webkit-center",
+                      width: 500,
+                      background: " #FFFFFF",
+                      boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
                       borderRadius: 20,
-                      width: "100%",
-                      height: 30,
-                      padding: 20,
-                      paddingLeft: 12,
-                      margin: 10,
-                      fontSize: 13,
-                    }}
-                  />
-                </div>
-
-                <div style={{ textAlign: "left" }}>
-                  <p
-                    style={{
-                      fontWeight: 500,
-                      fontSize: 15,
-                      color: "#242424",
+                      padding: 30,
                     }}
                   >
-                    E-mail
-                  </p>
-                  <input
-                    type="text"
-                    name="user_email"
-                    // value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Example@mail.com"
+                    <div
+                      style={{
+                        fontWeight: 400,
+                        fontSize: 18,
+                        textDecorationLine: "none",
+                        textAlign: "left",
+                        marginBottom: 20,
+                        float: "left",
+                        background: "transparent",
+                        border: "none",
+                      }}
+                      onClick={() => goHome(Doc)}
+                    >
+                      <p id={"Hometext"}>{REGI01_box1TH[0].label}</p>
+                      <BsArrowLeftShort id={"Hometext2"} />
+                    </div>
+
+                    <button
+                      style={{
+                        fontWeight: 400,
+                        textAlign: "right",
+                        marginBottom: 20,
+                        float: "right",
+                        color: "#D9D9D9",
+                        background: "transparent",
+                        border: "none",
+                      }}
+                      onClick={() => goLogin(Doc)}
+                    >
+                      <p id={"Signuptext"}>{REGI01_box1TH[1].label}</p>
+                      <BsArrowRightShort id={"Signuptext2"} />
+                    </button>
+
+                    <h2 className="textSignup">{REGI01_box1TH[2].label}</h2>
+                    <div>
+                      <FormControl style={{ display: "inherit" }}>
+                        <RadioGroup
+                          row
+                          aria-labelledby="demo-row-radio-buttons-group-label"
+                          name="row-radio-buttons-group"
+                        >
+                          <FormControlLabel
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value=""
+                            control={<Radio />}
+                            label={REGI01_box1TH[3].label}
+                            style={{ marginRight: 50 }}
+                          />
+                          <FormControlLabel
+                            checked={true}
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value="For Translators"
+                            control={<Radio />}
+                            label={REGI01_box1TH[4].label}
+                          />
+                        </RadioGroup>
+                      </FormControl>
+                    </div>
+
+                    <div style={{ textAlign: "left", marginTop: 10 }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI01_box1TH[5].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={firstname}
+                        onChange={(e) => setFirstname(e.target.value)}
+                        placeholder={REGI01_box1TH[5].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI01_box1TH[6].label}
+                      </p>
+                      <input
+                        type="text"
+                        name="user_email"
+                        // value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder={REGI01_box1TH[7].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1",
+                          borderRadius: 20,
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI01_box1TH[8].label}
+                      </p>
+
+                      <input
+                        type={type}
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        placeholder={REGI01_box1TH[9].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          borderColor: "#F1F1F1",
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                      <IconButton
+                        onClick={() => handleClickShowPassword(1)}
+                        edge="end"
+                        style={{ position: "absolute", right: 40, top: 380 }}
+                      >
+                        {values ? <FiEye /> : <FiEyeOff />}
+                      </IconButton>
+                    </div>
+
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI01_box1TH[10].label}
+                      </p>
+
+                      <input
+                        type={type2}
+                        value={confirmpassword}
+                        onChange={(e) => setConfirmpassword(e.target.value)}
+                        placeholder={REGI01_box1TH[9].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          borderColor: "#F1F1F1",
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                      <IconButton
+                        onClick={() => handleClickShowPassword(2)}
+                        edge="end"
+                        style={{ position: "absolute", right: 40, top: 465 }}
+                      >
+                        {values2 ? <FiEye /> : <FiEyeOff />}
+                      </IconButton>
+                    </div>
+
+                    <div style={{ textAlign: "left", marginBottom: 10 }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI01_box1TH[11].label}
+                      </p>
+
+                      <input
+                        type="text"
+                        value={mobilephone}
+                        onChange={(e) => setMobilephone(e.target.value)}
+                        placeholder={REGI01_box1TH[11].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          borderColor: "#F1F1F1",
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <button
+                      style={{
+                        width: "100%",
+                        borderRadius: 20,
+                        background: " #001E33",
+                        height: 40,
+                        color: "#FFFFFF",
+                        fontSize: 18,
+                        borderColor: "transparent",
+                      }}
+                      onClick={() => setScreen("4")}
+                    >
+                      {REGI01_box1TH[12].label}
+                    </button>
+                  </div>
+                </div>
+              ) : Doc === "German" ? (
+                <div>
+                  <div
                     style={{
-                      background: "#FFFFFF",
-                      border: "1px solid #F1F1F1",
+                      position: "fixed",
+                      top: 20,
+                      left: width * 0.59,
+                      textAlign: "-webkit-center",
+                      width: 500,
+                      background: " #FFFFFF",
+                      boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
                       borderRadius: 20,
-                      width: "100%",
-                      height: 30,
-                      padding: 20,
-                      paddingLeft: 12,
-                      margin: 10,
-                      fontSize: 13,
-                    }}
-                  />
-                </div>
-
-                <div style={{ textAlign: "left" }}>
-                  <p
-                    style={{
-                      fontWeight: 500,
-                      fontSize: 15,
-                      color: "#242424",
+                      padding: 30,
                     }}
                   >
-                    Password
-                  </p>
+                    <div
+                      style={{
+                        fontWeight: 400,
+                        fontSize: 18,
+                        textDecorationLine: "none",
+                        textAlign: "left",
+                        marginBottom: 20,
+                        float: "left",
+                        background: "transparent",
+                        border: "none",
+                      }}
+                      onClick={() => goHome(Doc)}
+                    >
+                      <p id={"Hometext"}>{REGI01_box1DE[0].label}</p>
+                      <BsArrowLeftShort id={"Hometext2"} />
+                    </div>
 
-                  <input
-                    type={type}
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder="Enter your password"
+                    <button
+                      style={{
+                        fontWeight: 400,
+                        textAlign: "right",
+                        marginBottom: 20,
+                        float: "right",
+                        color: "#D9D9D9",
+                        background: "transparent",
+                        border: "none",
+                      }}
+                      onClick={() => goLogin(Doc)}
+                    >
+                      <p id={"Signuptext"}>{REGI01_box1DE[1].label}</p>
+                      <BsArrowRightShort id={"Signuptext2"} />
+                    </button>
+
+                    <h2 className="textSignup">{REGI01_box1DE[2].label}</h2>
+                    <div>
+                      <FormControl style={{ display: "inherit" }}>
+                        <RadioGroup
+                          row
+                          aria-labelledby="demo-row-radio-buttons-group-label"
+                          name="row-radio-buttons-group"
+                        >
+                          <FormControlLabel
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value=""
+                            control={<Radio />}
+                            label={REGI01_box1DE[3].label}
+                            style={{ marginRight: 50 }}
+                          />
+                          <FormControlLabel
+                            checked={true}
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value="For Translators"
+                            control={<Radio />}
+                            label={REGI01_box1DE[4].label}
+                          />
+                        </RadioGroup>
+                      </FormControl>
+                    </div>
+
+                    <div style={{ textAlign: "left", marginTop: 10 }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI01_box1DE[5].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={firstname}
+                        onChange={(e) => setFirstname(e.target.value)}
+                        placeholder={REGI01_box1DE[5].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI01_box1DE[6].label}
+                      </p>
+                      <input
+                        type="text"
+                        name="user_email"
+                        // value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder={REGI01_box1DE[7].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1",
+                          borderRadius: 20,
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI01_box1DE[8].label}
+                      </p>
+
+                      <input
+                        type={type}
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        placeholder={REGI01_box1DE[9].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          borderColor: "#F1F1F1",
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                      <IconButton
+                        onClick={() => handleClickShowPassword(1)}
+                        edge="end"
+                        style={{ position: "absolute", right: 40, top: 380 }}
+                      >
+                        {values ? <FiEye /> : <FiEyeOff />}
+                      </IconButton>
+                    </div>
+
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI01_box1DE[10].label}
+                      </p>
+
+                      <input
+                        type={type2}
+                        value={confirmpassword}
+                        onChange={(e) => setConfirmpassword(e.target.value)}
+                        placeholder={REGI01_box1DE[9].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          borderColor: "#F1F1F1",
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                      <IconButton
+                        onClick={() => handleClickShowPassword(2)}
+                        edge="end"
+                        style={{ position: "absolute", right: 40, top: 465 }}
+                      >
+                        {values2 ? <FiEye /> : <FiEyeOff />}
+                      </IconButton>
+                    </div>
+
+                    <div style={{ textAlign: "left", marginBottom: 10 }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI01_box1DE[11].label}
+                      </p>
+
+                      <input
+                        type="text"
+                        value={mobilephone}
+                        onChange={(e) => setMobilephone(e.target.value)}
+                        placeholder={REGI01_box1DE[11].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          borderColor: "#F1F1F1",
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <button
+                      style={{
+                        width: "100%",
+                        borderRadius: 20,
+                        background: " #001E33",
+                        height: 40,
+                        color: "#FFFFFF",
+                        fontSize: 18,
+                        borderColor: "transparent",
+                      }}
+                      onClick={() => setScreen("4")}
+                    >
+                      {REGI01_box1DE[12].label}
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <div>
+                  <div
                     style={{
-                      background: "#FFFFFF",
-                      border: "1px solid #F1F1F1 ",
+                      position: "fixed",
+                      top: 20,
+                      left: width * 0.59,
+                      textAlign: "-webkit-center",
+                      width: 500,
+                      background: " #FFFFFF",
+                      boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
                       borderRadius: 20,
-                      borderColor: "#F1F1F1",
-                      width: "100%",
-                      height: 30,
-                      padding: 20,
-                      paddingLeft: 12,
-                      margin: 10,
-                      fontSize: 13,
+                      padding: 30,
                     }}
-                  />
-                  <IconButton
-                    onClick={() => handleClickShowPassword(1)}
-                    edge="end"
-                    style={{ position: "absolute", right: 40, top: 380 }}
                   >
-                    {values ? <FiEye /> : <FiEyeOff />}
-                  </IconButton>
+                    <button
+                      style={{
+                        fontWeight: 400,
+                        fontSize: 18,
+                        textDecorationLine: "none",
+                        textAlign: "left",
+                        marginBottom: 20,
+                        float: "left",
+                        background: "transparent",
+                        border: "none",
+                      }}
+                      onClick={() => goHome(Doc)}
+                    >
+                      <p id={"Hometext"}>{REGI01_box1EN[0].label}</p>
+                      <BsArrowLeftShort id={"Hometext2"} />
+                    </button>
+
+                    <button
+                      style={{
+                        fontWeight: 400,
+                        textAlign: "right",
+                        marginBottom: 20,
+                        float: "right",
+                        color: "#D9D9D9",
+                        background: "transparent",
+                        border: "none",
+                      }}
+                      onClick={() => goLogin(Doc)}
+                    >
+                      <p id={"Signuptext"}>{REGI01_box1EN[1].label}</p>
+                      <BsArrowRightShort id={"Signuptext2"} />
+                    </button>
+
+                    <h2 className="textSignup">{REGI01_box1EN[2].label}</h2>
+                    <div>
+                      <FormControl style={{ display: "inherit" }}>
+                        <RadioGroup
+                          row
+                          aria-labelledby="demo-row-radio-buttons-group-label"
+                          name="row-radio-buttons-group"
+                        >
+                          <FormControlLabel
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value=""
+                            control={<Radio />}
+                            label={REGI01_box1EN[3].label}
+                            style={{ marginRight: 50 }}
+                          />
+                          <FormControlLabel
+                            checked={true}
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value="For Translators"
+                            control={<Radio />}
+                            label={REGI01_box1EN[4].label}
+                          />
+                        </RadioGroup>
+                      </FormControl>
+                    </div>
+
+                    <div style={{ textAlign: "left", marginTop: 10 }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI01_box1EN[5].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={firstname}
+                        onChange={(e) => setFirstname(e.target.value)}
+                        placeholder={REGI01_box1EN[5].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI01_box1EN[6].label}
+                      </p>
+                      <input
+                        type="text"
+                        name="user_email"
+                        // value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder={REGI01_box1EN[7].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1",
+                          borderRadius: 20,
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI01_box1EN[8].label}
+                      </p>
+
+                      <input
+                        type={type}
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        placeholder={REGI01_box1EN[9].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          borderColor: "#F1F1F1",
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                      <IconButton
+                        onClick={() => handleClickShowPassword(1)}
+                        edge="end"
+                        style={{ position: "absolute", right: 40, top: 380 }}
+                      >
+                        {values ? <FiEye /> : <FiEyeOff />}
+                      </IconButton>
+                    </div>
+
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI01_box1EN[10].label}
+                      </p>
+
+                      <input
+                        type={type2}
+                        value={confirmpassword}
+                        onChange={(e) => setConfirmpassword(e.target.value)}
+                        placeholder={REGI01_box1EN[9].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          borderColor: "#F1F1F1",
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                      <IconButton
+                        onClick={() => handleClickShowPassword(2)}
+                        edge="end"
+                        style={{ position: "absolute", right: 40, top: 465 }}
+                      >
+                        {values2 ? <FiEye /> : <FiEyeOff />}
+                      </IconButton>
+                    </div>
+
+                    <div style={{ textAlign: "left", marginBottom: 10 }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI01_box1EN[11].label}
+                      </p>
+
+                      <input
+                        type="text"
+                        value={mobilephone}
+                        onChange={(e) => setMobilephone(e.target.value)}
+                        placeholder={REGI01_box1EN[11].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          borderColor: "#F1F1F1",
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <button
+                      style={{
+                        width: "100%",
+                        borderRadius: 20,
+                        background: " #001E33",
+                        height: 40,
+                        color: "#FFFFFF",
+                        fontSize: 18,
+                        borderColor: "transparent",
+                      }}
+                      onClick={() => setScreen("4")}
+                    >
+                      {REGI01_box1EN[12].label}
+                    </button>
+                  </div>
                 </div>
-
-                <div style={{ textAlign: "left" }}>
-                  <p
-                    style={{
-                      fontWeight: 500,
-                      fontSize: 15,
-                      color: "#242424",
-                    }}
-                  >
-                    Confirm password
-                  </p>
-
-                  <input
-                    type={type2}
-                    value={confirmpassword}
-                    onChange={(e) => setConfirmpassword(e.target.value)}
-                    placeholder="Enter your password"
-                    style={{
-                      background: "#FFFFFF",
-                      border: "1px solid #F1F1F1 ",
-                      borderRadius: 20,
-                      borderColor: "#F1F1F1",
-                      width: "100%",
-                      height: 30,
-                      padding: 20,
-                      paddingLeft: 12,
-                      margin: 10,
-                      fontSize: 13,
-                    }}
-                  />
-                  <IconButton
-                    onClick={() => handleClickShowPassword(2)}
-                    edge="end"
-                    style={{ position: "absolute", right: 40, top: 465 }}
-                  >
-                    {values2 ? <FiEye /> : <FiEyeOff />}
-                  </IconButton>
-                </div>
-
-                <div style={{ textAlign: "left", marginBottom: 10 }}>
-                  <p
-                    style={{
-                      fontWeight: 500,
-                      fontSize: 15,
-                      color: "#242424",
-                    }}
-                  >
-                    Mobile phone
-                  </p>
-
-                  <input
-                    type="text"
-                    value={mobilephone}
-                    onChange={(e) => setMobilephone(e.target.value)}
-                    placeholder="Mobile phone"
-                    style={{
-                      background: "#FFFFFF",
-                      border: "1px solid #F1F1F1 ",
-                      borderRadius: 20,
-                      borderColor: "#F1F1F1",
-                      width: "100%",
-                      height: 30,
-                      padding: 20,
-                      paddingLeft: 12,
-                      margin: 10,
-                      fontSize: 13,
-                    }}
-                  />
-                </div>
-
-                <button
-                  style={{
-                    width: "100%",
-                    borderRadius: 20,
-                    background: " #001E33",
-                    height: 40,
-                    color: "#FFFFFF",
-                    fontSize: 18,
-                    borderColor: "transparent",
-                  }}
-                  onClick={() => setScreen("4")}
-                >
-                  Next
-                </button>
-              </div>
-            </div>
+              )}
+            </>
           ) : screen === "3" ? (
             <>
-              <div
-                style={{
-                  position: "fixed",
-                  top: 120,
-                  left: width * 0.59,
-                  textAlign: "-webkit-center",
-                  width: 500,
-                  background: " #FFFFFF",
-                  boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
-                  borderRadius: 20,
-                  padding: 30,
-                }}
-              >
-                <button
+              {Doc === "English" ? (
+                <div
                   style={{
-                    fontWeight: 400,
-                    fontSize: 18,
-                    textDecorationLine: "none",
-                    color: "#D9D9D9",
-                    textAlign: "left",
-                    marginBottom: 20,
-                    float: "left",
-                    background: "transparent",
-                    border: "transparent",
-                  }}
-                  onClick={() => setScreen("")}
-                >
-                  <BsArrowLeftShort />
-                  <p
-                    style={{
-                      color: "#D9D9D9",
-                      fontSize: 18,
-                      textDecorationLine: "none",
-                      float: "right",
-                    }}
-                  >
-                    Back
-                  </p>
-                </button>
-
-                <button
-                  style={{
-                    fontWeight: 400,
-                    textAlign: "right",
-                    marginBottom: 20,
-                    float: "right",
-                    color: "#D9D9D9",
-                    background: "transparent",
-                    border: "transparent",
-                  }}
-                  onClick={() => setScreen("5")}
-                >
-                  <p
-                    style={{
-                      color: "#D9D9D9",
-                      fontSize: 18,
-                      textDecorationLine: "none",
-                      float: "left",
-                    }}
-                  >
-                    Skip
-                  </p>
-                  <BsArrowRightShort />
-                </button>
-
-                <h2 className="textSignup">Sign up</h2>
-                <div style={{ margin: 25 }}>
-                  <p>Upload Image</p>
-                </div>
-                {images.length < 1 ? (
-                  <div
-                    style={{
-                      background: "#FFFFFF",
-                      borderRadius: 100,
-                      width: 83,
-                      height: 80,
-                      padding: 15,
-                      position: "relative",
-                      borderStyle: " dotted ",
-                      borderColor: "#0865A8",
-                      borderWidth: 2,
-                      margin: 25,
-                    }}
-                  >
-                    <label htmlFor="icon-button-file">
-                      <Input
-                        accept="image/*"
-                        id="icon-button-file"
-                        type="file"
-                        style={{ display: "none" }}
-                        onChange={onImageChange}
-                      />
-                      <IconButton
-                        color="primary"
-                        aria-label="upload picture"
-                        component="span"
-                      >
-                        <MdCameraAlt
-                          style={{ fontSize: 35, position: "absolute" }}
-                        />
-                        <p
-                          style={{
-                            fontSize: 8,
-                            position: "absolute",
-                            top: 20,
-                            width: 63,
-                          }}
-                        >
-                          Upload File
-                        </p>
-                      </IconButton>
-                    </label>
-                  </div>
-                ) : (
-                  <div
-                    style={{
-                      borderRadius: 100,
-                      width: 100,
-                      height: 100,
-                      position: "relative",
-                      borderWidth: 2,
-                      margin: 25,
-                    }}
-                  >
-                    <label htmlFor="icon-button-file">
-                      <Input
-                        accept="image/*"
-                        id="icon-button-file"
-                        type="file"
-                        style={{ display: "none" }}
-                        onChange={onImageChange}
-                      />
-                      <IconButton
-                        color="primary"
-                        aria-label="upload picture"
-                        component="span"
-                      >
-                        {imageURLs.map((imageSrc, idx) => (
-                          <img
-                            key={idx}
-                            src={imageSrc}
-                            alt="imageURLs"
-                            style={{
-                              position: "absolute",
-                              width: 90,
-                              height: 90,
-                              borderRadius: "100%",
-                              top: -20,
-                            }}
-                          />
-                        ))}
-                      </IconButton>
-                    </label>
-                  </div>
-                )}
-
-                <button
-                  style={{
-                    width: "100%",
+                    position: "fixed",
+                    top: 120,
+                    left: width * 0.59,
+                    textAlign: "-webkit-center",
+                    width: 500,
+                    background: " #FFFFFF",
+                    boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
                     borderRadius: 20,
-                    background: " #001E33",
-                    height: 40,
-                    color: "#FFFFFF",
-                    fontSize: 18,
-                    borderColor: "transparent",
-                    marginBottom: 10,
+                    padding: 30,
                   }}
-                  onClick={() => setScreen("5")}
                 >
-                  Next
-                </button>
-              </div>
+                  <button
+                    style={{
+                      fontWeight: 400,
+                      fontSize: 18,
+                      textDecorationLine: "none",
+                      color: "#D9D9D9",
+                      textAlign: "left",
+                      marginBottom: 20,
+                      float: "left",
+                      background: "transparent",
+                      border: "transparent",
+                    }}
+                    onClick={() => setScreen("")}
+                  >
+                    <BsArrowLeftShort />
+                    <p
+                      style={{
+                        color: "#D9D9D9",
+                        fontSize: 18,
+                        textDecorationLine: "none",
+                        float: "right",
+                      }}
+                    >
+                      {REGI01_box2EN[0].label}
+                    </p>
+                  </button>
+
+                  <button
+                    style={{
+                      fontWeight: 400,
+                      textAlign: "right",
+                      marginBottom: 20,
+                      float: "right",
+                      color: "#D9D9D9",
+                      background: "transparent",
+                      border: "transparent",
+                    }}
+                    onClick={() => setScreen("5")}
+                  >
+                    <p
+                      style={{
+                        color: "#D9D9D9",
+                        fontSize: 18,
+                        textDecorationLine: "none",
+                        float: "left",
+                      }}
+                    >
+                      {REGI01_box2EN[1].label}
+                    </p>
+                    <BsArrowRightShort />
+                  </button>
+
+                  <h2 className="textSignup">{REGI01_box2EN[2].label}</h2>
+                  <div style={{ margin: 25 }}>
+                    <p>{REGI01_box2EN[3].label}</p>
+                  </div>
+                  {images.length < 1 ? (
+                    <div
+                      style={{
+                        background: "#FFFFFF",
+                        borderRadius: 100,
+                        width: 83,
+                        height: 80,
+                        padding: 15,
+                        position: "relative",
+                        borderStyle: " dotted ",
+                        borderColor: "#0865A8",
+                        borderWidth: 2,
+                        margin: 25,
+                      }}
+                    >
+                      <label htmlFor="icon-button-file">
+                        <Input
+                          accept="image/*"
+                          id="icon-button-file"
+                          type="file"
+                          style={{ display: "none" }}
+                          onChange={onImageChange}
+                        />
+                        <IconButton
+                          color="primary"
+                          aria-label="upload picture"
+                          component="span"
+                        >
+                          <MdCameraAlt
+                            style={{ fontSize: 35, position: "absolute" }}
+                          />
+                          <p
+                            style={{
+                              fontSize: 8,
+                              position: "absolute",
+                              top: 20,
+                              width: 63,
+                            }}
+                          >
+                            {REGI01_box2EN[3].label}
+                          </p>
+                        </IconButton>
+                      </label>
+                    </div>
+                  ) : (
+                    <div
+                      style={{
+                        borderRadius: 100,
+                        width: 100,
+                        height: 100,
+                        position: "relative",
+                        borderWidth: 2,
+                        margin: 25,
+                      }}
+                    >
+                      <label htmlFor="icon-button-file">
+                        <Input
+                          accept="image/*"
+                          id="icon-button-file"
+                          type="file"
+                          style={{ display: "none" }}
+                          onChange={onImageChange}
+                        />
+                        <IconButton
+                          color="primary"
+                          aria-label="upload picture"
+                          component="span"
+                        >
+                          {imageURLs.map((imageSrc, idx) => (
+                            <img
+                              key={idx}
+                              src={imageSrc}
+                              alt="imageURLs"
+                              style={{
+                                position: "absolute",
+                                width: 90,
+                                height: 90,
+                                borderRadius: "100%",
+                                top: -20,
+                              }}
+                            />
+                          ))}
+                        </IconButton>
+                      </label>
+                    </div>
+                  )}
+
+                  <button
+                    style={{
+                      width: "100%",
+                      borderRadius: 20,
+                      background: " #001E33",
+                      height: 40,
+                      color: "#FFFFFF",
+                      fontSize: 18,
+                      borderColor: "transparent",
+                      marginBottom: 10,
+                    }}
+                    onClick={() => setScreen("5")}
+                  >
+                    {REGI01_box2EN[4].label}
+                  </button>
+                </div>
+              ) : Doc === "Thai" ? (
+                <div
+                  style={{
+                    position: "fixed",
+                    top: 120,
+                    left: width * 0.59,
+                    textAlign: "-webkit-center",
+                    width: 500,
+                    background: " #FFFFFF",
+                    boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
+                    borderRadius: 20,
+                    padding: 30,
+                  }}
+                >
+                  <button
+                    style={{
+                      fontWeight: 400,
+                      fontSize: 18,
+                      textDecorationLine: "none",
+                      color: "#D9D9D9",
+                      textAlign: "left",
+                      marginBottom: 20,
+                      float: "left",
+                      background: "transparent",
+                      border: "transparent",
+                    }}
+                    onClick={() => setScreen("")}
+                  >
+                    <BsArrowLeftShort />
+                    <p
+                      style={{
+                        color: "#D9D9D9",
+                        fontSize: 18,
+                        textDecorationLine: "none",
+                        float: "right",
+                      }}
+                    >
+                      {REGI01_box2TH[0].label}
+                    </p>
+                  </button>
+
+                  <button
+                    style={{
+                      fontWeight: 400,
+                      textAlign: "right",
+                      marginBottom: 20,
+                      float: "right",
+                      color: "#D9D9D9",
+                      background: "transparent",
+                      border: "transparent",
+                    }}
+                    onClick={() => setScreen("5")}
+                  >
+                    <p
+                      style={{
+                        color: "#D9D9D9",
+                        fontSize: 18,
+                        textDecorationLine: "none",
+                        float: "left",
+                      }}
+                    >
+                      {REGI01_box2TH[1].label}
+                    </p>
+                    <BsArrowRightShort />
+                  </button>
+
+                  <h2 className="textSignup">{REGI01_box2TH[2].label}</h2>
+                  <div style={{ margin: 25 }}>
+                    <p>{REGI01_box2TH[3].label}</p>
+                  </div>
+                  {images.length < 1 ? (
+                    <div
+                      style={{
+                        background: "#FFFFFF",
+                        borderRadius: 100,
+                        width: 83,
+                        height: 80,
+                        padding: 15,
+                        position: "relative",
+                        borderStyle: " dotted ",
+                        borderColor: "#0865A8",
+                        borderWidth: 2,
+                        margin: 25,
+                      }}
+                    >
+                      <label htmlFor="icon-button-file">
+                        <Input
+                          accept="image/*"
+                          id="icon-button-file"
+                          type="file"
+                          style={{ display: "none" }}
+                          onChange={onImageChange}
+                        />
+                        <IconButton
+                          color="primary"
+                          aria-label="upload picture"
+                          component="span"
+                        >
+                          <MdCameraAlt
+                            style={{ fontSize: 35, position: "absolute" }}
+                          />
+                          <p
+                            style={{
+                              fontSize: 8,
+                              position: "absolute",
+                              top: 20,
+                              width: 63,
+                            }}
+                          >
+                            {REGI01_box2TH[3].label}
+                          </p>
+                        </IconButton>
+                      </label>
+                    </div>
+                  ) : (
+                    <div
+                      style={{
+                        borderRadius: 100,
+                        width: 100,
+                        height: 100,
+                        position: "relative",
+                        borderWidth: 2,
+                        margin: 25,
+                      }}
+                    >
+                      <label htmlFor="icon-button-file">
+                        <Input
+                          accept="image/*"
+                          id="icon-button-file"
+                          type="file"
+                          style={{ display: "none" }}
+                          onChange={onImageChange}
+                        />
+                        <IconButton
+                          color="primary"
+                          aria-label="upload picture"
+                          component="span"
+                        >
+                          {imageURLs.map((imageSrc, idx) => (
+                            <img
+                              key={idx}
+                              src={imageSrc}
+                              alt="imageURLs"
+                              style={{
+                                position: "absolute",
+                                width: 90,
+                                height: 90,
+                                borderRadius: "100%",
+                                top: -20,
+                              }}
+                            />
+                          ))}
+                        </IconButton>
+                      </label>
+                    </div>
+                  )}
+
+                  <button
+                    style={{
+                      width: "100%",
+                      borderRadius: 20,
+                      background: " #001E33",
+                      height: 40,
+                      color: "#FFFFFF",
+                      fontSize: 18,
+                      borderColor: "transparent",
+                      marginBottom: 10,
+                    }}
+                    onClick={() => setScreen("5")}
+                  >
+                    {REGI01_box2TH[4].label}
+                  </button>
+                </div>
+              ) : Doc === "German" ? (
+                <div
+                  style={{
+                    position: "fixed",
+                    top: 120,
+                    left: width * 0.59,
+                    textAlign: "-webkit-center",
+                    width: 500,
+                    background: " #FFFFFF",
+                    boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
+                    borderRadius: 20,
+                    padding: 30,
+                  }}
+                >
+                  <button
+                    style={{
+                      fontWeight: 400,
+                      fontSize: 18,
+                      textDecorationLine: "none",
+                      color: "#D9D9D9",
+                      textAlign: "left",
+                      marginBottom: 20,
+                      float: "left",
+                      background: "transparent",
+                      border: "transparent",
+                    }}
+                    onClick={() => setScreen("")}
+                  >
+                    <BsArrowLeftShort />
+                    <p
+                      style={{
+                        color: "#D9D9D9",
+                        fontSize: 18,
+                        textDecorationLine: "none",
+                        float: "right",
+                      }}
+                    >
+                      {REGI01_box2DE[0].label}
+                    </p>
+                  </button>
+
+                  <button
+                    style={{
+                      fontWeight: 400,
+                      textAlign: "right",
+                      marginBottom: 20,
+                      float: "right",
+                      color: "#D9D9D9",
+                      background: "transparent",
+                      border: "transparent",
+                    }}
+                    onClick={() => setScreen("5")}
+                  >
+                    <p
+                      style={{
+                        color: "#D9D9D9",
+                        fontSize: 18,
+                        textDecorationLine: "none",
+                        float: "left",
+                      }}
+                    >
+                      {REGI01_box2DE[1].label}
+                    </p>
+                    <BsArrowRightShort />
+                  </button>
+
+                  <h2 className="textSignup">{REGI01_box2DE[2].label}</h2>
+                  <div style={{ margin: 25 }}>
+                    <p>{REGI01_box2DE[3].label}</p>
+                  </div>
+                  {images.length < 1 ? (
+                    <div
+                      style={{
+                        background: "#FFFFFF",
+                        borderRadius: 100,
+                        width: 83,
+                        height: 80,
+                        padding: 15,
+                        position: "relative",
+                        borderStyle: " dotted ",
+                        borderColor: "#0865A8",
+                        borderWidth: 2,
+                        margin: 25,
+                      }}
+                    >
+                      <label htmlFor="icon-button-file">
+                        <Input
+                          accept="image/*"
+                          id="icon-button-file"
+                          type="file"
+                          style={{ display: "none" }}
+                          onChange={onImageChange}
+                        />
+                        <IconButton
+                          color="primary"
+                          aria-label="upload picture"
+                          component="span"
+                        >
+                          <MdCameraAlt
+                            style={{ fontSize: 35, position: "absolute" }}
+                          />
+                          <p
+                            style={{
+                              fontSize: 8,
+                              position: "absolute",
+                              top: 20,
+                              width: 63,
+                            }}
+                          >
+                            {REGI01_box2DE[3].label}
+                          </p>
+                        </IconButton>
+                      </label>
+                    </div>
+                  ) : (
+                    <div
+                      style={{
+                        borderRadius: 100,
+                        width: 100,
+                        height: 100,
+                        position: "relative",
+                        borderWidth: 2,
+                        margin: 25,
+                      }}
+                    >
+                      <label htmlFor="icon-button-file">
+                        <Input
+                          accept="image/*"
+                          id="icon-button-file"
+                          type="file"
+                          style={{ display: "none" }}
+                          onChange={onImageChange}
+                        />
+                        <IconButton
+                          color="primary"
+                          aria-label="upload picture"
+                          component="span"
+                        >
+                          {imageURLs.map((imageSrc, idx) => (
+                            <img
+                              key={idx}
+                              src={imageSrc}
+                              alt="imageURLs"
+                              style={{
+                                position: "absolute",
+                                width: 90,
+                                height: 90,
+                                borderRadius: "100%",
+                                top: -20,
+                              }}
+                            />
+                          ))}
+                        </IconButton>
+                      </label>
+                    </div>
+                  )}
+
+                  <button
+                    style={{
+                      width: "100%",
+                      borderRadius: 20,
+                      background: " #001E33",
+                      height: 40,
+                      color: "#FFFFFF",
+                      fontSize: 18,
+                      borderColor: "transparent",
+                      marginBottom: 10,
+                    }}
+                    onClick={() => setScreen("5")}
+                  >
+                    {REGI01_box2DE[4].label}
+                  </button>
+                </div>
+              ) : (
+                <div
+                  style={{
+                    position: "fixed",
+                    top: 120,
+                    left: width * 0.59,
+                    textAlign: "-webkit-center",
+                    width: 500,
+                    background: " #FFFFFF",
+                    boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
+                    borderRadius: 20,
+                    padding: 30,
+                  }}
+                >
+                  <button
+                    style={{
+                      fontWeight: 400,
+                      fontSize: 18,
+                      textDecorationLine: "none",
+                      color: "#D9D9D9",
+                      textAlign: "left",
+                      marginBottom: 20,
+                      float: "left",
+                      background: "transparent",
+                      border: "transparent",
+                    }}
+                    onClick={() => setScreen("")}
+                  >
+                    <BsArrowLeftShort />
+                    <p
+                      style={{
+                        color: "#D9D9D9",
+                        fontSize: 18,
+                        textDecorationLine: "none",
+                        float: "right",
+                      }}
+                    >
+                      {REGI01_box2EN[0].label}
+                    </p>
+                  </button>
+
+                  <button
+                    style={{
+                      fontWeight: 400,
+                      textAlign: "right",
+                      marginBottom: 20,
+                      float: "right",
+                      color: "#D9D9D9",
+                      background: "transparent",
+                      border: "transparent",
+                    }}
+                    onClick={() => setScreen("5")}
+                  >
+                    <p
+                      style={{
+                        color: "#D9D9D9",
+                        fontSize: 18,
+                        textDecorationLine: "none",
+                        float: "left",
+                      }}
+                    >
+                      {REGI01_box2EN[1].label}
+                    </p>
+                    <BsArrowRightShort />
+                  </button>
+
+                  <h2 className="textSignup">{REGI01_box2EN[2].label}</h2>
+                  <div style={{ margin: 25 }}>
+                    <p>{REGI01_box2EN[3].label}</p>
+                  </div>
+                  {images.length < 1 ? (
+                    <div
+                      style={{
+                        background: "#FFFFFF",
+                        borderRadius: 100,
+                        width: 83,
+                        height: 80,
+                        padding: 15,
+                        position: "relative",
+                        borderStyle: " dotted ",
+                        borderColor: "#0865A8",
+                        borderWidth: 2,
+                        margin: 25,
+                      }}
+                    >
+                      <label htmlFor="icon-button-file">
+                        <Input
+                          accept="image/*"
+                          id="icon-button-file"
+                          type="file"
+                          style={{ display: "none" }}
+                          onChange={onImageChange}
+                        />
+                        <IconButton
+                          color="primary"
+                          aria-label="upload picture"
+                          component="span"
+                        >
+                          <MdCameraAlt
+                            style={{ fontSize: 35, position: "absolute" }}
+                          />
+                          <p
+                            style={{
+                              fontSize: 8,
+                              position: "absolute",
+                              top: 20,
+                              width: 63,
+                            }}
+                          >
+                            {REGI01_box2EN[3].label}
+                          </p>
+                        </IconButton>
+                      </label>
+                    </div>
+                  ) : (
+                    <div
+                      style={{
+                        borderRadius: 100,
+                        width: 100,
+                        height: 100,
+                        position: "relative",
+                        borderWidth: 2,
+                        margin: 25,
+                      }}
+                    >
+                      <label htmlFor="icon-button-file">
+                        <Input
+                          accept="image/*"
+                          id="icon-button-file"
+                          type="file"
+                          style={{ display: "none" }}
+                          onChange={onImageChange}
+                        />
+                        <IconButton
+                          color="primary"
+                          aria-label="upload picture"
+                          component="span"
+                        >
+                          {imageURLs.map((imageSrc, idx) => (
+                            <img
+                              key={idx}
+                              src={imageSrc}
+                              alt="imageURLs"
+                              style={{
+                                position: "absolute",
+                                width: 90,
+                                height: 90,
+                                borderRadius: "100%",
+                                top: -20,
+                              }}
+                            />
+                          ))}
+                        </IconButton>
+                      </label>
+                    </div>
+                  )}
+
+                  <button
+                    style={{
+                      width: "100%",
+                      borderRadius: 20,
+                      background: " #001E33",
+                      height: 40,
+                      color: "#FFFFFF",
+                      fontSize: 18,
+                      borderColor: "transparent",
+                      marginBottom: 10,
+                    }}
+                    onClick={() => setScreen("5")}
+                  >
+                    {REGI01_box2EN[4].label}
+                  </button>
+                </div>
+              )}
             </>
           ) : screen === "4" ? (
             <>
-              <div
-                style={{
-                  position: "fixed",
-                  top: 120,
-                  left: width * 0.59,
-                  textAlign: "-webkit-center",
-                  width: 500,
-                  background: " #FFFFFF",
-                  boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
-                  borderRadius: 20,
-                  padding: 30,
-                }}
-              >
-                <button
+              {Doc === "English" ? (
+                <div
                   style={{
-                    fontWeight: 400,
-                    fontSize: 18,
-                    textDecorationLine: "none",
-                    color: "#D9D9D9",
-                    textAlign: "left",
-                    marginBottom: 20,
-                    float: "left",
-                    background: "transparent",
-                    border: "transparent",
+                    position: "fixed",
+                    top: 120,
+                    left: width * 0.59,
+                    textAlign: "-webkit-center",
+                    width: 500,
+                    background: " #FFFFFF",
+                    boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
+                    borderRadius: 20,
+                    padding: 30,
                   }}
-                  onClick={() => setScreen("For Translators")}
                 >
-                  <BsArrowLeftShort />
-                  <p
-                    to="/"
+                  <button
                     style={{
-                      color: "#D9D9D9",
+                      fontWeight: 400,
                       fontSize: 18,
                       textDecorationLine: "none",
-                      float: "right",
-                    }}
-                  >
-                    Back
-                  </p>
-                </button>
-
-                <button
-                  style={{
-                    fontWeight: 400,
-                    textAlign: "right",
-                    marginBottom: 20,
-                    float: "right",
-                    color: "#D9D9D9",
-                    background: "transparent",
-                    border: "transparent",
-                  }}
-                  onClick={() => setScreen("6")}
-                >
-                  <p
-                    style={{
                       color: "#D9D9D9",
-                      fontSize: 18,
-                      textDecorationLine: "none",
+                      textAlign: "left",
+                      marginBottom: 20,
                       float: "left",
+                      background: "transparent",
+                      border: "transparent",
                     }}
+                    onClick={() => setScreen("For Translators")}
                   >
-                    Skip
-                  </p>
-                  <BsArrowRightShort />
-                </button>
-
-                <h2 className="textSignup">Sign up</h2>
-                <div style={{ margin: 25 }}>
-                  <p>Upload Image</p>
-                </div>
-                {images.length < 1 ? (
-                  <div
-                    style={{
-                      background: "#FFFFFF",
-                      borderRadius: 100,
-                      width: 83,
-                      height: 80,
-                      padding: 15,
-                      position: "relative",
-                      borderStyle: " dotted ",
-                      borderColor: "#0865A8",
-                      borderWidth: 2,
-                      margin: 25,
-                    }}
-                  >
-                    <label htmlFor="icon-button-file">
-                      <Input
-                        accept="image/*"
-                        id="icon-button-file"
-                        type="file"
-                        style={{ display: "none" }}
-                        onChange={onImageChange}
-                      />
-                      <IconButton
-                        color="primary"
-                        aria-label="upload picture"
-                        component="span"
-                      >
-                        <MdCameraAlt
-                          style={{ fontSize: 35, position: "absolute" }}
-                        />
-                        <p
-                          style={{
-                            fontSize: 8,
-                            position: "absolute",
-                            top: 20,
-                            width: 63,
-                          }}
-                        >
-                          Upload File
-                        </p>
-                      </IconButton>
-                    </label>
-                  </div>
-                ) : (
-                  <div
-                    style={{
-                      borderRadius: 100,
-                      width: 100,
-                      height: 100,
-                      position: "relative",
-                      borderWidth: 2,
-                      margin: 25,
-                    }}
-                  >
-                    <label htmlFor="icon-button-file">
-                      <Input
-                        accept="image/*"
-                        id="icon-button-file"
-                        type="file"
-                        style={{ display: "none" }}
-                        onChange={onImageChange}
-                      />
-                      <IconButton
-                        color="primary"
-                        aria-label="upload picture"
-                        component="span"
-                      >
-                        {imageURLs.map((imageSrc, idx) => (
-                          <img
-                            key={idx}
-                            src={imageSrc}
-                            alt="imageURLs"
-                            style={{
-                              position: "absolute",
-                              width: 90,
-                              height: 90,
-                              borderRadius: "100%",
-                              top: -20,
-                            }}
-                          />
-                        ))}
-                      </IconButton>
-                    </label>
-                  </div>
-                )}
-
-                <button
-                  style={{
-                    width: "100%",
-                    borderRadius: 20,
-                    background: " #001E33",
-                    height: 40,
-                    color: "#FFFFFF",
-                    fontSize: 18,
-                    borderColor: "transparent",
-                    marginBottom: 10,
-                  }}
-                  onClick={() => setScreen("6")}
-                >
-                  Next
-                </button>
-              </div>
-            </>
-          ) : screen === "5" ? (
-            <div>
-              <div
-                style={{
-                  position: "fixed",
-                  top: 20,
-                  left: width * 0.59,
-                  textAlign: "-webkit-center",
-                  width: 500,
-                  background: " #FFFFFF",
-                  boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
-                  borderRadius: 20,
-                  padding: 30,
-                }}
-              >
-                <button
-                  style={{
-                    fontWeight: 400,
-                    fontSize: 18,
-                    textDecorationLine: "none",
-                    color: "#D9D9D9",
-                    textAlign: "left",
-                    marginBottom: 20,
-                    float: "left",
-                    background: "transparent",
-                    border: "transparent",
-                  }}
-                  onClick={() => setScreen("3")}
-                >
-                  <BsArrowLeftShort />
-                  <p
-                    style={{
-                      color: "#D9D9D9",
-                      fontSize: 18,
-                      textDecorationLine: "none",
-                      float: "right",
-                    }}
-                  >
-                    Back
-                  </p>
-                </button>
-
-                <h2 className="textSignup">Sign up</h2>
-
-                <div style={{ textAlign: "left", marginTop: 10 }}>
-                  <p
-                    style={{
-                      fontWeight: 500,
-                      fontSize: 15,
-                      color: "#242424",
-                    }}
-                  >
-                    Address
-                  </p>
-                  <input
-                    type="text"
-                    value={address}
-                    onChange={(e) => setAddress(e.target.value)}
-                    placeholder="Address"
-                    style={{
-                      background: "#FFFFFF",
-                      border: "1px solid #F1F1F1 ",
-                      borderRadius: 20,
-                      width: "100%",
-                      height: 30,
-                      padding: 20,
-                      paddingLeft: 12,
-                      margin: 10,
-                      fontSize: 13,
-                    }}
-                  />
-                </div>
-
-                <div style={{ textAlign: "left" }}>
-                  <p
-                    style={{
-                      fontWeight: 500,
-                      fontSize: 15,
-                      color: "#242424",
-                    }}
-                  >
-                    District
-                  </p>
-                  <input
-                    type="text"
-                    value={district}
-                    onChange={(e) => setDistrict(e.target.value)}
-                    placeholder="District"
-                    style={{
-                      background: "#FFFFFF",
-                      border: "1px solid #F1F1F1 ",
-                      borderRadius: 20,
-                      width: "100%",
-                      height: 30,
-                      padding: 20,
-                      paddingLeft: 12,
-                      margin: 10,
-                      fontSize: 13,
-                    }}
-                  />
-                </div>
-
-                <div style={{ textAlign: "left" }}>
-                  <p
-                    style={{
-                      fontWeight: 500,
-                      fontSize: 15,
-                      color: "#242424",
-                    }}
-                  >
-                    Province
-                  </p>
-                  <input
-                    type="text"
-                    value={province}
-                    onChange={(e) => setProvince(e.target.value)}
-                    placeholder="Province"
-                    style={{
-                      background: "#FFFFFF",
-                      border: "1px solid #F1F1F1 ",
-                      borderRadius: 20,
-                      borderColor: "#F1F1F1",
-                      width: "100%",
-                      height: 30,
-                      padding: 20,
-                      paddingLeft: 12,
-                      margin: 10,
-                      fontSize: 13,
-                    }}
-                  />
-                </div>
-
-                <div style={{ textAlign: "left" }}>
-                  <p
-                    style={{
-                      fontWeight: 500,
-                      fontSize: 15,
-                      color: "#242424",
-                    }}
-                  >
-                    Country
-                  </p>
-                  <input
-                    type="text"
-                    value={country}
-                    onChange={(e) => setCountry(e.target.value)}
-                    placeholder="Country"
-                    style={{
-                      background: "#FFFFFF",
-                      border: "1px solid #F1F1F1 ",
-                      borderRadius: 20,
-                      borderColor: "#F1F1F1",
-                      width: "100%",
-                      height: 30,
-                      padding: 20,
-                      paddingLeft: 12,
-                      margin: 10,
-                      fontSize: 13,
-                    }}
-                  />
-                </div>
-
-                <div style={{ textAlign: "left", marginBottom: 10 }}>
-                  <p
-                    style={{
-                      fontWeight: 500,
-                      fontSize: 15,
-                      color: "#242424",
-                    }}
-                  >
-                    Postal Code
-                  </p>
-                  <input
-                    type="text"
-                    value={postalcode}
-                    onChange={(e) => setPostalCode(e.target.value)}
-                    placeholder="Mobile phone"
-                    style={{
-                      background: "#FFFFFF",
-                      border: "1px solid #F1F1F1 ",
-                      borderRadius: 20,
-                      borderColor: "#F1F1F1",
-                      width: "100%",
-                      height: 30,
-                      padding: 20,
-                      paddingLeft: 12,
-                      margin: 10,
-                      fontSize: 13,
-                    }}
-                  />
-                </div>
-
-                <button
-                  style={{
-                    width: "100%",
-                    borderRadius: 20,
-                    background: " #001E33",
-                    height: 40,
-                    color: "#FFFFFF",
-                    fontSize: 18,
-                    borderColor: "transparent",
-                  }}
-                  onClick={handleOpen}
-                >
-                  Sign up
-                </button>
-              </div>
-
-              <Modal
-                keepMounted
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="keep-mounted-modal-title"
-                aria-describedby="keep-mounted-modal-description"
-              >
-                <Box
-                  sx={{
-                    position: "absolute",
-                    top: "50%",
-                    left: "50%",
-                    transform: "translate(-50%, -70%)",
-                    width: 600,
-                    bgcolor: "background.paper",
-                    boxShadow: 24,
-                    p: 4,
-                    borderRadius: 5,
-                    border: "1px solid #E5E5E5",
-                    textAlign: "center",
-                  }}
-                >
-                  <img src={logo} alt="Logo" style={{ width: 100 }} />
-                  <Typography
-                    id="keep-mounted-modal-description"
-                    sx={{ mt: 2, fontWeight: 700 }}
-                  >
-                    Terms and Conditions
-                  </Typography>
-                  <Typography
-                    id="keep-mounted-modal-description"
-                    sx={{
-                      mt: 2,
-                      textAlign: "left",
-                      overflowY: "auto",
-                      height: 200,
-                    }}
-                  >
-                    If you click on "Allow all cookies", you consent to the
-                    storage and accessing of information stored to such cookies
-                    on your device, to the processing of your respective
-                    personal data, and to the transfer of this data to countries
-                    that do not ensure the same level of data protection as the
-                    EU, in particular the USA. You can find more information on
-                    the subject of your consents in our Privacy Policy and under
-                    "Show details". We use cookies to store your preferences
-                    when using our website, to statistically analyze your usage
-                    behavior, and to display personalized advertising on
-                    third-party websites or social media. This data may be used
-                    by us and our partners to enrich usage profiles. You can
-                    revoke your consent at any time, but only with effect for
-                    the future. To do so, please click on the link to our
-                    Privacy Policy, which you will find in the footer of our
-                    website, and use the "Change your consent" function there.
-                  </Typography>
-                  <div
-                    style={{
-                      textAlign: "left",
-                      borderTop: "1px solid #C4C4C4",
-                    }}
-                  >
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          checked={checked}
-                          onChange={handleChange2}
-                          inputProps={{ "aria-label": "controlled" }}
-                        />
-                      }
-                      label="accept the terms and conditions"
-                    />
-                  </div>
-                  <div>
-                    {checked === false ? (
-                      <button
-                        style={{
-                          width: "30%",
-                          borderRadius: 20,
-                          background: "#E0E0E0",
-                          height: 40,
-                          color: "#FFFFFF",
-                          fontSize: 18,
-                          borderColor: "transparent",
-                          position: "relative",
-                          left: "35%",
-                        }}
-                        disabled
-                      >
-                        Submit
-                      </button>
-                    ) : (
-                      <button
-                        style={{
-                          width: "30%",
-                          borderRadius: 20,
-                          background: "#001E33",
-                          height: 40,
-                          color: "#FFFFFF",
-                          fontSize: 18,
-                          borderColor: "transparent",
-                          position: "relative",
-                          left: "35%",
-                        }}
-                        onClick={send_Mail}
-                      >
-                        Submit
-                      </button>
-                    )}
-                  </div>
-                </Box>
-              </Modal>
-
-              <Modal
-                keepMounted
-                open={open2}
-                onClose={handleClose2}
-                aria-labelledby="keep-mounted-modal-title"
-                aria-describedby="keep-mounted-modal-description"
-              >
-                <Box
-                  sx={{
-                    position: "absolute",
-                    top: "50%",
-                    left: "50%",
-                    transform: "translate(-50%, -70%)",
-                    width: 400,
-                    bgcolor: "background.paper",
-                    boxShadow: 24,
-                    p: 4,
-                    borderRadius: 5,
-                    border: "1px solid #E5E5E5",
-                    textAlign: "center",
-                  }}
-                >
-                  <AiFillCheckCircle
-                    style={{ width: 100, height: 80, color: "#46BC52" }}
-                  />
-                  <Typography
-                    id="keep-mounted-modal-description"
-                    sx={{ mt: 2, fontWeight: 700 }}
-                  >
-                    Your translator application has been sent. Wait for
-                    confirmation by email
-                  </Typography>
-                </Box>
-              </Modal>
-            </div>
-          ) : screen === "6" ? (
-            <div>
-              <div
-                style={{
-                  position: "fixed",
-                  top: 20,
-                  left: width * 0.59,
-                  textAlign: "-webkit-center",
-                  width: 500,
-                  background: " #FFFFFF",
-                  boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
-                  borderRadius: 20,
-                  padding: 30,
-                }}
-              >
-                <button
-                  style={{
-                    fontWeight: 400,
-                    fontSize: 18,
-                    textDecorationLine: "none",
-                    color: "#D9D9D9",
-                    textAlign: "left",
-                    marginBottom: 20,
-                    float: "left",
-                    background: "transparent",
-                    border: "transparent",
-                  }}
-                  onClick={() => setScreen("4")}
-                >
-                  <BsArrowLeftShort />
-                  <p
-                    style={{
-                      color: "#D9D9D9",
-                      fontSize: 18,
-                      textDecorationLine: "none",
-                      float: "right",
-                    }}
-                  >
-                    Back
-                  </p>
-                </button>
-
-                <h2 className="textSignup">Sign up</h2>
-                <div>
-                  <FormControl style={{ display: "inherit" }}>
-                    <RadioGroup
-                      row
-                      aria-labelledby="demo-row-radio-buttons-group-label"
-                      name="row-radio-buttons-group"
-                    >
-                      <FormControlLabel
-                        checked
-                        onChange={handleChange}
-                        name="radio-buttons"
-                        value=""
-                        control={<Radio />}
-                        label="Company"
-                        style={{ marginRight: 50 }}
-                      />
-                      <FormControlLabel
-                        onChange={handleChange}
-                        name="radio-buttons"
-                        value="Freelance Translators"
-                        control={<Radio />}
-                        label="Freelance Translators"
-                      />
-                    </RadioGroup>
-                  </FormControl>
-                </div>
-
-                <div style={{ textAlign: "left", marginTop: 10 }}>
-                  <p
-                    style={{
-                      fontWeight: 500,
-                      fontSize: 15,
-                      color: "#242424",
-                    }}
-                  >
-                    Company name
-                  </p>
-                  <input
-                    type="text"
-                    value={companyname}
-                    onChange={(e) => setCompanyname(e.target.value)}
-                    placeholder="Company name"
-                    style={{
-                      background: "#FFFFFF",
-                      border: "1px solid #F1F1F1 ",
-                      borderRadius: 20,
-                      width: "100%",
-                      height: 30,
-                      padding: 20,
-                      paddingLeft: 12,
-                      margin: 10,
-                      fontSize: 13,
-                    }}
-                  />
-                </div>
-
-                <div style={{ textAlign: "left" }}>
-                  <p
-                    style={{
-                      fontWeight: 500,
-                      fontSize: 15,
-                      color: "#242424",
-                    }}
-                  >
-                    Juristic Person Number
-                  </p>
-                  <input
-                    type="text"
-                    value={juristicPersonNumber}
-                    onChange={(e) => setJuristicPersonNumber(e.target.value)}
-                    placeholder="Juristic Person Number"
-                    style={{
-                      background: "#FFFFFF",
-                      border: "1px solid #F1F1F1",
-                      borderRadius: 20,
-                      width: "100%",
-                      height: 30,
-                      padding: 20,
-                      paddingLeft: 12,
-                      margin: 10,
-                      fontSize: 13,
-                    }}
-                  />
-                </div>
-
-                <div style={{ textAlign: "left", marginBottom: 10 }}>
-                  <p
-                    style={{
-                      fontWeight: 500,
-                      fontSize: 15,
-                      color: "#242424",
-                    }}
-                  >
-                    Website
-                  </p>
-                  <input
-                    type="text"
-                    value={website}
-                    onChange={(e) => setWebsite(e.target.value)}
-                    placeholder="https://example.com"
-                    style={{
-                      background: "#FFFFFF",
-                      border: "1px solid #F1F1F1 ",
-                      borderRadius: 20,
-                      borderColor: "#F1F1F1",
-                      width: "100%",
-                      height: 30,
-                      padding: 20,
-                      paddingLeft: 12,
-                      margin: 10,
-                      fontSize: 13,
-                    }}
-                  />
-                </div>
-
-                <button
-                  style={{
-                    width: "100%",
-                    borderRadius: 20,
-                    background: " #001E33",
-                    height: 40,
-                    color: "#FFFFFF",
-                    fontSize: 18,
-                    borderColor: "transparent",
-                  }}
-                  onClick={() => setScreen("8")}
-                >
-                  Next
-                </button>
-              </div>
-            </div>
-          ) : screen === "Freelance Translators" ? (
-            <div>
-              <div
-                style={{
-                  position: "fixed",
-                  top: 20,
-                  left: width * 0.59,
-                  textAlign: "-webkit-center",
-                  width: 500,
-                  background: " #FFFFFF",
-                  boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
-                  borderRadius: 20,
-                  padding: 30,
-                }}
-              >
-                <button
-                  style={{
-                    fontWeight: 400,
-                    fontSize: 18,
-                    textDecorationLine: "none",
-                    color: "#D9D9D9",
-                    textAlign: "left",
-                    marginBottom: 20,
-                    float: "left",
-                    background: "transparent",
-                    border: "transparent",
-                  }}
-                  onClick={() => setScreen("4")}
-                >
-                  <BsArrowLeftShort />
-                  <p
-                    style={{
-                      color: "#D9D9D9",
-                      fontSize: 18,
-                      textDecorationLine: "none",
-                      float: "right",
-                    }}
-                  >
-                    Back
-                  </p>
-                </button>
-
-                <h2 className="textSignup" style={{ marginTop: 30 }}>
-                  Sign up
-                </h2>
-                <div>
-                  <FormControl style={{ display: "inherit" }}>
-                    <RadioGroup
-                      row
-                      aria-labelledby="demo-row-radio-buttons-group-label"
-                      name="row-radio-buttons-group"
-                    >
-                      <FormControlLabel
-                        onChange={handleChange}
-                        name="radio-buttons"
-                        value="6"
-                        control={<Radio />}
-                        label="Company"
-                        style={{ marginRight: 50 }}
-                      />
-                      <FormControlLabel
-                        checked
-                        onChange={handleChange}
-                        name="radio-buttons"
-                        value="Freelance Translators"
-                        control={<Radio />}
-                        label="Freelance Translators"
-                      />
-                    </RadioGroup>
-                  </FormControl>
-                </div>
-                <div style={{ textAlign: "left" }}>
-                  <p
-                    style={{
-                      fontWeight: 500,
-                      fontSize: 20,
-                      color: " #242424",
-                    }}
-                  >
-                    Upload a picture of your ID card.
-                  </p>
-                  <p
-                    style={{
-                      fontWeight: 500,
-                      fontSize: 14,
-                      color: " #242424",
-                    }}
-                  >
-                    (such as JPG, PDF, PNG and the file size does not exceed
-                    25Mb.)
-                  </p>
-                  <div style={{ textAlign: "center" }}>
-                    {file2 === "" ? (
-                      <div
-                        style={{
-                          background: "#FFFFFF",
-                          borderRadius: 20,
-                          width: "100%",
-                          height: 200,
-                          padding: 50,
-                          position: "relative",
-                          borderStyle: " dotted ",
-                          borderColor: "#0865A8",
-                          borderWidth: 2,
-                          margin: 20,
-                          marginLeft: 0,
-                        }}
-                      >
-                        <label htmlFor="icon-button-file">
-                          <Input
-                            accept="image/*"
-                            id="icon-button-file"
-                            type="file"
-                            style={{ display: "none" }}
-                            onChange={(e) => setFile2(e.target.value)}
-                          />
-                          <IconButton
-                            color="primary"
-                            aria-label="upload picture"
-                            component="span"
-                          >
-                            <FiImage
-                              style={{
-                                fontSize: 50,
-                                position: "absolute",
-                                marginTop: 30,
-                              }}
-                            />
-                            <p
-                              style={{
-                                fontSize: 10,
-                                position: "absolute",
-                                top: 60,
-                                width: 100,
-                              }}
-                            >
-                              Upload File
-                            </p>
-                          </IconButton>
-                        </label>
-                      </div>
-                    ) : (
-                      <div
-                        style={{
-                          background: "#FFFFFF",
-                          borderRadius: 20,
-                          width: "100%",
-                          height: 200,
-                          padding: 50,
-                          position: "relative",
-                          borderStyle: " dotted ",
-                          borderColor: "#0865A8",
-                          borderWidth: 2,
-                          margin: 20,
-                          marginLeft: 0,
-                        }}
-                      >
-                        <label htmlFor="icon-button-file">
-                          <Input
-                            accept="image/*"
-                            id="icon-button-file"
-                            type="file"
-                            style={{ display: "none" }}
-                            onChange={(e) => setFile2(e.target.value)}
-                          />
-                          <IconButton
-                            color="primary"
-                            aria-label="upload picture"
-                            component="span"
-                          >
-                            <FiImage
-                              style={{
-                                fontSize: 50,
-                                position: "absolute",
-                                marginTop: 30,
-                              }}
-                            />
-                            <p
-                              style={{
-                                fontSize: 10,
-                                position: "absolute",
-                                top: 60,
-                                width: 100,
-                              }}
-                            >
-                              {file2}
-                            </p>
-                          </IconButton>
-                        </label>
-                      </div>
-                    )}
-                  </div>
-                  <p
-                    style={{
-                      color: "#666666",
-                      textDecorationLine: "underline",
-                      fontSize: 14,
-                    }}
-                  >
-                    An example of uploading a picture of your ID card.
-                  </p>
-                </div>
-                <hr style={{ width: "97%", height: 2 }} />
-                <button
-                  style={{
-                    width: "100%",
-                    borderRadius: 20,
-                    background: " #001E33",
-                    height: 40,
-                    color: "#FFFFFF",
-                    fontSize: 18,
-                    borderColor: "transparent",
-                  }}
-                  onClick={() => setScreen("9")}
-                >
-                  Next
-                </button>
-              </div>
-            </div>
-          ) : screen === "8" ? (
-            <div>
-              <div
-                style={{
-                  position: "fixed",
-                  top: 20,
-                  left: width * 0.59,
-                  textAlign: "-webkit-center",
-                  width: 500,
-                  background: " #FFFFFF",
-                  boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
-                  borderRadius: 20,
-                  padding: 30,
-                }}
-              >
-                <button
-                  style={{
-                    fontWeight: 400,
-                    fontSize: 18,
-                    textDecorationLine: "none",
-                    color: "#D9D9D9",
-                    textAlign: "left",
-                    marginBottom: 20,
-                    float: "left",
-                    background: "transparent",
-                    border: "transparent",
-                  }}
-                  onClick={() => setScreen("6")}
-                >
-                  <BsArrowLeftShort />
-                  <p
-                    style={{
-                      color: "#D9D9D9",
-                      fontSize: 18,
-                      textDecorationLine: "none",
-                      float: "right",
-                    }}
-                  >
-                    Back
-                  </p>
-                </button>
-
-                <h2 className="textSignup" style={{ marginTop: 30 }}>
-                  Sign up
-                </h2>
-                <div>
-                  <FormControl style={{ display: "inherit" }}>
-                    <RadioGroup
-                      row
-                      aria-labelledby="demo-row-radio-buttons-group-label"
-                      name="row-radio-buttons-group"
-                    >
-                      <FormControlLabel
-                        checked
-                        onChange={handleChange}
-                        name="radio-buttons"
-                        value=""
-                        control={<Radio />}
-                        label="Company"
-                        style={{ marginRight: 50 }}
-                      />
-                      <FormControlLabel
-                        onChange={handleChange}
-                        name="radio-buttons"
-                        value="Freelance Translators"
-                        control={<Radio />}
-                        label="Freelance Translators"
-                      />
-                    </RadioGroup>
-                  </FormControl>
-                </div>
-
-                <div style={{ textAlign: "left", marginTop: 10 }}>
-                  <p
-                    style={{
-                      fontWeight: 500,
-                      fontSize: 15,
-                      color: "#242424",
-                    }}
-                  >
-                    Address
-                  </p>
-                  <input
-                    type="text"
-                    value={address}
-                    onChange={(e) => setAddress(e.target.value)}
-                    placeholder="Address"
-                    style={{
-                      background: "#FFFFFF",
-                      border: "1px solid #F1F1F1 ",
-                      borderRadius: 20,
-                      width: "100%",
-                      height: 30,
-                      padding: 20,
-                      paddingLeft: 12,
-                      margin: 10,
-                      fontSize: 13,
-                    }}
-                  />
-                </div>
-
-                <div style={{ textAlign: "left" }}>
-                  <p
-                    style={{
-                      fontWeight: 500,
-                      fontSize: 15,
-                      color: "#242424",
-                    }}
-                  >
-                    District
-                  </p>
-                  <input
-                    type="text"
-                    value={district}
-                    onChange={(e) => setDistrict(e.target.value)}
-                    placeholder="District"
-                    style={{
-                      background: "#FFFFFF",
-                      border: "1px solid #F1F1F1 ",
-                      borderRadius: 20,
-                      width: "100%",
-                      height: 30,
-                      padding: 20,
-                      paddingLeft: 12,
-                      margin: 10,
-                      fontSize: 13,
-                    }}
-                  />
-                </div>
-
-                <div style={{ textAlign: "left" }}>
-                  <p
-                    style={{
-                      fontWeight: 500,
-                      fontSize: 15,
-                      color: "#242424",
-                    }}
-                  >
-                    Province
-                  </p>
-                  <input
-                    type="text"
-                    value={province}
-                    onChange={(e) => setProvince(e.target.value)}
-                    placeholder="Province"
-                    style={{
-                      background: "#FFFFFF",
-                      border: "1px solid #F1F1F1 ",
-                      borderRadius: 20,
-                      borderColor: "#F1F1F1",
-                      width: "100%",
-                      height: 30,
-                      padding: 20,
-                      paddingLeft: 12,
-                      margin: 10,
-                      fontSize: 13,
-                    }}
-                  />
-                </div>
-
-                <div style={{ textAlign: "left" }}>
-                  <p
-                    style={{
-                      fontWeight: 500,
-                      fontSize: 15,
-                      color: "#242424",
-                    }}
-                  >
-                    Country
-                  </p>
-                  <input
-                    type="text"
-                    value={country}
-                    onChange={(e) => setCountry(e.target.value)}
-                    placeholder="Country"
-                    style={{
-                      background: "#FFFFFF",
-                      border: "1px solid #F1F1F1 ",
-                      borderRadius: 20,
-                      borderColor: "#F1F1F1",
-                      width: "100%",
-                      height: 30,
-                      padding: 20,
-                      paddingLeft: 12,
-                      margin: 10,
-                      fontSize: 13,
-                    }}
-                  />
-                </div>
-
-                <div style={{ textAlign: "left", marginBottom: 10 }}>
-                  <p
-                    style={{
-                      fontWeight: 500,
-                      fontSize: 15,
-                      color: "#242424",
-                    }}
-                  >
-                    Postal Code
-                  </p>
-                  <input
-                    type="text"
-                    value={postalcode}
-                    onChange={(e) => setPostalCode(e.target.value)}
-                    placeholder="Mobile phone"
-                    style={{
-                      background: "#FFFFFF",
-                      border: "1px solid #F1F1F1 ",
-                      borderRadius: 20,
-                      borderColor: "#F1F1F1",
-                      width: "100%",
-                      height: 30,
-                      padding: 20,
-                      paddingLeft: 12,
-                      margin: 10,
-                      fontSize: 13,
-                    }}
-                  />
-                </div>
-
-                <button
-                  style={{
-                    width: "100%",
-                    borderRadius: 20,
-                    background: " #001E33",
-                    height: 40,
-                    color: "#FFFFFF",
-                    fontSize: 18,
-                    borderColor: "transparent",
-                  }}
-                  onClick={() => setScreen("10")}
-                >
-                  Next
-                </button>
-              </div>
-            </div>
-          ) : screen === "9" ? (
-            <div>
-              <div
-                style={{
-                  position: "fixed",
-                  top: 20,
-                  left: width * 0.59,
-                  textAlign: "-webkit-center",
-                  width: 500,
-                  background: " #FFFFFF",
-                  boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
-                  borderRadius: 20,
-                  padding: 30,
-                }}
-              >
-                <button
-                  style={{
-                    fontWeight: 400,
-                    fontSize: 18,
-                    textDecorationLine: "none",
-                    color: "#D9D9D9",
-                    textAlign: "left",
-                    marginBottom: 20,
-                    float: "left",
-                    background: "transparent",
-                    border: "transparent",
-                  }}
-                  onClick={() => setScreen("Freelance Translators")}
-                >
-                  <BsArrowLeftShort />
-                  <p
-                    style={{
-                      color: "#D9D9D9",
-                      fontSize: 18,
-                      textDecorationLine: "none",
-                      float: "right",
-                    }}
-                  >
-                    Back
-                  </p>
-                </button>
-
-                <h2 className="textSignup" style={{ marginTop: 30 }}>
-                  Sign up
-                </h2>
-                <div>
-                  <FormControl style={{ display: "inherit" }}>
-                    <RadioGroup
-                      row
-                      aria-labelledby="demo-row-radio-buttons-group-label"
-                      name="row-radio-buttons-group"
-                    >
-                      <FormControlLabel
-                        onChange={handleChange}
-                        name="radio-buttons"
-                        value="6"
-                        control={<Radio />}
-                        label="Company"
-                        style={{ marginRight: 50 }}
-                      />
-                      <FormControlLabel
-                        checked
-                        onChange={handleChange}
-                        name="radio-buttons"
-                        value="Freelance Translators"
-                        control={<Radio />}
-                        label="Freelance Translators"
-                      />
-                    </RadioGroup>
-                  </FormControl>
-                </div>
-                <div style={{ textAlign: "left" }}>
-                  <p
-                    style={{
-                      fontWeight: 700,
-                      fontSize: 16,
-                      color: " #242424",
-                    }}
-                  >
-                    Education/Certificate/Proof of Language Competency.
-                  </p>
-                  <p
-                    style={{
-                      fontWeight: 500,
-                      fontSize: 14,
-                      color: " #242424",
-                    }}
-                  >
-                    (such as JPG, PDF, PNG and the file size does not exceed
-                    25Mb.)
-                  </p>
-                  <div style={{ textAlign: "center" }}>
-                    {file2 === "" ? (
-                      <div
-                        style={{
-                          background: "#FFFFFF",
-                          borderRadius: 20,
-                          width: "100%",
-                          height: 200,
-                          padding: 50,
-                          position: "relative",
-                          borderStyle: " dotted ",
-                          borderColor: "#0865A8",
-                          borderWidth: 2,
-                          margin: 20,
-                          marginLeft: 0,
-                        }}
-                      >
-                        <label htmlFor="icon-button-file">
-                          <Input
-                            accept="image/*"
-                            id="icon-button-file"
-                            type="file"
-                            style={{ display: "none" }}
-                            onChange={(e) => setFile2(e.target.value)}
-                          />
-                          <IconButton
-                            color="primary"
-                            aria-label="upload picture"
-                            component="span"
-                          >
-                            <FiImage
-                              style={{
-                                fontSize: 50,
-                                position: "absolute",
-                                marginTop: 30,
-                              }}
-                            />
-                            <p
-                              style={{
-                                fontSize: 10,
-                                position: "absolute",
-                                top: 60,
-                                width: 100,
-                              }}
-                            >
-                              Upload File
-                            </p>
-                          </IconButton>
-                        </label>
-                      </div>
-                    ) : (
-                      <div
-                        style={{
-                          background: "#FFFFFF",
-                          borderRadius: 20,
-                          width: "100%",
-                          height: 200,
-                          padding: 50,
-                          position: "relative",
-                          borderStyle: " dotted ",
-                          borderColor: "#0865A8",
-                          borderWidth: 2,
-                          margin: 20,
-                          marginLeft: 0,
-                        }}
-                      >
-                        <label htmlFor="icon-button-file">
-                          <Input
-                            accept="image/*"
-                            id="icon-button-file"
-                            type="file"
-                            style={{ display: "none" }}
-                            onChange={(e) => setFile2(e.target.value)}
-                          />
-                          <IconButton
-                            color="primary"
-                            aria-label="upload picture"
-                            component="span"
-                          >
-                            <FiImage
-                              style={{
-                                fontSize: 50,
-                                position: "absolute",
-                                marginTop: 30,
-                              }}
-                            />
-                            <p
-                              style={{
-                                fontSize: 10,
-                                position: "absolute",
-                                top: 60,
-                                width: 100,
-                              }}
-                            >
-                              {file2}
-                            </p>
-                          </IconButton>
-                        </label>
-                      </div>
-                    )}
-                  </div>
-                </div>
-                <hr style={{ width: "97%", height: 2 }} />
-                <button
-                  style={{
-                    width: "100%",
-                    borderRadius: 20,
-                    background: " #001E33",
-                    height: 40,
-                    color: "#FFFFFF",
-                    fontSize: 18,
-                    borderColor: "transparent",
-                  }}
-                  onClick={() => setScreen("11")}
-                >
-                  Next
-                </button>
-              </div>
-            </div>
-          ) : screen === "10" ? (
-            <div>
-              <div
-                style={{
-                  position: "fixed",
-                  top: 20,
-                  left: width * 0.59,
-                  textAlign: "-webkit-center",
-                  width: 500,
-                  background: " #FFFFFF",
-                  boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
-                  borderRadius: 20,
-                  padding: 30,
-                }}
-              >
-                <button
-                  style={{
-                    fontWeight: 400,
-                    fontSize: 18,
-                    textDecorationLine: "none",
-                    color: "#D9D9D9",
-                    textAlign: "left",
-                    marginBottom: 20,
-                    float: "left",
-                    background: "transparent",
-                    border: "transparent",
-                  }}
-                  onClick={() => setScreen("8")}
-                >
-                  <BsArrowLeftShort />
-                  <p
-                    style={{
-                      color: "#D9D9D9",
-                      fontSize: 18,
-                      textDecorationLine: "none",
-                      float: "right",
-                    }}
-                  >
-                    Back
-                  </p>
-                </button>
-
-                <h2 className="textSignup" style={{ marginTop: 30 }}>
-                  Sign up
-                </h2>
-                <div>
-                  <FormControl style={{ display: "inherit" }}>
-                    <RadioGroup
-                      row
-                      aria-labelledby="demo-row-radio-buttons-group-label"
-                      name="row-radio-buttons-group"
-                    >
-                      <FormControlLabel
-                        checked
-                        onChange={handleChange}
-                        name="radio-buttons"
-                        value=""
-                        control={<Radio />}
-                        label="Company"
-                        style={{ marginRight: 50 }}
-                      />
-                      <FormControlLabel
-                        onChange={handleChange}
-                        name="radio-buttons"
-                        value="Freelance Translators"
-                        control={<Radio />}
-                        label="Freelance Translators"
-                      />
-                    </RadioGroup>
-                  </FormControl>
-                </div>
-
-                <div style={{ textAlign: "left", marginTop: 10 }}>
-                  <p
-                    style={{
-                      fontWeight: 500,
-                      fontSize: 15,
-                      color: "#242424",
-                    }}
-                  >
-                    Bank name
-                  </p>
-                  <input
-                    type="text"
-                    value={bankname}
-                    onChange={(e) => setBankname(e.target.value)}
-                    placeholder="Bank name"
-                    style={{
-                      background: "#FFFFFF",
-                      border: "1px solid #F1F1F1 ",
-                      borderRadius: 20,
-                      width: "100%",
-                      height: 30,
-                      padding: 20,
-                      paddingLeft: 12,
-                      margin: 10,
-                      fontSize: 13,
-                    }}
-                  />
-                </div>
-
-                <div style={{ textAlign: "left" }}>
-                  <p
-                    style={{
-                      fontWeight: 500,
-                      fontSize: 15,
-                      color: "#242424",
-                    }}
-                  >
-                    Branch name
-                  </p>
-                  <input
-                    type="text"
-                    value={branchname}
-                    onChange={(e) => setBranchname(e.target.value)}
-                    placeholder="Branch name"
-                    style={{
-                      background: "#FFFFFF",
-                      border: "1px solid #F1F1F1 ",
-                      borderRadius: 20,
-                      width: "100%",
-                      height: 30,
-                      padding: 20,
-                      paddingLeft: 12,
-                      margin: 10,
-                      fontSize: 13,
-                    }}
-                  />
-                </div>
-
-                <div style={{ textAlign: "left" }}>
-                  <p
-                    style={{
-                      fontWeight: 500,
-                      fontSize: 15,
-                      color: "#242424",
-                    }}
-                  >
-                    Account name
-                  </p>
-                  <input
-                    type="text"
-                    value={accountname}
-                    onChange={(e) => setAccountname(e.target.value)}
-                    placeholder="Account name"
-                    style={{
-                      background: "#FFFFFF",
-                      border: "1px solid #F1F1F1 ",
-                      borderRadius: 20,
-                      borderColor: "#F1F1F1",
-                      width: "100%",
-                      height: 30,
-                      padding: 20,
-                      paddingLeft: 12,
-                      margin: 10,
-                      fontSize: 13,
-                    }}
-                  />
-                </div>
-
-                <div style={{ textAlign: "left", marginBottom: 10 }}>
-                  <p
-                    style={{
-                      fontWeight: 500,
-                      fontSize: 15,
-                      color: "#242424",
-                    }}
-                  >
-                    Account number
-                  </p>
-                  <input
-                    type="text"
-                    value={accountnumber}
-                    onChange={(e) => setAccountnumber(e.target.value)}
-                    placeholder="Account number"
-                    style={{
-                      background: "#FFFFFF",
-                      border: "1px solid #F1F1F1 ",
-                      borderRadius: 20,
-                      borderColor: "#F1F1F1",
-                      width: "100%",
-                      height: 30,
-                      padding: 20,
-                      paddingLeft: 12,
-                      margin: 10,
-                      fontSize: 13,
-                    }}
-                  />
-                </div>
-
-                <button
-                  style={{
-                    width: "100%",
-                    borderRadius: 20,
-                    background: " #001E33",
-                    height: 40,
-                    color: "#FFFFFF",
-                    fontSize: 18,
-                    borderColor: "transparent",
-                  }}
-                  onClick={() => setScreen("12")}
-                >
-                  Next
-                </button>
-              </div>
-            </div>
-          ) : screen === "11" ? (
-            <div>
-              <div
-                style={{
-                  position: "fixed",
-                  top: 20,
-                  left: width * 0.59,
-                  textAlign: "-webkit-center",
-                  width: 500,
-                  background: " #FFFFFF",
-                  boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
-                  borderRadius: 20,
-                  padding: 30,
-                }}
-              >
-                <button
-                  style={{
-                    fontWeight: 400,
-                    fontSize: 18,
-                    textDecorationLine: "none",
-                    color: "#D9D9D9",
-                    textAlign: "left",
-                    marginBottom: 20,
-                    float: "left",
-                    background: "transparent",
-                    border: "transparent",
-                  }}
-                  onClick={() => setScreen("9")}
-                >
-                  <BsArrowLeftShort />
-                  <p
-                    style={{
-                      color: "#D9D9D9",
-                      fontSize: 18,
-                      textDecorationLine: "none",
-                      float: "right",
-                    }}
-                  >
-                    Back
-                  </p>
-                </button>
-
-                <h2 className="textSignup" style={{ marginTop: 30 }}>
-                  Sign up
-                </h2>
-                <div>
-                  <FormControl style={{ display: "inherit" }}>
-                    <RadioGroup
-                      row
-                      aria-labelledby="demo-row-radio-buttons-group-label"
-                      name="row-radio-buttons-group"
-                    >
-                      <FormControlLabel
-                        onChange={handleChange}
-                        name="radio-buttons"
-                        value="6"
-                        control={<Radio />}
-                        label="Company"
-                        style={{ marginRight: 50 }}
-                      />
-                      <FormControlLabel
-                        checked
-                        onChange={handleChange}
-                        name="radio-buttons"
-                        value="Freelance Translators"
-                        control={<Radio />}
-                        label="Freelance Translators"
-                      />
-                    </RadioGroup>
-                  </FormControl>
-                </div>
-                <div style={{ textAlign: "left" }}>
-                  <p
-                    style={{
-                      fontWeight: 700,
-                      fontSize: 18,
-                      color: " #242424",
-                    }}
-                  >
-                    Portfolio/CV.
-                  </p>
-                  <p
-                    style={{
-                      fontWeight: 500,
-                      fontSize: 14,
-                      color: " #242424",
-                    }}
-                  >
-                    (such as JPG, PDF, PNG and the file size does not exceed
-                    25Mb.)
-                  </p>
-                  <div style={{ textAlign: "center" }}>
-                    {file2 === "" ? (
-                      <div
-                        style={{
-                          background: "#FFFFFF",
-                          borderRadius: 20,
-                          width: "100%",
-                          height: 200,
-                          padding: 50,
-                          position: "relative",
-                          borderStyle: " dotted ",
-                          borderColor: "#0865A8",
-                          borderWidth: 2,
-                          margin: 20,
-                          marginLeft: 0,
-                        }}
-                      >
-                        <label htmlFor="icon-button-file">
-                          <Input
-                            accept="image/*"
-                            id="icon-button-file"
-                            type="file"
-                            style={{ display: "none" }}
-                            onChange={(e) => setFile2(e.target.value)}
-                          />
-                          <IconButton
-                            color="primary"
-                            aria-label="upload picture"
-                            component="span"
-                          >
-                            <FiImage
-                              style={{
-                                fontSize: 50,
-                                position: "absolute",
-                                marginTop: 30,
-                              }}
-                            />
-                            <p
-                              style={{
-                                fontSize: 10,
-                                position: "absolute",
-                                top: 60,
-                                width: 100,
-                              }}
-                            >
-                              Upload File
-                            </p>
-                          </IconButton>
-                        </label>
-                      </div>
-                    ) : (
-                      <div
-                        style={{
-                          background: "#FFFFFF",
-                          borderRadius: 20,
-                          width: "100%",
-                          height: 200,
-                          padding: 50,
-                          position: "relative",
-                          borderStyle: " dotted ",
-                          borderColor: "#0865A8",
-                          borderWidth: 2,
-                          margin: 20,
-                          marginLeft: 0,
-                        }}
-                      >
-                        <label htmlFor="icon-button-file">
-                          <Input
-                            accept="image/*"
-                            id="icon-button-file"
-                            type="file"
-                            style={{ display: "none" }}
-                            onChange={(e) => setFile2(e.target.value)}
-                          />
-                          <IconButton
-                            color="primary"
-                            aria-label="upload picture"
-                            component="span"
-                          >
-                            <FiImage
-                              style={{
-                                fontSize: 50,
-                                position: "absolute",
-                                marginTop: 30,
-                              }}
-                            />
-                            <p
-                              style={{
-                                fontSize: 10,
-                                position: "absolute",
-                                top: 60,
-                                width: 100,
-                              }}
-                            >
-                              {file2}
-                            </p>
-                          </IconButton>
-                        </label>
-                      </div>
-                    )}
-                  </div>
-                </div>
-                <hr style={{ width: "97%", height: 2 }} />
-                <button
-                  style={{
-                    width: "100%",
-                    borderRadius: 20,
-                    background: " #001E33",
-                    height: 40,
-                    color: "#FFFFFF",
-                    fontSize: 18,
-                    borderColor: "transparent",
-                  }}
-                  onClick={() => setScreen("13")}
-                >
-                  Next
-                </button>
-              </div>
-            </div>
-          ) : screen === "12" ? (
-            <div>
-              <div
-                style={{
-                  position: "fixed",
-                  top: 20,
-                  left: width * 0.59,
-                  textAlign: "-webkit-center",
-                  width: 500,
-                  background: " #FFFFFF",
-                  boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
-                  borderRadius: 20,
-                  padding: 30,
-                }}
-              >
-                <button
-                  style={{
-                    fontWeight: 400,
-                    fontSize: 18,
-                    textDecorationLine: "none",
-                    color: "#D9D9D9",
-                    textAlign: "left",
-                    marginBottom: 20,
-                    float: "left",
-                    background: "transparent",
-                    border: "transparent",
-                  }}
-                  onClick={() => setScreen("10")}
-                >
-                  <BsArrowLeftShort />
-                  <p
-                    style={{
-                      color: "#D9D9D9",
-                      fontSize: 18,
-                      textDecorationLine: "none",
-                      float: "right",
-                    }}
-                  >
-                    Back
-                  </p>
-                </button>
-
-                <h2 className="textSignup" style={{ marginTop: 30 }}>
-                  Sign up
-                </h2>
-                <div>
-                  <FormControl style={{ display: "inherit" }}>
-                    <RadioGroup
-                      row
-                      aria-labelledby="demo-row-radio-buttons-group-label"
-                      name="row-radio-buttons-group"
-                    >
-                      <FormControlLabel
-                        checked
-                        onChange={handleChange}
-                        name="radio-buttons"
-                        value=""
-                        control={<Radio />}
-                        label="Company"
-                        style={{ marginRight: 50 }}
-                      />
-                      <FormControlLabel
-                        onChange={handleChange}
-                        name="radio-buttons"
-                        value="Freelance Translators"
-                        control={<Radio />}
-                        label="Freelance Translators"
-                      />
-                    </RadioGroup>
-                  </FormControl>
-                </div>
-                <div style={{ textAlign: "left" }}>
-                  <p
-                    style={{
-                      fontWeight: 500,
-                      fontSize: 20,
-                      color: " #242424",
-                    }}
-                  >
-                    Upload a picture to use as a watermark.
-                  </p>
-                  <p
-                    style={{
-                      fontWeight: 500,
-                      fontSize: 14,
-                      color: " #242424",
-                    }}
-                  >
-                    (such as JPG, PDF, PNG and the file size does not exceed
-                    25Mb.)
-                  </p>
-                  <div style={{ textAlign: "center" }}>
-                    {file2 === "" ? (
-                      <div
-                        style={{
-                          background: "#FFFFFF",
-                          borderRadius: 20,
-                          width: "100%",
-                          height: 200,
-                          padding: 50,
-                          position: "relative",
-                          borderStyle: " dotted ",
-                          borderColor: "#0865A8",
-                          borderWidth: 2,
-                          margin: 20,
-                          marginLeft: 0,
-                        }}
-                      >
-                        <label htmlFor="icon-button-file">
-                          <Input
-                            accept="image/*"
-                            id="icon-button-file"
-                            type="file"
-                            style={{ display: "none" }}
-                            onChange={(e) => setFile2(e.target.value)}
-                          />
-                          <IconButton
-                            color="primary"
-                            aria-label="upload picture"
-                            component="span"
-                          >
-                            <FiImage
-                              style={{
-                                fontSize: 50,
-                                position: "absolute",
-                                marginTop: 30,
-                              }}
-                            />
-                            <p
-                              style={{
-                                fontSize: 10,
-                                position: "absolute",
-                                top: 60,
-                                width: 100,
-                              }}
-                            >
-                              Upload File
-                            </p>
-                          </IconButton>
-                        </label>
-                      </div>
-                    ) : (
-                      <div
-                        style={{
-                          background: "#FFFFFF",
-                          borderRadius: 20,
-                          width: "100%",
-                          height: 200,
-                          padding: 50,
-                          position: "relative",
-                          borderStyle: " dotted ",
-                          borderColor: "#0865A8",
-                          borderWidth: 2,
-                          margin: 20,
-                          marginLeft: 0,
-                        }}
-                      >
-                        <label htmlFor="icon-button-file">
-                          <Input
-                            accept="image/*"
-                            id="icon-button-file"
-                            type="file"
-                            style={{ display: "none" }}
-                            onChange={(e) => setFile2(e.target.value)}
-                          />
-                          <IconButton
-                            color="primary"
-                            aria-label="upload picture"
-                            component="span"
-                          >
-                            <FiImage
-                              style={{
-                                fontSize: 50,
-                                position: "absolute",
-                                marginTop: 30,
-                              }}
-                            />
-                            <p
-                              style={{
-                                fontSize: 10,
-                                position: "absolute",
-                                top: 60,
-                                width: 100,
-                              }}
-                            >
-                              {file2}
-                            </p>
-                          </IconButton>
-                        </label>
-                      </div>
-                    )}
-                  </div>
-                  <p
-                    style={{
-                      color: "#666666",
-                      textDecorationLine: "underline",
-                      fontSize: 14,
-                    }}
-                  >
-                    An example of uploading a picture of your ID card.
-                  </p>
-                </div>
-                <hr style={{ width: "97%", height: 2 }} />
-                <button
-                  style={{
-                    width: "100%",
-                    borderRadius: 20,
-                    background: " #001E33",
-                    height: 40,
-                    color: "#FFFFFF",
-                    fontSize: 18,
-                    borderColor: "transparent",
-                  }}
-                  onClick={() => setScreen("14")}
-                >
-                  Next
-                </button>
-              </div>
-            </div>
-          ) : screen === "13" ? (
-            <div>
-              <div
-                style={{
-                  position: "fixed",
-                  top: 20,
-                  left: width * 0.59,
-                  textAlign: "-webkit-center",
-                  width: 500,
-                  background: " #FFFFFF",
-                  boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
-                  borderRadius: 20,
-                  padding: 30,
-                }}
-              >
-                <button
-                  style={{
-                    fontWeight: 400,
-                    fontSize: 18,
-                    textDecorationLine: "none",
-                    color: "#D9D9D9",
-                    textAlign: "left",
-                    marginBottom: 20,
-                    float: "left",
-                    background: "transparent",
-                    border: "transparent",
-                  }}
-                  onClick={() => setScreen("11")}
-                >
-                  <BsArrowLeftShort />
-                  <p
-                    style={{
-                      color: "#D9D9D9",
-                      fontSize: 18,
-                      textDecorationLine: "none",
-                      float: "right",
-                    }}
-                  >
-                    Back
-                  </p>
-                </button>
-
-                <h2 className="textSignup" style={{ marginTop: 30 }}>
-                  Sign up
-                </h2>
-                <div>
-                  <FormControl style={{ display: "inherit" }}>
-                    <RadioGroup
-                      row
-                      aria-labelledby="demo-row-radio-buttons-group-label"
-                      name="row-radio-buttons-group"
-                    >
-                      <FormControlLabel
-                        onChange={handleChange}
-                        name="radio-buttons"
-                        value=""
-                        control={<Radio />}
-                        label="Company"
-                        style={{ marginRight: 50 }}
-                      />
-                      <FormControlLabel
-                        checked
-                        onChange={handleChange}
-                        name="radio-buttons"
-                        value="Freelance Translators"
-                        control={<Radio />}
-                        label="Freelance Translators"
-                      />
-                    </RadioGroup>
-                  </FormControl>
-                </div>
-
-                <div style={{ textAlign: "left", marginTop: 10 }}>
-                  <p
-                    style={{
-                      fontWeight: 500,
-                      fontSize: 15,
-                      color: "#242424",
-                    }}
-                  >
-                    Bank name
-                  </p>
-                  <input
-                    type="text"
-                    value={bankname}
-                    onChange={(e) => setBankname(e.target.value)}
-                    placeholder="Bank name"
-                    style={{
-                      background: "#FFFFFF",
-                      border: "1px solid #F1F1F1 ",
-                      borderRadius: 20,
-                      width: "100%",
-                      height: 30,
-                      padding: 20,
-                      paddingLeft: 12,
-                      margin: 10,
-                      fontSize: 13,
-                    }}
-                  />
-                </div>
-
-                <div style={{ textAlign: "left" }}>
-                  <p
-                    style={{
-                      fontWeight: 500,
-                      fontSize: 15,
-                      color: "#242424",
-                    }}
-                  >
-                    Branch name
-                  </p>
-                  <input
-                    type="text"
-                    value={branchname}
-                    onChange={(e) => setBranchname(e.target.value)}
-                    placeholder="Branch name"
-                    style={{
-                      background: "#FFFFFF",
-                      border: "1px solid #F1F1F1 ",
-                      borderRadius: 20,
-                      width: "100%",
-                      height: 30,
-                      padding: 20,
-                      paddingLeft: 12,
-                      margin: 10,
-                      fontSize: 13,
-                    }}
-                  />
-                </div>
-
-                <div style={{ textAlign: "left" }}>
-                  <p
-                    style={{
-                      fontWeight: 500,
-                      fontSize: 15,
-                      color: "#242424",
-                    }}
-                  >
-                    Account name
-                  </p>
-                  <input
-                    type="text"
-                    value={accountname}
-                    onChange={(e) => setAccountname(e.target.value)}
-                    placeholder="Account name"
-                    style={{
-                      background: "#FFFFFF",
-                      border: "1px solid #F1F1F1 ",
-                      borderRadius: 20,
-                      borderColor: "#F1F1F1",
-                      width: "100%",
-                      height: 30,
-                      padding: 20,
-                      paddingLeft: 12,
-                      margin: 10,
-                      fontSize: 13,
-                    }}
-                  />
-                </div>
-
-                <div style={{ textAlign: "left", marginBottom: 10 }}>
-                  <p
-                    style={{
-                      fontWeight: 500,
-                      fontSize: 15,
-                      color: "#242424",
-                    }}
-                  >
-                    Account number
-                  </p>
-                  <input
-                    type="text"
-                    value={accountnumber}
-                    onChange={(e) => setAccountnumber(e.target.value)}
-                    placeholder="Account number"
-                    style={{
-                      background: "#FFFFFF",
-                      border: "1px solid #F1F1F1 ",
-                      borderRadius: 20,
-                      borderColor: "#F1F1F1",
-                      width: "100%",
-                      height: 30,
-                      padding: 20,
-                      paddingLeft: 12,
-                      margin: 10,
-                      fontSize: 13,
-                    }}
-                  />
-                </div>
-
-                <button
-                  style={{
-                    width: "100%",
-                    borderRadius: 20,
-                    background: " #001E33",
-                    height: 40,
-                    color: "#FFFFFF",
-                    fontSize: 18,
-                    borderColor: "transparent",
-                  }}
-                  onClick={() => setScreen("15")}
-                >
-                  Next
-                </button>
-              </div>
-            </div>
-          ) : screen === "14" ? (
-            <div>
-              <div
-                style={{
-                  position: "fixed",
-                  top: 20,
-                  left: width * 0.59,
-                  textAlign: "-webkit-center",
-                  width: 500,
-                  background: " #FFFFFF",
-                  boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
-                  borderRadius: 20,
-                  padding: 30,
-                }}
-              >
-                <button
-                  style={{
-                    fontWeight: 400,
-                    fontSize: 18,
-                    textDecorationLine: "none",
-                    color: "#D9D9D9",
-                    textAlign: "left",
-                    marginBottom: 20,
-                    float: "left",
-                    background: "transparent",
-                    border: "transparent",
-                  }}
-                  onClick={() => setScreen("12")}
-                >
-                  <BsArrowLeftShort />
-                  <p
-                    style={{
-                      color: "#D9D9D9",
-                      fontSize: 18,
-                      textDecorationLine: "none",
-                      float: "right",
-                    }}
-                  >
-                    Back
-                  </p>
-                </button>
-
-                <h2 className="textSignup" style={{ marginTop: 30 }}>
-                  Sign up
-                </h2>
-                <div>
-                  <FormControl style={{ display: "inherit" }}>
-                    <RadioGroup
-                      row
-                      aria-labelledby="demo-row-radio-buttons-group-label"
-                      name="row-radio-buttons-group"
-                    >
-                      <FormControlLabel
-                        checked
-                        onChange={handleChange}
-                        name="radio-buttons"
-                        value=""
-                        control={<Radio />}
-                        label="Company"
-                        style={{ marginRight: 50 }}
-                      />
-                      <FormControlLabel
-                        onChange={handleChange}
-                        name="radio-buttons"
-                        value="Freelance Translators"
-                        control={<Radio />}
-                        label="Freelance Translators"
-                      />
-                    </RadioGroup>
-                  </FormControl>
-                </div>
-                <div style={{ textAlign: "left" }}>
-                  <p
-                    style={{
-                      fontWeight: 700,
-                      fontSize: 17,
-                      color: " #242424",
-                    }}
-                  >
-                    Company Registration Certificate.
-                  </p>
-                  <p
-                    style={{
-                      fontWeight: 500,
-                      fontSize: 14,
-                      color: " #242424",
-                    }}
-                  >
-                    (such as JPG, PDF, PNG and the file size does not exceed
-                    25Mb.)
-                  </p>
-                  <div style={{ textAlign: "center" }}>
-                    {file3 === "" ? (
-                      <div
-                        style={{
-                          background: "#FFFFFF",
-                          borderRadius: 20,
-                          width: "100%",
-                          height: 150,
-                          padding: 50,
-                          position: "relative",
-                          borderStyle: " dotted ",
-                          borderColor: "#0865A8",
-                          borderWidth: 2,
-                          margin: 20,
-                          marginLeft: 0,
-                        }}
-                      >
-                        <label htmlFor="icon-button-file">
-                          <Input
-                            accept="image/*"
-                            id="icon-button-file"
-                            type="file"
-                            style={{ display: "none" }}
-                            onChange={(e) => setFile3(e.target.value)}
-                          />
-                          <IconButton
-                            color="primary"
-                            aria-label="upload picture"
-                            component="span"
-                          >
-                            <FiImage
-                              style={{
-                                fontSize: 50,
-                                position: "absolute",
-                              }}
-                            />
-                            <p
-                              style={{
-                                fontSize: 10,
-                                position: "absolute",
-                                top: 35,
-                                width: 100,
-                              }}
-                            >
-                              Upload File
-                            </p>
-                          </IconButton>
-                        </label>
-                      </div>
-                    ) : (
-                      <div
-                        style={{
-                          background: "#FFFFFF",
-                          borderRadius: 20,
-                          width: "100%",
-                          height: 150,
-                          padding: 50,
-                          position: "relative",
-                          borderStyle: " dotted ",
-                          borderColor: "#0865A8",
-                          borderWidth: 2,
-                          margin: 20,
-                          marginLeft: 0,
-                        }}
-                      >
-                        <label htmlFor="icon-button-file">
-                          <Input
-                            accept="image/*"
-                            id="icon-button-file"
-                            type="file"
-                            style={{ display: "none" }}
-                            onChange={(e) => setFile2(e.target.value)}
-                          />
-                          <IconButton
-                            color="primary"
-                            aria-label="upload picture"
-                            component="span"
-                          >
-                            <FiImage
-                              style={{
-                                fontSize: 50,
-                                position: "absolute",
-                              }}
-                            />
-                            <p
-                              style={{
-                                fontSize: 10,
-                                position: "absolute",
-                                top: 35,
-                                width: 100,
-                              }}
-                            >
-                              {file3}
-                            </p>
-                          </IconButton>
-                        </label>
-                      </div>
-                    )}
-                  </div>
-                  <p
-                    style={{
-                      color: "#666666",
-                      textDecorationLine: "underline",
-                      fontSize: 12,
-                    }}
-                  >
-                    An example of uploading a picture of your company
-                    registration certificate.
-                  </p>
-                </div>
-                <hr style={{ width: "97%", height: 2 }} />
-                <div style={{}}>
-                  <div style={{ marginBottom: 10 }}>
+                    <BsArrowLeftShort />
                     <p
                       style={{
-                        fontWeight: "bold",
-                        fontSize: 14,
-                        color: "#333333",
+                        color: "#D9D9D9",
+                        fontSize: 18,
+                        textDecorationLine: "none",
+                        float: "right",
                       }}
                     >
-                      Languages in which the company can accept translation
-                      work.
+                      {REGI01_box2EN[0].label}
                     </p>
-                  </div>
+                  </button>
 
-                  <Autocomplete
-                    multiple
-                    id="country-select-demo"
-                    sx={{ width: "100%" }}
-                    options={data}
-                    autoHighlight
-                    getOptionLabel={(option) => option.label}
-                    onChange={(event, value) => setLanguages(value?.label)}
-                    popupIcon={
-                      <MdArrowDropDown
-                        style={{ color: "#333333", width: 30, height: 33 }}
-                      />
-                    }
-                    renderOption={(props, option) => (
-                      <Box
-                        component="li"
-                        sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
-                        {...props}
-                      >
-                        <img
-                          loading="lazy"
-                          width="20"
-                          src={`https://flagcdn.com/w20/${option.code.toLowerCase()}.png`}
-                          srcSet={`https://flagcdn.com/w40/${option.code.toLowerCase()}.png 2x`}
-                          alt=""
-                        />
-                        {option.label}
-                      </Box>
-                    )}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        label="Select"
-                        inputProps={{
-                          ...params.inputProps,
-                          autoComplete: "new-password",
-                        }}
-                      />
-                    )}
-                  />
-                </div>
-                <button
-                  style={{
-                    width: "100%",
-                    borderRadius: 20,
-                    background: " #001E33",
-                    height: 40,
-                    color: "#FFFFFF",
-                    fontSize: 18,
-                    borderColor: "transparent",
-                    marginTop: 30,
-                  }}
-                  onClick={() => setOpen3(true)}
-                >
-                  Sign up
-                </button>
-              </div>
-              <Modal
-                keepMounted
-                open={open3}
-                onClose={handleClose3}
-                aria-labelledby="keep-mounted-modal-title"
-                aria-describedby="keep-mounted-modal-description"
-              >
-                <Box
-                  sx={{
-                    position: "absolute",
-                    top: "50%",
-                    left: "50%",
-                    transform: "translate(-50%, -70%)",
-                    width: 600,
-                    bgcolor: "background.paper",
-                    boxShadow: 24,
-                    p: 4,
-                    borderRadius: 5,
-                    border: "1px solid #E5E5E5",
-                    textAlign: "center",
-                  }}
-                >
-                  <img src={logo} alt="Logo" style={{ width: 100 }} />
-                  <Typography
-                    id="keep-mounted-modal-description"
-                    sx={{ mt: 2, fontWeight: 700 }}
-                  >
-                    Terms and Conditions
-                  </Typography>
-                  <Typography
-                    id="keep-mounted-modal-description"
-                    sx={{
-                      mt: 2,
-                      textAlign: "left",
-                      overflowY: "auto",
-                      height: 125,
-                    }}
-                  >
-                    The company agrees to provide truthful information. and can
-                    receive translation work and forward it to translators who
-                    are competent in the languages stated by the company above.
-                    and will be responsible for all translation works translated
-                    from the company
-                  </Typography>
-                  <div
+                  <button
                     style={{
-                      textAlign: "left",
-                      borderTop: "1px solid #C4C4C4",
-                    }}
-                  >
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          checked={checked2}
-                          onChange={handleChange2}
-                          inputProps={{ "aria-label": "controlled" }}
-                        />
-                      }
-                      label="accept the terms and conditions"
-                    />
-                  </div>
-                  <div>
-                    {checked2 === false ? (
-                      <button
-                        style={{
-                          width: "30%",
-                          borderRadius: 20,
-                          background: "#E0E0E0",
-                          height: 40,
-                          color: "#FFFFFF",
-                          fontSize: 18,
-                          borderColor: "transparent",
-                          position: "relative",
-                          left: "35%",
-                        }}
-                        disabled
-                        onClick={handleOpen}
-                      >
-                        Submit
-                      </button>
-                    ) : (
-                      <button
-                        style={{
-                          width: "30%",
-                          borderRadius: 20,
-                          background: "#001E33",
-                          height: 40,
-                          color: "#FFFFFF",
-                          fontSize: 18,
-                          borderColor: "transparent",
-                          position: "relative",
-                          left: "35%",
-                        }}
-                        onClick={handleClose4}
-                      >
-                        Submit
-                      </button>
-                    )}
-                  </div>
-                </Box>
-              </Modal>
-
-              <Modal
-                keepMounted
-                open={open4}
-                onClose={handleClose5}
-                aria-labelledby="keep-mounted-modal-title"
-                aria-describedby="keep-mounted-modal-description"
-              >
-                <Box
-                  sx={{
-                    position: "absolute",
-                    top: "50%",
-                    left: "50%",
-                    transform: "translate(-50%, -70%)",
-                    width: 400,
-                    bgcolor: "background.paper",
-                    boxShadow: 24,
-                    p: 4,
-                    borderRadius: 5,
-                    border: "1px solid #E5E5E5",
-                    textAlign: "center",
-                  }}
-                >
-                  <AiFillCheckCircle
-                    style={{ width: 100, height: 80, color: "#46BC52" }}
-                  />
-                  <Typography
-                    id="keep-mounted-modal-description"
-                    sx={{ mt: 2, fontWeight: 700 }}
-                  >
-                    Your translator application has been sent. Wait for
-                    confirmation by email
-                  </Typography>
-                </Box>
-              </Modal>
-            </div>
-          ) : screen === "15" ? (
-            <div>
-              <div
-                style={{
-                  position: "fixed",
-                  top: 20,
-                  left: width * 0.59,
-                  textAlign: "-webkit-center",
-                  width: 500,
-                  background: " #FFFFFF",
-                  boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
-                  borderRadius: 20,
-                  padding: 30,
-                }}
-              >
-                <button
-                  style={{
-                    fontWeight: 400,
-                    fontSize: 18,
-                    textDecorationLine: "none",
-                    color: "#D9D9D9",
-                    textAlign: "left",
-                    marginBottom: 20,
-                    float: "left",
-                    background: "transparent",
-                    border: "transparent",
-                  }}
-                  onClick={() => setScreen("13")}
-                >
-                  <BsArrowLeftShort />
-                  <p
-                    style={{
+                      fontWeight: 400,
+                      textAlign: "right",
+                      marginBottom: 20,
+                      float: "right",
                       color: "#D9D9D9",
+                      background: "transparent",
+                      border: "transparent",
+                    }}
+                    onClick={() => setScreen("6")}
+                  >
+                    <p
+                      style={{
+                        color: "#D9D9D9",
+                        fontSize: 18,
+                        textDecorationLine: "none",
+                        float: "left",
+                      }}
+                    >
+                      {REGI01_box2EN[1].label}
+                    </p>
+                    <BsArrowRightShort />
+                  </button>
+
+                  <h2 className="textSignup">{REGI01_box2EN[2].label}</h2>
+                  <div style={{ margin: 25 }}>
+                    <p>{REGI01_box2EN[3].label}</p>
+                  </div>
+                  {images.length < 1 ? (
+                    <div
+                      style={{
+                        background: "#FFFFFF",
+                        borderRadius: 100,
+                        width: 83,
+                        height: 80,
+                        padding: 15,
+                        position: "relative",
+                        borderStyle: " dotted ",
+                        borderColor: "#0865A8",
+                        borderWidth: 2,
+                        margin: 25,
+                      }}
+                    >
+                      <label htmlFor="icon-button-file">
+                        <Input
+                          accept="image/*"
+                          id="icon-button-file"
+                          type="file"
+                          style={{ display: "none" }}
+                          onChange={onImageChange}
+                        />
+                        <IconButton
+                          color="primary"
+                          aria-label="upload picture"
+                          component="span"
+                        >
+                          <MdCameraAlt
+                            style={{ fontSize: 35, position: "absolute" }}
+                          />
+                          <p
+                            style={{
+                              fontSize: 8,
+                              position: "absolute",
+                              top: 20,
+                              width: 63,
+                            }}
+                          >
+                            {REGI01_box2EN[3].label}
+                          </p>
+                        </IconButton>
+                      </label>
+                    </div>
+                  ) : (
+                    <div
+                      style={{
+                        borderRadius: 100,
+                        width: 100,
+                        height: 100,
+                        position: "relative",
+                        borderWidth: 2,
+                        margin: 25,
+                      }}
+                    >
+                      <label htmlFor="icon-button-file">
+                        <Input
+                          accept="image/*"
+                          id="icon-button-file"
+                          type="file"
+                          style={{ display: "none" }}
+                          onChange={onImageChange}
+                        />
+                        <IconButton
+                          color="primary"
+                          aria-label="upload picture"
+                          component="span"
+                        >
+                          {imageURLs.map((imageSrc, idx) => (
+                            <img
+                              key={idx}
+                              src={imageSrc}
+                              alt="imageURLs"
+                              style={{
+                                position: "absolute",
+                                width: 90,
+                                height: 90,
+                                borderRadius: "100%",
+                                top: -20,
+                              }}
+                            />
+                          ))}
+                        </IconButton>
+                      </label>
+                    </div>
+                  )}
+
+                  <button
+                    style={{
+                      width: "100%",
+                      borderRadius: 20,
+                      background: " #001E33",
+                      height: 40,
+                      color: "#FFFFFF",
+                      fontSize: 18,
+                      borderColor: "transparent",
+                      marginBottom: 10,
+                    }}
+                    onClick={() => setScreen("6")}
+                  >
+                    {REGI01_box2EN[4].label}
+                  </button>
+                </div>
+              ) : Doc === "Thai" ? (
+                <div
+                  style={{
+                    position: "fixed",
+                    top: 120,
+                    left: width * 0.59,
+                    textAlign: "-webkit-center",
+                    width: 500,
+                    background: " #FFFFFF",
+                    boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
+                    borderRadius: 20,
+                    padding: 30,
+                  }}
+                >
+                  <button
+                    style={{
+                      fontWeight: 400,
                       fontSize: 18,
                       textDecorationLine: "none",
-                      float: "right",
+                      color: "#D9D9D9",
+                      textAlign: "left",
+                      marginBottom: 20,
+                      float: "left",
+                      background: "transparent",
+                      border: "transparent",
                     }}
+                    onClick={() => setScreen("For Translators")}
                   >
-                    Back
-                  </p>
-                </button>
+                    <BsArrowLeftShort />
+                    <p
+                      style={{
+                        color: "#D9D9D9",
+                        fontSize: 18,
+                        textDecorationLine: "none",
+                        float: "right",
+                      }}
+                    >
+                      {REGI01_box2TH[0].label}
+                    </p>
+                  </button>
 
-                <h2 className="textSignup" style={{ marginTop: 30 }}>
-                  Sign up
-                </h2>
+                  <button
+                    style={{
+                      fontWeight: 400,
+                      textAlign: "right",
+                      marginBottom: 20,
+                      float: "right",
+                      color: "#D9D9D9",
+                      background: "transparent",
+                      border: "transparent",
+                    }}
+                    onClick={() => setScreen("6")}
+                  >
+                    <p
+                      style={{
+                        color: "#D9D9D9",
+                        fontSize: 18,
+                        textDecorationLine: "none",
+                        float: "left",
+                      }}
+                    >
+                      {REGI01_box2TH[1].label}
+                    </p>
+                    <BsArrowRightShort />
+                  </button>
 
+                  <h2 className="textSignup">{REGI01_box2TH[2].label}</h2>
+                  <div style={{ margin: 25 }}>
+                    <p>{REGI01_box2TH[3].label}</p>
+                  </div>
+                  {images.length < 1 ? (
+                    <div
+                      style={{
+                        background: "#FFFFFF",
+                        borderRadius: 100,
+                        width: 83,
+                        height: 80,
+                        padding: 15,
+                        position: "relative",
+                        borderStyle: " dotted ",
+                        borderColor: "#0865A8",
+                        borderWidth: 2,
+                        margin: 25,
+                      }}
+                    >
+                      <label htmlFor="icon-button-file">
+                        <Input
+                          accept="image/*"
+                          id="icon-button-file"
+                          type="file"
+                          style={{ display: "none" }}
+                          onChange={onImageChange}
+                        />
+                        <IconButton
+                          color="primary"
+                          aria-label="upload picture"
+                          component="span"
+                        >
+                          <MdCameraAlt
+                            style={{ fontSize: 35, position: "absolute" }}
+                          />
+                          <p
+                            style={{
+                              fontSize: 8,
+                              position: "absolute",
+                              top: 20,
+                              width: 63,
+                            }}
+                          >
+                            {REGI01_box2TH[3].label}
+                          </p>
+                        </IconButton>
+                      </label>
+                    </div>
+                  ) : (
+                    <div
+                      style={{
+                        borderRadius: 100,
+                        width: 100,
+                        height: 100,
+                        position: "relative",
+                        borderWidth: 2,
+                        margin: 25,
+                      }}
+                    >
+                      <label htmlFor="icon-button-file">
+                        <Input
+                          accept="image/*"
+                          id="icon-button-file"
+                          type="file"
+                          style={{ display: "none" }}
+                          onChange={onImageChange}
+                        />
+                        <IconButton
+                          color="primary"
+                          aria-label="upload picture"
+                          component="span"
+                        >
+                          {imageURLs.map((imageSrc, idx) => (
+                            <img
+                              key={idx}
+                              src={imageSrc}
+                              alt="imageURLs"
+                              style={{
+                                position: "absolute",
+                                width: 90,
+                                height: 90,
+                                borderRadius: "100%",
+                                top: -20,
+                              }}
+                            />
+                          ))}
+                        </IconButton>
+                      </label>
+                    </div>
+                  )}
+
+                  <button
+                    style={{
+                      width: "100%",
+                      borderRadius: 20,
+                      background: " #001E33",
+                      height: 40,
+                      color: "#FFFFFF",
+                      fontSize: 18,
+                      borderColor: "transparent",
+                      marginBottom: 10,
+                    }}
+                    onClick={() => setScreen("6")}
+                  >
+                    {REGI01_box2TH[4].label}
+                  </button>
+                </div>
+              ) : Doc === "German" ? (
+                <div
+                  style={{
+                    position: "fixed",
+                    top: 120,
+                    left: width * 0.59,
+                    textAlign: "-webkit-center",
+                    width: 500,
+                    background: " #FFFFFF",
+                    boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
+                    borderRadius: 20,
+                    padding: 30,
+                  }}
+                >
+                  <button
+                    style={{
+                      fontWeight: 400,
+                      fontSize: 18,
+                      textDecorationLine: "none",
+                      color: "#D9D9D9",
+                      textAlign: "left",
+                      marginBottom: 20,
+                      float: "left",
+                      background: "transparent",
+                      border: "transparent",
+                    }}
+                    onClick={() => setScreen("For Translators")}
+                  >
+                    <BsArrowLeftShort />
+                    <p
+                      style={{
+                        color: "#D9D9D9",
+                        fontSize: 18,
+                        textDecorationLine: "none",
+                        float: "right",
+                      }}
+                    >
+                      {REGI01_box2DE[0].label}
+                    </p>
+                  </button>
+
+                  <button
+                    style={{
+                      fontWeight: 400,
+                      textAlign: "right",
+                      marginBottom: 20,
+                      float: "right",
+                      color: "#D9D9D9",
+                      background: "transparent",
+                      border: "transparent",
+                    }}
+                    onClick={() => setScreen("6")}
+                  >
+                    <p
+                      style={{
+                        color: "#D9D9D9",
+                        fontSize: 18,
+                        textDecorationLine: "none",
+                        float: "left",
+                      }}
+                    >
+                      {REGI01_box2DE[1].label}
+                    </p>
+                    <BsArrowRightShort />
+                  </button>
+
+                  <h2 className="textSignup">{REGI01_box2DE[2].label}</h2>
+                  <div style={{ margin: 25 }}>
+                    <p>{REGI01_box2DE[3].label}</p>
+                  </div>
+                  {images.length < 1 ? (
+                    <div
+                      style={{
+                        background: "#FFFFFF",
+                        borderRadius: 100,
+                        width: 83,
+                        height: 80,
+                        padding: 15,
+                        position: "relative",
+                        borderStyle: " dotted ",
+                        borderColor: "#0865A8",
+                        borderWidth: 2,
+                        margin: 25,
+                      }}
+                    >
+                      <label htmlFor="icon-button-file">
+                        <Input
+                          accept="image/*"
+                          id="icon-button-file"
+                          type="file"
+                          style={{ display: "none" }}
+                          onChange={onImageChange}
+                        />
+                        <IconButton
+                          color="primary"
+                          aria-label="upload picture"
+                          component="span"
+                        >
+                          <MdCameraAlt
+                            style={{ fontSize: 35, position: "absolute" }}
+                          />
+                          <p
+                            style={{
+                              fontSize: 8,
+                              position: "absolute",
+                              top: 20,
+                              width: 63,
+                            }}
+                          >
+                            {REGI01_box2DE[3].label}
+                          </p>
+                        </IconButton>
+                      </label>
+                    </div>
+                  ) : (
+                    <div
+                      style={{
+                        borderRadius: 100,
+                        width: 100,
+                        height: 100,
+                        position: "relative",
+                        borderWidth: 2,
+                        margin: 25,
+                      }}
+                    >
+                      <label htmlFor="icon-button-file">
+                        <Input
+                          accept="image/*"
+                          id="icon-button-file"
+                          type="file"
+                          style={{ display: "none" }}
+                          onChange={onImageChange}
+                        />
+                        <IconButton
+                          color="primary"
+                          aria-label="upload picture"
+                          component="span"
+                        >
+                          {imageURLs.map((imageSrc, idx) => (
+                            <img
+                              key={idx}
+                              src={imageSrc}
+                              alt="imageURLs"
+                              style={{
+                                position: "absolute",
+                                width: 90,
+                                height: 90,
+                                borderRadius: "100%",
+                                top: -20,
+                              }}
+                            />
+                          ))}
+                        </IconButton>
+                      </label>
+                    </div>
+                  )}
+
+                  <button
+                    style={{
+                      width: "100%",
+                      borderRadius: 20,
+                      background: " #001E33",
+                      height: 40,
+                      color: "#FFFFFF",
+                      fontSize: 18,
+                      borderColor: "transparent",
+                      marginBottom: 10,
+                    }}
+                    onClick={() => setScreen("6")}
+                  >
+                    {REGI01_box2DE[4].label}
+                  </button>
+                </div>
+              ) : (
+                <div
+                  style={{
+                    position: "fixed",
+                    top: 120,
+                    left: width * 0.59,
+                    textAlign: "-webkit-center",
+                    width: 500,
+                    background: " #FFFFFF",
+                    boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
+                    borderRadius: 20,
+                    padding: 30,
+                  }}
+                >
+                  <button
+                    style={{
+                      fontWeight: 400,
+                      fontSize: 18,
+                      textDecorationLine: "none",
+                      color: "#D9D9D9",
+                      textAlign: "left",
+                      marginBottom: 20,
+                      float: "left",
+                      background: "transparent",
+                      border: "transparent",
+                    }}
+                    onClick={() => setScreen("For Translators")}
+                  >
+                    <BsArrowLeftShort />
+                    <p
+                      style={{
+                        color: "#D9D9D9",
+                        fontSize: 18,
+                        textDecorationLine: "none",
+                        float: "right",
+                      }}
+                    >
+                      {REGI01_box2EN[0].label}
+                    </p>
+                  </button>
+
+                  <button
+                    style={{
+                      fontWeight: 400,
+                      textAlign: "right",
+                      marginBottom: 20,
+                      float: "right",
+                      color: "#D9D9D9",
+                      background: "transparent",
+                      border: "transparent",
+                    }}
+                    onClick={() => setScreen("6")}
+                  >
+                    <p
+                      style={{
+                        color: "#D9D9D9",
+                        fontSize: 18,
+                        textDecorationLine: "none",
+                        float: "left",
+                      }}
+                    >
+                      {REGI01_box2EN[1].label}
+                    </p>
+                    <BsArrowRightShort />
+                  </button>
+
+                  <h2 className="textSignup">{REGI01_box2EN[2].label}</h2>
+                  <div style={{ margin: 25 }}>
+                    <p>{REGI01_box2EN[3].label}</p>
+                  </div>
+                  {images.length < 1 ? (
+                    <div
+                      style={{
+                        background: "#FFFFFF",
+                        borderRadius: 100,
+                        width: 83,
+                        height: 80,
+                        padding: 15,
+                        position: "relative",
+                        borderStyle: " dotted ",
+                        borderColor: "#0865A8",
+                        borderWidth: 2,
+                        margin: 25,
+                      }}
+                    >
+                      <label htmlFor="icon-button-file">
+                        <Input
+                          accept="image/*"
+                          id="icon-button-file"
+                          type="file"
+                          style={{ display: "none" }}
+                          onChange={onImageChange}
+                        />
+                        <IconButton
+                          color="primary"
+                          aria-label="upload picture"
+                          component="span"
+                        >
+                          <MdCameraAlt
+                            style={{ fontSize: 35, position: "absolute" }}
+                          />
+                          <p
+                            style={{
+                              fontSize: 8,
+                              position: "absolute",
+                              top: 20,
+                              width: 63,
+                            }}
+                          >
+                            {REGI01_box2EN[3].label}
+                          </p>
+                        </IconButton>
+                      </label>
+                    </div>
+                  ) : (
+                    <div
+                      style={{
+                        borderRadius: 100,
+                        width: 100,
+                        height: 100,
+                        position: "relative",
+                        borderWidth: 2,
+                        margin: 25,
+                      }}
+                    >
+                      <label htmlFor="icon-button-file">
+                        <Input
+                          accept="image/*"
+                          id="icon-button-file"
+                          type="file"
+                          style={{ display: "none" }}
+                          onChange={onImageChange}
+                        />
+                        <IconButton
+                          color="primary"
+                          aria-label="upload picture"
+                          component="span"
+                        >
+                          {imageURLs.map((imageSrc, idx) => (
+                            <img
+                              key={idx}
+                              src={imageSrc}
+                              alt="imageURLs"
+                              style={{
+                                position: "absolute",
+                                width: 90,
+                                height: 90,
+                                borderRadius: "100%",
+                                top: -20,
+                              }}
+                            />
+                          ))}
+                        </IconButton>
+                      </label>
+                    </div>
+                  )}
+
+                  <button
+                    style={{
+                      width: "100%",
+                      borderRadius: 20,
+                      background: " #001E33",
+                      height: 40,
+                      color: "#FFFFFF",
+                      fontSize: 18,
+                      borderColor: "transparent",
+                      marginBottom: 10,
+                    }}
+                    onClick={() => setScreen("6")}
+                  >
+                    {REGI01_box2EN[4].label}
+                  </button>
+                </div>
+              )}
+            </>
+          ) : screen === "5" ? (
+            <>
+              {Doc === "English" ? (
                 <div>
                   <div
                     style={{
-                      textAlign: "left",
-                      float: "left",
-                      borderBottom: "2px solid #034D82",
-                      marginBottom: 10,
+                      position: "fixed",
+                      top: 20,
+                      left: width * 0.59,
+                      textAlign: "-webkit-center",
+                      width: 500,
+                      background: " #FFFFFF",
+                      boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
+                      borderRadius: 20,
+                      padding: 30,
                     }}
                   >
-                    <div
+                    <button
                       style={{
-                        width: 30,
-                        height: 30,
-                        color: "#034D82",
-                        borderRadius: 100,
-                        textAlign: "center",
-                        border: "1px solid #034D82",
-                        padding: 2,
+                        fontWeight: 400,
+                        fontSize: 18,
+                        textDecorationLine: "none",
+                        color: "#D9D9D9",
+                        textAlign: "left",
+                        marginBottom: 20,
                         float: "left",
-                        fontSize: 15,
-                        fontWeight: 700,
-                        marginLeft: 20,
+                        background: "transparent",
+                        border: "transparent",
                       }}
+                      onClick={() => setScreen("3")}
                     >
-                      <p>1</p>
+                      <BsArrowLeftShort />
+                      <p
+                        style={{
+                          color: "#D9D9D9",
+                          fontSize: 18,
+                          textDecorationLine: "none",
+                          float: "right",
+                        }}
+                      >
+                        {REGI01_box3EN[0].label}
+                      </p>
+                    </button>
+
+                    <h2 className="textSignup">{REGI01_box3EN[1].label}</h2>
+
+                    <div style={{ textAlign: "left", marginTop: 10 }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI01_box3EN[2].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={address}
+                        onChange={(e) => setAddress(e.target.value)}
+                        placeholder={REGI01_box3EN[2].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
                     </div>
-                    <div
+
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI01_box3EN[3].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={district}
+                        onChange={(e) => setDistrict(e.target.value)}
+                        placeholder={REGI01_box3EN[3].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI01_box3EN[4].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={province}
+                        onChange={(e) => setProvince(e.target.value)}
+                        placeholder={REGI01_box3EN[4].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          borderColor: "#F1F1F1",
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI01_box3EN[5].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={country}
+                        onChange={(e) => setCountry(e.target.value)}
+                        placeholder={REGI01_box3EN[5].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          borderColor: "#F1F1F1",
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left", marginBottom: 10 }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI01_box3EN[6].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={postalcode}
+                        onChange={(e) => setPostalCode(e.target.value)}
+                        placeholder={REGI01_box3EN[6].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          borderColor: "#F1F1F1",
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <button
                       style={{
-                        color: "#034D82",
-                        float: "left",
-                        margin: 5,
-                        fontWeight: 700,
+                        width: "100%",
+                        borderRadius: 20,
+                        background: " #001E33",
+                        height: 40,
+                        color: "#FFFFFF",
+                        fontSize: 18,
+                        borderColor: "transparent",
                       }}
+                      onClick={handleOpen}
                     >
-                      <p>Skill</p>
-                    </div>
+                      {REGI01_box3EN[1].label}
+                    </button>
                   </div>
 
-                  <div
-                    style={{
-                      textAlign: "left",
-                      float: "left",
-                      borderBottom: "2px solid #D9D9D9",
-                      marginBottom: 10,
-                      width: "75%",
-                    }}
+                  <Modal
+                    keepMounted
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="keep-mounted-modal-title"
+                    aria-describedby="keep-mounted-modal-description"
                   >
-                    <div
-                      style={{
-                        width: 30,
-                        height: 30,
-                        color: "#D9D9D9",
-                        borderRadius: 100,
-                        textAlign: "center",
-                        border: "1px solid #D9D9D9",
-                        padding: 2,
-                        float: "left",
-                        fontSize: 15,
-                        fontWeight: 700,
-                        marginLeft: 20,
-                      }}
-                    >
-                      <p>2</p>
-                    </div>
-                    <div
-                      style={{
-                        color: "#D9D9D9",
-                        float: "left",
-                        margin: 5,
-                        fontWeight: 700,
-                      }}
-                    >
-                      <p>Language Competency Test</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div style={{ marginBottom: 10, textAlign: "left" }}>
-                  <p
-                    style={{
-                      fontWeight: "bold",
-                      fontSize: 18,
-                      color: "#333333",
-                    }}
-                  >
-                    What languages can you translate?
-                  </p>
-                </div>
-
-                <Autocomplete
-                  multiple
-                  id="country-select-demo"
-                  sx={{ width: "100%" }}
-                  options={data}
-                  autoHighlight
-                  getOptionLabel={(option) => option.label}
-                  onChange={(event, value) => setLanguages()}
-                  popupIcon={
-                    <MdArrowDropDown
-                      style={{ color: "#333333", width: 30, height: 33 }}
-                    />
-                  }
-                  renderOption={(props, option) => (
                     <Box
-                      component="li"
-                      sx={{ mr: 2, flexShrink: 0 }}
-                      {...props}
-                    >
-                      {option.label}
-                    </Box>
-                  )}
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      label="Select"
-                      inputProps={{
-                        ...params.inputProps,
-                        autoComplete: "",
-                      }}
-                    />
-                  )}
-                />
-
-                <div style={{ marginBottom: 10, textAlign: "left" }}>
-                  <p
-                    style={{
-                      fontWeight: "bold",
-                      fontSize: 18,
-                      color: "#333333",
-                    }}
-                  >
-                    What kind of documents can you translate?
-                  </p>
-                </div>
-
-                <Autocomplete
-                  multiple
-                  id="country-select-demo"
-                  sx={{ width: "100%" }}
-                  options={data5}
-                  autoHighlight
-                  getOptionLabel={(option) => option.label}
-                  onChange={(event, value) => setLanguages()}
-                  popupIcon={
-                    <MdArrowDropDown
-                      style={{ color: "#333333", width: 30, height: 33 }}
-                    />
-                  }
-                  renderOption={(props, option) => (
-                    <Box
-                      component="li"
-                      sx={{ mr: 2, flexShrink: 0 }}
-                      {...props}
-                    >
-                      {option.label}
-                    </Box>
-                  )}
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      label="Select"
-                      inputProps={{
-                        ...params.inputProps,
-                        autoComplete: "",
-                      }}
-                    />
-                  )}
-                />
-
-                <button
-                  style={{
-                    width: "100%",
-                    borderRadius: 20,
-                    background: " #001E33",
-                    height: 40,
-                    color: "#FFFFFF",
-                    fontSize: 18,
-                    borderColor: "transparent",
-                    marginTop: 20,
-                  }}
-                  onClick={() => setScreen("16")}
-                >
-                  Next
-                </button>
-              </div>
-            </div>
-          ) : screen === "16" ? (
-            <div>
-              <div
-                style={{
-                  position: "fixed",
-                  top: 20,
-                  left: width * 0.59,
-                  textAlign: "-webkit-center",
-                  width: 500,
-                  background: " #FFFFFF",
-                  boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
-                  borderRadius: 20,
-                  padding: 30,
-                }}
-              >
-                <button
-                  style={{
-                    fontWeight: 400,
-                    fontSize: 18,
-                    textDecorationLine: "none",
-                    color: "#D9D9D9",
-                    textAlign: "left",
-                    marginBottom: 20,
-                    float: "left",
-                    background: "transparent",
-                    border: "transparent",
-                  }}
-                  onClick={() => setScreen("15")}
-                >
-                  <BsArrowLeftShort />
-                  <p
-                    style={{
-                      color: "#D9D9D9",
-                      fontSize: 18,
-                      textDecorationLine: "none",
-                      float: "right",
-                    }}
-                  >
-                    Back
-                  </p>
-                </button>
-
-                <h2 className="textSignup" style={{ marginTop: 30 }}>
-                  Sign up
-                </h2>
-
-                <div>
-                  <div
-                    style={{
-                      textAlign: "left",
-                      float: "left",
-                      borderBottom: "2px solid #D9D9D9",
-                      marginBottom: 10,
-                    }}
-                  >
-                    <div
-                      style={{
-                        width: 30,
-                        height: 30,
-                        color: "#D9D9D9",
-                        borderRadius: 100,
-                        textAlign: "center",
-                        border: "1px solid #D9D9D9",
-                        padding: 2,
-                        float: "left",
-                        fontSize: 15,
-                        fontWeight: 700,
-                        marginLeft: 20,
-                      }}
-                    >
-                      <p>1</p>
-                    </div>
-                    <div
-                      style={{
-                        color: "#D9D9D9",
-                        float: "left",
-                        margin: 5,
-                        fontWeight: 700,
-                      }}
-                    >
-                      <p>Skill</p>
-                    </div>
-                  </div>
-
-                  <div
-                    style={{
-                      textAlign: "left",
-                      float: "left",
-                      borderBottom: "2px solid #034D82",
-                      marginBottom: 10,
-                      width: "75%",
-                    }}
-                  >
-                    <div
-                      style={{
-                        width: 30,
-                        height: 30,
-                        color: "#034D82",
-                        borderRadius: 100,
-                        textAlign: "center",
-                        border: "1px solid #034D82",
-                        padding: 2,
-                        float: "left",
-                        fontSize: 15,
-                        fontWeight: 700,
-                        marginLeft: 20,
-                      }}
-                    >
-                      <p>2</p>
-                    </div>
-                    <div
-                      style={{
-                        color: "#034D82",
-                        float: "left",
-                        margin: 5,
-                        fontWeight: 700,
-                      }}
-                    >
-                      <p>Language Competency Test</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div style={{ marginBottom: 10, textAlign: "left" }}>
-                  <p
-                    style={{
-                      fontWeight: "bold",
-                      fontSize: 18,
-                      color: "#333333",
-                    }}
-                  >
-                    Language to answer
-                  </p>
-                </div>
-
-                <Autocomplete
-                  multiple
-                  id="country-select-demo"
-                  sx={{ width: "100%" }}
-                  options={data}
-                  autoHighlight
-                  getOptionLabel={(option) => option.label}
-                  // defaultValue={""}
-                  // onChange={(event,value) => console.log("hi :",value)}
-                  popupIcon={
-                    <MdArrowDropDown
-                      style={{ color: "#333333", width: 30, height: 33 }}
-                    />
-                  }
-                  renderOption={(props, option) => (
-                    <Box
-                      component="li"
-                      sx={{ mr: 2, flexShrink: 0 }}
-                      {...props}
-                    >
-                      {option.label}
-                    </Box>
-                  )}
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      label="Select"
-                      inputProps={{
-                        ...params.inputProps,
-                        autoComplete: "",
-                      }}
-                    />
-                  )}
-                />
-
-                <div style={{ marginBottom: 10, textAlign: "left" }}>
-                  <p
-                    style={{
-                      fontWeight: "bold",
-                      fontSize: 18,
-                      color: "#333333",
-                    }}
-                  >
-                    Question
-                  </p>
-                </div>
-
-                <textarea
-                  // value={}
-                  // onChange={}
-                  maxLength={150}
-                  style={{
-                    width: "100%",
-                    background: "#FFFFFF",
-                    border: "1px solid #E5E5E5",
-                    boxSizing: "border-box",
-                    borderRadius: 5,
-                    padding: 20,
-                  }}
-                />
-                <button
-                  style={{
-                    width: "100%",
-                    borderRadius: 20,
-                    background: " #001E33",
-                    height: 40,
-                    color: "#FFFFFF",
-                    fontSize: 18,
-                    borderColor: "transparent",
-                    marginTop: 30,
-                  }}
-                  onClick={() => setOpen3(true)}
-                >
-                  Sign up
-                </button>
-
-                <Modal
-                  keepMounted
-                  open={open3}
-                  onClose={handleClose3}
-                  aria-labelledby="keep-mounted-modal-title"
-                  aria-describedby="keep-mounted-modal-description"
-                >
-                  <Box
-                    sx={{
-                      position: "absolute",
-                      top: "50%",
-                      left: "50%",
-                      transform: "translate(-50%, -70%)",
-                      width: 600,
-                      bgcolor: "background.paper",
-                      boxShadow: 24,
-                      p: 4,
-                      borderRadius: 5,
-                      border: "1px solid #E5E5E5",
-                      textAlign: "center",
-                    }}
-                  >
-                    <img src={logo} alt="Logo" style={{ width: 100 }} />
-                    <Typography
-                      id="keep-mounted-modal-description"
-                      sx={{ mt: 2, fontWeight: 700 }}
-                    >
-                      Terms and Conditions
-                    </Typography>
-                    <Typography
-                      id="keep-mounted-modal-description"
                       sx={{
-                        mt: 2,
-                        textAlign: "left",
-                        overflowY: "auto",
-                        height: 125,
+                        position: "absolute",
+                        top: "50%",
+                        left: "50%",
+                        transform: "translate(-50%, -70%)",
+                        width: 600,
+                        bgcolor: "background.paper",
+                        boxShadow: 24,
+                        p: 4,
+                        borderRadius: 5,
+                        border: "1px solid #E5E5E5",
+                        textAlign: "center",
                       }}
                     >
-                      The company agrees to provide truthful information. and
-                      can receive translation work and forward it to translators
-                      who are competent in the languages stated by the company
-                      above. and will be responsible for all translation works
-                      translated from the company
-                    </Typography>
-                    <div
+                      <img src={logo} alt="Logo" style={{ width: 100 }} />
+                      <Typography
+                        id="keep-mounted-modal-description"
+                        sx={{ mt: 2, fontWeight: 700 }}
+                      >
+                        {REGI01_box4EN[0].label}
+                      </Typography>
+                      <Typography
+                        id="keep-mounted-modal-description"
+                        sx={{
+                          mt: 2,
+                          textAlign: "left",
+                          overflowY: "auto",
+                          height: 200,
+                        }}
+                      >
+                        {REGI01_box4EN[1].label}
+                      </Typography>
+                      <div
+                        style={{
+                          textAlign: "left",
+                          borderTop: "1px solid #C4C4C4",
+                        }}
+                      >
+                        <FormControlLabel
+                          control={
+                            <Checkbox
+                              checked={checked}
+                              onChange={handleChange2}
+                              inputProps={{ "aria-label": "controlled" }}
+                            />
+                          }
+                          label={REGI01_box4EN[2].label}
+                        />
+                      </div>
+                      <div>
+                        {checked === false ? (
+                          <button
+                            style={{
+                              width: "30%",
+                              borderRadius: 20,
+                              background: "#E0E0E0",
+                              height: 40,
+                              color: "#FFFFFF",
+                              fontSize: 18,
+                              borderColor: "transparent",
+                              position: "relative",
+                              left: "35%",
+                            }}
+                            disabled
+                          >
+                            {REGI01_box4EN[3].label}
+                          </button>
+                        ) : (
+                          <button
+                            style={{
+                              width: "30%",
+                              borderRadius: 20,
+                              background: "#001E33",
+                              height: 40,
+                              color: "#FFFFFF",
+                              fontSize: 18,
+                              borderColor: "transparent",
+                              position: "relative",
+                              left: "35%",
+                            }}
+                            onClick={send_Mail}
+                          >
+                            {REGI01_box4EN[3].label}
+                          </button>
+                        )}
+                      </div>
+                    </Box>
+                  </Modal>
+
+                  <Modal
+                    keepMounted
+                    open={open2}
+                    onClose={handleClose2}
+                    aria-labelledby="keep-mounted-modal-title"
+                    aria-describedby="keep-mounted-modal-description"
+                  >
+                    <Box
+                      sx={{
+                        position: "absolute",
+                        top: "50%",
+                        left: "50%",
+                        transform: "translate(-50%, -70%)",
+                        width: 400,
+                        bgcolor: "background.paper",
+                        boxShadow: 24,
+                        p: 4,
+                        borderRadius: 5,
+                        border: "1px solid #E5E5E5",
+                        textAlign: "center",
+                      }}
+                    >
+                      <AiFillCheckCircle
+                        style={{ width: 100, height: 80, color: "#46BC52" }}
+                      />
+                      <Typography
+                        id="keep-mounted-modal-description"
+                        sx={{ mt: 2, fontWeight: 700 }}
+                      >
+                        {REGI01_box5EN[0].label}
+                      </Typography>
+                    </Box>
+                  </Modal>
+                </div>
+              ) : Doc === "Thai" ? (
+                <div>
+                  <div
+                    style={{
+                      position: "fixed",
+                      top: 20,
+                      left: width * 0.59,
+                      textAlign: "-webkit-center",
+                      width: 500,
+                      background: " #FFFFFF",
+                      boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
+                      borderRadius: 20,
+                      padding: 30,
+                    }}
+                  >
+                    <button
                       style={{
+                        fontWeight: 400,
+                        fontSize: 18,
+                        textDecorationLine: "none",
+                        color: "#D9D9D9",
                         textAlign: "left",
-                        borderTop: "1px solid #C4C4C4",
+                        marginBottom: 20,
+                        float: "left",
+                        background: "transparent",
+                        border: "transparent",
+                      }}
+                      onClick={() => setScreen("3")}
+                    >
+                      <BsArrowLeftShort />
+                      <p
+                        style={{
+                          color: "#D9D9D9",
+                          fontSize: 18,
+                          textDecorationLine: "none",
+                          float: "right",
+                        }}
+                      >
+                        {REGI01_box3TH[0].label}
+                      </p>
+                    </button>
+
+                    <h2 className="textSignup">{REGI01_box3TH[1].label}</h2>
+
+                    <div style={{ textAlign: "left", marginTop: 10 }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI01_box3TH[2].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={address}
+                        onChange={(e) => setAddress(e.target.value)}
+                        placeholder={REGI01_box3TH[2].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI01_box3TH[3].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={district}
+                        onChange={(e) => setDistrict(e.target.value)}
+                        placeholder={REGI01_box3TH[3].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI01_box3TH[4].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={province}
+                        onChange={(e) => setProvince(e.target.value)}
+                        placeholder={REGI01_box3TH[4].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          borderColor: "#F1F1F1",
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI01_box3TH[5].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={country}
+                        onChange={(e) => setCountry(e.target.value)}
+                        placeholder={REGI01_box3TH[5].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          borderColor: "#F1F1F1",
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left", marginBottom: 10 }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI01_box3TH[6].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={postalcode}
+                        onChange={(e) => setPostalCode(e.target.value)}
+                        placeholder={REGI01_box3TH[6].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          borderColor: "#F1F1F1",
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <button
+                      style={{
+                        width: "100%",
+                        borderRadius: 20,
+                        background: " #001E33",
+                        height: 40,
+                        color: "#FFFFFF",
+                        fontSize: 18,
+                        borderColor: "transparent",
+                      }}
+                      onClick={handleOpen}
+                    >
+                      {REGI01_box3TH[1].label}
+                    </button>
+                  </div>
+
+                  <Modal
+                    keepMounted
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="keep-mounted-modal-title"
+                    aria-describedby="keep-mounted-modal-description"
+                  >
+                    <Box
+                      sx={{
+                        position: "absolute",
+                        top: "50%",
+                        left: "50%",
+                        transform: "translate(-50%, -70%)",
+                        width: 600,
+                        bgcolor: "background.paper",
+                        boxShadow: 24,
+                        p: 4,
+                        borderRadius: 5,
+                        border: "1px solid #E5E5E5",
+                        textAlign: "center",
                       }}
                     >
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            checked={checked2}
-                            onChange={handleChange2}
-                            inputProps={{ "aria-label": "controlled" }}
+                      <img src={logo} alt="Logo" style={{ width: 100 }} />
+                      <Typography
+                        id="keep-mounted-modal-description"
+                        sx={{ mt: 2, fontWeight: 700 }}
+                      >
+                        {REGI01_box4TH[0].label}
+                      </Typography>
+                      <Typography
+                        id="keep-mounted-modal-description"
+                        sx={{
+                          mt: 2,
+                          textAlign: "left",
+                          overflowY: "auto",
+                          height: 200,
+                        }}
+                      >
+                        {REGI01_box4TH[1].label}
+                      </Typography>
+                      <div
+                        style={{
+                          textAlign: "left",
+                          borderTop: "1px solid #C4C4C4",
+                        }}
+                      >
+                        <FormControlLabel
+                          control={
+                            <Checkbox
+                              checked={checked}
+                              onChange={handleChange2}
+                              inputProps={{ "aria-label": "controlled" }}
+                            />
+                          }
+                          label={REGI01_box4TH[2].label}
+                        />
+                      </div>
+                      <div>
+                        {checked === false ? (
+                          <button
+                            style={{
+                              width: "30%",
+                              borderRadius: 20,
+                              background: "#E0E0E0",
+                              height: 40,
+                              color: "#FFFFFF",
+                              fontSize: 18,
+                              borderColor: "transparent",
+                              position: "relative",
+                              left: "35%",
+                            }}
+                            disabled
+                          >
+                            {REGI01_box4TH[3].label}
+                          </button>
+                        ) : (
+                          <button
+                            style={{
+                              width: "30%",
+                              borderRadius: 20,
+                              background: "#001E33",
+                              height: 40,
+                              color: "#FFFFFF",
+                              fontSize: 18,
+                              borderColor: "transparent",
+                              position: "relative",
+                              left: "35%",
+                            }}
+                            onClick={send_Mail}
+                          >
+                            {REGI01_box4TH[3].label}
+                          </button>
+                        )}
+                      </div>
+                    </Box>
+                  </Modal>
+
+                  <Modal
+                    keepMounted
+                    open={open2}
+                    onClose={handleClose2}
+                    aria-labelledby="keep-mounted-modal-title"
+                    aria-describedby="keep-mounted-modal-description"
+                  >
+                    <Box
+                      sx={{
+                        position: "absolute",
+                        top: "50%",
+                        left: "50%",
+                        transform: "translate(-50%, -70%)",
+                        width: 400,
+                        bgcolor: "background.paper",
+                        boxShadow: 24,
+                        p: 4,
+                        borderRadius: 5,
+                        border: "1px solid #E5E5E5",
+                        textAlign: "center",
+                      }}
+                    >
+                      <AiFillCheckCircle
+                        style={{ width: 100, height: 80, color: "#46BC52" }}
+                      />
+                      <Typography
+                        id="keep-mounted-modal-description"
+                        sx={{ mt: 2, fontWeight: 700 }}
+                      >
+                        {REGI01_box5TH[0].label}
+                      </Typography>
+                    </Box>
+                  </Modal>
+                </div>
+              ) : Doc === "German" ? (
+                <div>
+                  <div
+                    style={{
+                      position: "fixed",
+                      top: 20,
+                      left: width * 0.59,
+                      textAlign: "-webkit-center",
+                      width: 500,
+                      background: " #FFFFFF",
+                      boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
+                      borderRadius: 20,
+                      padding: 30,
+                    }}
+                  >
+                    <button
+                      style={{
+                        fontWeight: 400,
+                        fontSize: 18,
+                        textDecorationLine: "none",
+                        color: "#D9D9D9",
+                        textAlign: "left",
+                        marginBottom: 20,
+                        float: "left",
+                        background: "transparent",
+                        border: "transparent",
+                      }}
+                      onClick={() => setScreen("3")}
+                    >
+                      <BsArrowLeftShort />
+                      <p
+                        style={{
+                          color: "#D9D9D9",
+                          fontSize: 18,
+                          textDecorationLine: "none",
+                          float: "right",
+                        }}
+                      >
+                        {REGI01_box3DE[0].label}
+                      </p>
+                    </button>
+
+                    <h2 className="textSignup">{REGI01_box3DE[1].label}</h2>
+
+                    <div style={{ textAlign: "left", marginTop: 10 }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI01_box3DE[2].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={address}
+                        onChange={(e) => setAddress(e.target.value)}
+                        placeholder={REGI01_box3DE[2].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI01_box3DE[3].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={district}
+                        onChange={(e) => setDistrict(e.target.value)}
+                        placeholder={REGI01_box3DE[3].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI01_box3DE[4].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={province}
+                        onChange={(e) => setProvince(e.target.value)}
+                        placeholder={REGI01_box3DE[4].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          borderColor: "#F1F1F1",
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI01_box3DE[5].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={country}
+                        onChange={(e) => setCountry(e.target.value)}
+                        placeholder={REGI01_box3DE[5].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          borderColor: "#F1F1F1",
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left", marginBottom: 10 }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI01_box3DE[6].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={postalcode}
+                        onChange={(e) => setPostalCode(e.target.value)}
+                        placeholder={REGI01_box3DE[6].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          borderColor: "#F1F1F1",
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <button
+                      style={{
+                        width: "100%",
+                        borderRadius: 20,
+                        background: " #001E33",
+                        height: 40,
+                        color: "#FFFFFF",
+                        fontSize: 18,
+                        borderColor: "transparent",
+                      }}
+                      onClick={handleOpen}
+                    >
+                      {REGI01_box3DE[1].label}
+                    </button>
+                  </div>
+
+                  <Modal
+                    keepMounted
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="keep-mounted-modal-title"
+                    aria-describedby="keep-mounted-modal-description"
+                  >
+                    <Box
+                      sx={{
+                        position: "absolute",
+                        top: "50%",
+                        left: "50%",
+                        transform: "translate(-50%, -70%)",
+                        width: 600,
+                        bgcolor: "background.paper",
+                        boxShadow: 24,
+                        p: 4,
+                        borderRadius: 5,
+                        border: "1px solid #E5E5E5",
+                        textAlign: "center",
+                      }}
+                    >
+                      <img src={logo} alt="Logo" style={{ width: 100 }} />
+                      <Typography
+                        id="keep-mounted-modal-description"
+                        sx={{ mt: 2, fontWeight: 700 }}
+                      >
+                        {REGI01_box4DE[0].label}
+                      </Typography>
+                      <Typography
+                        id="keep-mounted-modal-description"
+                        sx={{
+                          mt: 2,
+                          textAlign: "left",
+                          overflowY: "auto",
+                          height: 200,
+                        }}
+                      >
+                        {REGI01_box4DE[1].label}
+                      </Typography>
+                      <div
+                        style={{
+                          textAlign: "left",
+                          borderTop: "1px solid #C4C4C4",
+                        }}
+                      >
+                        <FormControlLabel
+                          control={
+                            <Checkbox
+                              checked={checked}
+                              onChange={handleChange2}
+                              inputProps={{ "aria-label": "controlled" }}
+                            />
+                          }
+                          label={REGI01_box4DE[2].label}
+                        />
+                      </div>
+                      <div>
+                        {checked === false ? (
+                          <button
+                            style={{
+                              width: "30%",
+                              borderRadius: 20,
+                              background: "#E0E0E0",
+                              height: 40,
+                              color: "#FFFFFF",
+                              fontSize: 18,
+                              borderColor: "transparent",
+                              position: "relative",
+                              left: "35%",
+                            }}
+                            disabled
+                          >
+                            {REGI01_box4DE[3].label}
+                          </button>
+                        ) : (
+                          <button
+                            style={{
+                              width: "30%",
+                              borderRadius: 20,
+                              background: "#001E33",
+                              height: 40,
+                              color: "#FFFFFF",
+                              fontSize: 18,
+                              borderColor: "transparent",
+                              position: "relative",
+                              left: "35%",
+                            }}
+                            onClick={send_Mail}
+                          >
+                            {REGI01_box4DE[3].label}
+                          </button>
+                        )}
+                      </div>
+                    </Box>
+                  </Modal>
+
+                  <Modal
+                    keepMounted
+                    open={open2}
+                    onClose={handleClose2}
+                    aria-labelledby="keep-mounted-modal-title"
+                    aria-describedby="keep-mounted-modal-description"
+                  >
+                    <Box
+                      sx={{
+                        position: "absolute",
+                        top: "50%",
+                        left: "50%",
+                        transform: "translate(-50%, -70%)",
+                        width: 400,
+                        bgcolor: "background.paper",
+                        boxShadow: 24,
+                        p: 4,
+                        borderRadius: 5,
+                        border: "1px solid #E5E5E5",
+                        textAlign: "center",
+                      }}
+                    >
+                      <AiFillCheckCircle
+                        style={{ width: 100, height: 80, color: "#46BC52" }}
+                      />
+                      <Typography
+                        id="keep-mounted-modal-description"
+                        sx={{ mt: 2, fontWeight: 700 }}
+                      >
+                        {REGI01_box5DE[0].label}
+                      </Typography>
+                    </Box>
+                  </Modal>
+                </div>
+              ) : (
+                <div>
+                  <div
+                    style={{
+                      position: "fixed",
+                      top: 20,
+                      left: width * 0.59,
+                      textAlign: "-webkit-center",
+                      width: 500,
+                      background: " #FFFFFF",
+                      boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
+                      borderRadius: 20,
+                      padding: 30,
+                    }}
+                  >
+                    <button
+                      style={{
+                        fontWeight: 400,
+                        fontSize: 18,
+                        textDecorationLine: "none",
+                        color: "#D9D9D9",
+                        textAlign: "left",
+                        marginBottom: 20,
+                        float: "left",
+                        background: "transparent",
+                        border: "transparent",
+                      }}
+                      onClick={() => setScreen("3")}
+                    >
+                      <BsArrowLeftShort />
+                      <p
+                        style={{
+                          color: "#D9D9D9",
+                          fontSize: 18,
+                          textDecorationLine: "none",
+                          float: "right",
+                        }}
+                      >
+                        {REGI01_box3EN[0].label}
+                      </p>
+                    </button>
+
+                    <h2 className="textSignup">{REGI01_box3EN[1].label}</h2>
+
+                    <div style={{ textAlign: "left", marginTop: 10 }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI01_box3EN[2].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={address}
+                        onChange={(e) => setAddress(e.target.value)}
+                        placeholder={REGI01_box3EN[2].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI01_box3EN[3].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={district}
+                        onChange={(e) => setDistrict(e.target.value)}
+                        placeholder={REGI01_box3EN[3].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI01_box3EN[4].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={province}
+                        onChange={(e) => setProvince(e.target.value)}
+                        placeholder={REGI01_box3EN[4].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          borderColor: "#F1F1F1",
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI01_box3EN[5].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={country}
+                        onChange={(e) => setCountry(e.target.value)}
+                        placeholder={REGI01_box3EN[5].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          borderColor: "#F1F1F1",
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left", marginBottom: 10 }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI01_box3EN[6].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={postalcode}
+                        onChange={(e) => setPostalCode(e.target.value)}
+                        placeholder={REGI01_box3EN[6].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          borderColor: "#F1F1F1",
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <button
+                      style={{
+                        width: "100%",
+                        borderRadius: 20,
+                        background: " #001E33",
+                        height: 40,
+                        color: "#FFFFFF",
+                        fontSize: 18,
+                        borderColor: "transparent",
+                      }}
+                      onClick={handleOpen}
+                    >
+                      {REGI01_box3EN[1].label}
+                    </button>
+                  </div>
+
+                  <Modal
+                    keepMounted
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="keep-mounted-modal-title"
+                    aria-describedby="keep-mounted-modal-description"
+                  >
+                    <Box
+                      sx={{
+                        position: "absolute",
+                        top: "50%",
+                        left: "50%",
+                        transform: "translate(-50%, -70%)",
+                        width: 600,
+                        bgcolor: "background.paper",
+                        boxShadow: 24,
+                        p: 4,
+                        borderRadius: 5,
+                        border: "1px solid #E5E5E5",
+                        textAlign: "center",
+                      }}
+                    >
+                      <img src={logo} alt="Logo" style={{ width: 100 }} />
+                      <Typography
+                        id="keep-mounted-modal-description"
+                        sx={{ mt: 2, fontWeight: 700 }}
+                      >
+                        {REGI01_box4EN[0].label}
+                      </Typography>
+                      <Typography
+                        id="keep-mounted-modal-description"
+                        sx={{
+                          mt: 2,
+                          textAlign: "left",
+                          overflowY: "auto",
+                          height: 200,
+                        }}
+                      >
+                        {REGI01_box4EN[1].label}
+                      </Typography>
+                      <div
+                        style={{
+                          textAlign: "left",
+                          borderTop: "1px solid #C4C4C4",
+                        }}
+                      >
+                        <FormControlLabel
+                          control={
+                            <Checkbox
+                              checked={checked}
+                              onChange={handleChange2}
+                              inputProps={{ "aria-label": "controlled" }}
+                            />
+                          }
+                          label={REGI01_box4EN[2].label}
+                        />
+                      </div>
+                      <div>
+                        {checked === false ? (
+                          <button
+                            style={{
+                              width: "30%",
+                              borderRadius: 20,
+                              background: "#E0E0E0",
+                              height: 40,
+                              color: "#FFFFFF",
+                              fontSize: 18,
+                              borderColor: "transparent",
+                              position: "relative",
+                              left: "35%",
+                            }}
+                            disabled
+                          >
+                            {REGI01_box4EN[3].label}
+                          </button>
+                        ) : (
+                          <button
+                            style={{
+                              width: "30%",
+                              borderRadius: 20,
+                              background: "#001E33",
+                              height: 40,
+                              color: "#FFFFFF",
+                              fontSize: 18,
+                              borderColor: "transparent",
+                              position: "relative",
+                              left: "35%",
+                            }}
+                            onClick={send_Mail}
+                          >
+                            {REGI01_box4EN[3].label}
+                          </button>
+                        )}
+                      </div>
+                    </Box>
+                  </Modal>
+
+                  <Modal
+                    keepMounted
+                    open={open2}
+                    onClose={handleClose2}
+                    aria-labelledby="keep-mounted-modal-title"
+                    aria-describedby="keep-mounted-modal-description"
+                  >
+                    <Box
+                      sx={{
+                        position: "absolute",
+                        top: "50%",
+                        left: "50%",
+                        transform: "translate(-50%, -70%)",
+                        width: 400,
+                        bgcolor: "background.paper",
+                        boxShadow: 24,
+                        p: 4,
+                        borderRadius: 5,
+                        border: "1px solid #E5E5E5",
+                        textAlign: "center",
+                      }}
+                    >
+                      <AiFillCheckCircle
+                        style={{ width: 100, height: 80, color: "#46BC52" }}
+                      />
+                      <Typography
+                        id="keep-mounted-modal-description"
+                        sx={{ mt: 2, fontWeight: 700 }}
+                      >
+                        {REGI01_box5EN[0].label}
+                      </Typography>
+                    </Box>
+                  </Modal>
+                </div>
+              )}
+            </>
+          ) : screen === "6" ? (
+            <>
+              {Doc === "English" ? (
+                <div>
+                  <div
+                    style={{
+                      position: "fixed",
+                      top: 20,
+                      left: width * 0.59,
+                      textAlign: "-webkit-center",
+                      width: 500,
+                      background: " #FFFFFF",
+                      boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
+                      borderRadius: 20,
+                      padding: 30,
+                    }}
+                  >
+                    <button
+                      style={{
+                        fontWeight: 400,
+                        fontSize: 18,
+                        textDecorationLine: "none",
+                        color: "#D9D9D9",
+                        textAlign: "left",
+                        marginBottom: 20,
+                        float: "left",
+                        background: "transparent",
+                        border: "transparent",
+                      }}
+                      onClick={() => setScreen("4")}
+                    >
+                      <BsArrowLeftShort />
+                      <p
+                        style={{
+                          color: "#D9D9D9",
+                          fontSize: 18,
+                          textDecorationLine: "none",
+                          float: "right",
+                        }}
+                      >
+                        {REGI02_Box1v02EN[0].label}
+                      </p>
+                    </button>
+
+                    <h2 className="textSignup">{REGI02_Box1v02EN[1].label}</h2>
+                    <div>
+                      <FormControl style={{ display: "inherit" }}>
+                        <RadioGroup
+                          row
+                          aria-labelledby="demo-row-radio-buttons-group-label"
+                          name="row-radio-buttons-group"
+                        >
+                          <FormControlLabel
+                            checked
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value=""
+                            control={<Radio />}
+                            label={REGI02_Box1v02EN[2].label}
+                            style={{ marginRight: 50 }}
+                          />
+                          <FormControlLabel
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value="Freelance Translators"
+                            control={<Radio />}
+                            label={REGI02_Box1v02EN[3].label}
+                          />
+                        </RadioGroup>
+                      </FormControl>
+                    </div>
+
+                    <div style={{ textAlign: "left", marginTop: 10 }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI02_Box1v02EN[4].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={companyname}
+                        onChange={(e) => setCompanyname(e.target.value)}
+                        placeholder={REGI02_Box1v02EN[4].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI02_Box1v02EN[5].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={juristicPersonNumber}
+                        onChange={(e) =>
+                          setJuristicPersonNumber(e.target.value)
+                        }
+                        placeholder={REGI02_Box1v02EN[5].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1",
+                          borderRadius: 20,
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left", marginBottom: 10 }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI02_Box1v02EN[6].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={website}
+                        onChange={(e) => setWebsite(e.target.value)}
+                        placeholder="https://example.com"
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          borderColor: "#F1F1F1",
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <button
+                      style={{
+                        width: "100%",
+                        borderRadius: 20,
+                        background: " #001E33",
+                        height: 40,
+                        color: "#FFFFFF",
+                        fontSize: 18,
+                        borderColor: "transparent",
+                      }}
+                      onClick={() => setScreen("8")}
+                    >
+                      {REGI02_Box1v02EN[7].label}
+                    </button>
+                  </div>
+                </div>
+              ) : Doc === "Thai" ? (
+                <div>
+                  <div
+                    style={{
+                      position: "fixed",
+                      top: 20,
+                      left: width * 0.59,
+                      textAlign: "-webkit-center",
+                      width: 500,
+                      background: " #FFFFFF",
+                      boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
+                      borderRadius: 20,
+                      padding: 30,
+                    }}
+                  >
+                    <button
+                      style={{
+                        fontWeight: 400,
+                        fontSize: 18,
+                        textDecorationLine: "none",
+                        color: "#D9D9D9",
+                        textAlign: "left",
+                        marginBottom: 20,
+                        float: "left",
+                        background: "transparent",
+                        border: "transparent",
+                      }}
+                      onClick={() => setScreen("4")}
+                    >
+                      <BsArrowLeftShort />
+                      <p
+                        style={{
+                          color: "#D9D9D9",
+                          fontSize: 18,
+                          textDecorationLine: "none",
+                          float: "right",
+                        }}
+                      >
+                        {REGI02_Box1v02TH[0].label}
+                      </p>
+                    </button>
+
+                    <h2 className="textSignup">{REGI02_Box1v02TH[1].label}</h2>
+                    <div>
+                      <FormControl style={{ display: "inherit" }}>
+                        <RadioGroup
+                          row
+                          aria-labelledby="demo-row-radio-buttons-group-label"
+                          name="row-radio-buttons-group"
+                        >
+                          <FormControlLabel
+                            checked
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value=""
+                            control={<Radio />}
+                            label={REGI02_Box1v02TH[2].label}
+                            style={{ marginRight: 50 }}
+                          />
+                          <FormControlLabel
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value="Freelance Translators"
+                            control={<Radio />}
+                            label={REGI02_Box1v02TH[3].label}
+                          />
+                        </RadioGroup>
+                      </FormControl>
+                    </div>
+
+                    <div style={{ textAlign: "left", marginTop: 10 }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI02_Box1v02TH[4].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={companyname}
+                        onChange={(e) => setCompanyname(e.target.value)}
+                        placeholder={REGI02_Box1v02TH[4].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI02_Box1v02TH[5].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={juristicPersonNumber}
+                        onChange={(e) =>
+                          setJuristicPersonNumber(e.target.value)
+                        }
+                        placeholder={REGI02_Box1v02TH[5].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1",
+                          borderRadius: 20,
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left", marginBottom: 10 }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI02_Box1v02TH[6].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={website}
+                        onChange={(e) => setWebsite(e.target.value)}
+                        placeholder="https://example.com"
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          borderColor: "#F1F1F1",
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <button
+                      style={{
+                        width: "100%",
+                        borderRadius: 20,
+                        background: " #001E33",
+                        height: 40,
+                        color: "#FFFFFF",
+                        fontSize: 18,
+                        borderColor: "transparent",
+                      }}
+                      onClick={() => setScreen("8")}
+                    >
+                      {REGI02_Box1v02TH[7].label}
+                    </button>
+                  </div>
+                </div>
+              ) : Doc === "German" ? (
+                <div>
+                  <div
+                    style={{
+                      position: "fixed",
+                      top: 20,
+                      left: width * 0.59,
+                      textAlign: "-webkit-center",
+                      width: 500,
+                      background: " #FFFFFF",
+                      boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
+                      borderRadius: 20,
+                      padding: 30,
+                    }}
+                  >
+                    <button
+                      style={{
+                        fontWeight: 400,
+                        fontSize: 18,
+                        textDecorationLine: "none",
+                        color: "#D9D9D9",
+                        textAlign: "left",
+                        marginBottom: 20,
+                        float: "left",
+                        background: "transparent",
+                        border: "transparent",
+                      }}
+                      onClick={() => setScreen("4")}
+                    >
+                      <BsArrowLeftShort />
+                      <p
+                        style={{
+                          color: "#D9D9D9",
+                          fontSize: 18,
+                          textDecorationLine: "none",
+                          float: "right",
+                        }}
+                      >
+                        {REGI02_Box1v02DE[0].label}
+                      </p>
+                    </button>
+
+                    <h2 className="textSignup">{REGI02_Box1v02DE[1].label}</h2>
+                    <div>
+                      <FormControl style={{ display: "inherit" }}>
+                        <RadioGroup
+                          row
+                          aria-labelledby="demo-row-radio-buttons-group-label"
+                          name="row-radio-buttons-group"
+                        >
+                          <FormControlLabel
+                            checked
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value=""
+                            control={<Radio />}
+                            label={REGI02_Box1v02DE[2].label}
+                            style={{ marginRight: 50 }}
+                          />
+                          <FormControlLabel
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value="Freelance Translators"
+                            control={<Radio />}
+                            label={REGI02_Box1v02DE[3].label}
+                          />
+                        </RadioGroup>
+                      </FormControl>
+                    </div>
+
+                    <div style={{ textAlign: "left", marginTop: 10 }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI02_Box1v02DE[4].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={companyname}
+                        onChange={(e) => setCompanyname(e.target.value)}
+                        placeholder={REGI02_Box1v02DE[4].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI02_Box1v02DE[5].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={juristicPersonNumber}
+                        onChange={(e) =>
+                          setJuristicPersonNumber(e.target.value)
+                        }
+                        placeholder={REGI02_Box1v02DE[5].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1",
+                          borderRadius: 20,
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left", marginBottom: 10 }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI02_Box1v02DE[6].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={website}
+                        onChange={(e) => setWebsite(e.target.value)}
+                        placeholder="https://example.com"
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          borderColor: "#F1F1F1",
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <button
+                      style={{
+                        width: "100%",
+                        borderRadius: 20,
+                        background: " #001E33",
+                        height: 40,
+                        color: "#FFFFFF",
+                        fontSize: 18,
+                        borderColor: "transparent",
+                      }}
+                      onClick={() => setScreen("8")}
+                    >
+                      {REGI02_Box1v02DE[7].label}
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <div>
+                  <div
+                    style={{
+                      position: "fixed",
+                      top: 20,
+                      left: width * 0.59,
+                      textAlign: "-webkit-center",
+                      width: 500,
+                      background: " #FFFFFF",
+                      boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
+                      borderRadius: 20,
+                      padding: 30,
+                    }}
+                  >
+                    <button
+                      style={{
+                        fontWeight: 400,
+                        fontSize: 18,
+                        textDecorationLine: "none",
+                        color: "#D9D9D9",
+                        textAlign: "left",
+                        marginBottom: 20,
+                        float: "left",
+                        background: "transparent",
+                        border: "transparent",
+                      }}
+                      onClick={() => setScreen("4")}
+                    >
+                      <BsArrowLeftShort />
+                      <p
+                        style={{
+                          color: "#D9D9D9",
+                          fontSize: 18,
+                          textDecorationLine: "none",
+                          float: "right",
+                        }}
+                      >
+                        {REGI02_Box1v02EN[0].label}
+                      </p>
+                    </button>
+
+                    <h2 className="textSignup">{REGI02_Box1v02EN[1].label}</h2>
+                    <div>
+                      <FormControl style={{ display: "inherit" }}>
+                        <RadioGroup
+                          row
+                          aria-labelledby="demo-row-radio-buttons-group-label"
+                          name="row-radio-buttons-group"
+                        >
+                          <FormControlLabel
+                            checked
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value=""
+                            control={<Radio />}
+                            label={REGI02_Box1v02EN[2].label}
+                            style={{ marginRight: 50 }}
+                          />
+                          <FormControlLabel
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value="Freelance Translators"
+                            control={<Radio />}
+                            label={REGI02_Box1v02EN[3].label}
+                          />
+                        </RadioGroup>
+                      </FormControl>
+                    </div>
+
+                    <div style={{ textAlign: "left", marginTop: 10 }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI02_Box1v02EN[4].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={companyname}
+                        onChange={(e) => setCompanyname(e.target.value)}
+                        placeholder={REGI02_Box1v02EN[4].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI02_Box1v02EN[5].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={juristicPersonNumber}
+                        onChange={(e) =>
+                          setJuristicPersonNumber(e.target.value)
+                        }
+                        placeholder={REGI02_Box1v02EN[5].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1",
+                          borderRadius: 20,
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left", marginBottom: 10 }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI02_Box1v02EN[6].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={website}
+                        onChange={(e) => setWebsite(e.target.value)}
+                        placeholder="https://example.com"
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          borderColor: "#F1F1F1",
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <button
+                      style={{
+                        width: "100%",
+                        borderRadius: 20,
+                        background: " #001E33",
+                        height: 40,
+                        color: "#FFFFFF",
+                        fontSize: 18,
+                        borderColor: "transparent",
+                      }}
+                      onClick={() => setScreen("8")}
+                    >
+                      {REGI02_Box1v02EN[7].label}
+                    </button>
+                  </div>
+                </div>
+              )}
+            </>
+          ) : screen === "Freelance Translators" ? (
+            <>
+              {Doc === "English" ? (
+                <div>
+                  <div
+                    style={{
+                      position: "fixed",
+                      top: 20,
+                      left: width * 0.59,
+                      textAlign: "-webkit-center",
+                      width: 500,
+                      background: " #FFFFFF",
+                      boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
+                      borderRadius: 20,
+                      padding: 30,
+                    }}
+                  >
+                    <button
+                      style={{
+                        fontWeight: 400,
+                        fontSize: 18,
+                        textDecorationLine: "none",
+                        color: "#D9D9D9",
+                        textAlign: "left",
+                        marginBottom: 20,
+                        float: "left",
+                        background: "transparent",
+                        border: "transparent",
+                      }}
+                      onClick={() => setScreen("4")}
+                    >
+                      <BsArrowLeftShort />
+                      <p
+                        style={{
+                          color: "#D9D9D9",
+                          fontSize: 18,
+                          textDecorationLine: "none",
+                          float: "right",
+                        }}
+                      >
+                        {REGI02_Box1v01EN[0].label}
+                      </p>
+                    </button>
+
+                    <h2 className="textSignup" style={{ marginTop: 30 }}>
+                      {REGI02_Box1v01EN[1].label}
+                    </h2>
+                    <div>
+                      <FormControl style={{ display: "inherit" }}>
+                        <RadioGroup
+                          row
+                          aria-labelledby="demo-row-radio-buttons-group-label"
+                          name="row-radio-buttons-group"
+                        >
+                          <FormControlLabel
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value="6"
+                            control={<Radio />}
+                            label={REGI02_Box1v01EN[2].label}
+                            style={{ marginRight: 50 }}
+                          />
+                          <FormControlLabel
+                            checked
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value="Freelance Translators"
+                            control={<Radio />}
+                            label={REGI02_Box1v01EN[3].label}
+                          />
+                        </RadioGroup>
+                      </FormControl>
+                    </div>
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 20,
+                          color: " #242424",
+                        }}
+                      >
+                        {REGI02_Box1v01EN[4].label}
+                      </p>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 14,
+                          color: " #242424",
+                        }}
+                      >
+                        {REGI02_Box1v01EN[5].label}
+                      </p>
+                      <div style={{ textAlign: "center" }}>
+                        {file2 === "" ? (
+                          <div
+                            style={{
+                              background: "#FFFFFF",
+                              borderRadius: 20,
+                              width: "100%",
+                              height: 200,
+                              padding: 50,
+                              position: "relative",
+                              borderStyle: " dotted ",
+                              borderColor: "#0865A8",
+                              borderWidth: 2,
+                              margin: 20,
+                              marginLeft: 0,
+                            }}
+                          >
+                            <label htmlFor="icon-button-file">
+                              <Input
+                                accept="image/*"
+                                id="icon-button-file"
+                                type="file"
+                                style={{ display: "none" }}
+                                onChange={(e) => setFile2(e.target.value)}
+                              />
+                              <IconButton
+                                color="primary"
+                                aria-label="upload picture"
+                                component="span"
+                              >
+                                <FiImage
+                                  style={{
+                                    fontSize: 50,
+                                    position: "absolute",
+                                    marginTop: 30,
+                                  }}
+                                />
+                                <p
+                                  style={{
+                                    fontSize: 10,
+                                    position: "absolute",
+                                    top: 60,
+                                    width: 100,
+                                  }}
+                                >
+                                  {REGI02_Box1v01EN[6].label}
+                                </p>
+                              </IconButton>
+                            </label>
+                          </div>
+                        ) : (
+                          <div
+                            style={{
+                              background: "#FFFFFF",
+                              borderRadius: 20,
+                              width: "100%",
+                              height: 200,
+                              padding: 50,
+                              position: "relative",
+                              borderStyle: " dotted ",
+                              borderColor: "#0865A8",
+                              borderWidth: 2,
+                              margin: 20,
+                              marginLeft: 0,
+                            }}
+                          >
+                            <label htmlFor="icon-button-file">
+                              <Input
+                                accept="image/*"
+                                id="icon-button-file"
+                                type="file"
+                                style={{ display: "none" }}
+                                onChange={(e) => setFile2(e.target.value)}
+                              />
+                              <IconButton
+                                color="primary"
+                                aria-label="upload picture"
+                                component="span"
+                              >
+                                <FiImage
+                                  style={{
+                                    fontSize: 50,
+                                    position: "absolute",
+                                    marginTop: 30,
+                                  }}
+                                />
+                                <p
+                                  style={{
+                                    fontSize: 10,
+                                    position: "absolute",
+                                    top: 60,
+                                    width: 100,
+                                  }}
+                                >
+                                  {file2}
+                                </p>
+                              </IconButton>
+                            </label>
+                          </div>
+                        )}
+                      </div>
+                      <button
+                        style={{ background: "transparent", border: "none" }}
+                        onClick={() => example(12)}
+                      >
+                        <p
+                          style={{
+                            color: "#666666",
+                            textDecorationLine: "underline",
+                            fontSize: 14,
+                          }}
+                        >
+                          {REGI02_Box1v01EN[7].label}
+                        </p>
+                      </button>
+                      <Modal
+                        // hideBackdrop
+                        keepMounted
+                        open={openModal12}
+                        onClose={handleClose12}
+                        aria-labelledby="child-modal-title"
+                        aria-describedby="child-modal-description"
+                      >
+                        <Box
+                          sx={{
+                            position: "absolute",
+                            top: "50%",
+                            left: "50%",
+                            transform: "translate(-50%, -50%)",
+                            width: "50%",
+                            bgcolor: "transparent",
+                            boxShadow: 24,
+                            pt: 2,
+                            px: 4,
+                            pb: 3,
+                          }}
+                        >
+                          <img src={examplefreelance} width="100%"  alt="examplefreelance"/>
+                        </Box>
+                      </Modal>
+                    </div>
+                    <hr style={{ width: "97%", height: 2 }} />
+                    <button
+                      style={{
+                        width: "100%",
+                        borderRadius: 20,
+                        background: " #001E33",
+                        height: 40,
+                        color: "#FFFFFF",
+                        fontSize: 18,
+                        borderColor: "transparent",
+                      }}
+                      onClick={() => setScreen("9")}
+                    >
+                      {REGI02_Box1v01EN[8].label}
+                    </button>
+                  </div>
+                </div>
+              ) : Doc === "Thai" ? (
+                <div>
+                  <div
+                    style={{
+                      position: "fixed",
+                      top: 20,
+                      left: width * 0.59,
+                      textAlign: "-webkit-center",
+                      width: 500,
+                      background: " #FFFFFF",
+                      boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
+                      borderRadius: 20,
+                      padding: 30,
+                    }}
+                  >
+                    <button
+                      style={{
+                        fontWeight: 400,
+                        fontSize: 18,
+                        textDecorationLine: "none",
+                        color: "#D9D9D9",
+                        textAlign: "left",
+                        marginBottom: 20,
+                        float: "left",
+                        background: "transparent",
+                        border: "transparent",
+                      }}
+                      onClick={() => setScreen("4")}
+                    >
+                      <BsArrowLeftShort />
+                      <p
+                        style={{
+                          color: "#D9D9D9",
+                          fontSize: 18,
+                          textDecorationLine: "none",
+                          float: "right",
+                        }}
+                      >
+                        {REGI02_Box1v01TH[0].label}
+                      </p>
+                    </button>
+
+                    <h2 className="textSignup" style={{ marginTop: 30 }}>
+                      {REGI02_Box1v01TH[1].label}
+                    </h2>
+                    <div>
+                      <FormControl style={{ display: "inherit" }}>
+                        <RadioGroup
+                          row
+                          aria-labelledby="demo-row-radio-buttons-group-label"
+                          name="row-radio-buttons-group"
+                        >
+                          <FormControlLabel
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value="6"
+                            control={<Radio />}
+                            label={REGI02_Box1v01TH[2].label}
+                            style={{ marginRight: 50 }}
+                          />
+                          <FormControlLabel
+                            checked
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value="Freelance Translators"
+                            control={<Radio />}
+                            label={REGI02_Box1v01TH[3].label}
+                          />
+                        </RadioGroup>
+                      </FormControl>
+                    </div>
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 20,
+                          color: " #242424",
+                        }}
+                      >
+                        {REGI02_Box1v01TH[4].label}
+                      </p>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 14,
+                          color: " #242424",
+                        }}
+                      >
+                        {REGI02_Box1v01TH[5].label}
+                      </p>
+                      <div style={{ textAlign: "center" }}>
+                        {file2 === "" ? (
+                          <div
+                            style={{
+                              background: "#FFFFFF",
+                              borderRadius: 20,
+                              width: "100%",
+                              height: 200,
+                              padding: 50,
+                              position: "relative",
+                              borderStyle: " dotted ",
+                              borderColor: "#0865A8",
+                              borderWidth: 2,
+                              margin: 20,
+                              marginLeft: 0,
+                            }}
+                          >
+                            <label htmlFor="icon-button-file">
+                              <Input
+                                accept="image/*"
+                                id="icon-button-file"
+                                type="file"
+                                style={{ display: "none" }}
+                                onChange={(e) => setFile2(e.target.value)}
+                              />
+                              <IconButton
+                                color="primary"
+                                aria-label="upload picture"
+                                component="span"
+                              >
+                                <FiImage
+                                  style={{
+                                    fontSize: 50,
+                                    position: "absolute",
+                                    marginTop: 30,
+                                  }}
+                                />
+                                <p
+                                  style={{
+                                    fontSize: 10,
+                                    position: "absolute",
+                                    top: 60,
+                                    width: 100,
+                                  }}
+                                >
+                                  {REGI02_Box1v01TH[6].label}
+                                </p>
+                              </IconButton>
+                            </label>
+                          </div>
+                        ) : (
+                          <div
+                            style={{
+                              background: "#FFFFFF",
+                              borderRadius: 20,
+                              width: "100%",
+                              height: 200,
+                              padding: 50,
+                              position: "relative",
+                              borderStyle: " dotted ",
+                              borderColor: "#0865A8",
+                              borderWidth: 2,
+                              margin: 20,
+                              marginLeft: 0,
+                            }}
+                          >
+                            <label htmlFor="icon-button-file">
+                              <Input
+                                accept="image/*"
+                                id="icon-button-file"
+                                type="file"
+                                style={{ display: "none" }}
+                                onChange={(e) => setFile2(e.target.value)}
+                              />
+                              <IconButton
+                                color="primary"
+                                aria-label="upload picture"
+                                component="span"
+                              >
+                                <FiImage
+                                  style={{
+                                    fontSize: 50,
+                                    position: "absolute",
+                                    marginTop: 30,
+                                  }}
+                                />
+                                <p
+                                  style={{
+                                    fontSize: 10,
+                                    position: "absolute",
+                                    top: 60,
+                                    width: 100,
+                                  }}
+                                >
+                                  {file2}
+                                </p>
+                              </IconButton>
+                            </label>
+                          </div>
+                        )}
+                      </div>
+                      <button
+                        style={{ background: "transparent", border: "none" }}
+                        onClick={() => example(12)}
+                      >
+                        <p
+                          style={{
+                            color: "#666666",
+                            textDecorationLine: "underline",
+                            fontSize: 14,
+                          }}
+                        >
+                          {REGI02_Box1v01TH[7].label}
+                        </p>
+                      </button>
+                      <Modal
+                        // hideBackdrop
+                        keepMounted
+                        open={openModal12}
+                        onClose={handleClose12}
+                        aria-labelledby="child-modal-title"
+                        aria-describedby="child-modal-description"
+                      >
+                        <Box
+                          sx={{
+                            position: "absolute",
+                            top: "50%",
+                            left: "50%",
+                            transform: "translate(-50%, -50%)",
+                            width: "50%",
+                            bgcolor: "transparent",
+                            boxShadow: 24,
+                            pt: 2,
+                            px: 4,
+                            pb: 3,
+                          }}
+                        >
+                          <img src={examplefreelance} width="100%"  alt="examplefreelance"/>
+                        </Box>
+                      </Modal>
+                    </div>
+                    <hr style={{ width: "97%", height: 2 }} />
+                    <button
+                      style={{
+                        width: "100%",
+                        borderRadius: 20,
+                        background: " #001E33",
+                        height: 40,
+                        color: "#FFFFFF",
+                        fontSize: 18,
+                        borderColor: "transparent",
+                      }}
+                      onClick={() => setScreen("9")}
+                    >
+                      {REGI02_Box1v01TH[8].label}
+                    </button>
+                  </div>
+                </div>
+              ) : Doc === "German" ? (
+                <div>
+                  <div
+                    style={{
+                      position: "fixed",
+                      top: 20,
+                      left: width * 0.59,
+                      textAlign: "-webkit-center",
+                      width: 500,
+                      background: " #FFFFFF",
+                      boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
+                      borderRadius: 20,
+                      padding: 30,
+                    }}
+                  >
+                    <button
+                      style={{
+                        fontWeight: 400,
+                        fontSize: 18,
+                        textDecorationLine: "none",
+                        color: "#D9D9D9",
+                        textAlign: "left",
+                        marginBottom: 20,
+                        float: "left",
+                        background: "transparent",
+                        border: "transparent",
+                      }}
+                      onClick={() => setScreen("4")}
+                    >
+                      <BsArrowLeftShort />
+                      <p
+                        style={{
+                          color: "#D9D9D9",
+                          fontSize: 18,
+                          textDecorationLine: "none",
+                          float: "right",
+                        }}
+                      >
+                        {REGI02_Box1v01DE[0].label}
+                      </p>
+                    </button>
+
+                    <h2 className="textSignup" style={{ marginTop: 30 }}>
+                      {REGI02_Box1v01DE[1].label}
+                    </h2>
+                    <div>
+                      <FormControl style={{ display: "inherit" }}>
+                        <RadioGroup
+                          row
+                          aria-labelledby="demo-row-radio-buttons-group-label"
+                          name="row-radio-buttons-group"
+                        >
+                          <FormControlLabel
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value="6"
+                            control={<Radio />}
+                            label={REGI02_Box1v01DE[2].label}
+                            style={{ marginRight: 50 }}
+                          />
+                          <FormControlLabel
+                            checked
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value="Freelance Translators"
+                            control={<Radio />}
+                            label={REGI02_Box1v01DE[3].label}
+                          />
+                        </RadioGroup>
+                      </FormControl>
+                    </div>
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 20,
+                          color: " #242424",
+                        }}
+                      >
+                        {REGI02_Box1v01DE[4].label}
+                      </p>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 14,
+                          color: " #242424",
+                        }}
+                      >
+                        {REGI02_Box1v01DE[5].label}
+                      </p>
+                      <div style={{ textAlign: "center" }}>
+                        {file2 === "" ? (
+                          <div
+                            style={{
+                              background: "#FFFFFF",
+                              borderRadius: 20,
+                              width: "100%",
+                              height: 200,
+                              padding: 50,
+                              position: "relative",
+                              borderStyle: " dotted ",
+                              borderColor: "#0865A8",
+                              borderWidth: 2,
+                              margin: 20,
+                              marginLeft: 0,
+                            }}
+                          >
+                            <label htmlFor="icon-button-file">
+                              <Input
+                                accept="image/*"
+                                id="icon-button-file"
+                                type="file"
+                                style={{ display: "none" }}
+                                onChange={(e) => setFile2(e.target.value)}
+                              />
+                              <IconButton
+                                color="primary"
+                                aria-label="upload picture"
+                                component="span"
+                              >
+                                <FiImage
+                                  style={{
+                                    fontSize: 50,
+                                    position: "absolute",
+                                    marginTop: 30,
+                                  }}
+                                />
+                                <p
+                                  style={{
+                                    fontSize: 10,
+                                    position: "absolute",
+                                    top: 60,
+                                    width: 100,
+                                  }}
+                                >
+                                  {REGI02_Box1v01DE[6].label}
+                                </p>
+                              </IconButton>
+                            </label>
+                          </div>
+                        ) : (
+                          <div
+                            style={{
+                              background: "#FFFFFF",
+                              borderRadius: 20,
+                              width: "100%",
+                              height: 200,
+                              padding: 50,
+                              position: "relative",
+                              borderStyle: " dotted ",
+                              borderColor: "#0865A8",
+                              borderWidth: 2,
+                              margin: 20,
+                              marginLeft: 0,
+                            }}
+                          >
+                            <label htmlFor="icon-button-file">
+                              <Input
+                                accept="image/*"
+                                id="icon-button-file"
+                                type="file"
+                                style={{ display: "none" }}
+                                onChange={(e) => setFile2(e.target.value)}
+                              />
+                              <IconButton
+                                color="primary"
+                                aria-label="upload picture"
+                                component="span"
+                              >
+                                <FiImage
+                                  style={{
+                                    fontSize: 50,
+                                    position: "absolute",
+                                    marginTop: 30,
+                                  }}
+                                />
+                                <p
+                                  style={{
+                                    fontSize: 10,
+                                    position: "absolute",
+                                    top: 60,
+                                    width: 100,
+                                  }}
+                                >
+                                  {file2}
+                                </p>
+                              </IconButton>
+                            </label>
+                          </div>
+                        )}
+                      </div>
+                      <button
+                        style={{ background: "transparent", border: "none" }}
+                        onClick={() => example(12)}
+                      >
+                        <p
+                          style={{
+                            color: "#666666",
+                            textDecorationLine: "underline",
+                            fontSize: 14,
+                          }}
+                        >
+                          {REGI02_Box1v01DE[7].label}
+                        </p>
+                      </button>
+                      <Modal
+                        // hideBackdrop
+                        keepMounted
+                        open={openModal12}
+                        onClose={handleClose12}
+                        aria-labelledby="child-modal-title"
+                        aria-describedby="child-modal-description"
+                      >
+                        <Box
+                          sx={{
+                            position: "absolute",
+                            top: "50%",
+                            left: "50%",
+                            transform: "translate(-50%, -50%)",
+                            width: "50%",
+                            bgcolor: "transparent",
+                            boxShadow: 24,
+                            pt: 2,
+                            px: 4,
+                            pb: 3,
+                          }}
+                        >
+                          <img src={examplefreelance} width="100%"  alt="examplefreelance"/>
+                        </Box>
+                      </Modal>
+                    </div>
+                    <hr style={{ width: "97%", height: 2 }} />
+                    <button
+                      style={{
+                        width: "100%",
+                        borderRadius: 20,
+                        background: " #001E33",
+                        height: 40,
+                        color: "#FFFFFF",
+                        fontSize: 18,
+                        borderColor: "transparent",
+                      }}
+                      onClick={() => setScreen("9")}
+                    >
+                      {REGI02_Box1v01DE[8].label}
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <div>
+                  <div
+                    style={{
+                      position: "fixed",
+                      top: 20,
+                      left: width * 0.59,
+                      textAlign: "-webkit-center",
+                      width: 500,
+                      background: " #FFFFFF",
+                      boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
+                      borderRadius: 20,
+                      padding: 30,
+                    }}
+                  >
+                    <button
+                      style={{
+                        fontWeight: 400,
+                        fontSize: 18,
+                        textDecorationLine: "none",
+                        color: "#D9D9D9",
+                        textAlign: "left",
+                        marginBottom: 20,
+                        float: "left",
+                        background: "transparent",
+                        border: "transparent",
+                      }}
+                      onClick={() => setScreen("4")}
+                    >
+                      <BsArrowLeftShort />
+                      <p
+                        style={{
+                          color: "#D9D9D9",
+                          fontSize: 18,
+                          textDecorationLine: "none",
+                          float: "right",
+                        }}
+                      >
+                        {REGI02_Box1v01EN[0].label}
+                      </p>
+                    </button>
+
+                    <h2 className="textSignup" style={{ marginTop: 30 }}>
+                      {REGI02_Box1v01EN[1].label}
+                    </h2>
+                    <div>
+                      <FormControl style={{ display: "inherit" }}>
+                        <RadioGroup
+                          row
+                          aria-labelledby="demo-row-radio-buttons-group-label"
+                          name="row-radio-buttons-group"
+                        >
+                          <FormControlLabel
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value="6"
+                            control={<Radio />}
+                            label={REGI02_Box1v01EN[2].label}
+                            style={{ marginRight: 50 }}
+                          />
+                          <FormControlLabel
+                            checked
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value="Freelance Translators"
+                            control={<Radio />}
+                            label={REGI02_Box1v01EN[3].label}
+                          />
+                        </RadioGroup>
+                      </FormControl>
+                    </div>
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 20,
+                          color: " #242424",
+                        }}
+                      >
+                        {REGI02_Box1v01EN[4].label}
+                      </p>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 14,
+                          color: " #242424",
+                        }}
+                      >
+                        {REGI02_Box1v01EN[5].label}
+                      </p>
+                      <div style={{ textAlign: "center" }}>
+                        {file2 === "" ? (
+                          <div
+                            style={{
+                              background: "#FFFFFF",
+                              borderRadius: 20,
+                              width: "100%",
+                              height: 200,
+                              padding: 50,
+                              position: "relative",
+                              borderStyle: " dotted ",
+                              borderColor: "#0865A8",
+                              borderWidth: 2,
+                              margin: 20,
+                              marginLeft: 0,
+                            }}
+                          >
+                            <label htmlFor="icon-button-file">
+                              <Input
+                                accept="image/*"
+                                id="icon-button-file"
+                                type="file"
+                                style={{ display: "none" }}
+                                onChange={(e) => setFile2(e.target.value)}
+                              />
+                              <IconButton
+                                color="primary"
+                                aria-label="upload picture"
+                                component="span"
+                              >
+                                <FiImage
+                                  style={{
+                                    fontSize: 50,
+                                    position: "absolute",
+                                    marginTop: 30,
+                                  }}
+                                />
+                                <p
+                                  style={{
+                                    fontSize: 10,
+                                    position: "absolute",
+                                    top: 60,
+                                    width: 100,
+                                  }}
+                                >
+                                  {REGI02_Box1v01EN[6].label}
+                                </p>
+                              </IconButton>
+                            </label>
+                          </div>
+                        ) : (
+                          <div
+                            style={{
+                              background: "#FFFFFF",
+                              borderRadius: 20,
+                              width: "100%",
+                              height: 200,
+                              padding: 50,
+                              position: "relative",
+                              borderStyle: " dotted ",
+                              borderColor: "#0865A8",
+                              borderWidth: 2,
+                              margin: 20,
+                              marginLeft: 0,
+                            }}
+                          >
+                            <label htmlFor="icon-button-file">
+                              <Input
+                                accept="image/*"
+                                id="icon-button-file"
+                                type="file"
+                                style={{ display: "none" }}
+                                onChange={(e) => setFile2(e.target.value)}
+                              />
+                              <IconButton
+                                color="primary"
+                                aria-label="upload picture"
+                                component="span"
+                              >
+                                <FiImage
+                                  style={{
+                                    fontSize: 50,
+                                    position: "absolute",
+                                    marginTop: 30,
+                                  }}
+                                />
+                                <p
+                                  style={{
+                                    fontSize: 10,
+                                    position: "absolute",
+                                    top: 60,
+                                    width: 100,
+                                  }}
+                                >
+                                  {file2}
+                                </p>
+                              </IconButton>
+                            </label>
+                          </div>
+                        )}
+                      </div>
+                      <button
+                        style={{ background: "transparent", border: "none" }}
+                        onClick={() => example(12)}
+                      >
+                        <p
+                          style={{
+                            color: "#666666",
+                            textDecorationLine: "underline",
+                            fontSize: 14,
+                          }}
+                        >
+                          {REGI02_Box1v01EN[7].label}
+                        </p>
+                      </button>
+                      <Modal
+                        // hideBackdrop
+                        keepMounted
+                        open={openModal12}
+                        onClose={handleClose12}
+                        aria-labelledby="child-modal-title"
+                        aria-describedby="child-modal-description"
+                      >
+                        <Box
+                          sx={{
+                            position: "absolute",
+                            top: "50%",
+                            left: "50%",
+                            transform: "translate(-50%, -50%)",
+                            width: "50%",
+                            bgcolor: "transparent",
+                            boxShadow: 24,
+                            pt: 2,
+                            px: 4,
+                            pb: 3,
+                          }}
+                        >
+                          <img src={examplefreelance} width="100%"  alt="examplefreelance"/>
+                        </Box>
+                      </Modal>
+                    </div>
+                    <hr style={{ width: "97%", height: 2 }} />
+                    <button
+                      style={{
+                        width: "100%",
+                        borderRadius: 20,
+                        background: " #001E33",
+                        height: 40,
+                        color: "#FFFFFF",
+                        fontSize: 18,
+                        borderColor: "transparent",
+                      }}
+                      onClick={() => setScreen("9")}
+                    >
+                      {REGI02_Box1v01EN[8].label}
+                    </button>
+                  </div>
+                </div>
+              )}
+            </>
+          ) : screen === "8" ? (
+            <>
+              {Doc === "English" ? (
+                <div>
+                  <div
+                    style={{
+                      position: "fixed",
+                      top: 20,
+                      left: width * 0.59,
+                      textAlign: "-webkit-center",
+                      width: 500,
+                      background: " #FFFFFF",
+                      boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
+                      borderRadius: 20,
+                      padding: 30,
+                    }}
+                  >
+                    <button
+                      style={{
+                        fontWeight: 400,
+                        fontSize: 18,
+                        textDecorationLine: "none",
+                        color: "#D9D9D9",
+                        textAlign: "left",
+                        marginBottom: 20,
+                        float: "left",
+                        background: "transparent",
+                        border: "transparent",
+                      }}
+                      onClick={() => setScreen("6")}
+                    >
+                      <BsArrowLeftShort />
+                      <p
+                        style={{
+                          color: "#D9D9D9",
+                          fontSize: 18,
+                          textDecorationLine: "none",
+                          float: "right",
+                        }}
+                      >
+                        {REGI02_Box2v02EN[0].label}
+                      </p>
+                    </button>
+
+                    <h2 className="textSignup" style={{ marginTop: 30 }}>
+                      {REGI02_Box2v02EN[1].label}
+                    </h2>
+                    <div>
+                      <FormControl style={{ display: "inherit" }}>
+                        <RadioGroup
+                          row
+                          aria-labelledby="demo-row-radio-buttons-group-label"
+                          name="row-radio-buttons-group"
+                        >
+                          <FormControlLabel
+                            checked
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value=""
+                            control={<Radio />}
+                            label={REGI02_Box2v02EN[2].label}
+                            style={{ marginRight: 50 }}
+                          />
+                          <FormControlLabel
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value="Freelance Translators"
+                            control={<Radio />}
+                            label={REGI02_Box2v02EN[3].label}
+                          />
+                        </RadioGroup>
+                      </FormControl>
+                    </div>
+
+                    <div style={{ textAlign: "left", marginTop: 10 }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI02_Box2v02EN[4].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={address}
+                        onChange={(e) => setAddress(e.target.value)}
+                        placeholder={REGI02_Box2v02EN[4].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI02_Box2v02EN[5].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={district}
+                        onChange={(e) => setDistrict(e.target.value)}
+                        placeholder={REGI02_Box2v02EN[5].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI02_Box2v02EN[6].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={province}
+                        onChange={(e) => setProvince(e.target.value)}
+                        placeholder={REGI02_Box2v02EN[6].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          borderColor: "#F1F1F1",
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI02_Box2v02EN[7].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={country}
+                        onChange={(e) => setCountry(e.target.value)}
+                        placeholder={REGI02_Box2v02EN[7].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          borderColor: "#F1F1F1",
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left", marginBottom: 10 }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI02_Box2v02EN[8].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={postalcode}
+                        onChange={(e) => setPostalCode(e.target.value)}
+                        placeholder={REGI02_Box2v02EN[8].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          borderColor: "#F1F1F1",
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <button
+                      style={{
+                        width: "100%",
+                        borderRadius: 20,
+                        background: " #001E33",
+                        height: 40,
+                        color: "#FFFFFF",
+                        fontSize: 18,
+                        borderColor: "transparent",
+                      }}
+                      onClick={() => setScreen("10")}
+                    >
+                      {REGI02_Box2v02EN[9].label}
+                    </button>
+                  </div>
+                </div>
+              ) : Doc === "Thai" ? (
+                <div>
+                  <div
+                    style={{
+                      position: "fixed",
+                      top: 20,
+                      left: width * 0.59,
+                      textAlign: "-webkit-center",
+                      width: 500,
+                      background: " #FFFFFF",
+                      boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
+                      borderRadius: 20,
+                      padding: 30,
+                    }}
+                  >
+                    <button
+                      style={{
+                        fontWeight: 400,
+                        fontSize: 18,
+                        textDecorationLine: "none",
+                        color: "#D9D9D9",
+                        textAlign: "left",
+                        marginBottom: 20,
+                        float: "left",
+                        background: "transparent",
+                        border: "transparent",
+                      }}
+                      onClick={() => setScreen("6")}
+                    >
+                      <BsArrowLeftShort />
+                      <p
+                        style={{
+                          color: "#D9D9D9",
+                          fontSize: 18,
+                          textDecorationLine: "none",
+                          float: "right",
+                        }}
+                      >
+                        {REGI02_Box2v02TH[0].label}
+                      </p>
+                    </button>
+
+                    <h2 className="textSignup" style={{ marginTop: 30 }}>
+                      {REGI02_Box2v02TH[1].label}
+                    </h2>
+                    <div>
+                      <FormControl style={{ display: "inherit" }}>
+                        <RadioGroup
+                          row
+                          aria-labelledby="demo-row-radio-buttons-group-label"
+                          name="row-radio-buttons-group"
+                        >
+                          <FormControlLabel
+                            checked
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value=""
+                            control={<Radio />}
+                            label={REGI02_Box2v02TH[2].label}
+                            style={{ marginRight: 50 }}
+                          />
+                          <FormControlLabel
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value="Freelance Translators"
+                            control={<Radio />}
+                            label={REGI02_Box2v02TH[3].label}
+                          />
+                        </RadioGroup>
+                      </FormControl>
+                    </div>
+
+                    <div style={{ textAlign: "left", marginTop: 10 }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI02_Box2v02TH[4].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={address}
+                        onChange={(e) => setAddress(e.target.value)}
+                        placeholder={REGI02_Box2v02TH[4].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI02_Box2v02TH[5].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={district}
+                        onChange={(e) => setDistrict(e.target.value)}
+                        placeholder={REGI02_Box2v02TH[5].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI02_Box2v02TH[6].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={province}
+                        onChange={(e) => setProvince(e.target.value)}
+                        placeholder={REGI02_Box2v02TH[6].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          borderColor: "#F1F1F1",
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI02_Box2v02TH[7].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={country}
+                        onChange={(e) => setCountry(e.target.value)}
+                        placeholder={REGI02_Box2v02TH[7].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          borderColor: "#F1F1F1",
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left", marginBottom: 10 }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI02_Box2v02TH[8].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={postalcode}
+                        onChange={(e) => setPostalCode(e.target.value)}
+                        placeholder={REGI02_Box2v02TH[8].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          borderColor: "#F1F1F1",
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <button
+                      style={{
+                        width: "100%",
+                        borderRadius: 20,
+                        background: " #001E33",
+                        height: 40,
+                        color: "#FFFFFF",
+                        fontSize: 18,
+                        borderColor: "transparent",
+                      }}
+                      onClick={() => setScreen("10")}
+                    >
+                      {REGI02_Box2v02TH[9].label}
+                    </button>
+                  </div>
+                </div>
+              ) : Doc === "German" ? (
+                <div>
+                  <div
+                    style={{
+                      position: "fixed",
+                      top: 20,
+                      left: width * 0.59,
+                      textAlign: "-webkit-center",
+                      width: 500,
+                      background: " #FFFFFF",
+                      boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
+                      borderRadius: 20,
+                      padding: 30,
+                    }}
+                  >
+                    <button
+                      style={{
+                        fontWeight: 400,
+                        fontSize: 18,
+                        textDecorationLine: "none",
+                        color: "#D9D9D9",
+                        textAlign: "left",
+                        marginBottom: 20,
+                        float: "left",
+                        background: "transparent",
+                        border: "transparent",
+                      }}
+                      onClick={() => setScreen("6")}
+                    >
+                      <BsArrowLeftShort />
+                      <p
+                        style={{
+                          color: "#D9D9D9",
+                          fontSize: 18,
+                          textDecorationLine: "none",
+                          float: "right",
+                        }}
+                      >
+                        {REGI02_Box2v02DE[0].label}
+                      </p>
+                    </button>
+
+                    <h2 className="textSignup" style={{ marginTop: 30 }}>
+                      {REGI02_Box2v02DE[1].label}
+                    </h2>
+                    <div>
+                      <FormControl style={{ display: "inherit" }}>
+                        <RadioGroup
+                          row
+                          aria-labelledby="demo-row-radio-buttons-group-label"
+                          name="row-radio-buttons-group"
+                        >
+                          <FormControlLabel
+                            checked
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value=""
+                            control={<Radio />}
+                            label={REGI02_Box2v02DE[2].label}
+                            style={{ marginRight: 50 }}
+                          />
+                          <FormControlLabel
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value="Freelance Translators"
+                            control={<Radio />}
+                            label={REGI02_Box2v02DE[3].label}
+                          />
+                        </RadioGroup>
+                      </FormControl>
+                    </div>
+
+                    <div style={{ textAlign: "left", marginTop: 10 }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI02_Box2v02DE[4].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={address}
+                        onChange={(e) => setAddress(e.target.value)}
+                        placeholder={REGI02_Box2v02DE[4].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI02_Box2v02DE[5].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={district}
+                        onChange={(e) => setDistrict(e.target.value)}
+                        placeholder={REGI02_Box2v02DE[5].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI02_Box2v02DE[6].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={province}
+                        onChange={(e) => setProvince(e.target.value)}
+                        placeholder={REGI02_Box2v02DE[6].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          borderColor: "#F1F1F1",
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI02_Box2v02DE[7].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={country}
+                        onChange={(e) => setCountry(e.target.value)}
+                        placeholder={REGI02_Box2v02DE[7].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          borderColor: "#F1F1F1",
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left", marginBottom: 10 }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI02_Box2v02DE[8].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={postalcode}
+                        onChange={(e) => setPostalCode(e.target.value)}
+                        placeholder={REGI02_Box2v02DE[8].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          borderColor: "#F1F1F1",
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <button
+                      style={{
+                        width: "100%",
+                        borderRadius: 20,
+                        background: " #001E33",
+                        height: 40,
+                        color: "#FFFFFF",
+                        fontSize: 18,
+                        borderColor: "transparent",
+                      }}
+                      onClick={() => setScreen("10")}
+                    >
+                      {REGI02_Box2v02DE[9].label}
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <div>
+                  <div
+                    style={{
+                      position: "fixed",
+                      top: 20,
+                      left: width * 0.59,
+                      textAlign: "-webkit-center",
+                      width: 500,
+                      background: " #FFFFFF",
+                      boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
+                      borderRadius: 20,
+                      padding: 30,
+                    }}
+                  >
+                    <button
+                      style={{
+                        fontWeight: 400,
+                        fontSize: 18,
+                        textDecorationLine: "none",
+                        color: "#D9D9D9",
+                        textAlign: "left",
+                        marginBottom: 20,
+                        float: "left",
+                        background: "transparent",
+                        border: "transparent",
+                      }}
+                      onClick={() => setScreen("6")}
+                    >
+                      <BsArrowLeftShort />
+                      <p
+                        style={{
+                          color: "#D9D9D9",
+                          fontSize: 18,
+                          textDecorationLine: "none",
+                          float: "right",
+                        }}
+                      >
+                        {REGI02_Box2v02EN[0].label}
+                      </p>
+                    </button>
+
+                    <h2 className="textSignup" style={{ marginTop: 30 }}>
+                      {REGI02_Box2v02EN[1].label}
+                    </h2>
+                    <div>
+                      <FormControl style={{ display: "inherit" }}>
+                        <RadioGroup
+                          row
+                          aria-labelledby="demo-row-radio-buttons-group-label"
+                          name="row-radio-buttons-group"
+                        >
+                          <FormControlLabel
+                            checked
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value=""
+                            control={<Radio />}
+                            label={REGI02_Box2v02EN[2].label}
+                            style={{ marginRight: 50 }}
+                          />
+                          <FormControlLabel
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value="Freelance Translators"
+                            control={<Radio />}
+                            label={REGI02_Box2v02EN[3].label}
+                          />
+                        </RadioGroup>
+                      </FormControl>
+                    </div>
+
+                    <div style={{ textAlign: "left", marginTop: 10 }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI02_Box2v02EN[4].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={address}
+                        onChange={(e) => setAddress(e.target.value)}
+                        placeholder={REGI02_Box2v02EN[4].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI02_Box2v02EN[5].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={district}
+                        onChange={(e) => setDistrict(e.target.value)}
+                        placeholder={REGI02_Box2v02EN[5].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI02_Box2v02EN[6].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={province}
+                        onChange={(e) => setProvince(e.target.value)}
+                        placeholder={REGI02_Box2v02EN[6].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          borderColor: "#F1F1F1",
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI02_Box2v02EN[7].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={country}
+                        onChange={(e) => setCountry(e.target.value)}
+                        placeholder={REGI02_Box2v02EN[7].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          borderColor: "#F1F1F1",
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left", marginBottom: 10 }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI02_Box2v02EN[8].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={postalcode}
+                        onChange={(e) => setPostalCode(e.target.value)}
+                        placeholder={REGI02_Box2v02EN[8].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          borderColor: "#F1F1F1",
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <button
+                      style={{
+                        width: "100%",
+                        borderRadius: 20,
+                        background: " #001E33",
+                        height: 40,
+                        color: "#FFFFFF",
+                        fontSize: 18,
+                        borderColor: "transparent",
+                      }}
+                      onClick={() => setScreen("10")}
+                    >
+                      {REGI02_Box2v02EN[9].label}
+                    </button>
+                  </div>
+                </div>
+              )}
+            </>
+          ) : screen === "9" ? (
+            <>
+              {Doc === "English" ? (
+                <div>
+                  <div
+                    style={{
+                      position: "fixed",
+                      top: 20,
+                      left: width * 0.59,
+                      textAlign: "-webkit-center",
+                      width: 500,
+                      background: " #FFFFFF",
+                      boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
+                      borderRadius: 20,
+                      padding: 30,
+                    }}
+                  >
+                    <button
+                      style={{
+                        fontWeight: 400,
+                        fontSize: 18,
+                        textDecorationLine: "none",
+                        color: "#D9D9D9",
+                        textAlign: "left",
+                        marginBottom: 20,
+                        float: "left",
+                        background: "transparent",
+                        border: "transparent",
+                      }}
+                      onClick={() => setScreen("Freelance Translators")}
+                    >
+                      <BsArrowLeftShort />
+                      <p
+                        style={{
+                          color: "#D9D9D9",
+                          fontSize: 18,
+                          textDecorationLine: "none",
+                          float: "right",
+                        }}
+                      >
+                        {REGI02_Box2v01EN[0].label}
+                      </p>
+                    </button>
+
+                    <h2 className="textSignup" style={{ marginTop: 30 }}>
+                      {REGI02_Box2v01EN[1].label}
+                    </h2>
+                    <div>
+                      <FormControl style={{ display: "inherit" }}>
+                        <RadioGroup
+                          row
+                          aria-labelledby="demo-row-radio-buttons-group-label"
+                          name="row-radio-buttons-group"
+                        >
+                          <FormControlLabel
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value="6"
+                            control={<Radio />}
+                            label={REGI02_Box2v01EN[2].label}
+                            style={{ marginRight: 50 }}
+                          />
+                          <FormControlLabel
+                            checked
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value="Freelance Translators"
+                            control={<Radio />}
+                            label={REGI02_Box2v01EN[3].label}
+                          />
+                        </RadioGroup>
+                      </FormControl>
+                    </div>
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 700,
+                          fontSize: 16,
+                          color: " #242424",
+                        }}
+                      >
+                        {REGI02_Box2v01EN[4].label}
+                      </p>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 14,
+                          color: " #242424",
+                        }}
+                      >
+                        {REGI02_Box2v01EN[5].label}
+                      </p>
+                      <div style={{ textAlign: "center" }}>
+                        {file2 === "" ? (
+                          <div
+                            style={{
+                              background: "#FFFFFF",
+                              borderRadius: 20,
+                              width: "100%",
+                              height: 200,
+                              padding: 50,
+                              position: "relative",
+                              borderStyle: " dotted ",
+                              borderColor: "#0865A8",
+                              borderWidth: 2,
+                              margin: 20,
+                              marginLeft: 0,
+                            }}
+                          >
+                            <label htmlFor="icon-button-file">
+                              <Input
+                                accept="image/*"
+                                id="icon-button-file"
+                                type="file"
+                                style={{ display: "none" }}
+                                onChange={(e) => setFile2(e.target.value)}
+                              />
+                              <IconButton
+                                color="primary"
+                                aria-label="upload picture"
+                                component="span"
+                              >
+                                <FiImage
+                                  style={{
+                                    fontSize: 50,
+                                    position: "absolute",
+                                    marginTop: 30,
+                                  }}
+                                />
+                                <p
+                                  style={{
+                                    fontSize: 10,
+                                    position: "absolute",
+                                    top: 60,
+                                    width: 100,
+                                  }}
+                                >
+                                  {REGI02_Box2v01EN[6].label}
+                                </p>
+                              </IconButton>
+                            </label>
+                          </div>
+                        ) : (
+                          <div
+                            style={{
+                              background: "#FFFFFF",
+                              borderRadius: 20,
+                              width: "100%",
+                              height: 200,
+                              padding: 50,
+                              position: "relative",
+                              borderStyle: " dotted ",
+                              borderColor: "#0865A8",
+                              borderWidth: 2,
+                              margin: 20,
+                              marginLeft: 0,
+                            }}
+                          >
+                            <label htmlFor="icon-button-file">
+                              <Input
+                                accept="image/*"
+                                id="icon-button-file"
+                                type="file"
+                                style={{ display: "none" }}
+                                onChange={(e) => setFile2(e.target.value)}
+                              />
+                              <IconButton
+                                color="primary"
+                                aria-label="upload picture"
+                                component="span"
+                              >
+                                <FiImage
+                                  style={{
+                                    fontSize: 50,
+                                    position: "absolute",
+                                    marginTop: 30,
+                                  }}
+                                />
+                                <p
+                                  style={{
+                                    fontSize: 10,
+                                    position: "absolute",
+                                    top: 60,
+                                    width: 100,
+                                  }}
+                                >
+                                  {file2}
+                                </p>
+                              </IconButton>
+                            </label>
+                          </div>
+                        )}
+                      </div>
+                      <button
+                        style={{ background: "transparent", border: "none" }}
+                        onClick={() => example(12)}
+                      >
+                        <p
+                          style={{
+                            color: "#666666",
+                            textDecorationLine: "underline",
+                            fontSize: 14,
+                          }}
+                        >
+                          An example of uploading a picture of your Education/Certificate/Proof
+                        </p>
+                      </button>
+                      <Modal
+                        // hideBackdrop
+                        keepMounted
+                        open={openModal12}
+                        onClose={handleClose12}
+                        aria-labelledby="child-modal-title"
+                        aria-describedby="child-modal-description"
+                      >
+                        <Box
+                          sx={{
+                            position: "absolute",
+                            top: "50%",
+                            left: "50%",
+                            transform: "translate(-50%, -50%)",
+                            width: "50%",
+                            bgcolor: "transparent",
+                            boxShadow: 24,
+                            pt: 2,
+                            px: 4,
+                            pb: 3,
+                          }}
+                        >
+                          <img src={example9} width="100%"  alt="example9"/>
+                        </Box>
+                      </Modal>
+                    </div>
+                    <hr style={{ width: "97%", height: 2 }} />
+                    <button
+                      style={{
+                        width: "100%",
+                        borderRadius: 20,
+                        background: " #001E33",
+                        height: 40,
+                        color: "#FFFFFF",
+                        fontSize: 18,
+                        borderColor: "transparent",
+                      }}
+                      onClick={() => setScreen("11")}
+                    >
+                      {REGI02_Box2v01EN[7].label}
+                    </button>
+                  </div>
+                </div>
+              ) : Doc === "Thai" ? (
+                <div>
+                  <div
+                    style={{
+                      position: "fixed",
+                      top: 20,
+                      left: width * 0.59,
+                      textAlign: "-webkit-center",
+                      width: 500,
+                      background: " #FFFFFF",
+                      boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
+                      borderRadius: 20,
+                      padding: 30,
+                    }}
+                  >
+                    <button
+                      style={{
+                        fontWeight: 400,
+                        fontSize: 18,
+                        textDecorationLine: "none",
+                        color: "#D9D9D9",
+                        textAlign: "left",
+                        marginBottom: 20,
+                        float: "left",
+                        background: "transparent",
+                        border: "transparent",
+                      }}
+                      onClick={() => setScreen("Freelance Translators")}
+                    >
+                      <BsArrowLeftShort />
+                      <p
+                        style={{
+                          color: "#D9D9D9",
+                          fontSize: 18,
+                          textDecorationLine: "none",
+                          float: "right",
+                        }}
+                      >
+                        {REGI02_Box2v01TH[0].label}
+                      </p>
+                    </button>
+
+                    <h2 className="textSignup" style={{ marginTop: 30 }}>
+                      {REGI02_Box2v01TH[1].label}
+                    </h2>
+                    <div>
+                      <FormControl style={{ display: "inherit" }}>
+                        <RadioGroup
+                          row
+                          aria-labelledby="demo-row-radio-buttons-group-label"
+                          name="row-radio-buttons-group"
+                        >
+                          <FormControlLabel
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value="6"
+                            control={<Radio />}
+                            label={REGI02_Box2v01TH[2].label}
+                            style={{ marginRight: 50 }}
+                          />
+                          <FormControlLabel
+                            checked
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value="Freelance Translators"
+                            control={<Radio />}
+                            label={REGI02_Box2v01TH[3].label}
+                          />
+                        </RadioGroup>
+                      </FormControl>
+                    </div>
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 700,
+                          fontSize: 16,
+                          color: " #242424",
+                        }}
+                      >
+                        {REGI02_Box2v01TH[4].label}
+                      </p>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 14,
+                          color: " #242424",
+                        }}
+                      >
+                        {REGI02_Box2v01TH[5].label}
+                      </p>
+                      <div style={{ textAlign: "center" }}>
+                        {file2 === "" ? (
+                          <div
+                            style={{
+                              background: "#FFFFFF",
+                              borderRadius: 20,
+                              width: "100%",
+                              height: 200,
+                              padding: 50,
+                              position: "relative",
+                              borderStyle: " dotted ",
+                              borderColor: "#0865A8",
+                              borderWidth: 2,
+                              margin: 20,
+                              marginLeft: 0,
+                            }}
+                          >
+                            <label htmlFor="icon-button-file">
+                              <Input
+                                accept="image/*"
+                                id="icon-button-file"
+                                type="file"
+                                style={{ display: "none" }}
+                                onChange={(e) => setFile2(e.target.value)}
+                              />
+                              <IconButton
+                                color="primary"
+                                aria-label="upload picture"
+                                component="span"
+                              >
+                                <FiImage
+                                  style={{
+                                    fontSize: 50,
+                                    position: "absolute",
+                                    marginTop: 30,
+                                  }}
+                                />
+                                <p
+                                  style={{
+                                    fontSize: 10,
+                                    position: "absolute",
+                                    top: 60,
+                                    width: 100,
+                                  }}
+                                >
+                                  {REGI02_Box2v01TH[6].label}
+                                </p>
+                              </IconButton>
+                            </label>
+                          </div>
+                        ) : (
+                          <div
+                            style={{
+                              background: "#FFFFFF",
+                              borderRadius: 20,
+                              width: "100%",
+                              height: 200,
+                              padding: 50,
+                              position: "relative",
+                              borderStyle: " dotted ",
+                              borderColor: "#0865A8",
+                              borderWidth: 2,
+                              margin: 20,
+                              marginLeft: 0,
+                            }}
+                          >
+                            <label htmlFor="icon-button-file">
+                              <Input
+                                accept="image/*"
+                                id="icon-button-file"
+                                type="file"
+                                style={{ display: "none" }}
+                                onChange={(e) => setFile2(e.target.value)}
+                              />
+                              <IconButton
+                                color="primary"
+                                aria-label="upload picture"
+                                component="span"
+                              >
+                                <FiImage
+                                  style={{
+                                    fontSize: 50,
+                                    position: "absolute",
+                                    marginTop: 30,
+                                  }}
+                                />
+                                <p
+                                  style={{
+                                    fontSize: 10,
+                                    position: "absolute",
+                                    top: 60,
+                                    width: 100,
+                                  }}
+                                >
+                                  {file2}
+                                </p>
+                              </IconButton>
+                            </label>
+                          </div>
+                        )}
+                      </div>
+                      <button
+                        style={{ background: "transparent", border: "none" }}
+                        onClick={() => example(12)}
+                      >
+                        <p
+                          style={{
+                            color: "#666666",
+                            textDecorationLine: "underline",
+                            fontSize: 14,
+                          }}
+                        >
+                          ตัวอย่างการอัปโหลดรูปภาพการศึกษา/ใบรับรอง/หลักฐาน
+                        </p>
+                      </button>
+                      <Modal
+                        // hideBackdrop
+                        keepMounted
+                        open={openModal12}
+                        onClose={handleClose12}
+                        aria-labelledby="child-modal-title"
+                        aria-describedby="child-modal-description"
+                      >
+                        <Box
+                          sx={{
+                            position: "absolute",
+                            top: "50%",
+                            left: "50%",
+                            transform: "translate(-50%, -50%)",
+                            width: "50%",
+                            bgcolor: "transparent",
+                            boxShadow: 24,
+                            pt: 2,
+                            px: 4,
+                            pb: 3,
+                          }}
+                        >
+                          <img src={example9} width="100%"  alt="example9"/>
+                        </Box>
+                      </Modal>
+                    </div>
+                    <hr style={{ width: "97%", height: 2 }} />
+                    <button
+                      style={{
+                        width: "100%",
+                        borderRadius: 20,
+                        background: " #001E33",
+                        height: 40,
+                        color: "#FFFFFF",
+                        fontSize: 18,
+                        borderColor: "transparent",
+                      }}
+                      onClick={() => setScreen("11")}
+                    >
+                      {REGI02_Box2v01TH[7].label}
+                    </button>
+                  </div>
+                </div>
+              ) : Doc === "German" ? (
+                <div>
+                  <div
+                    style={{
+                      position: "fixed",
+                      top: 20,
+                      left: width * 0.59,
+                      textAlign: "-webkit-center",
+                      width: 500,
+                      background: " #FFFFFF",
+                      boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
+                      borderRadius: 20,
+                      padding: 30,
+                    }}
+                  >
+                    <button
+                      style={{
+                        fontWeight: 400,
+                        fontSize: 18,
+                        textDecorationLine: "none",
+                        color: "#D9D9D9",
+                        textAlign: "left",
+                        marginBottom: 20,
+                        float: "left",
+                        background: "transparent",
+                        border: "transparent",
+                      }}
+                      onClick={() => setScreen("Freelance Translators")}
+                    >
+                      <BsArrowLeftShort />
+                      <p
+                        style={{
+                          color: "#D9D9D9",
+                          fontSize: 18,
+                          textDecorationLine: "none",
+                          float: "right",
+                        }}
+                      >
+                        {REGI02_Box2v01DE[0].label}
+                      </p>
+                    </button>
+
+                    <h2 className="textSignup" style={{ marginTop: 30 }}>
+                      {REGI02_Box2v01DE[1].label}
+                    </h2>
+                    <div>
+                      <FormControl style={{ display: "inherit" }}>
+                        <RadioGroup
+                          row
+                          aria-labelledby="demo-row-radio-buttons-group-label"
+                          name="row-radio-buttons-group"
+                        >
+                          <FormControlLabel
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value="6"
+                            control={<Radio />}
+                            label={REGI02_Box2v01DE[2].label}
+                            style={{ marginRight: 50 }}
+                          />
+                          <FormControlLabel
+                            checked
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value="Freelance Translators"
+                            control={<Radio />}
+                            label={REGI02_Box2v01DE[3].label}
+                          />
+                        </RadioGroup>
+                      </FormControl>
+                    </div>
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 700,
+                          fontSize: 16,
+                          color: " #242424",
+                        }}
+                      >
+                        {REGI02_Box2v01DE[4].label}
+                      </p>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 14,
+                          color: " #242424",
+                        }}
+                      >
+                        {REGI02_Box2v01DE[5].label}
+                      </p>
+                      <div style={{ textAlign: "center" }}>
+                        {file2 === "" ? (
+                          <div
+                            style={{
+                              background: "#FFFFFF",
+                              borderRadius: 20,
+                              width: "100%",
+                              height: 200,
+                              padding: 50,
+                              position: "relative",
+                              borderStyle: " dotted ",
+                              borderColor: "#0865A8",
+                              borderWidth: 2,
+                              margin: 20,
+                              marginLeft: 0,
+                            }}
+                          >
+                            <label htmlFor="icon-button-file">
+                              <Input
+                                accept="image/*"
+                                id="icon-button-file"
+                                type="file"
+                                style={{ display: "none" }}
+                                onChange={(e) => setFile2(e.target.value)}
+                              />
+                              <IconButton
+                                color="primary"
+                                aria-label="upload picture"
+                                component="span"
+                              >
+                                <FiImage
+                                  style={{
+                                    fontSize: 50,
+                                    position: "absolute",
+                                    marginTop: 30,
+                                  }}
+                                />
+                                <p
+                                  style={{
+                                    fontSize: 10,
+                                    position: "absolute",
+                                    top: 60,
+                                    width: 100,
+                                  }}
+                                >
+                                  {REGI02_Box2v01DE[6].label}
+                                </p>
+                              </IconButton>
+                            </label>
+                          </div>
+                        ) : (
+                          <div
+                            style={{
+                              background: "#FFFFFF",
+                              borderRadius: 20,
+                              width: "100%",
+                              height: 200,
+                              padding: 50,
+                              position: "relative",
+                              borderStyle: " dotted ",
+                              borderColor: "#0865A8",
+                              borderWidth: 2,
+                              margin: 20,
+                              marginLeft: 0,
+                            }}
+                          >
+                            <label htmlFor="icon-button-file">
+                              <Input
+                                accept="image/*"
+                                id="icon-button-file"
+                                type="file"
+                                style={{ display: "none" }}
+                                onChange={(e) => setFile2(e.target.value)}
+                              />
+                              <IconButton
+                                color="primary"
+                                aria-label="upload picture"
+                                component="span"
+                              >
+                                <FiImage
+                                  style={{
+                                    fontSize: 50,
+                                    position: "absolute",
+                                    marginTop: 30,
+                                  }}
+                                />
+                                <p
+                                  style={{
+                                    fontSize: 10,
+                                    position: "absolute",
+                                    top: 60,
+                                    width: 100,
+                                  }}
+                                >
+                                  {file2}
+                                </p>
+                              </IconButton>
+                            </label>
+                          </div>
+                        )}
+                      </div>
+                      <button
+                        style={{ background: "transparent", border: "none" }}
+                        onClick={() => example(12)}
+                      >
+                        <p
+                          style={{
+                            color: "#666666",
+                            textDecorationLine: "underline",
+                            fontSize: 14,
+                          }}
+                        >
+                          
+Ein Beispiel für das Hochladen eines Bildes Ihrer Ausbildung/Ihres Zertifikats/Ihres Nachweises
+                        </p>
+                      </button>
+                      <Modal
+                        // hideBackdrop
+                        keepMounted
+                        open={openModal12}
+                        onClose={handleClose12}
+                        aria-labelledby="child-modal-title"
+                        aria-describedby="child-modal-description"
+                      >
+                        <Box
+                          sx={{
+                            position: "absolute",
+                            top: "50%",
+                            left: "50%",
+                            transform: "translate(-50%, -50%)",
+                            width: "50%",
+                            bgcolor: "transparent",
+                            boxShadow: 24,
+                            pt: 2,
+                            px: 4,
+                            pb: 3,
+                          }}
+                        >
+                          <img src={example9} width="100%"  alt="example9"/>
+                        </Box>
+                      </Modal>
+                    </div>
+                    <hr style={{ width: "97%", height: 2 }} />
+                    <button
+                      style={{
+                        width: "100%",
+                        borderRadius: 20,
+                        background: " #001E33",
+                        height: 40,
+                        color: "#FFFFFF",
+                        fontSize: 18,
+                        borderColor: "transparent",
+                      }}
+                      onClick={() => setScreen("11")}
+                    >
+                      {REGI02_Box2v01DE[7].label}
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <div>
+                  <div
+                    style={{
+                      position: "fixed",
+                      top: 20,
+                      left: width * 0.59,
+                      textAlign: "-webkit-center",
+                      width: 500,
+                      background: " #FFFFFF",
+                      boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
+                      borderRadius: 20,
+                      padding: 30,
+                    }}
+                  >
+                    <button
+                      style={{
+                        fontWeight: 400,
+                        fontSize: 18,
+                        textDecorationLine: "none",
+                        color: "#D9D9D9",
+                        textAlign: "left",
+                        marginBottom: 20,
+                        float: "left",
+                        background: "transparent",
+                        border: "transparent",
+                      }}
+                      onClick={() => setScreen("Freelance Translators")}
+                    >
+                      <BsArrowLeftShort />
+                      <p
+                        style={{
+                          color: "#D9D9D9",
+                          fontSize: 18,
+                          textDecorationLine: "none",
+                          float: "right",
+                        }}
+                      >
+                        {REGI02_Box2v01EN[0].label}
+                      </p>
+                    </button>
+
+                    <h2 className="textSignup" style={{ marginTop: 30 }}>
+                      {REGI02_Box2v01EN[1].label}
+                    </h2>
+                    <div>
+                      <FormControl style={{ display: "inherit" }}>
+                        <RadioGroup
+                          row
+                          aria-labelledby="demo-row-radio-buttons-group-label"
+                          name="row-radio-buttons-group"
+                        >
+                          <FormControlLabel
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value="6"
+                            control={<Radio />}
+                            label={REGI02_Box2v01EN[2].label}
+                            style={{ marginRight: 50 }}
+                          />
+                          <FormControlLabel
+                            checked
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value="Freelance Translators"
+                            control={<Radio />}
+                            label={REGI02_Box2v01EN[3].label}
+                          />
+                        </RadioGroup>
+                      </FormControl>
+                    </div>
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 700,
+                          fontSize: 16,
+                          color: " #242424",
+                        }}
+                      >
+                        {REGI02_Box2v01EN[4].label}
+                      </p>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 14,
+                          color: " #242424",
+                        }}
+                      >
+                        {REGI02_Box2v01EN[5].label}
+                      </p>
+                      <div style={{ textAlign: "center" }}>
+                        {file2 === "" ? (
+                          <div
+                            style={{
+                              background: "#FFFFFF",
+                              borderRadius: 20,
+                              width: "100%",
+                              height: 200,
+                              padding: 50,
+                              position: "relative",
+                              borderStyle: " dotted ",
+                              borderColor: "#0865A8",
+                              borderWidth: 2,
+                              margin: 20,
+                              marginLeft: 0,
+                            }}
+                          >
+                            <label htmlFor="icon-button-file">
+                              <Input
+                                accept="image/*"
+                                id="icon-button-file"
+                                type="file"
+                                style={{ display: "none" }}
+                                onChange={(e) => setFile2(e.target.value)}
+                              />
+                              <IconButton
+                                color="primary"
+                                aria-label="upload picture"
+                                component="span"
+                              >
+                                <FiImage
+                                  style={{
+                                    fontSize: 50,
+                                    position: "absolute",
+                                    marginTop: 30,
+                                  }}
+                                />
+                                <p
+                                  style={{
+                                    fontSize: 10,
+                                    position: "absolute",
+                                    top: 60,
+                                    width: 100,
+                                  }}
+                                >
+                                  {REGI02_Box2v01EN[6].label}
+                                </p>
+                              </IconButton>
+                            </label>
+                          </div>
+                        ) : (
+                          <div
+                            style={{
+                              background: "#FFFFFF",
+                              borderRadius: 20,
+                              width: "100%",
+                              height: 200,
+                              padding: 50,
+                              position: "relative",
+                              borderStyle: " dotted ",
+                              borderColor: "#0865A8",
+                              borderWidth: 2,
+                              margin: 20,
+                              marginLeft: 0,
+                            }}
+                          >
+                            <label htmlFor="icon-button-file">
+                              <Input
+                                accept="image/*"
+                                id="icon-button-file"
+                                type="file"
+                                style={{ display: "none" }}
+                                onChange={(e) => setFile2(e.target.value)}
+                              />
+                              <IconButton
+                                color="primary"
+                                aria-label="upload picture"
+                                component="span"
+                              >
+                                <FiImage
+                                  style={{
+                                    fontSize: 50,
+                                    position: "absolute",
+                                    marginTop: 30,
+                                  }}
+                                />
+                                <p
+                                  style={{
+                                    fontSize: 10,
+                                    position: "absolute",
+                                    top: 60,
+                                    width: 100,
+                                  }}
+                                >
+                                  {file2}
+                                </p>
+                              </IconButton>
+                            </label>
+                          </div>
+                        )}
+                      </div>
+                      <button
+                        style={{ background: "transparent", border: "none" }}
+                        onClick={() => example(12)}
+                      >
+                        <p
+                          style={{
+                            color: "#666666",
+                            textDecorationLine: "underline",
+                            fontSize: 14,
+                          }}
+                        >
+                          An example of uploading a picture of your Education/Certificate/Proof
+                        </p>
+                      </button>
+                      <Modal
+                        // hideBackdrop
+                        keepMounted
+                        open={openModal12}
+                        onClose={handleClose12}
+                        aria-labelledby="child-modal-title"
+                        aria-describedby="child-modal-description"
+                      >
+                        <Box
+                          sx={{
+                            position: "absolute",
+                            top: "50%",
+                            left: "50%",
+                            transform: "translate(-50%, -50%)",
+                            width: "50%",
+                            bgcolor: "transparent",
+                            boxShadow: 24,
+                            pt: 2,
+                            px: 4,
+                            pb: 3,
+                          }}
+                        >
+                          <img src={example9} width="100%"  alt="example9"/>
+                        </Box>
+                      </Modal>
+                    </div>
+                    <hr style={{ width: "97%", height: 2 }} />
+                    <button
+                      style={{
+                        width: "100%",
+                        borderRadius: 20,
+                        background: " #001E33",
+                        height: 40,
+                        color: "#FFFFFF",
+                        fontSize: 18,
+                        borderColor: "transparent",
+                      }}
+                      onClick={() => setScreen("11")}
+                    >
+                      {REGI02_Box2v01EN[7].label}
+                    </button>
+                  </div>
+                </div>
+              )}
+            </>
+          ) : screen === "10" ? (
+            <>
+              {Doc === "English" ? (
+                <div>
+                  <div
+                    style={{
+                      position: "fixed",
+                      top: 20,
+                      left: width * 0.59,
+                      textAlign: "-webkit-center",
+                      width: 500,
+                      background: " #FFFFFF",
+                      boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
+                      borderRadius: 20,
+                      padding: 30,
+                    }}
+                  >
+                    <button
+                      style={{
+                        fontWeight: 400,
+                        fontSize: 18,
+                        textDecorationLine: "none",
+                        color: "#D9D9D9",
+                        textAlign: "left",
+                        marginBottom: 20,
+                        float: "left",
+                        background: "transparent",
+                        border: "transparent",
+                      }}
+                      onClick={() => setScreen("8")}
+                    >
+                      <BsArrowLeftShort />
+                      <p
+                        style={{
+                          color: "#D9D9D9",
+                          fontSize: 18,
+                          textDecorationLine: "none",
+                          float: "right",
+                        }}
+                      >
+                        {REGI02_Box4v01EN[0].label}
+                      </p>
+                    </button>
+
+                    <h2 className="textSignup" style={{ marginTop: 30 }}>
+                      {REGI02_Box4v01EN[1].label}
+                    </h2>
+                    <div>
+                      <FormControl style={{ display: "inherit" }}>
+                        <RadioGroup
+                          row
+                          aria-labelledby="demo-row-radio-buttons-group-label"
+                          name="row-radio-buttons-group"
+                        >
+                          <FormControlLabel
+                            checked
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value=""
+                            control={<Radio />}
+                            label={REGI02_Box4v01EN[2].label}
+                            style={{ marginRight: 50 }}
+                          />
+                          <FormControlLabel
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value="Freelance Translators"
+                            control={<Radio />}
+                            label={REGI02_Box4v01EN[3].label}
+                          />
+                        </RadioGroup>
+                      </FormControl>
+                    </div>
+
+                    <div style={{ textAlign: "left", marginTop: 10 }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI02_Box4v01EN[4].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={bankname}
+                        onChange={(e) => setBankname(e.target.value)}
+                        placeholder={REGI02_Box4v01EN[4].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI02_Box4v01EN[5].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={branchname}
+                        onChange={(e) => setBranchname(e.target.value)}
+                        placeholder={REGI02_Box4v01EN[5].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI02_Box4v01EN[6].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={accountname}
+                        onChange={(e) => setAccountname(e.target.value)}
+                        placeholder={REGI02_Box4v01EN[6].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          borderColor: "#F1F1F1",
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left", marginBottom: 10 }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI02_Box4v01EN[7].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={accountnumber}
+                        onChange={(e) => setAccountnumber(e.target.value)}
+                        placeholder={REGI02_Box4v01EN[7].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          borderColor: "#F1F1F1",
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <button
+                      style={{
+                        width: "100%",
+                        borderRadius: 20,
+                        background: " #001E33",
+                        height: 40,
+                        color: "#FFFFFF",
+                        fontSize: 18,
+                        borderColor: "transparent",
+                      }}
+                      onClick={() => setScreen("12")}
+                    >
+                      {REGI02_Box4v01EN[8].label}
+                    </button>
+                  </div>
+                </div>
+              ) : Doc === "Thai" ? (
+                <div>
+                  <div
+                    style={{
+                      position: "fixed",
+                      top: 20,
+                      left: width * 0.59,
+                      textAlign: "-webkit-center",
+                      width: 500,
+                      background: " #FFFFFF",
+                      boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
+                      borderRadius: 20,
+                      padding: 30,
+                    }}
+                  >
+                    <button
+                      style={{
+                        fontWeight: 400,
+                        fontSize: 18,
+                        textDecorationLine: "none",
+                        color: "#D9D9D9",
+                        textAlign: "left",
+                        marginBottom: 20,
+                        float: "left",
+                        background: "transparent",
+                        border: "transparent",
+                      }}
+                      onClick={() => setScreen("8")}
+                    >
+                      <BsArrowLeftShort />
+                      <p
+                        style={{
+                          color: "#D9D9D9",
+                          fontSize: 18,
+                          textDecorationLine: "none",
+                          float: "right",
+                        }}
+                      >
+                        {REGI02_Box4v01TH[0].label}
+                      </p>
+                    </button>
+
+                    <h2 className="textSignup" style={{ marginTop: 30 }}>
+                      {REGI02_Box4v01TH[1].label}
+                    </h2>
+                    <div>
+                      <FormControl style={{ display: "inherit" }}>
+                        <RadioGroup
+                          row
+                          aria-labelledby="demo-row-radio-buttons-group-label"
+                          name="row-radio-buttons-group"
+                        >
+                          <FormControlLabel
+                            checked
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value=""
+                            control={<Radio />}
+                            label={REGI02_Box4v01TH[2].label}
+                            style={{ marginRight: 50 }}
+                          />
+                          <FormControlLabel
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value="Freelance Translators"
+                            control={<Radio />}
+                            label={REGI02_Box4v01TH[3].label}
+                          />
+                        </RadioGroup>
+                      </FormControl>
+                    </div>
+
+                    <div style={{ textAlign: "left", marginTop: 10 }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI02_Box4v01TH[4].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={bankname}
+                        onChange={(e) => setBankname(e.target.value)}
+                        placeholder={REGI02_Box4v01TH[4].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI02_Box4v01TH[5].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={branchname}
+                        onChange={(e) => setBranchname(e.target.value)}
+                        placeholder={REGI02_Box4v01TH[5].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI02_Box4v01TH[6].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={accountname}
+                        onChange={(e) => setAccountname(e.target.value)}
+                        placeholder={REGI02_Box4v01TH[6].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          borderColor: "#F1F1F1",
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left", marginBottom: 10 }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI02_Box4v01TH[7].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={accountnumber}
+                        onChange={(e) => setAccountnumber(e.target.value)}
+                        placeholder={REGI02_Box4v01TH[7].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          borderColor: "#F1F1F1",
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <button
+                      style={{
+                        width: "100%",
+                        borderRadius: 20,
+                        background: " #001E33",
+                        height: 40,
+                        color: "#FFFFFF",
+                        fontSize: 18,
+                        borderColor: "transparent",
+                      }}
+                      onClick={() => setScreen("12")}
+                    >
+                      {REGI02_Box4v01TH[8].label}
+                    </button>
+                  </div>
+                </div>
+              ) : Doc === "German" ? (
+                <div>
+                  <div
+                    style={{
+                      position: "fixed",
+                      top: 20,
+                      left: width * 0.59,
+                      textAlign: "-webkit-center",
+                      width: 500,
+                      background: " #FFFFFF",
+                      boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
+                      borderRadius: 20,
+                      padding: 30,
+                    }}
+                  >
+                    <button
+                      style={{
+                        fontWeight: 400,
+                        fontSize: 18,
+                        textDecorationLine: "none",
+                        color: "#D9D9D9",
+                        textAlign: "left",
+                        marginBottom: 20,
+                        float: "left",
+                        background: "transparent",
+                        border: "transparent",
+                      }}
+                      onClick={() => setScreen("8")}
+                    >
+                      <BsArrowLeftShort />
+                      <p
+                        style={{
+                          color: "#D9D9D9",
+                          fontSize: 18,
+                          textDecorationLine: "none",
+                          float: "right",
+                        }}
+                      >
+                        {REGI02_Box4v01DE[0].label}
+                      </p>
+                    </button>
+
+                    <h2 className="textSignup" style={{ marginTop: 30 }}>
+                      {REGI02_Box4v01DE[1].label}
+                    </h2>
+                    <div>
+                      <FormControl style={{ display: "inherit" }}>
+                        <RadioGroup
+                          row
+                          aria-labelledby="demo-row-radio-buttons-group-label"
+                          name="row-radio-buttons-group"
+                        >
+                          <FormControlLabel
+                            checked
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value=""
+                            control={<Radio />}
+                            label={REGI02_Box4v01DE[2].label}
+                            style={{ marginRight: 50 }}
+                          />
+                          <FormControlLabel
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value="Freelance Translators"
+                            control={<Radio />}
+                            label={REGI02_Box4v01DE[3].label}
+                          />
+                        </RadioGroup>
+                      </FormControl>
+                    </div>
+
+                    <div style={{ textAlign: "left", marginTop: 10 }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI02_Box4v01DE[4].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={bankname}
+                        onChange={(e) => setBankname(e.target.value)}
+                        placeholder={REGI02_Box4v01DE[4].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI02_Box4v01DE[5].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={branchname}
+                        onChange={(e) => setBranchname(e.target.value)}
+                        placeholder={REGI02_Box4v01DE[5].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI02_Box4v01DE[6].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={accountname}
+                        onChange={(e) => setAccountname(e.target.value)}
+                        placeholder={REGI02_Box4v01DE[6].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          borderColor: "#F1F1F1",
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left", marginBottom: 10 }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI02_Box4v01DE[7].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={accountnumber}
+                        onChange={(e) => setAccountnumber(e.target.value)}
+                        placeholder={REGI02_Box4v01DE[7].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          borderColor: "#F1F1F1",
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <button
+                      style={{
+                        width: "100%",
+                        borderRadius: 20,
+                        background: " #001E33",
+                        height: 40,
+                        color: "#FFFFFF",
+                        fontSize: 18,
+                        borderColor: "transparent",
+                      }}
+                      onClick={() => setScreen("12")}
+                    >
+                      {REGI02_Box4v01DE[8].label}
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <div>
+                  <div
+                    style={{
+                      position: "fixed",
+                      top: 20,
+                      left: width * 0.59,
+                      textAlign: "-webkit-center",
+                      width: 500,
+                      background: " #FFFFFF",
+                      boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
+                      borderRadius: 20,
+                      padding: 30,
+                    }}
+                  >
+                    <button
+                      style={{
+                        fontWeight: 400,
+                        fontSize: 18,
+                        textDecorationLine: "none",
+                        color: "#D9D9D9",
+                        textAlign: "left",
+                        marginBottom: 20,
+                        float: "left",
+                        background: "transparent",
+                        border: "transparent",
+                      }}
+                      onClick={() => setScreen("8")}
+                    >
+                      <BsArrowLeftShort />
+                      <p
+                        style={{
+                          color: "#D9D9D9",
+                          fontSize: 18,
+                          textDecorationLine: "none",
+                          float: "right",
+                        }}
+                      >
+                        {REGI02_Box4v01EN[0].label}
+                      </p>
+                    </button>
+
+                    <h2 className="textSignup" style={{ marginTop: 30 }}>
+                      {REGI02_Box4v01EN[1].label}
+                    </h2>
+                    <div>
+                      <FormControl style={{ display: "inherit" }}>
+                        <RadioGroup
+                          row
+                          aria-labelledby="demo-row-radio-buttons-group-label"
+                          name="row-radio-buttons-group"
+                        >
+                          <FormControlLabel
+                            checked
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value=""
+                            control={<Radio />}
+                            label={REGI02_Box4v01EN[2].label}
+                            style={{ marginRight: 50 }}
+                          />
+                          <FormControlLabel
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value="Freelance Translators"
+                            control={<Radio />}
+                            label={REGI02_Box4v01EN[3].label}
+                          />
+                        </RadioGroup>
+                      </FormControl>
+                    </div>
+
+                    <div style={{ textAlign: "left", marginTop: 10 }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI02_Box4v01EN[4].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={bankname}
+                        onChange={(e) => setBankname(e.target.value)}
+                        placeholder={REGI02_Box4v01EN[4].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI02_Box4v01EN[5].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={branchname}
+                        onChange={(e) => setBranchname(e.target.value)}
+                        placeholder={REGI02_Box4v01EN[5].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI02_Box4v01EN[6].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={accountname}
+                        onChange={(e) => setAccountname(e.target.value)}
+                        placeholder={REGI02_Box4v01EN[6].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          borderColor: "#F1F1F1",
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left", marginBottom: 10 }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI02_Box4v01EN[7].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={accountnumber}
+                        onChange={(e) => setAccountnumber(e.target.value)}
+                        placeholder={REGI02_Box4v01EN[7].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          borderColor: "#F1F1F1",
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <button
+                      style={{
+                        width: "100%",
+                        borderRadius: 20,
+                        background: " #001E33",
+                        height: 40,
+                        color: "#FFFFFF",
+                        fontSize: 18,
+                        borderColor: "transparent",
+                      }}
+                      onClick={() => setScreen("12")}
+                    >
+                      {REGI02_Box4v01EN[8].label}
+                    </button>
+                  </div>
+                </div>
+              )}
+            </>
+          ) : screen === "11" ? (
+            <>
+              {Doc === "English" ? (
+                <div>
+                  <div
+                    style={{
+                      position: "fixed",
+                      top: 20,
+                      left: width * 0.59,
+                      textAlign: "-webkit-center",
+                      width: 500,
+                      background: " #FFFFFF",
+                      boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
+                      borderRadius: 20,
+                      padding: 30,
+                    }}
+                  >
+                    <button
+                      style={{
+                        fontWeight: 400,
+                        fontSize: 18,
+                        textDecorationLine: "none",
+                        color: "#D9D9D9",
+                        textAlign: "left",
+                        marginBottom: 20,
+                        float: "left",
+                        background: "transparent",
+                        border: "transparent",
+                      }}
+                      onClick={() => setScreen("9")}
+                    >
+                      <BsArrowLeftShort />
+                      <p
+                        style={{
+                          color: "#D9D9D9",
+                          fontSize: 18,
+                          textDecorationLine: "none",
+                          float: "right",
+                        }}
+                      >
+                        {REGI02_Box3v01EN[0].label}
+                      </p>
+                    </button>
+
+                    <h2 className="textSignup" style={{ marginTop: 30 }}>
+                      {REGI02_Box3v01EN[1].label}
+                    </h2>
+                    <div>
+                      <FormControl style={{ display: "inherit" }}>
+                        <RadioGroup
+                          row
+                          aria-labelledby="demo-row-radio-buttons-group-label"
+                          name="row-radio-buttons-group"
+                        >
+                          <FormControlLabel
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value="6"
+                            control={<Radio />}
+                            label={REGI02_Box3v01EN[2].label}
+                            style={{ marginRight: 50 }}
+                          />
+                          <FormControlLabel
+                            checked
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value="Freelance Translators"
+                            control={<Radio />}
+                            label={REGI02_Box3v01EN[3].label}
+                          />
+                        </RadioGroup>
+                      </FormControl>
+                    </div>
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 700,
+                          fontSize: 18,
+                          color: " #242424",
+                        }}
+                      >
+                        {REGI02_Box3v01EN[4].label}
+                      </p>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 14,
+                          color: " #242424",
+                        }}
+                      >
+                        {REGI02_Box3v01EN[5].label}
+                      </p>
+                      <div style={{ textAlign: "center" }}>
+                        {file2 === "" ? (
+                          <div
+                            style={{
+                              background: "#FFFFFF",
+                              borderRadius: 20,
+                              width: "100%",
+                              height: 200,
+                              padding: 50,
+                              position: "relative",
+                              borderStyle: " dotted ",
+                              borderColor: "#0865A8",
+                              borderWidth: 2,
+                              margin: 20,
+                              marginLeft: 0,
+                            }}
+                          >
+                            <label htmlFor="icon-button-file">
+                              <Input
+                                accept="image/*"
+                                id="icon-button-file"
+                                type="file"
+                                style={{ display: "none" }}
+                                onChange={(e) => setFile2(e.target.value)}
+                              />
+                              <IconButton
+                                color="primary"
+                                aria-label="upload picture"
+                                component="span"
+                              >
+                                <FiImage
+                                  style={{
+                                    fontSize: 50,
+                                    position: "absolute",
+                                    marginTop: 30,
+                                  }}
+                                />
+                                <p
+                                  style={{
+                                    fontSize: 10,
+                                    position: "absolute",
+                                    top: 60,
+                                    width: 100,
+                                  }}
+                                >
+                                  {REGI02_Box3v01EN[6].label}
+                                </p>
+                              </IconButton>
+                            </label>
+                          </div>
+                        ) : (
+                          <div
+                            style={{
+                              background: "#FFFFFF",
+                              borderRadius: 20,
+                              width: "100%",
+                              height: 200,
+                              padding: 50,
+                              position: "relative",
+                              borderStyle: " dotted ",
+                              borderColor: "#0865A8",
+                              borderWidth: 2,
+                              margin: 20,
+                              marginLeft: 0,
+                            }}
+                          >
+                            <label htmlFor="icon-button-file">
+                              <Input
+                                accept="image/*"
+                                id="icon-button-file"
+                                type="file"
+                                style={{ display: "none" }}
+                                onChange={(e) => setFile2(e.target.value)}
+                              />
+                              <IconButton
+                                color="primary"
+                                aria-label="upload picture"
+                                component="span"
+                              >
+                                <FiImage
+                                  style={{
+                                    fontSize: 50,
+                                    position: "absolute",
+                                    marginTop: 30,
+                                  }}
+                                />
+                                <p
+                                  style={{
+                                    fontSize: 10,
+                                    position: "absolute",
+                                    top: 60,
+                                    width: 100,
+                                  }}
+                                >
+                                  {file2}
+                                </p>
+                              </IconButton>
+                            </label>
+                          </div>
+                        )}
+                      </div>
+                      <button
+                        style={{ background: "transparent", border: "none" }}
+                        onClick={() => example(12)}
+                      >
+                        <p
+                          style={{
+                            color: "#666666",
+                            textDecorationLine: "underline",
+                            fontSize: 14,
+                          }}
+                        >
+                           An example of uploading a picture of your Portfolio/CV.
+                        </p>
+                      </button>
+                      <Modal
+                        // hideBackdrop
+                        keepMounted
+                        open={openModal12}
+                        onClose={handleClose12}
+                        aria-labelledby="child-modal-title"
+                        aria-describedby="child-modal-description"
+                      >
+                        <Box
+                          sx={{
+                            position: "absolute",
+                            top: "50%",
+                            left: "50%",
+                            transform: "translate(-50%, -50%)",
+                            width: "50%",
+                            bgcolor: "transparent",
+                            boxShadow: 24,
+                            pt: 2,
+                            px: 4,
+                            pb: 3,
+                          }}
+                        >
+                          <img src={example11} width="100%"  alt="example11"/>
+                        </Box>
+                      </Modal>
+
+                    </div>
+                    <hr style={{ width: "97%", height: 2 }} />
+                    <button
+                      style={{
+                        width: "100%",
+                        borderRadius: 20,
+                        background: " #001E33",
+                        height: 40,
+                        color: "#FFFFFF",
+                        fontSize: 18,
+                        borderColor: "transparent",
+                      }}
+                      onClick={() => setScreen("13")}
+                    >
+                      {REGI02_Box3v01EN[7].label}
+                    </button>
+                  </div>
+                </div>
+              ) : Doc === "Thai" ? (
+                <div>
+                  <div
+                    style={{
+                      position: "fixed",
+                      top: 20,
+                      left: width * 0.59,
+                      textAlign: "-webkit-center",
+                      width: 500,
+                      background: " #FFFFFF",
+                      boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
+                      borderRadius: 20,
+                      padding: 30,
+                    }}
+                  >
+                    <button
+                      style={{
+                        fontWeight: 400,
+                        fontSize: 18,
+                        textDecorationLine: "none",
+                        color: "#D9D9D9",
+                        textAlign: "left",
+                        marginBottom: 20,
+                        float: "left",
+                        background: "transparent",
+                        border: "transparent",
+                      }}
+                      onClick={() => setScreen("9")}
+                    >
+                      <BsArrowLeftShort />
+                      <p
+                        style={{
+                          color: "#D9D9D9",
+                          fontSize: 18,
+                          textDecorationLine: "none",
+                          float: "right",
+                        }}
+                      >
+                        {REGI02_Box3v01TH[0].label}
+                      </p>
+                    </button>
+
+                    <h2 className="textSignup" style={{ marginTop: 30 }}>
+                      {REGI02_Box3v01TH[1].label}
+                    </h2>
+                    <div>
+                      <FormControl style={{ display: "inherit" }}>
+                        <RadioGroup
+                          row
+                          aria-labelledby="demo-row-radio-buttons-group-label"
+                          name="row-radio-buttons-group"
+                        >
+                          <FormControlLabel
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value="6"
+                            control={<Radio />}
+                            label={REGI02_Box3v01TH[2].label}
+                            style={{ marginRight: 50 }}
+                          />
+                          <FormControlLabel
+                            checked
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value="Freelance Translators"
+                            control={<Radio />}
+                            label={REGI02_Box3v01TH[3].label}
+                          />
+                        </RadioGroup>
+                      </FormControl>
+                    </div>
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 700,
+                          fontSize: 18,
+                          color: " #242424",
+                        }}
+                      >
+                        {REGI02_Box3v01TH[4].label}
+                      </p>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 14,
+                          color: " #242424",
+                        }}
+                      >
+                        {REGI02_Box3v01TH[5].label}
+                      </p>
+                      <div style={{ textAlign: "center" }}>
+                        {file2 === "" ? (
+                          <div
+                            style={{
+                              background: "#FFFFFF",
+                              borderRadius: 20,
+                              width: "100%",
+                              height: 200,
+                              padding: 50,
+                              position: "relative",
+                              borderStyle: " dotted ",
+                              borderColor: "#0865A8",
+                              borderWidth: 2,
+                              margin: 20,
+                              marginLeft: 0,
+                            }}
+                          >
+                            <label htmlFor="icon-button-file">
+                              <Input
+                                accept="image/*"
+                                id="icon-button-file"
+                                type="file"
+                                style={{ display: "none" }}
+                                onChange={(e) => setFile2(e.target.value)}
+                              />
+                              <IconButton
+                                color="primary"
+                                aria-label="upload picture"
+                                component="span"
+                              >
+                                <FiImage
+                                  style={{
+                                    fontSize: 50,
+                                    position: "absolute",
+                                    marginTop: 30,
+                                  }}
+                                />
+                                <p
+                                  style={{
+                                    fontSize: 10,
+                                    position: "absolute",
+                                    top: 60,
+                                    width: 100,
+                                  }}
+                                >
+                                  {REGI02_Box3v01TH[6].label}
+                                </p>
+                              </IconButton>
+                            </label>
+                          </div>
+                        ) : (
+                          <div
+                            style={{
+                              background: "#FFFFFF",
+                              borderRadius: 20,
+                              width: "100%",
+                              height: 200,
+                              padding: 50,
+                              position: "relative",
+                              borderStyle: " dotted ",
+                              borderColor: "#0865A8",
+                              borderWidth: 2,
+                              margin: 20,
+                              marginLeft: 0,
+                            }}
+                          >
+                            <label htmlFor="icon-button-file">
+                              <Input
+                                accept="image/*"
+                                id="icon-button-file"
+                                type="file"
+                                style={{ display: "none" }}
+                                onChange={(e) => setFile2(e.target.value)}
+                              />
+                              <IconButton
+                                color="primary"
+                                aria-label="upload picture"
+                                component="span"
+                              >
+                                <FiImage
+                                  style={{
+                                    fontSize: 50,
+                                    position: "absolute",
+                                    marginTop: 30,
+                                  }}
+                                />
+                                <p
+                                  style={{
+                                    fontSize: 10,
+                                    position: "absolute",
+                                    top: 60,
+                                    width: 100,
+                                  }}
+                                >
+                                  {file2}
+                                </p>
+                              </IconButton>
+                            </label>
+                          </div>
+                        )}
+                      </div>
+                      <button
+                        style={{ background: "transparent", border: "none" }}
+                        onClick={() => example(12)}
+                      >
+                        <p
+                          style={{
+                            color: "#666666",
+                            textDecorationLine: "underline",
+                            fontSize: 14,
+                          }}
+                        >
+                           ตัวอย่างการอัพโหลดรูปภาพ Portfolio/CV ของคุณ
+                        </p>
+                      </button>
+                      <Modal
+                        // hideBackdrop
+                        keepMounted
+                        open={openModal12}
+                        onClose={handleClose12}
+                        aria-labelledby="child-modal-title"
+                        aria-describedby="child-modal-description"
+                      >
+                        <Box
+                          sx={{
+                            position: "absolute",
+                            top: "50%",
+                            left: "50%",
+                            transform: "translate(-50%, -50%)",
+                            width: "50%",
+                            bgcolor: "transparent",
+                            boxShadow: 24,
+                            pt: 2,
+                            px: 4,
+                            pb: 3,
+                          }}
+                        >
+                          <img src={example11} width="100%"  alt="example11"/>
+                        </Box>
+                      </Modal>
+                    </div>
+                    <hr style={{ width: "97%", height: 2 }} />
+                    <button
+                      style={{
+                        width: "100%",
+                        borderRadius: 20,
+                        background: " #001E33",
+                        height: 40,
+                        color: "#FFFFFF",
+                        fontSize: 18,
+                        borderColor: "transparent",
+                      }}
+                      onClick={() => setScreen("13")}
+                    >
+                      {REGI02_Box3v01TH[7].label}
+                    </button>
+                  </div>
+                </div>
+              ) : Doc === "German" ? (
+                <div>
+                  <div
+                    style={{
+                      position: "fixed",
+                      top: 20,
+                      left: width * 0.59,
+                      textAlign: "-webkit-center",
+                      width: 500,
+                      background: " #FFFFFF",
+                      boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
+                      borderRadius: 20,
+                      padding: 30,
+                    }}
+                  >
+                    <button
+                      style={{
+                        fontWeight: 400,
+                        fontSize: 18,
+                        textDecorationLine: "none",
+                        color: "#D9D9D9",
+                        textAlign: "left",
+                        marginBottom: 20,
+                        float: "left",
+                        background: "transparent",
+                        border: "transparent",
+                      }}
+                      onClick={() => setScreen("9")}
+                    >
+                      <BsArrowLeftShort />
+                      <p
+                        style={{
+                          color: "#D9D9D9",
+                          fontSize: 18,
+                          textDecorationLine: "none",
+                          float: "right",
+                        }}
+                      >
+                        {REGI02_Box3v01DE[0].label}
+                      </p>
+                    </button>
+
+                    <h2 className="textSignup" style={{ marginTop: 30 }}>
+                      {REGI02_Box3v01DE[1].label}
+                    </h2>
+                    <div>
+                      <FormControl style={{ display: "inherit" }}>
+                        <RadioGroup
+                          row
+                          aria-labelledby="demo-row-radio-buttons-group-label"
+                          name="row-radio-buttons-group"
+                        >
+                          <FormControlLabel
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value="6"
+                            control={<Radio />}
+                            label={REGI02_Box3v01DE[2].label}
+                            style={{ marginRight: 50 }}
+                          />
+                          <FormControlLabel
+                            checked
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value="Freelance Translators"
+                            control={<Radio />}
+                            label={REGI02_Box3v01DE[3].label}
+                          />
+                        </RadioGroup>
+                      </FormControl>
+                    </div>
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 700,
+                          fontSize: 18,
+                          color: " #242424",
+                        }}
+                      >
+                        {REGI02_Box3v01DE[4].label}
+                      </p>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 14,
+                          color: " #242424",
+                        }}
+                      >
+                        {REGI02_Box3v01DE[5].label}
+                      </p>
+                      <div style={{ textAlign: "center" }}>
+                        {file2 === "" ? (
+                          <div
+                            style={{
+                              background: "#FFFFFF",
+                              borderRadius: 20,
+                              width: "100%",
+                              height: 200,
+                              padding: 50,
+                              position: "relative",
+                              borderStyle: " dotted ",
+                              borderColor: "#0865A8",
+                              borderWidth: 2,
+                              margin: 20,
+                              marginLeft: 0,
+                            }}
+                          >
+                            <label htmlFor="icon-button-file">
+                              <Input
+                                accept="image/*"
+                                id="icon-button-file"
+                                type="file"
+                                style={{ display: "none" }}
+                                onChange={(e) => setFile2(e.target.value)}
+                              />
+                              <IconButton
+                                color="primary"
+                                aria-label="upload picture"
+                                component="span"
+                              >
+                                <FiImage
+                                  style={{
+                                    fontSize: 50,
+                                    position: "absolute",
+                                    marginTop: 30,
+                                  }}
+                                />
+                                <p
+                                  style={{
+                                    fontSize: 10,
+                                    position: "absolute",
+                                    top: 60,
+                                    width: 100,
+                                  }}
+                                >
+                                  {REGI02_Box3v01DE[6].label}
+                                </p>
+                              </IconButton>
+                            </label>
+                          </div>
+                        ) : (
+                          <div
+                            style={{
+                              background: "#FFFFFF",
+                              borderRadius: 20,
+                              width: "100%",
+                              height: 200,
+                              padding: 50,
+                              position: "relative",
+                              borderStyle: " dotted ",
+                              borderColor: "#0865A8",
+                              borderWidth: 2,
+                              margin: 20,
+                              marginLeft: 0,
+                            }}
+                          >
+                            <label htmlFor="icon-button-file">
+                              <Input
+                                accept="image/*"
+                                id="icon-button-file"
+                                type="file"
+                                style={{ display: "none" }}
+                                onChange={(e) => setFile2(e.target.value)}
+                              />
+                              <IconButton
+                                color="primary"
+                                aria-label="upload picture"
+                                component="span"
+                              >
+                                <FiImage
+                                  style={{
+                                    fontSize: 50,
+                                    position: "absolute",
+                                    marginTop: 30,
+                                  }}
+                                />
+                                <p
+                                  style={{
+                                    fontSize: 10,
+                                    position: "absolute",
+                                    top: 60,
+                                    width: 100,
+                                  }}
+                                >
+                                  {file2}
+                                </p>
+                              </IconButton>
+                            </label>
+                          </div>
+                        )}
+                      </div>
+                      <button
+                        style={{ background: "transparent", border: "none" }}
+                        onClick={() => example(12)}
+                      >
+                        <p
+                          style={{
+                            color: "#666666",
+                            textDecorationLine: "underline",
+                            fontSize: 14,
+                          }}
+                        >
+                           Ein Beispiel für das Hochladen eines Bildes Ihres Portfolios/Lebenslaufs.
+                        </p>
+                      </button>
+                      <Modal
+                        // hideBackdrop
+                        keepMounted
+                        open={openModal12}
+                        onClose={handleClose12}
+                        aria-labelledby="child-modal-title"
+                        aria-describedby="child-modal-description"
+                      >
+                        <Box
+                          sx={{
+                            position: "absolute",
+                            top: "50%",
+                            left: "50%",
+                            transform: "translate(-50%, -50%)",
+                            width: "50%",
+                            bgcolor: "transparent",
+                            boxShadow: 24,
+                            pt: 2,
+                            px: 4,
+                            pb: 3,
+                          }}
+                        >
+                          <img src={example11} width="100%"  alt="example11"/>
+                        </Box>
+                      </Modal>
+                    </div>
+                    <hr style={{ width: "97%", height: 2 }} />
+                    <button
+                      style={{
+                        width: "100%",
+                        borderRadius: 20,
+                        background: " #001E33",
+                        height: 40,
+                        color: "#FFFFFF",
+                        fontSize: 18,
+                        borderColor: "transparent",
+                      }}
+                      onClick={() => setScreen("13")}
+                    >
+                      {REGI02_Box3v01DE[7].label}
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <div>
+                  <div
+                    style={{
+                      position: "fixed",
+                      top: 20,
+                      left: width * 0.59,
+                      textAlign: "-webkit-center",
+                      width: 500,
+                      background: " #FFFFFF",
+                      boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
+                      borderRadius: 20,
+                      padding: 30,
+                    }}
+                  >
+                    <button
+                      style={{
+                        fontWeight: 400,
+                        fontSize: 18,
+                        textDecorationLine: "none",
+                        color: "#D9D9D9",
+                        textAlign: "left",
+                        marginBottom: 20,
+                        float: "left",
+                        background: "transparent",
+                        border: "transparent",
+                      }}
+                      onClick={() => setScreen("9")}
+                    >
+                      <BsArrowLeftShort />
+                      <p
+                        style={{
+                          color: "#D9D9D9",
+                          fontSize: 18,
+                          textDecorationLine: "none",
+                          float: "right",
+                        }}
+                      >
+                        {REGI02_Box3v01EN[0].label}
+                      </p>
+                    </button>
+
+                    <h2 className="textSignup" style={{ marginTop: 30 }}>
+                      {REGI02_Box3v01EN[1].label}
+                    </h2>
+                    <div>
+                      <FormControl style={{ display: "inherit" }}>
+                        <RadioGroup
+                          row
+                          aria-labelledby="demo-row-radio-buttons-group-label"
+                          name="row-radio-buttons-group"
+                        >
+                          <FormControlLabel
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value="6"
+                            control={<Radio />}
+                            label={REGI02_Box3v01EN[2].label}
+                            style={{ marginRight: 50 }}
+                          />
+                          <FormControlLabel
+                            checked
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value="Freelance Translators"
+                            control={<Radio />}
+                            label={REGI02_Box3v01EN[3].label}
+                          />
+                        </RadioGroup>
+                      </FormControl>
+                    </div>
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 700,
+                          fontSize: 18,
+                          color: " #242424",
+                        }}
+                      >
+                        {REGI02_Box3v01EN[4].label}
+                      </p>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 14,
+                          color: " #242424",
+                        }}
+                      >
+                        {REGI02_Box3v01EN[5].label}
+                      </p>
+                      <div style={{ textAlign: "center" }}>
+                        {file2 === "" ? (
+                          <div
+                            style={{
+                              background: "#FFFFFF",
+                              borderRadius: 20,
+                              width: "100%",
+                              height: 200,
+                              padding: 50,
+                              position: "relative",
+                              borderStyle: " dotted ",
+                              borderColor: "#0865A8",
+                              borderWidth: 2,
+                              margin: 20,
+                              marginLeft: 0,
+                            }}
+                          >
+                            <label htmlFor="icon-button-file">
+                              <Input
+                                accept="image/*"
+                                id="icon-button-file"
+                                type="file"
+                                style={{ display: "none" }}
+                                onChange={(e) => setFile2(e.target.value)}
+                              />
+                              <IconButton
+                                color="primary"
+                                aria-label="upload picture"
+                                component="span"
+                              >
+                                <FiImage
+                                  style={{
+                                    fontSize: 50,
+                                    position: "absolute",
+                                    marginTop: 30,
+                                  }}
+                                />
+                                <p
+                                  style={{
+                                    fontSize: 10,
+                                    position: "absolute",
+                                    top: 60,
+                                    width: 100,
+                                  }}
+                                >
+                                  {REGI02_Box3v01EN[6].label}
+                                </p>
+                              </IconButton>
+                            </label>
+                          </div>
+                        ) : (
+                          <div
+                            style={{
+                              background: "#FFFFFF",
+                              borderRadius: 20,
+                              width: "100%",
+                              height: 200,
+                              padding: 50,
+                              position: "relative",
+                              borderStyle: " dotted ",
+                              borderColor: "#0865A8",
+                              borderWidth: 2,
+                              margin: 20,
+                              marginLeft: 0,
+                            }}
+                          >
+                            <label htmlFor="icon-button-file">
+                              <Input
+                                accept="image/*"
+                                id="icon-button-file"
+                                type="file"
+                                style={{ display: "none" }}
+                                onChange={(e) => setFile2(e.target.value)}
+                              />
+                              <IconButton
+                                color="primary"
+                                aria-label="upload picture"
+                                component="span"
+                              >
+                                <FiImage
+                                  style={{
+                                    fontSize: 50,
+                                    position: "absolute",
+                                    marginTop: 30,
+                                  }}
+                                />
+                                <p
+                                  style={{
+                                    fontSize: 10,
+                                    position: "absolute",
+                                    top: 60,
+                                    width: 100,
+                                  }}
+                                >
+                                  {file2}
+                                </p>
+                              </IconButton>
+                            </label>
+                          </div>
+                        )}
+                      </div>
+                      <button
+                        style={{ background: "transparent", border: "none" }}
+                        onClick={() => example(12)}
+                      >
+                        <p
+                          style={{
+                            color: "#666666",
+                            textDecorationLine: "underline",
+                            fontSize: 14,
+                          }}
+                        >
+                           An example of uploading a picture of your Portfolio/CV.
+                        </p>
+                      </button>
+                      <Modal
+                        // hideBackdrop
+                        keepMounted
+                        open={openModal12}
+                        onClose={handleClose12}
+                        aria-labelledby="child-modal-title"
+                        aria-describedby="child-modal-description"
+                      >
+                        <Box
+                          sx={{
+                            position: "absolute",
+                            top: "50%",
+                            left: "50%",
+                            transform: "translate(-50%, -50%)",
+                            width: "50%",
+                            bgcolor: "transparent",
+                            boxShadow: 24,
+                            pt: 2,
+                            px: 4,
+                            pb: 3,
+                          }}
+                        >
+                          <img src={example11} width="100%"  alt="example11"/>
+                        </Box>
+                      </Modal>
+
+                    </div>
+                    <hr style={{ width: "97%", height: 2 }} />
+                    <button
+                      style={{
+                        width: "100%",
+                        borderRadius: 20,
+                        background: " #001E33",
+                        height: 40,
+                        color: "#FFFFFF",
+                        fontSize: 18,
+                        borderColor: "transparent",
+                      }}
+                      onClick={() => setScreen("13")}
+                    >
+                      {REGI02_Box3v01EN[7].label}
+                    </button>
+                  </div>
+                </div>
+              )}
+            </>
+          ) : screen === "12" ? (
+            <>
+              {Doc === "English" ? (
+                <div>
+                  <div
+                    style={{
+                      position: "fixed",
+                      top: 20,
+                      left: width * 0.59,
+                      textAlign: "-webkit-center",
+                      width: 500,
+                      background: " #FFFFFF",
+                      boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
+                      borderRadius: 20,
+                      padding: 30,
+                    }}
+                  >
+                    <button
+                      style={{
+                        fontWeight: 400,
+                        fontSize: 18,
+                        textDecorationLine: "none",
+                        color: "#D9D9D9",
+                        textAlign: "left",
+                        marginBottom: 20,
+                        float: "left",
+                        background: "transparent",
+                        border: "transparent",
+                      }}
+                      onClick={() => setScreen("10")}
+                    >
+                      <BsArrowLeftShort />
+                      <p
+                        style={{
+                          color: "#D9D9D9",
+                          fontSize: 18,
+                          textDecorationLine: "none",
+                          float: "right",
+                        }}
+                      >
+                        {REGI02_Box3v02EN[0].label}
+                      </p>
+                    </button>
+
+                    <h2 className="textSignup" style={{ marginTop: 30 }}>
+                      {REGI02_Box3v02EN[1].label}
+                    </h2>
+                    <div>
+                      <FormControl style={{ display: "inherit" }}>
+                        <RadioGroup
+                          row
+                          aria-labelledby="demo-row-radio-buttons-group-label"
+                          name="row-radio-buttons-group"
+                        >
+                          <FormControlLabel
+                            checked
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value=""
+                            control={<Radio />}
+                            label={REGI02_Box3v02EN[2].label}
+                            style={{ marginRight: 50 }}
+                          />
+                          <FormControlLabel
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value="Freelance Translators"
+                            control={<Radio />}
+                            label={REGI02_Box3v02EN[3].label}
+                          />
+                        </RadioGroup>
+                      </FormControl>
+                    </div>
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 20,
+                          color: " #242424",
+                        }}
+                      >
+                        {REGI02_Box3v02EN[4].label}
+                      </p>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 14,
+                          color: " #242424",
+                        }}
+                      >
+                        {REGI02_Box3v02EN[5].label}
+                      </p>
+                      <div style={{ textAlign: "center" }}>
+                        {file2 === "" ? (
+                          <div
+                            style={{
+                              background: "#FFFFFF",
+                              borderRadius: 20,
+                              width: "100%",
+                              height: 200,
+                              padding: 50,
+                              position: "relative",
+                              borderStyle: " dotted ",
+                              borderColor: "#0865A8",
+                              borderWidth: 2,
+                              margin: 20,
+                              marginLeft: 0,
+                            }}
+                          >
+                            <label htmlFor="icon-button-file">
+                              <Input
+                                accept="image/*"
+                                id="icon-button-file"
+                                type="file"
+                                style={{ display: "none" }}
+                                onChange={(e) => setFile2(e.target.value)}
+                              />
+                              <IconButton
+                                color="primary"
+                                aria-label="upload picture"
+                                component="span"
+                              >
+                                <FiImage
+                                  style={{
+                                    fontSize: 50,
+                                    position: "absolute",
+                                    marginTop: 30,
+                                  }}
+                                />
+                                <p
+                                  style={{
+                                    fontSize: 10,
+                                    position: "absolute",
+                                    top: 60,
+                                    width: 100,
+                                  }}
+                                >
+                                  {REGI02_Box3v02EN[6].label}
+                                </p>
+                              </IconButton>
+                            </label>
+                          </div>
+                        ) : (
+                          <div
+                            style={{
+                              background: "#FFFFFF",
+                              borderRadius: 20,
+                              width: "100%",
+                              height: 200,
+                              padding: 50,
+                              position: "relative",
+                              borderStyle: " dotted ",
+                              borderColor: "#0865A8",
+                              borderWidth: 2,
+                              margin: 20,
+                              marginLeft: 0,
+                            }}
+                          >
+                            <label htmlFor="icon-button-file">
+                              <Input
+                                accept="image/*"
+                                id="icon-button-file"
+                                type="file"
+                                style={{ display: "none" }}
+                                onChange={(e) => setFile2(e.target.value)}
+                              />
+                              <IconButton
+                                color="primary"
+                                aria-label="upload picture"
+                                component="span"
+                              >
+                                <FiImage
+                                  style={{
+                                    fontSize: 50,
+                                    position: "absolute",
+                                    marginTop: 30,
+                                  }}
+                                />
+                                <p
+                                  style={{
+                                    fontSize: 10,
+                                    position: "absolute",
+                                    top: 60,
+                                    width: 100,
+                                  }}
+                                >
+                                  {file2}
+                                </p>
+                              </IconButton>
+                            </label>
+                          </div>
+                        )}
+                      </div>
+                      <button
+                        style={{ background: "transparent", border: "none" }}
+                        onClick={() => example(12)}
+                      >
+                        <p
+                          style={{
+                            color: "#666666",
+                            textDecorationLine: "underline",
+                            fontSize: 14,
+                          }}
+                        >
+                          {REGI02_Box3v02EN[7].label}
+                        </p>
+                      </button>
+                      <Modal
+                        // hideBackdrop
+                        keepMounted
+                        open={openModal12}
+                        onClose={handleClose12}
+                        aria-labelledby="child-modal-title"
+                        aria-describedby="child-modal-description"
+                      >
+                        <Box
+                          sx={{
+                            position: "absolute",
+                            top: "50%",
+                            left: "50%",
+                            transform: "translate(-50%, -50%)",
+                            width: "50%",
+                            bgcolor: "transparent",
+                            boxShadow: 24,
+                            pt: 2,
+                            px: 4,
+                            pb: 3,
+                          }}
+                        >
+                          <img src={example12} width="100%" alt="example12" />
+                        </Box>
+                      </Modal>
+                    </div>
+                    <hr style={{ width: "97%", height: 2 }} />
+                    <button
+                      style={{
+                        width: "100%",
+                        borderRadius: 20,
+                        background: " #001E33",
+                        height: 40,
+                        color: "#FFFFFF",
+                        fontSize: 18,
+                        borderColor: "transparent",
+                      }}
+                      onClick={() => setScreen("14")}
+                    >
+                      {REGI02_Box3v02EN[8].label}
+                    </button>
+                  </div>
+                </div>
+              ) : Doc === "Thai" ? (
+                <div>
+                  <div
+                    style={{
+                      position: "fixed",
+                      top: 20,
+                      left: width * 0.59,
+                      textAlign: "-webkit-center",
+                      width: 500,
+                      background: " #FFFFFF",
+                      boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
+                      borderRadius: 20,
+                      padding: 30,
+                    }}
+                  >
+                    <button
+                      style={{
+                        fontWeight: 400,
+                        fontSize: 18,
+                        textDecorationLine: "none",
+                        color: "#D9D9D9",
+                        textAlign: "left",
+                        marginBottom: 20,
+                        float: "left",
+                        background: "transparent",
+                        border: "transparent",
+                      }}
+                      onClick={() => setScreen("10")}
+                    >
+                      <BsArrowLeftShort />
+                      <p
+                        style={{
+                          color: "#D9D9D9",
+                          fontSize: 18,
+                          textDecorationLine: "none",
+                          float: "right",
+                        }}
+                      >
+                        {REGI02_Box3v02TH[0].label}
+                      </p>
+                    </button>
+
+                    <h2 className="textSignup" style={{ marginTop: 30 }}>
+                      {REGI02_Box3v02TH[1].label}
+                    </h2>
+                    <div>
+                      <FormControl style={{ display: "inherit" }}>
+                        <RadioGroup
+                          row
+                          aria-labelledby="demo-row-radio-buttons-group-label"
+                          name="row-radio-buttons-group"
+                        >
+                          <FormControlLabel
+                            checked
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value=""
+                            control={<Radio />}
+                            label={REGI02_Box3v02TH[2].label}
+                            style={{ marginRight: 50 }}
+                          />
+                          <FormControlLabel
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value="Freelance Translators"
+                            control={<Radio />}
+                            label={REGI02_Box3v02TH[3].label}
+                          />
+                        </RadioGroup>
+                      </FormControl>
+                    </div>
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 20,
+                          color: " #242424",
+                        }}
+                      >
+                        {REGI02_Box3v02TH[4].label}
+                      </p>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 14,
+                          color: " #242424",
+                        }}
+                      >
+                        {REGI02_Box3v02TH[5].label}
+                      </p>
+                      <div style={{ textAlign: "center" }}>
+                        {file2 === "" ? (
+                          <div
+                            style={{
+                              background: "#FFFFFF",
+                              borderRadius: 20,
+                              width: "100%",
+                              height: 200,
+                              padding: 50,
+                              position: "relative",
+                              borderStyle: " dotted ",
+                              borderColor: "#0865A8",
+                              borderWidth: 2,
+                              margin: 20,
+                              marginLeft: 0,
+                            }}
+                          >
+                            <label htmlFor="icon-button-file">
+                              <Input
+                                accept="image/*"
+                                id="icon-button-file"
+                                type="file"
+                                style={{ display: "none" }}
+                                onChange={(e) => setFile2(e.target.value)}
+                              />
+                              <IconButton
+                                color="primary"
+                                aria-label="upload picture"
+                                component="span"
+                              >
+                                <FiImage
+                                  style={{
+                                    fontSize: 50,
+                                    position: "absolute",
+                                    marginTop: 30,
+                                  }}
+                                />
+                                <p
+                                  style={{
+                                    fontSize: 10,
+                                    position: "absolute",
+                                    top: 60,
+                                    width: 100,
+                                  }}
+                                >
+                                  {REGI02_Box3v02TH[6].label}
+                                </p>
+                              </IconButton>
+                            </label>
+                          </div>
+                        ) : (
+                          <div
+                            style={{
+                              background: "#FFFFFF",
+                              borderRadius: 20,
+                              width: "100%",
+                              height: 200,
+                              padding: 50,
+                              position: "relative",
+                              borderStyle: " dotted ",
+                              borderColor: "#0865A8",
+                              borderWidth: 2,
+                              margin: 20,
+                              marginLeft: 0,
+                            }}
+                          >
+                            <label htmlFor="icon-button-file">
+                              <Input
+                                accept="image/*"
+                                id="icon-button-file"
+                                type="file"
+                                style={{ display: "none" }}
+                                onChange={(e) => setFile2(e.target.value)}
+                              />
+                              <IconButton
+                                color="primary"
+                                aria-label="upload picture"
+                                component="span"
+                              >
+                                <FiImage
+                                  style={{
+                                    fontSize: 50,
+                                    position: "absolute",
+                                    marginTop: 30,
+                                  }}
+                                />
+                                <p
+                                  style={{
+                                    fontSize: 10,
+                                    position: "absolute",
+                                    top: 60,
+                                    width: 100,
+                                  }}
+                                >
+                                  {file2}
+                                </p>
+                              </IconButton>
+                            </label>
+                          </div>
+                        )}
+                      </div>
+                      <button
+                        style={{ background: "transparent", border: "none" }}
+                        onClick={() => example(12)}
+                      >
+                        <p
+                          style={{
+                            color: "#666666",
+                            textDecorationLine: "underline",
+                            fontSize: 14,
+                          }}
+                        >
+                          {REGI02_Box3v02TH[7].label}
+                        </p>
+                      </button>
+                      <Modal
+                        // hideBackdrop
+                        keepMounted
+                        open={openModal12}
+                        onClose={handleClose12}
+                        aria-labelledby="child-modal-title"
+                        aria-describedby="child-modal-description"
+                      >
+                        <Box
+                          sx={{
+                            position: "absolute",
+                            top: "50%",
+                            left: "50%",
+                            transform: "translate(-50%, -50%)",
+                            width: "50%",
+                            bgcolor: "transparent",
+                            boxShadow: 24,
+                            pt: 2,
+                            px: 4,
+                            pb: 3,
+                          }}
+                        >
+                          <img src={example12} width="100%"  alt="example12"/>
+                        </Box>
+                      </Modal>
+                    </div>
+                    <hr style={{ width: "97%", height: 2 }} />
+                    <button
+                      style={{
+                        width: "100%",
+                        borderRadius: 20,
+                        background: " #001E33",
+                        height: 40,
+                        color: "#FFFFFF",
+                        fontSize: 18,
+                        borderColor: "transparent",
+                      }}
+                      onClick={() => setScreen("14")}
+                    >
+                      {REGI02_Box3v02TH[8].label}
+                    </button>
+                  </div>
+                </div>
+              ) : Doc === "German" ? (
+                <div>
+                  <div
+                    style={{
+                      position: "fixed",
+                      top: 20,
+                      left: width * 0.59,
+                      textAlign: "-webkit-center",
+                      width: 500,
+                      background: " #FFFFFF",
+                      boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
+                      borderRadius: 20,
+                      padding: 30,
+                    }}
+                  >
+                    <button
+                      style={{
+                        fontWeight: 400,
+                        fontSize: 18,
+                        textDecorationLine: "none",
+                        color: "#D9D9D9",
+                        textAlign: "left",
+                        marginBottom: 20,
+                        float: "left",
+                        background: "transparent",
+                        border: "transparent",
+                      }}
+                      onClick={() => setScreen("10")}
+                    >
+                      <BsArrowLeftShort />
+                      <p
+                        style={{
+                          color: "#D9D9D9",
+                          fontSize: 18,
+                          textDecorationLine: "none",
+                          float: "right",
+                        }}
+                      >
+                        {REGI02_Box3v02DE[0].label}
+                      </p>
+                    </button>
+
+                    <h2 className="textSignup" style={{ marginTop: 30 }}>
+                      {REGI02_Box3v02DE[1].label}
+                    </h2>
+                    <div>
+                      <FormControl style={{ display: "inherit" }}>
+                        <RadioGroup
+                          row
+                          aria-labelledby="demo-row-radio-buttons-group-label"
+                          name="row-radio-buttons-group"
+                        >
+                          <FormControlLabel
+                            checked
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value=""
+                            control={<Radio />}
+                            label={REGI02_Box3v02DE[2].label}
+                            style={{ marginRight: 50 }}
+                          />
+                          <FormControlLabel
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value="Freelance Translators"
+                            control={<Radio />}
+                            label={REGI02_Box3v02DE[3].label}
+                          />
+                        </RadioGroup>
+                      </FormControl>
+                    </div>
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 19,
+                          color: " #242424",
+                        }}
+                      >
+                        {REGI02_Box3v02DE[4].label}
+                      </p>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 14,
+                          color: " #242424",
+                        }}
+                      >
+                        {REGI02_Box3v02DE[5].label}
+                      </p>
+                      <div style={{ textAlign: "center" }}>
+                        {file2 === "" ? (
+                          <div
+                            style={{
+                              background: "#FFFFFF",
+                              borderRadius: 20,
+                              width: "100%",
+                              height: 200,
+                              padding: 50,
+                              position: "relative",
+                              borderStyle: " dotted ",
+                              borderColor: "#0865A8",
+                              borderWidth: 2,
+                              margin: 20,
+                              marginLeft: 0,
+                            }}
+                          >
+                            <label htmlFor="icon-button-file">
+                              <Input
+                                accept="image/*"
+                                id="icon-button-file"
+                                type="file"
+                                style={{ display: "none" }}
+                                onChange={(e) => setFile2(e.target.value)}
+                              />
+                              <IconButton
+                                color="primary"
+                                aria-label="upload picture"
+                                component="span"
+                              >
+                                <FiImage
+                                  style={{
+                                    fontSize: 50,
+                                    position: "absolute",
+                                    marginTop: 30,
+                                  }}
+                                />
+                                <p
+                                  style={{
+                                    fontSize: 10,
+                                    position: "absolute",
+                                    top: 60,
+                                    width: 100,
+                                  }}
+                                >
+                                  {REGI02_Box3v02DE[6].label}
+                                </p>
+                              </IconButton>
+                            </label>
+                          </div>
+                        ) : (
+                          <div
+                            style={{
+                              background: "#FFFFFF",
+                              borderRadius: 20,
+                              width: "100%",
+                              height: 200,
+                              padding: 50,
+                              position: "relative",
+                              borderStyle: " dotted ",
+                              borderColor: "#0865A8",
+                              borderWidth: 2,
+                              margin: 20,
+                              marginLeft: 0,
+                            }}
+                          >
+                            <label htmlFor="icon-button-file">
+                              <Input
+                                accept="image/*"
+                                id="icon-button-file"
+                                type="file"
+                                style={{ display: "none" }}
+                                onChange={(e) => setFile2(e.target.value)}
+                              />
+                              <IconButton
+                                color="primary"
+                                aria-label="upload picture"
+                                component="span"
+                              >
+                                <FiImage
+                                  style={{
+                                    fontSize: 50,
+                                    position: "absolute",
+                                    marginTop: 30,
+                                  }}
+                                />
+                                <p
+                                  style={{
+                                    fontSize: 10,
+                                    position: "absolute",
+                                    top: 60,
+                                    width: 100,
+                                  }}
+                                >
+                                  {file2}
+                                </p>
+                              </IconButton>
+                            </label>
+                          </div>
+                        )}
+                      </div>
+                      <button
+                        style={{ background: "transparent", border: "none" }}
+                        onClick={() => example(12)}
+                      >
+                        <p
+                          style={{
+                            color: "#666666",
+                            textDecorationLine: "underline",
+                            fontSize: 14,
+                          }}
+                        >
+                          {REGI02_Box3v02DE[7].label}
+                        </p>
+                      </button>
+                      <Modal
+                        // hideBackdrop
+                        keepMounted
+                        open={openModal12}
+                        onClose={handleClose12}
+                        aria-labelledby="child-modal-title"
+                        aria-describedby="child-modal-description"
+                      >
+                        <Box
+                          sx={{
+                            position: "absolute",
+                            top: "50%",
+                            left: "50%",
+                            transform: "translate(-50%, -50%)",
+                            width: "50%",
+                            bgcolor: "transparent",
+                            boxShadow: 24,
+                            pt: 2,
+                            px: 4,
+                            pb: 3,
+                          }}
+                        >
+                          <img src={example12} width="100%"  alt="example12"/>
+                        </Box>
+                      </Modal>
+                    </div>
+                    <hr style={{ width: "97%", height: 2 }} />
+                    <button
+                      style={{
+                        width: "100%",
+                        borderRadius: 20,
+                        background: " #001E33",
+                        height: 40,
+                        color: "#FFFFFF",
+                        fontSize: 18,
+                        borderColor: "transparent",
+                      }}
+                      onClick={() => setScreen("14")}
+                    >
+                      {REGI02_Box3v02DE[8].label}
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <div>
+                  <div
+                    style={{
+                      position: "fixed",
+                      top: 20,
+                      left: width * 0.59,
+                      textAlign: "-webkit-center",
+                      width: 500,
+                      background: " #FFFFFF",
+                      boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
+                      borderRadius: 20,
+                      padding: 30,
+                    }}
+                  >
+                    <button
+                      style={{
+                        fontWeight: 400,
+                        fontSize: 18,
+                        textDecorationLine: "none",
+                        color: "#D9D9D9",
+                        textAlign: "left",
+                        marginBottom: 20,
+                        float: "left",
+                        background: "transparent",
+                        border: "transparent",
+                      }}
+                      onClick={() => setScreen("10")}
+                    >
+                      <BsArrowLeftShort />
+                      <p
+                        style={{
+                          color: "#D9D9D9",
+                          fontSize: 18,
+                          textDecorationLine: "none",
+                          float: "right",
+                        }}
+                      >
+                        {REGI02_Box3v02EN[0].label}
+                      </p>
+                    </button>
+
+                    <h2 className="textSignup" style={{ marginTop: 30 }}>
+                      {REGI02_Box3v02EN[1].label}
+                    </h2>
+                    <div>
+                      <FormControl style={{ display: "inherit" }}>
+                        <RadioGroup
+                          row
+                          aria-labelledby="demo-row-radio-buttons-group-label"
+                          name="row-radio-buttons-group"
+                        >
+                          <FormControlLabel
+                            checked
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value=""
+                            control={<Radio />}
+                            label={REGI02_Box3v02EN[2].label}
+                            style={{ marginRight: 50 }}
+                          />
+                          <FormControlLabel
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value="Freelance Translators"
+                            control={<Radio />}
+                            label={REGI02_Box3v02EN[3].label}
+                          />
+                        </RadioGroup>
+                      </FormControl>
+                    </div>
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 20,
+                          color: " #242424",
+                        }}
+                      >
+                        {REGI02_Box3v02EN[4].label}
+                      </p>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 14,
+                          color: " #242424",
+                        }}
+                      >
+                        {REGI02_Box3v02EN[5].label}
+                      </p>
+                      <div style={{ textAlign: "center" }}>
+                        {file2 === "" ? (
+                          <div
+                            style={{
+                              background: "#FFFFFF",
+                              borderRadius: 20,
+                              width: "100%",
+                              height: 200,
+                              padding: 50,
+                              position: "relative",
+                              borderStyle: " dotted ",
+                              borderColor: "#0865A8",
+                              borderWidth: 2,
+                              margin: 20,
+                              marginLeft: 0,
+                            }}
+                          >
+                            <label htmlFor="icon-button-file">
+                              <Input
+                                accept="image/*"
+                                id="icon-button-file"
+                                type="file"
+                                style={{ display: "none" }}
+                                onChange={(e) => setFile2(e.target.value)}
+                              />
+                              <IconButton
+                                color="primary"
+                                aria-label="upload picture"
+                                component="span"
+                              >
+                                <FiImage
+                                  style={{
+                                    fontSize: 50,
+                                    position: "absolute",
+                                    marginTop: 30,
+                                  }}
+                                />
+                                <p
+                                  style={{
+                                    fontSize: 10,
+                                    position: "absolute",
+                                    top: 60,
+                                    width: 100,
+                                  }}
+                                >
+                                  {REGI02_Box3v02EN[6].label}
+                                </p>
+                              </IconButton>
+                            </label>
+                          </div>
+                        ) : (
+                          <div
+                            style={{
+                              background: "#FFFFFF",
+                              borderRadius: 20,
+                              width: "100%",
+                              height: 200,
+                              padding: 50,
+                              position: "relative",
+                              borderStyle: " dotted ",
+                              borderColor: "#0865A8",
+                              borderWidth: 2,
+                              margin: 20,
+                              marginLeft: 0,
+                            }}
+                          >
+                            <label htmlFor="icon-button-file">
+                              <Input
+                                accept="image/*"
+                                id="icon-button-file"
+                                type="file"
+                                style={{ display: "none" }}
+                                onChange={(e) => setFile2(e.target.value)}
+                              />
+                              <IconButton
+                                color="primary"
+                                aria-label="upload picture"
+                                component="span"
+                              >
+                                <FiImage
+                                  style={{
+                                    fontSize: 50,
+                                    position: "absolute",
+                                    marginTop: 30,
+                                  }}
+                                />
+                                <p
+                                  style={{
+                                    fontSize: 10,
+                                    position: "absolute",
+                                    top: 60,
+                                    width: 100,
+                                  }}
+                                >
+                                  {file2}
+                                </p>
+                              </IconButton>
+                            </label>
+                          </div>
+                        )}
+                      </div>
+                      <button
+                        style={{ background: "transparent", border: "none" }}
+                        onClick={() => example(12)}
+                      >
+                        <p
+                          style={{
+                            color: "#666666",
+                            textDecorationLine: "underline",
+                            fontSize: 14,
+                          }}
+                        >
+                          {REGI02_Box3v02EN[7].label}
+                        </p>
+                      </button>
+                      <Modal
+                        // hideBackdrop
+                        keepMounted
+                        open={openModal12}
+                        onClose={handleClose12}
+                        aria-labelledby="child-modal-title"
+                        aria-describedby="child-modal-description"
+                      >
+                        <Box
+                          sx={{
+                            position: "absolute",
+                            top: "50%",
+                            left: "50%",
+                            transform: "translate(-50%, -50%)",
+                            width: "50%",
+                            bgcolor: "transparent",
+                            boxShadow: 24,
+                            pt: 2,
+                            px: 4,
+                            pb: 3,
+                          }}
+                        >
+                          <img src={example12} width="100%" alt="example12" />
+                        </Box>
+                      </Modal>
+                    </div>
+                    <hr style={{ width: "97%", height: 2 }} />
+                    <button
+                      style={{
+                        width: "100%",
+                        borderRadius: 20,
+                        background: " #001E33",
+                        height: 40,
+                        color: "#FFFFFF",
+                        fontSize: 18,
+                        borderColor: "transparent",
+                      }}
+                      onClick={() => setScreen("14")}
+                    >
+                      {REGI02_Box3v02EN[8].label}
+                    </button>
+                  </div>
+                </div>
+              )}
+            </>
+          ) : screen === "13" ? (
+            <>
+              {Doc === "English" ? (
+                <div>
+                  <div
+                    style={{
+                      position: "fixed",
+                      top: 20,
+                      left: width * 0.59,
+                      textAlign: "-webkit-center",
+                      width: 500,
+                      background: " #FFFFFF",
+                      boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
+                      borderRadius: 20,
+                      padding: 30,
+                    }}
+                  >
+                    <button
+                      style={{
+                        fontWeight: 400,
+                        fontSize: 18,
+                        textDecorationLine: "none",
+                        color: "#D9D9D9",
+                        textAlign: "left",
+                        marginBottom: 20,
+                        float: "left",
+                        background: "transparent",
+                        border: "transparent",
+                      }}
+                      onClick={() => setScreen("11")}
+                    >
+                      <BsArrowLeftShort />
+                      <p
+                        style={{
+                          color: "#D9D9D9",
+                          fontSize: 18,
+                          textDecorationLine: "none",
+                          float: "right",
+                        }}
+                      >
+                        {REGI02_Box4v01EN[0].label}
+                      </p>
+                    </button>
+
+                    <h2 className="textSignup" style={{ marginTop: 30 }}>
+                      {REGI02_Box4v01EN[1].label}
+                    </h2>
+                    <div>
+                      <FormControl style={{ display: "inherit" }}>
+                        <RadioGroup
+                          row
+                          aria-labelledby="demo-row-radio-buttons-group-label"
+                          name="row-radio-buttons-group"
+                        >
+                          <FormControlLabel
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value=""
+                            control={<Radio />}
+                            label={REGI02_Box4v01EN[2].label}
+                            style={{ marginRight: 50 }}
+                          />
+                          <FormControlLabel
+                            checked
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value="Freelance Translators"
+                            control={<Radio />}
+                            label={REGI02_Box4v01EN[3].label}
+                          />
+                        </RadioGroup>
+                      </FormControl>
+                    </div>
+
+                    <div style={{ textAlign: "left", marginTop: 10 }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI02_Box4v01EN[4].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={bankname}
+                        onChange={(e) => setBankname(e.target.value)}
+                        placeholder={REGI02_Box4v01EN[4].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI02_Box4v01EN[5].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={branchname}
+                        onChange={(e) => setBranchname(e.target.value)}
+                        placeholder={REGI02_Box4v01EN[5].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI02_Box4v01EN[6].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={accountname}
+                        onChange={(e) => setAccountname(e.target.value)}
+                        placeholder={REGI02_Box4v01EN[6].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          borderColor: "#F1F1F1",
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left", marginBottom: 10 }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI02_Box4v01EN[7].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={accountnumber}
+                        onChange={(e) => setAccountnumber(e.target.value)}
+                        placeholder={REGI02_Box4v01EN[7].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          borderColor: "#F1F1F1",
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <button
+                      style={{
+                        width: "100%",
+                        borderRadius: 20,
+                        background: " #001E33",
+                        height: 40,
+                        color: "#FFFFFF",
+                        fontSize: 18,
+                        borderColor: "transparent",
+                      }}
+                      onClick={() => setScreen("15")}
+                    >
+                      {REGI02_Box4v01EN[8].label}
+                    </button>
+                  </div>
+                </div>
+              ) : Doc === "Thai" ? (
+                <div>
+                  <div
+                    style={{
+                      position: "fixed",
+                      top: 20,
+                      left: width * 0.59,
+                      textAlign: "-webkit-center",
+                      width: 500,
+                      background: " #FFFFFF",
+                      boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
+                      borderRadius: 20,
+                      padding: 30,
+                    }}
+                  >
+                    <button
+                      style={{
+                        fontWeight: 400,
+                        fontSize: 18,
+                        textDecorationLine: "none",
+                        color: "#D9D9D9",
+                        textAlign: "left",
+                        marginBottom: 20,
+                        float: "left",
+                        background: "transparent",
+                        border: "transparent",
+                      }}
+                      onClick={() => setScreen("11")}
+                    >
+                      <BsArrowLeftShort />
+                      <p
+                        style={{
+                          color: "#D9D9D9",
+                          fontSize: 18,
+                          textDecorationLine: "none",
+                          float: "right",
+                        }}
+                      >
+                        {REGI02_Box4v01TH[0].label}
+                      </p>
+                    </button>
+
+                    <h2 className="textSignup" style={{ marginTop: 30 }}>
+                      {REGI02_Box4v01TH[1].label}
+                    </h2>
+                    <div>
+                      <FormControl style={{ display: "inherit" }}>
+                        <RadioGroup
+                          row
+                          aria-labelledby="demo-row-radio-buttons-group-label"
+                          name="row-radio-buttons-group"
+                        >
+                          <FormControlLabel
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value=""
+                            control={<Radio />}
+                            label={REGI02_Box4v01TH[2].label}
+                            style={{ marginRight: 50 }}
+                          />
+                          <FormControlLabel
+                            checked
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value="Freelance Translators"
+                            control={<Radio />}
+                            label={REGI02_Box4v01TH[3].label}
+                          />
+                        </RadioGroup>
+                      </FormControl>
+                    </div>
+
+                    <div style={{ textAlign: "left", marginTop: 10 }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI02_Box4v01TH[4].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={bankname}
+                        onChange={(e) => setBankname(e.target.value)}
+                        placeholder={REGI02_Box4v01TH[4].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI02_Box4v01TH[5].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={branchname}
+                        onChange={(e) => setBranchname(e.target.value)}
+                        placeholder={REGI02_Box4v01TH[5].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI02_Box4v01TH[6].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={accountname}
+                        onChange={(e) => setAccountname(e.target.value)}
+                        placeholder={REGI02_Box4v01TH[6].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          borderColor: "#F1F1F1",
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left", marginBottom: 10 }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI02_Box4v01TH[7].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={accountnumber}
+                        onChange={(e) => setAccountnumber(e.target.value)}
+                        placeholder={REGI02_Box4v01TH[7].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          borderColor: "#F1F1F1",
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <button
+                      style={{
+                        width: "100%",
+                        borderRadius: 20,
+                        background: " #001E33",
+                        height: 40,
+                        color: "#FFFFFF",
+                        fontSize: 18,
+                        borderColor: "transparent",
+                      }}
+                      onClick={() => setScreen("15")}
+                    >
+                      {REGI02_Box4v01TH[8].label}
+                    </button>
+                  </div>
+                </div>
+              ) : Doc === "German" ? (
+                <div>
+                  <div
+                    style={{
+                      position: "fixed",
+                      top: 20,
+                      left: width * 0.59,
+                      textAlign: "-webkit-center",
+                      width: 500,
+                      background: " #FFFFFF",
+                      boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
+                      borderRadius: 20,
+                      padding: 30,
+                    }}
+                  >
+                    <button
+                      style={{
+                        fontWeight: 400,
+                        fontSize: 18,
+                        textDecorationLine: "none",
+                        color: "#D9D9D9",
+                        textAlign: "left",
+                        marginBottom: 20,
+                        float: "left",
+                        background: "transparent",
+                        border: "transparent",
+                      }}
+                      onClick={() => setScreen("11")}
+                    >
+                      <BsArrowLeftShort />
+                      <p
+                        style={{
+                          color: "#D9D9D9",
+                          fontSize: 18,
+                          textDecorationLine: "none",
+                          float: "right",
+                        }}
+                      >
+                        {REGI02_Box4v01DE[0].label}
+                      </p>
+                    </button>
+
+                    <h2 className="textSignup" style={{ marginTop: 30 }}>
+                      {REGI02_Box4v01DE[1].label}
+                    </h2>
+                    <div>
+                      <FormControl style={{ display: "inherit" }}>
+                        <RadioGroup
+                          row
+                          aria-labelledby="demo-row-radio-buttons-group-label"
+                          name="row-radio-buttons-group"
+                        >
+                          <FormControlLabel
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value=""
+                            control={<Radio />}
+                            label={REGI02_Box4v01DE[2].label}
+                            style={{ marginRight: 50 }}
+                          />
+                          <FormControlLabel
+                            checked
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value="Freelance Translators"
+                            control={<Radio />}
+                            label={REGI02_Box4v01DE[3].label}
+                          />
+                        </RadioGroup>
+                      </FormControl>
+                    </div>
+
+                    <div style={{ textAlign: "left", marginTop: 10 }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI02_Box4v01DE[4].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={bankname}
+                        onChange={(e) => setBankname(e.target.value)}
+                        placeholder={REGI02_Box4v01DE[4].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI02_Box4v01DE[5].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={branchname}
+                        onChange={(e) => setBranchname(e.target.value)}
+                        placeholder={REGI02_Box4v01DE[5].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI02_Box4v01DE[6].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={accountname}
+                        onChange={(e) => setAccountname(e.target.value)}
+                        placeholder={REGI02_Box4v01DE[6].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          borderColor: "#F1F1F1",
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left", marginBottom: 10 }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI02_Box4v01DE[7].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={accountnumber}
+                        onChange={(e) => setAccountnumber(e.target.value)}
+                        placeholder={REGI02_Box4v01DE[7].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          borderColor: "#F1F1F1",
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <button
+                      style={{
+                        width: "100%",
+                        borderRadius: 20,
+                        background: " #001E33",
+                        height: 40,
+                        color: "#FFFFFF",
+                        fontSize: 18,
+                        borderColor: "transparent",
+                      }}
+                      onClick={() => setScreen("15")}
+                    >
+                      {REGI02_Box4v01DE[8].label}
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <div>
+                  <div
+                    style={{
+                      position: "fixed",
+                      top: 20,
+                      left: width * 0.59,
+                      textAlign: "-webkit-center",
+                      width: 500,
+                      background: " #FFFFFF",
+                      boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
+                      borderRadius: 20,
+                      padding: 30,
+                    }}
+                  >
+                    <button
+                      style={{
+                        fontWeight: 400,
+                        fontSize: 18,
+                        textDecorationLine: "none",
+                        color: "#D9D9D9",
+                        textAlign: "left",
+                        marginBottom: 20,
+                        float: "left",
+                        background: "transparent",
+                        border: "transparent",
+                      }}
+                      onClick={() => setScreen("11")}
+                    >
+                      <BsArrowLeftShort />
+                      <p
+                        style={{
+                          color: "#D9D9D9",
+                          fontSize: 18,
+                          textDecorationLine: "none",
+                          float: "right",
+                        }}
+                      >
+                        {REGI02_Box4v01EN[0].label}
+                      </p>
+                    </button>
+
+                    <h2 className="textSignup" style={{ marginTop: 30 }}>
+                      {REGI02_Box4v01EN[1].label}
+                    </h2>
+                    <div>
+                      <FormControl style={{ display: "inherit" }}>
+                        <RadioGroup
+                          row
+                          aria-labelledby="demo-row-radio-buttons-group-label"
+                          name="row-radio-buttons-group"
+                        >
+                          <FormControlLabel
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value=""
+                            control={<Radio />}
+                            label={REGI02_Box4v01EN[2].label}
+                            style={{ marginRight: 50 }}
+                          />
+                          <FormControlLabel
+                            checked
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value="Freelance Translators"
+                            control={<Radio />}
+                            label={REGI02_Box4v01EN[3].label}
+                          />
+                        </RadioGroup>
+                      </FormControl>
+                    </div>
+
+                    <div style={{ textAlign: "left", marginTop: 10 }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI02_Box4v01EN[4].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={bankname}
+                        onChange={(e) => setBankname(e.target.value)}
+                        placeholder={REGI02_Box4v01EN[4].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI02_Box4v01EN[5].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={branchname}
+                        onChange={(e) => setBranchname(e.target.value)}
+                        placeholder={REGI02_Box4v01EN[5].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI02_Box4v01EN[6].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={accountname}
+                        onChange={(e) => setAccountname(e.target.value)}
+                        placeholder={REGI02_Box4v01EN[6].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          borderColor: "#F1F1F1",
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left", marginBottom: 10 }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 15,
+                          color: "#242424",
+                        }}
+                      >
+                        {REGI02_Box4v01EN[7].label}
+                      </p>
+                      <input
+                        type="text"
+                        value={accountnumber}
+                        onChange={(e) => setAccountnumber(e.target.value)}
+                        placeholder={REGI02_Box4v01EN[7].label}
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1 ",
+                          borderRadius: 20,
+                          borderColor: "#F1F1F1",
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
+                    <button
+                      style={{
+                        width: "100%",
+                        borderRadius: 20,
+                        background: " #001E33",
+                        height: 40,
+                        color: "#FFFFFF",
+                        fontSize: 18,
+                        borderColor: "transparent",
+                      }}
+                      onClick={() => setScreen("15")}
+                    >
+                      {REGI02_Box4v01EN[8].label}
+                    </button>
+                  </div>
+                </div>
+              )}
+            </>
+          ) : screen === "14" ? (
+            <>
+              {Doc === "English" ? (
+                <div>
+                  <div
+                    style={{
+                      position: "fixed",
+                      top: 20,
+                      left: width * 0.59,
+                      textAlign: "-webkit-center",
+                      width: 500,
+                      background: " #FFFFFF",
+                      boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
+                      borderRadius: 20,
+                      padding: 30,
+                    }}
+                  >
+                    <button
+                      style={{
+                        fontWeight: 400,
+                        fontSize: 18,
+                        textDecorationLine: "none",
+                        color: "#D9D9D9",
+                        textAlign: "left",
+                        marginBottom: 20,
+                        float: "left",
+                        background: "transparent",
+                        border: "transparent",
+                      }}
+                      onClick={() => setScreen("12")}
+                    >
+                      <BsArrowLeftShort />
+                      <p
+                        style={{
+                          color: "#D9D9D9",
+                          fontSize: 18,
+                          textDecorationLine: "none",
+                          float: "right",
+                        }}
+                      >
+                        {REGI02_Box5v02EN[0].label}
+                      </p>
+                    </button>
+
+                    <h2 className="textSignup" style={{ marginTop: 30 }}>
+                      {REGI02_Box5v02EN[1].label}
+                    </h2>
+                    <div>
+                      <FormControl style={{ display: "inherit" }}>
+                        <RadioGroup
+                          row
+                          aria-labelledby="demo-row-radio-buttons-group-label"
+                          name="row-radio-buttons-group"
+                        >
+                          <FormControlLabel
+                            checked
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value=""
+                            control={<Radio />}
+                            label={REGI02_Box5v02EN[2].label}
+                            style={{ marginRight: 50 }}
+                          />
+                          <FormControlLabel
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value="Freelance Translators"
+                            control={<Radio />}
+                            label={REGI02_Box5v02EN[3].label}
+                          />
+                        </RadioGroup>
+                      </FormControl>
+                    </div>
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 700,
+                          fontSize: 17,
+                          color: " #242424",
+                        }}
+                      >
+                        {REGI02_Box5v02EN[4].label}
+                      </p>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 14,
+                          color: " #242424",
+                        }}
+                      >
+                        {REGI02_Box5v02EN[5].label}
+                      </p>
+                      <div style={{ textAlign: "center" }}>
+                        {file3 === "" ? (
+                          <div
+                            style={{
+                              background: "#FFFFFF",
+                              borderRadius: 20,
+                              width: "100%",
+                              height: 150,
+                              padding: 50,
+                              position: "relative",
+                              borderStyle: " dotted ",
+                              borderColor: "#0865A8",
+                              borderWidth: 2,
+                              margin: 20,
+                              marginLeft: 0,
+                            }}
+                          >
+                            <label htmlFor="icon-button-file">
+                              <Input
+                                accept="image/*"
+                                id="icon-button-file"
+                                type="file"
+                                style={{ display: "none" }}
+                                onChange={(e) => setFile3(e.target.value)}
+                              />
+                              <IconButton
+                                color="primary"
+                                aria-label="upload picture"
+                                component="span"
+                              >
+                                <FiImage
+                                  style={{
+                                    fontSize: 50,
+                                    position: "absolute",
+                                  }}
+                                />
+                                <p
+                                  style={{
+                                    fontSize: 10,
+                                    position: "absolute",
+                                    top: 35,
+                                    width: 100,
+                                  }}
+                                >
+                                  {REGI02_Box5v02EN[6].label}
+                                </p>
+                              </IconButton>
+                            </label>
+                          </div>
+                        ) : (
+                          <div
+                            style={{
+                              background: "#FFFFFF",
+                              borderRadius: 20,
+                              width: "100%",
+                              height: 150,
+                              padding: 50,
+                              position: "relative",
+                              borderStyle: " dotted ",
+                              borderColor: "#0865A8",
+                              borderWidth: 2,
+                              margin: 20,
+                              marginLeft: 0,
+                            }}
+                          >
+                            <label htmlFor="icon-button-file">
+                              <Input
+                                accept="image/*"
+                                id="icon-button-file"
+                                type="file"
+                                style={{ display: "none" }}
+                                onChange={(e) => setFile2(e.target.value)}
+                              />
+                              <IconButton
+                                color="primary"
+                                aria-label="upload picture"
+                                component="span"
+                              >
+                                <FiImage
+                                  style={{
+                                    fontSize: 50,
+                                    position: "absolute",
+                                  }}
+                                />
+                                <p
+                                  style={{
+                                    fontSize: 10,
+                                    position: "absolute",
+                                    top: 35,
+                                    width: 100,
+                                  }}
+                                >
+                                  {file3}
+                                </p>
+                              </IconButton>
+                            </label>
+                          </div>
+                        )}
+                      </div>
+                      <button
+                        style={{ background: "transparent", border: "none" }}
+                        onClick={() => example(12)}
+                      >
+                        <p
+                          style={{
+                            color: "#666666",
+                            textDecorationLine: "underline",
+                            fontSize: 14,
+                          }}
+                        >
+                          {REGI02_Box5v02EN[7].label}
+                        </p>
+                      </button>
+                      <Modal
+                        // hideBackdrop
+                        keepMounted
+                        open={openModal12}
+                        onClose={handleClose12}
+                        aria-labelledby="child-modal-title"
+                        aria-describedby="child-modal-description"
+                      >
+                        <Box
+                          sx={{
+                            position: "absolute",
+                            top: "50%",
+                            left: "50%",
+                            transform: "translate(-50%, -50%)",
+                            width: "50%",
+                            bgcolor: "transparent",
+                            boxShadow: 24,
+                            pt: 2,
+                            px: 4,
+                            pb: 3,
+                          }}
+                        >
+                          <img src={example14} width="100%"  alt="example14"/>
+                        </Box>
+                      </Modal>
+                    </div>
+                    <hr style={{ width: "97%", height: 2 }} />
+                    <div style={{}}>
+                      <div style={{ marginBottom: 10 }}>
+                        <p
+                          style={{
+                            fontWeight: "bold",
+                            fontSize: 14,
+                            color: "#333333",
+                          }}
+                        >
+                          {REGI02_Box5v02EN[8].label}
+                        </p>
+                      </div>
+
+                      <Autocomplete
+                        multiple
+                        id="country-select-demo"
+                        sx={{ width: "100%" }}
+                        options={data}
+                        autoHighlight
+                        getOptionLabel={(option) => option.label}
+                        onChange={(event, value) => setLanguages(value?.label)}
+                        popupIcon={
+                          <MdArrowDropDown
+                            style={{ color: "#333333", width: 30, height: 33 }}
                           />
                         }
-                        label="accept the terms and conditions"
+                        renderOption={(props, option) => (
+                          <Box
+                            component="li"
+                            sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
+                            {...props}
+                          >
+                            {option.label}
+                          </Box>
+                        )}
+                        renderInput={(params) => (
+                          <TextField
+                            {...params}
+                            label={REGI02_Box5v02EN[9].label}
+                            inputProps={{
+                              ...params.inputProps,
+                              autoComplete: "new-password",
+                            }}
+                          />
+                        )}
                       />
                     </div>
-                    <div>
-                      {checked2 === false ? (
-                        <button
-                          style={{
-                            width: "30%",
-                            borderRadius: 20,
-                            background: "#E0E0E0",
-                            height: 40,
-                            color: "#FFFFFF",
-                            fontSize: 18,
-                            borderColor: "transparent",
-                            position: "relative",
-                            left: "35%",
-                          }}
-                          disabled
-                          onClick={handleOpen}
-                        >
-                          Submit
-                        </button>
-                      ) : (
-                        <button
-                          style={{
-                            width: "30%",
-                            borderRadius: 20,
-                            background: "#001E33",
-                            height: 40,
-                            color: "#FFFFFF",
-                            fontSize: 18,
-                            borderColor: "transparent",
-                            position: "relative",
-                            left: "35%",
-                          }}
-                          onClick={handleClose4}
-                        >
-                          Submit
-                        </button>
-                      )}
-                    </div>
-                  </Box>
-                </Modal>
+                    <button
+                      style={{
+                        width: "100%",
+                        borderRadius: 20,
+                        background: " #001E33",
+                        height: 40,
+                        color: "#FFFFFF",
+                        fontSize: 18,
+                        borderColor: "transparent",
+                        marginTop: 30,
+                      }}
+                      onClick={() => setOpen3(true)}
+                    >
+                      {REGI02_Box5v02EN[1].label}
+                    </button>
+                  </div>
 
-                <Modal
-                  keepMounted
-                  open={open4}
-                  onClose={handleClose5}
-                  aria-labelledby="keep-mounted-modal-title"
-                  aria-describedby="keep-mounted-modal-description"
-                >
-                  <Box
-                    sx={{
-                      position: "absolute",
-                      top: "50%",
-                      left: "50%",
-                      transform: "translate(-50%, -70%)",
-                      width: 400,
-                      bgcolor: "background.paper",
-                      boxShadow: 24,
-                      p: 4,
-                      borderRadius: 5,
-                      border: "1px solid #E5E5E5",
-                      textAlign: "center",
+                  <Modal
+                    keepMounted
+                    open={open3}
+                    onClose={handleClose3}
+                    aria-labelledby="keep-mounted-modal-title"
+                    aria-describedby="keep-mounted-modal-description"
+                  >
+                    <Box
+                      sx={{
+                        position: "absolute",
+                        top: "50%",
+                        left: "50%",
+                        transform: "translate(-50%, -70%)",
+                        width: 600,
+                        bgcolor: "background.paper",
+                        boxShadow: 24,
+                        p: 4,
+                        borderRadius: 5,
+                        border: "1px solid #E5E5E5",
+                        textAlign: "center",
+                      }}
+                    >
+                      <img src={logo} alt="Logo" style={{ width: 100 }} />
+                      <Typography
+                        id="keep-mounted-modal-description"
+                        sx={{ mt: 2, fontWeight: 700 }}
+                      >
+                        {REGI02_box5EN[0].label}
+                      </Typography>
+                      <Typography
+                        id="keep-mounted-modal-description"
+                        sx={{
+                          mt: 2,
+                          textAlign: "left",
+                          overflowY: "auto",
+                          height: 125,
+                        }}
+                      >
+                        {REGI02_box5EN[1].label}
+                      </Typography>
+                      <div
+                        style={{
+                          textAlign: "left",
+                          borderTop: "1px solid #C4C4C4",
+                        }}
+                      >
+                        <FormControlLabel
+                          control={
+                            <Checkbox
+                              checked={checked2}
+                              onChange={handleChange2}
+                              inputProps={{ "aria-label": "controlled" }}
+                            />
+                          }
+                          label={REGI02_box5EN[2].label}
+                        />
+                      </div>
+                      <div>
+                        {checked2 === false ? (
+                          <button
+                            style={{
+                              width: "30%",
+                              borderRadius: 20,
+                              background: "#E0E0E0",
+                              height: 40,
+                              color: "#FFFFFF",
+                              fontSize: 18,
+                              borderColor: "transparent",
+                              position: "relative",
+                              left: "35%",
+                            }}
+                            disabled
+                            onClick={handleOpen}
+                          >
+                            {REGI02_box5EN[3].label}
+                          </button>
+                        ) : (
+                          <button
+                            style={{
+                              width: "30%",
+                              borderRadius: 20,
+                              background: "#001E33",
+                              height: 40,
+                              color: "#FFFFFF",
+                              fontSize: 18,
+                              borderColor: "transparent",
+                              position: "relative",
+                              left: "35%",
+                            }}
+                            onClick={handleClose4}
+                          >
+                            {REGI02_box5EN[3].label}
+                          </button>
+                        )}
+                      </div>
+                    </Box>
+                  </Modal>
+
+                  <Modal
+                    keepMounted
+                    open={open4}
+                    onClose={handleClose5}
+                    aria-labelledby="keep-mounted-modal-title"
+                    aria-describedby="keep-mounted-modal-description"
+                  >
+                    <Box
+                      sx={{
+                        position: "absolute",
+                        top: "50%",
+                        left: "50%",
+                        transform: "translate(-50%, -70%)",
+                        width: 400,
+                        bgcolor: "background.paper",
+                        boxShadow: 24,
+                        p: 4,
+                        borderRadius: 5,
+                        border: "1px solid #E5E5E5",
+                        textAlign: "center",
+                      }}
+                    >
+                      <AiFillCheckCircle
+                        style={{ width: 100, height: 80, color: "#46BC52" }}
+                      />
+                      <Typography
+                        id="keep-mounted-modal-description"
+                        sx={{ mt: 2, fontWeight: 700 }}
+                      >
+                        {REGI02_box5EN[4].label}
+                      </Typography>
+                    </Box>
+                  </Modal>
+                </div>
+              ) : Doc === "Thai" ? (
+                <div>
+                  <div
+                    style={{
+                      position: "fixed",
+                      top: 20,
+                      left: width * 0.59,
+                      textAlign: "-webkit-center",
+                      width: 500,
+                      background: " #FFFFFF",
+                      boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
+                      borderRadius: 20,
+                      padding: 30,
                     }}
                   >
-                    <AiFillCheckCircle
-                      style={{ width: 100, height: 80, color: "#46BC52" }}
-                    />
-                    <Typography
-                      id="keep-mounted-modal-description"
-                      sx={{ mt: 2, fontWeight: 700 }}
+                    <button
+                      style={{
+                        fontWeight: 400,
+                        fontSize: 18,
+                        textDecorationLine: "none",
+                        color: "#D9D9D9",
+                        textAlign: "left",
+                        marginBottom: 20,
+                        float: "left",
+                        background: "transparent",
+                        border: "transparent",
+                      }}
+                      onClick={() => setScreen("12")}
                     >
-                      Your translator application has been sent. Wait for
-                      confirmation by email
-                    </Typography>
-                  </Box>
-                </Modal>
-              </div>
-            </div>
-          ) : null}
+                      <BsArrowLeftShort />
+                      <p
+                        style={{
+                          color: "#D9D9D9",
+                          fontSize: 18,
+                          textDecorationLine: "none",
+                          float: "right",
+                        }}
+                      >
+                        {REGI02_Box5v02TH[0].label}
+                      </p>
+                    </button>
 
-          <div style={{ top: "95%", position: "absolute", marginLeft: "25%" }}>
-            <div style={{ float: "right" }}>
-              <p>Privacy policy</p>
-            </div>
-            <div style={{ float: "right", marginRight: 50 }}>
-              <p>Copyrights Give Network 2021.</p>
-            </div>
-          </div>
+                    <h2 className="textSignup" style={{ marginTop: 30 }}>
+                      {REGI02_Box5v02TH[1].label}
+                    </h2>
+                    <div>
+                      <FormControl style={{ display: "inherit" }}>
+                        <RadioGroup
+                          row
+                          aria-labelledby="demo-row-radio-buttons-group-label"
+                          name="row-radio-buttons-group"
+                        >
+                          <FormControlLabel
+                            checked
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value=""
+                            control={<Radio />}
+                            label={REGI02_Box5v02TH[2].label}
+                            style={{ marginRight: 50 }}
+                          />
+                          <FormControlLabel
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value="Freelance Translators"
+                            control={<Radio />}
+                            label={REGI02_Box5v02TH[3].label}
+                          />
+                        </RadioGroup>
+                      </FormControl>
+                    </div>
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 700,
+                          fontSize: 17,
+                          color: " #242424",
+                        }}
+                      >
+                        {REGI02_Box5v02TH[4].label}
+                      </p>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 14,
+                          color: " #242424",
+                        }}
+                      >
+                        {REGI02_Box5v02TH[5].label}
+                      </p>
+                      <div style={{ textAlign: "center" }}>
+                        {file3 === "" ? (
+                          <div
+                            style={{
+                              background: "#FFFFFF",
+                              borderRadius: 20,
+                              width: "100%",
+                              height: 150,
+                              padding: 50,
+                              position: "relative",
+                              borderStyle: " dotted ",
+                              borderColor: "#0865A8",
+                              borderWidth: 2,
+                              margin: 20,
+                              marginLeft: 0,
+                            }}
+                          >
+                            <label htmlFor="icon-button-file">
+                              <Input
+                                accept="image/*"
+                                id="icon-button-file"
+                                type="file"
+                                style={{ display: "none" }}
+                                onChange={(e) => setFile3(e.target.value)}
+                              />
+                              <IconButton
+                                color="primary"
+                                aria-label="upload picture"
+                                component="span"
+                              >
+                                <FiImage
+                                  style={{
+                                    fontSize: 50,
+                                    position: "absolute",
+                                  }}
+                                />
+                                <p
+                                  style={{
+                                    fontSize: 10,
+                                    position: "absolute",
+                                    top: 35,
+                                    width: 100,
+                                  }}
+                                >
+                                  {REGI02_Box5v02TH[6].label}
+                                </p>
+                              </IconButton>
+                            </label>
+                          </div>
+                        ) : (
+                          <div
+                            style={{
+                              background: "#FFFFFF",
+                              borderRadius: 20,
+                              width: "100%",
+                              height: 150,
+                              padding: 50,
+                              position: "relative",
+                              borderStyle: " dotted ",
+                              borderColor: "#0865A8",
+                              borderWidth: 2,
+                              margin: 20,
+                              marginLeft: 0,
+                            }}
+                          >
+                            <label htmlFor="icon-button-file">
+                              <Input
+                                accept="image/*"
+                                id="icon-button-file"
+                                type="file"
+                                style={{ display: "none" }}
+                                onChange={(e) => setFile2(e.target.value)}
+                              />
+                              <IconButton
+                                color="primary"
+                                aria-label="upload picture"
+                                component="span"
+                              >
+                                <FiImage
+                                  style={{
+                                    fontSize: 50,
+                                    position: "absolute",
+                                  }}
+                                />
+                                <p
+                                  style={{
+                                    fontSize: 10,
+                                    position: "absolute",
+                                    top: 35,
+                                    width: 100,
+                                  }}
+                                >
+                                  {file3}
+                                </p>
+                              </IconButton>
+                            </label>
+                          </div>
+                        )}
+                      </div>
+                      <button
+                        style={{ background: "transparent", border: "none" }}
+                        onClick={() => example(12)}
+                      >
+                        <p
+                          style={{
+                            color: "#666666",
+                            textDecorationLine: "underline",
+                            fontSize: 14,
+                          }}
+                        >
+                          {REGI02_Box5v02TH[7].label}
+                        </p>
+                      </button>
+                      <Modal
+                        // hideBackdrop
+                        keepMounted
+                        open={openModal12}
+                        onClose={handleClose12}
+                        aria-labelledby="child-modal-title"
+                        aria-describedby="child-modal-description"
+                      >
+                        <Box
+                          sx={{
+                            position: "absolute",
+                            top: "50%",
+                            left: "50%",
+                            transform: "translate(-50%, -50%)",
+                            width: "50%",
+                            bgcolor: "transparent",
+                            boxShadow: 24,
+                            pt: 2,
+                            px: 4,
+                            pb: 3,
+                          }}
+                        >
+                          <img src={example14} width="100%"  alt="example14"/>
+                        </Box>
+                      </Modal>
+                    </div>
+                    <hr style={{ width: "97%", height: 2 }} />
+                    <div style={{}}>
+                      <div style={{ marginBottom: 10 }}>
+                        <p
+                          style={{
+                            fontWeight: "bold",
+                            fontSize: 14,
+                            color: "#333333",
+                          }}
+                        >
+                          {REGI02_Box5v02TH[8].label}
+                        </p>
+                      </div>
+
+                      <Autocomplete
+                        multiple
+                        id="country-select-demo"
+                        sx={{ width: "100%" }}
+                        options={data}
+                        autoHighlight
+                        getOptionLabel={(option) => option.label}
+                        onChange={(event, value) => setLanguages(value?.label)}
+                        popupIcon={
+                          <MdArrowDropDown
+                            style={{ color: "#333333", width: 30, height: 33 }}
+                          />
+                        }
+                        renderOption={(props, option) => (
+                          <Box
+                            component="li"
+                            sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
+                            {...props}
+                          >
+                            {option.label}
+                          </Box>
+                        )}
+                        renderInput={(params) => (
+                          <TextField
+                            {...params}
+                            label={REGI02_Box5v02TH[9].label}
+                            inputProps={{
+                              ...params.inputProps,
+                              autoComplete: "new-password",
+                            }}
+                          />
+                        )}
+                      />
+                    </div>
+                    <button
+                      style={{
+                        width: "100%",
+                        borderRadius: 20,
+                        background: " #001E33",
+                        height: 40,
+                        color: "#FFFFFF",
+                        fontSize: 18,
+                        borderColor: "transparent",
+                        marginTop: 30,
+                      }}
+                      onClick={() => setOpen3(true)}
+                    >
+                      {REGI02_Box5v02TH[1].label}
+                    </button>
+                  </div>
+
+                  <Modal
+                    keepMounted
+                    open={open3}
+                    onClose={handleClose3}
+                    aria-labelledby="keep-mounted-modal-title"
+                    aria-describedby="keep-mounted-modal-description"
+                  >
+                    <Box
+                      sx={{
+                        position: "absolute",
+                        top: "50%",
+                        left: "50%",
+                        transform: "translate(-50%, -70%)",
+                        width: 600,
+                        bgcolor: "background.paper",
+                        boxShadow: 24,
+                        p: 4,
+                        borderRadius: 5,
+                        border: "1px solid #E5E5E5",
+                        textAlign: "center",
+                      }}
+                    >
+                      <img src={logo} alt="Logo" style={{ width: 100 }} />
+                      <Typography
+                        id="keep-mounted-modal-description"
+                        sx={{ mt: 2, fontWeight: 700 }}
+                      >
+                        {REGI02_box5TH[0].label}
+                      </Typography>
+                      <Typography
+                        id="keep-mounted-modal-description"
+                        sx={{
+                          mt: 2,
+                          textAlign: "left",
+                          overflowY: "auto",
+                          height: 125,
+                        }}
+                      >
+                        {REGI02_box5TH[1].label}
+                      </Typography>
+                      <div
+                        style={{
+                          textAlign: "left",
+                          borderTop: "1px solid #C4C4C4",
+                        }}
+                      >
+                        <FormControlLabel
+                          control={
+                            <Checkbox
+                              checked={checked2}
+                              onChange={handleChange2}
+                              inputProps={{ "aria-label": "controlled" }}
+                            />
+                          }
+                          label={REGI02_box5TH[2].label}
+                        />
+                      </div>
+                      <div>
+                        {checked2 === false ? (
+                          <button
+                            style={{
+                              width: "30%",
+                              borderRadius: 20,
+                              background: "#E0E0E0",
+                              height: 40,
+                              color: "#FFFFFF",
+                              fontSize: 18,
+                              borderColor: "transparent",
+                              position: "relative",
+                              left: "35%",
+                            }}
+                            disabled
+                            onClick={handleOpen}
+                          >
+                            {REGI02_box5TH[3].label}
+                          </button>
+                        ) : (
+                          <button
+                            style={{
+                              width: "30%",
+                              borderRadius: 20,
+                              background: "#001E33",
+                              height: 40,
+                              color: "#FFFFFF",
+                              fontSize: 18,
+                              borderColor: "transparent",
+                              position: "relative",
+                              left: "35%",
+                            }}
+                            onClick={handleClose4}
+                          >
+                            {REGI02_box5TH[3].label}
+                          </button>
+                        )}
+                      </div>
+                    </Box>
+                  </Modal>
+
+                  <Modal
+                    keepMounted
+                    open={open4}
+                    onClose={handleClose5}
+                    aria-labelledby="keep-mounted-modal-title"
+                    aria-describedby="keep-mounted-modal-description"
+                  >
+                    <Box
+                      sx={{
+                        position: "absolute",
+                        top: "50%",
+                        left: "50%",
+                        transform: "translate(-50%, -70%)",
+                        width: 400,
+                        bgcolor: "background.paper",
+                        boxShadow: 24,
+                        p: 4,
+                        borderRadius: 5,
+                        border: "1px solid #E5E5E5",
+                        textAlign: "center",
+                      }}
+                    >
+                      <AiFillCheckCircle
+                        style={{ width: 100, height: 80, color: "#46BC52" }}
+                      />
+                      <Typography
+                        id="keep-mounted-modal-description"
+                        sx={{ mt: 2, fontWeight: 700 }}
+                      >
+                        {REGI02_box5TH[4].label}
+                      </Typography>
+                    </Box>
+                  </Modal>
+                </div>
+              ) : Doc === "German" ? (
+                <div>
+                  <div
+                    style={{
+                      position: "fixed",
+                      top: 20,
+                      left: width * 0.59,
+                      textAlign: "-webkit-center",
+                      width: 500,
+                      background: " #FFFFFF",
+                      boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
+                      borderRadius: 20,
+                      padding: 30,
+                    }}
+                  >
+                    <button
+                      style={{
+                        fontWeight: 400,
+                        fontSize: 18,
+                        textDecorationLine: "none",
+                        color: "#D9D9D9",
+                        textAlign: "left",
+                        marginBottom: 20,
+                        float: "left",
+                        background: "transparent",
+                        border: "transparent",
+                      }}
+                      onClick={() => setScreen("12")}
+                    >
+                      <BsArrowLeftShort />
+                      <p
+                        style={{
+                          color: "#D9D9D9",
+                          fontSize: 18,
+                          textDecorationLine: "none",
+                          float: "right",
+                        }}
+                      >
+                        {REGI02_Box5v02DE[0].label}
+                      </p>
+                    </button>
+
+                    <h2 className="textSignup" style={{ marginTop: 30 }}>
+                      {REGI02_Box5v02DE[1].label}
+                    </h2>
+                    <div>
+                      <FormControl style={{ display: "inherit" }}>
+                        <RadioGroup
+                          row
+                          aria-labelledby="demo-row-radio-buttons-group-label"
+                          name="row-radio-buttons-group"
+                        >
+                          <FormControlLabel
+                            checked
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value=""
+                            control={<Radio />}
+                            label={REGI02_Box5v02DE[2].label}
+                            style={{ marginRight: 50 }}
+                          />
+                          <FormControlLabel
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value="Freelance Translators"
+                            control={<Radio />}
+                            label={REGI02_Box5v02DE[3].label}
+                          />
+                        </RadioGroup>
+                      </FormControl>
+                    </div>
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 700,
+                          fontSize: 17,
+                          color: " #242424",
+                        }}
+                      >
+                        {REGI02_Box5v02DE[4].label}
+                      </p>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 14,
+                          color: " #242424",
+                        }}
+                      >
+                        {REGI02_Box5v02DE[5].label}
+                      </p>
+                      <div style={{ textAlign: "center" }}>
+                        {file3 === "" ? (
+                          <div
+                            style={{
+                              background: "#FFFFFF",
+                              borderRadius: 20,
+                              width: "100%",
+                              height: 150,
+                              padding: 50,
+                              position: "relative",
+                              borderStyle: " dotted ",
+                              borderColor: "#0865A8",
+                              borderWidth: 2,
+                              margin: 20,
+                              marginLeft: 0,
+                            }}
+                          >
+                            <label htmlFor="icon-button-file">
+                              <Input
+                                accept="image/*"
+                                id="icon-button-file"
+                                type="file"
+                                style={{ display: "none" }}
+                                onChange={(e) => setFile3(e.target.value)}
+                              />
+                              <IconButton
+                                color="primary"
+                                aria-label="upload picture"
+                                component="span"
+                              >
+                                <FiImage
+                                  style={{
+                                    fontSize: 50,
+                                    position: "absolute",
+                                  }}
+                                />
+                                <p
+                                  style={{
+                                    fontSize: 10,
+                                    position: "absolute",
+                                    top: 35,
+                                    width: 100,
+                                  }}
+                                >
+                                  {REGI02_Box5v02DE[6].label}
+                                </p>
+                              </IconButton>
+                            </label>
+                          </div>
+                        ) : (
+                          <div
+                            style={{
+                              background: "#FFFFFF",
+                              borderRadius: 20,
+                              width: "100%",
+                              height: 150,
+                              padding: 50,
+                              position: "relative",
+                              borderStyle: " dotted ",
+                              borderColor: "#0865A8",
+                              borderWidth: 2,
+                              margin: 20,
+                              marginLeft: 0,
+                            }}
+                          >
+                            <label htmlFor="icon-button-file">
+                              <Input
+                                accept="image/*"
+                                id="icon-button-file"
+                                type="file"
+                                style={{ display: "none" }}
+                                onChange={(e) => setFile2(e.target.value)}
+                              />
+                              <IconButton
+                                color="primary"
+                                aria-label="upload picture"
+                                component="span"
+                              >
+                                <FiImage
+                                  style={{
+                                    fontSize: 50,
+                                    position: "absolute",
+                                  }}
+                                />
+                                <p
+                                  style={{
+                                    fontSize: 10,
+                                    position: "absolute",
+                                    top: 35,
+                                    width: 100,
+                                  }}
+                                >
+                                  {file3}
+                                </p>
+                              </IconButton>
+                            </label>
+                          </div>
+                        )}
+                      </div>
+                      <button
+                        style={{ background: "transparent", border: "none" }}
+                        onClick={() => example(12)}
+                      >
+                        <p
+                          style={{
+                            color: "#666666",
+                            textDecorationLine: "underline",
+                            fontSize: 14,
+                          }}
+                        >
+                          {REGI02_Box5v02DE[7].label}
+                        </p>
+                      </button>
+                      <Modal
+                        // hideBackdrop
+                        keepMounted
+                        open={openModal12}
+                        onClose={handleClose12}
+                        aria-labelledby="child-modal-title"
+                        aria-describedby="child-modal-description"
+                      >
+                        <Box
+                          sx={{
+                            position: "absolute",
+                            top: "50%",
+                            left: "50%",
+                            transform: "translate(-50%, -50%)",
+                            width: "50%",
+                            bgcolor: "transparent",
+                            boxShadow: 24,
+                            pt: 2,
+                            px: 4,
+                            pb: 3,
+                          }}
+                        >
+                          <img src={example14} width="100%"  alt="example14"/>
+                        </Box>
+                      </Modal>
+                    </div>
+                    <hr style={{ width: "97%", height: 2 }} />
+                    <div style={{}}>
+                      <div style={{ marginBottom: 10 }}>
+                        <p
+                          style={{
+                            fontWeight: "bold",
+                            fontSize: 14,
+                            color: "#333333",
+                          }}
+                        >
+                          {REGI02_Box5v02DE[8].label}
+                        </p>
+                      </div>
+
+                      <Autocomplete
+                        multiple
+                        id="country-select-demo"
+                        sx={{ width: "100%" }}
+                        options={data}
+                        autoHighlight
+                        getOptionLabel={(option) => option.label}
+                        onChange={(event, value) => setLanguages(value?.label)}
+                        popupIcon={
+                          <MdArrowDropDown
+                            style={{ color: "#333333", width: 30, height: 33 }}
+                          />
+                        }
+                        renderOption={(props, option) => (
+                          <Box
+                            component="li"
+                            sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
+                            {...props}
+                          >
+                            {option.label}
+                          </Box>
+                        )}
+                        renderInput={(params) => (
+                          <TextField
+                            {...params}
+                            label={REGI02_Box5v02DE[9].label}
+                            inputProps={{
+                              ...params.inputProps,
+                              autoComplete: "new-password",
+                            }}
+                          />
+                        )}
+                      />
+                    </div>
+                    <button
+                      style={{
+                        width: "100%",
+                        borderRadius: 20,
+                        background: " #001E33",
+                        height: 40,
+                        color: "#FFFFFF",
+                        fontSize: 18,
+                        borderColor: "transparent",
+                        marginTop: 30,
+                      }}
+                      onClick={() => setOpen3(true)}
+                    >
+                      {REGI02_Box5v02DE[1].label}
+                    </button>
+                  </div>
+
+                  <Modal
+                    keepMounted
+                    open={open3}
+                    onClose={handleClose3}
+                    aria-labelledby="keep-mounted-modal-title"
+                    aria-describedby="keep-mounted-modal-description"
+                  >
+                    <Box
+                      sx={{
+                        position: "absolute",
+                        top: "50%",
+                        left: "50%",
+                        transform: "translate(-50%, -70%)",
+                        width: 600,
+                        bgcolor: "background.paper",
+                        boxShadow: 24,
+                        p: 4,
+                        borderRadius: 5,
+                        border: "1px solid #E5E5E5",
+                        textAlign: "center",
+                      }}
+                    >
+                      <img src={logo} alt="Logo" style={{ width: 100 }} />
+                      <Typography
+                        id="keep-mounted-modal-description"
+                        sx={{ mt: 2, fontWeight: 700 }}
+                      >
+                        {REGI02_box5DE[0].label}
+                      </Typography>
+                      <Typography
+                        id="keep-mounted-modal-description"
+                        sx={{
+                          mt: 2,
+                          textAlign: "left",
+                          overflowY: "auto",
+                          height: 125,
+                        }}
+                      >
+                        {REGI02_box5DE[1].label}
+                      </Typography>
+                      <div
+                        style={{
+                          textAlign: "left",
+                          borderTop: "1px solid #C4C4C4",
+                        }}
+                      >
+                        <FormControlLabel
+                          control={
+                            <Checkbox
+                              checked={checked2}
+                              onChange={handleChange2}
+                              inputProps={{ "aria-label": "controlled" }}
+                            />
+                          }
+                          label={REGI02_box5DE[2].label}
+                        />
+                      </div>
+                      <div>
+                        {checked2 === false ? (
+                          <button
+                            style={{
+                              width: "30%",
+                              borderRadius: 20,
+                              background: "#E0E0E0",
+                              height: 40,
+                              color: "#FFFFFF",
+                              fontSize: 18,
+                              borderColor: "transparent",
+                              position: "relative",
+                              left: "35%",
+                            }}
+                            disabled
+                            onClick={handleOpen}
+                          >
+                            {REGI02_box5DE[3].label}
+                          </button>
+                        ) : (
+                          <button
+                            style={{
+                              width: "30%",
+                              borderRadius: 20,
+                              background: "#001E33",
+                              height: 40,
+                              color: "#FFFFFF",
+                              fontSize: 18,
+                              borderColor: "transparent",
+                              position: "relative",
+                              left: "35%",
+                            }}
+                            onClick={handleClose4}
+                          >
+                            {REGI02_box5DE[3].label}
+                          </button>
+                        )}
+                      </div>
+                    </Box>
+                  </Modal>
+
+                  <Modal
+                    keepMounted
+                    open={open4}
+                    onClose={handleClose5}
+                    aria-labelledby="keep-mounted-modal-title"
+                    aria-describedby="keep-mounted-modal-description"
+                  >
+                    <Box
+                      sx={{
+                        position: "absolute",
+                        top: "50%",
+                        left: "50%",
+                        transform: "translate(-50%, -70%)",
+                        width: 400,
+                        bgcolor: "background.paper",
+                        boxShadow: 24,
+                        p: 4,
+                        borderRadius: 5,
+                        border: "1px solid #E5E5E5",
+                        textAlign: "center",
+                      }}
+                    >
+                      <AiFillCheckCircle
+                        style={{ width: 100, height: 80, color: "#46BC52" }}
+                      />
+                      <Typography
+                        id="keep-mounted-modal-description"
+                        sx={{ mt: 2, fontWeight: 700 }}
+                      >
+                        {REGI02_box5DE[4].label}
+                      </Typography>
+                    </Box>
+                  </Modal>
+                </div>
+              ) : (
+                <div>
+                  <div
+                    style={{
+                      position: "fixed",
+                      top: 20,
+                      left: width * 0.59,
+                      textAlign: "-webkit-center",
+                      width: 500,
+                      background: " #FFFFFF",
+                      boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
+                      borderRadius: 20,
+                      padding: 30,
+                    }}
+                  >
+                    <button
+                      style={{
+                        fontWeight: 400,
+                        fontSize: 18,
+                        textDecorationLine: "none",
+                        color: "#D9D9D9",
+                        textAlign: "left",
+                        marginBottom: 20,
+                        float: "left",
+                        background: "transparent",
+                        border: "transparent",
+                      }}
+                      onClick={() => setScreen("12")}
+                    >
+                      <BsArrowLeftShort />
+                      <p
+                        style={{
+                          color: "#D9D9D9",
+                          fontSize: 18,
+                          textDecorationLine: "none",
+                          float: "right",
+                        }}
+                      >
+                        {REGI02_Box5v02EN[0].label}
+                      </p>
+                    </button>
+
+                    <h2 className="textSignup" style={{ marginTop: 30 }}>
+                      {REGI02_Box5v02EN[1].label}
+                    </h2>
+                    <div>
+                      <FormControl style={{ display: "inherit" }}>
+                        <RadioGroup
+                          row
+                          aria-labelledby="demo-row-radio-buttons-group-label"
+                          name="row-radio-buttons-group"
+                        >
+                          <FormControlLabel
+                            checked
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value=""
+                            control={<Radio />}
+                            label={REGI02_Box5v02EN[2].label}
+                            style={{ marginRight: 50 }}
+                          />
+                          <FormControlLabel
+                            onChange={handleChange}
+                            name="radio-buttons"
+                            value="Freelance Translators"
+                            control={<Radio />}
+                            label={REGI02_Box5v02EN[3].label}
+                          />
+                        </RadioGroup>
+                      </FormControl>
+                    </div>
+                    <div style={{ textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: 700,
+                          fontSize: 17,
+                          color: " #242424",
+                        }}
+                      >
+                        {REGI02_Box5v02EN[4].label}
+                      </p>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 14,
+                          color: " #242424",
+                        }}
+                      >
+                        {REGI02_Box5v02EN[5].label}
+                      </p>
+                      <div style={{ textAlign: "center" }}>
+                        {file3 === "" ? (
+                          <div
+                            style={{
+                              background: "#FFFFFF",
+                              borderRadius: 20,
+                              width: "100%",
+                              height: 150,
+                              padding: 50,
+                              position: "relative",
+                              borderStyle: " dotted ",
+                              borderColor: "#0865A8",
+                              borderWidth: 2,
+                              margin: 20,
+                              marginLeft: 0,
+                            }}
+                          >
+                            <label htmlFor="icon-button-file">
+                              <Input
+                                accept="image/*"
+                                id="icon-button-file"
+                                type="file"
+                                style={{ display: "none" }}
+                                onChange={(e) => setFile3(e.target.value)}
+                              />
+                              <IconButton
+                                color="primary"
+                                aria-label="upload picture"
+                                component="span"
+                              >
+                                <FiImage
+                                  style={{
+                                    fontSize: 50,
+                                    position: "absolute",
+                                  }}
+                                />
+                                <p
+                                  style={{
+                                    fontSize: 10,
+                                    position: "absolute",
+                                    top: 35,
+                                    width: 100,
+                                  }}
+                                >
+                                  {REGI02_Box5v02EN[6].label}
+                                </p>
+                              </IconButton>
+                            </label>
+                          </div>
+                        ) : (
+                          <div
+                            style={{
+                              background: "#FFFFFF",
+                              borderRadius: 20,
+                              width: "100%",
+                              height: 150,
+                              padding: 50,
+                              position: "relative",
+                              borderStyle: " dotted ",
+                              borderColor: "#0865A8",
+                              borderWidth: 2,
+                              margin: 20,
+                              marginLeft: 0,
+                            }}
+                          >
+                            <label htmlFor="icon-button-file">
+                              <Input
+                                accept="image/*"
+                                id="icon-button-file"
+                                type="file"
+                                style={{ display: "none" }}
+                                onChange={(e) => setFile2(e.target.value)}
+                              />
+                              <IconButton
+                                color="primary"
+                                aria-label="upload picture"
+                                component="span"
+                              >
+                                <FiImage
+                                  style={{
+                                    fontSize: 50,
+                                    position: "absolute",
+                                  }}
+                                />
+                                <p
+                                  style={{
+                                    fontSize: 10,
+                                    position: "absolute",
+                                    top: 35,
+                                    width: 100,
+                                  }}
+                                >
+                                  {file3}
+                                </p>
+                              </IconButton>
+                            </label>
+                          </div>
+                        )}
+                      </div>
+                      <button
+                        style={{ background: "transparent", border: "none" }}
+                        onClick={() => example(12)}
+                      >
+                        <p
+                          style={{
+                            color: "#666666",
+                            textDecorationLine: "underline",
+                            fontSize: 14,
+                          }}
+                        >
+                          {REGI02_Box5v02EN[7].label}
+                        </p>
+                      </button>
+                      <Modal
+                        // hideBackdrop
+                        keepMounted
+                        open={openModal12}
+                        onClose={handleClose12}
+                        aria-labelledby="child-modal-title"
+                        aria-describedby="child-modal-description"
+                      >
+                        <Box
+                          sx={{
+                            position: "absolute",
+                            top: "50%",
+                            left: "50%",
+                            transform: "translate(-50%, -50%)",
+                            width: "50%",
+                            bgcolor: "transparent",
+                            boxShadow: 24,
+                            pt: 2,
+                            px: 4,
+                            pb: 3,
+                          }}
+                        >
+                          <img src={example14} width="100%"  alt="example14"/>
+                        </Box>
+                      </Modal>
+                    </div>
+                    <hr style={{ width: "97%", height: 2 }} />
+                    <div style={{}}>
+                      <div style={{ marginBottom: 10 }}>
+                        <p
+                          style={{
+                            fontWeight: "bold",
+                            fontSize: 14,
+                            color: "#333333",
+                          }}
+                        >
+                          {REGI02_Box5v02EN[8].label}
+                        </p>
+                      </div>
+
+                      <Autocomplete
+                        multiple
+                        id="country-select-demo"
+                        sx={{ width: "100%" }}
+                        options={data}
+                        autoHighlight
+                        getOptionLabel={(option) => option.label}
+                        onChange={(event, value) => setLanguages(value?.label)}
+                        popupIcon={
+                          <MdArrowDropDown
+                            style={{ color: "#333333", width: 30, height: 33 }}
+                          />
+                        }
+                        renderOption={(props, option) => (
+                          <Box
+                            component="li"
+                            sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
+                            {...props}
+                          >
+                            {option.label}
+                          </Box>
+                        )}
+                        renderInput={(params) => (
+                          <TextField
+                            {...params}
+                            label={REGI02_Box5v02EN[9].label}
+                            inputProps={{
+                              ...params.inputProps,
+                              autoComplete: "new-password",
+                            }}
+                          />
+                        )}
+                      />
+                    </div>
+                    <button
+                      style={{
+                        width: "100%",
+                        borderRadius: 20,
+                        background: " #001E33",
+                        height: 40,
+                        color: "#FFFFFF",
+                        fontSize: 18,
+                        borderColor: "transparent",
+                        marginTop: 30,
+                      }}
+                      onClick={() => setOpen3(true)}
+                    >
+                      {REGI02_Box5v02EN[1].label}
+                    </button>
+                  </div>
+
+                  <Modal
+                    keepMounted
+                    open={open3}
+                    onClose={handleClose3}
+                    aria-labelledby="keep-mounted-modal-title"
+                    aria-describedby="keep-mounted-modal-description"
+                  >
+                    <Box
+                      sx={{
+                        position: "absolute",
+                        top: "50%",
+                        left: "50%",
+                        transform: "translate(-50%, -70%)",
+                        width: 600,
+                        bgcolor: "background.paper",
+                        boxShadow: 24,
+                        p: 4,
+                        borderRadius: 5,
+                        border: "1px solid #E5E5E5",
+                        textAlign: "center",
+                      }}
+                    >
+                      <img src={logo} alt="Logo" style={{ width: 100 }} />
+                      <Typography
+                        id="keep-mounted-modal-description"
+                        sx={{ mt: 2, fontWeight: 700 }}
+                      >
+                        {REGI02_box5EN[0].label}
+                      </Typography>
+                      <Typography
+                        id="keep-mounted-modal-description"
+                        sx={{
+                          mt: 2,
+                          textAlign: "left",
+                          overflowY: "auto",
+                          height: 125,
+                        }}
+                      >
+                        {REGI02_box5EN[1].label}
+                      </Typography>
+                      <div
+                        style={{
+                          textAlign: "left",
+                          borderTop: "1px solid #C4C4C4",
+                        }}
+                      >
+                        <FormControlLabel
+                          control={
+                            <Checkbox
+                              checked={checked2}
+                              onChange={handleChange2}
+                              inputProps={{ "aria-label": "controlled" }}
+                            />
+                          }
+                          label={REGI02_box5EN[2].label}
+                        />
+                      </div>
+                      <div>
+                        {checked2 === false ? (
+                          <button
+                            style={{
+                              width: "30%",
+                              borderRadius: 20,
+                              background: "#E0E0E0",
+                              height: 40,
+                              color: "#FFFFFF",
+                              fontSize: 18,
+                              borderColor: "transparent",
+                              position: "relative",
+                              left: "35%",
+                            }}
+                            disabled
+                            onClick={handleOpen}
+                          >
+                            {REGI02_box5EN[3].label}
+                          </button>
+                        ) : (
+                          <button
+                            style={{
+                              width: "30%",
+                              borderRadius: 20,
+                              background: "#001E33",
+                              height: 40,
+                              color: "#FFFFFF",
+                              fontSize: 18,
+                              borderColor: "transparent",
+                              position: "relative",
+                              left: "35%",
+                            }}
+                            onClick={handleClose4}
+                          >
+                            {REGI02_box5EN[3].label}
+                          </button>
+                        )}
+                      </div>
+                    </Box>
+                  </Modal>
+
+                  <Modal
+                    keepMounted
+                    open={open4}
+                    onClose={handleClose5}
+                    aria-labelledby="keep-mounted-modal-title"
+                    aria-describedby="keep-mounted-modal-description"
+                  >
+                    <Box
+                      sx={{
+                        position: "absolute",
+                        top: "50%",
+                        left: "50%",
+                        transform: "translate(-50%, -70%)",
+                        width: 400,
+                        bgcolor: "background.paper",
+                        boxShadow: 24,
+                        p: 4,
+                        borderRadius: 5,
+                        border: "1px solid #E5E5E5",
+                        textAlign: "center",
+                      }}
+                    >
+                      <AiFillCheckCircle
+                        style={{ width: 100, height: 80, color: "#46BC52" }}
+                      />
+                      <Typography
+                        id="keep-mounted-modal-description"
+                        sx={{ mt: 2, fontWeight: 700 }}
+                      >
+                        {REGI02_box5EN[4].label}
+                      </Typography>
+                    </Box>
+                  </Modal>
+                </div>
+              )}
+            </>
+          ) : screen === "15" ? (
+            <>
+              {Doc === "English" ? (
+                <div>
+                  <div
+                    style={{
+                      position: "fixed",
+                      top: 20,
+                      left: width * 0.59,
+                      textAlign: "-webkit-center",
+                      width: 500,
+                      background: " #FFFFFF",
+                      boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
+                      borderRadius: 20,
+                      padding: 30,
+                    }}
+                  >
+                    <button
+                      style={{
+                        fontWeight: 400,
+                        fontSize: 18,
+                        textDecorationLine: "none",
+                        color: "#D9D9D9",
+                        textAlign: "left",
+                        marginBottom: 20,
+                        float: "left",
+                        background: "transparent",
+                        border: "transparent",
+                      }}
+                      onClick={() => setScreen("13")}
+                    >
+                      <BsArrowLeftShort />
+                      <p
+                        style={{
+                          color: "#D9D9D9",
+                          fontSize: 18,
+                          textDecorationLine: "none",
+                          float: "right",
+                        }}
+                      >
+                        {REGI02_Box5v01EN[0].label}
+                      </p>
+                    </button>
+
+                    <h2 className="textSignup" style={{ marginTop: 30 }}>
+                      {REGI02_Box5v01EN[1].label}
+                    </h2>
+
+                    <div>
+                      <div
+                        style={{
+                          textAlign: "left",
+                          float: "left",
+                          borderBottom: "2px solid #034D82",
+                          marginBottom: 10,
+                        }}
+                      >
+                        <div
+                          style={{
+                            width: 30,
+                            height: 30,
+                            color: "#034D82",
+                            borderRadius: 100,
+                            textAlign: "center",
+                            border: "1px solid #034D82",
+                            padding: 2,
+                            float: "left",
+                            fontSize: 15,
+                            fontWeight: 700,
+                            marginLeft: 20,
+                          }}
+                        >
+                          <p>1</p>
+                        </div>
+                        <div
+                          style={{
+                            color: "#034D82",
+                            float: "left",
+                            margin: 5,
+                            fontWeight: 700,
+                          }}
+                        >
+                          <p>{REGI02_Box5v01EN[2].label}</p>
+                        </div>
+                      </div>
+
+                      <div
+                        style={{
+                          textAlign: "left",
+                          float: "left",
+                          borderBottom: "2px solid #D9D9D9",
+                          marginBottom: 10,
+                          width: "75%",
+                        }}
+                      >
+                        <div
+                          style={{
+                            width: 30,
+                            height: 30,
+                            color: "#D9D9D9",
+                            borderRadius: 100,
+                            textAlign: "center",
+                            border: "1px solid #D9D9D9",
+                            padding: 2,
+                            float: "left",
+                            fontSize: 15,
+                            fontWeight: 700,
+                            marginLeft: 20,
+                          }}
+                        >
+                          <p>2</p>
+                        </div>
+                        <div
+                          style={{
+                            color: "#D9D9D9",
+                            float: "left",
+                            margin: 5,
+                            fontWeight: 700,
+                          }}
+                        >
+                          <p>{REGI02_Box5v01EN[3].label}</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div style={{ marginBottom: 10, textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: "bold",
+                          fontSize: 18,
+                          color: "#333333",
+                        }}
+                      >
+                        {REGI02_Box5v01EN[4].label}
+                      </p>
+                    </div>
+
+                    <Autocomplete
+                      multiple
+                      id="country-select-demo"
+                      sx={{ width: "100%" }}
+                      options={data}
+                      autoHighlight
+                      getOptionLabel={(option) => option.label}
+                      onChange={(event, value) => setLanguages()}
+                      popupIcon={
+                        <MdArrowDropDown
+                          style={{ color: "#333333", width: 30, height: 33 }}
+                        />
+                      }
+                      renderOption={(props, option) => (
+                        <Box
+                          component="li"
+                          sx={{ mr: 2, flexShrink: 0 }}
+                          {...props}
+                        >
+                          {option.label}
+                        </Box>
+                      )}
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          label={REGI02_Box5v01EN[5].label}
+                          inputProps={{
+                            ...params.inputProps,
+                            autoComplete: "",
+                          }}
+                        />
+                      )}
+                    />
+
+                    <div style={{ marginBottom: 10, textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: "bold",
+                          fontSize: 18,
+                          color: "#333333",
+                        }}
+                      >
+                        {REGI02_Box5v01EN[6].label}
+                      </p>
+                    </div>
+
+                    <Autocomplete
+                      multiple
+                      id="country-select-demo"
+                      sx={{ width: "100%" }}
+                      options={data5}
+                      autoHighlight
+                      getOptionLabel={(option) => option.label}
+                      onChange={(event, value) => setLanguages()}
+                      popupIcon={
+                        <MdArrowDropDown
+                          style={{ color: "#333333", width: 30, height: 33 }}
+                        />
+                      }
+                      renderOption={(props, option) => (
+                        <Box
+                          component="li"
+                          sx={{ mr: 2, flexShrink: 0 }}
+                          {...props}
+                        >
+                          {option.label}
+                        </Box>
+                      )}
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          label={REGI02_Box5v01EN[5].label}
+                          inputProps={{
+                            ...params.inputProps,
+                            autoComplete: "",
+                          }}
+                        />
+                      )}
+                    />
+
+                    <button
+                      style={{
+                        width: "100%",
+                        borderRadius: 20,
+                        background: " #001E33",
+                        height: 40,
+                        color: "#FFFFFF",
+                        fontSize: 18,
+                        borderColor: "transparent",
+                        marginTop: 20,
+                      }}
+                      onClick={() => setScreen("16")}
+                    >
+                      {REGI02_Box5v01EN[7].label}
+                    </button>
+                  </div>
+                </div>
+              ) : Doc === "Thai" ? (
+                <div>
+                  <div
+                    style={{
+                      position: "fixed",
+                      top: 20,
+                      left: width * 0.59,
+                      textAlign: "-webkit-center",
+                      width: 500,
+                      background: " #FFFFFF",
+                      boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
+                      borderRadius: 20,
+                      padding: 30,
+                    }}
+                  >
+                    <button
+                      style={{
+                        fontWeight: 400,
+                        fontSize: 18,
+                        textDecorationLine: "none",
+                        color: "#D9D9D9",
+                        textAlign: "left",
+                        marginBottom: 20,
+                        float: "left",
+                        background: "transparent",
+                        border: "transparent",
+                      }}
+                      onClick={() => setScreen("13")}
+                    >
+                      <BsArrowLeftShort />
+                      <p
+                        style={{
+                          color: "#D9D9D9",
+                          fontSize: 18,
+                          textDecorationLine: "none",
+                          float: "right",
+                        }}
+                      >
+                        {REGI02_Box5v01TH[0].label}
+                      </p>
+                    </button>
+
+                    <h2 className="textSignup" style={{ marginTop: 30 }}>
+                      {REGI02_Box5v01TH[1].label}
+                    </h2>
+
+                    <div>
+                      <div
+                        style={{
+                          textAlign: "left",
+                          float: "left",
+                          borderBottom: "2px solid #034D82",
+                          marginBottom: 10,
+                        }}
+                      >
+                        <div
+                          style={{
+                            width: 30,
+                            height: 30,
+                            color: "#034D82",
+                            borderRadius: 100,
+                            textAlign: "center",
+                            border: "1px solid #034D82",
+                            padding: 2,
+                            float: "left",
+                            fontSize: 15,
+                            fontWeight: 700,
+                            marginLeft: 20,
+                          }}
+                        >
+                          <p>1</p>
+                        </div>
+                        <div
+                          style={{
+                            color: "#034D82",
+                            float: "left",
+                            margin: 5,
+                            fontWeight: 700,
+                          }}
+                        >
+                          <p>{REGI02_Box5v01TH[2].label}</p>
+                        </div>
+                      </div>
+
+                      <div
+                        style={{
+                          textAlign: "left",
+                          float: "left",
+                          borderBottom: "2px solid #D9D9D9",
+                          marginBottom: 10,
+                          width: "75%",
+                        }}
+                      >
+                        <div
+                          style={{
+                            width: 30,
+                            height: 30,
+                            color: "#D9D9D9",
+                            borderRadius: 100,
+                            textAlign: "center",
+                            border: "1px solid #D9D9D9",
+                            padding: 2,
+                            float: "left",
+                            fontSize: 15,
+                            fontWeight: 700,
+                            marginLeft: 20,
+                          }}
+                        >
+                          <p>2</p>
+                        </div>
+                        <div
+                          style={{
+                            color: "#D9D9D9",
+                            float: "left",
+                            margin: 5,
+                            fontWeight: 700,
+                          }}
+                        >
+                          <p>{REGI02_Box5v01TH[3].label}</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div style={{ marginBottom: 10, textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: "bold",
+                          fontSize: 18,
+                          color: "#333333",
+                        }}
+                      >
+                        {REGI02_Box5v01TH[4].label}
+                      </p>
+                    </div>
+
+                    <Autocomplete
+                      multiple
+                      id="country-select-demo"
+                      sx={{ width: "100%" }}
+                      options={data}
+                      autoHighlight
+                      getOptionLabel={(option) => option.label}
+                      onChange={(event, value) => setLanguages()}
+                      popupIcon={
+                        <MdArrowDropDown
+                          style={{ color: "#333333", width: 30, height: 33 }}
+                        />
+                      }
+                      renderOption={(props, option) => (
+                        <Box
+                          component="li"
+                          sx={{ mr: 2, flexShrink: 0 }}
+                          {...props}
+                        >
+                          {option.label}
+                        </Box>
+                      )}
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          label={REGI02_Box5v01TH[5].label}
+                          inputProps={{
+                            ...params.inputProps,
+                            autoComplete: "",
+                          }}
+                        />
+                      )}
+                    />
+
+                    <div style={{ marginBottom: 10, textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: "bold",
+                          fontSize: 18,
+                          color: "#333333",
+                        }}
+                      >
+                        {REGI02_Box5v01TH[6].label}
+                      </p>
+                    </div>
+
+                    <Autocomplete
+                      multiple
+                      id="country-select-demo"
+                      sx={{ width: "100%" }}
+                      options={data5}
+                      autoHighlight
+                      getOptionLabel={(option) => option.label}
+                      onChange={(event, value) => setLanguages()}
+                      popupIcon={
+                        <MdArrowDropDown
+                          style={{ color: "#333333", width: 30, height: 33 }}
+                        />
+                      }
+                      renderOption={(props, option) => (
+                        <Box
+                          component="li"
+                          sx={{ mr: 2, flexShrink: 0 }}
+                          {...props}
+                        >
+                          {option.label}
+                        </Box>
+                      )}
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          label={REGI02_Box5v01TH[5].label}
+                          inputProps={{
+                            ...params.inputProps,
+                            autoComplete: "",
+                          }}
+                        />
+                      )}
+                    />
+
+                    <button
+                      style={{
+                        width: "100%",
+                        borderRadius: 20,
+                        background: " #001E33",
+                        height: 40,
+                        color: "#FFFFFF",
+                        fontSize: 18,
+                        borderColor: "transparent",
+                        marginTop: 20,
+                      }}
+                      onClick={() => setScreen("16")}
+                    >
+                      {REGI02_Box5v01TH[7].label}
+                    </button>
+                  </div>
+                </div>
+              ) : Doc === "German" ? (
+                <div>
+                  <div
+                    style={{
+                      position: "fixed",
+                      top: 20,
+                      left: width * 0.59,
+                      textAlign: "-webkit-center",
+                      width: 500,
+                      background: " #FFFFFF",
+                      boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
+                      borderRadius: 20,
+                      padding: 30,
+                    }}
+                  >
+                    <button
+                      style={{
+                        fontWeight: 400,
+                        fontSize: 18,
+                        textDecorationLine: "none",
+                        color: "#D9D9D9",
+                        textAlign: "left",
+                        marginBottom: 20,
+                        float: "left",
+                        background: "transparent",
+                        border: "transparent",
+                      }}
+                      onClick={() => setScreen("13")}
+                    >
+                      <BsArrowLeftShort />
+                      <p
+                        style={{
+                          color: "#D9D9D9",
+                          fontSize: 18,
+                          textDecorationLine: "none",
+                          float: "right",
+                        }}
+                      >
+                        {REGI02_Box5v01DE[0].label}
+                      </p>
+                    </button>
+
+                    <h2 className="textSignup" style={{ marginTop: 30 }}>
+                      {REGI02_Box5v01DE[1].label}
+                    </h2>
+
+                    <div>
+                      <div
+                        style={{
+                          textAlign: "left",
+                          float: "left",
+                          borderBottom: "2px solid #034D82",
+                          marginBottom: 10,
+                        }}
+                      >
+                        <div
+                          style={{
+                            width: 30,
+                            height: 30,
+                            color: "#034D82",
+                            borderRadius: 100,
+                            textAlign: "center",
+                            border: "1px solid #034D82",
+                            padding: 2,
+                            float: "left",
+                            fontSize: 15,
+                            fontWeight: 700,
+                            marginLeft: 20,
+                          }}
+                        >
+                          <p>1</p>
+                        </div>
+                        <div
+                          style={{
+                            color: "#034D82",
+                            float: "left",
+                            margin: 5,
+                            fontWeight: 700,
+                          }}
+                        >
+                          <p>{REGI02_Box5v01DE[2].label}</p>
+                        </div>
+                      </div>
+
+                      <div
+                        style={{
+                          textAlign: "left",
+                          float: "left",
+                          borderBottom: "2px solid #D9D9D9",
+                          marginBottom: 10,
+                          width: "68%",
+                        }}
+                      >
+                        <div
+                          style={{
+                            width: 30,
+                            height: 30,
+                            color: "#D9D9D9",
+                            borderRadius: 100,
+                            textAlign: "center",
+                            border: "1px solid #D9D9D9",
+                            padding: 2,
+                            float: "left",
+                            fontSize: 15,
+                            fontWeight: 700,
+                            marginLeft: 20,
+                          }}
+                        >
+                          <p>2</p>
+                        </div>
+                        <div
+                          style={{
+                            color: "#D9D9D9",
+                            float: "left",
+                            margin: 5,
+                            fontWeight: 700,
+                          }}
+                        >
+                          <p>{REGI02_Box5v01DE[3].label}</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div style={{ marginBottom: 10, textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: "bold",
+                          fontSize: 18,
+                          color: "#333333",
+                        }}
+                      >
+                        {REGI02_Box5v01DE[4].label}
+                      </p>
+                    </div>
+
+                    <Autocomplete
+                      multiple
+                      id="country-select-demo"
+                      sx={{ width: "100%" }}
+                      options={data}
+                      autoHighlight
+                      getOptionLabel={(option) => option.label}
+                      onChange={(event, value) => setLanguages()}
+                      popupIcon={
+                        <MdArrowDropDown
+                          style={{ color: "#333333", width: 30, height: 33 }}
+                        />
+                      }
+                      renderOption={(props, option) => (
+                        <Box
+                          component="li"
+                          sx={{ mr: 2, flexShrink: 0 }}
+                          {...props}
+                        >
+                          {option.label}
+                        </Box>
+                      )}
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          label={REGI02_Box5v01DE[5].label}
+                          inputProps={{
+                            ...params.inputProps,
+                            autoComplete: "",
+                          }}
+                        />
+                      )}
+                    />
+
+                    <div style={{ marginBottom: 10, textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: "bold",
+                          fontSize: 18,
+                          color: "#333333",
+                        }}
+                      >
+                        {REGI02_Box5v01DE[6].label}
+                      </p>
+                    </div>
+
+                    <Autocomplete
+                      multiple
+                      id="country-select-demo"
+                      sx={{ width: "100%" }}
+                      options={data5}
+                      autoHighlight
+                      getOptionLabel={(option) => option.label}
+                      onChange={(event, value) => setLanguages()}
+                      popupIcon={
+                        <MdArrowDropDown
+                          style={{ color: "#333333", width: 30, height: 33 }}
+                        />
+                      }
+                      renderOption={(props, option) => (
+                        <Box
+                          component="li"
+                          sx={{ mr: 2, flexShrink: 0 }}
+                          {...props}
+                        >
+                          {option.label}
+                        </Box>
+                      )}
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          label={REGI02_Box5v01DE[5].label}
+                          inputProps={{
+                            ...params.inputProps,
+                            autoComplete: "",
+                          }}
+                        />
+                      )}
+                    />
+
+                    <button
+                      style={{
+                        width: "100%",
+                        borderRadius: 20,
+                        background: " #001E33",
+                        height: 40,
+                        color: "#FFFFFF",
+                        fontSize: 18,
+                        borderColor: "transparent",
+                        marginTop: 20,
+                      }}
+                      onClick={() => setScreen("16")}
+                    >
+                      {REGI02_Box5v01DE[7].label}
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <div>
+                  <div
+                    style={{
+                      position: "fixed",
+                      top: 20,
+                      left: width * 0.59,
+                      textAlign: "-webkit-center",
+                      width: 500,
+                      background: " #FFFFFF",
+                      boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
+                      borderRadius: 20,
+                      padding: 30,
+                    }}
+                  >
+                    <button
+                      style={{
+                        fontWeight: 400,
+                        fontSize: 18,
+                        textDecorationLine: "none",
+                        color: "#D9D9D9",
+                        textAlign: "left",
+                        marginBottom: 20,
+                        float: "left",
+                        background: "transparent",
+                        border: "transparent",
+                      }}
+                      onClick={() => setScreen("13")}
+                    >
+                      <BsArrowLeftShort />
+                      <p
+                        style={{
+                          color: "#D9D9D9",
+                          fontSize: 18,
+                          textDecorationLine: "none",
+                          float: "right",
+                        }}
+                      >
+                        {REGI02_Box5v01EN[0].label}
+                      </p>
+                    </button>
+
+                    <h2 className="textSignup" style={{ marginTop: 30 }}>
+                      {REGI02_Box5v01EN[1].label}
+                    </h2>
+
+                    <div>
+                      <div
+                        style={{
+                          textAlign: "left",
+                          float: "left",
+                          borderBottom: "2px solid #034D82",
+                          marginBottom: 10,
+                        }}
+                      >
+                        <div
+                          style={{
+                            width: 30,
+                            height: 30,
+                            color: "#034D82",
+                            borderRadius: 100,
+                            textAlign: "center",
+                            border: "1px solid #034D82",
+                            padding: 2,
+                            float: "left",
+                            fontSize: 15,
+                            fontWeight: 700,
+                            marginLeft: 20,
+                          }}
+                        >
+                          <p>1</p>
+                        </div>
+                        <div
+                          style={{
+                            color: "#034D82",
+                            float: "left",
+                            margin: 5,
+                            fontWeight: 700,
+                          }}
+                        >
+                          <p>{REGI02_Box5v01EN[2].label}</p>
+                        </div>
+                      </div>
+
+                      <div
+                        style={{
+                          textAlign: "left",
+                          float: "left",
+                          borderBottom: "2px solid #D9D9D9",
+                          marginBottom: 10,
+                          width: "75%",
+                        }}
+                      >
+                        <div
+                          style={{
+                            width: 30,
+                            height: 30,
+                            color: "#D9D9D9",
+                            borderRadius: 100,
+                            textAlign: "center",
+                            border: "1px solid #D9D9D9",
+                            padding: 2,
+                            float: "left",
+                            fontSize: 15,
+                            fontWeight: 700,
+                            marginLeft: 20,
+                          }}
+                        >
+                          <p>2</p>
+                        </div>
+                        <div
+                          style={{
+                            color: "#D9D9D9",
+                            float: "left",
+                            margin: 5,
+                            fontWeight: 700,
+                          }}
+                        >
+                          <p>{REGI02_Box5v01EN[3].label}</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div style={{ marginBottom: 10, textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: "bold",
+                          fontSize: 18,
+                          color: "#333333",
+                        }}
+                      >
+                        {REGI02_Box5v01EN[4].label}
+                      </p>
+                    </div>
+
+                    <Autocomplete
+                      multiple
+                      id="country-select-demo"
+                      sx={{ width: "100%" }}
+                      options={data}
+                      autoHighlight
+                      getOptionLabel={(option) => option.label}
+                      onChange={(event, value) => setLanguages()}
+                      popupIcon={
+                        <MdArrowDropDown
+                          style={{ color: "#333333", width: 30, height: 33 }}
+                        />
+                      }
+                      renderOption={(props, option) => (
+                        <Box
+                          component="li"
+                          sx={{ mr: 2, flexShrink: 0 }}
+                          {...props}
+                        >
+                          {option.label}
+                        </Box>
+                      )}
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          label={REGI02_Box5v01EN[5].label}
+                          inputProps={{
+                            ...params.inputProps,
+                            autoComplete: "",
+                          }}
+                        />
+                      )}
+                    />
+
+                    <div style={{ marginBottom: 10, textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: "bold",
+                          fontSize: 18,
+                          color: "#333333",
+                        }}
+                      >
+                        {REGI02_Box5v01EN[6].label}
+                      </p>
+                    </div>
+
+                    <Autocomplete
+                      multiple
+                      id="country-select-demo"
+                      sx={{ width: "100%" }}
+                      options={data5}
+                      autoHighlight
+                      getOptionLabel={(option) => option.label}
+                      onChange={(event, value) => setLanguages()}
+                      popupIcon={
+                        <MdArrowDropDown
+                          style={{ color: "#333333", width: 30, height: 33 }}
+                        />
+                      }
+                      renderOption={(props, option) => (
+                        <Box
+                          component="li"
+                          sx={{ mr: 2, flexShrink: 0 }}
+                          {...props}
+                        >
+                          {option.label}
+                        </Box>
+                      )}
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          label={REGI02_Box5v01EN[5].label}
+                          inputProps={{
+                            ...params.inputProps,
+                            autoComplete: "",
+                          }}
+                        />
+                      )}
+                    />
+
+                    <button
+                      style={{
+                        width: "100%",
+                        borderRadius: 20,
+                        background: " #001E33",
+                        height: 40,
+                        color: "#FFFFFF",
+                        fontSize: 18,
+                        borderColor: "transparent",
+                        marginTop: 20,
+                      }}
+                      onClick={() => setScreen("16")}
+                    >
+                      {REGI02_Box5v01EN[7].label}
+                    </button>
+                  </div>
+                </div>
+              )}
+            </>
+          ) : screen === "16" ? (
+            <>
+              {Doc === "English" ? (
+                <div>
+                  <div
+                    style={{
+                      position: "fixed",
+                      top: 20,
+                      left: width * 0.59,
+                      textAlign: "-webkit-center",
+                      width: 500,
+                      background: " #FFFFFF",
+                      boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
+                      borderRadius: 20,
+                      padding: 30,
+                    }}
+                  >
+                    <button
+                      style={{
+                        fontWeight: 400,
+                        fontSize: 18,
+                        textDecorationLine: "none",
+                        color: "#D9D9D9",
+                        textAlign: "left",
+                        marginBottom: 20,
+                        float: "left",
+                        background: "transparent",
+                        border: "transparent",
+                      }}
+                      onClick={() => setScreen("15")}
+                    >
+                      <BsArrowLeftShort />
+                      <p
+                        style={{
+                          color: "#D9D9D9",
+                          fontSize: 18,
+                          textDecorationLine: "none",
+                          float: "right",
+                        }}
+                      >
+                        {REGI02_Box6EN[0].label}
+                      </p>
+                    </button>
+
+                    <h2 className="textSignup" style={{ marginTop: 30 }}>
+                      {REGI02_Box6EN[1].label}
+                    </h2>
+
+                    <div>
+                      <div
+                        style={{
+                          textAlign: "left",
+                          float: "left",
+                          borderBottom: "2px solid #D9D9D9",
+                          marginBottom: 10,
+                        }}
+                      >
+                        <div
+                          style={{
+                            width: 30,
+                            height: 30,
+                            color: "#D9D9D9",
+                            borderRadius: 100,
+                            textAlign: "center",
+                            border: "1px solid #D9D9D9",
+                            padding: 2,
+                            float: "left",
+                            fontSize: 15,
+                            fontWeight: 700,
+                            marginLeft: 20,
+                          }}
+                        >
+                          <p>1</p>
+                        </div>
+                        <div
+                          style={{
+                            color: "#D9D9D9",
+                            float: "left",
+                            margin: 5,
+                            fontWeight: 700,
+                          }}
+                        >
+                          <p>{REGI02_Box6EN[2].label}</p>
+                        </div>
+                      </div>
+
+                      <div
+                        style={{
+                          textAlign: "left",
+                          float: "left",
+                          borderBottom: "2px solid #034D82",
+                          marginBottom: 10,
+                          width: "75%",
+                        }}
+                      >
+                        <div
+                          style={{
+                            width: 30,
+                            height: 30,
+                            color: "#034D82",
+                            borderRadius: 100,
+                            textAlign: "center",
+                            border: "1px solid #034D82",
+                            padding: 2,
+                            float: "left",
+                            fontSize: 15,
+                            fontWeight: 700,
+                            marginLeft: 20,
+                          }}
+                        >
+                          <p>2</p>
+                        </div>
+                        <div
+                          style={{
+                            color: "#034D82",
+                            float: "left",
+                            margin: 5,
+                            fontWeight: 700,
+                          }}
+                        >
+                          <p>{REGI02_Box6EN[3].label}</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div style={{ marginBottom: 10, textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: "bold",
+                          fontSize: 18,
+                          color: "#333333",
+                        }}
+                      >
+                        {REGI02_Box6EN[4].label}
+                      </p>
+                    </div>
+
+                    <Autocomplete
+                      multiple
+                      id="country-select-demo"
+                      sx={{ width: "100%" }}
+                      options={data}
+                      autoHighlight
+                      getOptionLabel={(option) => option.label}
+                      // defaultValue={""}
+                      // onChange={(event,value) => console.log("hi :",value)}
+                      popupIcon={
+                        <MdArrowDropDown
+                          style={{ color: "#333333", width: 30, height: 33 }}
+                        />
+                      }
+                      renderOption={(props, option) => (
+                        <Box
+                          component="li"
+                          sx={{ mr: 2, flexShrink: 0 }}
+                          {...props}
+                        >
+                          {option.label}
+                        </Box>
+                      )}
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          label={REGI02_Box6EN[5].label}
+                          inputProps={{
+                            ...params.inputProps,
+                            autoComplete: "",
+                          }}
+                        />
+                      )}
+                    />
+
+                    <div style={{ marginBottom: 10, textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: "bold",
+                          fontSize: 18,
+                          color: "#333333",
+                        }}
+                      >
+                        {REGI02_Box6EN[6].label}
+                      </p>
+                    </div>
+
+                    <textarea
+                      // value={}
+                      // onChange={}
+                      maxLength={150}
+                      style={{
+                        width: "100%",
+                        background: "#FFFFFF",
+                        border: "1px solid #E5E5E5",
+                        boxSizing: "border-box",
+                        borderRadius: 5,
+                        padding: 20,
+                      }}
+                    />
+                    <button
+                      style={{
+                        width: "100%",
+                        borderRadius: 20,
+                        background: " #001E33",
+                        height: 40,
+                        color: "#FFFFFF",
+                        fontSize: 18,
+                        borderColor: "transparent",
+                        marginTop: 30,
+                      }}
+                      onClick={() => setOpen3(true)}
+                    >
+                      {REGI02_Box6EN[1].label}
+                    </button>
+
+                    <Modal
+                      keepMounted
+                      open={open3}
+                      onClose={handleClose3}
+                      aria-labelledby="keep-mounted-modal-title"
+                      aria-describedby="keep-mounted-modal-description"
+                    >
+                      <Box
+                        sx={{
+                          position: "absolute",
+                          top: "50%",
+                          left: "50%",
+                          transform: "translate(-50%, -70%)",
+                          width: 600,
+                          bgcolor: "background.paper",
+                          boxShadow: 24,
+                          p: 4,
+                          borderRadius: 5,
+                          border: "1px solid #E5E5E5",
+                          textAlign: "center",
+                        }}
+                      >
+                        <img src={logo} alt="Logo" style={{ width: 100 }} />
+                        <Typography
+                          id="keep-mounted-modal-description"
+                          sx={{ mt: 2, fontWeight: 700 }}
+                        >
+                          {REGI02_box5EN[0].label}
+                        </Typography>
+                        <Typography
+                          id="keep-mounted-modal-description"
+                          sx={{
+                            mt: 2,
+                            textAlign: "left",
+                            overflowY: "auto",
+                            height: 125,
+                          }}
+                        >
+                          {REGI02_box5EN[1].label}
+                        </Typography>
+                        <div
+                          style={{
+                            textAlign: "left",
+                            borderTop: "1px solid #C4C4C4",
+                          }}
+                        >
+                          <FormControlLabel
+                            control={
+                              <Checkbox
+                                checked={checked2}
+                                onChange={handleChange2}
+                                inputProps={{ "aria-label": "controlled" }}
+                              />
+                            }
+                            label={REGI02_box5EN[2].label}
+                          />
+                        </div>
+                        <div>
+                          {checked2 === false ? (
+                            <button
+                              style={{
+                                width: "30%",
+                                borderRadius: 20,
+                                background: "#E0E0E0",
+                                height: 40,
+                                color: "#FFFFFF",
+                                fontSize: 18,
+                                borderColor: "transparent",
+                                position: "relative",
+                                left: "35%",
+                              }}
+                              disabled
+                              onClick={handleOpen}
+                            >
+                              {REGI02_box5EN[3].label}
+                            </button>
+                          ) : (
+                            <button
+                              style={{
+                                width: "30%",
+                                borderRadius: 20,
+                                background: "#001E33",
+                                height: 40,
+                                color: "#FFFFFF",
+                                fontSize: 18,
+                                borderColor: "transparent",
+                                position: "relative",
+                                left: "35%",
+                              }}
+                              onClick={handleClose4}
+                            >
+                              {REGI02_box5EN[3].label}
+                            </button>
+                          )}
+                        </div>
+                      </Box>
+                    </Modal>
+
+                    <Modal
+                      keepMounted
+                      open={open4}
+                      onClose={handleClose5}
+                      aria-labelledby="keep-mounted-modal-title"
+                      aria-describedby="keep-mounted-modal-description"
+                    >
+                      <Box
+                        sx={{
+                          position: "absolute",
+                          top: "50%",
+                          left: "50%",
+                          transform: "translate(-50%, -70%)",
+                          width: 400,
+                          bgcolor: "background.paper",
+                          boxShadow: 24,
+                          p: 4,
+                          borderRadius: 5,
+                          border: "1px solid #E5E5E5",
+                          textAlign: "center",
+                        }}
+                      >
+                        <AiFillCheckCircle
+                          style={{ width: 100, height: 80, color: "#46BC52" }}
+                        />
+                        <Typography
+                          id="keep-mounted-modal-description"
+                          sx={{ mt: 2, fontWeight: 700 }}
+                        >
+                          {REGI02_box5EN[4].label}
+                        </Typography>
+                      </Box>
+                    </Modal>
+                  </div>
+                </div>
+              ) : Doc === "Thai" ? (
+                <div>
+                  <div
+                    style={{
+                      position: "fixed",
+                      top: 20,
+                      left: width * 0.59,
+                      textAlign: "-webkit-center",
+                      width: 500,
+                      background: " #FFFFFF",
+                      boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
+                      borderRadius: 20,
+                      padding: 30,
+                    }}
+                  >
+                    <button
+                      style={{
+                        fontWeight: 400,
+                        fontSize: 18,
+                        textDecorationLine: "none",
+                        color: "#D9D9D9",
+                        textAlign: "left",
+                        marginBottom: 20,
+                        float: "left",
+                        background: "transparent",
+                        border: "transparent",
+                      }}
+                      onClick={() => setScreen("15")}
+                    >
+                      <BsArrowLeftShort />
+                      <p
+                        style={{
+                          color: "#D9D9D9",
+                          fontSize: 18,
+                          textDecorationLine: "none",
+                          float: "right",
+                        }}
+                      >
+                        {REGI02_Box6TH[0].label}
+                      </p>
+                    </button>
+
+                    <h2 className="textSignup" style={{ marginTop: 30 }}>
+                      {REGI02_Box6TH[1].label}
+                    </h2>
+
+                    <div>
+                      <div
+                        style={{
+                          textAlign: "left",
+                          float: "left",
+                          borderBottom: "2px solid #D9D9D9",
+                          marginBottom: 10,
+                        }}
+                      >
+                        <div
+                          style={{
+                            width: 30,
+                            height: 30,
+                            color: "#D9D9D9",
+                            borderRadius: 100,
+                            textAlign: "center",
+                            border: "1px solid #D9D9D9",
+                            padding: 2,
+                            float: "left",
+                            fontSize: 15,
+                            fontWeight: 700,
+                            marginLeft: 20,
+                          }}
+                        >
+                          <p>1</p>
+                        </div>
+                        <div
+                          style={{
+                            color: "#D9D9D9",
+                            float: "left",
+                            margin: 5,
+                            fontWeight: 700,
+                          }}
+                        >
+                          <p>{REGI02_Box6TH[2].label}</p>
+                        </div>
+                      </div>
+
+                      <div
+                        style={{
+                          textAlign: "left",
+                          float: "left",
+                          borderBottom: "2px solid #034D82",
+                          marginBottom: 10,
+                          width: "75%",
+                        }}
+                      >
+                        <div
+                          style={{
+                            width: 30,
+                            height: 30,
+                            color: "#034D82",
+                            borderRadius: 100,
+                            textAlign: "center",
+                            border: "1px solid #034D82",
+                            padding: 2,
+                            float: "left",
+                            fontSize: 15,
+                            fontWeight: 700,
+                            marginLeft: 20,
+                          }}
+                        >
+                          <p>2</p>
+                        </div>
+                        <div
+                          style={{
+                            color: "#034D82",
+                            float: "left",
+                            margin: 5,
+                            fontWeight: 700,
+                          }}
+                        >
+                          <p>{REGI02_Box6TH[3].label}</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div style={{ marginBottom: 10, textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: "bold",
+                          fontSize: 18,
+                          color: "#333333",
+                        }}
+                      >
+                        {REGI02_Box6TH[4].label}
+                      </p>
+                    </div>
+
+                    <Autocomplete
+                      multiple
+                      id="country-select-demo"
+                      sx={{ width: "100%" }}
+                      options={data}
+                      autoHighlight
+                      getOptionLabel={(option) => option.label}
+                      // defaultValue={""}
+                      // onChange={(event,value) => console.log("hi :",value)}
+                      popupIcon={
+                        <MdArrowDropDown
+                          style={{ color: "#333333", width: 30, height: 33 }}
+                        />
+                      }
+                      renderOption={(props, option) => (
+                        <Box
+                          component="li"
+                          sx={{ mr: 2, flexShrink: 0 }}
+                          {...props}
+                        >
+                          {option.label}
+                        </Box>
+                      )}
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          label={REGI02_Box6TH[5].label}
+                          inputProps={{
+                            ...params.inputProps,
+                            autoComplete: "",
+                          }}
+                        />
+                      )}
+                    />
+
+                    <div style={{ marginBottom: 10, textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: "bold",
+                          fontSize: 18,
+                          color: "#333333",
+                        }}
+                      >
+                        {REGI02_Box6TH[6].label}
+                      </p>
+                    </div>
+
+                    <textarea
+                      // value={}
+                      // onChange={}
+                      maxLength={150}
+                      style={{
+                        width: "100%",
+                        background: "#FFFFFF",
+                        border: "1px solid #E5E5E5",
+                        boxSizing: "border-box",
+                        borderRadius: 5,
+                        padding: 20,
+                      }}
+                    />
+                    <button
+                      style={{
+                        width: "100%",
+                        borderRadius: 20,
+                        background: " #001E33",
+                        height: 40,
+                        color: "#FFFFFF",
+                        fontSize: 18,
+                        borderColor: "transparent",
+                        marginTop: 30,
+                      }}
+                      onClick={() => setOpen3(true)}
+                    >
+                      {REGI02_Box6TH[1].label}
+                    </button>
+
+                    <Modal
+                      keepMounted
+                      open={open3}
+                      onClose={handleClose3}
+                      aria-labelledby="keep-mounted-modal-title"
+                      aria-describedby="keep-mounted-modal-description"
+                    >
+                      <Box
+                        sx={{
+                          position: "absolute",
+                          top: "50%",
+                          left: "50%",
+                          transform: "translate(-50%, -70%)",
+                          width: 600,
+                          bgcolor: "background.paper",
+                          boxShadow: 24,
+                          p: 4,
+                          borderRadius: 5,
+                          border: "1px solid #E5E5E5",
+                          textAlign: "center",
+                        }}
+                      >
+                        <img src={logo} alt="Logo" style={{ width: 100 }} />
+                        <Typography
+                          id="keep-mounted-modal-description"
+                          sx={{ mt: 2, fontWeight: 700 }}
+                        >
+                          {REGI02_box5TH[0].label}
+                        </Typography>
+                        <Typography
+                          id="keep-mounted-modal-description"
+                          sx={{
+                            mt: 2,
+                            textAlign: "left",
+                            overflowY: "auto",
+                            height: 125,
+                          }}
+                        >
+                          {REGI02_box5TH[1].label}
+                        </Typography>
+                        <div
+                          style={{
+                            textAlign: "left",
+                            borderTop: "1px solid #C4C4C4",
+                          }}
+                        >
+                          <FormControlLabel
+                            control={
+                              <Checkbox
+                                checked={checked2}
+                                onChange={handleChange2}
+                                inputProps={{ "aria-label": "controlled" }}
+                              />
+                            }
+                            label={REGI02_box5TH[2].label}
+                          />
+                        </div>
+                        <div>
+                          {checked2 === false ? (
+                            <button
+                              style={{
+                                width: "30%",
+                                borderRadius: 20,
+                                background: "#E0E0E0",
+                                height: 40,
+                                color: "#FFFFFF",
+                                fontSize: 18,
+                                borderColor: "transparent",
+                                position: "relative",
+                                left: "35%",
+                              }}
+                              disabled
+                              onClick={handleOpen}
+                            >
+                              {REGI02_box5TH[3].label}
+                            </button>
+                          ) : (
+                            <button
+                              style={{
+                                width: "30%",
+                                borderRadius: 20,
+                                background: "#001E33",
+                                height: 40,
+                                color: "#FFFFFF",
+                                fontSize: 18,
+                                borderColor: "transparent",
+                                position: "relative",
+                                left: "35%",
+                              }}
+                              onClick={handleClose4}
+                            >
+                              {REGI02_box5TH[3].label}
+                            </button>
+                          )}
+                        </div>
+                      </Box>
+                    </Modal>
+
+                    <Modal
+                      keepMounted
+                      open={open4}
+                      onClose={handleClose5}
+                      aria-labelledby="keep-mounted-modal-title"
+                      aria-describedby="keep-mounted-modal-description"
+                    >
+                      <Box
+                        sx={{
+                          position: "absolute",
+                          top: "50%",
+                          left: "50%",
+                          transform: "translate(-50%, -70%)",
+                          width: 400,
+                          bgcolor: "background.paper",
+                          boxShadow: 24,
+                          p: 4,
+                          borderRadius: 5,
+                          border: "1px solid #E5E5E5",
+                          textAlign: "center",
+                        }}
+                      >
+                        <AiFillCheckCircle
+                          style={{ width: 100, height: 80, color: "#46BC52" }}
+                        />
+                        <Typography
+                          id="keep-mounted-modal-description"
+                          sx={{ mt: 2, fontWeight: 700 }}
+                        >
+                          {REGI02_box5TH[4].label}
+                        </Typography>
+                      </Box>
+                    </Modal>
+                  </div>
+                </div>
+              ) : Doc === "German" ? (
+                <div>
+                  <div
+                    style={{
+                      position: "fixed",
+                      top: 20,
+                      left: width * 0.59,
+                      textAlign: "-webkit-center",
+                      width: 500,
+                      background: " #FFFFFF",
+                      boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
+                      borderRadius: 20,
+                      padding: 30,
+                    }}
+                  >
+                    <button
+                      style={{
+                        fontWeight: 400,
+                        fontSize: 18,
+                        textDecorationLine: "none",
+                        color: "#D9D9D9",
+                        textAlign: "left",
+                        marginBottom: 20,
+                        float: "left",
+                        background: "transparent",
+                        border: "transparent",
+                      }}
+                      onClick={() => setScreen("15")}
+                    >
+                      <BsArrowLeftShort />
+                      <p
+                        style={{
+                          color: "#D9D9D9",
+                          fontSize: 18,
+                          textDecorationLine: "none",
+                          float: "right",
+                        }}
+                      >
+                        {REGI02_Box6DE[0].label}
+                      </p>
+                    </button>
+
+                    <h2 className="textSignup" style={{ marginTop: 30 }}>
+                      {REGI02_Box6DE[1].label}
+                    </h2>
+
+                    <div>
+                      <div
+                        style={{
+                          textAlign: "left",
+                          float: "left",
+                          borderBottom: "2px solid #D9D9D9",
+                          marginBottom: 10,
+                        }}
+                      >
+                        <div
+                          style={{
+                            width: 30,
+                            height: 30,
+                            color: "#D9D9D9",
+                            borderRadius: 100,
+                            textAlign: "center",
+                            border: "1px solid #D9D9D9",
+                            padding: 2,
+                            float: "left",
+                            fontSize: 15,
+                            fontWeight: 700,
+                            marginLeft: 20,
+                          }}
+                        >
+                          <p>1</p>
+                        </div>
+                        <div
+                          style={{
+                            color: "#D9D9D9",
+                            float: "left",
+                            margin: 5,
+                            fontWeight: 700,
+                          }}
+                        >
+                          <p>{REGI02_Box6DE[2].label}</p>
+                        </div>
+                      </div>
+
+                      <div
+                        style={{
+                          textAlign: "left",
+                          float: "left",
+                          borderBottom: "2px solid #034D82",
+                          marginBottom: 10,
+                          width: "68%",
+                        }}
+                      >
+                        <div
+                          style={{
+                            width: 30,
+                            height: 30,
+                            color: "#034D82",
+                            borderRadius: 100,
+                            textAlign: "center",
+                            border: "1px solid #034D82",
+                            padding: 2,
+                            float: "left",
+                            fontSize: 15,
+                            fontWeight: 700,
+                            marginLeft: 20,
+                          }}
+                        >
+                          <p>2</p>
+                        </div>
+                        <div
+                          style={{
+                            color: "#034D82",
+                            float: "left",
+                            margin: 5,
+                            fontWeight: 700,
+                          }}
+                        >
+                          <p>{REGI02_Box6DE[3].label}</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div style={{ marginBottom: 10, textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: "bold",
+                          fontSize: 18,
+                          color: "#333333",
+                        }}
+                      >
+                        {REGI02_Box6DE[4].label}
+                      </p>
+                    </div>
+
+                    <Autocomplete
+                      multiple
+                      id="country-select-demo"
+                      sx={{ width: "100%" }}
+                      options={data}
+                      autoHighlight
+                      getOptionLabel={(option) => option.label}
+                      // defaultValue={""}
+                      // onChange={(event,value) => console.log("hi :",value)}
+                      popupIcon={
+                        <MdArrowDropDown
+                          style={{ color: "#333333", width: 30, height: 33 }}
+                        />
+                      }
+                      renderOption={(props, option) => (
+                        <Box
+                          component="li"
+                          sx={{ mr: 2, flexShrink: 0 }}
+                          {...props}
+                        >
+                          {option.label}
+                        </Box>
+                      )}
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          label={REGI02_Box6DE[5].label}
+                          inputProps={{
+                            ...params.inputProps,
+                            autoComplete: "",
+                          }}
+                        />
+                      )}
+                    />
+
+                    <div style={{ marginBottom: 10, textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: "bold",
+                          fontSize: 18,
+                          color: "#333333",
+                        }}
+                      >
+                        {REGI02_Box6DE[6].label}
+                      </p>
+                    </div>
+
+                    <textarea
+                      // value={}
+                      // onChange={}
+                      maxLength={150}
+                      style={{
+                        width: "100%",
+                        background: "#FFFFFF",
+                        border: "1px solid #E5E5E5",
+                        boxSizing: "border-box",
+                        borderRadius: 5,
+                        padding: 20,
+                      }}
+                    />
+                    <button
+                      style={{
+                        width: "100%",
+                        borderRadius: 20,
+                        background: " #001E33",
+                        height: 40,
+                        color: "#FFFFFF",
+                        fontSize: 18,
+                        borderColor: "transparent",
+                        marginTop: 30,
+                      }}
+                      onClick={() => setOpen3(true)}
+                    >
+                      {REGI02_Box6DE[1].label}
+                    </button>
+
+                    <Modal
+                      keepMounted
+                      open={open3}
+                      onClose={handleClose3}
+                      aria-labelledby="keep-mounted-modal-title"
+                      aria-describedby="keep-mounted-modal-description"
+                    >
+                      <Box
+                        sx={{
+                          position: "absolute",
+                          top: "50%",
+                          left: "50%",
+                          transform: "translate(-50%, -70%)",
+                          width: 600,
+                          bgcolor: "background.paper",
+                          boxShadow: 24,
+                          p: 4,
+                          borderRadius: 5,
+                          border: "1px solid #E5E5E5",
+                          textAlign: "center",
+                        }}
+                      >
+                        <img src={logo} alt="Logo" style={{ width: 100 }} />
+                        <Typography
+                          id="keep-mounted-modal-description"
+                          sx={{ mt: 2, fontWeight: 700 }}
+                        >
+                          {REGI02_box5DE[0].label}
+                        </Typography>
+                        <Typography
+                          id="keep-mounted-modal-description"
+                          sx={{
+                            mt: 2,
+                            textAlign: "left",
+                            overflowY: "auto",
+                            height: 125,
+                          }}
+                        >
+                          {REGI02_box5DE[1].label}
+                        </Typography>
+                        <div
+                          style={{
+                            textAlign: "left",
+                            borderTop: "1px solid #C4C4C4",
+                          }}
+                        >
+                          <FormControlLabel
+                            control={
+                              <Checkbox
+                                checked={checked2}
+                                onChange={handleChange2}
+                                inputProps={{ "aria-label": "controlled" }}
+                              />
+                            }
+                            label={REGI02_box5DE[2].label}
+                          />
+                        </div>
+                        <div>
+                          {checked2 === false ? (
+                            <button
+                              style={{
+                                width: "30%",
+                                borderRadius: 20,
+                                background: "#E0E0E0",
+                                height: 40,
+                                color: "#FFFFFF",
+                                fontSize: 18,
+                                borderColor: "transparent",
+                                position: "relative",
+                                left: "35%",
+                              }}
+                              disabled
+                              onClick={handleOpen}
+                            >
+                              {REGI02_box5DE[3].label}
+                            </button>
+                          ) : (
+                            <button
+                              style={{
+                                width: "30%",
+                                borderRadius: 20,
+                                background: "#001E33",
+                                height: 40,
+                                color: "#FFFFFF",
+                                fontSize: 18,
+                                borderColor: "transparent",
+                                position: "relative",
+                                left: "35%",
+                              }}
+                              onClick={handleClose4}
+                            >
+                              {REGI02_box5DE[3].label}
+                            </button>
+                          )}
+                        </div>
+                      </Box>
+                    </Modal>
+
+                    <Modal
+                      keepMounted
+                      open={open4}
+                      onClose={handleClose5}
+                      aria-labelledby="keep-mounted-modal-title"
+                      aria-describedby="keep-mounted-modal-description"
+                    >
+                      <Box
+                        sx={{
+                          position: "absolute",
+                          top: "50%",
+                          left: "50%",
+                          transform: "translate(-50%, -70%)",
+                          width: 400,
+                          bgcolor: "background.paper",
+                          boxShadow: 24,
+                          p: 4,
+                          borderRadius: 5,
+                          border: "1px solid #E5E5E5",
+                          textAlign: "center",
+                        }}
+                      >
+                        <AiFillCheckCircle
+                          style={{ width: 100, height: 80, color: "#46BC52" }}
+                        />
+                        <Typography
+                          id="keep-mounted-modal-description"
+                          sx={{ mt: 2, fontWeight: 700 }}
+                        >
+                          {REGI02_box5DE[4].label}
+                        </Typography>
+                      </Box>
+                    </Modal>
+                  </div>
+                </div>
+              ) : (
+                <div>
+                  <div
+                    style={{
+                      position: "fixed",
+                      top: 20,
+                      left: width * 0.59,
+                      textAlign: "-webkit-center",
+                      width: 500,
+                      background: " #FFFFFF",
+                      boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
+                      borderRadius: 20,
+                      padding: 30,
+                    }}
+                  >
+                    <button
+                      style={{
+                        fontWeight: 400,
+                        fontSize: 18,
+                        textDecorationLine: "none",
+                        color: "#D9D9D9",
+                        textAlign: "left",
+                        marginBottom: 20,
+                        float: "left",
+                        background: "transparent",
+                        border: "transparent",
+                      }}
+                      onClick={() => setScreen("15")}
+                    >
+                      <BsArrowLeftShort />
+                      <p
+                        style={{
+                          color: "#D9D9D9",
+                          fontSize: 18,
+                          textDecorationLine: "none",
+                          float: "right",
+                        }}
+                      >
+                        {REGI02_Box6EN[0].label}
+                      </p>
+                    </button>
+
+                    <h2 className="textSignup" style={{ marginTop: 30 }}>
+                      {REGI02_Box6EN[1].label}
+                    </h2>
+
+                    <div>
+                      <div
+                        style={{
+                          textAlign: "left",
+                          float: "left",
+                          borderBottom: "2px solid #D9D9D9",
+                          marginBottom: 10,
+                        }}
+                      >
+                        <div
+                          style={{
+                            width: 30,
+                            height: 30,
+                            color: "#D9D9D9",
+                            borderRadius: 100,
+                            textAlign: "center",
+                            border: "1px solid #D9D9D9",
+                            padding: 2,
+                            float: "left",
+                            fontSize: 15,
+                            fontWeight: 700,
+                            marginLeft: 20,
+                          }}
+                        >
+                          <p>1</p>
+                        </div>
+                        <div
+                          style={{
+                            color: "#D9D9D9",
+                            float: "left",
+                            margin: 5,
+                            fontWeight: 700,
+                          }}
+                        >
+                          <p>{REGI02_Box6EN[2].label}</p>
+                        </div>
+                      </div>
+
+                      <div
+                        style={{
+                          textAlign: "left",
+                          float: "left",
+                          borderBottom: "2px solid #034D82",
+                          marginBottom: 10,
+                          width: "75%",
+                        }}
+                      >
+                        <div
+                          style={{
+                            width: 30,
+                            height: 30,
+                            color: "#034D82",
+                            borderRadius: 100,
+                            textAlign: "center",
+                            border: "1px solid #034D82",
+                            padding: 2,
+                            float: "left",
+                            fontSize: 15,
+                            fontWeight: 700,
+                            marginLeft: 20,
+                          }}
+                        >
+                          <p>2</p>
+                        </div>
+                        <div
+                          style={{
+                            color: "#034D82",
+                            float: "left",
+                            margin: 5,
+                            fontWeight: 700,
+                          }}
+                        >
+                          <p>{REGI02_Box6EN[3].label}</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div style={{ marginBottom: 10, textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: "bold",
+                          fontSize: 18,
+                          color: "#333333",
+                        }}
+                      >
+                        {REGI02_Box6EN[4].label}
+                      </p>
+                    </div>
+
+                    <Autocomplete
+                      multiple
+                      id="country-select-demo"
+                      sx={{ width: "100%" }}
+                      options={data}
+                      autoHighlight
+                      getOptionLabel={(option) => option.label}
+                      // defaultValue={""}
+                      // onChange={(event,value) => console.log("hi :",value)}
+                      popupIcon={
+                        <MdArrowDropDown
+                          style={{ color: "#333333", width: 30, height: 33 }}
+                        />
+                      }
+                      renderOption={(props, option) => (
+                        <Box
+                          component="li"
+                          sx={{ mr: 2, flexShrink: 0 }}
+                          {...props}
+                        >
+                          {option.label}
+                        </Box>
+                      )}
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          label={REGI02_Box6EN[5].label}
+                          inputProps={{
+                            ...params.inputProps,
+                            autoComplete: "",
+                          }}
+                        />
+                      )}
+                    />
+
+                    <div style={{ marginBottom: 10, textAlign: "left" }}>
+                      <p
+                        style={{
+                          fontWeight: "bold",
+                          fontSize: 18,
+                          color: "#333333",
+                        }}
+                      >
+                        {REGI02_Box6EN[6].label}
+                      </p>
+                    </div>
+
+                    <textarea
+                      // value={}
+                      // onChange={}
+                      maxLength={150}
+                      style={{
+                        width: "100%",
+                        background: "#FFFFFF",
+                        border: "1px solid #E5E5E5",
+                        boxSizing: "border-box",
+                        borderRadius: 5,
+                        padding: 20,
+                      }}
+                    />
+                    <button
+                      style={{
+                        width: "100%",
+                        borderRadius: 20,
+                        background: " #001E33",
+                        height: 40,
+                        color: "#FFFFFF",
+                        fontSize: 18,
+                        borderColor: "transparent",
+                        marginTop: 30,
+                      }}
+                      onClick={() => setOpen3(true)}
+                    >
+                      {REGI02_Box6EN[1].label}
+                    </button>
+
+                    <Modal
+                      keepMounted
+                      open={open3}
+                      onClose={handleClose3}
+                      aria-labelledby="keep-mounted-modal-title"
+                      aria-describedby="keep-mounted-modal-description"
+                    >
+                      <Box
+                        sx={{
+                          position: "absolute",
+                          top: "50%",
+                          left: "50%",
+                          transform: "translate(-50%, -70%)",
+                          width: 600,
+                          bgcolor: "background.paper",
+                          boxShadow: 24,
+                          p: 4,
+                          borderRadius: 5,
+                          border: "1px solid #E5E5E5",
+                          textAlign: "center",
+                        }}
+                      >
+                        <img src={logo} alt="Logo" style={{ width: 100 }} />
+                        <Typography
+                          id="keep-mounted-modal-description"
+                          sx={{ mt: 2, fontWeight: 700 }}
+                        >
+                          {REGI02_box5EN[0].label}
+                        </Typography>
+                        <Typography
+                          id="keep-mounted-modal-description"
+                          sx={{
+                            mt: 2,
+                            textAlign: "left",
+                            overflowY: "auto",
+                            height: 125,
+                          }}
+                        >
+                          {REGI02_box5EN[1].label}
+                        </Typography>
+                        <div
+                          style={{
+                            textAlign: "left",
+                            borderTop: "1px solid #C4C4C4",
+                          }}
+                        >
+                          <FormControlLabel
+                            control={
+                              <Checkbox
+                                checked={checked2}
+                                onChange={handleChange2}
+                                inputProps={{ "aria-label": "controlled" }}
+                              />
+                            }
+                            label={REGI02_box5EN[2].label}
+                          />
+                        </div>
+                        <div>
+                          {checked2 === false ? (
+                            <button
+                              style={{
+                                width: "30%",
+                                borderRadius: 20,
+                                background: "#E0E0E0",
+                                height: 40,
+                                color: "#FFFFFF",
+                                fontSize: 18,
+                                borderColor: "transparent",
+                                position: "relative",
+                                left: "35%",
+                              }}
+                              disabled
+                              onClick={handleOpen}
+                            >
+                              {REGI02_box5EN[3].label}
+                            </button>
+                          ) : (
+                            <button
+                              style={{
+                                width: "30%",
+                                borderRadius: 20,
+                                background: "#001E33",
+                                height: 40,
+                                color: "#FFFFFF",
+                                fontSize: 18,
+                                borderColor: "transparent",
+                                position: "relative",
+                                left: "35%",
+                              }}
+                              onClick={handleClose4}
+                            >
+                              {REGI02_box5EN[3].label}
+                            </button>
+                          )}
+                        </div>
+                      </Box>
+                    </Modal>
+
+                    <Modal
+                      keepMounted
+                      open={open4}
+                      onClose={handleClose5}
+                      aria-labelledby="keep-mounted-modal-title"
+                      aria-describedby="keep-mounted-modal-description"
+                    >
+                      <Box
+                        sx={{
+                          position: "absolute",
+                          top: "50%",
+                          left: "50%",
+                          transform: "translate(-50%, -70%)",
+                          width: 400,
+                          bgcolor: "background.paper",
+                          boxShadow: 24,
+                          p: 4,
+                          borderRadius: 5,
+                          border: "1px solid #E5E5E5",
+                          textAlign: "center",
+                        }}
+                      >
+                        <AiFillCheckCircle
+                          style={{ width: 100, height: 80, color: "#46BC52" }}
+                        />
+                        <Typography
+                          id="keep-mounted-modal-description"
+                          sx={{ mt: 2, fontWeight: 700 }}
+                        >
+                          {REGI02_box5EN[4].label}
+                        </Typography>
+                      </Box>
+                    </Modal>
+                  </div>
+                </div>
+              )}
+            </>
+          ) : null}
+          <>
+            {Doc === "English" ? (
+              <div
+                style={{ top: "95%", position: "absolute", marginLeft: "25%" }}
+              >
+                <div style={{ float: "right" }}>
+                  <p>{REGI01_box1EN[14].label}</p>
+                </div>
+                <div style={{ float: "right", marginRight: 50 }}>
+                  <p>{REGI01_box1EN[13].label}</p>
+                </div>
+              </div>
+            ) : Doc === "Thai" ? (
+              <div
+                style={{ top: "95%", position: "absolute", marginLeft: "25%" }}
+              >
+                <div style={{ float: "right" }}>
+                  <p>{REGI01_box1TH[14].label}</p>
+                </div>
+                <div style={{ float: "right", marginRight: 50 }}>
+                  <p>{REGI01_box1TH[13].label}</p>
+                </div>
+              </div>
+            ) : Doc === "German" ? (
+              <div
+                style={{ top: "95%", position: "absolute", marginLeft: "25%" }}
+              >
+                <div style={{ float: "right" }}>
+                  <p>{REGI01_box1DE[14].label}</p>
+                </div>
+                <div style={{ float: "right", marginRight: 50 }}>
+                  <p>{REGI01_box1DE[13].label}</p>
+                </div>
+              </div>
+            ) : (
+              <div
+                style={{ top: "95%", position: "absolute", marginLeft: "25%" }}
+              >
+                <div style={{ float: "right" }}>
+                  <p>{REGI01_box1EN[14].label}</p>
+                </div>
+                <div style={{ float: "right", marginRight: 50 }}>
+                  <p>{REGI01_box1EN[13].label}</p>
+                </div>
+              </div>
+            )}
+          </>
         </div>
       </div>
     </>

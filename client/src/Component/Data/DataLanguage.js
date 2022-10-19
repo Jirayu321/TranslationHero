@@ -119,10 +119,10 @@ export const overviewDE = [
 // Translator
 
 export const TranslatorEN = [
-  { label: "Home" },
-  { label: "Services" },
-  { label: "Blogs" },
-  { label: "Login" },
+  // { label: "Home" },
+  // { label: "Services" },
+  // { label: "Blogs" },
+  // { label: "Login" },
   { label: "Translator" },
   {
     label:
@@ -138,13 +138,14 @@ export const TranslatorEN = [
   { label: "Professional" },
   { label: "Professional Human Review" },
   { label: "Quality Control" },
+  { label: "Premium" },
 ];
 
 export const TranslatorTH = [
-  { label: "หน้าหลัก" },
-  { label: "บริการ" },
-  { label: "บล็อค" },
-  { label: "เข้าสู่ระบบ" },
+  // { label: "หน้าหลัก" },
+  // { label: "บริการ" },
+  // { label: "บล็อค" },
+  // { label: "เข้าสู่ระบบ" },
   { label: "นักแปล" },
   {
     label:
@@ -160,13 +161,14 @@ export const TranslatorTH = [
   { label: "แบบมืออาชีพ" },
   { label: "ตรวจทานโดยนักแปลมืออาชีพ" },
   { label: "การควบคุมคุณภาพ" },
+  { label: "แบบมีคุณภาพ" },
 ];
 
 export const TranslatorDE = [
-  { label: "Startseite" },
-  { label: "Dienstleistungen" },
-  { label: "Blogs" },
-  { label: "Anmeldung" },
+  // { label: "Startseite" },
+  // { label: "Dienstleistungen" },
+  // { label: "Blogs" },
+  // { label: "Anmeldung" },
   { label: "Übersetzer" },
   {
     label:
@@ -182,15 +184,12 @@ export const TranslatorDE = [
   { label: "Professional" },
   { label: "Professionelle menschliche Überprüfung" },
   { label: "Qualitätskontrolle" },
+  { label: "Prämie" },
 ];
 
 // Customer
 
 export const CustomerEN = [
-  { label: "Home" },
-  { label: "Services" },
-  { label: "Blogs" },
-  { label: "Login" },
   { label: "Customer" },
   {
     label:
@@ -207,36 +206,12 @@ export const CustomerEN = [
   { label: "Example File" },
   { label: "Get Quote" },
   { label: "Price" },
+  { label: "Upload file" },
+  // {label:"Choose a Document type"},
+  // {label:"Choose a Translation type"},
+  // {label:"Choose a language"},
 ];
-
-export const CustomerTH = [
-  { label: "หน้าหลัก" },
-  { label: "บริการ" },
-  { label: "บล็อค" },
-  { label: "เข้าสู่ระบบ" },
-  { label: "ลูกค้า" },
-  {
-    label:
-      "สำหรับลูกค้าที่ต้องการแปลเอกสาร Translation Hero มีระบบระดับมืออาชีพที่คุณสามารถอัปโหลดเอกสารและเลือกบริการที่ต้องการได้อย่างง่ายดาย นอกจากนี้เรายังสนับสนุนการคำนวณต้นทุน การติดตามสถานะงาน แชทบอท รวมถึงแดชบอร์ดที่คุณวางใจได้ว่าระบบการจัดการงานที่ปลอดภัยของเราด้วยงานคุณภาพดีเยี่ยมจากนักแปลของเรา",
-  },
-  { label: "เริ่ม" },
-  { label: "รายการของคุณ" },
-  { label: "ประเภทการแปล" },
-  { label: "ประเภทเอกสาร" },
-  { label: "แปลจากภาษา" },
-  { label: "เป็นภาษา" },
-  { label: "ข้อความ" },
-  { label: "เลือก" },
-  { label: "ตัวอย่างไฟล์" },
-  { label: "ขอใบเสนอราคา" },
-  { label: "ราคา" },
-];
-
 export const CustomerDE = [
-  { label: "Startseite" },
-  { label: "Dienstleistungen" },
-  { label: "Blogs" },
-  { label: "Anmeldung" },
   { label: "Kunden" },
   {
     label:
@@ -253,6 +228,27 @@ export const CustomerDE = [
   { label: "Beispieldatei" },
   { label: "Angebot anfordern" },
   { label: "Preis" },
+  { label: "Datei hochladen" },
+];
+
+export const CustomerTH = [
+  { label: "ลูกค้า" },
+  {
+    label:
+      "สำหรับลูกค้าที่ต้องการแปลเอกสาร Translation Hero มีระบบระดับมืออาชีพที่คุณสามารถอัปโหลดเอกสารและเลือกบริการที่ต้องการได้อย่างง่ายดาย นอกจากนี้เรายังสนับสนุนการคำนวณต้นทุน การติดตามสถานะงาน แชทบอท รวมถึงแดชบอร์ดที่คุณวางใจได้ว่าระบบการจัดการงานที่ปลอดภัยของเราด้วยงานคุณภาพดีเยี่ยมจากนักแปลของเรา",
+  },
+  { label: "เริ่ม" },
+  { label: "รายการของคุณ" },
+  { label: "ประเภทการแปล" },
+  { label: "ประเภทเอกสาร" },
+  { label: "แปลจากภาษา" },
+  { label: "เป็นภาษา" },
+  { label: "ข้อความ" },
+  { label: "เลือก" },
+  { label: "ตัวอย่างไฟล์" },
+  { label: "ขอใบเสนอราคา" },
+  { label: "ราคา" },
+  { label: "อัปโหลดไฟล์" },
 ];
 
 //   Footer
@@ -267,7 +263,7 @@ export const FooterEN = [
   { label: "Tel. +66 xxxxxxx" },
   {
     label:
-      "GLOBAL INTERPRETER AND VOLUNTEER EDUCATION NETWORK COMPANY LIMITED 178/49 Moo 11 Tambol Huay Yai, Amphur Banglamung, Chonburi 20150",
+      "GLOBAL INTERPRETER AND VOLUNTEER EDUCATION NETWORK COMPANY LIMITED 178/49 Moo 11 Tambol Huay Yai, Amphur Banglamung, Chonburi 20150 ",
   },
   { label: "Copyrights GIVE Network Co., Ltd. 2022" },
 ];
@@ -457,7 +453,7 @@ export const REGI01_box4DE = [
       "Wenn Sie auf  'Alle Cookies zulassen'  klicken, willigen Sie in die Speicherung und den Zugriff auf die zu solchen Cookies auf Ihrem Endgerät gespeicherten Informationen, in die Verarbeitung Ihrer jeweiligen personenbezogenen Daten und in die Übermittlung dieser Daten in Länder ein, die nicht das gleiche Datenschutzniveau wie die EU gewährleisten, insbesondere in die USA. Weitere Informationen zum Thema Ihrer Einwilligungen finden Sie in unserer Datenschutzerklärung und unter  'Details anzeigen'. Wir verwenden Cookies, um Ihre Präferenzen bei der Nutzung unserer Website zu speichern, Ihr Nutzungsverhalten statistisch zu analysieren und personalisierte Werbung auf Websites Dritter oder in sozialen Medien anzuzeigen. Diese Daten können von uns und unseren Partnern zur Anreicherung von Nutzungsprofilen verwendet werden. Sie können Ihre Einwilligung jederzeit, jedoch nur mit Wirkung für die Zukunft widerrufen. Klicken Sie dazu bitte auf den Link zu unserer Datenschutzerklärung, den Sie in der Fußzeile unserer Website finden, und nutzen Sie dort die Funktion 'Einwilligung ändern'.",
   },
   { label: "Akzeptieren Sie die Allgemeinen Geschäftsbedingungen" },
-  { label: "Submit" },
+  { label: "Senden" },
 ];
 
 export const REGI01_box5EN = [
@@ -685,7 +681,7 @@ export const REGI02_Box3v02EN = [
   { label: "Upload a picture to use as a watermark" },
   { label: "(such as JPG, PDF, PNG and the file size does not exceed 25Mb.)" },
   { label: "upload file" },
-  { label: "An example of uploading a picture of your ID card" },
+  { label: "An example of uploading a picture of your watermark" },
   { label: "Next" },
   { label: "Copyrights Give Network 2021." },
   { label: "Privacy policy" },
@@ -698,7 +694,7 @@ export const REGI02_Box3v02TH = [
   { label: "อัพโหลดรูปที่จะใช้เป็นลายน้ำ" },
   { label: "(รองรับไฟล์ JPG, PDF, PNG, ขนาดไม่เกิน 25Mb)" },
   { label: "อัปโหลดไฟล์" },
-  { label: "ตัวอย่างการอัพโหลดรูปบัตรประชาชน" },
+  { label: "ตัวอย่างการอัพโหลดรูปลายน้ำ" },
   { label: "ต่อไป" },
   { label: "สงวนลิขสิทธิ์ GIVE Network 2021" },
   { label: "นโยบายความเป็นส่วนตัว" },
@@ -713,7 +709,7 @@ export const REGI02_Box3v02DE = [
   { label: "Datei hochladen" },
   {
     label:
-      "Ein Beispiel für das Hochladen eines Bildes Ihres Personalausweises.",
+      "Ein Beispiel für das Hochladen eines Bildes Ihres Wasserzeichen.",
   },
   { label: "Weiter" },
   { label: "Urheberrecht GIVE Network 2021" },
@@ -758,6 +754,39 @@ export const REGI02_Box4v01DE = [
   { label: "Weiter" },
   { label: "Urheberrecht GIVE Network 2021" },
   { label: "Datenschutzbestimmungen" },
+];
+
+export const REGI02_box5EN = [
+  { label: "Terms and Conditions" },
+  {
+    label:
+      "The company agrees to provide truthful information. and can receive translation work and forward it to translators who are competent in the languages stated by the company above. and will be responsible for all translation works translated from the company",
+  },
+  { label: "accept the terms and conditions" },
+  { label: "Submit" },
+  { label: "Your translator application has been sent. Wait forconfirmation by email" },
+
+];
+export const REGI02_box5TH = [
+  { label: "ข้อกำหนดและเงื่อนไข" },
+  {
+    label:
+      "บริษัทตกลงที่จะให้ข้อมูลตามความเป็นจริง และสามารถรับงานแปลได้ ทำงานและส่งต่อให้นักแปลที่มีความสามารถในภาษาที่ระบุโดยบริษัทข้างต้น และจะรับผิดชอบงานแปลทั้งหมดที่แปลจากบริษัท",
+  },
+  { label: "ยอมรับข้อกำหนดและเงื่อนไข" },
+  { label: "ส่ง" },
+  { label: "ส่งใบสมัครนักแปลของคุณแล้วรอการยืนยันทางอีเมล" },
+
+];
+export const REGI02_box5DE = [
+  { label: "Allgemeine Geschäftsbedingungen (AGB)" },
+  {
+    label:
+      "Das Unternehmen verpflichtet sich, wahrheitsgemäße Angaben zu machen. und kann eine Übersetzung erhalten arbeiten und an Übersetzer weiterleiten, die in den angegebenen Sprachen kompetent sind die Firma oben. und ist für alle vom Unternehmen übersetzten Übersetzungsarbeiten verantwortlich",
+  },
+  { label: "Akzeptieren Sie die Allgemeinen Geschäftsbedingungen" },
+  { label: "Senden" },
+  { label: "Ihre Übersetzerbewerbung wurde abgeschickt. Warten Sie bitte auf die Bestätigung per E-Mail" },
 ];
 
 export const REGI02_Box5v01EN = [
@@ -1859,4 +1888,58 @@ export const TOOL03DE = [
   { label: "Hausregistrierung" },
   { label: "Personalausweis" },
   { label: "Heiratsurkunde" },
+];
+
+// Home
+
+export const HomeEN = [
+  { label: "HOME" },
+  { label: "Search" },
+  { label: "General Document" },
+  { label: "Official Document" },
+  { label: "Find a Translator" },
+  { label: "Your Order" },
+  { label: "Order ID" },
+  { label: "Order type" },
+  { label: "Order name" },
+  { label: "Translator" },
+  { label: "Order price" },
+  { label: "Status" },
+  { label: "Top 10 Translators" },
+  { label: "Skills " },
+  { label: "Languages " },
+];
+export const HomeDE = [
+  { label: "Startseite" },
+  { label: "Search" },
+  { label: "Allgemeines Dokument" },
+  { label: "Offizielles Dokument" },
+  { label: "Finden Sie einen Übersetzer" },
+  { label: "Deine Bestellung" },
+  { label: "Auftragsnummer" },
+  { label: "Auftragsart" },
+  { label: "Auftragsname" },
+  { label: "Übersetzer" },
+  { label: "Bestellpreis" },
+  { label: "Status" },
+  { label: "Top 10 Übersetzer" },
+  { label: "Fähigkeiten" },
+  { label: "Sprachen" },
+];
+export const HomeTH = [
+  { label: "หน้าหลัก" },
+  { label: "ค้นหา" },
+  { label: "เอกสารทั่วไป" },
+  { label: "เอกสารราชการ" },
+  { label: "ค้นหานักแปล" },
+  { label: "คำสั่งของคุณ" },
+  { label: "รหัสคำสั่งซื้อ" },
+  { label: "ประเภทคำสั่งซื้อ" },
+  { label: "ชื่อคำสั่งซื้อ" },
+  { label: "ผู้แปล" },
+  { label: "ราคาสั่งซื้อ" },
+  { label: "สถานะ" },
+  { label: "นักแปล 10 อันดับแรก" },
+  { label: "ทักษะ " },
+  { label: "ภาษา " },
 ];

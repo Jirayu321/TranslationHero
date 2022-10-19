@@ -2,7 +2,7 @@ import * as React from "react";
 import "./notificaion.css";
 import { Box, Paper, TextField } from "@mui/material";
 import Navbars from "../Navbar/navbarHome2.js";
-import Drawer from "../Drawer/Drawer";
+import Drawer from "../Drawer/DrawerCustomer";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { AdapterLuxon } from "@mui/x-date-pickers/AdapterLuxon";

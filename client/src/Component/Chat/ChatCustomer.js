@@ -17,7 +17,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
 import { AdapterLuxon } from "@mui/x-date-pickers/AdapterLuxon";
 import { BsArrowLeftShort, BsX } from "react-icons/bs";
-
+import DrawerCustomer from "../Drawer/DrawerCustomer";
 import Navbars from "../Navbar/navbarHome2";
 import Status from "./status";
 import { Paper, IconButton, InputBase } from "@mui/material";
@@ -82,42 +82,7 @@ export default function Chat() {
         <Navbars />
       </header>
       <Box sx={{ display: "flex", width: "100% " }}>
-        <Drawer
-          variant="permanent"
-          anchor="left"
-          sx={{
-            width: drawerWidth,
-            [`& .MuiDrawer-paper`]: {
-              width: drawerWidth,
-              boxSizing: "border-box",
-            },
-            background: "#FFFDF7",
-          }}
-          style={{ zIndex: 0, height: "100%" }}
-        >
-          <Toolbar />
-          <Box sx={{ overflow: "hidden" }} className={"manu3"}>
-            <List>
-              {["1", "2", "3", "4", "5"].map((text, index) => (
-                <ListItem button key={text} id={"button_manu"}>
-                  <ListItemIcon id={"button_icons"}>
-                    {index === 0 ? (
-                      <FaHome className="icons" />
-                    ) : index === 1 ? (
-                      <FaLanguage className="icons" />
-                    ) : index === 2 ? (
-                      <FaShoppingCart className="icons" />
-                    ) : index === 3 ? (
-                      <IoChatbubblesSharp className="icons" />
-                    ) : index === 4 ? (
-                      <IoNotifications className="icons" />
-                    ) : null}
-                  </ListItemIcon>
-                </ListItem>
-              ))}
-            </List>
-          </Box>
-        </Drawer>
+        <DrawerCustomer/>
 
         <Box component="main">
           <div
@@ -975,7 +940,7 @@ export default function Chat() {
                         type="text"
                         value={price}
                         onChange={(e) => setPrice(e.target.value)}
-                        placeholder="Name"
+                        placeholder="Price"
                         style={{
                           background: "#FFFFFF",
                           border: "1px solid #F1F1F1",

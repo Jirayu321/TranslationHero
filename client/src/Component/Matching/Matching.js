@@ -2,7 +2,7 @@ import * as React from "react";
 import "./Matching.css";
 import profile from "../../Images/Avatar7.png";
 import Navbars from "../Navbar/navbarHome2.js";
-import Drawer from "../Drawer/Drawer";
+import Drawer from "../Drawer/DrawerCustomer";
 import {
   FaLanguage,
   FaFile,

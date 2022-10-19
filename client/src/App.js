@@ -1,7 +1,7 @@
 import * as React from "react";
 import Freelance from "./Component/Dashboard/Dashboard_freelance";
-import Employee from "./Component/Dashboard/Dashboard_employee";
-import Company from "./Component/Dashboard/Dashboard_company";
+// import Employee from "./Component/Dashboard/Dashboard_employee";
+// import Company from "./Component/Dashboard/Dashboard_company";
 import Home from "./Component/Home/Home";
 import Customer from "./Component/Home/Customer";
 import Translator from "./Component/Home/Translator";
@@ -10,12 +10,13 @@ import Login from "./Component/Login/Login";
 import ForgetPassword from "./Component/Login/ForgetPassword";
 import CreateNewPassword from "./Component/Login/CreateNewPassword";
 import Signup from "./Component/Sign_up/Signup";
-import Signupfreelance from "./Component/Sign_up/Signup_freelance";
-import Signupcompany from "./Component/Sign_up/Signup_company";
+// import Signupfreelance from "./Component/Sign_up/Signup_freelance";
+// import Signupcompany from "./Component/Sign_up/Signup_company";
 import Chat from "./Component/Chat/ChatCustomer";
 import Order from "./Component/Order/Order";
 import Notification from "./Component/Notification/Notificaion";
 import Matching from "./Component//Matching/Matching";
+import Tool from "./Component/Tool/Tool"
 
 import { StyledEngineProvider } from "@mui/material/styles";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -62,12 +63,12 @@ function App() {
                   element={<CreateNewPassword />}
                 />
                 <Route exact path="/Signup" element={<Signup />} />
-                <Route path="/Signup_freelance" element={<Signupfreelance />} />
-                <Route
+                {/* <Route path="/Signup_freelance" element={<Signupfreelance />} /> */}
+                {/* <Route
                   exact
                   path="/Signup_company"
                   element={<Signupcompany />}
-                />
+                /> */}
                 <Route exact path="/In" element={<Home2 />} />
                 <Route exact path="/Order" element={<Order />} />
                 <Route
@@ -77,10 +78,9 @@ function App() {
                 />
                 <Route
                   exact
-                  path="/Dashboard_employee"
-                  element={<Employee />}
+                  path="/Tool"
+                  element={<Tool />}
                 />
-                <Route exact path="/Dashboard_company" element={<Company />} />
                 <Route exact path="/Chat" element={<Chat />} />
               </Routes>
             </StyledEngineProvider>
