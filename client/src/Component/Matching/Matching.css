@@ -17,11 +17,30 @@
   margin-bottom: 20px;
   background-color: #e5f4fe;
 }
+.buttonMatching1_Thai {
+  width: 114px;
+  border-radius: 6px;
+  border: 2px #262dbb solid;
+  color: #262dbb;
+  margin-right: 10px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  background-color: #e5f4fe;
+}
+.buttonMatching_Thai  {
+  width: 114px;
+  border-radius: 6px;
+  border: 2px #262dbb solid;
+  color: #262dbb;
+  margin-right: 10px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
 
 .bodyMatching {
   background: white;
   width: 90%;
-  height: 84%;
+  height: 87%;
   position: absolute;
   top: 146px;
   left: 122px;

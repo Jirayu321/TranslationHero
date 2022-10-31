@@ -1,11 +1,11 @@
 import * as React from "react";
 import {
-  ListItem,
-  ListItemIcon,
+  // ListItem,
+  // ListItemIcon,
   Box,
   Drawer,
   Toolbar,
-  List,
+  // List,
   Modal,
   TextField,
 } from "@mui/material";
@@ -23,20 +23,20 @@ import Status from "./status";
 import { Paper, IconButton, InputBase } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import {
-  FaHome,
-  FaLanguage,
-  FaShoppingCart,
+  // FaHome,
+  // FaLanguage,
+  // FaShoppingCart,
   FaTelegramPlane,
   FaUserCircle,
 } from "react-icons/fa";
 
 import {
-  IoChatbubblesSharp,
-  IoNotifications,
+  // IoChatbubblesSharp,
+  // IoNotifications,
   IoDocumentText,
 } from "react-icons/io5";
 
-const drawerWidth = 100;
+// const drawerWidth = 100;
 export default function Chat() {
   const [createQ, setCreateQ] = React.useState(false);
   const [payOpen, setPayOpen] = React.useState(false);

@@ -14,11 +14,33 @@ import Selecting_team from "../../Images/Selecting_team.png";
 import { useNavigate, useLocation } from "react-router-dom";
 import { overviewEN, overviewTH, overviewDE } from "../Data/DataLanguage";
 
+import { Modal, Typography, Box } from "@mui/material";
+
 const Home = () => {
   const location = useLocation();
   const navigate = useNavigate();
-
   let Doc = location?.state?.languages;
+  let Aoc = location?.state?.accept;
+
+  const [open, setOpen] = React.useState(false);
+
+  const handleClose = (x) => {
+    console.log(x);
+    if (x === 1) {
+      navigate("/", { state: { languages: `${x}`, accept: true } });
+      setOpen(false);
+    } else {
+      setOpen(false);
+      navigate("/", { state: { languages: `${x}`, accept: false } });
+    }
+  };
+  React.useEffect(() => {
+    if (Aoc === true) {
+      setOpen(false);
+    } else {
+      setOpen(true);
+    }
+  }, []);
 
   const goSignup = (x) => {
     navigate("/Signup", { state: { languages: `${x}` } });
@@ -61,6 +83,331 @@ const Home = () => {
           <Navbars navigate={navigate} languages="English" />
         )}
       </header>
+      {Doc === "English" ? (
+        <Modal
+          hideBackdrop
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="keep-mounted-modal-title"
+          aria-describedby="keep-mounted-modal-description"
+        >
+          <Box
+            sx={{
+              position: "absolute",
+              top: "50%",
+              left: "16%",
+              transform: "translate(-50%, -70%)",
+              width: 400,
+              bgcolor: "background.paper",
+              boxShadow: 24,
+              p: 4,
+              borderRadius: 5,
+              border: "1px solid #E5E5E5",
+              textAlign: "center",
+            }}
+          >
+            <Typography
+              id="keep-mounted-modal-description"
+              sx={{ mt: 2, fontWeight: 700 }}
+            >
+              {overviewEN[20].label}
+            </Typography>
+            <Typography
+              id="keep-mounted-modal-description"
+              sx={{
+                mt: 2,
+                textAlign: "left",
+                overflowY: "auto",
+                height: 200,
+              }}
+            >
+              {overviewEN[8].label}
+            </Typography>
+            <div
+              style={{
+                textAlign: "left",
+                borderTop: "1px solid #C4C4C4",
+              }}
+            ></div>
+
+            <div style={{ marginTop: 10, textAlign: "left", float: "left" }}>
+              <button
+                style={{
+                  height: 40,
+                  background: " #034D82",
+                  borderRadius: 5,
+                  color: "#FFFFFF",
+                  fontWeight: 700,
+                  border: "none",
+                  filter: "drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.1))",
+                }}
+                onClick={() => handleClose(1)}
+              >
+                {overviewEN[9].label}
+              </button>
+            </div>
+            <div style={{ marginTop: 10, textAlign: "right" }}>
+              <button
+                style={{
+                  height: 40,
+                  borderRadius: 5,
+                  color: "#034D82",
+                  fontWeight: 700,
+                  filter: "drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.1))",
+                  background: "#FFFFFF",
+                  border: "1px solid #034D82",
+                }}
+                onClick={() => handleClose(2)}
+              >
+                {overviewEN[10].label}
+              </button>
+            </div>
+          </Box>
+        </Modal>
+      ) : Doc === "Thai" ? (
+        <Modal
+          hideBackdrop
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="keep-mounted-modal-title"
+          aria-describedby="keep-mounted-modal-description"
+        >
+          <Box
+            sx={{
+              position: "absolute",
+              top: "50%",
+              left: "16%",
+              transform: "translate(-50%, -70%)",
+              width: 400,
+              bgcolor: "background.paper",
+              boxShadow: 24,
+              p: 4,
+              borderRadius: 5,
+              border: "1px solid #E5E5E5",
+              textAlign: "center",
+            }}
+          >
+            <Typography
+              id="keep-mounted-modal-description"
+              sx={{ mt: 2, fontWeight: 700 }}
+            >
+              {overviewTH[20].label}
+            </Typography>
+            <Typography
+              id="keep-mounted-modal-description"
+              sx={{
+                mt: 2,
+                textAlign: "left",
+                overflowY: "auto",
+                height: 200,
+              }}
+            >
+              {overviewTH[8].label}
+            </Typography>
+            <div
+              style={{
+                textAlign: "left",
+                borderTop: "1px solid #C4C4C4",
+              }}
+            ></div>
+
+            <div style={{ marginTop: 10, textAlign: "left", float: "left" }}>
+              <button
+                style={{
+                  height: 40,
+                  background: " #034D82",
+                  borderRadius: 5,
+                  color: "#FFFFFF",
+                  fontWeight: 700,
+                  border: "none",
+                  filter: "drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.1))",
+                }}
+                onClick={() => handleClose(1)}
+              >
+                {overviewTH[9].label}
+              </button>
+            </div>
+            <div style={{ marginTop: 10, textAlign: "right" }}>
+              <button
+                style={{
+                  height: 40,
+                  borderRadius: 5,
+                  color: "#034D82",
+                  fontWeight: 700,
+                  filter: "drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.1))",
+                  background: "#FFFFFF",
+                  border: "1px solid #034D82",
+                }}
+                onClick={() => handleClose(2)}
+              >
+                {overviewTH[10].label}
+              </button>
+            </div>
+          </Box>
+        </Modal>
+      ) : Doc === "German" ? (
+        <Modal
+          hideBackdrop
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="keep-mounted-modal-title"
+          aria-describedby="keep-mounted-modal-description"
+        >
+          <Box
+            sx={{
+              position: "absolute",
+              top: "50%",
+              left: "16%",
+              transform: "translate(-50%, -70%)",
+              width: 400,
+              bgcolor: "background.paper",
+              boxShadow: 24,
+              p: 4,
+              borderRadius: 5,
+              border: "1px solid #E5E5E5",
+              textAlign: "center",
+            }}
+          >
+            <Typography
+              id="keep-mounted-modal-description"
+              sx={{ mt: 2, fontWeight: 700 }}
+            >
+              {overviewDE[20].label}
+            </Typography>
+            <Typography
+              id="keep-mounted-modal-description"
+              sx={{
+                mt: 2,
+                textAlign: "left",
+                overflowY: "auto",
+                height: 200,
+              }}
+            >
+              {overviewDE[8].label}
+            </Typography>
+            <div
+              style={{
+                textAlign: "left",
+                borderTop: "1px solid #C4C4C4",
+              }}
+            ></div>
+
+            <div style={{ marginTop: 10, textAlign: "left", float: "left" }}>
+              <button
+                style={{
+                  height: 40,
+                  background: " #034D82",
+                  borderRadius: 5,
+                  color: "#FFFFFF",
+                  fontWeight: 700,
+                  border: "none",
+                  filter: "drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.1))",
+                }}
+                onClick={() => handleClose(1)}
+              >
+                {overviewDE[9].label}
+              </button>
+            </div>
+            <div style={{ marginTop: 10, textAlign: "right" }}>
+              <button
+                style={{
+                  height: 40,
+                  borderRadius: 5,
+                  color: "#034D82",
+                  fontWeight: 700,
+                  filter: "drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.1))",
+                  background: "#FFFFFF",
+                  border: "1px solid #034D82",
+                }}
+                onClick={() => handleClose(2)}
+              >
+                {overviewDE[10].label}
+              </button>
+            </div>
+          </Box>
+        </Modal>
+      ) : (
+        <Modal
+          hideBackdrop
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="keep-mounted-modal-title"
+          aria-describedby="keep-mounted-modal-description"
+        >
+          <Box
+            sx={{
+              position: "absolute",
+              top: "50%",
+              left: "16%",
+              transform: "translate(-50%, -70%)",
+              width: 400,
+              bgcolor: "background.paper",
+              boxShadow: 24,
+              p: 4,
+              borderRadius: 5,
+              border: "1px solid #E5E5E5",
+              textAlign: "center",
+            }}
+          >
+            <Typography
+              id="keep-mounted-modal-description"
+              sx={{ mt: 2, fontWeight: 700 }}
+            >
+              {overviewEN[20].label}
+            </Typography>
+            <Typography
+              id="keep-mounted-modal-description"
+              sx={{
+                mt: 2,
+                textAlign: "left",
+                overflowY: "auto",
+                height: 200,
+              }}
+            >
+              {overviewEN[8].label}
+            </Typography>
+            <div
+              style={{
+                textAlign: "left",
+                borderTop: "1px solid #C4C4C4",
+              }}
+            ></div>
+
+            <div style={{ marginTop: 10, textAlign: "left", float: "left" }}>
+              <button
+                style={{
+                  height: 40,
+                  background: " #034D82",
+                  borderRadius: 5,
+                  color: "#FFFFFF",
+                  fontWeight: 700,
+                  border: "none",
+                  filter: "drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.1))",
+                }}
+                onClick={() => handleClose(1)}
+              >
+                {overviewEN[9].label}
+              </button>
+            </div>
+            <div style={{ marginTop: 10, textAlign: "right" }}>
+              <button
+                style={{
+                  height: 40,
+                  borderRadius: 5,
+                  color: "#034D82",
+                  fontWeight: 700,
+                  filter: "drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.1))",
+                  background: "#FFFFFF",
+                  border: "1px solid #034D82",
+                }}
+                onClick={() => handleClose(2)}
+              >
+                {overviewEN[10].label}
+              </button>
+            </div>
+          </Box>
+        </Modal>
+      )}
 
       {Doc === undefined ? (
         <>
@@ -69,8 +416,9 @@ const Home = () => {
               <p className="textHeading1_overviwe">{overviewEN[5].label}</p>
               <p className="textDescription1_overviwe">{overviewEN[6].label}</p>
               <div className="boxleftbutton_overviwe">
-                <button className="buttonGetStart_overviwe " 
-                onClick={()=>goSignup("English")}
+                <button
+                  className="buttonGetStart_overviwe "
+                  onClick={() => goSignup("English")}
                 >
                   <p
                     style={{
@@ -210,7 +558,7 @@ const Home = () => {
                   {overviewEN[17].label}
                 </p>
                 <BsArrowRightShort />
-                </button>
+              </button>
             </div>
 
             <div className="box4_overviwe ">
@@ -224,7 +572,7 @@ const Home = () => {
                 <button
                   className="buttonGetStart_overviwe "
                   style={{ display: "inline-flex", width: 200, marginTop: 20 }}
-                  onClick={()=>goSignup("English")}
+                  onClick={() => goSignup("English")}
                 >
                   <p
                     style={{
@@ -251,8 +599,9 @@ const Home = () => {
               <p className="textHeading1_overviwe">{overviewDE[5].label}</p>
               <p className="textDescription1_overviwe">{overviewDE[6].label}</p>
               <div className="boxleftbutton_overviwe">
-                <button className="buttonGetStart_overviwe "
-                onClick={()=>goSignup("German")}
+                <button
+                  className="buttonGetStart_overviwe "
+                  onClick={() => goSignup("German")}
                 >
                   <p
                     style={{
@@ -433,8 +782,9 @@ const Home = () => {
               <p className="textHeading1_overviwe">{overviewTH[5].label}</p>
               <p className="textDescription1_overviwe">{overviewTH[6].label}</p>
               <div className="boxleftbutton_overviwe">
-                <button className="buttonGetStart_overviwe "
-                onClick={() => goSignup("Thai")}
+                <button
+                  className="buttonGetStart_overviwe "
+                  onClick={() => goSignup("Thai")}
                 >
                   <p
                     style={{
@@ -615,8 +965,9 @@ const Home = () => {
               <p className="textHeading1_overviwe">{overviewEN[5].label}</p>
               <p className="textDescription1_overviwe">{overviewEN[6].label}</p>
               <div className="boxleftbutton_overviwe">
-                <button className="buttonGetStart_overviwe "
-                onClick={() => goSignup("English")}
+                <button
+                  className="buttonGetStart_overviwe "
+                  onClick={() => goSignup("English")}
                 >
                   <p
                     style={{
@@ -770,8 +1121,7 @@ const Home = () => {
                 <button
                   className="buttonGetStart_overviwe "
                   style={{ display: "inline-flex", width: 200, marginTop: 20 }}
-                  onClick={()=>goSignup("English")}
-                
+                  onClick={() => goSignup("English")}
                 >
                   <p
                     style={{

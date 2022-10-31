@@ -142,7 +142,7 @@ p {
 
 #button_icons2 {
   min-width: 100px;
-  color:  #cc9d00;
+  color: #cc9d00;
   height: 30px;
   padding-top: 5px;
   padding-left: 5px;
@@ -163,10 +163,9 @@ p {
   padding: 0;
   padding-top: 10px;
   padding-bottom: 10px;
-  
 }
 
-#button_manu:hover  #button_icons {
+#button_manu:hover #button_icons {
   background: #fff3cc;
   -webkit-text-fill-color: #034d82;
   border-width: 0px 3px;
@@ -174,10 +173,9 @@ p {
   border-color: #cc9d00;
   border-radius: 25px 0px;
   color: #cc9d00;
-  
 }
 
-#button_manu:focus  #button_icons {
+#button_manu:focus #button_icons {
   background: #fff3cc;
   -webkit-text-fill-color: #034d82;
   border-width: 0px 3px;

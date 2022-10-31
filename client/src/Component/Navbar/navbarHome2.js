@@ -1,12 +1,29 @@
 import * as React from "react";
 import logo from "../../logo.svg";
-import { Navbar, Container, Form, Nav } from "react-bootstrap";
+import { Navbar, Container, Form, Nav, NavDropdown } from "react-bootstrap";
 import "./Navbar.css";
-import { FaLanguage, FaMapMarkerAlt ,FaUserCircle} from "react-icons/fa";
+import { FaLanguage, FaMapMarkerAlt, FaUserCircle } from "react-icons/fa";
 
 // import { Avatar } from "@mui/material";
 
-const navbarHome2 = () => {
+const navbarHome2 = (props) => {
+  const navigate = props?.navigate;
+  const you = props?.languages;
+  const goHome = (x) => {
+    const pathname = window.location.pathname;
+    if (pathname === "/In") {
+      navigate("/In", { state: { languages: `${x}` } });
+    } else if (pathname === "/Matching") {
+      navigate("/Matching", { state: { languages: `${x}` } });
+    } else if (pathname === "/Order") {
+      navigate("/Order", { state: { languages: `${x}` } });
+    } else if (pathname === "/Chat") {
+      navigate("/Chat", { state: { languages: `${x}` } });
+    } else {
+      navigate("/Notification", { state: { languages: `${x}` } });
+    }
+  };
+
   return (
     <Navbar expand="lg" id="navbardb2">
       <Container fluid>
@@ -28,16 +45,91 @@ const navbarHome2 = () => {
                 color="#808080"
                 style={{ float: "left" }}
               />
-              <p
-                style={{
-                  marginLeft: 10,
-                  color: "#808080",
-                  fontSize: 13,
-                  float: "left",
-                }}
-              >
-                EN
-              </p>
+              {you === "English" ? (
+                <NavDropdown
+                  title="EN"
+                  style={{
+                    marginLeft: 10,
+                    color: "#808080",
+                    fontSize: 13,
+                    float: "left",
+                    padding: 0,
+                  }}
+                >
+                  <NavDropdown.Item onClick={() => goHome("English")}>
+                    English
+                  </NavDropdown.Item>
+                  <NavDropdown.Item onClick={() => goHome("Thai")}>
+                    Thai
+                  </NavDropdown.Item>
+                  <NavDropdown.Item onClick={() => goHome("German")}>
+                    German
+                  </NavDropdown.Item>
+                </NavDropdown>
+              ) : you === "German" ? (
+                <NavDropdown
+                  title="DE"
+                  style={{
+                    marginLeft: 10,
+                    color: "#808080",
+                    fontSize: 13,
+                    float: "left",
+                    padding: 0,
+                  }}
+                >
+                  <NavDropdown.Item onClick={() => goHome("English")}>
+                    English
+                  </NavDropdown.Item>
+                  <NavDropdown.Item onClick={() => goHome("Thai")}>
+                    Thai
+                  </NavDropdown.Item>
+                  <NavDropdown.Item onClick={() => goHome("German")}>
+                    German
+                  </NavDropdown.Item>
+                </NavDropdown>
+              ) : you === "Thai" ? (
+                <NavDropdown
+                  title="TH"
+                  style={{
+                    marginLeft: 10,
+                    color: "#808080",
+                    fontSize: 13,
+                    float: "left",
+                    padding: 0,
+                  }}
+                >
+                  <NavDropdown.Item onClick={() => goHome("English")}>
+                    English
+                  </NavDropdown.Item>
+                  <NavDropdown.Item onClick={() => goHome("Thai")}>
+                    Thai
+                  </NavDropdown.Item>
+                  <NavDropdown.Item onClick={() => goHome("German")}>
+                    German
+                  </NavDropdown.Item>
+                </NavDropdown>
+              ) : (
+                <NavDropdown
+                  title="EN"
+                  style={{
+                    marginLeft: 10,
+                    color: "#808080",
+                    fontSize: 13,
+                    float: "left",
+                    padding: 0,
+                  }}
+                >
+                  <NavDropdown.Item onClick={() => goHome("English")}>
+                    English
+                  </NavDropdown.Item>
+                  <NavDropdown.Item onClick={() => goHome("Thai")}>
+                    Thai
+                  </NavDropdown.Item>
+                  <NavDropdown.Item onClick={() => goHome("German")}>
+                    German
+                  </NavDropdown.Item>
+                </NavDropdown>
+              )}
             </div>
 
             <div className="box4navbarHome2">
@@ -61,7 +153,7 @@ const navbarHome2 = () => {
             <div className="box4navbarHome2_1" style={{ width: 40 }}>
               <FaUserCircle
                 alt="avatar"
-                style={{ width: "98%",color:"#3333" }}
+                style={{ width: "98%", color: "#3333" }}
               />
             </div>
           </Form>

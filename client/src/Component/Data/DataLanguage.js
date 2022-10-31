@@ -35,6 +35,7 @@ export const overviewEN = [
     label:
       "For freelance translators who would like to seek additional income from translation, Translation Hero can assist you with the powerful machine translation tools that allow you to produce more translation job with the time reduce.",
   },
+  { label: "Cookies" },
 ];
 
 export const overviewTH = [
@@ -72,6 +73,9 @@ export const overviewTH = [
   {
     label:
       "สำหรับนักแปลอิสระที่ต้องการหารายได้เพิ่มเติมจากการแปล Translation Hero สามารถช่วยเหลือคุณด้วยเครื่องมือแปลภาษาด้วยเครื่องอันทรงพลังที่ช่วยให้คุณผลิตงานแปลได้มากขึ้นโดยใช้เวลาน้อยลง",
+  },
+  {
+    label: "คุกกี้",
   },
 ];
 
@@ -114,6 +118,7 @@ export const overviewDE = [
     label:
       "Für freiberufliche Übersetzer, die zusätzliche Einnahmen aus der Übersetzung erzielen möchten, kann Translation Hero Sie mit den leistungsstarken maschinellen Übersetzungstools unterstützen, mit denen Sie mehr Übersetzungsaufträge mit der Zeitersparnis erstellen können.",
   },
+  { label: "Cookies" },
 ];
 
 // Translator
@@ -708,8 +713,7 @@ export const REGI02_Box3v02DE = [
   { label: "(wie JPG, PDF, PNG, die die Dateigröße 25Mb nicht überschreitet)" },
   { label: "Datei hochladen" },
   {
-    label:
-      "Ein Beispiel für das Hochladen eines Bildes Ihres Wasserzeichen.",
+    label: "Ein Beispiel für das Hochladen eines Bildes Ihres Wasserzeichen.",
   },
   { label: "Weiter" },
   { label: "Urheberrecht GIVE Network 2021" },
@@ -764,8 +768,10 @@ export const REGI02_box5EN = [
   },
   { label: "accept the terms and conditions" },
   { label: "Submit" },
-  { label: "Your translator application has been sent. Wait forconfirmation by email" },
-
+  {
+    label:
+      "Your translator application has been sent. Wait forconfirmation by email",
+  },
 ];
 export const REGI02_box5TH = [
   { label: "ข้อกำหนดและเงื่อนไข" },
@@ -776,7 +782,6 @@ export const REGI02_box5TH = [
   { label: "ยอมรับข้อกำหนดและเงื่อนไข" },
   { label: "ส่ง" },
   { label: "ส่งใบสมัครนักแปลของคุณแล้วรอการยืนยันทางอีเมล" },
-
 ];
 export const REGI02_box5DE = [
   { label: "Allgemeine Geschäftsbedingungen (AGB)" },
@@ -786,7 +791,10 @@ export const REGI02_box5DE = [
   },
   { label: "Akzeptieren Sie die Allgemeinen Geschäftsbedingungen" },
   { label: "Senden" },
-  { label: "Ihre Übersetzerbewerbung wurde abgeschickt. Warten Sie bitte auf die Bestätigung per E-Mail" },
+  {
+    label:
+      "Ihre Übersetzerbewerbung wurde abgeschickt. Warten Sie bitte auf die Bestätigung per E-Mail",
+  },
 ];
 
 export const REGI02_Box5v01EN = [
@@ -1691,6 +1699,10 @@ export const Translate02EN = [
   { label: "language" },
   { label: "Cancle" },
   { label: "Find a translator" },
+  {label:"select document"},
+  {label:"Upload a .docx, .pdf, .pptx, or .xlsx file."},
+  {label:"Upload File"},
+
 ];
 export const Translate02TH = [
   { label: "แปลภาษา" },
@@ -1699,6 +1711,9 @@ export const Translate02TH = [
   { label: "ภาษา" },
   { label: "ยกเลิก" },
   { label: "ค้นหานักแปล" },
+  {label:"เลือกเอกสาร"},
+  {label:"อัปโหลดไฟล์ .docx, .pdf, .pptx หรือ .xlsx"},
+  {label:"อัพโหลดไฟล์"},
 ];
 export const Translate02DE = [
   { label: "Übersetzen" },
@@ -1707,6 +1722,9 @@ export const Translate02DE = [
   { label: "Sprache" },
   { label: "Abbrechen" },
   { label: "Finden Sie einen Übersetzer" },
+  {label:"Dokument auswählen"},
+  {label:"Laden Sie eine .docx-, .pdf-, .pptx- oder .xlsx-Datei hoch."},
+  {label:"Datei hochladen"},
 ];
 
 export const Translate03EN = [

@@ -11,11 +11,13 @@ import { IoChatbubblesSharp, IoNotifications } from "react-icons/io5";
 import { FaHome, FaLanguage, FaShoppingCart } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
-export default function DrawerInHome() {
+export default function DrawerInHome(props) {
   const pathname = window.location.pathname;
+  const languages = props?.languages;;
   const drawerWidth = 100;
   const navigate = useNavigate();
 
+  console.log("languages:",languages)
   return (
     <Drawer
       variant="permanent"
@@ -31,252 +33,332 @@ export default function DrawerInHome() {
     >
       <Toolbar />
       <Box sx={{ overflow: "hidden" }} className={"manu2"}>
-        <List>
-          {["0", "1", "2", "3", "4"].map((text, index) => (
-            <>
-              {pathname === "/In" ? (
+        {pathname === "/In" ? (
+          <List>
+            {["0", "1", "2", "3", "4"].map((text, index) => (
+              <ListItem button key={text} id={"button_manu"}>
                 <>
-                {index === 0 ? (
-                  <ListItem button key={text} id={"button_manu"}>
+                  {index === 0 ? (
                     <ListItemIcon id={"button_icons2"}>
                       <FaHome
                         className="icons"
-                        onClick={() => navigate("/In")}
+                        onClick={() =>
+                          navigate("/In", {
+                            state: { languages: `${languages}` },
+                          })
+                        }
                       />
                     </ListItemIcon>
-                  </ListItem>
-                ) : index === 1 ? (
-                  <ListItem button key={text} id={"button_manu"}>
+                  ) : index === 1 ? (
                     <ListItemIcon id={"button_icons"}>
                       <FaLanguage
                         className="icons"
-                        onClick={() => navigate("/Matching")}
+                        onClick={() =>
+                          navigate("/Matching", {
+                            state: { languages: `${languages}` },
+                          })
+                        }
                       />
                     </ListItemIcon>
-                  </ListItem>
-                ) : index === 2 ? (
-                  <ListItem button key={text} id={"button_manu"}>
+                  ) : index === 2 ? (
                     <ListItemIcon id={"button_icons"}>
                       <FaShoppingCart
                         className="icons"
-                        onClick={() => navigate("/Order")}
+                        onClick={() =>
+                          navigate("/Order", {
+                            state: { languages: `${languages}` },
+                          })
+                        }
                       />
                     </ListItemIcon>
-                  </ListItem>
-                ) : index === 3 ? (
-                  <ListItem button key={text} id={"button_manu"}>
+                  ) : index === 3 ? (
                     <ListItemIcon id={"button_icons"}>
-                      <IoChatbubblesSharp className="icons" 
-                      onClick={() => navigate("/Chat")}
+                      <IoChatbubblesSharp
+                        className="icons"
+                        onClick={() =>
+                          navigate("/Chat", {
+                            state: { languages: `${languages}` },
+                          })
+                        }
                       />
                     </ListItemIcon>
-                  </ListItem>
-                )  : index === 4 ? (
-                  <ListItem button key={text} id={"button_manu"}>
+                  ) : index === 4 ? (
                     <ListItemIcon id={"button_icons"}>
                       <IoNotifications
                         className="icons"
-                        onClick={() => navigate("/Notification")}
+                        onClick={() =>
+                          navigate("/Notification", {
+                            state: { languages: `${languages}` },
+                          })
+                        }
                       />
                     </ListItemIcon>
-                  </ListItem>
-                ) : null}
-              </>
-              ) : pathname === "/Matching" ? (
+                  ) : null}
+                </>
+              </ListItem>
+            ))}
+          </List>
+        ) : pathname === "/Matching" ? (
+          <List>
+            {["0", "1", "2", "3", "4"].map((text, index) => (
+              <ListItem button key={text} id={"button_manu"}>
                 <>
-                {index === 0 ? (
-                  <ListItem button key={text} id={"button_manu"}>
+                  {index === 0 ? (
                     <ListItemIcon id={"button_icons"}>
                       <FaHome
                         className="icons"
-                        onClick={() => navigate("/In")}
+                        onClick={() =>
+                          navigate("/In", {
+                            state: { languages: `${languages}` },
+                          })
+                        }
                       />
                     </ListItemIcon>
-                  </ListItem>
-                ) : index === 1 ? (
-                  <ListItem button key={text} id={"button_manu"}>
+                  ) : index === 1 ? (
                     <ListItemIcon id={"button_icons2"}>
                       <FaLanguage
                         className="icons"
-                        onClick={() => navigate("/Matching")}
+                        onClick={() =>
+                          navigate("/Matching", {
+                            state: { languages: `${languages}` },
+                          })
+                        }
                       />
                     </ListItemIcon>
-                  </ListItem>
-                ) : index === 2 ? (
-                  <ListItem button key={text} id={"button_manu"}>
+                  ) : index === 2 ? (
                     <ListItemIcon id={"button_icons"}>
                       <FaShoppingCart
                         className="icons"
-                        onClick={() => navigate("/Order")}
+                        onClick={() =>
+                          navigate("/Order", {
+                            state: { languages: `${languages}` },
+                          })
+                        }
                       />
                     </ListItemIcon>
-                  </ListItem>
-                ) : index === 3 ? (
-                  <ListItem button key={text} id={"button_manu"}>
+                  ) : index === 3 ? (
                     <ListItemIcon id={"button_icons"}>
-                      <IoChatbubblesSharp className="icons" 
-                      onClick={() => navigate("/Chat")}
+                      <IoChatbubblesSharp
+                        className="icons"
+                        onClick={() =>
+                          navigate("/Chat", {
+                            state: { languages: `${languages}` },
+                          })
+                        }
                       />
                     </ListItemIcon>
-                  </ListItem>
-                )  : index === 4 ? (
-                  <ListItem button key={text} id={"button_manu"}>
+                  ) : index === 4 ? (
                     <ListItemIcon id={"button_icons"}>
                       <IoNotifications
                         className="icons"
-                        onClick={() => navigate("/Notification")}
+                        onClick={() =>
+                          navigate("/Notification", {
+                            state: { languages: `${languages}` },
+                          })
+                        }
                       />
                     </ListItemIcon>
-                  </ListItem>
-                ) : null}
-              </>
-              ) : pathname === "/Order" ? (
+                  ) : null}
+                </>
+              </ListItem>
+            ))}
+          </List>
+        ) : pathname === "/Order" ? (
+          <List>
+            {["0", "1", "2", "3", "4"].map((text, index) => (
+              <ListItem button key={text} id={"button_manu"}>
                 <>
-                {index === 0 ? (
-                  <ListItem button key={text} id={"button_manu"}>
+                  {index === 0 ? (
                     <ListItemIcon id={"button_icons"}>
                       <FaHome
                         className="icons"
-                        onClick={() => navigate("/In")}
+                        onClick={() =>
+                          navigate("/In", {
+                            state: { languages: `${languages}` },
+                          })
+                        }
                       />
                     </ListItemIcon>
-                  </ListItem>
-                ) : index === 1 ? (
-                  <ListItem button key={text} id={"button_manu"}>
+                  ) : index === 1 ? (
                     <ListItemIcon id={"button_icons"}>
                       <FaLanguage
                         className="icons"
-                        onClick={() => navigate("/Matching")}
+                        onClick={() =>
+                          navigate("/Matching", {
+                            state: { languages: `${languages}` },
+                          })
+                        }
                       />
                     </ListItemIcon>
-                  </ListItem>
-                ) : index === 2 ? (
-                  <ListItem button key={text} id={"button_manu"}>
+                  ) : index === 2 ? (
                     <ListItemIcon id={"button_icons2"}>
                       <FaShoppingCart
                         className="icons"
-                        onClick={() => navigate("/Order")}
+                        onClick={() =>
+                          navigate("/Order", {
+                            state: { languages: `${languages}` },
+                          })
+                        }
                       />
                     </ListItemIcon>
-                  </ListItem>
-                ) : index === 3 ? (
-                  <ListItem button key={text} id={"button_manu"}>
+                  ) : index === 3 ? (
                     <ListItemIcon id={"button_icons"}>
-                      <IoChatbubblesSharp className="icons" 
-                      onClick={() => navigate("/Chat")}
+                      <IoChatbubblesSharp
+                        className="icons"
+                        onClick={() =>
+                          navigate("/Chat", {
+                            state: { languages: `${languages}` },
+                          })
+                        }
                       />
                     </ListItemIcon>
-                  </ListItem>
-                )  : index === 4 ? (
-                  <ListItem button key={text} id={"button_manu"}>
+                  ) : index === 4 ? (
                     <ListItemIcon id={"button_icons"}>
                       <IoNotifications
                         className="icons"
-                        onClick={() => navigate("/Notification")}
+                        onClick={() =>
+                          navigate("/Notification", {
+                            state: { languages: `${languages}` },
+                          })
+                        }
                       />
                     </ListItemIcon>
-                  </ListItem>
-                ) : null}
-              </>
-              ) :pathname === "/Chat" ? (
+                  ) : null}
+                </>
+              </ListItem>
+            ))}
+          </List>
+        ) : pathname === "/Chat" ? (
+          <List>
+            {["0", "1", "2", "3", "4"].map((text, index) => (
+              <ListItem button key={text} id={"button_manu"}>
                 <>
-                {index === 0 ? (
-                  <ListItem button key={text} id={"button_manu"}>
+                  {index === 0 ? (
                     <ListItemIcon id={"button_icons"}>
                       <FaHome
                         className="icons"
-                        onClick={() => navigate("/In")}
+                        onClick={() =>
+                          navigate("/In", {
+                            state: { languages: `${languages}` },
+                          })
+                        }
                       />
                     </ListItemIcon>
-                  </ListItem>
-                ) : index === 1 ? (
-                  <ListItem button key={text} id={"button_manu"}>
+                  ) : index === 1 ? (
                     <ListItemIcon id={"button_icons"}>
                       <FaLanguage
                         className="icons"
-                        onClick={() => navigate("/Matching")}
+                        onClick={() =>
+                          navigate("/Matching", {
+                            state: { languages: `${languages}` },
+                          })
+                        }
                       />
                     </ListItemIcon>
-                  </ListItem>
-                ) : index === 2 ? (
-                  <ListItem button key={text} id={"button_manu"}>
+                  ) : index === 2 ? (
                     <ListItemIcon id={"button_icons"}>
                       <FaShoppingCart
                         className="icons"
-                        onClick={() => navigate("/Order")}
+                        onClick={() =>
+                          navigate("/Order", {
+                            state: { languages: `${languages}` },
+                          })
+                        }
                       />
                     </ListItemIcon>
-                  </ListItem>
-                ) : index === 3 ? (
-                  <ListItem button key={text} id={"button_manu"}>
+                  ) : index === 3 ? (
                     <ListItemIcon id={"button_icons2"}>
-                      <IoChatbubblesSharp className="icons" 
-                      onClick={() => navigate("/Chat")}
+                      <IoChatbubblesSharp
+                        className="icons"
+                        onClick={() =>
+                          navigate("/Chat", {
+                            state: { languages: `${languages}` },
+                          })
+                        }
                       />
                     </ListItemIcon>
-                  </ListItem>
-                )  : index === 4 ? (
-                  <ListItem button key={text} id={"button_manu"}>
+                  ) : index === 4 ? (
                     <ListItemIcon id={"button_icons"}>
                       <IoNotifications
                         className="icons"
-                        onClick={() => navigate("/Notification")}
+                        onClick={() =>
+                          navigate("/Notification", {
+                            state: { languages: `${languages}` },
+                          })
+                        }
                       />
                     </ListItemIcon>
-                  </ListItem>
-                ) : null}
-              </>
-              ):(<>
-                {index === 0 ? (
-                  <ListItem button key={text} id={"button_manu"}>
+                  ) : null}
+                </>
+              </ListItem>
+            ))}
+          </List>
+        ) : (
+          <List>
+            {["0", "1", "2", "3", "4"].map((text, index) => (
+              <ListItem button key={text} id={"button_manu"}>
+                <>
+                  {index === 0 ? (
                     <ListItemIcon id={"button_icons"}>
                       <FaHome
                         className="icons"
-                        onClick={() => navigate("/In")}
+                        onClick={() =>
+                          navigate("/In", {
+                            state: { languages: `${languages}` },
+                          })
+                        }
                       />
                     </ListItemIcon>
-                  </ListItem>
-                ) : index === 1 ? (
-                  <ListItem button key={text} id={"button_manu"}>
+                  ) : index === 1 ? (
                     <ListItemIcon id={"button_icons"}>
                       <FaLanguage
                         className="icons"
-                        onClick={() => navigate("/Matching")}
+                        onClick={() =>
+                          navigate("/Matching", {
+                            state: { languages: `${languages}` },
+                          })
+                        }
                       />
                     </ListItemIcon>
-                  </ListItem>
-                ) : index === 2 ? (
-                  <ListItem button key={text} id={"button_manu"}>
+                  ) : index === 2 ? (
                     <ListItemIcon id={"button_icons"}>
                       <FaShoppingCart
                         className="icons"
-                        onClick={() => navigate("/Order")}
+                        onClick={() =>
+                          navigate("/Order", {
+                            state: { languages: `${languages}` },
+                          })
+                        }
                       />
                     </ListItemIcon>
-                  </ListItem>
-                ) : index === 3 ? (
-                  <ListItem button key={text} id={"button_manu"}>
+                  ) : index === 3 ? (
                     <ListItemIcon id={"button_icons"}>
-                      <IoChatbubblesSharp className="icons" 
-                      onClick={() => navigate("/Chat")}
+                      <IoChatbubblesSharp
+                        className="icons"
+                        onClick={() =>
+                          navigate("/Chat", {
+                            state: { languages: `${languages}` },
+                          })
+                        }
                       />
                     </ListItemIcon>
-                  </ListItem>
-                )  : index === 4 ? (
-                  <ListItem button key={text} id={"button_manu"}>
+                  ) : index === 4 ? (
                     <ListItemIcon id={"button_icons2"}>
                       <IoNotifications
                         className="icons"
-                        onClick={() => navigate("/Notification")}
+                        onClick={() =>
+                          navigate("/Notification", {
+                            state: { languages: `${languages}` },
+                          })
+                        }
                       />
                     </ListItemIcon>
-                  </ListItem>
-                ) : null}
-              </>)}
-              
-            </>
-          ))}
-        </List>
+                  ) : null}
+                </>
+              </ListItem>
+            ))}
+          </List>
+        )}
       </Box>
     </Drawer>
   );
