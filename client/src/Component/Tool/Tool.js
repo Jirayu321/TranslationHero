@@ -2,7 +2,8 @@ import * as React from "react";
 import { Box } from "@mui/material";
 import Drawer from "../Drawer/DrawerTranslate";
 import Navbars from "../Navbar/navbarTanslater";
-import { Editor } from "@tinymce/tinymce-react";
+import SunEditor from "suneditor-react";
+import "suneditor/dist/css/suneditor.min.css";
 
 import Icons from "../../Images/icons_ai.png";
 
@@ -57,12 +58,7 @@ export default function Tool() {
                 Submit work
               </button>
             </div>
-            <Editor
-              onInit={(evt, editor) => (editorRef.current = editor)}
-              init={{
-                height: 600,
-              }}
-            />
+            <SunEditor height="500px" style={{ textAlign: "left" }} />
           </div>
         </Box>
       </Box>

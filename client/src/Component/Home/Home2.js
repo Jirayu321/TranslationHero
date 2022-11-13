@@ -58,54 +58,55 @@ export default function Home2() {
   //   const [value, setValue] = React.useState(4);
   const [type, setType] = React.useState(1);
   const { innerWidth: width } = window;
-  function createData(
-    orderID,
-    orderType,
-    orderName,
-    translator,
-    orderPrice,
-    orderedDate,
-    status
-  ) {
-    return {
-      orderID,
-      orderType,
-      orderName,
-      translator,
-      orderPrice,
-      orderedDate,
-      status,
-    };
-  }
-  const rows = [
-    createData(
-      "0103",
-      "General Document",
-      "Novel",
-      "Michael Lee",
-      "$25",
-      "05 June 2022",
-      "00:21:35"
-    ),
-    createData(
-      "0104",
-      "Official Document",
-      "Identification Card",
-      "Sam Smith",
-      "$42.5",
-      "13 June 2022",
-      "05:21:35"
-    ),
-    createData(
-      "0105",
-      "Official Document",
-      "Certificate of use",
-      "Michael Lee",
-      "$31.2",
-      "14 June 2022",
-      "06:21:35"
-    ),
-  ];
+
+  // function createData(
+  //   orderID,
+  //   orderType,
+  //   orderName,
+  //   translator,
+  //   orderPrice,
+  //   orderedDate,
+  //   status
+  // ) {
+  //   return {
+  //     orderID,
+  //     orderType,
+  //     orderName,
+  //     translator,
+  //     orderPrice,
+  //     orderedDate,
+  //     status,
+  //   };
+  // }
+  // const rows = [
+  //   createData(
+  //     "0103",
+  //     "General Document",
+  //     "Novel",
+  //     "Michael Lee",
+  //     "$25",
+  //     "05 June 2022",
+  //     "00:21:35"
+  //   ),
+  //   createData(
+  //     "0104",
+  //     "Official Document",
+  //     "Identification Card",
+  //     "Sam Smith",
+  //     "$42.5",
+  //     "13 June 2022",
+  //     "05:21:35"
+  //   ),
+  //   createData(
+  //     "0105",
+  //     "Official Document",
+  //     "Certificate of use",
+  //     "Michael Lee",
+  //     "$31.2",
+  //     "14 June 2022",
+  //     "06:21:35"
+  //   ),
+  // ];
 
   return (
     <div className="App-body-home2">

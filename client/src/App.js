@@ -14,9 +14,9 @@ import Signup from "./Component/Sign_up/Signup";
 // import Signupcompany from "./Component/Sign_up/Signup_company";
 import Chat from "./Component/Chat/ChatCustomer";
 import Order from "./Component/Order/Order";
-import Notification from "./Component/Notification/Notificaion";
+import Notification from "./Component/Notification/NotificaionCustomer";
 import Matching from "./Component//Matching/Matching";
-import Tool from "./Component/Tool/Tool"
+import Tool from "./Component/Tool/Tool";
 
 import { StyledEngineProvider } from "@mui/material/styles";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -36,17 +36,9 @@ function App() {
                   path="/Home/Services/Customer"
                   element={<Customer />}
                 />
+                <Route exact path="/Notification" element={<Notification />} />
+                <Route exact path="/Matching" element={<Matching />} />
                 <Route
-                  exact
-                  path="/Notification"
-                  element={<Notification />}
-                />
-                 <Route
-                  exact
-                  path="/Matching"
-                  element={<Matching />}
-                />
-                 <Route
                   exact
                   path="/Home/Services/Translator"
                   element={<Translator />}
@@ -76,11 +68,7 @@ function App() {
                   path="/Dashboard_freelance"
                   element={<Freelance />}
                 />
-                <Route
-                  exact
-                  path="/Tool"
-                  element={<Tool />}
-                />
+                <Route exact path="/Tool" element={<Tool />} />
                 <Route exact path="/Chat" element={<Chat />} />
               </Routes>
             </StyledEngineProvider>

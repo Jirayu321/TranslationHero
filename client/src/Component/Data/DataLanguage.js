@@ -122,7 +122,6 @@ export const overviewDE = [
 ];
 
 // Translator
-
 export const TranslatorEN = [
   // { label: "Home" },
   // { label: "Services" },
@@ -145,7 +144,6 @@ export const TranslatorEN = [
   { label: "Quality Control" },
   { label: "Premium" },
 ];
-
 export const TranslatorTH = [
   // { label: "หน้าหลัก" },
   // { label: "บริการ" },
@@ -168,7 +166,6 @@ export const TranslatorTH = [
   { label: "การควบคุมคุณภาพ" },
   { label: "แบบมีคุณภาพ" },
 ];
-
 export const TranslatorDE = [
   // { label: "Startseite" },
   // { label: "Dienstleistungen" },
@@ -193,7 +190,6 @@ export const TranslatorDE = [
 ];
 
 // Customer
-
 export const CustomerEN = [
   { label: "Customer" },
   {
@@ -235,7 +231,6 @@ export const CustomerDE = [
   { label: "Preis" },
   { label: "Datei hochladen" },
 ];
-
 export const CustomerTH = [
   { label: "ลูกค้า" },
   {
@@ -256,7 +251,7 @@ export const CustomerTH = [
   { label: "อัปโหลดไฟล์" },
 ];
 
-//   Footer
+// Footer
 export const FooterEN = [
   { label: "Helps" },
   { label: "Follow us" },
@@ -328,7 +323,6 @@ export const REGI01_box1EN = [
   { label: "Copyrights Give Network 2021." },
   { label: "Privacy policy" },
 ];
-
 export const REGI01_box1TH = [
   { label: "หน้าหลัก" },
   { label: "เข้าสู่ระบบ" },
@@ -346,7 +340,6 @@ export const REGI01_box1TH = [
   { label: "สงวนลิขสิทธิ์ GIVE Network 2021" },
   { label: "นโยบายความเป็นส่วนตัว" },
 ];
-
 export const REGI01_box1DE = [
   { label: "Startseite" },
   { label: "Anmeldung" },
@@ -374,7 +367,6 @@ export const REGI01_box2EN = [
   { label: "Copyrights Give Network 2021." },
   { label: "Privacy policy" },
 ];
-
 export const REGI01_box2TH = [
   { label: "กลับ" },
   { label: "ข้าม" },
@@ -384,7 +376,6 @@ export const REGI01_box2TH = [
   { label: "สงวนลิขสิทธิ์ GIVE Network 2021" },
   { label: "นโยบายความเป็นส่วนตัว" },
 ];
-
 export const REGI01_box2DE = [
   { label: "Zurück" },
   { label: "Überspringen" },
@@ -406,7 +397,6 @@ export const REGI01_box3EN = [
   { label: "Copyrights Give Network 2021." },
   { label: "Privacy policy" },
 ];
-
 export const REGI01_box3TH = [
   { label: "กลับ" },
   { label: "ลงทะเบียน" },
@@ -418,7 +408,6 @@ export const REGI01_box3TH = [
   { label: "สงวนลิขสิทธิ์ GIVE Network 2021" },
   { label: "นโยบายความเป็นส่วนตัว" },
 ];
-
 export const REGI01_box3DE = [
   { label: "Zurück" },
   { label: "Registrieren" },
@@ -440,7 +429,6 @@ export const REGI01_box4EN = [
   { label: "accept the terms and conditions" },
   { label: "Submit" },
 ];
-
 export const REGI01_box4TH = [
   { label: "ข้อกำหนดและเงื่อนไข" },
   {
@@ -450,7 +438,6 @@ export const REGI01_box4TH = [
   { label: "ยอมรับข้อกำหนดและเงื่อนไข" },
   { label: "ส่ง" },
 ];
-
 export const REGI01_box4DE = [
   { label: "Allgemeine Geschäftsbedingungen (AGB)" },
   {
@@ -467,11 +454,9 @@ export const REGI01_box5EN = [
       "Your translator application has been sent. Wait for confirmation by email",
   },
 ];
-
 export const REGI01_box5TH = [
   { label: "ส่งใบสมัครนักแปลของคุณแล้วรอการยืนยันทางอีเมล" },
 ];
-
 export const REGI01_box5DE = [
   {
     label:
@@ -480,7 +465,6 @@ export const REGI01_box5DE = [
 ];
 
 //   RegisterTranslator
-
 export const REGI02_Box1v01EN = [
   { label: "Back" },
   { label: "Sign up" },
@@ -1699,10 +1683,9 @@ export const Translate02EN = [
   { label: "language" },
   { label: "Cancle" },
   { label: "Find a translator" },
-  {label:"select document"},
-  {label:"Upload a .docx, .pdf, .pptx, or .xlsx file."},
-  {label:"Upload File"},
-
+  { label: "select document" },
+  { label: "Upload a .docx, .pdf, .pptx, or .xlsx file." },
+  { label: "Upload File" },
 ];
 export const Translate02TH = [
   { label: "แปลภาษา" },
@@ -1711,9 +1694,9 @@ export const Translate02TH = [
   { label: "ภาษา" },
   { label: "ยกเลิก" },
   { label: "ค้นหานักแปล" },
-  {label:"เลือกเอกสาร"},
-  {label:"อัปโหลดไฟล์ .docx, .pdf, .pptx หรือ .xlsx"},
-  {label:"อัพโหลดไฟล์"},
+  { label: "เลือกเอกสาร" },
+  { label: "อัปโหลดไฟล์ .docx, .pdf, .pptx หรือ .xlsx" },
+  { label: "อัพโหลดไฟล์" },
 ];
 export const Translate02DE = [
   { label: "Übersetzen" },
@@ -1722,9 +1705,9 @@ export const Translate02DE = [
   { label: "Sprache" },
   { label: "Abbrechen" },
   { label: "Finden Sie einen Übersetzer" },
-  {label:"Dokument auswählen"},
-  {label:"Laden Sie eine .docx-, .pdf-, .pptx- oder .xlsx-Datei hoch."},
-  {label:"Datei hochladen"},
+  { label: "Dokument auswählen" },
+  { label: "Laden Sie eine .docx-, .pdf-, .pptx- oder .xlsx-Datei hoch." },
+  { label: "Datei hochladen" },
 ];
 
 export const Translate03EN = [
@@ -1909,7 +1892,6 @@ export const TOOL03DE = [
 ];
 
 // Home
-
 export const HomeEN = [
   { label: "HOME" },
   { label: "Search" },
@@ -1960,4 +1942,30 @@ export const HomeTH = [
   { label: "นักแปล 10 อันดับแรก" },
   { label: "ทักษะ " },
   { label: "ภาษา " },
+];
+
+// Payment
+export const PaymentEN = [
+  { label: "Back" },
+  { label: "Payment" },
+  { label: "Credit Card" },
+  { label: "Prompt pay" },
+  { label: "Bank transfer" },
+  { label: "Scan QR code to pay" },
+];
+export const PaymentTH = [
+  { label: "กลับ" },
+  { label: "การชำระเงิน" },
+  { label: "บัตรเครดิต" },
+  { label: "พร้อมเพย์" },
+  { label: "โอนเงินผ่านธนาคาร" },
+  { label: "สแกนรหัสคิวอาร์เพื่อจ่าย" },
+];
+export const PaymentDE = [
+  { label: "Zurück" },
+  { label: "Zahlung" },
+  { label: "Kreditkarte" },
+  { label: "Prompt bezahlen" },
+  { label: "Banküberweisung" },
+  { label: "Scannen Sie den QR-Code, um zu bezahlen" },
 ];
