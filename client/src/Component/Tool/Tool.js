@@ -10,7 +10,9 @@ import Icons from "../../Images/icons_ai.png";
 export default function Tool() {
   const editorRef = React.useRef();
   const { innerWidth: width } = window;
-
+  const getSunEditorInstance = (sunEditor) => {
+    editorRef.current = sunEditor;
+  };
   return (
     <div className="App-body3">
       <header className="App-header">
@@ -58,7 +60,12 @@ export default function Tool() {
                 Submit work
               </button>
             </div>
-            <SunEditor height="500px" style={{ textAlign: "left" }} />
+
+            <SunEditor
+              height="500px"
+              style={{ textAlign: "left" }}
+              getSunEditorInstance={getSunEditorInstance}
+            />
           </div>
         </Box>
       </Box>
