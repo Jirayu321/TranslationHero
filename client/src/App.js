@@ -16,7 +16,7 @@ import Chat from "./Component/Chat/ChatCustomer";
 import Order from "./Component/Order/Order";
 import Notification from "./Component/Notification/NotificaionCustomer";
 import Matching from "./Component//Matching/Matching";
-// import Tool from "./Component/Tool/Tool";
+import Tool from "./Component/Tool/Tool";
 
 import { StyledEngineProvider } from "@mui/material/styles";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -68,7 +68,7 @@ function App() {
                   path="/Dashboard_freelance"
                   element={<Freelance />}
                 />
-                {/* <Route exact path="/Tool" element={<Tool />} /> */}
+                <Route exact path="/Tool" element={<Tool />} />
                 <Route exact path="/Chat" element={<Chat />} />
               </Routes>
             </StyledEngineProvider>

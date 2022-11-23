@@ -43,11 +43,11 @@ export default function DrawerTranslate() {
                     onClick={() => navigate("/Dashboard_freelance")}
                   />
                 ) : index === 1 ? (
-                  // <BsTranslate
-                  //   className="icons"
-                  //   onClick={() => navigate("/Tool")}
-                  // />
-                  <></>
+                  <BsTranslate
+                    className="icons"
+                    onClick={() => navigate("/Tool")}
+                  />
+                  // <></>
                 ) : index === 2 ? (
                   <IoChatbubblesSharp className="icons" />
                 ) : index === 3 ? (
