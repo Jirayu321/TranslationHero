@@ -28,9 +28,10 @@ const Login = () => {
   // const pathname = window.location.pathname;
 
   let Doc = location?.state?.languages;
-
-  console.log("Doc:", Doc);
-
+  let Email = location?.state?.email;
+  let Password = location?.state?.password;
+  let Type = location?.state?.type;
+  console.log("test01:", Email, Password, typeof Type);
   const goSignup = (x) => {
     navigate("/Signup", { state: { languages: `${x}` } });
   };
@@ -40,7 +41,9 @@ const Login = () => {
   };
 
   const goForgetPassword = (x) => {
-    navigate("/ForgetPassword", { state: { languages: `${x}` } });
+    navigate("/ForgetPassword", {
+      state: { languages: `${x}`, type: `${Type}` },
+    });
   };
 
   const handleClickShowPassword = () => {
@@ -72,179 +75,158 @@ const Login = () => {
 
       {Doc === "English" ? (
         <div>
-        <div
-          style={{
-            position: "absolute",
-            width: "50%",
-            height: " -webkit-fill-available",
-            background: "#66C0FE",
-          }}
-        >
-          <img
-            src={Login1}
-            alt="Login"
-            style={{
-              width: 460,
-              position: "absolute",
-              top: " 10%",
-              left: 100,
-            }}
-          />
-        </div>
-
-        <div
-          style={{
-            position: "absolute",
-            width: "50%",
-            height: "-webkit-fill-available",
-            left: "50%",
-            background: "#FFF3CC",
-          }}
-        >
           <div
             style={{
-              position: "fixed",
-              top: 130,
-              left: width * 0.59,
-              textAlign: "-webkit-center",
-              width: 500,
-              background: " #FFFFFF",
-              boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
-              borderRadius: 20,
-              padding: 30,
+              position: "absolute",
+              width: "50%",
+              height: " -webkit-fill-available",
+              background: "#66C0FE",
+            }}
+          >
+            <img
+              src={Login1}
+              alt="Login"
+              style={{
+                width: 460,
+                position: "absolute",
+                top: " 10%",
+                left: 100,
+              }}
+            />
+          </div>
+
+          <div
+            style={{
+              position: "absolute",
+              width: "50%",
+              height: "-webkit-fill-available",
+              left: "50%",
+              background: "#FFF3CC",
             }}
           >
             <div
               style={{
-                fontWeight: 400,
-                fontSize: 18,
-                textDecorationLine: "none",
-                textAlign: "left",
-                marginBottom: 20,
-                float: "left",
-                background: "transparent",
-                border: "none",
+                position: "fixed",
+                top: 130,
+                left: width * 0.59,
+                textAlign: "-webkit-center",
+                width: 500,
+                background: " #FFFFFF",
+                boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
+                borderRadius: 20,
+                padding: 30,
               }}
-              onClick={() => goHome("English")}
             >
-              <p id={"Hometext"}>{LOGI01_Box1EN[0].label}</p>
-              <BsArrowLeftShort id={"Hometext2"} />
-            </div>
-
-            <button
-              style={{
-                fontWeight: 400,
-                textAlign: "right",
-                marginBottom: 20,
-                float: "right",
-                color: "#D9D9D9",
-                background: "transparent",
-                border: "none",
-              }}
-              onClick={() => goSignup("English")}
-            >
-              <p id={"Signuptext"}>{LOGI01_Box1EN[1].label}</p>
-              <BsArrowRightShort id={"Signuptext2"} />
-            </button>
-
-            <div style={{ padding: 20 }}>
-              <h2 className="textLogin">Login</h2>
-              <Formik
-                initialValues={{ email: "", password: "" }}
-                validate={(values) => {
-                  const errors = {};
-                  if (!values.email) {
-                    errors.email = "Required";
-                  } else if (
-                    !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(
-                      values.email
-                    )
-                  ) {
-                    errors.email = "Invalid email address";
-                  }
-                  return errors;
+              <div
+                style={{
+                  fontWeight: 400,
+                  fontSize: 18,
+                  textDecorationLine: "none",
+                  textAlign: "left",
+                  marginBottom: 20,
+                  float: "left",
+                  background: "transparent",
+                  border: "none",
                 }}
-                onSubmit={(values, { setSubmitting }) => {
-                  const email = values?.email;
-                  const password = values?.password;
-                  if (
-                    email === "jyung169@gmail.com" &&
-                    password === "Ooe1234"
-                  ) {
-                    setTimeout(() => {
-                      navigate("/In");
-                      setSubmitting(false);
-                    }, 400);
-                  } else if (
-                    email === "jyung3221@gmail.com" &&
-                    password === "Ooe123"
-                  ) {
-                    setTimeout(() => {
-                      navigate("/Dashboard_freelance");
-                      setSubmitting(false);
-                    }, 400);
-                  } else {
-                    console.log("err:", "มันไม่ใช่");
-                    setSubmitting(false);
-                  }
-                }}
+                onClick={() => goHome("English")}
               >
-                {({
-                  values,
-                  errors,
-                  touched,
-                  handleChange,
-                  handleBlur,
-                  handleSubmit,
-                  isSubmitting,
-                }) => (
-                  <form onSubmit={handleSubmit}>
-                    <p
-                      style={{
-                        fontWeight: 500,
-                        fontSize: 20,
-                        color: "#242424",
-                        textAlign: "left",
-                      }}
-                    >
-                      {LOGI01_Box1EN[3].label}
-                    </p>
-                    <input
-                      type="email"
-                      name="email"
-                      placeholder="Example@mail.com"
-                      style={{
-                        background: "#FFFFFF",
-                        border: "1px solid #F1F1F1",
-                        borderRadius: 20,
-                        width: "100%",
-                        height: 30,
-                        padding: 20,
-                        paddingLeft: 12,
-                        margin: 10,
-                      }}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      value={values.email}
-                    />
-                    <p
-                      style={{
-                        fontWeight: 500,
-                        fontSize: 20,
-                        color: "#242424",
-                        textAlign: "left",
-                      }}
-                    >
-                      {LOGI01_Box1EN[4].label}
-                    </p>
-                    <div>
+                <p id={"Hometext"}>{LOGI01_Box1EN[0].label}</p>
+                <BsArrowLeftShort id={"Hometext2"} />
+              </div>
+
+              <button
+                style={{
+                  fontWeight: 400,
+                  textAlign: "right",
+                  marginBottom: 20,
+                  float: "right",
+                  color: "#D9D9D9",
+                  background: "transparent",
+                  border: "none",
+                }}
+                onClick={() => goSignup("English")}
+              >
+                <p id={"Signuptext"}>{LOGI01_Box1EN[1].label}</p>
+                <BsArrowRightShort id={"Signuptext2"} />
+              </button>
+
+              <div style={{ padding: 20 }}>
+                <h2 className="textLogin">Login</h2>
+                <Formik
+                  initialValues={{ email: "", password: "" }}
+                  validate={(values) => {
+                    const errors = {};
+                    if (!values.email) {
+                      errors.email = "Required";
+                    } else if (
+                      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(
+                        values.email
+                      )
+                    ) {
+                      errors.email = "Invalid email address";
+                    }
+                    return errors;
+                  }}
+                  onSubmit={(values, { setSubmitting }) => {
+                    const email = values?.email;
+                    const password = values?.password;
+                    console.log("55555", values);
+                    // console.log("test:", Email, Password, Type);
+                    // console.log("values", email === Email);
+                    // console.log("values2", password === Password);
+                    // console.log("values3", Type === "5");
+
+                    if (Type === "5") {
+                      if (email === `${Email}` && password === `${Password}`) {
+                        setTimeout(() => {
+                          navigate("/In");
+                          setSubmitting(false);
+                        }, 400);
+                      }
+                    } else if (Type === "14") {
+                      if (email === `${Email}` && password === `${Password}`) {
+                        setTimeout(() => {
+                          navigate("/Dashboard_freelance");
+                          setSubmitting(false);
+                        }, 400);
+                      }
+                    } else if (Type === "16") {
+                      if (email === `${Email}` && password === `${Password}`) {
+                        setTimeout(() => {
+                          navigate("/Dashboard_freelance");
+                          setSubmitting(false);
+                        }, 400);
+                      }
+                    } else {
+                      console.log("err:", "มันไม่");
+                      setSubmitting(false);
+                    }
+                  }}
+                >
+                  {({
+                    values,
+                    errors,
+                    touched,
+                    handleChange,
+                    handleBlur,
+                    handleSubmit,
+                    isSubmitting,
+                  }) => (
+                    <form onSubmit={handleSubmit}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 20,
+                          color: "#242424",
+                          textAlign: "left",
+                        }}
+                      >
+                        {LOGI01_Box1EN[3].label}
+                      </p>
                       <input
-                        type={type}
-                        name="password"
-                        placeholder="Enter your password"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.password}
+                        type="email"
+                        name="email"
+                        placeholder="Example@mail.com"
                         style={{
                           background: "#FFFFFF",
                           border: "1px solid #F1F1F1",
@@ -255,62 +237,94 @@ const Login = () => {
                           paddingLeft: 12,
                           margin: 10,
                         }}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        value={values.email}
                       />
-                      <IconButton
-                        onClick={handleClickShowPassword}
-                        edge="end"
-                        style={{ position: "absolute", right: 61, top: 273 }}
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 20,
+                          color: "#242424",
+                          textAlign: "left",
+                        }}
                       >
-                        {value ? <FiEye /> : <FiEyeOff />}
-                      </IconButton>
-                    </div>
-                    {errors.email && touched.email && errors.email}
-                    {errors.password && touched.password && errors.password}
-                    <button
-                      style={{
-                        float: "right",
-                        background: "transparent",
-                        border: "none",
-                      }}
-                      onClick={() => goForgetPassword("English")}
-                    >
-                      <p id={"forpassworttext"}>{LOGI01_Box1EN[6].label}</p>
-                    </button>
-                    <button
-                      type="submit"
-                      disabled={isSubmitting}
-                      style={{
-                        width: "100%",
-                        borderRadius: 20,
-                        background: "#001E33",
-                        height: 40,
-                        color: "#FFFFFF",
-                        fontSize: 18,
-                        borderColor: "transparent",
-                        marginBottom: 20,
-                        marginTop: 30,
-                      }}
-                    >
-                      {LOGI01_Box1EN[2].label}
-                    </button>
-                  </form>
-                )}
-              </Formik>
+                        {LOGI01_Box1EN[4].label}
+                      </p>
+                      <div>
+                        <input
+                          type={type}
+                          name="password"
+                          placeholder="Enter your password"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.password}
+                          style={{
+                            background: "#FFFFFF",
+                            border: "1px solid #F1F1F1",
+                            borderRadius: 20,
+                            width: "100%",
+                            height: 30,
+                            padding: 20,
+                            paddingLeft: 12,
+                            margin: 10,
+                          }}
+                        />
+                        <IconButton
+                          onClick={handleClickShowPassword}
+                          edge="end"
+                          style={{ position: "absolute", right: 61, top: 273 }}
+                        >
+                          {value ? <FiEye /> : <FiEyeOff />}
+                        </IconButton>
+                      </div>
+                      {errors.email && touched.email && errors.email}
+                      {errors.password && touched.password && errors.password}
+                      <button
+                        style={{
+                          float: "right",
+                          background: "transparent",
+                          border: "none",
+                        }}
+                        onClick={() => goForgetPassword("English")}
+                      >
+                        <p id={"forpassworttext"}>{LOGI01_Box1EN[6].label}</p>
+                      </button>
+                      <button
+                        type="submit"
+                        disabled={isSubmitting}
+                        style={{
+                          width: "100%",
+                          borderRadius: 20,
+                          background: "#001E33",
+                          height: 40,
+                          color: "#FFFFFF",
+                          fontSize: 18,
+                          borderColor: "transparent",
+                          marginBottom: 20,
+                          marginTop: 30,
+                        }}
+                      >
+                        {LOGI01_Box1EN[2].label}
+                      </button>
+                    </form>
+                  )}
+                </Formik>
+              </div>
             </div>
-          </div>
 
-          <div
-            style={{ top: "90%", position: "absolute", marginLeft: "25%" }}
-          >
-            <div style={{ float: "right" }}>
-              <p>{LOGI01_Box1EN[8].label}</p>
-            </div>
-            <div style={{ float: "right", marginRight: 50 }}>
-              <p>{LOGI01_Box1EN[7].label}</p>
+            <div
+              style={{ top: "90%", position: "absolute", marginLeft: "25%" }}
+            >
+              <div style={{ float: "right" }}>
+                <p>{LOGI01_Box1EN[8].label}</p>
+              </div>
+              <div style={{ float: "right", marginRight: 50 }}>
+                <p>{LOGI01_Box1EN[7].label}</p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
       ) : Doc === "Thai" ? (
         <div>
           <div
@@ -408,24 +422,29 @@ const Login = () => {
                   onSubmit={(values, { setSubmitting }) => {
                     const email = values?.email;
                     const password = values?.password;
-                    if (
-                      email === "jyung169@gmail.com" &&
-                      password === "Ooe1234"
-                    ) {
-                      setTimeout(() => {
-                        navigate("/In");
-                        setSubmitting(false);
-                      }, 400);
-                    } else if (
-                      email === "jyung3221@gmail.com" &&
-                      password === "Ooe123"
-                    ) {
-                      setTimeout(() => {
-                        navigate("/Dashboard_freelance");
-                        setSubmitting(false);
-                      }, 400);
+                    if (Type === "5") {
+                      if (email === `${Email}` && password === `${Password}`) {
+                        setTimeout(() => {
+                          navigate("/In");
+                          setSubmitting(false);
+                        }, 400);
+                      }
+                    } else if (Type === "14") {
+                      if (email === `${Email}` && password === `${Password}`) {
+                        setTimeout(() => {
+                          navigate("/Dashboard_freelance");
+                          setSubmitting(false);
+                        }, 400);
+                      }
+                    } else if (Type === "16") {
+                      if (email === `${Email}` && password === `${Password}`) {
+                        setTimeout(() => {
+                          navigate("/Dashboard_freelance");
+                          setSubmitting(false);
+                        }, 400);
+                      }
                     } else {
-                      console.log("err:", "มันไม่ใช่");
+                      console.log("err:", "มันไม่");
                       setSubmitting(false);
                     }
                   }}
@@ -649,24 +668,29 @@ const Login = () => {
                   onSubmit={(values, { setSubmitting }) => {
                     const email = values?.email;
                     const password = values?.password;
-                    if (
-                      email === "jyung169@gmail.com" &&
-                      password === "Ooe1234"
-                    ) {
-                      setTimeout(() => {
-                        navigate("/In");
-                        setSubmitting(false);
-                      }, 400);
-                    } else if (
-                      email === "jyung3221@gmail.com" &&
-                      password === "Ooe123"
-                    ) {
-                      setTimeout(() => {
-                        navigate("/Dashboard_freelance");
-                        setSubmitting(false);
-                      }, 400);
+                    if (Type === "5") {
+                      if (email === `${Email}` && password === `${Password}`) {
+                        setTimeout(() => {
+                          navigate("/In");
+                          setSubmitting(false);
+                        }, 400);
+                      }
+                    } else if (Type === "14") {
+                      if (email === `${Email}` && password === `${Password}`) {
+                        setTimeout(() => {
+                          navigate("/Dashboard_freelance");
+                          setSubmitting(false);
+                        }, 400);
+                      }
+                    } else if (Type === "16") {
+                      if (email === `${Email}` && password === `${Password}`) {
+                        setTimeout(() => {
+                          navigate("/Dashboard_freelance");
+                          setSubmitting(false);
+                        }, 400);
+                      }
                     } else {
-                      console.log("err:", "มันไม่ใช่");
+                      console.log("err:", "มันไม่");
                       setSubmitting(false);
                     }
                   }}
@@ -890,24 +914,29 @@ const Login = () => {
                   onSubmit={(values, { setSubmitting }) => {
                     const email = values?.email;
                     const password = values?.password;
-                    if (
-                      email === "jyung169@gmail.com" &&
-                      password === "Ooe1234"
-                    ) {
-                      setTimeout(() => {
-                        navigate("/In");
-                        setSubmitting(false);
-                      }, 400);
-                    } else if (
-                      email === "jyung3221@gmail.com" &&
-                      password === "Ooe123"
-                    ) {
-                      setTimeout(() => {
-                        navigate("/Dashboard_freelance");
-                        setSubmitting(false);
-                      }, 400);
+                    if (Type === "5") {
+                      if (email === `${Email}` && password === `${Password}`) {
+                        setTimeout(() => {
+                          navigate("/In");
+                          setSubmitting(false);
+                        }, 400);
+                      }
+                    } else if (Type === "14") {
+                      if (email === `${Email}` && password === `${Password}`) {
+                        setTimeout(() => {
+                          navigate("/Dashboard_freelance");
+                          setSubmitting(false);
+                        }, 400);
+                      }
+                    } else if (Type === "16") {
+                      if (email === `${Email}` && password === `${Password}`) {
+                        setTimeout(() => {
+                          navigate("/Dashboard_freelance");
+                          setSubmitting(false);
+                        }, 400);
+                      }
                     } else {
-                      console.log("err:", "มันไม่ใช่");
+                      console.log("err:", "มันไม่");
                       setSubmitting(false);
                     }
                   }}

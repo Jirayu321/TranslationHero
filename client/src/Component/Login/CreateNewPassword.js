@@ -2,7 +2,7 @@ import * as React from "react";
 
 import Navbars from "../Navbar/navbarLogin";
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { FiEyeOff, FiEye } from "react-icons/fi";
 
 import Login1 from "../../Images/login.png";
@@ -12,6 +12,7 @@ import IconButton from "@mui/material/IconButton";
 const CreateNewPassword = () => {
   const { innerWidth: width } = window;
   const navigate = useNavigate();
+  const location = useLocation();
   const [password, setPassword] = React.useState("");
   const [confirm, setConfirm] = React.useState("");
   const [type, setType] = React.useState("password");
@@ -19,6 +20,9 @@ const CreateNewPassword = () => {
   const [values, setValues] = React.useState(false);
   const [values2, setValues2] = React.useState(false);
 
+  let Email = location?.state?.email;
+  let Type = location?.state?.type;
+  console.log("test01:", Email, Type);
   const handleClickShowPassword = () => {
     if (type === "password") {
       setValues(!values);
@@ -39,7 +43,14 @@ const CreateNewPassword = () => {
     }
   };
 
-  const Save = () => navigate("/Login");
+  const Save = () =>
+    navigate("/Login", {
+      state: {
+        email: `${Email}`,
+        password: `${password}`,
+        type: `${Type}`,
+      },
+    });
   return (
     <>
       <header

@@ -156,7 +156,14 @@ const Signup = () => {
       setChecked(false);
     }
     setTimeout(() => {
-      navigate("/Login", { state: { languages: `${Doc}` } });
+      navigate("/Login", {
+        state: {
+          languages: `${Doc}`,
+          email: `${email}`,
+          password: `${password}`,
+          type: `${screen}`,
+        },
+      });
     }, 900);
   };
 
@@ -195,7 +202,14 @@ const Signup = () => {
 
   const handleClose5 = () => {
     setOpen4(false);
-    navigate("/Login", { state: { languages: `${Doc}` } });
+    navigate("/Login", {
+      state: {
+        languages: `${Doc}`,
+        email: `${email}`,
+        password: `${password}`,
+        type: `${screen}`,
+      },
+    });
   };
 
   const handleClickShowPassword = (i) => {
@@ -219,7 +233,7 @@ const Signup = () => {
   };
 
   const handleChange = (event) => {
-    // console.log(event.target.value);
+    console.log(event.target.value);
     setScreen(event.target.value);
   };
 
@@ -245,6 +259,8 @@ const Signup = () => {
   const handleClose12 = () => {
     setOpenModal12(false);
   };
+
+  console.log("screen", screen);
   return (
     <>
       <header
@@ -6053,7 +6069,11 @@ const Signup = () => {
                             pb: 3,
                           }}
                         >
-                          <img src={examplefreelance} width="100%"  alt="examplefreelance"/>
+                          <img
+                            src={examplefreelance}
+                            width="100%"
+                            alt="examplefreelance"
+                          />
                         </Box>
                       </Modal>
                     </div>
@@ -6301,7 +6321,11 @@ const Signup = () => {
                             pb: 3,
                           }}
                         >
-                          <img src={examplefreelance} width="100%"  alt="examplefreelance"/>
+                          <img
+                            src={examplefreelance}
+                            width="100%"
+                            alt="examplefreelance"
+                          />
                         </Box>
                       </Modal>
                     </div>
@@ -6549,7 +6573,11 @@ const Signup = () => {
                             pb: 3,
                           }}
                         >
-                          <img src={examplefreelance} width="100%"  alt="examplefreelance"/>
+                          <img
+                            src={examplefreelance}
+                            width="100%"
+                            alt="examplefreelance"
+                          />
                         </Box>
                       </Modal>
                     </div>
@@ -6797,7 +6825,11 @@ const Signup = () => {
                             pb: 3,
                           }}
                         >
-                          <img src={examplefreelance} width="100%"  alt="examplefreelance"/>
+                          <img
+                            src={examplefreelance}
+                            width="100%"
+                            alt="examplefreelance"
+                          />
                         </Box>
                       </Modal>
                     </div>
@@ -7972,7 +8004,8 @@ const Signup = () => {
                             fontSize: 14,
                           }}
                         >
-                          An example of uploading a picture of your Education/Certificate/Proof
+                          An example of uploading a picture of your
+                          Education/Certificate/Proof
                         </p>
                       </button>
                       <Modal
@@ -7997,7 +8030,7 @@ const Signup = () => {
                             pb: 3,
                           }}
                         >
-                          <img src={example9} width="100%"  alt="example9"/>
+                          <img src={example9} width="100%" alt="example9" />
                         </Box>
                       </Modal>
                     </div>
@@ -8245,7 +8278,7 @@ const Signup = () => {
                             pb: 3,
                           }}
                         >
-                          <img src={example9} width="100%"  alt="example9"/>
+                          <img src={example9} width="100%" alt="example9" />
                         </Box>
                       </Modal>
                     </div>
@@ -8468,8 +8501,8 @@ const Signup = () => {
                             fontSize: 14,
                           }}
                         >
-                          
-Ein Beispiel für das Hochladen eines Bildes Ihrer Ausbildung/Ihres Zertifikats/Ihres Nachweises
+                          Ein Beispiel für das Hochladen eines Bildes Ihrer
+                          Ausbildung/Ihres Zertifikats/Ihres Nachweises
                         </p>
                       </button>
                       <Modal
@@ -8494,7 +8527,7 @@ Ein Beispiel für das Hochladen eines Bildes Ihrer Ausbildung/Ihres Zertifikats/
                             pb: 3,
                           }}
                         >
-                          <img src={example9} width="100%"  alt="example9"/>
+                          <img src={example9} width="100%" alt="example9" />
                         </Box>
                       </Modal>
                     </div>
@@ -8717,7 +8750,8 @@ Ein Beispiel für das Hochladen eines Bildes Ihrer Ausbildung/Ihres Zertifikats/
                             fontSize: 14,
                           }}
                         >
-                          An example of uploading a picture of your Education/Certificate/Proof
+                          An example of uploading a picture of your
+                          Education/Certificate/Proof
                         </p>
                       </button>
                       <Modal
@@ -8742,7 +8776,7 @@ Ein Beispiel für das Hochladen eines Bildes Ihrer Ausbildung/Ihres Zertifikats/
                             pb: 3,
                           }}
                         >
-                          <img src={example9} width="100%"  alt="example9"/>
+                          <img src={example9} width="100%" alt="example9" />
                         </Box>
                       </Modal>
                     </div>
@@ -9797,7 +9831,8 @@ Ein Beispiel für das Hochladen eines Bildes Ihrer Ausbildung/Ihres Zertifikats/
                             fontSize: 14,
                           }}
                         >
-                           An example of uploading a picture of your Portfolio/CV.
+                          An example of uploading a picture of your
+                          Portfolio/CV.
                         </p>
                       </button>
                       <Modal
@@ -9822,10 +9857,9 @@ Ein Beispiel für das Hochladen eines Bildes Ihrer Ausbildung/Ihres Zertifikats/
                             pb: 3,
                           }}
                         >
-                          <img src={example11} width="100%"  alt="example11"/>
+                          <img src={example11} width="100%" alt="example11" />
                         </Box>
                       </Modal>
-
                     </div>
                     <hr style={{ width: "97%", height: 2 }} />
                     <button
@@ -10046,7 +10080,7 @@ Ein Beispiel für das Hochladen eines Bildes Ihrer Ausbildung/Ihres Zertifikats/
                             fontSize: 14,
                           }}
                         >
-                           ตัวอย่างการอัพโหลดรูปภาพ Portfolio/CV ของคุณ
+                          ตัวอย่างการอัพโหลดรูปภาพ Portfolio/CV ของคุณ
                         </p>
                       </button>
                       <Modal
@@ -10071,7 +10105,7 @@ Ein Beispiel für das Hochladen eines Bildes Ihrer Ausbildung/Ihres Zertifikats/
                             pb: 3,
                           }}
                         >
-                          <img src={example11} width="100%"  alt="example11"/>
+                          <img src={example11} width="100%" alt="example11" />
                         </Box>
                       </Modal>
                     </div>
@@ -10294,7 +10328,8 @@ Ein Beispiel für das Hochladen eines Bildes Ihrer Ausbildung/Ihres Zertifikats/
                             fontSize: 14,
                           }}
                         >
-                           Ein Beispiel für das Hochladen eines Bildes Ihres Portfolios/Lebenslaufs.
+                          Ein Beispiel für das Hochladen eines Bildes Ihres
+                          Portfolios/Lebenslaufs.
                         </p>
                       </button>
                       <Modal
@@ -10319,7 +10354,7 @@ Ein Beispiel für das Hochladen eines Bildes Ihrer Ausbildung/Ihres Zertifikats/
                             pb: 3,
                           }}
                         >
-                          <img src={example11} width="100%"  alt="example11"/>
+                          <img src={example11} width="100%" alt="example11" />
                         </Box>
                       </Modal>
                     </div>
@@ -10542,7 +10577,8 @@ Ein Beispiel für das Hochladen eines Bildes Ihrer Ausbildung/Ihres Zertifikats/
                             fontSize: 14,
                           }}
                         >
-                           An example of uploading a picture of your Portfolio/CV.
+                          An example of uploading a picture of your
+                          Portfolio/CV.
                         </p>
                       </button>
                       <Modal
@@ -10567,10 +10603,9 @@ Ein Beispiel für das Hochladen eines Bildes Ihrer Ausbildung/Ihres Zertifikats/
                             pb: 3,
                           }}
                         >
-                          <img src={example11} width="100%"  alt="example11"/>
+                          <img src={example11} width="100%" alt="example11" />
                         </Box>
                       </Modal>
-
                     </div>
                     <hr style={{ width: "97%", height: 2 }} />
                     <button
@@ -11068,7 +11103,7 @@ Ein Beispiel für das Hochladen eines Bildes Ihrer Ausbildung/Ihres Zertifikats/
                             pb: 3,
                           }}
                         >
-                          <img src={example12} width="100%"  alt="example12"/>
+                          <img src={example12} width="100%" alt="example12" />
                         </Box>
                       </Modal>
                     </div>
@@ -11316,7 +11351,7 @@ Ein Beispiel für das Hochladen eines Bildes Ihrer Ausbildung/Ihres Zertifikats/
                             pb: 3,
                           }}
                         >
-                          <img src={example12} width="100%"  alt="example12"/>
+                          <img src={example12} width="100%" alt="example12" />
                         </Box>
                       </Modal>
                     </div>
@@ -12642,7 +12677,7 @@ Ein Beispiel für das Hochladen eines Bildes Ihrer Ausbildung/Ihres Zertifikats/
                             pb: 3,
                           }}
                         >
-                          <img src={example14} width="100%"  alt="example14"/>
+                          <img src={example14} width="100%" alt="example14" />
                         </Box>
                       </Modal>
                     </div>
@@ -13068,7 +13103,7 @@ Ein Beispiel für das Hochladen eines Bildes Ihrer Ausbildung/Ihres Zertifikats/
                             pb: 3,
                           }}
                         >
-                          <img src={example14} width="100%"  alt="example14"/>
+                          <img src={example14} width="100%" alt="example14" />
                         </Box>
                       </Modal>
                     </div>
@@ -13494,7 +13529,7 @@ Ein Beispiel für das Hochladen eines Bildes Ihrer Ausbildung/Ihres Zertifikats/
                             pb: 3,
                           }}
                         >
-                          <img src={example14} width="100%"  alt="example14"/>
+                          <img src={example14} width="100%" alt="example14" />
                         </Box>
                       </Modal>
                     </div>
@@ -13920,7 +13955,7 @@ Ein Beispiel für das Hochladen eines Bildes Ihrer Ausbildung/Ihres Zertifikats/
                             pb: 3,
                           }}
                         >
-                          <img src={example14} width="100%"  alt="example14"/>
+                          <img src={example14} width="100%" alt="example14" />
                         </Box>
                       </Modal>
                     </div>

@@ -5,17 +5,19 @@ import Navbars from "../Navbar/navbarLogin";
 import Login1 from "../../Images/login.png";
 
 import { BsArrowRightShort, BsArrowLeftShort } from "react-icons/bs";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 
 const ForgetPassword = () => {
   const { innerWidth: width } = window;
   const form = useRef();
   const navigate = useNavigate();
-  // const [email, setEmail] = React.useState("");
-
+  const location = useLocation();
+  const [email, setEmail] = React.useState("");
+  let Type = location?.state?.type;
+  console.log("test02:", Type);
   const send_Mail = (e) => {
     e.preventDefault();
-    console.log("form.current:",form.current)
+    console.log("form.current:", form.current);
     emailjs
       .sendForm(
         "service_u5757dr",
@@ -32,7 +34,12 @@ const ForgetPassword = () => {
         }
       );
     e.target.reset();
-    navigate("/Login");
+    navigate("/CreateNewPassword", {
+      state: {
+        email: `${email}`,
+        type: `${Type}`,
+      },
+    });
   };
 
   return (
@@ -166,6 +173,7 @@ const ForgetPassword = () => {
                       paddingLeft: 12,
                       margin: 10,
                     }}
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                   <input
                     style={{
