@@ -1,80 +1,64 @@
 import * as React from "react";
-import Freelance from "./Component/Dashboard/Dashboard_freelance";
-// import Employee from "./Component/Dashboard/Dashboard_employee";
-// import Company from "./Component/Dashboard/Dashboard_company";
-import Home from "./Component/Home/Home";
-import Customer from "./Component/Home/Customer";
-import Translator from "./Component/Home/Translator";
-import Home2 from "./Component/Home/Home2";
-import Login from "./Component/Login/Login";
-import ForgetPassword from "./Component/Login/ForgetPassword";
-import CreateNewPassword from "./Component/Login/CreateNewPassword";
-import Signup from "./Component/Sign_up/Signup";
-// import Signupfreelance from "./Component/Sign_up/Signup_freelance";
-// import Signupcompany from "./Component/Sign_up/Signup_company";
-import Chat from "./Component/Chat/ChatCustomer";
-import Order from "./Component/Order/Order";
-import Notification from "./Component/Notification/NotificaionCustomer";
-import Matching from "./Component//Matching/Matching";
-import Tool from "./Component/Tool/Tool";
-
 import { StyledEngineProvider } from "@mui/material/styles";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { loadUser } from "./slices/auth";
 import "./App.css";
 
+import Matching from "./Components/Matching/Matching";
+import Freelance from "./Components/Dashboard/Dashboard_freelance";
+import Home from "./Components/Home/Home.js";
+import Customer from "./Components/Home/Customer";
+import Translator from "./Components/Home/Translator";
+import Home2 from "./Components/Home/Home2.js";
+import Login from "./Components/Login/Login";
+import ForgetPassword from "./Components/Login/ForgetPassword";
+import CreateNewPassword from "./Components/Login/CreateNewPassword";
+import Signup from "./Components/Sign_up/Signup";
+import Chat from "./Components/Chat/ChatCustomer";
+import Order from "./Components/Order/Order";
+import Notification from "./Components/Notification/NotificaionCustomer";
+import Tool from "./Components/Tool/Tool";
+
 function App() {
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    dispatch(loadUser(null));
+  }, [dispatch]);
   return (
     <>
-      <Router>
-        <div className="App">
+      <div className="App">
+        <BrowserRouter>
           <div className="App-body">
             <StyledEngineProvider injectFirst>
               <Routes>
-                <Route exact path="/" element={<Home />} />
+                <Route path="/" element={<Home />} />
+                <Route path="/Home/Services/Customer" element={<Customer />} />
+                <Route path="/Notification" element={<Notification />} />
+                <Route path="/Matching" element={<Matching />} />
                 <Route
-                  exact
-                  path="/Home/Services/Customer"
-                  element={<Customer />}
-                />
-                <Route exact path="/Notification" element={<Notification />} />
-                <Route exact path="/Matching" element={<Matching />} />
-                <Route
-                  exact
                   path="/Home/Services/Translator"
                   element={<Translator />}
                 />
-                <Route exact path="/Login" element={<Login />} />
+                <Route path="/Login" element={<Login />} />
+                <Route path="/ForgetPassword" element={<ForgetPassword />} />
                 <Route
-                  exact
-                  path="/ForgetPassword"
-                  element={<ForgetPassword />}
-                />
-                <Route
-                  exact
                   path="/CreateNewPassword"
                   element={<CreateNewPassword />}
                 />
-                <Route exact path="/Signup" element={<Signup />} />
-                {/* <Route path="/Signup_freelance" element={<Signupfreelance />} /> */}
-                {/* <Route
-                  exact
-                  path="/Signup_company"
-                  element={<Signupcompany />}
-                /> */}
-                <Route exact path="/In" element={<Home2 />} />
-                <Route exact path="/Order" element={<Order />} />
-                <Route
-                  exact
-                  path="/Dashboard_freelance"
-                  element={<Freelance />}
-                />
-                <Route exact path="/Tool" element={<Tool />} />
-                <Route exact path="/Chat" element={<Chat />} />
+                <Route path="/Signup" element={<Signup />} />
+
+                <Route path="/In" element={<Home2 />} />
+                <Route path="/Order" element={<Order />} />
+                <Route path="/Dashboard_freelance" element={<Freelance />} />
+                <Route path="/Tool" element={<Tool />} />
+                <Route path="/Chat" element={<Chat />} />
               </Routes>
             </StyledEngineProvider>
           </div>
-        </div>
-      </Router>
+        </BrowserRouter>
+      </div>
     </>
   );
 }
