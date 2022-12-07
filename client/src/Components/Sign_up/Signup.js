@@ -1,15 +1,17 @@
 import * as React from "react";
-import logo from "../../logo.svg";
+import emailjs from "@emailjs/browser";
 import Navbars from "../Navbar/navbarLogin";
-// import { FaUserAlt, FaAddressCard } from "react-icons/fa";
+
+//test
+import { useDispatch, useSelector } from "react-redux";
+import { registerUser } from "../../slices/auth";
+
+import { data, data5 } from "../Data/data";
+import logo from "../../logo.svg";
 import { BsArrowRightShort, BsArrowLeftShort } from "react-icons/bs";
 import { FiEyeOff, FiEye, FiImage } from "react-icons/fi";
 import { AiFillCheckCircle } from "react-icons/ai";
 import { MdCameraAlt, MdArrowDropDown } from "react-icons/md";
-// import { Link } from "react-router-dom";
-import { data, data5 } from "../Data/data";
-import emailjs from "@emailjs/browser";
-
 import Login1 from "../../Images/Sign_up.png";
 
 import {
@@ -28,6 +30,7 @@ import {
   REGI01_box5EN,
   REGI01_box5DE,
   REGI01_box5TH,
+
   // RegisterTranslator
   REGI02_Box1v02EN,
   REGI02_Box1v02DE,
@@ -47,6 +50,7 @@ import {
   REGI02_box5EN,
   REGI02_box5DE,
   REGI02_box5TH,
+
   // Freelance
   REGI02_Box1v01EN,
   REGI02_Box1v01DE,
@@ -91,9 +95,29 @@ const Signup = () => {
   const { innerWidth: width } = window;
   const navigate = useNavigate();
   const location = useLocation();
-
   let Doc = location?.state?.languages;
-  console.log(Doc);
+
+  //test
+  const dispatch = useDispatch();
+  const auth = useSelector((state) => state.auth);
+  const [images, setImages] = React.useState([]);
+  const [imageURLs, setImageURLs] = React.useState([]);
+  const [languages, setLanguages] = React.useState("");
+
+  const [user, setUser] = React.useState({
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    mobilePhone: "",
+    profilePicture: images,
+    imageURLs: imageURLs,
+    address: "",
+    district: "",
+    province: "",
+    country: "",
+    postalCode: "",
+  });
 
   const [file2, setFile2] = React.useState("");
   const [file3, setFile3] = React.useState("");
@@ -128,12 +152,6 @@ const Signup = () => {
   const [checked, setChecked] = React.useState(false);
   const [checked2, setChecked2] = React.useState(false);
 
-  const [images, setImages] = React.useState([]);
-  const [imageURLs, setImageURLs] = React.useState([]);
-  const [languages, setLanguages] = React.useState("");
-  // const [answerLanguages, setAnswerLanguages] = React.useState("");
-  // const Form = React.useRef();
-
   React.useEffect(() => {
     if (images.length < 1) return;
     const newImageUrls = [];
@@ -145,7 +163,13 @@ const Signup = () => {
     setImages([...e.target.files]);
   }
 
-  const handleOpen = () => setOpen(true);
+  const handleOpen = (e) => {
+    e.preventDefault();
+    dispatch(registerUser(user));
+    console.log("auth:", auth);
+    console.log(":", typeof images);
+    setOpen(true);
+  };
   const [openModal12, setOpenModal12] = React.useState(false);
 
   const handleClose = () => {
@@ -398,8 +422,10 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={firstname}
-                        onChange={(e) => setFirstname(e.target.value)}
+                        value={user?.name}
+                        onChange={(e) =>
+                          setUser({ ...user, name: e.target.value })
+                        }
                         placeholder={REGI01_box1EN[5].label}
                         style={{
                           background: "#FFFFFF",
@@ -428,8 +454,10 @@ const Signup = () => {
                       <input
                         type="text"
                         name="user_email"
-                        // value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        value={user?.email}
+                        onChange={(e) =>
+                          setUser({ ...user, email: e.target.value })
+                        }
                         placeholder={REGI01_box1EN[7].label}
                         style={{
                           background: "#FFFFFF",
@@ -458,8 +486,10 @@ const Signup = () => {
 
                       <input
                         type={type}
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
+                        value={user?.password}
+                        onChange={(e) =>
+                          setUser({ ...user, password: e.target.value })
+                        }
                         placeholder={REGI01_box1EN[9].label}
                         style={{
                           background: "#FFFFFF",
@@ -496,8 +526,10 @@ const Signup = () => {
 
                       <input
                         type={type2}
-                        value={confirmpassword}
-                        onChange={(e) => setConfirmpassword(e.target.value)}
+                        value={user?.confirmPassword}
+                        onChange={(e) =>
+                          setUser({ ...user, confirmPassword: e.target.value })
+                        }
                         placeholder={REGI01_box1EN[9].label}
                         style={{
                           background: "#FFFFFF",
@@ -534,8 +566,10 @@ const Signup = () => {
 
                       <input
                         type="text"
-                        value={mobilephone}
-                        onChange={(e) => setMobilephone(e.target.value)}
+                        value={user?.mobilePhone}
+                        onChange={(e) =>
+                          setUser({ ...user, mobilePhone: e.target.value })
+                        }
                         placeholder={REGI01_box1EN[11].label}
                         style={{
                           background: "#FFFFFF",
@@ -583,7 +617,7 @@ const Signup = () => {
                       padding: 30,
                     }}
                   >
-                    <div
+                    <button
                       style={{
                         fontWeight: 400,
                         fontSize: 18,
@@ -598,7 +632,7 @@ const Signup = () => {
                     >
                       <p id={"Hometext"}>{REGI01_box1TH[0].label}</p>
                       <BsArrowLeftShort id={"Hometext2"} />
-                    </div>
+                    </button>
 
                     <button
                       style={{
@@ -656,8 +690,10 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={firstname}
-                        onChange={(e) => setFirstname(e.target.value)}
+                        value={user?.name}
+                        onChange={(e) =>
+                          setUser({ ...user, name: e.target.value })
+                        }
                         placeholder={REGI01_box1TH[5].label}
                         style={{
                           background: "#FFFFFF",
@@ -686,8 +722,10 @@ const Signup = () => {
                       <input
                         type="text"
                         name="user_email"
-                        // value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        value={user?.email}
+                        onChange={(e) =>
+                          setUser({ ...user, email: e.target.value })
+                        }
                         placeholder={REGI01_box1TH[7].label}
                         style={{
                           background: "#FFFFFF",
@@ -716,8 +754,10 @@ const Signup = () => {
 
                       <input
                         type={type}
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
+                        value={user?.password}
+                        onChange={(e) =>
+                          setUser({ ...user, password: e.target.value })
+                        }
                         placeholder={REGI01_box1TH[9].label}
                         style={{
                           background: "#FFFFFF",
@@ -754,8 +794,10 @@ const Signup = () => {
 
                       <input
                         type={type2}
-                        value={confirmpassword}
-                        onChange={(e) => setConfirmpassword(e.target.value)}
+                        value={user?.confirmPassword}
+                        onChange={(e) =>
+                          setUser({ ...user, confirmPassword: e.target.value })
+                        }
                         placeholder={REGI01_box1TH[9].label}
                         style={{
                           background: "#FFFFFF",
@@ -792,8 +834,10 @@ const Signup = () => {
 
                       <input
                         type="text"
-                        value={mobilephone}
-                        onChange={(e) => setMobilephone(e.target.value)}
+                        value={user?.mobilePhone}
+                        onChange={(e) =>
+                          setUser({ ...user, mobilePhone: e.target.value })
+                        }
                         placeholder={REGI01_box1TH[11].label}
                         style={{
                           background: "#FFFFFF",
@@ -841,7 +885,7 @@ const Signup = () => {
                       padding: 30,
                     }}
                   >
-                    <div
+                    <button
                       style={{
                         fontWeight: 400,
                         fontSize: 18,
@@ -856,7 +900,7 @@ const Signup = () => {
                     >
                       <p id={"Hometext"}>{REGI01_box1DE[0].label}</p>
                       <BsArrowLeftShort id={"Hometext2"} />
-                    </div>
+                    </button>
 
                     <button
                       style={{
@@ -914,8 +958,10 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={firstname}
-                        onChange={(e) => setFirstname(e.target.value)}
+                        value={user?.name}
+                        onChange={(e) =>
+                          setUser({ ...user, name: e.target.value })
+                        }
                         placeholder={REGI01_box1DE[5].label}
                         style={{
                           background: "#FFFFFF",
@@ -943,9 +989,11 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
+                        value={user?.email}
                         name="user_email"
-                        // value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        onChange={(e) =>
+                          setUser({ ...user, email: e.target.value })
+                        }
                         placeholder={REGI01_box1DE[7].label}
                         style={{
                           background: "#FFFFFF",
@@ -974,8 +1022,10 @@ const Signup = () => {
 
                       <input
                         type={type}
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
+                        value={user?.password}
+                        onChange={(e) =>
+                          setUser({ ...user, password: e.target.value })
+                        }
                         placeholder={REGI01_box1DE[9].label}
                         style={{
                           background: "#FFFFFF",
@@ -1012,8 +1062,10 @@ const Signup = () => {
 
                       <input
                         type={type2}
-                        value={confirmpassword}
-                        onChange={(e) => setConfirmpassword(e.target.value)}
+                        value={user?.confirmPassword}
+                        onChange={(e) =>
+                          setUser({ ...user, confirmPassword: e.target.value })
+                        }
                         placeholder={REGI01_box1DE[9].label}
                         style={{
                           background: "#FFFFFF",
@@ -1050,8 +1102,10 @@ const Signup = () => {
 
                       <input
                         type="text"
-                        value={mobilephone}
-                        onChange={(e) => setMobilephone(e.target.value)}
+                        value={user?.mobilePhone}
+                        onChange={(e) =>
+                          setUser({ ...user, mobilePhone: e.target.value })
+                        }
                         placeholder={REGI01_box1DE[11].label}
                         style={{
                           background: "#FFFFFF",
@@ -1172,8 +1226,10 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={firstname}
-                        onChange={(e) => setFirstname(e.target.value)}
+                        value={user?.name}
+                        onChange={(e) =>
+                          setUser({ ...user, name: e.target.value })
+                        }
                         placeholder={REGI01_box1EN[5].label}
                         style={{
                           background: "#FFFFFF",
@@ -1202,8 +1258,10 @@ const Signup = () => {
                       <input
                         type="text"
                         name="user_email"
-                        // value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        value={user?.email}
+                        onChange={(e) =>
+                          setUser({ ...user, email: e.target.value })
+                        }
                         placeholder={REGI01_box1EN[7].label}
                         style={{
                           background: "#FFFFFF",
@@ -1232,8 +1290,10 @@ const Signup = () => {
 
                       <input
                         type={type}
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
+                        value={user?.password}
+                        onChange={(e) =>
+                          setUser({ ...user, password: e.target.value })
+                        }
                         placeholder={REGI01_box1EN[9].label}
                         style={{
                           background: "#FFFFFF",
@@ -1270,8 +1330,10 @@ const Signup = () => {
 
                       <input
                         type={type2}
-                        value={confirmpassword}
-                        onChange={(e) => setConfirmpassword(e.target.value)}
+                        value={user?.confirmPassword}
+                        onChange={(e) =>
+                          setUser({ ...user, confirmPassword: e.target.value })
+                        }
                         placeholder={REGI01_box1EN[9].label}
                         style={{
                           background: "#FFFFFF",
@@ -1308,8 +1370,10 @@ const Signup = () => {
 
                       <input
                         type="text"
-                        value={mobilephone}
-                        onChange={(e) => setMobilephone(e.target.value)}
+                        value={user?.mobilePhone}
+                        onChange={(e) =>
+                          setUser({ ...user, mobilePhone: e.target.value })
+                        }
                         placeholder={REGI01_box1EN[11].label}
                         style={{
                           background: "#FFFFFF",
@@ -2452,7 +2516,7 @@ const Signup = () => {
                   <div style={{ margin: 25 }}>
                     <p>{REGI01_box2EN[3].label}</p>
                   </div>
-                  {images.length < 1 ? (
+                  {images?.length < 1 ? (
                     <div
                       style={{
                         background: "#FFFFFF",
@@ -2520,7 +2584,7 @@ const Signup = () => {
                           aria-label="upload picture"
                           component="span"
                         >
-                          {imageURLs.map((imageSrc, idx) => (
+                          {imageURLs?.map((imageSrc, idx) => (
                             <img
                               key={idx}
                               src={imageSrc}
@@ -3830,8 +3894,10 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={address}
-                        onChange={(e) => setAddress(e.target.value)}
+                        value={user?.address}
+                        onChange={(e) =>
+                          setUser({ ...user, address: e.target.value })
+                        }
                         placeholder={REGI01_box3EN[2].label}
                         style={{
                           background: "#FFFFFF",
@@ -3859,8 +3925,10 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={district}
-                        onChange={(e) => setDistrict(e.target.value)}
+                        value={user?.district}
+                        onChange={(e) =>
+                          setUser({ ...user, district: e.target.value })
+                        }
                         placeholder={REGI01_box3EN[3].label}
                         style={{
                           background: "#FFFFFF",
@@ -3888,8 +3956,10 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={province}
-                        onChange={(e) => setProvince(e.target.value)}
+                        value={user?.province}
+                        onChange={(e) =>
+                          setUser({ ...user, province: e.target.value })
+                        }
                         placeholder={REGI01_box3EN[4].label}
                         style={{
                           background: "#FFFFFF",
@@ -3918,8 +3988,10 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={country}
-                        onChange={(e) => setCountry(e.target.value)}
+                        value={user?.country}
+                        onChange={(e) =>
+                          setUser({ ...user, country: e.target.value })
+                        }
                         placeholder={REGI01_box3EN[5].label}
                         style={{
                           background: "#FFFFFF",
@@ -3948,8 +4020,10 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={postalcode}
-                        onChange={(e) => setPostalCode(e.target.value)}
+                        value={user?.postalCode}
+                        onChange={(e) =>
+                          setUser({ ...user, postalCode: e.target.value })
+                        }
                         placeholder={REGI01_box3EN[6].label}
                         style={{
                           background: "#FFFFFF",
@@ -4169,8 +4243,10 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={address}
-                        onChange={(e) => setAddress(e.target.value)}
+                        value={user?.address}
+                        onChange={(e) =>
+                          setUser({ ...user, address: e.target.value })
+                        }
                         placeholder={REGI01_box3TH[2].label}
                         style={{
                           background: "#FFFFFF",
@@ -4198,8 +4274,10 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={district}
-                        onChange={(e) => setDistrict(e.target.value)}
+                        value={user?.district}
+                        onChange={(e) =>
+                          setUser({ ...user, district: e.target.value })
+                        }
                         placeholder={REGI01_box3TH[3].label}
                         style={{
                           background: "#FFFFFF",
@@ -4227,8 +4305,10 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={province}
-                        onChange={(e) => setProvince(e.target.value)}
+                        value={user?.province}
+                        onChange={(e) =>
+                          setUser({ ...user, province: e.target.value })
+                        }
                         placeholder={REGI01_box3TH[4].label}
                         style={{
                           background: "#FFFFFF",
@@ -4258,7 +4338,9 @@ const Signup = () => {
                       <input
                         type="text"
                         value={country}
-                        onChange={(e) => setCountry(e.target.value)}
+                        onChange={(e) =>
+                          setUser({ ...user, country: e.target.value })
+                        }
                         placeholder={REGI01_box3TH[5].label}
                         style={{
                           background: "#FFFFFF",
@@ -4287,8 +4369,10 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={postalcode}
-                        onChange={(e) => setPostalCode(e.target.value)}
+                        value={user?.postalCode}
+                        onChange={(e) =>
+                          setUser({ ...user, postalCode: e.target.value })
+                        }
                         placeholder={REGI01_box3TH[6].label}
                         style={{
                           background: "#FFFFFF",
@@ -4508,8 +4592,10 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={address}
-                        onChange={(e) => setAddress(e.target.value)}
+                        value={user?.address}
+                        onChange={(e) =>
+                          setUser({ ...user, address: e.target.value })
+                        }
                         placeholder={REGI01_box3DE[2].label}
                         style={{
                           background: "#FFFFFF",
@@ -4537,8 +4623,10 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={district}
-                        onChange={(e) => setDistrict(e.target.value)}
+                        value={user?.district}
+                        onChange={(e) =>
+                          setUser({ ...user, district: e.target.value })
+                        }
                         placeholder={REGI01_box3DE[3].label}
                         style={{
                           background: "#FFFFFF",
@@ -4566,8 +4654,10 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={province}
-                        onChange={(e) => setProvince(e.target.value)}
+                        value={user?.province}
+                        onChange={(e) =>
+                          setUser({ ...user, province: e.target.value })
+                        }
                         placeholder={REGI01_box3DE[4].label}
                         style={{
                           background: "#FFFFFF",
@@ -4596,8 +4686,10 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={country}
-                        onChange={(e) => setCountry(e.target.value)}
+                        value={user?.country}
+                        onChange={(e) =>
+                          setUser({ ...user, country: e.target.value })
+                        }
                         placeholder={REGI01_box3DE[5].label}
                         style={{
                           background: "#FFFFFF",
@@ -4626,8 +4718,10 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={postalcode}
-                        onChange={(e) => setPostalCode(e.target.value)}
+                        value={user?.postalCode}
+                        onChange={(e) =>
+                          setUser({ ...user, postalCode: e.target.value })
+                        }
                         placeholder={REGI01_box3DE[6].label}
                         style={{
                           background: "#FFFFFF",
@@ -4847,8 +4941,10 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={address}
-                        onChange={(e) => setAddress(e.target.value)}
+                        value={user?.address}
+                        onChange={(e) =>
+                          setUser({ ...user, address: e.target.value })
+                        }
                         placeholder={REGI01_box3EN[2].label}
                         style={{
                           background: "#FFFFFF",
@@ -4876,8 +4972,10 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={district}
-                        onChange={(e) => setDistrict(e.target.value)}
+                        value={user?.district}
+                        onChange={(e) =>
+                          setUser({ ...user, district: e.target.value })
+                        }
                         placeholder={REGI01_box3EN[3].label}
                         style={{
                           background: "#FFFFFF",
@@ -4905,8 +5003,10 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={province}
-                        onChange={(e) => setProvince(e.target.value)}
+                        value={user?.province}
+                        onChange={(e) =>
+                          setUser({ ...user, province: e.target.value })
+                        }
                         placeholder={REGI01_box3EN[4].label}
                         style={{
                           background: "#FFFFFF",
@@ -4935,8 +5035,10 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={country}
-                        onChange={(e) => setCountry(e.target.value)}
+                        value={user?.country}
+                        onChange={(e) =>
+                          setUser({ ...user, country: e.target.value })
+                        }
                         placeholder={REGI01_box3EN[5].label}
                         style={{
                           background: "#FFFFFF",
@@ -4965,8 +5067,10 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={postalcode}
-                        onChange={(e) => setPostalCode(e.target.value)}
+                        value={user?.postalCode}
+                        onChange={(e) =>
+                          setUser({ ...user, postalCode: e.target.value })
+                        }
                         placeholder={REGI01_box3EN[6].label}
                         style={{
                           background: "#FFFFFF",

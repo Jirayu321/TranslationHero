@@ -2,7 +2,7 @@ import * as React from "react";
 import "./Home.css";
 import Navbars from "../Navbar/navbarHome";
 import Footer from "../Footer/Footer";
-
+import { useSelector } from "react-redux";
 
 import { BsArrowRightShort } from "react-icons/bs";
 
@@ -19,6 +19,11 @@ import { Modal, Typography, Box } from "@mui/material";
 const Home = () => {
   const location = useLocation();
   const navigate = useNavigate();
+
+//test
+  const auth = useSelector((state) => state.auth);
+  console.log("auth :", auth);
+
   let Doc = location?.state?.languages;
   let Aoc = location?.state?.accept;
 

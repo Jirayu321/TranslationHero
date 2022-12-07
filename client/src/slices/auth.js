@@ -19,10 +19,20 @@ export const registerUser = createAsyncThunk(
   "auth/registerUser",
   async (values, { rejectWithValue }) => {
     try {
+      console.log("values.profilePicture:", values?.profilePicture)
       const token = await axios.post(`${url}/register`, {
         name: values.name,
         email: values.email,
         password: values.password,
+        confirmPassword: values.confirmPassword,
+        mobilePhone: values.mobilePhone,
+        profilePicture: values.profilePicture,
+        imageURLs: values.imageURLs,
+        address:values.address,
+        district:values.district,
+        province:values.province,
+        country:values.country,
+        postalCode:values.postalCode,
       });
 
       localStorage.setItem("token", token.data);
@@ -90,7 +100,6 @@ const authSlice = createSlice({
     },
     logoutUser(state, action) {
       localStorage.removeItem("token");
-
       return {
         ...state,
         token: "",
