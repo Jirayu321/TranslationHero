@@ -22,11 +22,11 @@ app.get("/", (req, res) => {
 app.use("/api/register", resgister);
 app.use("/api/login", login);
 
-const uri = process.env.DB_URI;
-const port = process.env.PORT;
+const uri = "mongodb+srv://Ozone:Jirayu30052@cluster0.ots5oju.mongodb.net/test"
+const port = 3001;
 
-app.listen(3001, () => {
-  console.log(`Server running on port: 3001...`);
+app.listen(port, () => {
+  console.log(`Server running on port: ${port}...`);
 });
 
 mongoose
