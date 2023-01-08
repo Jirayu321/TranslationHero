@@ -1,4 +1,4 @@
-import * as dotenv from "dotenv";
+// import * as dotenv from "dotenv";
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
@@ -8,7 +8,7 @@ import login from "./routes/login.js";
 
 const app = express();
 
-dotenv.config();
+// dotenv.config();
 
 // console.log(process.env);
 
