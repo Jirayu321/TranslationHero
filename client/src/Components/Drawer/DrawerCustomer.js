@@ -16,18 +16,23 @@ export default function DrawerInHome(props) {
   const languages = props?.languages;
   const drawerWidth = 100;
   const navigate = useNavigate();
-  
+
   console.log("languages:", languages);
   const checkValue = props?.value;
 
-  React.useEffect(() => {
-    console.log("value :", typeof checkValue);
+  const goLogin = () => {
+    navigate("/Login");
+  };
+  const checklogin = () => {
     if (checkValue) {
       console.log("value :", checkValue);
     } else {
-      navigate("/Login");
+      goLogin();
     }
-  }, [navigate, checkValue]);
+  };
+  React.useEffect(() => {
+    checklogin();
+  });
 
   return (
     <Drawer
@@ -106,19 +111,20 @@ export default function DrawerInHome(props) {
                       />
                     </ListItemIcon>
                   ) : index === 4 ? (
-                    <ListItemIcon id={"button_icons"}>
-                      <IoNotifications
-                        className="icons"
-                        onClick={() =>
-                          navigate("/Notification", {
-                            state: {
-                              languages: `${languages}`,
-                              value: `${checkValue}`,
-                            },
-                          })
-                        }
-                      />
-                    </ListItemIcon>
+                    // <ListItemIcon id={"button_icons"}>
+                    //   <IoNotifications
+                    //     className="icons"
+                    //     onClick={() =>
+                    //       navigate("/Notification", {
+                    //         state: {
+                    //           languages: `${languages}`,
+                    //           value: `${checkValue}`,
+                    //         },
+                    //       })
+                    //     }
+                    //   />
+                    // </ListItemIcon>
+                    <></>
                   ) : null}
                 </>
               </ListItem>
@@ -186,19 +192,20 @@ export default function DrawerInHome(props) {
                       />
                     </ListItemIcon>
                   ) : index === 4 ? (
-                    <ListItemIcon id={"button_icons"}>
-                      <IoNotifications
-                        className="icons"
-                        onClick={() =>
-                          navigate("/Notification", {
-                            state: {
-                              languages: `${languages}`,
-                              value: `${checkValue}`,
-                            },
-                          })
-                        }
-                      />
-                    </ListItemIcon>
+                    // <ListItemIcon id={"button_icons"}>
+                    //   <IoNotifications
+                    //     className="icons"
+                    //     onClick={() =>
+                    //       navigate("/Notification", {
+                    //         state: {
+                    //           languages: `${languages}`,
+                    //           value: `${checkValue}`,
+                    //         },
+                    //       })
+                    //     }
+                    //   />
+                    // </ListItemIcon>
+                    <></>
                   ) : null}
                 </>
               </ListItem>
@@ -266,19 +273,20 @@ export default function DrawerInHome(props) {
                       />
                     </ListItemIcon>
                   ) : index === 4 ? (
-                    <ListItemIcon id={"button_icons"}>
-                      <IoNotifications
-                        className="icons"
-                        onClick={() =>
-                          navigate("/Notification", {
-                            state: {
-                              languages: `${languages}`,
-                              value: `${checkValue}`,
-                            },
-                          })
-                        }
-                      />
-                    </ListItemIcon>
+                    // <ListItemIcon id={"button_icons"}>
+                    //   <IoNotifications
+                    //     className="icons"
+                    //     onClick={() =>
+                    //       navigate("/Notification", {
+                    //         state: {
+                    //           languages: `${languages}`,
+                    //           value: `${checkValue}`,
+                    //         },
+                    //       })
+                    //     }
+                    //   />
+                    // </ListItemIcon>
+                    <></>
                   ) : null}
                 </>
               </ListItem>
@@ -346,25 +354,26 @@ export default function DrawerInHome(props) {
                       />
                     </ListItemIcon>
                   ) : index === 4 ? (
-                    <ListItemIcon id={"button_icons"}>
-                      <IoNotifications
-                        className="icons"
-                        onClick={() =>
-                          navigate("/Notification", {
-                            state: {
-                              languages: `${languages}`,
-                              value: `${checkValue}`,
-                            },
-                          })
-                        }
-                      />
-                    </ListItemIcon>
+                    // <ListItemIcon id={"button_icons"}>
+                    //   <IoNotifications
+                    //     className="icons"
+                    //     onClick={() =>
+                    //       navigate("/Notification", {
+                    //         state: {
+                    //           languages: `${languages}`,
+                    //           value: `${checkValue}`,
+                    //         },
+                    //       })
+                    //     }
+                    //   />
+                    // </ListItemIcon>
+                    <></>
                   ) : null}
                 </>
               </ListItem>
             ))}
           </List>
-        ) : (
+        ) : pathname === "/Notification" ? (
           <List>
             {["0", "1", "2", "3", "4"].map((text, index) => (
               <ListItem button key={text} id={"button_manu"}>
@@ -444,7 +453,7 @@ export default function DrawerInHome(props) {
               </ListItem>
             ))}
           </List>
-        )}
+        ) : null}
       </Box>
     </Drawer>
   );

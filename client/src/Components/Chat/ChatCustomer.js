@@ -153,7 +153,7 @@ export default function Chat() {
                   />
                 </Paper>
 
-                <div
+                {/* <div
                   style={{
                     position: "relative",
                     top: 100,
@@ -275,7 +275,7 @@ export default function Chat() {
                       </p>
                     </div>
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
 
@@ -300,6 +300,7 @@ export default function Chat() {
                   fontWeight: 600,
                   borderBottom: "1px #e5e5e5 solid",
                   padding: 25,
+
                 }}
               >
                 <FaUserCircle
@@ -324,7 +325,7 @@ export default function Chat() {
                   top: 145,
                 }}
               >
-                <div
+                {/* <div
                   style={{
                     margin: 20,
                     marginTop: 0,
@@ -371,9 +372,9 @@ export default function Chat() {
                       <p>1:08 PM</p>
                     </div>
                   </div>
-                </div>
+                </div> */}
 
-                <div
+                {/* <div
                   style={{
                     margin: 20,
                     marginLeft: 285,
@@ -655,7 +656,7 @@ export default function Chat() {
                   >
                     <p>1:08 PM</p>
                   </div>
-                </div>
+                </div> */}
               </div>
 
               <div style={{ position: "fixed", top: 700, left: 470 }}>
@@ -2241,7 +2242,7 @@ export default function Chat() {
           >
             <Toolbar />
             <Box sx={{ overflow: "hidden" }}>
-              <div style={{ marginTop: 50 }}>
+              <div style={{ marginTop: 50,textAlign:"center" }}>
                 <div>
                   <FaUserCircle
                     alt="avatar"

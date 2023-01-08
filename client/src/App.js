@@ -22,10 +22,10 @@ import Tool from "./Components/Tool/Tool";
 
 function App() {
   const dispatch = useDispatch();
-
   React.useEffect(() => {
     dispatch(loadUser(null));
   }, [dispatch]);
+
   return (
     <>
       <div className="App">

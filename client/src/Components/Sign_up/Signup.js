@@ -1,5 +1,5 @@
 import * as React from "react";
-import emailjs from "@emailjs/browser";
+// import emailjs from "@emailjs/browser";
 import Navbars from "../Navbar/navbarLogin";
 
 //test
@@ -100,9 +100,9 @@ const Signup = () => {
   //test
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
+
   const [images, setImages] = React.useState([]);
   const [imageURLs, setImageURLs] = React.useState([]);
-  const [languages, setLanguages] = React.useState("");
 
   const [user, setUser] = React.useState({
     name: "",
@@ -117,28 +117,45 @@ const Signup = () => {
     province: "",
     country: "",
     postalCode: "",
+    type: "",
+  });
+  
+  const [translators, setTranslators] = React.useState({
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    mobilePhone: "",
+    profilePicture: images,
+    imageURLs: imageURLs,
+    companyName: "",
+    juristicPersonNumber: "",
+    website: "",
+    address: "",
+    district: "",
+    province: "",
+    country: "",
+    postalCode: "",
+    bankname: "",
+    branchname: "",
+    accountname: "",
+    accountnumber: "",
+    watermark: "",
+    certificate: "",
+    languages: [],
+    idcard: "",
+    education: "",
+    portfolio: "",
+    documents: "",
+    answer: "",
+    question: "",
+    type: "",
   });
 
-  const [file2, setFile2] = React.useState("");
-  const [file3, setFile3] = React.useState("");
-  const [firstname, setFirstname] = React.useState("");
-  const [district, setDistrict] = React.useState("");
-  const [address, setAddress] = React.useState("");
-  const [province, setProvince] = React.useState("");
-  const [country, setCountry] = React.useState("");
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [confirmpassword, setConfirmpassword] = React.useState("");
-  const [mobilephone, setMobilephone] = React.useState("");
+  // const [email, setEmail] = React.useState("");
+  // const [password, setPassword] = React.useState("");
+
   const [screen, setScreen] = React.useState("");
-  const [postalcode, setPostalCode] = React.useState("");
-  const [companyname, setCompanyname] = React.useState("");
-  const [juristicPersonNumber, setJuristicPersonNumber] = React.useState("");
-  const [website, setWebsite] = React.useState("");
-  const [bankname, setBankname] = React.useState("");
-  const [branchname, setBranchname] = React.useState("");
-  const [accountname, setAccountname] = React.useState("");
-  const [accountnumber, setAccountnumber] = React.useState("");
 
   const [type, setType] = React.useState("password");
   const [type2, setType2] = React.useState("password");
@@ -162,63 +179,72 @@ const Signup = () => {
   function onImageChange(e) {
     setImages([...e.target.files]);
   }
-
+  //ตรงนี้ customer
   const handleOpen = (e) => {
     e.preventDefault();
-    dispatch(registerUser(user));
-    console.log("auth:", auth);
-    console.log(":", typeof images);
+    setUser({ ...user, type: "customer" });
     setOpen(true);
   };
-  const [openModal12, setOpenModal12] = React.useState(false);
-
   const handleClose = () => {
     if (checked !== false) {
       console.log("ไง");
       setOpen(false);
+      console.log("user2:", user);
+      dispatch(registerUser(user));
+      console.log("auth:", auth);
       setOpen2(true);
       setChecked(false);
     }
     setTimeout(() => {
-      navigate("/Login", {
-        state: {
-          languages: `${Doc}`,
-          email: `${email}`,
-          password: `${password}`,
-          type: `${screen}`,
-        },
-      });
+      navigate(
+        "/Login"
+        // , {
+        //   // state: {
+        //   //   languages: `${Doc}`,
+        //   //   email: `${email}`,
+        //   //   password: `${password}`,
+        //   //   type: `${screen}`,
+        //   // },
+        // }
+      );
     }, 900);
   };
 
-  const send_Mail = (e) => {
-    e.preventDefault();
-    var templateParams = {
-      user_email: `${email}`,
-    };
-    emailjs
-      .send(
-        "service_u5757dr",
-        "template_dueh1d9",
-        templateParams,
-        "Npnv-PIsN0-rxduac"
-      )
-      .then(
-        (result) => {
-          console.log(result.text);
-        },
-        (error) => {
-          console.log(error.text);
-        }
-      );
-    // e.target.reset();
-    handleClose();
-  };
+  // const send_Mail = (e) => {
+  //   e.preventDefault();
+  //   var templateParams = {
+  //     user_email: `${email}`,
+  //   };
+  //   emailjs
+  //     .send(
+  //       "service_u5757dr",
+  //       "template_dueh1d9",
+  //       templateParams,
+  //       "Npnv-PIsN0-rxduac"
+  //     )
+  //     .then(
+  //       (result) => {
+  //         console.log(result.text);
+  //       },
+  //       (error) => {
+  //         console.log(error.text);
+  //       }
+  //     );
+  //   // e.target.reset();
+  //   handleClose();
+  // };
+
+  const [openModal12, setOpenModal12] = React.useState(false);
 
   const handleClose2 = () => setOpen2(false);
-  const handleClose3 = () => setOpen3(false);
+
+  const handleClose3 = () => {
+    setTranslators({ ...translators, type: "translators" });
+    setOpen3(false);
+  };
 
   const handleClose4 = () => {
+    setTranslators({ ...translators, type: "translators" });
     setOpen3(false);
     setChecked2(false);
     setOpen4(true);
@@ -226,14 +252,19 @@ const Signup = () => {
 
   const handleClose5 = () => {
     setOpen4(false);
-    navigate("/Login", {
-      state: {
-        languages: `${Doc}`,
-        email: `${email}`,
-        password: `${password}`,
-        type: `${screen}`,
-      },
-    });
+    console.log("translators:", translators);
+    dispatch(registerUser(translators));
+    navigate(
+      "/Login"
+      // , {
+      //   state: {
+      //     languages: `${Doc}`,
+      //     email: `${email}`,
+      //     password: `${password}`,
+      //     type: `${screen}`,
+      //   },
+      // }
+    );
   };
 
   const handleClickShowPassword = (i) => {
@@ -285,6 +316,7 @@ const Signup = () => {
   };
 
   console.log("screen", screen);
+
   return (
     <>
       <header
@@ -483,27 +515,31 @@ const Signup = () => {
                       >
                         {REGI01_box1EN[8].label}
                       </p>
+                      <form>
+                        <input
+                          type={type}
+                          value={user?.password}
+                          name="password"
+                          autoComplete="password"
+                          onChange={(e) =>
+                            setUser({ ...user, password: e.target.value })
+                          }
+                          placeholder={REGI01_box1EN[9].label}
+                          style={{
+                            background: "#FFFFFF",
+                            border: "1px solid #F1F1F1 ",
+                            borderRadius: 20,
+                            borderColor: "#F1F1F1",
+                            width: "100%",
+                            height: 30,
+                            padding: 20,
+                            paddingLeft: 12,
+                            margin: 10,
+                            fontSize: 13,
+                          }}
+                        />
+                      </form>
 
-                      <input
-                        type={type}
-                        value={user?.password}
-                        onChange={(e) =>
-                          setUser({ ...user, password: e.target.value })
-                        }
-                        placeholder={REGI01_box1EN[9].label}
-                        style={{
-                          background: "#FFFFFF",
-                          border: "1px solid #F1F1F1 ",
-                          borderRadius: 20,
-                          borderColor: "#F1F1F1",
-                          width: "100%",
-                          height: 30,
-                          padding: 20,
-                          paddingLeft: 12,
-                          margin: 10,
-                          fontSize: 13,
-                        }}
-                      />
                       <IconButton
                         onClick={() => handleClickShowPassword(1)}
                         edge="end"
@@ -523,27 +559,34 @@ const Signup = () => {
                       >
                         {REGI01_box1EN[10].label}
                       </p>
+                      <form>
+                        <input
+                          type={type2}
+                          value={user?.confirmPassword}
+                          name="confirmPassword"
+                          autoComplete="confirmPassword"
+                          onChange={(e) =>
+                            setUser({
+                              ...user,
+                              confirmPassword: e.target.value,
+                            })
+                          }
+                          placeholder={REGI01_box1EN[9].label}
+                          style={{
+                            background: "#FFFFFF",
+                            border: "1px solid #F1F1F1 ",
+                            borderRadius: 20,
+                            borderColor: "#F1F1F1",
+                            width: "100%",
+                            height: 30,
+                            padding: 20,
+                            paddingLeft: 12,
+                            margin: 10,
+                            fontSize: 13,
+                          }}
+                        />
+                      </form>
 
-                      <input
-                        type={type2}
-                        value={user?.confirmPassword}
-                        onChange={(e) =>
-                          setUser({ ...user, confirmPassword: e.target.value })
-                        }
-                        placeholder={REGI01_box1EN[9].label}
-                        style={{
-                          background: "#FFFFFF",
-                          border: "1px solid #F1F1F1 ",
-                          borderRadius: 20,
-                          borderColor: "#F1F1F1",
-                          width: "100%",
-                          height: 30,
-                          padding: 20,
-                          paddingLeft: 12,
-                          margin: 10,
-                          fontSize: 13,
-                        }}
-                      />
                       <IconButton
                         onClick={() => handleClickShowPassword(2)}
                         edge="end"
@@ -751,27 +794,31 @@ const Signup = () => {
                       >
                         {REGI01_box1TH[8].label}
                       </p>
+                      <form>
+                        <input
+                          type={type}
+                          value={user?.password}
+                          name="password"
+                          autoComplete="password"
+                          onChange={(e) =>
+                            setUser({ ...user, password: e.target.value })
+                          }
+                          placeholder={REGI01_box1TH[9].label}
+                          style={{
+                            background: "#FFFFFF",
+                            border: "1px solid #F1F1F1 ",
+                            borderRadius: 20,
+                            borderColor: "#F1F1F1",
+                            width: "100%",
+                            height: 30,
+                            padding: 20,
+                            paddingLeft: 12,
+                            margin: 10,
+                            fontSize: 13,
+                          }}
+                        />
+                      </form>
 
-                      <input
-                        type={type}
-                        value={user?.password}
-                        onChange={(e) =>
-                          setUser({ ...user, password: e.target.value })
-                        }
-                        placeholder={REGI01_box1TH[9].label}
-                        style={{
-                          background: "#FFFFFF",
-                          border: "1px solid #F1F1F1 ",
-                          borderRadius: 20,
-                          borderColor: "#F1F1F1",
-                          width: "100%",
-                          height: 30,
-                          padding: 20,
-                          paddingLeft: 12,
-                          margin: 10,
-                          fontSize: 13,
-                        }}
-                      />
                       <IconButton
                         onClick={() => handleClickShowPassword(1)}
                         edge="end"
@@ -791,27 +838,34 @@ const Signup = () => {
                       >
                         {REGI01_box1TH[10].label}
                       </p>
+                      <form>
+                        <input
+                          type={type2}
+                          value={user?.confirmPassword}
+                          name="confirmPassword"
+                          autoComplete="confirmPassword"
+                          onChange={(e) =>
+                            setUser({
+                              ...user,
+                              confirmPassword: e.target.value,
+                            })
+                          }
+                          placeholder={REGI01_box1TH[9].label}
+                          style={{
+                            background: "#FFFFFF",
+                            border: "1px solid #F1F1F1 ",
+                            borderRadius: 20,
+                            borderColor: "#F1F1F1",
+                            width: "100%",
+                            height: 30,
+                            padding: 20,
+                            paddingLeft: 12,
+                            margin: 10,
+                            fontSize: 13,
+                          }}
+                        />
+                      </form>
 
-                      <input
-                        type={type2}
-                        value={user?.confirmPassword}
-                        onChange={(e) =>
-                          setUser({ ...user, confirmPassword: e.target.value })
-                        }
-                        placeholder={REGI01_box1TH[9].label}
-                        style={{
-                          background: "#FFFFFF",
-                          border: "1px solid #F1F1F1 ",
-                          borderRadius: 20,
-                          borderColor: "#F1F1F1",
-                          width: "100%",
-                          height: 30,
-                          padding: 20,
-                          paddingLeft: 12,
-                          margin: 10,
-                          fontSize: 13,
-                        }}
-                      />
                       <IconButton
                         onClick={() => handleClickShowPassword(2)}
                         edge="end"
@@ -989,8 +1043,8 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={user?.email}
                         name="user_email"
+                        value={user?.email}
                         onChange={(e) =>
                           setUser({ ...user, email: e.target.value })
                         }
@@ -1019,27 +1073,31 @@ const Signup = () => {
                       >
                         {REGI01_box1DE[8].label}
                       </p>
+                      <form>
+                        <input
+                          type={type}
+                          value={user?.password}
+                          name="password"
+                          autoComplete="password"
+                          onChange={(e) =>
+                            setUser({ ...user, password: e.target.value })
+                          }
+                          placeholder={REGI01_box1DE[9].label}
+                          style={{
+                            background: "#FFFFFF",
+                            border: "1px solid #F1F1F1 ",
+                            borderRadius: 20,
+                            borderColor: "#F1F1F1",
+                            width: "100%",
+                            height: 30,
+                            padding: 20,
+                            paddingLeft: 12,
+                            margin: 10,
+                            fontSize: 13,
+                          }}
+                        />
+                      </form>
 
-                      <input
-                        type={type}
-                        value={user?.password}
-                        onChange={(e) =>
-                          setUser({ ...user, password: e.target.value })
-                        }
-                        placeholder={REGI01_box1DE[9].label}
-                        style={{
-                          background: "#FFFFFF",
-                          border: "1px solid #F1F1F1 ",
-                          borderRadius: 20,
-                          borderColor: "#F1F1F1",
-                          width: "100%",
-                          height: 30,
-                          padding: 20,
-                          paddingLeft: 12,
-                          margin: 10,
-                          fontSize: 13,
-                        }}
-                      />
                       <IconButton
                         onClick={() => handleClickShowPassword(1)}
                         edge="end"
@@ -1059,27 +1117,34 @@ const Signup = () => {
                       >
                         {REGI01_box1DE[10].label}
                       </p>
+                      <form>
+                        <input
+                          type={type2}
+                          value={user?.confirmPassword}
+                          name="confirmPassword"
+                          autoComplete="confirmPassword"
+                          onChange={(e) =>
+                            setUser({
+                              ...user,
+                              confirmPassword: e.target.value,
+                            })
+                          }
+                          placeholder={REGI01_box1DE[9].label}
+                          style={{
+                            background: "#FFFFFF",
+                            border: "1px solid #F1F1F1 ",
+                            borderRadius: 20,
+                            borderColor: "#F1F1F1",
+                            width: "100%",
+                            height: 30,
+                            padding: 20,
+                            paddingLeft: 12,
+                            margin: 10,
+                            fontSize: 13,
+                          }}
+                        />
+                      </form>
 
-                      <input
-                        type={type2}
-                        value={user?.confirmPassword}
-                        onChange={(e) =>
-                          setUser({ ...user, confirmPassword: e.target.value })
-                        }
-                        placeholder={REGI01_box1DE[9].label}
-                        style={{
-                          background: "#FFFFFF",
-                          border: "1px solid #F1F1F1 ",
-                          borderRadius: 20,
-                          borderColor: "#F1F1F1",
-                          width: "100%",
-                          height: 30,
-                          padding: 20,
-                          paddingLeft: 12,
-                          margin: 10,
-                          fontSize: 13,
-                        }}
-                      />
                       <IconButton
                         onClick={() => handleClickShowPassword(2)}
                         edge="end"
@@ -1287,27 +1352,31 @@ const Signup = () => {
                       >
                         {REGI01_box1EN[8].label}
                       </p>
+                      <form>
+                        <input
+                          type={type}
+                          value={user?.password}
+                          name="password"
+                          autoComplete="password"
+                          onChange={(e) =>
+                            setUser({ ...user, password: e.target.value })
+                          }
+                          placeholder={REGI01_box1EN[9].label}
+                          style={{
+                            background: "#FFFFFF",
+                            border: "1px solid #F1F1F1 ",
+                            borderRadius: 20,
+                            borderColor: "#F1F1F1",
+                            width: "100%",
+                            height: 30,
+                            padding: 20,
+                            paddingLeft: 12,
+                            margin: 10,
+                            fontSize: 13,
+                          }}
+                        />
+                      </form>
 
-                      <input
-                        type={type}
-                        value={user?.password}
-                        onChange={(e) =>
-                          setUser({ ...user, password: e.target.value })
-                        }
-                        placeholder={REGI01_box1EN[9].label}
-                        style={{
-                          background: "#FFFFFF",
-                          border: "1px solid #F1F1F1 ",
-                          borderRadius: 20,
-                          borderColor: "#F1F1F1",
-                          width: "100%",
-                          height: 30,
-                          padding: 20,
-                          paddingLeft: 12,
-                          margin: 10,
-                          fontSize: 13,
-                        }}
-                      />
                       <IconButton
                         onClick={() => handleClickShowPassword(1)}
                         edge="end"
@@ -1327,27 +1396,34 @@ const Signup = () => {
                       >
                         {REGI01_box1EN[10].label}
                       </p>
+                      <form>
+                        <input
+                          type={type2}
+                          value={user?.confirmPassword}
+                          name="confirmPassword"
+                          autoComplete="confirmPassword"
+                          onChange={(e) =>
+                            setUser({
+                              ...user,
+                              confirmPassword: e.target.value,
+                            })
+                          }
+                          placeholder={REGI01_box1EN[9].label}
+                          style={{
+                            background: "#FFFFFF",
+                            border: "1px solid #F1F1F1 ",
+                            borderRadius: 20,
+                            borderColor: "#F1F1F1",
+                            width: "100%",
+                            height: 30,
+                            padding: 20,
+                            paddingLeft: 12,
+                            margin: 10,
+                            fontSize: 13,
+                          }}
+                        />
+                      </form>
 
-                      <input
-                        type={type2}
-                        value={user?.confirmPassword}
-                        onChange={(e) =>
-                          setUser({ ...user, confirmPassword: e.target.value })
-                        }
-                        placeholder={REGI01_box1EN[9].label}
-                        style={{
-                          background: "#FFFFFF",
-                          border: "1px solid #F1F1F1 ",
-                          borderRadius: 20,
-                          borderColor: "#F1F1F1",
-                          width: "100%",
-                          height: 30,
-                          padding: 20,
-                          paddingLeft: 12,
-                          margin: 10,
-                          fontSize: 13,
-                        }}
-                      />
                       <IconButton
                         onClick={() => handleClickShowPassword(2)}
                         edge="end"
@@ -1498,8 +1574,13 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={firstname}
-                        onChange={(e) => setFirstname(e.target.value)}
+                        value={translators.name}
+                        onChange={(e) =>
+                          setTranslators({
+                            ...translators,
+                            name: e.target.value,
+                          })
+                        }
                         placeholder={REGI01_box1EN[5].label}
                         style={{
                           background: "#FFFFFF",
@@ -1528,8 +1609,13 @@ const Signup = () => {
                       <input
                         type="text"
                         name="user_email"
-                        // value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        value={translators.email}
+                        onChange={(e) =>
+                          setTranslators({
+                            ...translators,
+                            email: e.target.value,
+                          })
+                        }
                         placeholder={REGI01_box1EN[7].label}
                         style={{
                           background: "#FFFFFF",
@@ -1555,25 +1641,34 @@ const Signup = () => {
                       >
                         {REGI01_box1EN[8].label}
                       </p>
+                      <form>
+                        <input
+                          type={type}
+                          value={translators.password}
+                          name="password"
+                          autoComplete="password"
+                          onChange={(e) =>
+                            setTranslators({
+                              ...translators,
+                              password: e.target.value,
+                            })
+                          }
+                          placeholder={REGI01_box1EN[9].label}
+                          style={{
+                            background: "#FFFFFF",
+                            border: "1px solid #F1F1F1 ",
+                            borderRadius: 20,
+                            borderColor: "#F1F1F1",
+                            width: "100%",
+                            height: 30,
+                            padding: 20,
+                            paddingLeft: 12,
+                            margin: 10,
+                            fontSize: 13,
+                          }}
+                        />
+                      </form>
 
-                      <input
-                        type={type}
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        placeholder={REGI01_box1EN[9].label}
-                        style={{
-                          background: "#FFFFFF",
-                          border: "1px solid #F1F1F1 ",
-                          borderRadius: 20,
-                          borderColor: "#F1F1F1",
-                          width: "100%",
-                          height: 30,
-                          padding: 20,
-                          paddingLeft: 12,
-                          margin: 10,
-                          fontSize: 13,
-                        }}
-                      />
                       <IconButton
                         onClick={() => handleClickShowPassword(1)}
                         edge="end"
@@ -1594,24 +1689,34 @@ const Signup = () => {
                         {REGI01_box1EN[10].label}
                       </p>
 
-                      <input
-                        type={type2}
-                        value={confirmpassword}
-                        onChange={(e) => setConfirmpassword(e.target.value)}
-                        placeholder={REGI01_box1EN[9].label}
-                        style={{
-                          background: "#FFFFFF",
-                          border: "1px solid #F1F1F1 ",
-                          borderRadius: 20,
-                          borderColor: "#F1F1F1",
-                          width: "100%",
-                          height: 30,
-                          padding: 20,
-                          paddingLeft: 12,
-                          margin: 10,
-                          fontSize: 13,
-                        }}
-                      />
+                      <form>
+                        <input
+                          type={type2}
+                          value={translators.confirmPassword}
+                          name="confirmPassword"
+                          autoComplete="confirmPassword"
+                          onChange={(e) =>
+                            setTranslators({
+                              ...translators,
+                              confirmPassword: e.target.value,
+                            })
+                          }
+                          placeholder={REGI01_box1EN[9].label}
+                          style={{
+                            background: "#FFFFFF",
+                            border: "1px solid #F1F1F1 ",
+                            borderRadius: 20,
+                            borderColor: "#F1F1F1",
+                            width: "100%",
+                            height: 30,
+                            padding: 20,
+                            paddingLeft: 12,
+                            margin: 10,
+                            fontSize: 13,
+                          }}
+                        />
+                      </form>
+
                       <IconButton
                         onClick={() => handleClickShowPassword(2)}
                         edge="end"
@@ -1634,8 +1739,13 @@ const Signup = () => {
 
                       <input
                         type="text"
-                        value={mobilephone}
-                        onChange={(e) => setMobilephone(e.target.value)}
+                        value={translators.mobilePhone}
+                        onChange={(e) =>
+                          setTranslators({
+                            ...translators,
+                            mobilePhone: e.target.value,
+                          })
+                        }
                         placeholder={REGI01_box1EN[11].label}
                         style={{
                           background: "#FFFFFF",
@@ -1683,7 +1793,7 @@ const Signup = () => {
                       padding: 30,
                     }}
                   >
-                    <div
+                    <button
                       style={{
                         fontWeight: 400,
                         fontSize: 18,
@@ -1698,7 +1808,7 @@ const Signup = () => {
                     >
                       <p id={"Hometext"}>{REGI01_box1TH[0].label}</p>
                       <BsArrowLeftShort id={"Hometext2"} />
-                    </div>
+                    </button>
 
                     <button
                       style={{
@@ -1756,8 +1866,13 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={firstname}
-                        onChange={(e) => setFirstname(e.target.value)}
+                        value={translators.name}
+                        onChange={(e) =>
+                          setTranslators({
+                            ...translators,
+                            name: e.target.value,
+                          })
+                        }
                         placeholder={REGI01_box1TH[5].label}
                         style={{
                           background: "#FFFFFF",
@@ -1786,8 +1901,13 @@ const Signup = () => {
                       <input
                         type="text"
                         name="user_email"
-                        // value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        value={translators.email}
+                        onChange={(e) =>
+                          setTranslators({
+                            ...translators,
+                            email: e.target.value,
+                          })
+                        }
                         placeholder={REGI01_box1TH[7].label}
                         style={{
                           background: "#FFFFFF",
@@ -1813,25 +1933,34 @@ const Signup = () => {
                       >
                         {REGI01_box1TH[8].label}
                       </p>
+                      <form>
+                        <input
+                          type={type}
+                          value={translators.password}
+                          name="password"
+                          autoComplete="password"
+                          onChange={(e) =>
+                            setTranslators({
+                              ...translators,
+                              password: e.target.value,
+                            })
+                          }
+                          placeholder={REGI01_box1TH[9].label}
+                          style={{
+                            background: "#FFFFFF",
+                            border: "1px solid #F1F1F1 ",
+                            borderRadius: 20,
+                            borderColor: "#F1F1F1",
+                            width: "100%",
+                            height: 30,
+                            padding: 20,
+                            paddingLeft: 12,
+                            margin: 10,
+                            fontSize: 13,
+                          }}
+                        />
+                      </form>
 
-                      <input
-                        type={type}
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        placeholder={REGI01_box1TH[9].label}
-                        style={{
-                          background: "#FFFFFF",
-                          border: "1px solid #F1F1F1 ",
-                          borderRadius: 20,
-                          borderColor: "#F1F1F1",
-                          width: "100%",
-                          height: 30,
-                          padding: 20,
-                          paddingLeft: 12,
-                          margin: 10,
-                          fontSize: 13,
-                        }}
-                      />
                       <IconButton
                         onClick={() => handleClickShowPassword(1)}
                         edge="end"
@@ -1851,25 +1980,34 @@ const Signup = () => {
                       >
                         {REGI01_box1TH[10].label}
                       </p>
+                      <form>
+                        <input
+                          type={type2}
+                          value={translators.confirmPassword}
+                          name="confirmPassword"
+                          autoComplete="confirmPassword"
+                          onChange={(e) =>
+                            setTranslators({
+                              ...translators,
+                              confirmPassword: e.target.value,
+                            })
+                          }
+                          placeholder={REGI01_box1TH[9].label}
+                          style={{
+                            background: "#FFFFFF",
+                            border: "1px solid #F1F1F1 ",
+                            borderRadius: 20,
+                            borderColor: "#F1F1F1",
+                            width: "100%",
+                            height: 30,
+                            padding: 20,
+                            paddingLeft: 12,
+                            margin: 10,
+                            fontSize: 13,
+                          }}
+                        />
+                      </form>
 
-                      <input
-                        type={type2}
-                        value={confirmpassword}
-                        onChange={(e) => setConfirmpassword(e.target.value)}
-                        placeholder={REGI01_box1TH[9].label}
-                        style={{
-                          background: "#FFFFFF",
-                          border: "1px solid #F1F1F1 ",
-                          borderRadius: 20,
-                          borderColor: "#F1F1F1",
-                          width: "100%",
-                          height: 30,
-                          padding: 20,
-                          paddingLeft: 12,
-                          margin: 10,
-                          fontSize: 13,
-                        }}
-                      />
                       <IconButton
                         onClick={() => handleClickShowPassword(2)}
                         edge="end"
@@ -1892,8 +2030,13 @@ const Signup = () => {
 
                       <input
                         type="text"
-                        value={mobilephone}
-                        onChange={(e) => setMobilephone(e.target.value)}
+                        value={translators.mobilePhone}
+                        onChange={(e) =>
+                          setTranslators({
+                            ...translators,
+                            mobilePhone: e.target.value,
+                          })
+                        }
                         placeholder={REGI01_box1TH[11].label}
                         style={{
                           background: "#FFFFFF",
@@ -1941,7 +2084,7 @@ const Signup = () => {
                       padding: 30,
                     }}
                   >
-                    <div
+                    <button
                       style={{
                         fontWeight: 400,
                         fontSize: 18,
@@ -1956,7 +2099,7 @@ const Signup = () => {
                     >
                       <p id={"Hometext"}>{REGI01_box1DE[0].label}</p>
                       <BsArrowLeftShort id={"Hometext2"} />
-                    </div>
+                    </button>
 
                     <button
                       style={{
@@ -2014,8 +2157,13 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={firstname}
-                        onChange={(e) => setFirstname(e.target.value)}
+                        value={translators.name}
+                        onChange={(e) =>
+                          setTranslators({
+                            ...translators,
+                            name: e.target.value,
+                          })
+                        }
                         placeholder={REGI01_box1DE[5].label}
                         style={{
                           background: "#FFFFFF",
@@ -2044,8 +2192,13 @@ const Signup = () => {
                       <input
                         type="text"
                         name="user_email"
-                        // value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        value={translators.email}
+                        onChange={(e) =>
+                          setTranslators({
+                            ...translators,
+                            email: e.target.value,
+                          })
+                        }
                         placeholder={REGI01_box1DE[7].label}
                         style={{
                           background: "#FFFFFF",
@@ -2071,25 +2224,34 @@ const Signup = () => {
                       >
                         {REGI01_box1DE[8].label}
                       </p>
+                      <form>
+                        <input
+                          type={type}
+                          value={translators.password}
+                          name="password"
+                          autoComplete="password"
+                          onChange={(e) =>
+                            setTranslators({
+                              ...translators,
+                              password: e.target.value,
+                            })
+                          }
+                          placeholder={REGI01_box1DE[9].label}
+                          style={{
+                            background: "#FFFFFF",
+                            border: "1px solid #F1F1F1 ",
+                            borderRadius: 20,
+                            borderColor: "#F1F1F1",
+                            width: "100%",
+                            height: 30,
+                            padding: 20,
+                            paddingLeft: 12,
+                            margin: 10,
+                            fontSize: 13,
+                          }}
+                        />
+                      </form>
 
-                      <input
-                        type={type}
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        placeholder={REGI01_box1DE[9].label}
-                        style={{
-                          background: "#FFFFFF",
-                          border: "1px solid #F1F1F1 ",
-                          borderRadius: 20,
-                          borderColor: "#F1F1F1",
-                          width: "100%",
-                          height: 30,
-                          padding: 20,
-                          paddingLeft: 12,
-                          margin: 10,
-                          fontSize: 13,
-                        }}
-                      />
                       <IconButton
                         onClick={() => handleClickShowPassword(1)}
                         edge="end"
@@ -2109,25 +2271,34 @@ const Signup = () => {
                       >
                         {REGI01_box1DE[10].label}
                       </p>
+                      <form>
+                        <input
+                          type={type2}
+                          value={translators.confirmPassword}
+                          name="confirmPassword"
+                          autoComplete="confirmPassword"
+                          onChange={(e) =>
+                            setTranslators({
+                              ...translators,
+                              confirmPassword: e.target.value,
+                            })
+                          }
+                          placeholder={REGI01_box1DE[9].label}
+                          style={{
+                            background: "#FFFFFF",
+                            border: "1px solid #F1F1F1 ",
+                            borderRadius: 20,
+                            borderColor: "#F1F1F1",
+                            width: "100%",
+                            height: 30,
+                            padding: 20,
+                            paddingLeft: 12,
+                            margin: 10,
+                            fontSize: 13,
+                          }}
+                        />
+                      </form>
 
-                      <input
-                        type={type2}
-                        value={confirmpassword}
-                        onChange={(e) => setConfirmpassword(e.target.value)}
-                        placeholder={REGI01_box1DE[9].label}
-                        style={{
-                          background: "#FFFFFF",
-                          border: "1px solid #F1F1F1 ",
-                          borderRadius: 20,
-                          borderColor: "#F1F1F1",
-                          width: "100%",
-                          height: 30,
-                          padding: 20,
-                          paddingLeft: 12,
-                          margin: 10,
-                          fontSize: 13,
-                        }}
-                      />
                       <IconButton
                         onClick={() => handleClickShowPassword(2)}
                         edge="end"
@@ -2150,8 +2321,13 @@ const Signup = () => {
 
                       <input
                         type="text"
-                        value={mobilephone}
-                        onChange={(e) => setMobilephone(e.target.value)}
+                        value={translators.mobilePhone}
+                        onChange={(e) =>
+                          setTranslators({
+                            ...translators,
+                            mobilePhone: e.target.value,
+                          })
+                        }
                         placeholder={REGI01_box1DE[11].label}
                         style={{
                           background: "#FFFFFF",
@@ -2272,8 +2448,13 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={firstname}
-                        onChange={(e) => setFirstname(e.target.value)}
+                        value={translators.name}
+                        onChange={(e) =>
+                          setTranslators({
+                            ...translators,
+                            name: e.target.value,
+                          })
+                        }
                         placeholder={REGI01_box1EN[5].label}
                         style={{
                           background: "#FFFFFF",
@@ -2302,8 +2483,13 @@ const Signup = () => {
                       <input
                         type="text"
                         name="user_email"
-                        // value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        value={translators.email}
+                        onChange={(e) =>
+                          setTranslators({
+                            ...translators,
+                            email: e.target.value,
+                          })
+                        }
                         placeholder={REGI01_box1EN[7].label}
                         style={{
                           background: "#FFFFFF",
@@ -2329,25 +2515,34 @@ const Signup = () => {
                       >
                         {REGI01_box1EN[8].label}
                       </p>
+                      <form>
+                        <input
+                          type={type}
+                          value={translators.password}
+                          name="password"
+                          autoComplete="password"
+                          onChange={(e) =>
+                            setTranslators({
+                              ...translators,
+                              password: e.target.value,
+                            })
+                          }
+                          placeholder={REGI01_box1EN[9].label}
+                          style={{
+                            background: "#FFFFFF",
+                            border: "1px solid #F1F1F1 ",
+                            borderRadius: 20,
+                            borderColor: "#F1F1F1",
+                            width: "100%",
+                            height: 30,
+                            padding: 20,
+                            paddingLeft: 12,
+                            margin: 10,
+                            fontSize: 13,
+                          }}
+                        />
+                      </form>
 
-                      <input
-                        type={type}
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        placeholder={REGI01_box1EN[9].label}
-                        style={{
-                          background: "#FFFFFF",
-                          border: "1px solid #F1F1F1 ",
-                          borderRadius: 20,
-                          borderColor: "#F1F1F1",
-                          width: "100%",
-                          height: 30,
-                          padding: 20,
-                          paddingLeft: 12,
-                          margin: 10,
-                          fontSize: 13,
-                        }}
-                      />
                       <IconButton
                         onClick={() => handleClickShowPassword(1)}
                         edge="end"
@@ -2368,24 +2563,34 @@ const Signup = () => {
                         {REGI01_box1EN[10].label}
                       </p>
 
-                      <input
-                        type={type2}
-                        value={confirmpassword}
-                        onChange={(e) => setConfirmpassword(e.target.value)}
-                        placeholder={REGI01_box1EN[9].label}
-                        style={{
-                          background: "#FFFFFF",
-                          border: "1px solid #F1F1F1 ",
-                          borderRadius: 20,
-                          borderColor: "#F1F1F1",
-                          width: "100%",
-                          height: 30,
-                          padding: 20,
-                          paddingLeft: 12,
-                          margin: 10,
-                          fontSize: 13,
-                        }}
-                      />
+                      <form>
+                        <input
+                          type={type2}
+                          value={translators.confirmPassword}
+                          name="confirmPassword"
+                          autoComplete="confirmPassword"
+                          onChange={(e) =>
+                            setTranslators({
+                              ...translators,
+                              confirmPassword: e.target.value,
+                            })
+                          }
+                          placeholder={REGI01_box1EN[9].label}
+                          style={{
+                            background: "#FFFFFF",
+                            border: "1px solid #F1F1F1 ",
+                            borderRadius: 20,
+                            borderColor: "#F1F1F1",
+                            width: "100%",
+                            height: 30,
+                            padding: 20,
+                            paddingLeft: 12,
+                            margin: 10,
+                            fontSize: 13,
+                          }}
+                        />
+                      </form>
+
                       <IconButton
                         onClick={() => handleClickShowPassword(2)}
                         edge="end"
@@ -2408,8 +2613,13 @@ const Signup = () => {
 
                       <input
                         type="text"
-                        value={mobilephone}
-                        onChange={(e) => setMobilephone(e.target.value)}
+                        value={translators.mobilePhone}
+                        onChange={(e) =>
+                          setTranslators({
+                            ...translators,
+                            mobilePhone: e.target.value,
+                          })
+                        }
                         placeholder={REGI01_box1EN[11].label}
                         style={{
                           background: "#FFFFFF",
@@ -4144,7 +4354,7 @@ const Signup = () => {
                               position: "relative",
                               left: "35%",
                             }}
-                            onClick={send_Mail}
+                            onClick={() => handleClose()}
                           >
                             {REGI01_box4EN[3].label}
                           </button>
@@ -4337,7 +4547,7 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={country}
+                        value={user?.country}
                         onChange={(e) =>
                           setUser({ ...user, country: e.target.value })
                         }
@@ -4493,7 +4703,7 @@ const Signup = () => {
                               position: "relative",
                               left: "35%",
                             }}
-                            onClick={send_Mail}
+                            onClick={() => handleClose()}
                           >
                             {REGI01_box4TH[3].label}
                           </button>
@@ -4842,7 +5052,7 @@ const Signup = () => {
                               position: "relative",
                               left: "35%",
                             }}
-                            onClick={send_Mail}
+                            onClick={() => handleClose()}
                           >
                             {REGI01_box4DE[3].label}
                           </button>
@@ -5191,7 +5401,7 @@ const Signup = () => {
                               position: "relative",
                               left: "35%",
                             }}
-                            onClick={send_Mail}
+                            onClick={() => handleClose()}
                           >
                             {REGI01_box4EN[3].label}
                           </button>
@@ -5320,8 +5530,13 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={companyname}
-                        onChange={(e) => setCompanyname(e.target.value)}
+                        value={translators.companyName}
+                        onChange={(e) =>
+                          setTranslators({
+                            ...translators,
+                            companyName: e.target.value,
+                          })
+                        }
                         placeholder={REGI02_Box1v02EN[4].label}
                         style={{
                           background: "#FFFFFF",
@@ -5349,9 +5564,12 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={juristicPersonNumber}
+                        value={translators.juristicPersonNumber}
                         onChange={(e) =>
-                          setJuristicPersonNumber(e.target.value)
+                          setTranslators({
+                            ...translators,
+                            juristicPersonNumber: e.target.value,
+                          })
                         }
                         placeholder={REGI02_Box1v02EN[5].label}
                         style={{
@@ -5380,8 +5598,13 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={website}
-                        onChange={(e) => setWebsite(e.target.value)}
+                        value={translators.website}
+                        onChange={(e) =>
+                          setTranslators({
+                            ...translators,
+                            website: e.target.value,
+                          })
+                        }
                         placeholder="https://example.com"
                         style={{
                           background: "#FFFFFF",
@@ -5496,8 +5719,13 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={companyname}
-                        onChange={(e) => setCompanyname(e.target.value)}
+                        value={translators.companyName}
+                        onChange={(e) =>
+                          setTranslators({
+                            ...translators,
+                            companyName: e.target.value,
+                          })
+                        }
                         placeholder={REGI02_Box1v02TH[4].label}
                         style={{
                           background: "#FFFFFF",
@@ -5525,9 +5753,12 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={juristicPersonNumber}
+                        value={translators.juristicPersonNumber}
                         onChange={(e) =>
-                          setJuristicPersonNumber(e.target.value)
+                          setTranslators({
+                            ...translators,
+                            juristicPersonNumber: e.target.value,
+                          })
                         }
                         placeholder={REGI02_Box1v02TH[5].label}
                         style={{
@@ -5556,8 +5787,13 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={website}
-                        onChange={(e) => setWebsite(e.target.value)}
+                        value={translators.website}
+                        onChange={(e) =>
+                          setTranslators({
+                            ...translators,
+                            website: e.target.value,
+                          })
+                        }
                         placeholder="https://example.com"
                         style={{
                           background: "#FFFFFF",
@@ -5672,8 +5908,13 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={companyname}
-                        onChange={(e) => setCompanyname(e.target.value)}
+                        value={translators.companyName}
+                        onChange={(e) =>
+                          setTranslators({
+                            ...translators,
+                            companyName: e.target.value,
+                          })
+                        }
                         placeholder={REGI02_Box1v02DE[4].label}
                         style={{
                           background: "#FFFFFF",
@@ -5701,9 +5942,12 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={juristicPersonNumber}
+                        value={translators.juristicPersonNumber}
                         onChange={(e) =>
-                          setJuristicPersonNumber(e.target.value)
+                          setTranslators({
+                            ...translators,
+                            juristicPersonNumber: e.target.value,
+                          })
                         }
                         placeholder={REGI02_Box1v02DE[5].label}
                         style={{
@@ -5732,8 +5976,13 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={website}
-                        onChange={(e) => setWebsite(e.target.value)}
+                        value={translators.website}
+                        onChange={(e) =>
+                          setTranslators({
+                            ...translators,
+                            website: e.target.value,
+                          })
+                        }
                         placeholder="https://example.com"
                         style={{
                           background: "#FFFFFF",
@@ -5848,8 +6097,13 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={companyname}
-                        onChange={(e) => setCompanyname(e.target.value)}
+                        value={translators.companyName}
+                        onChange={(e) =>
+                          setTranslators({
+                            ...translators,
+                            companyName: e.target.value,
+                          })
+                        }
                         placeholder={REGI02_Box1v02EN[4].label}
                         style={{
                           background: "#FFFFFF",
@@ -5877,9 +6131,12 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={juristicPersonNumber}
+                        value={translators.juristicPersonNumber}
                         onChange={(e) =>
-                          setJuristicPersonNumber(e.target.value)
+                          setTranslators({
+                            ...translators,
+                            juristicPersonNumber: e.target.value,
+                          })
                         }
                         placeholder={REGI02_Box1v02EN[5].label}
                         style={{
@@ -5908,8 +6165,13 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={website}
-                        onChange={(e) => setWebsite(e.target.value)}
+                        value={translators.website}
+                        onChange={(e) =>
+                          setTranslators({
+                            ...translators,
+                            website: e.target.value,
+                          })
+                        }
                         placeholder="https://example.com"
                         style={{
                           background: "#FFFFFF",
@@ -6037,7 +6299,7 @@ const Signup = () => {
                         {REGI02_Box1v01EN[5].label}
                       </p>
                       <div style={{ textAlign: "center" }}>
-                        {file2 === "" ? (
+                        {translators?.idcard === "" ? (
                           <div
                             style={{
                               background: "#FFFFFF",
@@ -6059,7 +6321,12 @@ const Signup = () => {
                                 id="icon-button-file"
                                 type="file"
                                 style={{ display: "none" }}
-                                onChange={(e) => setFile2(e.target.value)}
+                                onChange={(e) =>
+                                  setTranslators({
+                                    ...translators,
+                                    idcard: e.target.value,
+                                  })
+                                }
                               />
                               <IconButton
                                 color="primary"
@@ -6108,7 +6375,12 @@ const Signup = () => {
                                 id="icon-button-file"
                                 type="file"
                                 style={{ display: "none" }}
-                                onChange={(e) => setFile2(e.target.value)}
+                                onChange={(e) =>
+                                  setTranslators({
+                                    ...translators,
+                                    idcard: e.target.value,
+                                  })
+                                }
                               />
                               <IconButton
                                 color="primary"
@@ -6130,7 +6402,7 @@ const Signup = () => {
                                     width: 100,
                                   }}
                                 >
-                                  {file2}
+                                  {translators?.idcard}
                                 </p>
                               </IconButton>
                             </label>
@@ -6289,7 +6561,7 @@ const Signup = () => {
                         {REGI02_Box1v01TH[5].label}
                       </p>
                       <div style={{ textAlign: "center" }}>
-                        {file2 === "" ? (
+                        {translators?.idcard === "" ? (
                           <div
                             style={{
                               background: "#FFFFFF",
@@ -6311,7 +6583,12 @@ const Signup = () => {
                                 id="icon-button-file"
                                 type="file"
                                 style={{ display: "none" }}
-                                onChange={(e) => setFile2(e.target.value)}
+                                onChange={(e) =>
+                                  setTranslators({
+                                    ...translators,
+                                    idcard: e.target.value,
+                                  })
+                                }
                               />
                               <IconButton
                                 color="primary"
@@ -6360,7 +6637,12 @@ const Signup = () => {
                                 id="icon-button-file"
                                 type="file"
                                 style={{ display: "none" }}
-                                onChange={(e) => setFile2(e.target.value)}
+                                onChange={(e) =>
+                                  setTranslators({
+                                    ...translators,
+                                    idcard: e.target.value,
+                                  })
+                                }
                               />
                               <IconButton
                                 color="primary"
@@ -6382,7 +6664,7 @@ const Signup = () => {
                                     width: 100,
                                   }}
                                 >
-                                  {file2}
+                                  {translators.idcard}
                                 </p>
                               </IconButton>
                             </label>
@@ -6541,7 +6823,7 @@ const Signup = () => {
                         {REGI02_Box1v01DE[5].label}
                       </p>
                       <div style={{ textAlign: "center" }}>
-                        {file2 === "" ? (
+                        {translators?.idcard === "" ? (
                           <div
                             style={{
                               background: "#FFFFFF",
@@ -6563,7 +6845,12 @@ const Signup = () => {
                                 id="icon-button-file"
                                 type="file"
                                 style={{ display: "none" }}
-                                onChange={(e) => setFile2(e.target.value)}
+                                onChange={(e) =>
+                                  setTranslators({
+                                    ...translators,
+                                    idcard: e.target.value,
+                                  })
+                                }
                               />
                               <IconButton
                                 color="primary"
@@ -6612,7 +6899,12 @@ const Signup = () => {
                                 id="icon-button-file"
                                 type="file"
                                 style={{ display: "none" }}
-                                onChange={(e) => setFile2(e.target.value)}
+                                onChange={(e) =>
+                                  setTranslators({
+                                    ...translators,
+                                    idcard: e.target.value,
+                                  })
+                                }
                               />
                               <IconButton
                                 color="primary"
@@ -6634,7 +6926,7 @@ const Signup = () => {
                                     width: 100,
                                   }}
                                 >
-                                  {file2}
+                                  {translators?.idcard}
                                 </p>
                               </IconButton>
                             </label>
@@ -6793,7 +7085,7 @@ const Signup = () => {
                         {REGI02_Box1v01EN[5].label}
                       </p>
                       <div style={{ textAlign: "center" }}>
-                        {file2 === "" ? (
+                        {translators?.idcard === "" ? (
                           <div
                             style={{
                               background: "#FFFFFF",
@@ -6815,7 +7107,12 @@ const Signup = () => {
                                 id="icon-button-file"
                                 type="file"
                                 style={{ display: "none" }}
-                                onChange={(e) => setFile2(e.target.value)}
+                                onChange={(e) =>
+                                  setTranslators({
+                                    ...translators,
+                                    idcard: e.target.value,
+                                  })
+                                }
                               />
                               <IconButton
                                 color="primary"
@@ -6864,7 +7161,12 @@ const Signup = () => {
                                 id="icon-button-file"
                                 type="file"
                                 style={{ display: "none" }}
-                                onChange={(e) => setFile2(e.target.value)}
+                                onChange={(e) =>
+                                  setTranslators({
+                                    ...translators,
+                                    idcard: e.target.value,
+                                  })
+                                }
                               />
                               <IconButton
                                 color="primary"
@@ -6886,7 +7188,7 @@ const Signup = () => {
                                     width: 100,
                                   }}
                                 >
-                                  {file2}
+                                  {translators?.idcard}
                                 </p>
                               </IconButton>
                             </label>
@@ -7042,8 +7344,13 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={address}
-                        onChange={(e) => setAddress(e.target.value)}
+                        value={translators.address}
+                        onChange={(e) =>
+                          setTranslators({
+                            ...translators,
+                            address: e.target.value,
+                          })
+                        }
                         placeholder={REGI02_Box2v02EN[4].label}
                         style={{
                           background: "#FFFFFF",
@@ -7071,8 +7378,13 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={district}
-                        onChange={(e) => setDistrict(e.target.value)}
+                        value={translators.district}
+                        onChange={(e) =>
+                          setTranslators({
+                            ...translators,
+                            district: e.target.value,
+                          })
+                        }
                         placeholder={REGI02_Box2v02EN[5].label}
                         style={{
                           background: "#FFFFFF",
@@ -7100,8 +7412,13 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={province}
-                        onChange={(e) => setProvince(e.target.value)}
+                        value={translators.province}
+                        onChange={(e) =>
+                          setTranslators({
+                            ...translators,
+                            province: e.target.value,
+                          })
+                        }
                         placeholder={REGI02_Box2v02EN[6].label}
                         style={{
                           background: "#FFFFFF",
@@ -7130,8 +7447,13 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={country}
-                        onChange={(e) => setCountry(e.target.value)}
+                        value={translators.country}
+                        onChange={(e) =>
+                          setTranslators({
+                            ...translators,
+                            country: e.target.value,
+                          })
+                        }
                         placeholder={REGI02_Box2v02EN[7].label}
                         style={{
                           background: "#FFFFFF",
@@ -7160,8 +7482,13 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={postalcode}
-                        onChange={(e) => setPostalCode(e.target.value)}
+                        value={translators.postalCode}
+                        onChange={(e) =>
+                          setTranslators({
+                            ...translators,
+                            postalCode: e.target.value,
+                          })
+                        }
                         placeholder={REGI02_Box2v02EN[8].label}
                         style={{
                           background: "#FFFFFF",
@@ -7278,8 +7605,13 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={address}
-                        onChange={(e) => setAddress(e.target.value)}
+                        value={translators.address}
+                        onChange={(e) =>
+                          setTranslators({
+                            ...translators,
+                            address: e.target.value,
+                          })
+                        }
                         placeholder={REGI02_Box2v02TH[4].label}
                         style={{
                           background: "#FFFFFF",
@@ -7307,8 +7639,13 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={district}
-                        onChange={(e) => setDistrict(e.target.value)}
+                        value={translators.district}
+                        onChange={(e) =>
+                          setTranslators({
+                            ...translators,
+                            district: e.target.value,
+                          })
+                        }
                         placeholder={REGI02_Box2v02TH[5].label}
                         style={{
                           background: "#FFFFFF",
@@ -7336,8 +7673,13 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={province}
-                        onChange={(e) => setProvince(e.target.value)}
+                        value={translators.province}
+                        onChange={(e) =>
+                          setTranslators({
+                            ...translators,
+                            province: e.target.value,
+                          })
+                        }
                         placeholder={REGI02_Box2v02TH[6].label}
                         style={{
                           background: "#FFFFFF",
@@ -7366,8 +7708,13 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={country}
-                        onChange={(e) => setCountry(e.target.value)}
+                        value={translators.country}
+                        onChange={(e) =>
+                          setTranslators({
+                            ...translators,
+                            country: e.target.value,
+                          })
+                        }
                         placeholder={REGI02_Box2v02TH[7].label}
                         style={{
                           background: "#FFFFFF",
@@ -7396,8 +7743,13 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={postalcode}
-                        onChange={(e) => setPostalCode(e.target.value)}
+                        value={translators.postalCode}
+                        onChange={(e) =>
+                          setTranslators({
+                            ...translators,
+                            postalCode: e.target.value,
+                          })
+                        }
                         placeholder={REGI02_Box2v02TH[8].label}
                         style={{
                           background: "#FFFFFF",
@@ -7514,8 +7866,13 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={address}
-                        onChange={(e) => setAddress(e.target.value)}
+                        value={translators.address}
+                        onChange={(e) =>
+                          setTranslators({
+                            ...translators,
+                            address: e.target.value,
+                          })
+                        }
                         placeholder={REGI02_Box2v02DE[4].label}
                         style={{
                           background: "#FFFFFF",
@@ -7543,8 +7900,13 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={district}
-                        onChange={(e) => setDistrict(e.target.value)}
+                        value={translators.district}
+                        onChange={(e) =>
+                          setTranslators({
+                            ...translators,
+                            district: e.target.value,
+                          })
+                        }
                         placeholder={REGI02_Box2v02DE[5].label}
                         style={{
                           background: "#FFFFFF",
@@ -7572,8 +7934,13 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={province}
-                        onChange={(e) => setProvince(e.target.value)}
+                        value={translators.province}
+                        onChange={(e) =>
+                          setTranslators({
+                            ...translators,
+                            province: e.target.value,
+                          })
+                        }
                         placeholder={REGI02_Box2v02DE[6].label}
                         style={{
                           background: "#FFFFFF",
@@ -7602,8 +7969,13 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={country}
-                        onChange={(e) => setCountry(e.target.value)}
+                        value={translators.country}
+                        onChange={(e) =>
+                          setTranslators({
+                            ...translators,
+                            country: e.target.value,
+                          })
+                        }
                         placeholder={REGI02_Box2v02DE[7].label}
                         style={{
                           background: "#FFFFFF",
@@ -7632,8 +8004,13 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={postalcode}
-                        onChange={(e) => setPostalCode(e.target.value)}
+                        value={translators.postalCode}
+                        onChange={(e) =>
+                          setTranslators({
+                            ...translators,
+                            postalCode: e.target.value,
+                          })
+                        }
                         placeholder={REGI02_Box2v02DE[8].label}
                         style={{
                           background: "#FFFFFF",
@@ -7750,8 +8127,13 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={address}
-                        onChange={(e) => setAddress(e.target.value)}
+                        value={translators.address}
+                        onChange={(e) =>
+                          setTranslators({
+                            ...translators,
+                            address: e.target.value,
+                          })
+                        }
                         placeholder={REGI02_Box2v02EN[4].label}
                         style={{
                           background: "#FFFFFF",
@@ -7779,8 +8161,13 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={district}
-                        onChange={(e) => setDistrict(e.target.value)}
+                        value={translators.district}
+                        onChange={(e) =>
+                          setTranslators({
+                            ...translators,
+                            district: e.target.value,
+                          })
+                        }
                         placeholder={REGI02_Box2v02EN[5].label}
                         style={{
                           background: "#FFFFFF",
@@ -7808,8 +8195,13 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={province}
-                        onChange={(e) => setProvince(e.target.value)}
+                        value={translators.province}
+                        onChange={(e) =>
+                          setTranslators({
+                            ...translators,
+                            province: e.target.value,
+                          })
+                        }
                         placeholder={REGI02_Box2v02EN[6].label}
                         style={{
                           background: "#FFFFFF",
@@ -7838,8 +8230,13 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={country}
-                        onChange={(e) => setCountry(e.target.value)}
+                        value={translators.country}
+                        onChange={(e) =>
+                          setTranslators({
+                            ...translators,
+                            country: e.target.value,
+                          })
+                        }
                         placeholder={REGI02_Box2v02EN[7].label}
                         style={{
                           background: "#FFFFFF",
@@ -7868,8 +8265,13 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={postalcode}
-                        onChange={(e) => setPostalCode(e.target.value)}
+                        value={translators.postalCode}
+                        onChange={(e) =>
+                          setTranslators({
+                            ...translators,
+                            postalCode: e.target.value,
+                          })
+                        }
                         placeholder={REGI02_Box2v02EN[8].label}
                         style={{
                           background: "#FFFFFF",
@@ -7997,7 +8399,7 @@ const Signup = () => {
                         {REGI02_Box2v01EN[5].label}
                       </p>
                       <div style={{ textAlign: "center" }}>
-                        {file2 === "" ? (
+                        {translators?.education === "" ? (
                           <div
                             style={{
                               background: "#FFFFFF",
@@ -8019,7 +8421,12 @@ const Signup = () => {
                                 id="icon-button-file"
                                 type="file"
                                 style={{ display: "none" }}
-                                onChange={(e) => setFile2(e.target.value)}
+                                onChange={(e) =>
+                                  setTranslators({
+                                    ...translators,
+                                    education: e.target.value,
+                                  })
+                                }
                               />
                               <IconButton
                                 color="primary"
@@ -8068,7 +8475,12 @@ const Signup = () => {
                                 id="icon-button-file"
                                 type="file"
                                 style={{ display: "none" }}
-                                onChange={(e) => setFile2(e.target.value)}
+                                onChange={(e) =>
+                                  setTranslators({
+                                    ...translators,
+                                    education: e.target.value,
+                                  })
+                                }
                               />
                               <IconButton
                                 color="primary"
@@ -8090,7 +8502,7 @@ const Signup = () => {
                                     width: 100,
                                   }}
                                 >
-                                  {file2}
+                                  {translators?.education}
                                 </p>
                               </IconButton>
                             </label>
@@ -8108,8 +8520,7 @@ const Signup = () => {
                             fontSize: 14,
                           }}
                         >
-                          An example of uploading a picture of your
-                          Education/Certificate/Proof
+                          {REGI02_Box2v01EN[10].label}
                         </p>
                       </button>
                       <Modal
@@ -8246,7 +8657,7 @@ const Signup = () => {
                         {REGI02_Box2v01TH[5].label}
                       </p>
                       <div style={{ textAlign: "center" }}>
-                        {file2 === "" ? (
+                        {translators?.education === "" ? (
                           <div
                             style={{
                               background: "#FFFFFF",
@@ -8268,7 +8679,12 @@ const Signup = () => {
                                 id="icon-button-file"
                                 type="file"
                                 style={{ display: "none" }}
-                                onChange={(e) => setFile2(e.target.value)}
+                                onChange={(e) =>
+                                  setTranslators({
+                                    ...translators,
+                                    education: e.target.value,
+                                  })
+                                }
                               />
                               <IconButton
                                 color="primary"
@@ -8317,7 +8733,12 @@ const Signup = () => {
                                 id="icon-button-file"
                                 type="file"
                                 style={{ display: "none" }}
-                                onChange={(e) => setFile2(e.target.value)}
+                                onChange={(e) =>
+                                  setTranslators({
+                                    ...translators,
+                                    education: e.target.value,
+                                  })
+                                }
                               />
                               <IconButton
                                 color="primary"
@@ -8339,7 +8760,7 @@ const Signup = () => {
                                     width: 100,
                                   }}
                                 >
-                                  {file2}
+                                  {translators?.education}
                                 </p>
                               </IconButton>
                             </label>
@@ -8357,7 +8778,7 @@ const Signup = () => {
                             fontSize: 14,
                           }}
                         >
-                          ตัวอย่างการอัปโหลดรูปภาพการศึกษา/ใบรับรอง/หลักฐาน
+                          {REGI02_Box2v01TH[10].label}
                         </p>
                       </button>
                       <Modal
@@ -8494,7 +8915,7 @@ const Signup = () => {
                         {REGI02_Box2v01DE[5].label}
                       </p>
                       <div style={{ textAlign: "center" }}>
-                        {file2 === "" ? (
+                        {translators?.education === "" ? (
                           <div
                             style={{
                               background: "#FFFFFF",
@@ -8516,7 +8937,12 @@ const Signup = () => {
                                 id="icon-button-file"
                                 type="file"
                                 style={{ display: "none" }}
-                                onChange={(e) => setFile2(e.target.value)}
+                                onChange={(e) =>
+                                  setTranslators({
+                                    ...translators,
+                                    education: e.target.value,
+                                  })
+                                }
                               />
                               <IconButton
                                 color="primary"
@@ -8565,7 +8991,12 @@ const Signup = () => {
                                 id="icon-button-file"
                                 type="file"
                                 style={{ display: "none" }}
-                                onChange={(e) => setFile2(e.target.value)}
+                                onChange={(e) =>
+                                  setTranslators({
+                                    ...translators,
+                                    education: e.target.value,
+                                  })
+                                }
                               />
                               <IconButton
                                 color="primary"
@@ -8587,7 +9018,7 @@ const Signup = () => {
                                     width: 100,
                                   }}
                                 >
-                                  {file2}
+                                  {translators?.education}
                                 </p>
                               </IconButton>
                             </label>
@@ -8605,8 +9036,7 @@ const Signup = () => {
                             fontSize: 14,
                           }}
                         >
-                          Ein Beispiel für das Hochladen eines Bildes Ihrer
-                          Ausbildung/Ihres Zertifikats/Ihres Nachweises
+                          {REGI02_Box2v01DE[10].label}
                         </p>
                       </button>
                       <Modal
@@ -8743,7 +9173,7 @@ const Signup = () => {
                         {REGI02_Box2v01EN[5].label}
                       </p>
                       <div style={{ textAlign: "center" }}>
-                        {file2 === "" ? (
+                        {translators?.education === "" ? (
                           <div
                             style={{
                               background: "#FFFFFF",
@@ -8765,7 +9195,12 @@ const Signup = () => {
                                 id="icon-button-file"
                                 type="file"
                                 style={{ display: "none" }}
-                                onChange={(e) => setFile2(e.target.value)}
+                                onChange={(e) =>
+                                  setTranslators({
+                                    ...translators,
+                                    education: e.target.value,
+                                  })
+                                }
                               />
                               <IconButton
                                 color="primary"
@@ -8814,7 +9249,12 @@ const Signup = () => {
                                 id="icon-button-file"
                                 type="file"
                                 style={{ display: "none" }}
-                                onChange={(e) => setFile2(e.target.value)}
+                                onChange={(e) =>
+                                  setTranslators({
+                                    ...translators,
+                                    education: e.target.value,
+                                  })
+                                }
                               />
                               <IconButton
                                 color="primary"
@@ -8836,7 +9276,7 @@ const Signup = () => {
                                     width: 100,
                                   }}
                                 >
-                                  {file2}
+                                  {translators?.education}
                                 </p>
                               </IconButton>
                             </label>
@@ -8854,8 +9294,7 @@ const Signup = () => {
                             fontSize: 14,
                           }}
                         >
-                          An example of uploading a picture of your
-                          Education/Certificate/Proof
+                          {REGI02_Box2v01EN[10].label}
                         </p>
                       </button>
                       <Modal
@@ -8989,8 +9428,13 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={bankname}
-                        onChange={(e) => setBankname(e.target.value)}
+                        value={translators.bankname}
+                        onChange={(e) =>
+                          setTranslators({
+                            ...translators,
+                            bankname: e.target.value,
+                          })
+                        }
                         placeholder={REGI02_Box4v01EN[4].label}
                         style={{
                           background: "#FFFFFF",
@@ -9018,8 +9462,13 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={branchname}
-                        onChange={(e) => setBranchname(e.target.value)}
+                        value={translators.branchname}
+                        onChange={(e) =>
+                          setTranslators({
+                            ...translators,
+                            branchname: e.target.value,
+                          })
+                        }
                         placeholder={REGI02_Box4v01EN[5].label}
                         style={{
                           background: "#FFFFFF",
@@ -9047,8 +9496,13 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={accountname}
-                        onChange={(e) => setAccountname(e.target.value)}
+                        value={translators.accountname}
+                        onChange={(e) =>
+                          setTranslators({
+                            ...translators,
+                            accountname: e.target.value,
+                          })
+                        }
                         placeholder={REGI02_Box4v01EN[6].label}
                         style={{
                           background: "#FFFFFF",
@@ -9077,8 +9531,13 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={accountnumber}
-                        onChange={(e) => setAccountnumber(e.target.value)}
+                        value={translators.accountnumber}
+                        onChange={(e) =>
+                          setTranslators({
+                            ...translators,
+                            accountnumber: e.target.value,
+                          })
+                        }
                         placeholder={REGI02_Box4v01EN[7].label}
                         style={{
                           background: "#FFFFFF",
@@ -9195,8 +9654,13 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={bankname}
-                        onChange={(e) => setBankname(e.target.value)}
+                        value={translators.bankname}
+                        onChange={(e) =>
+                          setTranslators({
+                            ...translators,
+                            bankname: e.target.value,
+                          })
+                        }
                         placeholder={REGI02_Box4v01TH[4].label}
                         style={{
                           background: "#FFFFFF",
@@ -9224,8 +9688,13 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={branchname}
-                        onChange={(e) => setBranchname(e.target.value)}
+                        value={translators.branchname}
+                        onChange={(e) =>
+                          setTranslators({
+                            ...translators,
+                            branchname: e.target.value,
+                          })
+                        }
                         placeholder={REGI02_Box4v01TH[5].label}
                         style={{
                           background: "#FFFFFF",
@@ -9253,8 +9722,13 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={accountname}
-                        onChange={(e) => setAccountname(e.target.value)}
+                        value={translators.accountname}
+                        onChange={(e) =>
+                          setTranslators({
+                            ...translators,
+                            accountname: e.target.value,
+                          })
+                        }
                         placeholder={REGI02_Box4v01TH[6].label}
                         style={{
                           background: "#FFFFFF",
@@ -9283,8 +9757,13 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={accountnumber}
-                        onChange={(e) => setAccountnumber(e.target.value)}
+                        value={translators.accountnumber}
+                        onChange={(e) =>
+                          setTranslators({
+                            ...translators,
+                            accountnumber: e.target.value,
+                          })
+                        }
                         placeholder={REGI02_Box4v01TH[7].label}
                         style={{
                           background: "#FFFFFF",
@@ -9401,8 +9880,13 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={bankname}
-                        onChange={(e) => setBankname(e.target.value)}
+                        value={translators.bankname}
+                        onChange={(e) =>
+                          setTranslators({
+                            ...translators,
+                            bankname: e.target.value,
+                          })
+                        }
                         placeholder={REGI02_Box4v01DE[4].label}
                         style={{
                           background: "#FFFFFF",
@@ -9430,8 +9914,13 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={branchname}
-                        onChange={(e) => setBranchname(e.target.value)}
+                        value={translators.branchname}
+                        onChange={(e) =>
+                          setTranslators({
+                            ...translators,
+                            branchname: e.target.value,
+                          })
+                        }
                         placeholder={REGI02_Box4v01DE[5].label}
                         style={{
                           background: "#FFFFFF",
@@ -9459,8 +9948,13 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={accountname}
-                        onChange={(e) => setAccountname(e.target.value)}
+                        value={translators.accountname}
+                        onChange={(e) =>
+                          setTranslators({
+                            ...translators,
+                            accountname: e.target.value,
+                          })
+                        }
                         placeholder={REGI02_Box4v01DE[6].label}
                         style={{
                           background: "#FFFFFF",
@@ -9489,8 +9983,13 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={accountnumber}
-                        onChange={(e) => setAccountnumber(e.target.value)}
+                        value={translators.accountnumber}
+                        onChange={(e) =>
+                          setTranslators({
+                            ...translators,
+                            accountnumber: e.target.value,
+                          })
+                        }
                         placeholder={REGI02_Box4v01DE[7].label}
                         style={{
                           background: "#FFFFFF",
@@ -9607,8 +10106,13 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={bankname}
-                        onChange={(e) => setBankname(e.target.value)}
+                        value={translators.bankname}
+                        onChange={(e) =>
+                          setTranslators({
+                            ...translators,
+                            bankname: e.target.value,
+                          })
+                        }
                         placeholder={REGI02_Box4v01EN[4].label}
                         style={{
                           background: "#FFFFFF",
@@ -9636,8 +10140,13 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={branchname}
-                        onChange={(e) => setBranchname(e.target.value)}
+                        value={translators.branchname}
+                        onChange={(e) =>
+                          setTranslators({
+                            ...translators,
+                            branchname: e.target.value,
+                          })
+                        }
                         placeholder={REGI02_Box4v01EN[5].label}
                         style={{
                           background: "#FFFFFF",
@@ -9665,8 +10174,13 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={accountname}
-                        onChange={(e) => setAccountname(e.target.value)}
+                        value={translators.accountname}
+                        onChange={(e) =>
+                          setTranslators({
+                            ...translators,
+                            accountname: e.target.value,
+                          })
+                        }
                         placeholder={REGI02_Box4v01EN[6].label}
                         style={{
                           background: "#FFFFFF",
@@ -9695,8 +10209,13 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={accountnumber}
-                        onChange={(e) => setAccountnumber(e.target.value)}
+                        value={translators.accountnumber}
+                        onChange={(e) =>
+                          setTranslators({
+                            ...translators,
+                            accountnumber: e.target.value,
+                          })
+                        }
                         placeholder={REGI02_Box4v01EN[7].label}
                         style={{
                           background: "#FFFFFF",
@@ -9824,7 +10343,7 @@ const Signup = () => {
                         {REGI02_Box3v01EN[5].label}
                       </p>
                       <div style={{ textAlign: "center" }}>
-                        {file2 === "" ? (
+                        {translators.portfolio === "" ? (
                           <div
                             style={{
                               background: "#FFFFFF",
@@ -9846,7 +10365,12 @@ const Signup = () => {
                                 id="icon-button-file"
                                 type="file"
                                 style={{ display: "none" }}
-                                onChange={(e) => setFile2(e.target.value)}
+                                onChange={(e) =>
+                                  setTranslators({
+                                    ...translators,
+                                    portfolio: e.target.value,
+                                  })
+                                }
                               />
                               <IconButton
                                 color="primary"
@@ -9895,7 +10419,12 @@ const Signup = () => {
                                 id="icon-button-file"
                                 type="file"
                                 style={{ display: "none" }}
-                                onChange={(e) => setFile2(e.target.value)}
+                                onChange={(e) =>
+                                  setTranslators({
+                                    ...translators,
+                                    portfolio: e.target.value,
+                                  })
+                                }
                               />
                               <IconButton
                                 color="primary"
@@ -9917,7 +10446,7 @@ const Signup = () => {
                                     width: 100,
                                   }}
                                 >
-                                  {file2}
+                                  {translators?.portfolio}
                                 </p>
                               </IconButton>
                             </label>
@@ -9935,8 +10464,7 @@ const Signup = () => {
                             fontSize: 14,
                           }}
                         >
-                          An example of uploading a picture of your
-                          Portfolio/CV.
+                          {REGI02_Box3v01EN[10].label}
                         </p>
                       </button>
                       <Modal
@@ -10073,7 +10601,7 @@ const Signup = () => {
                         {REGI02_Box3v01TH[5].label}
                       </p>
                       <div style={{ textAlign: "center" }}>
-                        {file2 === "" ? (
+                        {translators.portfolio === "" ? (
                           <div
                             style={{
                               background: "#FFFFFF",
@@ -10095,7 +10623,12 @@ const Signup = () => {
                                 id="icon-button-file"
                                 type="file"
                                 style={{ display: "none" }}
-                                onChange={(e) => setFile2(e.target.value)}
+                                onChange={(e) =>
+                                  setTranslators({
+                                    ...translators,
+                                    portfolio: e.target.value,
+                                  })
+                                }
                               />
                               <IconButton
                                 color="primary"
@@ -10144,7 +10677,12 @@ const Signup = () => {
                                 id="icon-button-file"
                                 type="file"
                                 style={{ display: "none" }}
-                                onChange={(e) => setFile2(e.target.value)}
+                                onChange={(e) =>
+                                  setTranslators({
+                                    ...translators,
+                                    portfolio: e.target.value,
+                                  })
+                                }
                               />
                               <IconButton
                                 color="primary"
@@ -10166,7 +10704,7 @@ const Signup = () => {
                                     width: 100,
                                   }}
                                 >
-                                  {file2}
+                                  {translators?.portfolio}
                                 </p>
                               </IconButton>
                             </label>
@@ -10184,7 +10722,7 @@ const Signup = () => {
                             fontSize: 14,
                           }}
                         >
-                          ตัวอย่างการอัพโหลดรูปภาพ Portfolio/CV ของคุณ
+                          {REGI02_Box3v01TH[10].label}
                         </p>
                       </button>
                       <Modal
@@ -10321,7 +10859,7 @@ const Signup = () => {
                         {REGI02_Box3v01DE[5].label}
                       </p>
                       <div style={{ textAlign: "center" }}>
-                        {file2 === "" ? (
+                        {translators.portfolio === "" ? (
                           <div
                             style={{
                               background: "#FFFFFF",
@@ -10343,7 +10881,12 @@ const Signup = () => {
                                 id="icon-button-file"
                                 type="file"
                                 style={{ display: "none" }}
-                                onChange={(e) => setFile2(e.target.value)}
+                                onChange={(e) =>
+                                  setTranslators({
+                                    ...translators,
+                                    portfolio: e.target.value,
+                                  })
+                                }
                               />
                               <IconButton
                                 color="primary"
@@ -10392,7 +10935,12 @@ const Signup = () => {
                                 id="icon-button-file"
                                 type="file"
                                 style={{ display: "none" }}
-                                onChange={(e) => setFile2(e.target.value)}
+                                onChange={(e) =>
+                                  setTranslators({
+                                    ...translators,
+                                    portfolio: e.target.value,
+                                  })
+                                }
                               />
                               <IconButton
                                 color="primary"
@@ -10414,7 +10962,7 @@ const Signup = () => {
                                     width: 100,
                                   }}
                                 >
-                                  {file2}
+                                  {translators?.portfolio}
                                 </p>
                               </IconButton>
                             </label>
@@ -10432,8 +10980,7 @@ const Signup = () => {
                             fontSize: 14,
                           }}
                         >
-                          Ein Beispiel für das Hochladen eines Bildes Ihres
-                          Portfolios/Lebenslaufs.
+                          {REGI02_Box3v01DE[10].label}
                         </p>
                       </button>
                       <Modal
@@ -10570,7 +11117,7 @@ const Signup = () => {
                         {REGI02_Box3v01EN[5].label}
                       </p>
                       <div style={{ textAlign: "center" }}>
-                        {file2 === "" ? (
+                        {translators.portfolio === "" ? (
                           <div
                             style={{
                               background: "#FFFFFF",
@@ -10592,7 +11139,12 @@ const Signup = () => {
                                 id="icon-button-file"
                                 type="file"
                                 style={{ display: "none" }}
-                                onChange={(e) => setFile2(e.target.value)}
+                                onChange={(e) =>
+                                  setTranslators({
+                                    ...translators,
+                                    portfolio: e.target.value,
+                                  })
+                                }
                               />
                               <IconButton
                                 color="primary"
@@ -10641,7 +11193,12 @@ const Signup = () => {
                                 id="icon-button-file"
                                 type="file"
                                 style={{ display: "none" }}
-                                onChange={(e) => setFile2(e.target.value)}
+                                onChange={(e) =>
+                                  setTranslators({
+                                    ...translators,
+                                    portfolio: e.target.value,
+                                  })
+                                }
                               />
                               <IconButton
                                 color="primary"
@@ -10663,7 +11220,7 @@ const Signup = () => {
                                     width: 100,
                                   }}
                                 >
-                                  {file2}
+                                  {translators?.portfolio}
                                 </p>
                               </IconButton>
                             </label>
@@ -10681,8 +11238,7 @@ const Signup = () => {
                             fontSize: 14,
                           }}
                         >
-                          An example of uploading a picture of your
-                          Portfolio/CV.
+                          {REGI02_Box3v01EN[10].label}
                         </p>
                       </button>
                       <Modal
@@ -10823,7 +11379,7 @@ const Signup = () => {
                         {REGI02_Box3v02EN[5].label}
                       </p>
                       <div style={{ textAlign: "center" }}>
-                        {file2 === "" ? (
+                        {translators?.watermark === "" ? (
                           <div
                             style={{
                               background: "#FFFFFF",
@@ -10845,7 +11401,12 @@ const Signup = () => {
                                 id="icon-button-file"
                                 type="file"
                                 style={{ display: "none" }}
-                                onChange={(e) => setFile2(e.target.value)}
+                                onChange={(e) =>
+                                  setTranslators({
+                                    ...translators,
+                                    watermark: e.target.value,
+                                  })
+                                }
                               />
                               <IconButton
                                 color="primary"
@@ -10894,7 +11455,12 @@ const Signup = () => {
                                 id="icon-button-file"
                                 type="file"
                                 style={{ display: "none" }}
-                                onChange={(e) => setFile2(e.target.value)}
+                                onChange={(e) =>
+                                  setTranslators({
+                                    ...translators,
+                                    watermark: e.target.value,
+                                  })
+                                }
                               />
                               <IconButton
                                 color="primary"
@@ -10916,7 +11482,7 @@ const Signup = () => {
                                     width: 100,
                                   }}
                                 >
-                                  {file2}
+                                  {translators?.watermark}
                                 </p>
                               </IconButton>
                             </label>
@@ -11071,7 +11637,7 @@ const Signup = () => {
                         {REGI02_Box3v02TH[5].label}
                       </p>
                       <div style={{ textAlign: "center" }}>
-                        {file2 === "" ? (
+                        {translators?.watermark === "" ? (
                           <div
                             style={{
                               background: "#FFFFFF",
@@ -11093,7 +11659,12 @@ const Signup = () => {
                                 id="icon-button-file"
                                 type="file"
                                 style={{ display: "none" }}
-                                onChange={(e) => setFile2(e.target.value)}
+                                onChange={(e) =>
+                                  setTranslators({
+                                    ...translators,
+                                    watermark: e.target.value,
+                                  })
+                                }
                               />
                               <IconButton
                                 color="primary"
@@ -11142,7 +11713,12 @@ const Signup = () => {
                                 id="icon-button-file"
                                 type="file"
                                 style={{ display: "none" }}
-                                onChange={(e) => setFile2(e.target.value)}
+                                onChange={(e) =>
+                                  setTranslators({
+                                    ...translators,
+                                    watermark: e.target.value,
+                                  })
+                                }
                               />
                               <IconButton
                                 color="primary"
@@ -11164,7 +11740,7 @@ const Signup = () => {
                                     width: 100,
                                   }}
                                 >
-                                  {file2}
+                                  {translators.watermark}
                                 </p>
                               </IconButton>
                             </label>
@@ -11303,7 +11879,7 @@ const Signup = () => {
                       <p
                         style={{
                           fontWeight: 500,
-                          fontSize: 19,
+                          fontSize: 20,
                           color: " #242424",
                         }}
                       >
@@ -11319,7 +11895,7 @@ const Signup = () => {
                         {REGI02_Box3v02DE[5].label}
                       </p>
                       <div style={{ textAlign: "center" }}>
-                        {file2 === "" ? (
+                        {translators?.watermark === "" ? (
                           <div
                             style={{
                               background: "#FFFFFF",
@@ -11341,7 +11917,12 @@ const Signup = () => {
                                 id="icon-button-file"
                                 type="file"
                                 style={{ display: "none" }}
-                                onChange={(e) => setFile2(e.target.value)}
+                                onChange={(e) =>
+                                  setTranslators({
+                                    ...translators,
+                                    watermark: e.target.value,
+                                  })
+                                }
                               />
                               <IconButton
                                 color="primary"
@@ -11390,7 +11971,12 @@ const Signup = () => {
                                 id="icon-button-file"
                                 type="file"
                                 style={{ display: "none" }}
-                                onChange={(e) => setFile2(e.target.value)}
+                                onChange={(e) =>
+                                  setTranslators({
+                                    ...translators,
+                                    watermark: e.target.value,
+                                  })
+                                }
                               />
                               <IconButton
                                 color="primary"
@@ -11412,7 +11998,7 @@ const Signup = () => {
                                     width: 100,
                                   }}
                                 >
-                                  {file2}
+                                  {translators.watermark}
                                 </p>
                               </IconButton>
                             </label>
@@ -11567,7 +12153,7 @@ const Signup = () => {
                         {REGI02_Box3v02EN[5].label}
                       </p>
                       <div style={{ textAlign: "center" }}>
-                        {file2 === "" ? (
+                        {translators?.watermark === "" ? (
                           <div
                             style={{
                               background: "#FFFFFF",
@@ -11589,7 +12175,12 @@ const Signup = () => {
                                 id="icon-button-file"
                                 type="file"
                                 style={{ display: "none" }}
-                                onChange={(e) => setFile2(e.target.value)}
+                                onChange={(e) =>
+                                  setTranslators({
+                                    ...translators,
+                                    watermark: e.target.value,
+                                  })
+                                }
                               />
                               <IconButton
                                 color="primary"
@@ -11638,7 +12229,12 @@ const Signup = () => {
                                 id="icon-button-file"
                                 type="file"
                                 style={{ display: "none" }}
-                                onChange={(e) => setFile2(e.target.value)}
+                                onChange={(e) =>
+                                  setTranslators({
+                                    ...translators,
+                                    watermark: e.target.value,
+                                  })
+                                }
                               />
                               <IconButton
                                 color="primary"
@@ -11660,7 +12256,7 @@ const Signup = () => {
                                     width: 100,
                                   }}
                                 >
-                                  {file2}
+                                  {translators.watermark}
                                 </p>
                               </IconButton>
                             </label>
@@ -11812,8 +12408,13 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={bankname}
-                        onChange={(e) => setBankname(e.target.value)}
+                        value={translators.bankname}
+                        onChange={(e) =>
+                          setTranslators({
+                            ...translators,
+                            bankname: e.target.value,
+                          })
+                        }
                         placeholder={REGI02_Box4v01EN[4].label}
                         style={{
                           background: "#FFFFFF",
@@ -11841,8 +12442,13 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={branchname}
-                        onChange={(e) => setBranchname(e.target.value)}
+                        value={translators.branchname}
+                        onChange={(e) =>
+                          setTranslators({
+                            ...translators,
+                            branchname: e.target.value,
+                          })
+                        }
                         placeholder={REGI02_Box4v01EN[5].label}
                         style={{
                           background: "#FFFFFF",
@@ -11870,8 +12476,13 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={accountname}
-                        onChange={(e) => setAccountname(e.target.value)}
+                        value={translators.accountname}
+                        onChange={(e) =>
+                          setTranslators({
+                            ...translators,
+                            accountname: e.target.value,
+                          })
+                        }
                         placeholder={REGI02_Box4v01EN[6].label}
                         style={{
                           background: "#FFFFFF",
@@ -11900,8 +12511,13 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={accountnumber}
-                        onChange={(e) => setAccountnumber(e.target.value)}
+                        value={translators.accountnumber}
+                        onChange={(e) =>
+                          setTranslators({
+                            ...translators,
+                            accountnumber: e.target.value,
+                          })
+                        }
                         placeholder={REGI02_Box4v01EN[7].label}
                         style={{
                           background: "#FFFFFF",
@@ -12018,8 +12634,13 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={bankname}
-                        onChange={(e) => setBankname(e.target.value)}
+                        value={translators.bankname}
+                        onChange={(e) =>
+                          setTranslators({
+                            ...translators,
+                            bankname: e.target.value,
+                          })
+                        }
                         placeholder={REGI02_Box4v01TH[4].label}
                         style={{
                           background: "#FFFFFF",
@@ -12047,8 +12668,13 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={branchname}
-                        onChange={(e) => setBranchname(e.target.value)}
+                        value={translators.branchname}
+                        onChange={(e) =>
+                          setTranslators({
+                            ...translators,
+                            branchname: e.target.value,
+                          })
+                        }
                         placeholder={REGI02_Box4v01TH[5].label}
                         style={{
                           background: "#FFFFFF",
@@ -12076,8 +12702,13 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={accountname}
-                        onChange={(e) => setAccountname(e.target.value)}
+                        value={translators.accountname}
+                        onChange={(e) =>
+                          setTranslators({
+                            ...translators,
+                            accountname: e.target.value,
+                          })
+                        }
                         placeholder={REGI02_Box4v01TH[6].label}
                         style={{
                           background: "#FFFFFF",
@@ -12106,8 +12737,13 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={accountnumber}
-                        onChange={(e) => setAccountnumber(e.target.value)}
+                        value={translators.accountnumber}
+                        onChange={(e) =>
+                          setTranslators({
+                            ...translators,
+                            accountnumber: e.target.value,
+                          })
+                        }
                         placeholder={REGI02_Box4v01TH[7].label}
                         style={{
                           background: "#FFFFFF",
@@ -12224,8 +12860,13 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={bankname}
-                        onChange={(e) => setBankname(e.target.value)}
+                        value={translators.bankname}
+                        onChange={(e) =>
+                          setTranslators({
+                            ...translators,
+                            bankname: e.target.value,
+                          })
+                        }
                         placeholder={REGI02_Box4v01DE[4].label}
                         style={{
                           background: "#FFFFFF",
@@ -12253,8 +12894,13 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={branchname}
-                        onChange={(e) => setBranchname(e.target.value)}
+                        value={translators.branchname}
+                        onChange={(e) =>
+                          setTranslators({
+                            ...translators,
+                            branchname: e.target.value,
+                          })
+                        }
                         placeholder={REGI02_Box4v01DE[5].label}
                         style={{
                           background: "#FFFFFF",
@@ -12282,8 +12928,13 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={accountname}
-                        onChange={(e) => setAccountname(e.target.value)}
+                        value={translators.accountname}
+                        onChange={(e) =>
+                          setTranslators({
+                            ...translators,
+                            accountname: e.target.value,
+                          })
+                        }
                         placeholder={REGI02_Box4v01DE[6].label}
                         style={{
                           background: "#FFFFFF",
@@ -12312,8 +12963,13 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={accountnumber}
-                        onChange={(e) => setAccountnumber(e.target.value)}
+                        value={translators.accountnumber}
+                        onChange={(e) =>
+                          setTranslators({
+                            ...translators,
+                            accountnumber: e.target.value,
+                          })
+                        }
                         placeholder={REGI02_Box4v01DE[7].label}
                         style={{
                           background: "#FFFFFF",
@@ -12430,8 +13086,13 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={bankname}
-                        onChange={(e) => setBankname(e.target.value)}
+                        value={translators.bankname}
+                        onChange={(e) =>
+                          setTranslators({
+                            ...translators,
+                            bankname: e.target.value,
+                          })
+                        }
                         placeholder={REGI02_Box4v01EN[4].label}
                         style={{
                           background: "#FFFFFF",
@@ -12459,8 +13120,13 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={branchname}
-                        onChange={(e) => setBranchname(e.target.value)}
+                        value={translators.branchname}
+                        onChange={(e) =>
+                          setTranslators({
+                            ...translators,
+                            branchname: e.target.value,
+                          })
+                        }
                         placeholder={REGI02_Box4v01EN[5].label}
                         style={{
                           background: "#FFFFFF",
@@ -12488,8 +13154,13 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={accountname}
-                        onChange={(e) => setAccountname(e.target.value)}
+                        value={translators.accountname}
+                        onChange={(e) =>
+                          setTranslators({
+                            ...translators,
+                            accountname: e.target.value,
+                          })
+                        }
                         placeholder={REGI02_Box4v01EN[6].label}
                         style={{
                           background: "#FFFFFF",
@@ -12518,8 +13189,13 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={accountnumber}
-                        onChange={(e) => setAccountnumber(e.target.value)}
+                        value={translators.accountnumber}
+                        onChange={(e) =>
+                          setTranslators({
+                            ...translators,
+                            accountnumber: e.target.value,
+                          })
+                        }
                         placeholder={REGI02_Box4v01EN[7].label}
                         style={{
                           background: "#FFFFFF",
@@ -12647,7 +13323,7 @@ const Signup = () => {
                         {REGI02_Box5v02EN[5].label}
                       </p>
                       <div style={{ textAlign: "center" }}>
-                        {file3 === "" ? (
+                        {translators?.certificate === "" ? (
                           <div
                             style={{
                               background: "#FFFFFF",
@@ -12669,7 +13345,12 @@ const Signup = () => {
                                 id="icon-button-file"
                                 type="file"
                                 style={{ display: "none" }}
-                                onChange={(e) => setFile3(e.target.value)}
+                                onChange={(e) =>
+                                  setTranslators({
+                                    ...translators,
+                                    certificate: e.target.value,
+                                  })
+                                }
                               />
                               <IconButton
                                 color="primary"
@@ -12717,7 +13398,12 @@ const Signup = () => {
                                 id="icon-button-file"
                                 type="file"
                                 style={{ display: "none" }}
-                                onChange={(e) => setFile2(e.target.value)}
+                                onChange={(e) =>
+                                  setTranslators({
+                                    ...translators,
+                                    certificate: e.target.value,
+                                  })
+                                }
                               />
                               <IconButton
                                 color="primary"
@@ -12738,7 +13424,7 @@ const Signup = () => {
                                     width: 100,
                                   }}
                                 >
-                                  {file3}
+                                  {translators?.certificate}
                                 </p>
                               </IconButton>
                             </label>
@@ -12806,7 +13492,12 @@ const Signup = () => {
                         options={data}
                         autoHighlight
                         getOptionLabel={(option) => option.label}
-                        onChange={(event, value) => setLanguages(value?.label)}
+                        onChange={(event, value) =>
+                          setTranslators({
+                            ...translators,
+                            languages: value?.label,
+                          })
+                        }
                         popupIcon={
                           <MdArrowDropDown
                             style={{ color: "#333333", width: 30, height: 33 }}
@@ -13073,7 +13764,7 @@ const Signup = () => {
                         {REGI02_Box5v02TH[5].label}
                       </p>
                       <div style={{ textAlign: "center" }}>
-                        {file3 === "" ? (
+                        {translators?.certificate === "" ? (
                           <div
                             style={{
                               background: "#FFFFFF",
@@ -13095,7 +13786,12 @@ const Signup = () => {
                                 id="icon-button-file"
                                 type="file"
                                 style={{ display: "none" }}
-                                onChange={(e) => setFile3(e.target.value)}
+                                onChange={(e) =>
+                                  setTranslators({
+                                    ...translators,
+                                    certificate: e.target.value,
+                                  })
+                                }
                               />
                               <IconButton
                                 color="primary"
@@ -13143,7 +13839,12 @@ const Signup = () => {
                                 id="icon-button-file"
                                 type="file"
                                 style={{ display: "none" }}
-                                onChange={(e) => setFile2(e.target.value)}
+                                onChange={(e) =>
+                                  setTranslators({
+                                    ...translators,
+                                    certificate: e.target.value,
+                                  })
+                                }
                               />
                               <IconButton
                                 color="primary"
@@ -13164,7 +13865,7 @@ const Signup = () => {
                                     width: 100,
                                   }}
                                 >
-                                  {file3}
+                                  {translators?.certificate}
                                 </p>
                               </IconButton>
                             </label>
@@ -13232,7 +13933,12 @@ const Signup = () => {
                         options={data}
                         autoHighlight
                         getOptionLabel={(option) => option.label}
-                        onChange={(event, value) => setLanguages(value?.label)}
+                        onChange={(event, value) =>
+                          setTranslators({
+                            ...translators,
+                            languages: value?.label,
+                          })
+                        }
                         popupIcon={
                           <MdArrowDropDown
                             style={{ color: "#333333", width: 30, height: 33 }}
@@ -13499,7 +14205,7 @@ const Signup = () => {
                         {REGI02_Box5v02DE[5].label}
                       </p>
                       <div style={{ textAlign: "center" }}>
-                        {file3 === "" ? (
+                        {translators?.certificate === "" ? (
                           <div
                             style={{
                               background: "#FFFFFF",
@@ -13521,7 +14227,12 @@ const Signup = () => {
                                 id="icon-button-file"
                                 type="file"
                                 style={{ display: "none" }}
-                                onChange={(e) => setFile3(e.target.value)}
+                                onChange={(e) =>
+                                  setTranslators({
+                                    ...translators,
+                                    certificate: e.target.value,
+                                  })
+                                }
                               />
                               <IconButton
                                 color="primary"
@@ -13569,7 +14280,12 @@ const Signup = () => {
                                 id="icon-button-file"
                                 type="file"
                                 style={{ display: "none" }}
-                                onChange={(e) => setFile2(e.target.value)}
+                                onChange={(e) =>
+                                  setTranslators({
+                                    ...translators,
+                                    certificate: e.target.value,
+                                  })
+                                }
                               />
                               <IconButton
                                 color="primary"
@@ -13590,7 +14306,7 @@ const Signup = () => {
                                     width: 100,
                                   }}
                                 >
-                                  {file3}
+                                  {translators?.certificate}
                                 </p>
                               </IconButton>
                             </label>
@@ -13658,7 +14374,12 @@ const Signup = () => {
                         options={data}
                         autoHighlight
                         getOptionLabel={(option) => option.label}
-                        onChange={(event, value) => setLanguages(value?.label)}
+                        onChange={(event, value) =>
+                          setTranslators({
+                            ...translators,
+                            languages: value?.label,
+                          })
+                        }
                         popupIcon={
                           <MdArrowDropDown
                             style={{ color: "#333333", width: 30, height: 33 }}
@@ -13925,7 +14646,7 @@ const Signup = () => {
                         {REGI02_Box5v02EN[5].label}
                       </p>
                       <div style={{ textAlign: "center" }}>
-                        {file3 === "" ? (
+                        {translators?.certificate === "" ? (
                           <div
                             style={{
                               background: "#FFFFFF",
@@ -13947,7 +14668,12 @@ const Signup = () => {
                                 id="icon-button-file"
                                 type="file"
                                 style={{ display: "none" }}
-                                onChange={(e) => setFile3(e.target.value)}
+                                onChange={(e) =>
+                                  setTranslators({
+                                    ...translators,
+                                    certificate: e.target.value,
+                                  })
+                                }
                               />
                               <IconButton
                                 color="primary"
@@ -13995,7 +14721,12 @@ const Signup = () => {
                                 id="icon-button-file"
                                 type="file"
                                 style={{ display: "none" }}
-                                onChange={(e) => setFile2(e.target.value)}
+                                onChange={(e) =>
+                                  setTranslators({
+                                    ...translators,
+                                    certificate: e.target.value,
+                                  })
+                                }
                               />
                               <IconButton
                                 color="primary"
@@ -14016,7 +14747,7 @@ const Signup = () => {
                                     width: 100,
                                   }}
                                 >
-                                  {file3}
+                                  {translators?.certificate}
                                 </p>
                               </IconButton>
                             </label>
@@ -14084,7 +14815,12 @@ const Signup = () => {
                         options={data}
                         autoHighlight
                         getOptionLabel={(option) => option.label}
-                        onChange={(event, value) => setLanguages(value?.label)}
+                        onChange={(event, value) =>
+                          setTranslators({
+                            ...translators,
+                            languages: value?.label,
+                          })
+                        }
                         popupIcon={
                           <MdArrowDropDown
                             style={{ color: "#333333", width: 30, height: 33 }}
@@ -14406,7 +15142,12 @@ const Signup = () => {
                       options={data}
                       autoHighlight
                       getOptionLabel={(option) => option.label}
-                      onChange={(event, value) => setLanguages()}
+                      onChange={(event, value) =>
+                        setTranslators({
+                          ...translators,
+                          languages: value.label,
+                        })
+                      }
                       popupIcon={
                         <MdArrowDropDown
                           style={{ color: "#333333", width: 30, height: 33 }}
@@ -14452,7 +15193,12 @@ const Signup = () => {
                       options={data5}
                       autoHighlight
                       getOptionLabel={(option) => option.label}
-                      onChange={(event, value) => setLanguages()}
+                      onChange={(event, value) =>
+                        setTranslators({
+                          ...translators,
+                          documents: value.label,
+                        })
+                      }
                       popupIcon={
                         <MdArrowDropDown
                           style={{ color: "#333333", width: 30, height: 33 }}
@@ -14638,7 +15384,12 @@ const Signup = () => {
                       options={data}
                       autoHighlight
                       getOptionLabel={(option) => option.label}
-                      onChange={(event, value) => setLanguages()}
+                      onChange={(event, value) =>
+                        setTranslators({
+                          ...translators,
+                          languages: value.label,
+                        })
+                      }
                       popupIcon={
                         <MdArrowDropDown
                           style={{ color: "#333333", width: 30, height: 33 }}
@@ -14684,7 +15435,12 @@ const Signup = () => {
                       options={data5}
                       autoHighlight
                       getOptionLabel={(option) => option.label}
-                      onChange={(event, value) => setLanguages()}
+                      onChange={(event, value) =>
+                        setTranslators({
+                          ...translators,
+                          documents: value.label,
+                        })
+                      }
                       popupIcon={
                         <MdArrowDropDown
                           style={{ color: "#333333", width: 30, height: 33 }}
@@ -14818,7 +15574,7 @@ const Signup = () => {
                           float: "left",
                           borderBottom: "2px solid #D9D9D9",
                           marginBottom: 10,
-                          width: "68%",
+                          width: "75%",
                         }}
                       >
                         <div
@@ -14870,7 +15626,12 @@ const Signup = () => {
                       options={data}
                       autoHighlight
                       getOptionLabel={(option) => option.label}
-                      onChange={(event, value) => setLanguages()}
+                      onChange={(event, value) =>
+                        setTranslators({
+                          ...translators,
+                          languages: value.label,
+                        })
+                      }
                       popupIcon={
                         <MdArrowDropDown
                           style={{ color: "#333333", width: 30, height: 33 }}
@@ -14916,7 +15677,12 @@ const Signup = () => {
                       options={data5}
                       autoHighlight
                       getOptionLabel={(option) => option.label}
-                      onChange={(event, value) => setLanguages()}
+                      onChange={(event, value) =>
+                        setTranslators({
+                          ...translators,
+                          documents: value.label,
+                        })
+                      }
                       popupIcon={
                         <MdArrowDropDown
                           style={{ color: "#333333", width: 30, height: 33 }}
@@ -15102,7 +15868,12 @@ const Signup = () => {
                       options={data}
                       autoHighlight
                       getOptionLabel={(option) => option.label}
-                      onChange={(event, value) => setLanguages()}
+                      onChange={(event, value) =>
+                        setTranslators({
+                          ...translators,
+                          languages: value.label,
+                        })
+                      }
                       popupIcon={
                         <MdArrowDropDown
                           style={{ color: "#333333", width: 30, height: 33 }}
@@ -15148,7 +15919,12 @@ const Signup = () => {
                       options={data5}
                       autoHighlight
                       getOptionLabel={(option) => option.label}
-                      onChange={(event, value) => setLanguages()}
+                      onChange={(event, value) =>
+                        setTranslators({
+                          ...translators,
+                          documents: value.label,
+                        })
+                      }
                       popupIcon={
                         <MdArrowDropDown
                           style={{ color: "#333333", width: 30, height: 33 }}
@@ -15339,7 +16115,12 @@ const Signup = () => {
                       autoHighlight
                       getOptionLabel={(option) => option.label}
                       // defaultValue={""}
-                      // onChange={(event,value) => console.log("hi :",value)}
+                      onChange={(event, value) =>
+                        setTranslators({
+                          ...translators,
+                          question: value.label,
+                        })
+                      }
                       popupIcon={
                         <MdArrowDropDown
                           style={{ color: "#333333", width: 30, height: 33 }}
@@ -15379,8 +16160,13 @@ const Signup = () => {
                     </div>
 
                     <textarea
-                      // value={}
-                      // onChange={}
+                      value={translators?.answer}
+                      onChange={(e) =>
+                        setTranslators({
+                          ...translators,
+                          answer: e.target.value,
+                        })
+                      }
                       maxLength={150}
                       style={{
                         width: "100%",
@@ -15683,7 +16469,12 @@ const Signup = () => {
                       autoHighlight
                       getOptionLabel={(option) => option.label}
                       // defaultValue={""}
-                      // onChange={(event,value) => console.log("hi :",value)}
+                      onChange={(event, value) =>
+                        setTranslators({
+                          ...translators,
+                          question: value.label,
+                        })
+                      }
                       popupIcon={
                         <MdArrowDropDown
                           style={{ color: "#333333", width: 30, height: 33 }}
@@ -15723,8 +16514,13 @@ const Signup = () => {
                     </div>
 
                     <textarea
-                      // value={}
-                      // onChange={}
+                      value={translators?.answer}
+                      onChange={(e) =>
+                        setTranslators({
+                          ...translators,
+                          answer: e.target.value,
+                        })
+                      }
                       maxLength={150}
                       style={{
                         width: "100%",
@@ -15974,7 +16770,7 @@ const Signup = () => {
                           float: "left",
                           borderBottom: "2px solid #034D82",
                           marginBottom: 10,
-                          width: "68%",
+                          width: "75%",
                         }}
                       >
                         <div
@@ -16027,7 +16823,12 @@ const Signup = () => {
                       autoHighlight
                       getOptionLabel={(option) => option.label}
                       // defaultValue={""}
-                      // onChange={(event,value) => console.log("hi :",value)}
+                      onChange={(event, value) =>
+                        setTranslators({
+                          ...translators,
+                          question: value.label,
+                        })
+                      }
                       popupIcon={
                         <MdArrowDropDown
                           style={{ color: "#333333", width: 30, height: 33 }}
@@ -16067,8 +16868,13 @@ const Signup = () => {
                     </div>
 
                     <textarea
-                      // value={}
-                      // onChange={}
+                      value={translators?.answer}
+                      onChange={(e) =>
+                        setTranslators({
+                          ...translators,
+                          answer: e.target.value,
+                        })
+                      }
                       maxLength={150}
                       style={{
                         width: "100%",
@@ -16371,7 +17177,12 @@ const Signup = () => {
                       autoHighlight
                       getOptionLabel={(option) => option.label}
                       // defaultValue={""}
-                      // onChange={(event,value) => console.log("hi :",value)}
+                      onChange={(event, value) =>
+                        setTranslators({
+                          ...translators,
+                          question: value.label,
+                        })
+                      }
                       popupIcon={
                         <MdArrowDropDown
                           style={{ color: "#333333", width: 30, height: 33 }}
@@ -16411,8 +17222,13 @@ const Signup = () => {
                     </div>
 
                     <textarea
-                      // value={}
-                      // onChange={}
+                      value={translators?.answer}
+                      onChange={(e) =>
+                        setTranslators({
+                          ...translators,
+                          answer: e.target.value,
+                        })
+                      }
                       maxLength={150}
                       style={{
                         width: "100%",

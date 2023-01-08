@@ -14,6 +14,7 @@ import {
 import SearchIcon from "@mui/icons-material/Search";
 
 import Navbars from "../Navbar/navbarHome2.js";
+
 import Article from "../../Images/Article.png";
 import Novel from "../../Images/Novel.png";
 import Submovie from "../../Images/Submovie.png";
@@ -46,27 +47,32 @@ import { IoDocumentText, IoIdCardSharp } from "react-icons/io5";
 import { RiUserSearchFill } from "react-icons/ri";
 import DrawerInHome from "../Drawer/DrawerCustomer";
 // import { fontSize } from "@mui/system";
-
 import { useNavigate, useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function Home2() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const location = useLocation();
-
+  const auth = useSelector((state) => state.auth);
   let Doc = location?.state?.languages;
-  let value = location?.state?.value;
-  // console.log("Doc :", Doc);
-  //   const [value, setValue] = React.useState(4);
+  let value = auth._id;
+
   const [type, setType] = React.useState(1);
   const { innerWidth: width } = window;
-
-  React.useEffect(() => {
+  const goLogin = (x) => {
+    navigate("/Login");
+  };
+  const checklogin = () => {
     if (value) {
       console.log("value :", value);
     } else {
-      navigate("/Login");
+      goLogin();
     }
-  }, [navigate,value]);
+  };
+  React.useEffect(() => {
+    checklogin();
+  });
 
   // function createData(
   //   orderID,
@@ -121,17 +127,25 @@ export default function Home2() {
     <div className="App-body-home2">
       <header className="App-header">
         {Doc === "English" ? (
-          <Navbars navigate={navigate} languages="English" />
+          <Navbars
+            navigate={navigate}
+            dispatch={dispatch}
+            languages="English"
+          />
         ) : Doc === "Thai" ? (
-          <Navbars navigate={navigate} languages="Thai" />
+          <Navbars navigate={navigate} dispatch={dispatch} languages="Thai" />
         ) : Doc === "German" ? (
-          <Navbars navigate={navigate} languages="German" />
+          <Navbars navigate={navigate} dispatch={dispatch} languages="German" />
         ) : (
-          <Navbars navigate={navigate} languages="English" />
+          <Navbars
+            navigate={navigate}
+            dispatch={dispatch}
+            languages="English"
+          />
         )}
       </header>
       <Box sx={{ display: "flex", width: "100% " }}>
-        <DrawerInHome languages={Doc}  value={value}/>
+        <DrawerInHome languages={Doc} value={value} />
         {Doc === "English" ? (
           <>
             <div style={{ marginTop: 60, height: 100 }}>
@@ -269,6 +283,7 @@ export default function Home2() {
                             id: 1,
                             name: `${Translate01EN[1].label}`,
                             languages: `${Doc}`,
+                            value:`${value}`,
                           },
                         })
                       }
@@ -314,6 +329,7 @@ export default function Home2() {
                             id: 1,
                             name: `${Translate01EN[2].label}`,
                             languages: `${Doc}`,
+                            value:`${value}`,
                           },
                         })
                       }
@@ -359,6 +375,7 @@ export default function Home2() {
                             id: 1,
                             name: `${Translate01EN[3].label}`,
                             languages: `${Doc}`,
+                            value:`${value}`,
                           },
                         })
                       }
@@ -404,6 +421,7 @@ export default function Home2() {
                             id: 1,
                             name: `${Translate01EN[4].label}`,
                             languages: `${Doc}`,
+                            value:`${value}`,
                           },
                         })
                       }
@@ -449,6 +467,7 @@ export default function Home2() {
                             id: 1,
                             name: `${Translate01EN[5].label}`,
                             languages: `${Doc}`,
+                            value:`${value}`,
                           },
                         })
                       }
@@ -2086,6 +2105,7 @@ export default function Home2() {
                             id: 1,
                             name: `${Translate01TH[1].label}`,
                             languages: `${Doc}`,
+                            value:`${value}`,
                           },
                         })
                       }
@@ -2131,6 +2151,7 @@ export default function Home2() {
                             id: 1,
                             name: `${Translate01TH[2].label}`,
                             languages: `${Doc}`,
+                            value:`${value}`,
                           },
                         })
                       }
@@ -2176,6 +2197,7 @@ export default function Home2() {
                             id: 1,
                             name: `${Translate01TH[3].label}`,
                             languages: `${Doc}`,
+                            value:`${value}`,
                           },
                         })
                       }
@@ -2221,6 +2243,7 @@ export default function Home2() {
                             id: 1,
                             name: `${Translate01TH[4].label}`,
                             languages: `${Doc}`,
+                            value:`${value}`,
                           },
                         })
                       }
@@ -2266,6 +2289,7 @@ export default function Home2() {
                             id: 1,
                             name: `${Translate01TH[5].label}`,
                             languages: `${Doc}`,
+                            value:`${value}`,
                           },
                         })
                       }
@@ -3903,6 +3927,7 @@ export default function Home2() {
                             id: 1,
                             name: `${Translate01DE[1].label}`,
                             languages: `${Doc}`,
+                            value:`${value}`,
                           },
                         })
                       }
@@ -3948,6 +3973,7 @@ export default function Home2() {
                             id: 1,
                             name: `${Translate01DE[2].label}`,
                             languages: `${Doc}`,
+                            value:`${value}`,
                           },
                         })
                       }
@@ -3993,6 +4019,7 @@ export default function Home2() {
                             id: 1,
                             name: `${Translate01DE[3].label}`,
                             languages: `${Doc}`,
+                            value:`${value}`,
                           },
                         })
                       }
@@ -4038,6 +4065,7 @@ export default function Home2() {
                             id: 1,
                             name: `${Translate01DE[4].label}`,
                             languages: `${Doc}`,
+                            value:`${value}`,
                           },
                         })
                       }
@@ -4083,6 +4111,7 @@ export default function Home2() {
                             id: 1,
                             name: `${Translate01DE[5].label}`,
                             languages: `${Doc}`,
+                            value:`${value}`,
                           },
                         })
                       }
@@ -5720,6 +5749,7 @@ export default function Home2() {
                             id: 1,
                             name: `${Translate01EN[1].label}`,
                             languages: `${Doc}`,
+                            value:`${value}`,
                           },
                         })
                       }
@@ -5765,6 +5795,7 @@ export default function Home2() {
                             id: 1,
                             name: `${Translate01EN[2].label}`,
                             languages: `${Doc}`,
+                            value:`${value}`,
                           },
                         })
                       }
@@ -5810,6 +5841,7 @@ export default function Home2() {
                             id: 1,
                             name: `${Translate01EN[3].label}`,
                             languages: `${Doc}`,
+                            value:`${value}`,
                           },
                         })
                       }
@@ -5855,6 +5887,7 @@ export default function Home2() {
                             id: 1,
                             name: `${Translate01EN[4].label}`,
                             languages: `${Doc}`,
+                            value:`${value}`,
                           },
                         })
                       }
@@ -5900,6 +5933,7 @@ export default function Home2() {
                             id: 1,
                             name: `${Translate01EN[5].label}`,
                             languages: `${Doc}`,
+                            value:`${value}`,
                           },
                         })
                       }

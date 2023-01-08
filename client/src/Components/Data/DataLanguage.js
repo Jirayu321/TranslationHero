@@ -556,6 +556,10 @@ export const REGI02_Box2v01EN = [
   { label: "Next" },
   { label: "Copyrights Give Network 2021." },
   { label: "Privacy policy" },
+  {
+    label:
+      "An example of uploading a picture of your Education/Certificate/Proof",
+  },
 ];
 export const REGI02_Box2v01TH = [
   { label: "กลับ" },
@@ -568,6 +572,9 @@ export const REGI02_Box2v01TH = [
   { label: "ต่อไป" },
   { label: "สงวนลิขสิทธิ์ GIVE Network 2021" },
   { label: "นโยบายความเป็นส่วนตัว" },
+  {
+    label: "ตัวอย่างการอัปโหลดรูปภาพวุฒิการศึกษา/ใบรับรอง/หลักฐาน",
+  },
 ];
 export const REGI02_Box2v01DE = [
   { label: "Zurück" },
@@ -580,6 +587,10 @@ export const REGI02_Box2v01DE = [
   { label: "Weiter" },
   { label: "Urheberrecht GIVE Network 2021" },
   { label: "Datenschutzbestimmungen" },
+  {
+    label:
+      "Ein Beispiel für das Hochladen eines Bildes Ihrer Ausbildung/Ihres Zertifikats/Ihres Nachweises",
+  },
 ];
 
 export const REGI02_Box2v02EN = [
@@ -636,6 +647,7 @@ export const REGI02_Box3v01EN = [
   { label: "Next" },
   { label: "Copyrights Give Network 2021." },
   { label: "Privacy policy" },
+  { label: "An example of uploading a picture of your Portfolio/CV." },
 ];
 export const REGI02_Box3v01TH = [
   { label: "กลับ" },
@@ -648,6 +660,7 @@ export const REGI02_Box3v01TH = [
   { label: "ต่อไป" },
   { label: "สงวนลิขสิทธิ์ GIVE Network 2021" },
   { label: "นโยบายความเป็นส่วนตัว" },
+  { label: "ตัวอย่างการอัพโหลดรูปภาพ ผลงาน/ประวัติการทำงาน ของคุณ" },
 ];
 export const REGI02_Box3v01DE = [
   { label: "Zurück" },
@@ -660,6 +673,10 @@ export const REGI02_Box3v01DE = [
   { label: "Weiter" },
   { label: "Urheberrecht GIVE Network 2021" },
   { label: "Datenschutzbestimmungen" },
+  {
+    label:
+      "Ein Beispiel für das Hochladen eines Bildes Ihres Portfolio/Lebenslaufs.",
+  },
 ];
 
 export const REGI02_Box3v02EN = [

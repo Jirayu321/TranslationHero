@@ -109,7 +109,16 @@
   background: transparent;
   margin-left: 10px;
 }
-
+.icon_accounts {
+  display: inline-flex;
+  font-size: 30px;
+  margin-top: 5px;
+}
+.dropdown-menu[data-bs-popper] {
+  top: 100%;
+  left: -110px;
+  margin-top: 0.125rem;
+}
 .nav-link {
   display: block;
   color: #808080;
@@ -121,4 +130,8 @@
 .nav-link:focus,
 .nav-link:hover {
   color: #808080;
+}
+.avatar {
+  width: 98%;
+  color: #3333;
 }

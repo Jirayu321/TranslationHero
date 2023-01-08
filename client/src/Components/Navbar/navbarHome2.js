@@ -1,14 +1,18 @@
 import * as React from "react";
 import logo from "../../logo.svg";
 import { Navbar, Container, Form, Nav, NavDropdown } from "react-bootstrap";
-import "./Navbar.css";
 import { FaLanguage, FaMapMarkerAlt, FaUserCircle } from "react-icons/fa";
+
+import { logoutUser } from "../../slices/auth";
+import "./Navbar.css";
 
 // import { Avatar } from "@mui/material";
 
 const navbarHome2 = (props) => {
   const navigate = props?.navigate;
   const you = props?.languages;
+  const dispatch = props?.dispatch;
+
   const goHome = (x) => {
     const pathname = window.location.pathname;
     if (pathname === "/In") {
@@ -23,6 +27,8 @@ const navbarHome2 = (props) => {
       navigate("/Notification", { state: { languages: `${x}` } });
     }
   };
+
+
 
   return (
     <Navbar expand="lg" id="navbardb2">
@@ -150,11 +156,28 @@ const navbarHome2 = (props) => {
               </p>
             </div>
 
-            <div className="box4navbarHome2_1" style={{ width: 40 }}>
-              <FaUserCircle
-                alt="avatar"
-                style={{ width: "98%", color: "#3333" }}
-              />
+            <div className="box4navbarHome2_1">
+              <NavDropdown
+                title={
+                  <div className="icon_accounts">
+                    <FaUserCircle alt="avatar" className="avatar" />
+                  </div>
+                }
+                style={{
+                  marginLeft: 10,
+                  color: "#808080",
+                  fontSize: 20,
+                  float: "left",
+                  padding: 0,
+                }}
+              >
+                <NavDropdown.Item
+                  onClick={() => dispatch(logoutUser(null))}
+                  className="Logout"
+                >
+                  Logout
+                </NavDropdown.Item>
+              </NavDropdown>
             </div>
           </Form>
         </Navbar.Collapse>

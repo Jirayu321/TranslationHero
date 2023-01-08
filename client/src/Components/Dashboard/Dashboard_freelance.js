@@ -15,26 +15,32 @@ import {
   // InputBase,
 } from "@mui/material";
 import Drawer from "../Drawer/DrawerTranslate";
-import Navbars from "../Navbar/navbarTanslater";
-import {useNavigate,useLocation } from "react-router-dom";
-
-
-
-
+import Navbars from "../Navbar/navbarHome2.js";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function Dashboard_freelance() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const location = useLocation();
+  const auth = useSelector((state) => state.auth);
   let Doc = location?.state?.languages;
-  let Value = location?.state?.value;
+  // let Value = location?.state?.value;
+  let value = auth._id;
 
-  React.useEffect(() => {
-    if (Value) {
-      console.log("value :", Value);
+  const goLogin = (x) => {
+    navigate("/Login");
+  };
+  const checklogin = () => {
+    if (value) {
+      console.log("value :", value);
     } else {
-      navigate("/Login");
+      goLogin();
     }
-  }, [navigate,Value]);
+  };
+  React.useEffect(() => {
+    checklogin();
+  });
 
   // const [value, setValue] = React.useState(4);
   // const [value2, setValue2] = React.useState(5);
@@ -92,10 +98,26 @@ export default function Dashboard_freelance() {
   return (
     <div className="App-body3">
       <header className="App-header">
-        <Navbars />
+        {Doc === "English" ? (
+          <Navbars
+            navigate={navigate}
+            dispatch={dispatch}
+            languages="English"
+          />
+        ) : Doc === "Thai" ? (
+          <Navbars navigate={navigate} dispatch={dispatch} languages="Thai" />
+        ) : Doc === "German" ? (
+          <Navbars navigate={navigate} dispatch={dispatch} languages="German" />
+        ) : (
+          <Navbars
+            navigate={navigate}
+            dispatch={dispatch}
+            languages="English"
+          />
+        )}
       </header>
       <Box sx={{ display: "flex", width: "100% " }}>
-        <Drawer languages={Doc}  value={Value}/>
+        <Drawer languages={Doc} value={value} />
 
         {/* <Box component="main">
           <div style={{ marginTop: 60, marginLeft: 5 }}>
@@ -300,8 +322,6 @@ export default function Dashboard_freelance() {
             </div>
           </div>
         </Box> */}
-
-        
       </Box>
     </div>
   );
