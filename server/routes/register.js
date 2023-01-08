@@ -1,10 +1,10 @@
-import { Router } from "express";
+import express from 'express';
 import Joi from "joi";
 import bcrypt from "bcrypt";
 import User from "../models/userContenet.js";
 import generateAuthToken from "../utils/generateAuthToken.js";
 
-const router = Router();
+const router = express.Router();
 
 router.post("/", async (req, res) => {
   const schema = Joi.object({
