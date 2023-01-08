@@ -25,8 +25,8 @@ app.use("/api/login", login);
 const uri = process.env.DB_URI;
 const port = process.env.PORT;
 
-app.listen(port, () => {
-  console.log(`Server running on port: ${port}...`);
+app.listen(3001, () => {
+  console.log(`Server running on port: 3001...`);
 });
 
 mongoose
