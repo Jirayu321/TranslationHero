@@ -1,5 +1,5 @@
 import { Router } from "express";
-import Joi from "Joi";
+import Joi from "joi";
 import bcrypt from "bcrypt";
 import User from "../models/userContenet.js";
 import generateAuthToken from "../utils/generateAuthToken.js";
