@@ -14,7 +14,7 @@ import login from "./routes/login.js";
 const uri = "mongodb+srv://Ozone:Jirayu30052@cluster0.ots5oju.mongodb.net/test";
 const port = 3001;
 const key = fs.readFileSync('./private.key');
-const cert = fs.readFile('./certificate.crt');
+const cert = fs.readFileSync('./certificate.crt');
 
 const app = express();
 
