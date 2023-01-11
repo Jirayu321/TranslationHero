@@ -52,9 +52,9 @@ app.get("/:universalURL", (req, res) => {
 app.use("/api/login", login);
 app.use("/api/register", resgister);
 
-// app.listen(port, () => {
-//   console.log(`Server running on port: ${port}...`);
-// });
+app.listen(port, () => {
+  console.log(`Server running on port: ${port}...`);
+});
 
 mongoose
   .connect(uri, {
