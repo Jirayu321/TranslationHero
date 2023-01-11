@@ -42,7 +42,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/.well-known/pki-validation/9A2A261427124EF7C798967C0ACE96BB.txt",(req,res)=>{
-res.sendFile('/home/ec2-user/back/TranslationHero/server/9A2A261427124EF7C798967C0ACE96BB.txt')
+res.sendFile('/home/ubuntu/back/TranslationHero/server/9A2A261427124EF7C798967C0ACE96BB.txt')
 })
 
 app.get("/:universalURL", (req, res) => {
