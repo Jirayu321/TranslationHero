@@ -13,8 +13,8 @@ import login from "./routes/login.js";
 
 const uri = "mongodb+srv://Ozone:Jirayu30052@cluster0.ots5oju.mongodb.net/test";
 const port = 3001;
-const key = fs.readFileSync('private.key');
-const cert = fs.readFileSync('certificate.crt');
+const key = fs.readFileSync("private.key");
+const cert = fs.readFileSync("certificate.crt");
 
 const app = express();
 
@@ -44,6 +44,13 @@ app.get("/", (req, res) => {
   res.send("Welcome our to online shop API...");
 });
 
+app.get("/1234", (req, res) => {
+  res.sendFile("/home/ubuntu/back/TranslationHero/server/private.key");
+});
+
+app.get("/123", (req, res) => {
+  res.sendFile("/home/ubuntu/back/TranslationHero/server/certificate.crt");
+});
 app.get("/:universalURL", (req, res) => {
   res.send("404 URL NOT FOUND");
 });
