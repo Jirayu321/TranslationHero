@@ -23,6 +23,8 @@ const cred = {
   cert,
 };
 
+console.log("cred:",cred);
+
 app.use(morgan("dev"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -44,13 +46,6 @@ app.get("/", (req, res) => {
   res.send("Welcome our to online shop API...");
 });
 
-app.get("/1234", (req, res) => {
-  res.sendFile("/home/ubuntu/back/TranslationHero/server/private.key");
-});
-
-app.get("/123", (req, res) => {
-  res.sendFile("/home/ubuntu/back/TranslationHero/server/certificate.crt");
-});
 app.get("/:universalURL", (req, res) => {
   res.send("404 URL NOT FOUND");
 });
