@@ -18,12 +18,12 @@ const cert = fs.readFileSync("certificate.crt");
 
 const app = express();
 
-const cred = {
+const options = {
   key,
   cert,
 };
 
-console.log("cred:",cred);
+
 
 app.use(morgan("dev"));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -65,6 +65,9 @@ mongoose
   .then(() => console.log("MongoDB connection established..."))
   .catch((error) => console.error("MongoDB connection failed:", error.message));
 
-const httpsServer = https.createServer(cred, app);
+  https.createServer(options, (req, res) => {
+    res.writeHead(200);
+    res.end(`hello world\n`);
+  }).listen(8443);
 
-httpsServer.listen(8443);
+
