@@ -5,7 +5,7 @@ import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import morgan from "morgan";
 
-
+import fs from 'fs'
 
 import resgister from "./routes/register.js";
 import login from "./routes/login.js";
@@ -13,6 +13,7 @@ import login from "./routes/login.js";
 
 const uri = "mongodb+srv://Ozone:Jirayu30052@cluster0.ots5oju.mongodb.net/test";
 const port = 3001;
+const file = fs.readFileSync('./9A2A261427124EF7C798967C0ACE96BB.txt')
 
 const app = express();
 
@@ -39,6 +40,11 @@ app.use((req, res, next) => {
 app.get("/", (req, res) => {
   res.send("Welcome our to online shop API...");
 });
+
+app.get("/.well-known/pki-validation/9A2A261427124EF7C798967C0ACE96BB.txt",(req,res)=>{
+res.sendFile('/home//ec2-user/back/TranslationHero/server/9A2A261427124EF7C798967C0ACE96BB.txt')
+})
+
 app.get("/:universalURL", (req, res) => {
   res.send("404 URL NOT FOUND");
 });
