@@ -1,4 +1,4 @@
-export const url = "https://35.90.225.171:3001/api";
+export const url = "https://54.244.204.59/api";
 
 export const setHeaders = () => {
   const headers = {
