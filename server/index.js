@@ -13,6 +13,7 @@ import login from "./routes/login.js";
 
 const uri = "mongodb+srv://Ozone:Jirayu30052@cluster0.ots5oju.mongodb.net/test";
 const port = 3001;
+
 const key = fs.readFileSync("private.key");
 const cert = fs.readFileSync("certificate.crt");
 
@@ -22,8 +23,6 @@ const options = {
   key,
   cert,
 };
-
-
 
 app.use(morgan("dev"));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -65,9 +64,6 @@ mongoose
   .then(() => console.log("MongoDB connection established..."))
   .catch((error) => console.error("MongoDB connection failed:", error.message));
 
-  https.createServer(options, (req, res) => {
-    res.writeHead(200);
-    res.end(`hello world\n`);
-  }).listen(8443);
-
-
+https.createServer(options, app).listen(8443, function (req, res) {
+  console.log("Server started at port 8443");
+});
