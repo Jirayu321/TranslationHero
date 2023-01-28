@@ -20,15 +20,12 @@ export const registerUser = createAsyncThunk(
   "auth/registerUser",
   async (values, { rejectWithValue }) => {
     try {
-      console.log("values.profilePicture:", values?.profilePicture);
       const token = await axios.post(`${url}/register`, {
         name: values.name,
         email: values.email,
         password: values.password,
         confirmPassword: values.confirmPassword,
         mobilePhone: values.mobilePhone,
-        profilePicture: values.profilePicture,
-        imageURLs: values.imageURLs,
         address: values.address,
         district: values.district,
         province: values.province,
@@ -91,6 +88,60 @@ export const getUser = createAsyncThunk(
       return token.data;
     } catch (error) {
       console.log(error.response);
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const updateOrder = createAsyncThunk(
+  "auth/updateOrder",
+  async (values, { rejectWithValue }) => {
+    try {
+      // console.log("id:", id);
+      console.log("values", values?.id);
+      const token = await axios.patch(`${url}/updateOrder/${values?.id}`, {
+        Date: values.Date,
+        Translator_name: values.Translator_name,
+        Customer_name: values.Customer_name,
+        Job_description: values.Job_description,
+        Customers_will_get: values.Customers_will_get,
+        Deadline: values.Deadline,
+        Number_of_edits: values.Number_of_edits,
+        Price: values.Price,
+        Order_type: values.Order_type,
+        Status: values.Status,
+        Send_to: values.Send_to,
+        Review: values.Review,
+      });
+      return token.data;
+    } catch (error) {
+      console.log(error.response.data);
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const createOrder = createAsyncThunk(
+  "auth/createOrder",
+  async (values, { rejectWithValue }) => {
+    try {
+      const token = await axios.post(`${url}/createOrder`, {
+        Date: values.Date,
+        Translator_name: values.Translator_name,
+        Customer_name: values.Customer_name,
+        Job_description: values.Job_description,
+        Customers_will_get: values.Customers_will_get,
+        Deadline: values.Deadline,
+        Number_of_edits: values.Number_of_edits,
+        Price: values.Price,
+        Order_type: values.Order_type,
+        Status: values.Status,
+        Send_to: values.Send_to,
+        Review: values.Review,
+      });
+      return token.data;
+    } catch (error) {
+      console.log(error.response.data);
       return rejectWithValue(error.response.data);
     }
   }

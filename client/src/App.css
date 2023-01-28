@@ -1,6 +1,7 @@
-.App {
-  /* text-align: center; */
-}
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+/* .App {
+  text-align: center;
+} */
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -83,7 +84,6 @@ p {
   margin-top: 50px;
 }
 
-
 /* CreateNewPassword */
 
 .textCreateNewPassword {
@@ -142,20 +142,6 @@ p {
   padding-bottom: 10px;
 }
 
-#button_icons2 {
-  min-width: 100px;
-  color: #cc9d00;
-  height: 30px;
-  padding-top: 5px;
-  padding-left: 5px;
-  background: #fff3cc;
-  -webkit-text-fill-color: #034d82;
-  border-width: 0px 3px;
-  border-style: solid;
-  border-color: #cc9d00;
-  border-radius: 25px 0px;
-  color: #cc9d00;
-}
 #button_manu2 {
   background: -webkit-linear-gradient(#034d82, #047acf);
   background-clip: text;
@@ -209,6 +195,33 @@ p {
   height: 30px;
   padding-top: 5px;
   padding-left: 5px;
+}
+#icons_translate2 {
+  min-width: 100px;
+  color: #0079cc;
+  height: 30px;
+  padding-top: 5px;
+  padding-left: 5px;
+  background: #cbe9fe;
+  -webkit-text-fill-color: #034d82;
+  border-width: 0px 3px;
+  border-style: solid;
+  border-color: #0079cc;
+  border-radius: 25px 0px;
+}
+#button_icons2 {
+  min-width: 100px;
+  color: #cc9d00;
+  height: 30px;
+  padding-top: 5px;
+  padding-left: 5px;
+  background: #fff3cc;
+  -webkit-text-fill-color: #034d82;
+  border-width: 0px 3px;
+  border-style: solid;
+  border-color: #cc9d00;
+  border-radius: 25px 0px;
+  color: #cc9d00;
 }
 #button_manu_Translate {
   background: -webkit-linear-gradient(#034d82, #047acf);
@@ -460,28 +473,7 @@ p {
   margin: 15px;
   margin-top: 30px;
 }
-.box_num {
-  position: relative;
-  width: 225px;
-  height: 120px;
-  background: #ffffff;
-  border-radius: 6px;
-  text-align: start;
-  padding: 20px;
-  float: left;
-  margin: 13px 5px 5px 13px;
-}
-.box_salary {
-  position: relative;
-  width: 467px;
-  height: 320px;
-  background: #ffffff;
-  border-radius: 6px;
-  text-align: start;
-  padding: 20px;
-  float: left;
-  margin: 13px 6px 5px 13px;
-}
+
 .box_team {
   position: relative;
   width: 951px;
@@ -683,19 +675,8 @@ p {
   line-height: 19px;
   color: #000000;
 }
-#int_count {
-  font-size: 40px;
-  line-height: 42px;
-  color: #000000;
-  position: absolute;
-  left: 120px;
-  top: 55px;
-}
-#img_icons {
-  margin-top: 15px;
-  width: 50px;
-  height: 45px;
-}
+
+
 #month {
   font-weight: 500;
   font-size: 18px;
@@ -787,6 +768,10 @@ p {
   color: #262dbb;
   font-weight: 500;
 }
+.textCustomerH{
+  display: contents;
+}
+
 
 @keyframes App-logo-spin {
   from {

@@ -16,23 +16,7 @@ export default function DrawerInHome(props) {
   const languages = props?.languages;
   const drawerWidth = 100;
   const navigate = useNavigate();
-
   console.log("languages:", languages);
-  const checkValue = props?.value;
-
-  const goLogin = () => {
-    navigate("/Login");
-  };
-  const checklogin = () => {
-    if (checkValue) {
-      console.log("value :", checkValue);
-    } else {
-      goLogin();
-    }
-  };
-  React.useEffect(() => {
-    checklogin();
-  });
 
   return (
     <Drawer
@@ -62,7 +46,7 @@ export default function DrawerInHome(props) {
                           navigate("/In", {
                             state: {
                               languages: `${languages}`,
-                              value: `${checkValue}`,
+                              // value: `${checkValue}`,
                             },
                           })
                         }
@@ -76,7 +60,7 @@ export default function DrawerInHome(props) {
                           navigate("/Matching", {
                             state: {
                               languages: `${languages}`,
-                              value: `${checkValue}`,
+                              // value: `${checkValue}`,
                             },
                           })
                         }
@@ -90,7 +74,7 @@ export default function DrawerInHome(props) {
                           navigate("/Order", {
                             state: {
                               languages: `${languages}`,
-                              value: `${checkValue}`,
+                              // value: `${checkValue}`,
                             },
                           })
                         }
@@ -104,27 +88,26 @@ export default function DrawerInHome(props) {
                           navigate("/Chat", {
                             state: {
                               languages: `${languages}`,
-                              value: `${checkValue}`,
+                              // value: `${checkValue}`,
                             },
                           })
                         }
                       />
                     </ListItemIcon>
                   ) : index === 4 ? (
-                    // <ListItemIcon id={"button_icons"}>
-                    //   <IoNotifications
-                    //     className="icons"
-                    //     onClick={() =>
-                    //       navigate("/Notification", {
-                    //         state: {
-                    //           languages: `${languages}`,
-                    //           value: `${checkValue}`,
-                    //         },
-                    //       })
-                    //     }
-                    //   />
-                    // </ListItemIcon>
-                    <></>
+                    <ListItemIcon id={"button_icons"}>
+                      <IoNotifications
+                        className="icons"
+                        onClick={() =>
+                          navigate("/Notification", {
+                            state: {
+                              languages: `${languages}`,
+                              // value: `${checkValue}`,
+                            },
+                          })
+                        }
+                      />
+                    </ListItemIcon>
                   ) : null}
                 </>
               </ListItem>
@@ -143,7 +126,7 @@ export default function DrawerInHome(props) {
                           navigate("/In", {
                             state: {
                               languages: `${languages}`,
-                              value: `${checkValue}`,
+                              // value: `${checkValue}`,
                             },
                           })
                         }
@@ -157,7 +140,7 @@ export default function DrawerInHome(props) {
                           navigate("/Matching", {
                             state: {
                               languages: `${languages}`,
-                              value: `${checkValue}`,
+                              // value: `${checkValue}`,
                             },
                           })
                         }
@@ -171,7 +154,7 @@ export default function DrawerInHome(props) {
                           navigate("/Order", {
                             state: {
                               languages: `${languages}`,
-                              value: `${checkValue}`,
+                              // value: `${checkValue}`,
                             },
                           })
                         }
@@ -185,27 +168,26 @@ export default function DrawerInHome(props) {
                           navigate("/Chat", {
                             state: {
                               languages: `${languages}`,
-                              value: `${checkValue}`,
+                              // value: `${checkValue}`,
                             },
                           })
                         }
                       />
                     </ListItemIcon>
                   ) : index === 4 ? (
-                    // <ListItemIcon id={"button_icons"}>
-                    //   <IoNotifications
-                    //     className="icons"
-                    //     onClick={() =>
-                    //       navigate("/Notification", {
-                    //         state: {
-                    //           languages: `${languages}`,
-                    //           value: `${checkValue}`,
-                    //         },
-                    //       })
-                    //     }
-                    //   />
-                    // </ListItemIcon>
-                    <></>
+                    <ListItemIcon id={"button_icons"}>
+                      <IoNotifications
+                        className="icons"
+                        onClick={() =>
+                          navigate("/Notification", {
+                            state: {
+                              languages: `${languages}`,
+                              // value: `${checkValue}`,
+                            },
+                          })
+                        }
+                      />
+                    </ListItemIcon>
                   ) : null}
                 </>
               </ListItem>
@@ -224,7 +206,7 @@ export default function DrawerInHome(props) {
                           navigate("/In", {
                             state: {
                               languages: `${languages}`,
-                              value: `${checkValue}`,
+                              // value: `${checkValue}`,
                             },
                           })
                         }
@@ -238,7 +220,7 @@ export default function DrawerInHome(props) {
                           navigate("/Matching", {
                             state: {
                               languages: `${languages}`,
-                              value: `${checkValue}`,
+                              // value: `${checkValue}`,
                             },
                           })
                         }
@@ -252,7 +234,7 @@ export default function DrawerInHome(props) {
                           navigate("/Order", {
                             state: {
                               languages: `${languages}`,
-                              value: `${checkValue}`,
+                              // value: `${checkValue}`,
                             },
                           })
                         }
@@ -266,27 +248,26 @@ export default function DrawerInHome(props) {
                           navigate("/Chat", {
                             state: {
                               languages: `${languages}`,
-                              value: `${checkValue}`,
+                              // value: `${checkValue}`,
                             },
                           })
                         }
                       />
                     </ListItemIcon>
                   ) : index === 4 ? (
-                    // <ListItemIcon id={"button_icons"}>
-                    //   <IoNotifications
-                    //     className="icons"
-                    //     onClick={() =>
-                    //       navigate("/Notification", {
-                    //         state: {
-                    //           languages: `${languages}`,
-                    //           value: `${checkValue}`,
-                    //         },
-                    //       })
-                    //     }
-                    //   />
-                    // </ListItemIcon>
-                    <></>
+                    <ListItemIcon id={"button_icons"}>
+                      <IoNotifications
+                        className="icons"
+                        onClick={() =>
+                          navigate("/Notification", {
+                            state: {
+                              languages: `${languages}`,
+                              // value: `${checkValue}`,
+                            },
+                          })
+                        }
+                      />
+                    </ListItemIcon>
                   ) : null}
                 </>
               </ListItem>
@@ -305,7 +286,7 @@ export default function DrawerInHome(props) {
                           navigate("/In", {
                             state: {
                               languages: `${languages}`,
-                              value: `${checkValue}`,
+                              // value: `${checkValue}`,
                             },
                           })
                         }
@@ -319,7 +300,7 @@ export default function DrawerInHome(props) {
                           navigate("/Matching", {
                             state: {
                               languages: `${languages}`,
-                              value: `${checkValue}`,
+                              // value: `${checkValue}`,
                             },
                           })
                         }
@@ -333,7 +314,7 @@ export default function DrawerInHome(props) {
                           navigate("/Order", {
                             state: {
                               languages: `${languages}`,
-                              value: `${checkValue}`,
+                              // value: `${checkValue}`,
                             },
                           })
                         }
@@ -347,27 +328,26 @@ export default function DrawerInHome(props) {
                           navigate("/Chat", {
                             state: {
                               languages: `${languages}`,
-                              value: `${checkValue}`,
+                              // value: `${checkValue}`,
                             },
                           })
                         }
                       />
                     </ListItemIcon>
                   ) : index === 4 ? (
-                    // <ListItemIcon id={"button_icons"}>
-                    //   <IoNotifications
-                    //     className="icons"
-                    //     onClick={() =>
-                    //       navigate("/Notification", {
-                    //         state: {
-                    //           languages: `${languages}`,
-                    //           value: `${checkValue}`,
-                    //         },
-                    //       })
-                    //     }
-                    //   />
-                    // </ListItemIcon>
-                    <></>
+                    <ListItemIcon id={"button_icons"}>
+                      <IoNotifications
+                        className="icons"
+                        onClick={() =>
+                          navigate("/Notification", {
+                            state: {
+                              languages: `${languages}`,
+                              // value: `${checkValue}`,
+                            },
+                          })
+                        }
+                      />
+                    </ListItemIcon>
                   ) : null}
                 </>
               </ListItem>
@@ -386,7 +366,7 @@ export default function DrawerInHome(props) {
                           navigate("/In", {
                             state: {
                               languages: `${languages}`,
-                              value: `${checkValue}`,
+                              // value: `${checkValue}`,
                             },
                           })
                         }
@@ -400,7 +380,7 @@ export default function DrawerInHome(props) {
                           navigate("/Matching", {
                             state: {
                               languages: `${languages}`,
-                              value: `${checkValue}`,
+                              // value: `${checkValue}`,
                             },
                           })
                         }
@@ -414,7 +394,7 @@ export default function DrawerInHome(props) {
                           navigate("/Order", {
                             state: {
                               languages: `${languages}`,
-                              value: `${checkValue}`,
+                              // value: `${checkValue}`,
                             },
                           })
                         }
@@ -428,7 +408,7 @@ export default function DrawerInHome(props) {
                           navigate("/Chat", {
                             state: {
                               languages: `${languages}`,
-                              value: `${checkValue}`,
+                              // value: `${checkValue}`,
                             },
                           })
                         }
@@ -442,7 +422,7 @@ export default function DrawerInHome(props) {
                           navigate("/Notification", {
                             state: {
                               languages: `${languages}`,
-                              value: `${checkValue}`,
+                              // value: `${checkValue}`,
                             },
                           })
                         }

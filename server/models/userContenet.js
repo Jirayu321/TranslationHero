@@ -6,8 +6,6 @@ const UserSchema = mongoose.Schema({
   password: { type: String, required: true },
   confirmPassword: { type: String, required: false },
   mobilePhone: { type: String, required: false },
-  profilePicture: { type: Array, require: false },
-  imageURLs: { type: Array, require: false },
   address: { type: String, required: false },
   district: { type: String, required: false },
   province: { type: String, required: false },

@@ -23,13 +23,13 @@ const Notificaion = () => {
   let Doc = location?.state?.languages;
   let Value = location?.state?.value;
 
-  React.useEffect(() => {
-    if (Value) {
-      console.log("value :", Value);
-    } else {
-      navigate("/Login");
-    }
-  }, [navigate,Value]);
+  // React.useEffect(() => {
+  //   if (Value) {
+  //     console.log("value :", Value);
+  //   } else {
+  //     navigate("/Login");
+  //   }
+  // }, [navigate,Value]);
   return (
     <div className="App-body-Order">
       <header className="App-header">
@@ -66,7 +66,7 @@ const Notificaion = () => {
                 p: "2px 4px",
                 display: "flex",
                 alignItems: "center",
-                width: 330,
+                width: 410,
                 position: "absolute",
                 left: "70%",
                 top: "13%",
@@ -692,7 +692,7 @@ const Notificaion = () => {
         </Box>
       ) : Doc === "Thai" ? (
         <Box sx={{ display: "flex", width: "100% " }}>
-          <DrawerInHome languages={Doc} />
+           <DrawerInHome languages={Doc}  value={Value}/>
 
           <div style={{ marginTop: 60, height: 100 }}>
             <h4
@@ -713,7 +713,7 @@ const Notificaion = () => {
                 p: "2px 4px",
                 display: "flex",
                 alignItems: "center",
-                width: 330,
+                width: 4100,
                 position: "absolute",
                 left: "70%",
                 top: "13%",
@@ -1339,7 +1339,7 @@ const Notificaion = () => {
         </Box>
       ) : Doc === "German" ? (
         <Box sx={{ display: "flex", width: "100% " }}>
-          <DrawerInHome languages={Doc} />
+           <DrawerInHome languages={Doc}  value={Value}/>
 
           <div style={{ marginTop: 60, height: 100 }}>
             <h4
@@ -1360,7 +1360,7 @@ const Notificaion = () => {
                 p: "2px 4px",
                 display: "flex",
                 alignItems: "center",
-                width: 330,
+                width: 410,
                 position: "absolute",
                 left: "70%",
                 top: "13%",
@@ -1986,7 +1986,7 @@ const Notificaion = () => {
         </Box>
       ) : (
         <Box sx={{ display: "flex", width: "100% " }}>
-          <DrawerInHome languages={Doc} />
+           <DrawerInHome languages={Doc}  value={Value}/>
 
           <div style={{ marginTop: 60, height: 100 }}>
             <h4
@@ -2007,7 +2007,7 @@ const Notificaion = () => {
                 p: "2px 4px",
                 display: "flex",
                 alignItems: "center",
-                width: 330,
+                width: 410,
                 position: "absolute",
                 left: "70%",
                 top: "13%",

@@ -8,13 +8,11 @@ const router = express.Router();
 
 router.post("/", async (req, res) => {
   const schema = Joi.object({
-    name: Joi.string().min(3).max(30).required(),
-    email: Joi.string().min(3).max(200).required().email(),
+    name: Joi.string().required(),
+    email: Joi.string().required().email(),
     password: Joi.string().min(6).required(),
     confirmPassword: Joi.string().min(6).required(),
     mobilePhone: Joi.string().max(10).required(),
-    profilePicture: Joi.array(),
-    imageURLs: Joi.array(),
     address: Joi.string().allow(""),
     district: Joi.string().allow(""),
     province: Joi.string().allow(""),
@@ -48,8 +46,6 @@ router.post("/", async (req, res) => {
       password,
       confirmPassword,
       mobilePhone,
-      profilePicture,
-      imageURLs,
       address,
       district,
       province,
@@ -76,8 +72,8 @@ router.post("/", async (req, res) => {
       password,
       confirmPassword,
       mobilePhone,
-      profilePicture,
-      imageURLs,
+
+      // imageURLs,
       address,
       district,
       province,

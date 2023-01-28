@@ -61,7 +61,7 @@ export default function Home2() {
   const [type, setType] = React.useState(1);
   const { innerWidth: width } = window;
   const goLogin = (x) => {
-    navigate("/Login");
+    // navigate("/Login");
   };
   const checklogin = () => {
     if (value) {
@@ -131,16 +131,28 @@ export default function Home2() {
             navigate={navigate}
             dispatch={dispatch}
             languages="English"
+            value={value}
           />
         ) : Doc === "Thai" ? (
-          <Navbars navigate={navigate} dispatch={dispatch} languages="Thai" />
+          <Navbars
+            navigate={navigate}
+            dispatch={dispatch}
+            languages="Thai"
+            value={value}
+          />
         ) : Doc === "German" ? (
-          <Navbars navigate={navigate} dispatch={dispatch} languages="German" />
+          <Navbars
+            navigate={navigate}
+            dispatch={dispatch}
+            languages="German"
+            value={value}
+          />
         ) : (
           <Navbars
             navigate={navigate}
             dispatch={dispatch}
             languages="English"
+            value={value}
           />
         )}
       </header>
@@ -262,6 +274,7 @@ export default function Home2() {
                       flexDirection: "row",
                       overflowX: "scroll",
                       maxWidth: "90%",
+                      textAlign: "center"
                     }}
                   >
                     <button
@@ -283,7 +296,7 @@ export default function Home2() {
                             id: 1,
                             name: `${Translate01EN[1].label}`,
                             languages: `${Doc}`,
-                            value:`${value}`,
+                            value: `${value}`,
                           },
                         })
                       }
@@ -329,7 +342,7 @@ export default function Home2() {
                             id: 1,
                             name: `${Translate01EN[2].label}`,
                             languages: `${Doc}`,
-                            value:`${value}`,
+                            value: `${value}`,
                           },
                         })
                       }
@@ -375,7 +388,7 @@ export default function Home2() {
                             id: 1,
                             name: `${Translate01EN[3].label}`,
                             languages: `${Doc}`,
-                            value:`${value}`,
+                            value: `${value}`,
                           },
                         })
                       }
@@ -421,7 +434,7 @@ export default function Home2() {
                             id: 1,
                             name: `${Translate01EN[4].label}`,
                             languages: `${Doc}`,
-                            value:`${value}`,
+                            value: `${value}`,
                           },
                         })
                       }
@@ -467,7 +480,7 @@ export default function Home2() {
                             id: 1,
                             name: `${Translate01EN[5].label}`,
                             languages: `${Doc}`,
-                            value:`${value}`,
+                            value: `${value}`,
                           },
                         })
                       }
@@ -914,6 +927,7 @@ export default function Home2() {
                       flexDirection: "row",
                       overflowX: "scroll",
                       maxWidth: "90%",
+                      textAlign: "center"
                     }}
                   >
                     <div
@@ -2084,6 +2098,7 @@ export default function Home2() {
                       flexDirection: "row",
                       overflowX: "scroll",
                       maxWidth: "90%",
+                      textAlign: "center"
                     }}
                   >
                     <button
@@ -2105,7 +2120,7 @@ export default function Home2() {
                             id: 1,
                             name: `${Translate01TH[1].label}`,
                             languages: `${Doc}`,
-                            value:`${value}`,
+                            value: `${value}`,
                           },
                         })
                       }
@@ -2151,7 +2166,7 @@ export default function Home2() {
                             id: 1,
                             name: `${Translate01TH[2].label}`,
                             languages: `${Doc}`,
-                            value:`${value}`,
+                            value: `${value}`,
                           },
                         })
                       }
@@ -2197,7 +2212,7 @@ export default function Home2() {
                             id: 1,
                             name: `${Translate01TH[3].label}`,
                             languages: `${Doc}`,
-                            value:`${value}`,
+                            value: `${value}`,
                           },
                         })
                       }
@@ -2243,7 +2258,7 @@ export default function Home2() {
                             id: 1,
                             name: `${Translate01TH[4].label}`,
                             languages: `${Doc}`,
-                            value:`${value}`,
+                            value: `${value}`,
                           },
                         })
                       }
@@ -2289,7 +2304,7 @@ export default function Home2() {
                             id: 1,
                             name: `${Translate01TH[5].label}`,
                             languages: `${Doc}`,
-                            value:`${value}`,
+                            value: `${value}`,
                           },
                         })
                       }
@@ -2736,6 +2751,7 @@ export default function Home2() {
                       flexDirection: "row",
                       overflowX: "scroll",
                       maxWidth: "90%",
+                      textAlign: "center"
                     }}
                   >
                     <div
@@ -3906,6 +3922,7 @@ export default function Home2() {
                       flexDirection: "row",
                       overflowX: "scroll",
                       maxWidth: "90%",
+                      textAlign: "center"
                     }}
                   >
                     <button
@@ -3927,7 +3944,7 @@ export default function Home2() {
                             id: 1,
                             name: `${Translate01DE[1].label}`,
                             languages: `${Doc}`,
-                            value:`${value}`,
+                            value: `${value}`,
                           },
                         })
                       }
@@ -3973,7 +3990,7 @@ export default function Home2() {
                             id: 1,
                             name: `${Translate01DE[2].label}`,
                             languages: `${Doc}`,
-                            value:`${value}`,
+                            value: `${value}`,
                           },
                         })
                       }
@@ -4019,7 +4036,7 @@ export default function Home2() {
                             id: 1,
                             name: `${Translate01DE[3].label}`,
                             languages: `${Doc}`,
-                            value:`${value}`,
+                            value: `${value}`,
                           },
                         })
                       }
@@ -4065,7 +4082,7 @@ export default function Home2() {
                             id: 1,
                             name: `${Translate01DE[4].label}`,
                             languages: `${Doc}`,
-                            value:`${value}`,
+                            value: `${value}`,
                           },
                         })
                       }
@@ -4111,7 +4128,7 @@ export default function Home2() {
                             id: 1,
                             name: `${Translate01DE[5].label}`,
                             languages: `${Doc}`,
-                            value:`${value}`,
+                            value: `${value}`,
                           },
                         })
                       }
@@ -4558,6 +4575,7 @@ export default function Home2() {
                       flexDirection: "row",
                       overflowX: "scroll",
                       maxWidth: "90%",
+                      textAlign: "center"
                     }}
                   >
                     <div
@@ -5728,6 +5746,7 @@ export default function Home2() {
                       flexDirection: "row",
                       overflowX: "scroll",
                       maxWidth: "90%",
+                      textAlign: "center"
                     }}
                   >
                     <button
@@ -5749,7 +5768,7 @@ export default function Home2() {
                             id: 1,
                             name: `${Translate01EN[1].label}`,
                             languages: `${Doc}`,
-                            value:`${value}`,
+                            value: `${value}`,
                           },
                         })
                       }
@@ -5795,7 +5814,7 @@ export default function Home2() {
                             id: 1,
                             name: `${Translate01EN[2].label}`,
                             languages: `${Doc}`,
-                            value:`${value}`,
+                            value: `${value}`,
                           },
                         })
                       }
@@ -5841,7 +5860,7 @@ export default function Home2() {
                             id: 1,
                             name: `${Translate01EN[3].label}`,
                             languages: `${Doc}`,
-                            value:`${value}`,
+                            value: `${value}`,
                           },
                         })
                       }
@@ -5887,7 +5906,7 @@ export default function Home2() {
                             id: 1,
                             name: `${Translate01EN[4].label}`,
                             languages: `${Doc}`,
-                            value:`${value}`,
+                            value: `${value}`,
                           },
                         })
                       }
@@ -5933,7 +5952,7 @@ export default function Home2() {
                             id: 1,
                             name: `${Translate01EN[5].label}`,
                             languages: `${Doc}`,
-                            value:`${value}`,
+                            value: `${value}`,
                           },
                         })
                       }
@@ -6380,6 +6399,7 @@ export default function Home2() {
                       flexDirection: "row",
                       overflowX: "scroll",
                       maxWidth: "90%",
+                      textAlign: "center"
                     }}
                   >
                     <div

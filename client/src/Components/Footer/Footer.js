@@ -1,6 +1,5 @@
 import * as React from "react";
-import { data} from "../Data/data";
-import "./Footer.css";
+import { data } from "../Data/data";
 import { TextField, Autocomplete, Box } from "@mui/material";
 import { MdArrowDropDown } from "react-icons/md";
 import { FaFacebookF, FaLinkedinIn } from "react-icons/fa";
@@ -14,9 +13,11 @@ import logo from "../../logo.svg";
 
 import { useNavigate } from "react-router-dom";
 import { FooterEN, FooterDE, FooterTH } from "../Data/DataLanguage";
+import "./Footer.css";
+
 const Footer = (props) => {
   const navigate = useNavigate();
-  
+
   let languages = props?.v;
   let pathname = window.location.pathname;
   console.log(pathname);
@@ -64,7 +65,7 @@ const Footer = (props) => {
         <>
           <div className="ContentFooter">
             <img src={logo} alt="logo" style={{ width: 160, float: "left" }} />
-            <div style={{ float: "left", marginLeft: 100 }}>
+            <div style={{ float: "left" }}>
               <p className="textFooter1">{FooterEN[0].label}</p>
               <p className="textFooter1">{FooterEN[1].label}</p>
               <p className="textFooter1">{FooterEN[2].label}</p>
@@ -86,7 +87,7 @@ const Footer = (props) => {
               </div>
             </div>
 
-            <div style={{ float: "left", marginLeft: 10 }}>
+            <div style={{ float: "left" }}>
               <Autocomplete
                 id="country-select-demo"
                 sx={{ width: 200, background: "#ffff" }}
@@ -126,7 +127,7 @@ const Footer = (props) => {
               <p className="textFooter1">{FooterEN[5].label}</p>
             </div>
 
-            <div style={{ float: "left", marginLeft: 150 }}>
+            <div style={{ float: "left" }}>
               <p className="textFooter1">{FooterEN[6].label}</p>
 
               <p className="textFooter2">
@@ -193,7 +194,7 @@ const Footer = (props) => {
         <>
           <div className="ContentFooter">
             <img src={logo} alt="logo" style={{ width: 160, float: "left" }} />
-            <div style={{ float: "left", marginLeft: 100 }}>
+            <div style={{ float: "left" }}>
               <p className="textFooter1">{FooterTH[0].label}</p>
               <p className="textFooter1">{FooterTH[1].label}</p>
               <p className="textFooter1">{FooterTH[2].label}</p>
@@ -215,7 +216,7 @@ const Footer = (props) => {
               </div>
             </div>
 
-            <div style={{ float: "left", marginLeft: 10 }}>
+            <div style={{ float: "left" }}>
               <Autocomplete
                 id="country-select-demo"
                 sx={{ width: 200, background: "#ffff" }}
@@ -255,7 +256,7 @@ const Footer = (props) => {
               <p className="textFooter1">{FooterTH[5].label}</p>
             </div>
 
-            <div style={{ float: "left", marginLeft: 150 }}>
+            <div style={{ float: "left" }}>
               <p className="textFooter1">{FooterTH[6].label}</p>
 
               <p className="textFooter2">
@@ -314,7 +315,7 @@ const Footer = (props) => {
           </div>
 
           <div className="ContentFooter2">
-            <p className="textFooter3" style={{ marginLeft: "15%" }}>
+            <p className="textFooter3">
               {FooterTH[9].label}.
             </p>
             <p className="textFooter4">{FooterTH[5].label}</p>
@@ -323,8 +324,13 @@ const Footer = (props) => {
       ) : languages === "German" ? (
         <>
           <div className="ContentFooter">
-            <img src={logo} alt="logo" style={{ width: 160, float: "left" }} />
-            <div style={{ float: "left", marginLeft: 100 }}>
+            <img
+              src={logo}
+              alt="logo"
+              className="logo"
+              style={{ width: 160, float: "left" }}
+            />
+            <div style={{ float: "left" }}>
               <p className="textFooter1">{FooterDE[0].label}</p>
               <p className="textFooter1">{FooterDE[1].label}</p>
               <p className="textFooter1">{FooterDE[2].label}</p>
@@ -346,7 +352,7 @@ const Footer = (props) => {
               </div>
             </div>
 
-            <div style={{ float: "left", marginLeft: 10 }}>
+            <div style={{ float: "left" }}>
               <Autocomplete
                 id="country-select-demo"
                 sx={{ width: 200, background: "#ffff" }}
@@ -386,7 +392,7 @@ const Footer = (props) => {
               <p className="textFooter1">{FooterDE[5].label}</p>
             </div>
 
-            <div style={{ float: "left", marginLeft: 77 }}>
+            <div style={{ float: "left" }}>
               <p className="textFooter1">{FooterDE[6].label}</p>
 
               <p className="textFooter2">
@@ -452,8 +458,13 @@ const Footer = (props) => {
       ) : (
         <>
           <div className="ContentFooter">
-            <img src={logo} alt="logo" style={{ width: 160, float: "left" }} />
-            <div style={{ float: "left", marginLeft: 100 }}>
+            <img
+              src={logo}
+              alt="logo"
+              className="logo"
+              style={{ width: 160, float: "left" }}
+            />
+            <div style={{ float: "left" }}>
               <p className="textFooter1">{FooterEN[0].label}</p>
               <p className="textFooter1">{FooterEN[1].label}</p>
               <p className="textFooter1">{FooterEN[2].label}</p>
@@ -475,7 +486,7 @@ const Footer = (props) => {
               </div>
             </div>
 
-            <div style={{ float: "left", marginLeft: 10 }}>
+            <div style={{ float: "left" }}>
               <Autocomplete
                 id="country-select-demo"
                 sx={{ width: 200, background: "#ffff" }}
@@ -515,7 +526,7 @@ const Footer = (props) => {
               <p className="textFooter1">{FooterEN[5].label}</p>
             </div>
 
-            <div style={{ float: "left", marginLeft: 150 }}>
+            <div style={{ float: "left" }}>
               <p className="textFooter1">{FooterEN[6].label}</p>
 
               <p className="textFooter2">

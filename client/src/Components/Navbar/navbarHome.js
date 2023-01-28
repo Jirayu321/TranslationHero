@@ -1,9 +1,9 @@
 import * as React from "react";
 import logo from "../../logo.svg";
-import "./Navbar.css";
 import { Navbar, Container, Nav } from "react-bootstrap";
 import { overviewEN, overviewTH, overviewDE } from "../Data/DataLanguage";
 // import { Link } from "react-router-dom";
+import "./Navbar.css";
 
 const navbarHome = (props) => {
   // const { innerWidth: width } = window;
@@ -43,7 +43,7 @@ const navbarHome = (props) => {
         <Navbar.Collapse id="navbarScroll">
           {you === "English" ? (
             <>
-              <div className="dd" style={{ left: "30%" }}>
+              <div className="dd">
                 <div className="NavLi">
                   <p
                     style={{ fontWeight: "bold", fontSize: 24, lineHeight: 28 }}
@@ -113,7 +113,7 @@ const navbarHome = (props) => {
                 )}
               </div>
 
-              <div className="dd" style={{ left: "86%" }}>
+              <div className="dd2" >
                 <button
                   className="buttonLogin"
                   onClick={() => gologin("English")}
@@ -133,7 +133,7 @@ const navbarHome = (props) => {
             </>
           ) : you === "German" ? (
             <>
-              <div className="dd" style={{ left: "30%" }}>
+              <div className="dd" >
                 <div className="NavLi">
                   <p
                     style={{ fontWeight: "bold", fontSize: 24, lineHeight: 28 }}
@@ -203,7 +203,7 @@ const navbarHome = (props) => {
                 )}
               </div>
 
-              <div className="dd" style={{ left: "86%" }}>
+              <div className="dd2" >
                 <button
                   className="buttonLogin"
                   onClick={() => gologin("German")}
@@ -223,7 +223,7 @@ const navbarHome = (props) => {
             </>
           ) : you === "Thai" ? (
             <>
-              <div className="dd" style={{ left: "30%" }}>
+              <div className="dd" >
                 <div className="NavLi">
                   <p
                     style={{ fontWeight: "bold", fontSize: 24, lineHeight: 28 }}
@@ -293,7 +293,7 @@ const navbarHome = (props) => {
                 )}
               </div>
 
-              <div className="dd" style={{ left: "86%" }}>
+              <div className="dd2" >
                 <button className="buttonLogin" onClick={() => gologin("Thai")}>
                   <p
                     style={{
@@ -380,7 +380,7 @@ const navbarHome = (props) => {
                 )}
               </div>
 
-              <div className="dd" style={{ left: "86%" }}>
+              <div className="dd2" >
                 <button
                   className="buttonLogin"
                   onClick={() => gologin("English")}

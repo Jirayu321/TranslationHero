@@ -120,7 +120,7 @@ const Customer = () => {
               style={{
                 textAlign: "center",
                 justifyItems: "center",
-                width: 1100,
+                // width: 1100,
                 display: "inline-grid",
                 marginTop: 50,
               }}
@@ -136,7 +136,7 @@ const Customer = () => {
                   {CustomerEN[0].label}
                 </p>
               </div>
-              <div>
+              <div className="textCustomerH">
                 <p style={{ fontSize: 23, color: "#444444" }}>
                   {CustomerEN[1].label}
                 </p>
@@ -872,7 +872,7 @@ const Customer = () => {
               style={{
                 textAlign: "center",
                 justifyItems: "center",
-                width: 1100,
+                // width: 1100,
                 display: "inline-grid",
                 marginTop: 50,
               }}
@@ -888,7 +888,7 @@ const Customer = () => {
                   {CustomerDE[0].label}
                 </p>
               </div>
-              <div>
+              <div className="textCustomerH">
                 <p style={{ fontSize: 23, color: "#444444" }}>
                   {CustomerDE[1].label}
                 </p>
@@ -1622,7 +1622,7 @@ const Customer = () => {
               style={{
                 textAlign: "center",
                 justifyItems: "center",
-                width: 1100,
+                // width: 1100,
                 display: "inline-grid",
                 marginTop: 50,
               }}
@@ -1638,7 +1638,7 @@ const Customer = () => {
                   {CustomerTH[0].label}
                 </p>
               </div>
-              <div>
+              <div className="textCustomerH">
                 <p style={{ fontSize: 23, color: "#444444" }}>
                   {CustomerTH[1].label}
                 </p>
@@ -2371,7 +2371,7 @@ const Customer = () => {
               style={{
                 textAlign: "center",
                 justifyItems: "center",
-                width: 1100,
+                // width: 1100,
                 display: "inline-grid",
                 marginTop: 50,
               }}
@@ -2387,7 +2387,7 @@ const Customer = () => {
                   {CustomerEN[0].label}
                 </p>
               </div>
-              <div>
+              <div className="textCustomerH">
                 <p style={{ fontSize: 23, color: "#444444" }}>
                   {CustomerEN[1].label}
                 </p>

@@ -110,8 +110,6 @@ const Signup = () => {
     password: "",
     confirmPassword: "",
     mobilePhone: "",
-    profilePicture: images,
-    imageURLs: imageURLs,
     address: "",
     district: "",
     province: "",
@@ -119,15 +117,13 @@ const Signup = () => {
     postalCode: "",
     type: "",
   });
-  
+
   const [translators, setTranslators] = React.useState({
     name: "",
     email: "",
     password: "",
     confirmPassword: "",
     mobilePhone: "",
-    profilePicture: images,
-    imageURLs: imageURLs,
     companyName: "",
     juristicPersonNumber: "",
     website: "",
@@ -151,7 +147,7 @@ const Signup = () => {
     question: "",
     type: "",
   });
-
+  console.log("", translators?.languages);
   // const [email, setEmail] = React.useState("");
   // const [password, setPassword] = React.useState("");
 
@@ -13467,7 +13463,7 @@ const Signup = () => {
                             pb: 3,
                           }}
                         >
-                          <img src={example14} width="100%" alt="example14" />
+                          <img src={example14} width="80%" alt="example14" />
                         </Box>
                       </Modal>
                     </div>
@@ -13491,11 +13487,11 @@ const Signup = () => {
                         sx={{ width: "100%" }}
                         options={data}
                         autoHighlight
-                        getOptionLabel={(option) => option.label}
+                        // แก้ตรงนี้นะ
                         onChange={(event, value) =>
                           setTranslators({
                             ...translators,
-                            languages: value?.label,
+                            languages: value,
                           })
                         }
                         popupIcon={
@@ -13908,7 +13904,7 @@ const Signup = () => {
                             pb: 3,
                           }}
                         >
-                          <img src={example14} width="100%" alt="example14" />
+                          <img src={example14} width="80%" alt="example14" />
                         </Box>
                       </Modal>
                     </div>
@@ -13933,7 +13929,7 @@ const Signup = () => {
                         options={data}
                         autoHighlight
                         getOptionLabel={(option) => option.label}
-                        onChange={(event, value) =>
+                        onChange={(value) =>
                           setTranslators({
                             ...translators,
                             languages: value?.label,
@@ -14349,7 +14345,7 @@ const Signup = () => {
                             pb: 3,
                           }}
                         >
-                          <img src={example14} width="100%" alt="example14" />
+                          <img src={example14} width="80%" alt="example14" />
                         </Box>
                       </Modal>
                     </div>
@@ -14790,7 +14786,7 @@ const Signup = () => {
                             pb: 3,
                           }}
                         >
-                          <img src={example14} width="100%" alt="example14" />
+                          <img src={example14} width="80%" alt="example14" />
                         </Box>
                       </Modal>
                     </div>
@@ -15145,7 +15141,7 @@ const Signup = () => {
                       onChange={(event, value) =>
                         setTranslators({
                           ...translators,
-                          languages: value.label,
+                          languages: value,
                         })
                       }
                       popupIcon={
@@ -15196,7 +15192,7 @@ const Signup = () => {
                       onChange={(event, value) =>
                         setTranslators({
                           ...translators,
-                          documents: value.label,
+                          documents: value,
                         })
                       }
                       popupIcon={
@@ -15387,7 +15383,7 @@ const Signup = () => {
                       onChange={(event, value) =>
                         setTranslators({
                           ...translators,
-                          languages: value.label,
+                          languages: value,
                         })
                       }
                       popupIcon={
@@ -15438,7 +15434,7 @@ const Signup = () => {
                       onChange={(event, value) =>
                         setTranslators({
                           ...translators,
-                          documents: value.label,
+                          documents: value,
                         })
                       }
                       popupIcon={
@@ -15629,7 +15625,7 @@ const Signup = () => {
                       onChange={(event, value) =>
                         setTranslators({
                           ...translators,
-                          languages: value.label,
+                          languages: value,
                         })
                       }
                       popupIcon={
@@ -15680,7 +15676,7 @@ const Signup = () => {
                       onChange={(event, value) =>
                         setTranslators({
                           ...translators,
-                          documents: value.label,
+                          documents: value,
                         })
                       }
                       popupIcon={
@@ -15871,7 +15867,7 @@ const Signup = () => {
                       onChange={(event, value) =>
                         setTranslators({
                           ...translators,
-                          languages: value.label,
+                          languages: value,
                         })
                       }
                       popupIcon={
@@ -15922,7 +15918,7 @@ const Signup = () => {
                       onChange={(event, value) =>
                         setTranslators({
                           ...translators,
-                          documents: value.label,
+                          documents: value,
                         })
                       }
                       popupIcon={
@@ -16118,7 +16114,7 @@ const Signup = () => {
                       onChange={(event, value) =>
                         setTranslators({
                           ...translators,
-                          question: value.label,
+                          question: value,
                         })
                       }
                       popupIcon={
@@ -16472,7 +16468,7 @@ const Signup = () => {
                       onChange={(event, value) =>
                         setTranslators({
                           ...translators,
-                          question: value.label,
+                          question: value,
                         })
                       }
                       popupIcon={
@@ -16826,7 +16822,7 @@ const Signup = () => {
                       onChange={(event, value) =>
                         setTranslators({
                           ...translators,
-                          question: value.label,
+                          question: value,
                         })
                       }
                       popupIcon={
@@ -17180,7 +17176,7 @@ const Signup = () => {
                       onChange={(event, value) =>
                         setTranslators({
                           ...translators,
-                          question: value.label,
+                          question: value,
                         })
                       }
                       popupIcon={

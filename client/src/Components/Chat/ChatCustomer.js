@@ -38,14 +38,25 @@ import {
 import { useNavigate, useLocation } from "react-router-dom";
 import { PaymentEN, PaymentDE, PaymentTH } from "../Data/DataLanguage";
 
+//test
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import { createOrder } from "../../slices/auth";
+import moment from "moment";
+
 // const drawerWidth = 100;
 export default function Chat() {
+  const dispatch = useDispatch();
+  const auth = useSelector((state) => state.auth);
+
   const [createQ, setCreateQ] = React.useState(false);
   const [payOpen, setPayOpen] = React.useState(false);
   const [scanQR, setScanQR] = React.useState(false);
   const [step, setStep] = React.useState(0);
 
-  const [date, setDate] = React.useState(new Date());
+  const [data, setData] = React.useState([]);
+  const [openChat, setOpenChat] = React.useState("");
+
   const [translatorname, setTranslatorname] = React.useState("");
   const [customername, setCustomername] = React.useState("");
   const [jobdescription, setJobdescription] = React.useState("");
@@ -56,24 +67,44 @@ export default function Chat() {
   const [customerswillget, setCustomerswillget] = React.useState("");
   const [numberofedits, setNumberofedits] = React.useState("");
 
+  const [order, setOrder] = React.useState({
+    Date: "",
+    Translator_name: "",
+    Customer_name: "",
+    Customers_will_get: "",
+    Job_description: "",
+    Deadline: "",
+    Number_of_edits: "",
+    Price: "",
+    Status: "",
+    Send_to: "",
+    Review: "",
+  });
+
   const navigate = useNavigate();
   const location = useLocation();
   let Doc = location?.state?.languages;
-  let Value = location?.state?.value;
+  let Doc2 = location?.state?.name;
+  console.log(Doc2);
+  let Value = auth?.token;
 
   React.useEffect(() => {
     if (Value) {
       console.log("value :", Value);
-    } else {
-      navigate("/Login");
     }
-  }, [navigate,Value]);
+    // else {
+    //   navigate("/Login");
+    // }
+  }, [Value]);
+
   const handleClose = () => {
     setCreateQ(false);
     setPayOpen(false);
     setScanQR(false);
   };
+
   const Pay_Open = () => {
+    dispatch(createOrder(order));
     setPayOpen(true);
     setStep(1);
     setCreateQ(false);
@@ -93,23 +124,93 @@ export default function Chat() {
     setScanQR(false);
   };
 
-  const Create_Quotation = () => setCreateQ(true);
+  const Create_Quotation = () => {
+    // dispatch(getOrder());
+    setCreateQ(true);
+  };
+
+  const name = { Customer_name: auth?.name };
+  const url = "http://localhost:3001/api";
+
+  const setDataOrder = (i) => {
+    console.log(i);
+    const Day_List = i?.map((item, index) => {
+      try {
+        const formattedDate = moment(item?.Date).calendar();
+        let formattedDate2 = moment(item?.Deadline).format('ll');
+        return {
+          id: item?._id,
+          orderID: index,
+          Translator_name: item?.Translator_name,
+          orderedDate: formattedDate,
+          Status: item?.Status,
+          Price: item?.Price,
+          Deadline: formattedDate2,
+        };
+      } catch (e) {
+        console.error(e);
+        return null;
+      }
+    });
+    setData(Day_List);
+  };
+
+  const getOrder = async (values) => {
+    try {
+      const token = await axios.get(`${url}/getOrder`, {
+        params: { Customer_name: values?.Customer_name },
+      });
+      await console.log(token?.data);
+
+      setDataOrder(token?.data);
+    } catch (error) {
+      if (error.response && error.response.status === 404) {
+        throw new Error("Translator not found");
+      } else if (error.response && error.response.status === 500) {
+        throw new Error("Internal server error");
+      } else if (error.response && error.response.status === 400) {
+        throw new Error("Bad request");
+      } else {
+        throw new Error("Something went wrong");
+      }
+      // return rejectWithValue(error.response.data);
+      // console.log(error.response);
+    }
+  };
+
+  React.useEffect(() => {
+    if (Value) {
+      console.log("value :", Value);
+    } else {
+      navigate("/Login");
+    }
+
+    getOrder(name);
+  }, []);
 
   return (
     <div className="App-body">
       <header className="App-header">
         {Doc === "English" ? (
-          <Navbars navigate={navigate} languages="English" />
+          <Navbars
+            navigate={navigate}
+            languages="English"
+            dispatch={dispatch}
+          />
         ) : Doc === "Thai" ? (
-          <Navbars navigate={navigate} languages="Thai" />
+          <Navbars navigate={navigate} languages="Thai" dispatch={dispatch} />
         ) : Doc === "German" ? (
-          <Navbars navigate={navigate} languages="German" />
+          <Navbars navigate={navigate} languages="German" dispatch={dispatch} />
         ) : (
-          <Navbars navigate={navigate} languages="English" />
+          <Navbars
+            navigate={navigate}
+            languages="English"
+            dispatch={dispatch}
+          />
         )}
       </header>
       <Box sx={{ display: "flex", width: "100% " }}>
-        <DrawerInHome languages={Doc} value={Value}/>
+        <DrawerInHome languages={Doc} value={Value} />
         <>
           <Box component="main">
             <div
@@ -117,9 +218,10 @@ export default function Chat() {
                 width: 300,
                 position: "fixed",
                 height: "-webkit-fill-available",
+                borderRight: "1px solid rgba(0, 0, 0, 0.12)",
               }}
             >
-              <div style={{ position: "absolute", top: 65, left: 25 }}>
+              <div style={{ position: "absolute", top: 15, left: 25 }}>
                 <p style={{ color: "#353535", fontSize: 30, fontWeight: 700 }}>
                   Chat
                 </p>
@@ -131,7 +233,6 @@ export default function Chat() {
                     display: "flex",
                     alignItems: "center",
                     width: 250,
-                    position: "absolute",
                     borderRadius: 3,
                     backgroundColor: "#FFFFF",
                     boxShadow: "none",
@@ -153,179 +254,125 @@ export default function Chat() {
                   />
                 </Paper>
 
-                {/* <div
+                <div
                   style={{
-                    position: "relative",
-                    top: 100,
                     color: "#353535",
                     fontWeight: 500,
                     fontSize: 18,
                   }}
                 >
-                  <div
-                    style={{
-                      background: "#E6F2FA",
-                      position: "absolute",
-                      width: 250,
-                      borderRadius: 12,
-                      padding: 7,
-                    }}
-                  >
-                    <div style={{ float: "left" }}>
-                      <FaUserCircle
-                        alt="avatar"
-                        style={{
-                          width: 35,
-                          height: "auto",
-                          margin: 10,
-                          display: "block",
-                          color: "#3333",
-                        }}
-                      />
-                    </div>
-                    <div style={{ float: "left", paddingTop: 7 }}>
-                      <p>Ozone Black</p>
-                    </div>
-                    <div style={{ float: "left" }}>
-                      <p
-                        style={{
-                          color: "#808080",
-                          fontWeight: 0,
-                          fontSize: 12,
-                          marginLeft: 15,
-                        }}
-                      >
-                        2:08 PM
-                      </p>
-                    </div>
-                    <div
+                  {data.map((i) => (
+                    <button
                       style={{
-                        position: "relative",
-                        right: 30,
-                        paddingTop: 40,
+                        background: "#FFFFFF",
+                        width: 250,
+                        borderRadius: 12,
+                        padding: 7,
+                        border: "1px #E5E5E5 solid",
+                        marginTop: 15,
                       }}
+                      key={i.id}
+                      onClick={() => setOpenChat(i)}
                     >
-                      <p
+                      <div style={{ float: "left" }}>
+                        <FaUserCircle
+                          alt="avatar"
+                          style={{
+                            width: 35,
+                            height: "auto",
+                            margin: 10,
+                            display: "block",
+                            color: "#3333",
+                          }}
+                        />
+                      </div>
+                      <div style={{ float: "left", paddingTop: 7 }}>
+                        <p>{i?.Translator_name}</p>
+                      </div>
+                      <div style={{ textAlign: "end" }}>
+                        <p
+                          style={{
+                            color: "#808080",
+                            fontWeight: 0,
+                            fontSize: 12,
+                            marginLeft: 15,
+                          }}
+                        >
+                          {i?.orderedDate}
+                        </p>
+                      </div>
+                      <div
                         style={{
-                          color: "#808080",
-                          fontWeight: 0,
-                          fontSize: 15,
-                          margin: 10,
+                          position: "relative",
+                          right: 50,
+                          paddingTop: 15,
                         }}
                       >
-                        You : I want to ...
-                      </p>
-                    </div>
-                  </div>
-
-                  <div
-                    style={{
-                      background: "#FFFFFF",
-                      position: "absolute",
-                      width: 250,
-                      borderRadius: 12,
-                      padding: 7,
-                      top: 115,
-                      border: "1px #E5E5E5 solid",
-                    }}
-                  >
-                    <div style={{ float: "left" }}>
-                      <FaUserCircle
-                        alt="avatar"
-                        style={{
-                          width: 35,
-                          height: "auto",
-                          margin: 10,
-                          display: "block",
-                          color: "#3333",
-                        }}
-                      />
-                    </div>
-                    <div style={{ float: "left", paddingTop: 7 }}>
-                      <p>Michael Lee</p>
-                    </div>
-                    <div style={{ float: "left" }}>
-                      <p
-                        style={{
-                          color: "#808080",
-                          fontWeight: 0,
-                          fontSize: 12,
-                          marginLeft: 15,
-                        }}
-                      >
-                        1:08 PM
-                      </p>
-                    </div>
-                    <div
-                      style={{
-                        position: "relative",
-                        right: 30,
-                        paddingTop: 40,
-                      }}
-                    >
-                      <p
-                        style={{
-                          color: "#808080",
-                          fontWeight: 0,
-                          fontSize: 15,
-                          margin: 10,
-                        }}
-                      >
-                        You : I want to ...
-                      </p>
-                    </div>
-                  </div>
-                </div> */}
+                        <p
+                          style={{
+                            color: "#808080",
+                            fontWeight: 0,
+                            fontSize: 15,
+                          }}
+                        >
+                          You : I want to ...
+                        </p>
+                      </div>
+                    </button>
+                  ))}
+                </div>
               </div>
             </div>
-
-            <div
-              style={{
-                width: "52%",
-                position: "fixed",
-                height: "-webkit-fill-available",
-                background: "#FFFFFF",
-                left: 400,
-                border: "1px #e5e5e5 solid",
-              }}
-            >
+            {openChat === "" ? (
+              <></>
+            ) : (
               <div
                 style={{
-                  width: "inherit",
+                  width: "52%",
                   position: "fixed",
-                  height: 100,
-                  top: 70,
-                  textAlign: "left",
-                  fontSize: 24,
-                  fontWeight: 600,
-                  borderBottom: "1px #e5e5e5 solid",
-                  padding: 25,
-
+                  height: "-webkit-fill-available",
+                  background: "#FFFFFF",
+                  left: 400,
+                  border: "1px #e5e5e5 solid",
+                  borderLeft: "0px solid",
                 }}
               >
-                <FaUserCircle
+                <div
                   style={{
-                    width: 35,
-                    height: "auto",
-                    margin: 10,
-                    float: "left",
-                    color: "#3333",
+                    width: "inherit",
+                    position: "fixed",
+                    height: 100,
+                    top: 70,
+                    textAlign: "left",
+                    fontSize: 24,
+                    fontWeight: 600,
+                    borderBottom: "1px #e5e5e5 solid",
+                    padding: 25,
                   }}
-                />
-                <p style={{ marginTop: 10 }}>Ozone Black</p>
-              </div>
+                >
+                  <FaUserCircle
+                    style={{
+                      width: 35,
+                      height: "auto",
+                      margin: 10,
+                      float: "left",
+                      color: "#3333",
+                    }}
+                  />
+                  <p style={{ marginTop: 10 }}>{openChat?.Translator_name}</p>
+                </div>
 
-              <div
-                style={{
-                  padding: 15,
-                  width: "100%",
-                  height: "68vh",
-                  overflow: "scroll",
-                  position: "absolute",
-                  top: 145,
-                }}
-              >
-                {/* <div
+                <div
+                  style={{
+                    padding: 15,
+                    width: "100%",
+                    height: "68vh",
+                    overflow: "scroll",
+                    position: "absolute",
+                    top: 145,
+                  }}
+                >
+                  {/* <div
                   style={{
                     margin: 20,
                     marginTop: 0,
@@ -374,7 +421,7 @@ export default function Chat() {
                   </div>
                 </div> */}
 
-                {/* <div
+                  {/* <div
                   style={{
                     margin: 20,
                     marginLeft: 285,
@@ -657,33 +704,34 @@ export default function Chat() {
                     <p>1:08 PM</p>
                   </div>
                 </div> */}
-              </div>
+                </div>
 
-              <div style={{ position: "fixed", top: 700, left: 470 }}>
-                <Paper
-                  component="form"
-                  sx={{
-                    p: "2px 4px",
-                    display: "flex",
-                    alignItems: "center",
-                    width: 600,
-                  }}
-                >
-                  <InputBase
-                    sx={{ ml: 1, flex: 1 }}
-                    placeholder="Type something here..."
-                    inputProps={{ "aria-label": "Type something here..." }}
-                  />
-                  <IconButton
-                    type="submit"
-                    sx={{ p: "10px" }}
-                    aria-label="search"
+                <div style={{ position: "fixed", top: 700, left: 470 }}>
+                  <Paper
+                    component="form"
+                    sx={{
+                      p: "2px 4px",
+                      display: "flex",
+                      alignItems: "center",
+                      width: 600,
+                    }}
                   >
-                    <FaTelegramPlane color="#047ACF" />
-                  </IconButton>
-                </Paper>
+                    <InputBase
+                      sx={{ ml: 1, flex: 1 }}
+                      placeholder="Type something here..."
+                      inputProps={{ "aria-label": "Type something here..." }}
+                    />
+                    <IconButton
+                      type="submit"
+                      sx={{ p: "10px" }}
+                      aria-label="search"
+                    >
+                      <FaTelegramPlane color="#047ACF" />
+                    </IconButton>
+                  </Paper>
+                </div>
               </div>
-            </div>
+            )}
             <>
               <Modal
                 keepMounted
@@ -739,8 +787,8 @@ export default function Chat() {
                       <LocalizationProvider dateAdapter={AdapterLuxon}>
                         <MobileDatePicker
                           inputFormat="dd MMM yyyy"
-                          value={date}
-                          onChange={(e) => setDate(e)}
+                          value={order.Date}
+                          onChange={(e) => setOrder({ ...order, Date: e })}
                           renderInput={(params) => (
                             <TextField
                               {...params}
@@ -778,8 +826,13 @@ export default function Chat() {
                         </p>
                         <input
                           type="text"
-                          value={translatorname}
-                          onChange={(e) => setTranslatorname(e.target.value)}
+                          value={order.Translator_name}
+                          onChange={(e) =>
+                            setOrder({
+                              ...order,
+                              Translator_name: e.target.value,
+                            })
+                          }
                           placeholder="Name"
                           style={{
                             background: "#FFFFFF",
@@ -812,8 +865,13 @@ export default function Chat() {
                         </p>
                         <input
                           type="text"
-                          value={customername}
-                          onChange={(e) => setCustomername(e.target.value)}
+                          value={order.Customer_name}
+                          onChange={(e) =>
+                            setOrder({
+                              ...order,
+                              Customer_name: e.target.value,
+                            })
+                          }
                           placeholder="Name"
                           style={{
                             background: "#FFFFFF",
@@ -840,8 +898,13 @@ export default function Chat() {
                         Job description
                       </p>
                       <textarea
-                        value={jobdescription}
-                        onChange={(e) => setJobdescription(e.target.value)}
+                        value={order.Job_description}
+                        onChange={(e) =>
+                          setOrder({
+                            ...order,
+                            Job_description: e.target.value,
+                          })
+                        }
                         maxLength={800}
                         style={{
                           width: "100%",
@@ -867,8 +930,13 @@ export default function Chat() {
                         Customers will get
                       </p>
                       <textarea
-                        value={customerswillget}
-                        onChange={(e) => setCustomerswillget(e.target.value)}
+                        value={order.Customers_will_get}
+                        onChange={(e) =>
+                          setOrder({
+                            ...order,
+                            Customers_will_get: e.target.value,
+                          })
+                        }
                         maxLength={800}
                         style={{
                           width: "100%",
@@ -903,8 +971,13 @@ export default function Chat() {
                         <LocalizationProvider dateAdapter={AdapterLuxon}>
                           <MobileDatePicker
                             inputFormat="dd MMM yyyy"
-                            value={deadline}
-                            onChange={(e) => setDeadline(e)}
+                            value={order.Deadline}
+                            onChange={(e) =>
+                              setOrder({
+                                ...order,
+                                Deadline: e,
+                              })
+                            }
                             renderInput={(params) => (
                               <TextField
                                 {...params}
@@ -938,8 +1011,13 @@ export default function Chat() {
                         </p>
                         <input
                           type="text"
-                          value={numberofedits}
-                          onChange={(e) => setNumberofedits(e.target.value)}
+                          value={order.Number_of_edits}
+                          onChange={(e) =>
+                            setOrder({
+                              ...order,
+                              Number_of_edits: e.target.value,
+                            })
+                          }
                           placeholder="Name"
                           style={{
                             background: "#FFFFFF",
@@ -974,8 +1052,13 @@ export default function Chat() {
                         </p>
                         <input
                           type="text"
-                          value={price}
-                          onChange={(e) => setPrice(e.target.value)}
+                          value={order.Price}
+                          onChange={(e) =>
+                            setOrder({
+                              ...order,
+                              Price: e.target.value,
+                            })
+                          }
                           placeholder="Price"
                           style={{
                             background: "#FFFFFF",
@@ -2228,55 +2311,80 @@ export default function Chat() {
             </>
           </Box>
 
-          <Drawer
-            variant="permanent"
-            anchor="right"
-            sx={{
-              width: 300,
-              [`& .MuiDrawer-paper`]: {
+          {openChat === "" ? (
+            <></>
+          ) : (
+            <Drawer
+              variant="permanent"
+              anchor="right"
+              sx={{
                 width: 300,
-                boxSizing: "border-box",
-              },
-            }}
-            style={{ zIndex: 0, height: "100%" }}
-          >
-            <Toolbar />
-            <Box sx={{ overflow: "hidden" }}>
-              <div style={{ marginTop: 50,textAlign:"center" }}>
-                <div>
-                  <FaUserCircle
-                    alt="avatar"
+                [`& .MuiDrawer-paper`]: {
+                  width: 300,
+                  boxSizing: "border-box",
+                },
+              }}
+              style={{ zIndex: 0, height: "100%" }}
+            >
+              <Toolbar />
+              <Box sx={{ overflow: "hidden" }}>
+                <div style={{ marginTop: 50, textAlign: "center" }}>
+                  <div>
+                    <FaUserCircle
+                      alt="avatar"
+                      style={{
+                        width: " 20%",
+                        height: "auto",
+                        margin: "auto",
+                        display: "block",
+                        color: "#3333",
+                      }}
+                    />
+                  </div>
+                  <div>
+                    <p
+                      style={{
+                        fontWeight: 500,
+                        fontSize: 20,
+                        color: "#353535",
+                        marginBottom: 0,
+                      }}
+                    >
+                      {openChat?.Translator_name}
+                    </p>
+                    <p style={{ fontSize: 13, color: "#c4c4c4", margin: 0 }}>
+                      Active 21m ago.
+                    </p>
+                    {/* <button
                     style={{
-                      width: " 20%",
+                      background: "#FAFAFA",
+                      boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+                      borderRadius: 5,
+                      width: 140,
                       height: "auto",
-                      margin: "auto",
-                      display: "block",
-                      color: "#3333",
+                      border: "none",
+                      fontSize: 15,
+                      color: "#FFC100",
+                      padding: 5,
+                      marginBottom: 10,
                     }}
-                  />
-                </div>
-                <div>
-                  <p
-                    style={{
-                      fontWeight: 500,
-                      fontSize: 20,
-                      color: "#353535",
-                      marginBottom: 0,
-                    }}
+                    onClick={() => Create_Quotation()}
                   >
-                    Ozone Black
-                  </p>
-                  <p style={{ fontSize: 13, color: "#c4c4c4", margin: 0 }}>
-                    Active 21m ago.
-                  </p>
+                    <p style={{ marginBottom: 0 }}>Create Quotation.</p>
+                  </button> */}
+                  </div>
+                  <hr style={{ width: "90%", height: 1, margin: 15 }} />
+                  <div style={{ margin: 20 }}>
+                    <Status
+                      Status={openChat?.Status}
+                      Price={openChat?.Price}
+                      Deadline={openChat.Deadline}
+                    />
+                  </div>
                 </div>
-                <hr style={{ width: "90%", height: 1, margin: 15 }} />
-                <div style={{ margin: 20 }}>
-                  <Status Status={step} />
-                </div>
-              </div>
-            </Box>
-          </Drawer>
+              </Box>
+            </Drawer>
+          )}
         </>
       </Box>
     </div>

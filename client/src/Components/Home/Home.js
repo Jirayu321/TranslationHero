@@ -1,26 +1,22 @@
 import * as React from "react";
-import "./Home.css";
 import Navbars from "../Navbar/navbarHome";
 import Footer from "../Footer/Footer";
 import { useSelector } from "react-redux";
-
 import { BsArrowRightShort } from "react-icons/bs";
-
 import Online_document from "../../Images/Online_document.png";
 import Documents from "../../Images/Documents-amico.png";
 import Translator from "../../Images/Translator-bro.png";
 import Selecting_team from "../../Images/Selecting_team.png";
-
 import { useNavigate, useLocation } from "react-router-dom";
 import { overviewEN, overviewTH, overviewDE } from "../Data/DataLanguage";
-
 import { Modal, Typography, Box } from "@mui/material";
+
+import "./Home.css";
 
 const Home = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-//test
   const auth = useSelector((state) => state.auth);
   console.log("auth :", auth);
 
@@ -35,17 +31,21 @@ const Home = () => {
       navigate("/", { state: { languages: `${x}`, accept: true } });
       setOpen(false);
     } else {
-      setOpen(false);
       navigate("/", { state: { languages: `${x}`, accept: false } });
+      setOpen(false);
     }
   };
-  React.useEffect(() => {
+  const check_cookei = () => {
     if (Aoc === true) {
       setOpen(false);
     } else {
       setOpen(true);
     }
-  }, [Aoc]);
+  };
+
+  React.useEffect(() => {
+    check_cookei();
+  });
 
   const goSignup = (x) => {
     navigate("/Signup", { state: { languages: `${x}` } });
@@ -58,22 +58,6 @@ const Home = () => {
   const goTranslator = (x) => {
     navigate("/Home/Services/Translator", { state: { languages: `${x}` } });
   };
-
-  // const pathname = window.location.pathname;
-  // console.log("Doc:", typeof Doc);
-  // console.log("pathname:", pathname);
-
-  // const [type, settype] = React.useState(null);
-  // const [textarea, setTextarea] = React.useState("");
-  // const [file, setFile] = React.useState("");
-
-  // const handleChange = (event) => {
-  //   setTextarea(event.target.value);
-  // };
-
-  // const promotion = (x) => {
-  //   window.scrollTo(0, 1500);
-  // };
 
   return (
     <>
@@ -451,13 +435,8 @@ const Home = () => {
           </div>
 
           <div className="box2_overviwe">
-            <div
-              style={{
-                textAlign: "center",
-              }}
-            >
-              <p className="textHeading2_overviwe">{overviewEN[11].label}</p>
-
+            <p className="textHeading2_overviwe">{overviewEN[11].label}</p>
+            <div className="Content">
               <div className="ContentBox2_1_overviwe">
                 <div
                   style={{
@@ -470,13 +449,12 @@ const Home = () => {
                     className="ContentBox2Img_overviwe"
                   />
                 </div>
-
                 <p className="textDescriptionBox2_overviwe ">
                   {overviewEN[12].label}
                 </p>
               </div>
 
-              <div className="ContentBox2_2_overviwe ">
+              <div className="ContentBox2_1_overviwe ">
                 <div
                   style={{
                     textAlign: "center",
@@ -494,7 +472,7 @@ const Home = () => {
                 </p>
               </div>
 
-              <div className="ContentBox2_3_overviwe ">
+              <div className="ContentBox2_1_overviwe ">
                 <div
                   style={{
                     textAlign: "center",
@@ -634,13 +612,8 @@ const Home = () => {
           </div>
 
           <div className="box2_overviwe">
-            <div
-              style={{
-                textAlign: "center",
-              }}
-            >
-              <p className="textHeading2_overviwe">{overviewDE[11].label}</p>
-
+            <p className="textHeading2_overviwe">{overviewDE[11].label}</p>
+            <div className="Content">
               <div className="ContentBox2_1_overviwe">
                 <div
                   style={{
@@ -653,13 +626,12 @@ const Home = () => {
                     className="ContentBox2Img_overviwe"
                   />
                 </div>
-
                 <p className="textDescriptionBox2_overviwe ">
                   {overviewDE[12].label}
                 </p>
               </div>
 
-              <div className="ContentBox2_2_overviwe ">
+              <div className="ContentBox2_1_overviwe ">
                 <div
                   style={{
                     textAlign: "center",
@@ -677,7 +649,7 @@ const Home = () => {
                 </p>
               </div>
 
-              <div className="ContentBox2_3_overviwe ">
+              <div className="ContentBox2_1_overviwe ">
                 <div
                   style={{
                     textAlign: "center",
@@ -817,13 +789,8 @@ const Home = () => {
           </div>
 
           <div className="box2_overviwe">
-            <div
-              style={{
-                textAlign: "center",
-              }}
-            >
-              <p className="textHeading2_overviwe">{overviewTH[11].label}</p>
-
+            <p className="textHeading2_overviwe">{overviewTH[11].label}</p>
+            <div className="Content">
               <div className="ContentBox2_1_overviwe">
                 <div
                   style={{
@@ -836,13 +803,12 @@ const Home = () => {
                     className="ContentBox2Img_overviwe"
                   />
                 </div>
-
                 <p className="textDescriptionBox2_overviwe ">
                   {overviewTH[12].label}
                 </p>
               </div>
 
-              <div className="ContentBox2_2_overviwe ">
+              <div className="ContentBox2_1_overviwe ">
                 <div
                   style={{
                     textAlign: "center",
@@ -860,7 +826,7 @@ const Home = () => {
                 </p>
               </div>
 
-              <div className="ContentBox2_3_overviwe ">
+              <div className="ContentBox2_1_overviwe ">
                 <div
                   style={{
                     textAlign: "center",
@@ -1000,13 +966,9 @@ const Home = () => {
           </div>
 
           <div className="box2_overviwe">
-            <div
-              style={{
-                textAlign: "center",
-              }}
-            >
-              <p className="textHeading2_overviwe">{overviewEN[11].label}</p>
+            <p className="textHeading2_overviwe">{overviewEN[11].label}</p>
 
+            <div className="Content">
               <div className="ContentBox2_1_overviwe">
                 <div
                   style={{
@@ -1019,13 +981,12 @@ const Home = () => {
                     className="ContentBox2Img_overviwe"
                   />
                 </div>
-
                 <p className="textDescriptionBox2_overviwe ">
                   {overviewEN[12].label}
                 </p>
               </div>
 
-              <div className="ContentBox2_2_overviwe ">
+              <div className="ContentBox2_1_overviwe ">
                 <div
                   style={{
                     textAlign: "center",
@@ -1043,7 +1004,7 @@ const Home = () => {
                 </p>
               </div>
 
-              <div className="ContentBox2_3_overviwe ">
+              <div className="ContentBox2_1_overviwe ">
                 <div
                   style={{
                     textAlign: "center",
@@ -1055,7 +1016,6 @@ const Home = () => {
                     className="ContentBox2Img_overviwe "
                   />
                 </div>
-
                 <p className="textDescriptionBox2_overviwe ">
                   {overviewEN[14].label}
                 </p>

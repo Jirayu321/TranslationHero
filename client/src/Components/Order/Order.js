@@ -29,82 +29,164 @@ import Inprocess2 from "../../Images/Inprocess2.png";
 import Succeed from "../../Images/Succeed.png";
 import Succeed2 from "../../Images/Succeed2.png";
 
+//test
+import { useDispatch, useSelector } from "react-redux";
+import moment from "moment";
+import axios from "axios";
+
 export default function Order() {
+  //test
+  const dispatch = useDispatch();
+  const auth = useSelector((state) => state.auth);
+  // console.log("auth:",auth.name)
+
   const [type, setType] = React.useState(0);
   const [value, setValue] = React.useState(new Date());
   const [value2, setValue2] = React.useState(new Date());
+  const [data, setData] = React.useState([]);
   const navigate = useNavigate();
   const location = useLocation();
   let Doc = location?.state?.languages;
 
-  let Value = location?.state?.value;
+  let Value = auth?.token;
 
-  React.useEffect(() => {
+  const goLogin = () => {
+    navigate("/Login");
+  };
+  const checklogin = () => {
     if (Value) {
       console.log("value :", Value);
     } else {
-      navigate("/Login");
+      goLogin();
     }
-  }, [navigate,Value]);
+  };
 
-  function createData(
-    orderID,
-    orderType,
-    orderName,
-    translator,
-    orderPrice,
-    orderedDate,
-    status
-  ) {
-    return {
-      orderID,
-      orderType,
-      orderName,
-      translator,
-      orderPrice,
-      orderedDate,
-      status,
-    };
-  }
-  const rows = [
-    createData(
-      "001",
-      "General Document",
-      `${location.state.Doc}`,
-      "Michael Lee",
-      "$25",
-      `${location.state.Day}`,
-      `${location.state.Time}`
-    ),
-  ];
+  // function createData(
+  //   orderID,
+  //   orderType,
+  //   orderName,
+  //   translator,
+  //   orderPrice,
+  //   orderedDate,
+  //   status
+  // ) {
+  //   return {
+  //     orderID,
+  //     orderType,
+  //     orderName,
+  //     translator,
+  //     orderPrice,
+  //     orderedDate,
+  //     status,
+  //   };
+  // }
 
-  const rows1 = [
-    createData(
-      "098",
-      "General Document",
-      "Novel",
-      "Michael Lee",
-      "$25",
-      "05 June 2022",
-      "00:21:35"
-    ),
-  ];
+  // const rows1 = [
+  //   createData(
+  //     "098",
+  //     "General Document",
+  //     "Novel",
+  //     "Michael Lee",
+  //     "$25",
+  //     "05 June 2022",
+  //     "00:21:35"
+  //   ),
+  // ];
+  const name = { Customer_name: auth?.name };
+  const url = "http://localhost:3001/api";
+
+  const setDataOrder = (i) => {
+    console.log(i);
+    const Day_List = i?.map((item, index) => {
+      try {
+        const formattedDate = moment(item?.Date).format("MM/DD/YYYY");
+        let formattedDate2 = moment(item?.Date).format("h:mm:ss a");
+        return {
+          index: index,
+          orderID: index,
+          orderType: item?.Order_type,
+          orderName: item?.Order_type,
+          translator: item?.Translator_name,
+          orderPrice: item?.Price,
+          orderedDate: formattedDate,
+          status: formattedDate2,
+        };
+      } catch (e) {
+        console.error(e);
+        return null;
+      }
+    });
+    setData(Day_List);
+  };
+
+  const getOrder = async (values) => {
+    try {
+      const token = await axios.get(`${url}/getOrder`, {
+        params: { Customer_name: values.Customer_name },
+      });
+      await console.log(token?.data);
+      // await localStorage.setItem("order", JSON.stringify(token.data));
+      // console.log(localStorage.getItem("order"));
+      setDataOrder(token?.data);
+    } catch (error) {
+      if (error.response && error.response.status === 404) {
+        throw new Error("Translator not found");
+      } else if (error.response && error.response.status === 500) {
+        throw new Error("Internal server error");
+      } else if (error.response && error.response.status === 400) {
+        throw new Error("Bad request");
+      } else {
+        throw new Error("Something went wrong");
+      }
+      // return rejectWithValue(error.response.data);
+      // console.log(error.response);
+    }
+  };
+
+  React.useEffect(() => {
+    checklogin();
+    getOrder(name);
+  }, []);
+  // let xc = dataOrder;
+
+  // const rows3 = xc?.map((item) => {
+  //   return [
+  //     {
+  //       orderID: `${item}`,
+  //       orderType: "General Document",
+  //       orderName: `${location.state.Doc}`,
+  //       translator: "Michael Lee",
+  //       orderPrice: "$25",
+  //       orderedDate: `${location.state.Day}`,
+  //       status: `${location.state.Time}`,
+  //     },
+  //   ];
+  // });
+  // console.log("sss:", rows3);
 
   return (
     <div className="App-body-Order">
       <header className="App-header">
         {Doc === "English" ? (
-          <Navbars navigate={navigate} languages="English" />
+          <Navbars
+            navigate={navigate}
+            languages="English"
+            dispatch={dispatch}
+          />
         ) : Doc === "Thai" ? (
-          <Navbars navigate={navigate} languages="Thai" />
+          <Navbars navigate={navigate} languages="Thai" dispatch={dispatch} />
         ) : Doc === "German" ? (
-          <Navbars navigate={navigate} languages="German" />
+          <Navbars navigate={navigate} languages="German" dispatch={dispatch} />
         ) : (
-          <Navbars navigate={navigate} languages="English" />
+          <Navbars
+            navigate={navigate}
+            languages="English"
+            dispatch={dispatch}
+          />
         )}
       </header>
       <Box sx={{ display: "flex", width: "100% " }}>
-        <DrawerInHome languages={Doc} value={Value}/>
+        <DrawerInHome languages={Doc} value={Value} />
         {Doc === "English" ? (
           <>
             <div style={{ marginTop: 60, height: 100 }}>
@@ -330,7 +412,7 @@ export default function Order() {
                           </TableRow>
                         </TableHead>
                         <TableBody>
-                          {rows1.map((row) => (
+                          {data.map((row) => (
                             <TableRow
                               key={row.orderID}
                               sx={{
@@ -339,7 +421,11 @@ export default function Order() {
                                 },
                               }}
                             >
-                              <TableCell component="th" scope="row">
+                              <TableCell
+                                component="th"
+                                scope="row"
+                                align="center"
+                              >
                                 {row.orderID}
                               </TableCell>
                               <TableCell align="center">
@@ -939,9 +1025,9 @@ export default function Order() {
                           </TableRow>
                         </TableHead>
                         <TableBody>
-                          {rows.map((row) => (
+                          {data?.map((row, index) => (
                             <TableRow
-                              key={row.orderID}
+                              key={index}
                               sx={{
                                 "&:last-child td, &:last-child th": {
                                   border: 0,
@@ -949,40 +1035,40 @@ export default function Order() {
                               }}
                             >
                               <TableCell component="th" scope="row">
-                                {row.orderID}
+                                {row?.orderID}
                               </TableCell>
                               <TableCell align="center">
-                                {row.orderType}
+                                {row?.orderType}
                               </TableCell>
                               <TableCell align="center">
-                                {row.orderName}
+                                {row?.orderName}
                               </TableCell>
                               <TableCell align="center">
-                                {row.translator}
+                                {row?.translator}
                               </TableCell>
                               <TableCell align="center">
-                                {row.orderPrice}
+                                {row?.orderPrice}
                               </TableCell>
                               <TableCell align="center">
-                                {row.orderedDate}
+                                {row?.orderedDate}
                               </TableCell>
-                              {row.status === "Succeed" ? (
+                              {row?.status === "Succeed" ? (
                                 <TableCell
                                   align="center"
                                   style={{ color: "#46BC52" }}
                                 >
-                                  {row.status}
+                                  {row?.status}
                                 </TableCell>
-                              ) : row.status === "Cancle" ? (
+                              ) : row?.status === "Cancle" ? (
                                 <TableCell
                                   align="center"
                                   style={{ color: "#CF0202" }}
                                 >
-                                  {row.status}
+                                  {row?.status}
                                 </TableCell>
                               ) : (
                                 <TableCell align="center">
-                                  {row.status}
+                                  {row?.status}
                                 </TableCell>
                               )}
                             </TableRow>
@@ -1220,7 +1306,7 @@ export default function Order() {
                           </TableRow>
                         </TableHead>
                         <TableBody>
-                          {rows1.map((row) => (
+                          {data.map((row) => (
                             <TableRow
                               key={row.orderID}
                               sx={{
@@ -1229,7 +1315,7 @@ export default function Order() {
                                 },
                               }}
                             >
-                              <TableCell component="th" scope="row">
+                              <TableCell component="th" scope="row" align="center">
                                 {row.orderID}
                               </TableCell>
                               <TableCell align="center">
@@ -1829,9 +1915,9 @@ export default function Order() {
                           </TableRow>
                         </TableHead>
                         <TableBody>
-                          {rows.map((row) => (
+                          {data?.map((row, index) => (
                             <TableRow
-                              key={row.orderID}
+                              key={index}
                               sx={{
                                 "&:last-child td, &:last-child th": {
                                   border: 0,
@@ -1839,40 +1925,40 @@ export default function Order() {
                               }}
                             >
                               <TableCell component="th" scope="row">
-                                {row.orderID}
+                                {row?.orderID}
                               </TableCell>
                               <TableCell align="center">
-                                {row.orderType}
+                                {row?.orderType}
                               </TableCell>
                               <TableCell align="center">
-                                {row.orderName}
+                                {row?.orderName}
                               </TableCell>
                               <TableCell align="center">
-                                {row.translator}
+                                {row?.translator}
                               </TableCell>
                               <TableCell align="center">
-                                {row.orderPrice}
+                                {row?.orderPrice}
                               </TableCell>
                               <TableCell align="center">
-                                {row.orderedDate}
+                                {row?.orderedDate}
                               </TableCell>
-                              {row.status === "Succeed" ? (
+                              {row?.status === "Succeed" ? (
                                 <TableCell
                                   align="center"
                                   style={{ color: "#46BC52" }}
                                 >
-                                  {row.status}
+                                  {row?.status}
                                 </TableCell>
-                              ) : row.status === "Cancle" ? (
+                              ) : row?.status === "Cancle" ? (
                                 <TableCell
                                   align="center"
                                   style={{ color: "#CF0202" }}
                                 >
-                                  {row.status}
+                                  {row?.status}
                                 </TableCell>
                               ) : (
                                 <TableCell align="center">
-                                  {row.status}
+                                  {row?.status}
                                 </TableCell>
                               )}
                             </TableRow>
@@ -2110,7 +2196,7 @@ export default function Order() {
                           </TableRow>
                         </TableHead>
                         <TableBody>
-                          {rows1.map((row) => (
+                          {data.map((row) => (
                             <TableRow
                               key={row.orderID}
                               sx={{
@@ -2119,7 +2205,7 @@ export default function Order() {
                                 },
                               }}
                             >
-                              <TableCell component="th" scope="row">
+                              <TableCell component="th" scope="row" align="center">
                                 {row.orderID}
                               </TableCell>
                               <TableCell align="center">
@@ -2719,9 +2805,9 @@ export default function Order() {
                           </TableRow>
                         </TableHead>
                         <TableBody>
-                          {rows.map((row) => (
+                          {data?.map((row, index) => (
                             <TableRow
-                              key={row.orderID}
+                              key={index}
                               sx={{
                                 "&:last-child td, &:last-child th": {
                                   border: 0,
@@ -2729,40 +2815,40 @@ export default function Order() {
                               }}
                             >
                               <TableCell component="th" scope="row">
-                                {row.orderID}
+                                {row?.orderID}
                               </TableCell>
                               <TableCell align="center">
-                                {row.orderType}
+                                {row?.orderType}
                               </TableCell>
                               <TableCell align="center">
-                                {row.orderName}
+                                {row?.orderName}
                               </TableCell>
                               <TableCell align="center">
-                                {row.translator}
+                                {row?.translator}
                               </TableCell>
                               <TableCell align="center">
-                                {row.orderPrice}
+                                {row?.orderPrice}
                               </TableCell>
                               <TableCell align="center">
-                                {row.orderedDate}
+                                {row?.orderedDate}
                               </TableCell>
-                              {row.status === "Succeed" ? (
+                              {row?.status === "Succeed" ? (
                                 <TableCell
                                   align="center"
                                   style={{ color: "#46BC52" }}
                                 >
-                                  {row.status}
+                                  {row?.status}
                                 </TableCell>
-                              ) : row.status === "Cancle" ? (
+                              ) : row?.status === "Cancle" ? (
                                 <TableCell
                                   align="center"
                                   style={{ color: "#CF0202" }}
                                 >
-                                  {row.status}
+                                  {row?.status}
                                 </TableCell>
                               ) : (
                                 <TableCell align="center">
-                                  {row.status}
+                                  {row?.status}
                                 </TableCell>
                               )}
                             </TableRow>
@@ -3000,7 +3086,7 @@ export default function Order() {
                           </TableRow>
                         </TableHead>
                         <TableBody>
-                          {rows1.map((row) => (
+                          {data.map((row) => (
                             <TableRow
                               key={row.orderID}
                               sx={{
@@ -3009,7 +3095,7 @@ export default function Order() {
                                 },
                               }}
                             >
-                              <TableCell component="th" scope="row">
+                              <TableCell component="th" scope="row" align="center">
                                 {row.orderID}
                               </TableCell>
                               <TableCell align="center">
@@ -3609,9 +3695,9 @@ export default function Order() {
                           </TableRow>
                         </TableHead>
                         <TableBody>
-                          {rows.map((row) => (
+                          {data?.map((row, index) => (
                             <TableRow
-                              key={row.orderID}
+                              key={index}
                               sx={{
                                 "&:last-child td, &:last-child th": {
                                   border: 0,
@@ -3619,40 +3705,40 @@ export default function Order() {
                               }}
                             >
                               <TableCell component="th" scope="row">
-                                {row.orderID}
+                                {row?.orderID}
                               </TableCell>
                               <TableCell align="center">
-                                {row.orderType}
+                                {row?.orderType}
                               </TableCell>
                               <TableCell align="center">
-                                {row.orderName}
+                                {row?.orderName}
                               </TableCell>
                               <TableCell align="center">
-                                {row.translator}
+                                {row?.translator}
                               </TableCell>
                               <TableCell align="center">
-                                {row.orderPrice}
+                                {row?.orderPrice}
                               </TableCell>
                               <TableCell align="center">
-                                {row.orderedDate}
+                                {row?.orderedDate}
                               </TableCell>
-                              {row.status === "Succeed" ? (
+                              {row?.status === "Succeed" ? (
                                 <TableCell
                                   align="center"
                                   style={{ color: "#46BC52" }}
                                 >
-                                  {row.status}
+                                  {row?.status}
                                 </TableCell>
-                              ) : row.status === "Cancle" ? (
+                              ) : row?.status === "Cancle" ? (
                                 <TableCell
                                   align="center"
                                   style={{ color: "#CF0202" }}
                                 >
-                                  {row.status}
+                                  {row?.status}
                                 </TableCell>
                               ) : (
                                 <TableCell align="center">
-                                  {row.status}
+                                  {row?.status}
                                 </TableCell>
                               )}
                             </TableRow>

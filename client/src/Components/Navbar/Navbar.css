@@ -39,6 +39,12 @@
 .dd {
   display: flex;
   position: absolute;
+  left: 30%;
+}
+.dd2 {
+  display: flex;
+  position: absolute;
+  left: 86%;
 }
 
 .buttonLogin {

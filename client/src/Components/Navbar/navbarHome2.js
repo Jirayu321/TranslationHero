@@ -12,23 +12,28 @@ const navbarHome2 = (props) => {
   const navigate = props?.navigate;
   const you = props?.languages;
   const dispatch = props?.dispatch;
+  const value = props?.value;
 
   const goHome = (x) => {
     const pathname = window.location.pathname;
     if (pathname === "/In") {
-      navigate("/In", { state: { languages: `${x}` } });
+      navigate("/In", { state: { languages: `${x}`, value: `${value}` } });
     } else if (pathname === "/Matching") {
-      navigate("/Matching", { state: { languages: `${x}` } });
+      navigate("/Matching", {
+        state: { languages: `${x}`, value: `${value}` },
+      });
     } else if (pathname === "/Order") {
-      navigate("/Order", { state: { languages: `${x}` } });
+      navigate("/Order", { state: { languages: `${x}`, value: `${value}` } });
     } else if (pathname === "/Chat") {
-      navigate("/Chat", { state: { languages: `${x}` } });
+      navigate("/Chat", { state: { languages: `${x}`, value: `${value}` } });
     } else {
-      navigate("/Notification", { state: { languages: `${x}` } });
+      navigate("/Notification", {
+        state: { languages: `${x}`, value: `${value}` },
+      });
     }
   };
 
-
+ 
 
   return (
     <Navbar expand="lg" id="navbardb2">
@@ -152,7 +157,7 @@ const navbarHome2 = (props) => {
                   float: "left",
                 }}
               >
-                US
+                TH
               </p>
             </div>
 
@@ -172,7 +177,7 @@ const navbarHome2 = (props) => {
                 }}
               >
                 <NavDropdown.Item
-                  onClick={() => dispatch(logoutUser(null))}
+                  onClick={() => dispatch(logoutUser())}
                   className="Logout"
                 >
                   Logout

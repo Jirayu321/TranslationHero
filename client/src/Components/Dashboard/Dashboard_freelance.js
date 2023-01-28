@@ -1,23 +1,35 @@
 import * as React from "react";
 import {
-  // ListItem,
-  // ListItemIcon,
-  // ListItemText,
-  // Rating,
   Box,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Rating,
   // Drawer,
-  // Toolbar,
-  // List,
-  // Avatar,
-  // MenuItem,
-  // Select,
-  // styled,
-  // InputBase,
+  Toolbar,
+  List,
+  Avatar,
+  MenuItem,
+  Select,
+  styled,
+  InputBase,
 } from "@mui/material";
 import Drawer from "../Drawer/DrawerTranslate";
 import Navbars from "../Navbar/navbarHome2.js";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+
+import moment from "moment";
+import axios from "axios";
+
+import All_online from "../../Images/All_customers.png";
+import Old_customers from "../../Images//Old_customers.png";
+import Country from "../../Images/Country.png";
+import All_work from "../../Images/All_work.png";
+import Map from "../../Images/Map.png";
+
+import Chart from "./Chart.js";
+import "./Dashboard.css";
 
 export default function Dashboard_freelance() {
   const navigate = useNavigate();
@@ -25,15 +37,15 @@ export default function Dashboard_freelance() {
   const location = useLocation();
   const auth = useSelector((state) => state.auth);
   let Doc = location?.state?.languages;
-  // let Value = location?.state?.value;
-  let value = auth._id;
+  let Value = auth?.token;
+  // let value = auth?._id;
 
-  const goLogin = (x) => {
+  const goLogin = () => {
     navigate("/Login");
   };
   const checklogin = () => {
-    if (value) {
-      console.log("value :", value);
+    if (Value) {
+      console.log("value :", Value);
     } else {
       goLogin();
     }
@@ -45,8 +57,12 @@ export default function Dashboard_freelance() {
   // const [value, setValue] = React.useState(4);
   // const [value2, setValue2] = React.useState(5);
   // const [sizeState, setSize] = React.useState();
-  // const [month, setMonth] = React.useState();
-  // const [type, setType] = React.useState();
+  const [data1, setData1] = React.useState([]);
+  const [all_work, setAll_work] = React.useState(0);
+  const [old_work, setOld_work] = React.useState(0);
+  const [data2, setData2] = React.useState([]);
+
+  const [hovering, setHovering] = React.useState(false);
 
   // const handleSizeChange = React.useCallback((event) => {
   //   setSize(Number(event.target.value));
@@ -93,11 +109,84 @@ export default function Dashboard_freelance() {
   // }));
 
   // let { x } = useParams();
-  // console.log({ xxx: x });
+  // console.log("jijijij",auth);
   // const { innerWidth: width } = window;
+  const name = { Translator_name: auth?.name };
+  const url = "http://localhost:3001/api";
+
+  const setDataOrder = (i) => {
+    let all_work = i?.length;
+    setAll_work(all_work);
+    const ll = i.filter((item) => item.Customer_name);
+    setOld_work(ll.length);
+    const DataOrder = i?.map((item, index) => {
+      try {
+        const formattedDate = moment(item?.Date).format("MM/DD/YYYY");
+        let formattedDate2 = moment(item?.Date).format("h:mm:ss a");
+        return {
+          index: index,
+          orderID: index,
+          orderType: item?.Order_type,
+          orderName: item?.Order_type,
+          translator: item?.Translator_name,
+          orderPrice: item?.Price,
+          orderedDate: formattedDate,
+          status: formattedDate2,
+        };
+      } catch (e) {
+        console.error(e);
+        return null;
+      }
+    });
+    setData1(DataOrder);
+  };
+  const setAllUser = (i) => {
+    const All = i?.filter((item) => item.type === "customer");
+    console.log("All", All.length);
+    // const AllUser = i?.map((item, index) => {
+    //   try {
+    //     const formattedDate = moment(item?.Date).format("MM/DD/YYYY");
+    //     let formattedDate2 = moment(item?.Date).format("h:mm:ss a");
+    //     return {
+    //       All: All,
+    //     };
+    //   } catch (e) {
+    //     console.error(e);
+    //     return null;
+    //   }
+    // });
+    setData2(All.length);
+  };
+
+  const getOrder = async (values) => {
+    try {
+      const token = await axios.get(`${url}/getOrder`, {
+        params: { Translator_name: values.Translator_name },
+      });
+      const token2 = await axios.get(`${url}/getUsers`, {});
+      setDataOrder(token?.data);
+      setAllUser(token2?.data);
+    } catch (error) {
+      if (error.response && error.response.status === 404) {
+        throw new Error("Translator not found");
+      } else if (error.response && error.response.status === 500) {
+        throw new Error("Internal server error");
+      } else if (error.response && error.response.status === 400) {
+        throw new Error("Bad request");
+      } else {
+        throw new Error("Something went wrong");
+      }
+    }
+  };
+
+  React.useEffect(() => {
+    getOrder(name);
+  }, []);
+
+  console.log("data1", data1);
   return (
     <div className="App-body3">
-      <header className="App-header">
+      <header className="App-headerDashboard">
         {Doc === "English" ? (
           <Navbars
             navigate={navigate}
@@ -116,212 +205,162 @@ export default function Dashboard_freelance() {
           />
         )}
       </header>
+
       <Box sx={{ display: "flex", width: "100% " }}>
-        <Drawer languages={Doc} value={value} />
+        <Drawer languages={Doc} value={Value} />
 
-        {/* <Box component="main">
-          <div style={{ marginTop: 60, marginLeft: 5 }}>
-            <div className="box_num">
-              <p id="head3">All customers</p>
-              <br />
-              <img src={All_online} alt="All_online" id="img_icons" />
-              <p id="int_count">150</p>
-              <br />
+        <Box component="main">
+          <div className="mainDashboard">
+            <div className="HeaderDashboard">
+              <p className="HDashboard">Dashboard</p>
+              <div className="gbutton">
+                {/* <button>Default</button>
+              <button>Save</button> */}
+                <button className="Settingbutton">Setting Dashboard</button>
+              </div>
             </div>
 
-            <div className="box_num">
-              <p id="head3">Old customers</p>
-              <br />
-              <img src={Old_online} alt="Old_online" id="img_icons" />
-              <p id="int_count">5</p>
-              <br />
-            </div>
-
-            <div className="box_num">
-              <p id="head3">Country</p>
-              <br />
-              <img src={Country} alt="Country" id="img_icons" />
-              <p id="int_count">15</p>
-              <br />
-            </div>
-
-            <div className="box_num">
-              <p id="head3">All work</p>
-              <br />
-              <img src={All_work} alt="All_work" id="img_icons" />
-              <p id="int_count">15</p>
-              <br />
-            </div>
-          </div>
-          <div style={{ marginLeft: 5 }}>
-            <div className="box_salary">
-              <h3>Salary</h3>
-              <div style={{ marginTop: 20 }}>
-                <div className="month">
-                  <p id="month">January</p>
+            <div className="group1">
+              <div className="BoxAllg1">
+                <div className="box_num_1">
+                  <p id="head3">All customers</p>
                   <br />
-                  <p id="Balance">Balance/Month</p>
-                </div>
-                <div className="amount">
-                  <p id="amount">1000</p>
-                </div>
-                <button className="FaAngleRight" style={{ top: 95 }}>
-                  <FaAngleRight id="FaAngleRight" />
-                </button>
-              </div>
-              <br />
-              <div style={{ marginTop: 20 }}>
-                <div className="month">
-                  <p id="month">2022</p>
+                  <div className="BoxDB">
+                    <img src={All_online} alt="All_online" id="img_icons" />
+                    <p id="int_count">{all_work}</p>
+                  </div>
                   <br />
-                  <p id="Balance">Balance/Month</p>
                 </div>
-                <div className="amount">
-                  <p id="amount">1000</p>
-                </div>
-                <button className="FaAngleRight" style={{ top: 160 }}>
-                  <FaAngleRight id="FaAngleRight" />
-                </button>
-              </div>
-              <br />
-              <div style={{ marginTop: 20 }}>
-                <div className="month">
-                  <p id="month">2021-present</p>
+
+                <div className="box_num">
+                  <p id="head3">Old customers</p>
                   <br />
-                  <p id="Balance">All</p>
+                  <div className="BoxDB">
+                    <img
+                      src={Old_customers}
+                      alt="Old_customers"
+                      id="img_icons2"
+                    />
+                    <p id="int_count">{old_work}</p>
+                  </div>
+
+                  <br />
                 </div>
-                <div className="amount">
-                  <p id="amount">15000</p>
+
+                <div className="box_num_1">
+                  <p id="head3">Country</p>
+                  <br />
+                  <div className="BoxDB">
+                    <img src={Country} alt="Country" id="img_icons2" />
+                    <p id="int_count">0</p>
+                  </div>
+                  <br />
                 </div>
-                <button className="FaAngleRight" style={{ top: 230 }}>
-                  <FaAngleRight id="FaAngleRight" />
-                </button>
-              </div>
-            </div>
-            <div className="box_salary">
-              <h3>Customer Map</h3>
-              <div style={{ textAlign: "center", marginTop: 20 }}>
-                <img src={Map} alt="Map" />
-              </div>
-            </div>
-          </div>
-          <div style={{ marginLeft: 5 }}>
-            <div className="box_search">
-              <div className="in_box_search">
-                <p id="head3">Year</p>
-                <br />
-                <Select
-                  value={sizeState}
-                  onChange={handleSizeChange}
-                  input={<BootstrapInput className="Select" />}
-                  IconComponent={() => <FaAngleDown className="FaAngleDown" />}
-                  className="Select"
-                >
-                  <MenuItem value={2021}>2021</MenuItem>
-                  <MenuItem value={2022}>2022</MenuItem>
-                </Select>
-              </div>
 
-              <div className="in_box_search">
-                <p id="head3">Month</p>
-                <br />
-                <Select
-                  value={month}
-                  onChange={handlesetMonthChange}
-                  input={<BootstrapInput className="Select" />}
-                  IconComponent={() => <FaAngleDown className="FaAngleDown" />}
-                  className="Select"
-                >
-                  <MenuItem value={0}>All</MenuItem>
-                  <MenuItem value={1}>January</MenuItem>
-                  <MenuItem value={2}>February</MenuItem>
-                  <MenuItem value={3}>March</MenuItem>
-                  <MenuItem value={4}>April</MenuItem>
-                  <MenuItem value={5}>May</MenuItem>
-                  <MenuItem value={6}>June</MenuItem>
-                  <MenuItem value={7}>July</MenuItem>
-                  <MenuItem value={8}>August</MenuItem>
-                  <MenuItem value={9}>September</MenuItem>
-                  <MenuItem value={10}>October</MenuItem>
-                  <MenuItem value={11}>November</MenuItem>
-                  <MenuItem value={12}>December</MenuItem>
-                </Select>
+                <div className="box_num">
+                  <p id="head3">All work</p>
+                  <br />
+                  <div className="BoxDB">
+                    <img src={All_work} alt="All_work" id="img_icons" />
+                    <p id="int_count">{old_work}</p>
+                  </div>
+                  <br />
+                </div>
               </div>
-
-              <div className="in_box_search">
-                <p id="head3">Type</p>
-                <br />
-                <Select
-                  value={type}
-                  onChange={handlesetTypeChange}
-                  input={<BootstrapInput className="Select" />}
-                  IconComponent={() => <FaAngleDown className="FaAngleDown" />}
-                  className="Select"
-                >
-                  <MenuItem value={0}>All</MenuItem>
-                  <MenuItem value={1}>General offical</MenuItem>
-                  <MenuItem value={2}>Document offical</MenuItem>
-                </Select>
+              <div className="Wallet">
+                <h3>Wallet</h3>
+                <div className="ChartDB1">
+                  <Chart />
+                </div>
               </div>
-            </div>
-          </div>
-          <div style={{ marginLeft: 8 }}>
-            <div className="box_in">
-              <div className="month2">
-                <p id="month">In progress</p>
-                <br />
-                <p id="Balance">number of tasks</p>
-              </div>
-              <div className="In_progress">
-                <img src={In_progress} alt="In_progress" id="img_box_in" />
+              <div className="box_salary">
+                <h3>Customer Map</h3>
+                <div style={{ textAlign: "center", marginTop: 20 }}>
+                  <img
+                    src={Map}
+                    alt="Map"
+                    onMouseEnter={() => setHovering(true)}
+                    onMouseLeave={() => setHovering(false)}
+                  />
+                  {hovering ? <div className="HoverText">oncoming</div> : null}
+                </div>
               </div>
             </div>
 
-            <div className="box_in">
-              <div className="month2">
-                <p id="month">Succeed</p>
-                <br />
-                <p id="Balance">number of tasks</p>
+            {/* <div className="group2">
+              <div className="Job_status">
+                <h3>Job status</h3>
+                <div style={{ textAlign: "center", marginTop: 20 }}>
+                   <img src={Map} alt="Map" /> 
+                </div>
               </div>
-              <div className="In_progress">
-                <img src={Succeed} alt="In_progress" id="img_box_in" />
+              <div className="Review">
+                <h3>Review</h3>
+                <div style={{ textAlign: "center", marginTop: 20 }}>
+                  <img src={Map} alt="Map" /> 
+                </div>
               </div>
-            </div>
+              {/* <div className="box_search">
+                <div className="in_box_search">
+                  <p id="head3">Year</p>
+                  <br />
+                  <Select
+                    value={sizeState}
+                    onChange={handleSizeChange}
+                    input={<BootstrapInput className="Select" />}
+                    IconComponent={() => <FaAngleDown className="FaAngleDown" />}
+                    className="Select"
+                  >
+                    <MenuItem value={2021}>2021</MenuItem>
+                    <MenuItem value={2022}>2022</MenuItem>
+                  </Select>
+                </div>
 
-            <div className="box_in">
-              <div className="month2">
-                <p id="month">Cancel</p>
-                <br />
-                <p id="Balance">number of tasks</p>
-              </div>
-              <div className="In_progress">
-                <img src={Cancel} alt="In_progress" id="img_box_in" />
-              </div>
-            </div>
+                <div className="in_box_search">
+                  <p id="head3">Month</p>
+                  <br />
+                  <Select
+                    value={month}
+                    onChange={handlesetMonthChange}
+                    input={<BootstrapInput className="Select" />}
+                    IconComponent={() => <FaAngleDown className="FaAngleDown" />}
+                    className="Select"
+                  >
+                    <MenuItem value={0}>All</MenuItem>
+                    <MenuItem value={1}>January</MenuItem>
+                    <MenuItem value={2}>February</MenuItem>
+                    <MenuItem value={3}>March</MenuItem>
+                    <MenuItem value={4}>April</MenuItem>
+                    <MenuItem value={5}>May</MenuItem>
+                    <MenuItem value={6}>June</MenuItem>
+                    <MenuItem value={7}>July</MenuItem>
+                    <MenuItem value={8}>August</MenuItem>
+                    <MenuItem value={9}>September</MenuItem>
+                    <MenuItem value={10}>October</MenuItem>
+                    <MenuItem value={11}>November</MenuItem>
+                    <MenuItem value={12}>December</MenuItem>
+                  </Select>
+                </div>
+
+                <div className="in_box_search">
+                  <p id="head3">Type</p>
+                  <br />
+                  <Select
+                    value={type}
+                    onChange={handlesetTypeChange}
+                    input={<BootstrapInput className="Select" />}
+                    IconComponent={() => <FaAngleDown className="FaAngleDown" />}
+                    className="Select"
+                  >
+                    <MenuItem value={0}>All</MenuItem>
+                    <MenuItem value={1}>General offical</MenuItem>
+                    <MenuItem value={2}>Document offical</MenuItem>
+                  </Select>
+                </div>
+              </div> 
+            </div> */}
           </div>
-          <div style={{ marginLeft: 10 }}>
-            <div style={{ float: "left" }}>
-              <div>
-                <button className="button">
-                  <h3>In progress (5)</h3>
-                  <FaAngleUp id="FaAngleDown" />
-                </button>
-              </div>
-              <div>
-                <button className="button">
-                  <h3>Succeed (4)</h3>
-                  <FaAngleUp id="FaAngleDown" style={{ top: 1003 }} />
-                </button>
-              </div>
-              <div>
-                <button className="button">
-                  <h3>Cancel (0)</h3>
-                  <FaAngleUp id="FaAngleDown" style={{ top: 1053 }} />
-                </button>
-              </div>
-            </div>
-          </div>
-        </Box> */}
+        </Box>
       </Box>
     </div>
   );

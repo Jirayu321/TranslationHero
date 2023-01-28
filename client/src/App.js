@@ -16,6 +16,7 @@ import ForgetPassword from "./Components/Login/ForgetPassword";
 import CreateNewPassword from "./Components/Login/CreateNewPassword";
 import Signup from "./Components/Sign_up/Signup";
 import Chat from "./Components/Chat/ChatCustomer";
+import Chats from "./Components/Chat/ChatTansalat";
 import Order from "./Components/Order/Order";
 import Notification from "./Components/Notification/NotificaionCustomer";
 import Tool from "./Components/Tool/Tool";
@@ -54,6 +55,7 @@ function App() {
                 <Route path="/Dashboard_freelance" element={<Freelance />} />
                 <Route path="/Tool" element={<Tool />} />
                 <Route path="/Chat" element={<Chat />} />
+                <Route path="/Chats" element={<Chats />} />
               </Routes>
             </StyledEngineProvider>
           </div>

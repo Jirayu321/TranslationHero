@@ -13,7 +13,8 @@ import { AiFillCheckCircle } from "react-icons/ai";
 export default function Status(props) {
   // const [activeStep, setActiveStep] = React.useState("");
   const status = props.Status;
-
+  const price = props.Price;
+  const deadline = props.Deadline;
   return (
     <>
       <div>
@@ -35,7 +36,7 @@ export default function Status(props) {
             <FaAngleDown style={{ float: "left", margin: 15, fontSize: 20 }} />
           </div>
 
-          {status === 0 ? (
+          {status === "0" ? (
             <>
               <div>
                 <p
@@ -74,7 +75,7 @@ export default function Status(props) {
                     color: "#858585",
                   }}
                 >
-                  payment amount : $32.5
+                  {/* payment amount : $32.5 */}
                 </p>
               </div>
 
@@ -110,7 +111,7 @@ export default function Status(props) {
                     color: "#858585",
                   }}
                 >
-                  Dateline 20 June 2022
+                  {/* Dateline 20 June 2022 */}
                 </p>
               </div>
 
@@ -146,7 +147,7 @@ export default function Status(props) {
                     color: "#858585",
                   }}
                 >
-                  20 June 2022
+                  {/* 20 June 2022 */}
                 </p>
               </div>
 
@@ -163,139 +164,7 @@ export default function Status(props) {
                 </p>
               </div>
             </>
-          ) : status === 1 ? (
-            <>
-              <div>
-                <p
-                  style={{
-                    float: "left",
-                    width: 190,
-                    textAlign: "left",
-                    marginLeft: 17,
-                    marginRight: 17,
-                  }}
-                >
-                  Translator has accepted the job.
-                </p>
-                <AiFillCheckCircle
-                  style={{ float: "left", fontSize: 20, color: "#46BC52" }}
-                />
-              </div>
-
-              <div>
-                <p
-                  style={{
-                    float: "left",
-                    width: 190,
-                    textAlign: "left",
-                    marginLeft: 17,
-                  }}
-                >
-                  Pay
-                </p>
-                <p style={{ float: "left", fontSize: 13, color: "#FFC100" }}>
-                  pending
-                </p>
-                <p
-                  style={{
-                    float: "left",
-                    width: 190,
-                    textAlign: "left",
-                    marginLeft: 17,
-                    fontSize: 13,
-                    color: "#858585",
-                  }}
-                >
-                  payment amount : $32.5
-                </p>
-              </div>
-
-              <div>
-                <p
-                  style={{
-                    float: "left",
-                    width: 190,
-                    textAlign: "left",
-                    marginLeft: 17,
-                  }}
-                >
-                  Translating
-                </p>
-
-                <FaCalendarAlt
-                  style={{
-                    float: "left",
-                    fontSize: 16,
-                    textAlign: "left",
-                    width: 68,
-                    position: "relative",
-                    right: 10,
-                  }}
-                />
-                <p
-                  style={{
-                    float: "left",
-                    width: 190,
-                    textAlign: "left",
-                    marginLeft: -30,
-                    fontSize: 13,
-                    color: "#858585",
-                  }}
-                >
-                  Dateline 20 June 2022
-                </p>
-              </div>
-
-              <div>
-                <p
-                  style={{
-                    float: "left",
-                    width: 190,
-                    textAlign: "left",
-                    marginLeft: 17,
-                  }}
-                >
-                  Send to
-                </p>
-
-                <FaCalendarAlt
-                  style={{
-                    float: "left",
-                    fontSize: 16,
-                    textAlign: "left",
-                    width: 68,
-                    position: "relative",
-                    right: 10,
-                  }}
-                />
-                <p
-                  style={{
-                    float: "left",
-                    width: 190,
-                    textAlign: "left",
-                    marginLeft: -30,
-                    fontSize: 13,
-                    color: "#858585",
-                  }}
-                >
-                  20 June 2022
-                </p>
-              </div>
-
-              <div>
-                <p
-                  style={{
-                    float: "left",
-                    width: 190,
-                    textAlign: "left",
-                    marginLeft: 17,
-                  }}
-                >
-                  Review
-                </p>
-              </div>
-            </>
-          ) : status === 2 ? (
+          ) : status === "1" ? (
             <>
               <div>
                 <p
@@ -318,16 +187,16 @@ export default function Status(props) {
                 <p
                   style={{
                     float: "left",
-                    width: 206,
+                    width: 190,
                     textAlign: "left",
                     marginLeft: 17,
                   }}
                 >
                   Pay
                 </p>
-                <AiFillCheckCircle
-                  style={{ float: "left", fontSize: 20, color: "#46BC52" }}
-                />
+                <p style={{ float: "left", fontSize: 13, color: "#FFC100" }}>
+                  pending
+                </p>
                 <p
                   style={{
                     float: "left",
@@ -338,7 +207,7 @@ export default function Status(props) {
                     color: "#858585",
                   }}
                 >
-                  payment amount : $32.5
+                  payment amount :{price}
                 </p>
               </div>
 
@@ -353,9 +222,7 @@ export default function Status(props) {
                 >
                   Translating
                 </p>
-                <p style={{ float: "left", fontSize: 13, color: "#FFC100" }}>
-                  pending
-                </p>
+
                 <FaCalendarAlt
                   style={{
                     float: "left",
@@ -376,7 +243,7 @@ export default function Status(props) {
                     color: "#858585",
                   }}
                 >
-                  Dateline 20 June 2022
+                  Dateline {deadline}
                 </p>
               </div>
 
@@ -391,6 +258,7 @@ export default function Status(props) {
                 >
                   Send to
                 </p>
+
                 <FaCalendarAlt
                   style={{
                     float: "left",
@@ -401,7 +269,6 @@ export default function Status(props) {
                     right: 10,
                   }}
                 />
-
                 <p
                   style={{
                     float: "left",
@@ -429,7 +296,7 @@ export default function Status(props) {
                 </p>
               </div>
             </>
-          ) : status === 3 ? (
+          ) : status === "2" ? (
             <>
               <div>
                 <p
@@ -472,7 +339,7 @@ export default function Status(props) {
                     color: "#858585",
                   }}
                 >
-                  payment amount : $32.5
+                  payment amount :{price}
                 </p>
               </div>
 
@@ -480,16 +347,16 @@ export default function Status(props) {
                 <p
                   style={{
                     float: "left",
-                    width: 206,
+                    width: 190,
                     textAlign: "left",
                     marginLeft: 17,
                   }}
                 >
                   Translating
                 </p>
-                <AiFillCheckCircle
-                  style={{ float: "left", fontSize: 20, color: "#46BC52" }}
-                />
+                <p style={{ float: "left", fontSize: 13, color: "#FFC100" }}>
+                  pending
+                </p>
                 <FaCalendarAlt
                   style={{
                     float: "left",
@@ -510,7 +377,7 @@ export default function Status(props) {
                     color: "#858585",
                   }}
                 >
-                  Dateline 20 June 2022
+                  Dateline {deadline}
                 </p>
               </div>
 
@@ -524,9 +391,6 @@ export default function Status(props) {
                   }}
                 >
                   Send to
-                </p>
-                <p style={{ float: "left", fontSize: 13, color: "#FFC100" }}>
-                  pending
                 </p>
                 <FaCalendarAlt
                   style={{
@@ -566,7 +430,7 @@ export default function Status(props) {
                 </p>
               </div>
             </>
-          ) : status === 4 ? (
+          ) : status === "3" ? (
             <>
               <div>
                 <p
@@ -609,7 +473,7 @@ export default function Status(props) {
                     color: "#858585",
                   }}
                 >
-                  payment amount : $32.5
+                  payment amount : {price}
                 </p>
               </div>
 
@@ -647,7 +511,144 @@ export default function Status(props) {
                     color: "#858585",
                   }}
                 >
-                  Dateline 20 June 2022
+                  Dateline {deadline}
+                </p>
+              </div>
+
+              <div>
+                <p
+                  style={{
+                    float: "left",
+                    width: 190,
+                    textAlign: "left",
+                    marginLeft: 17,
+                  }}
+                >
+                  Send to
+                </p>
+                <p style={{ float: "left", fontSize: 13, color: "#FFC100" }}>
+                  pending
+                </p>
+                <FaCalendarAlt
+                  style={{
+                    float: "left",
+                    fontSize: 16,
+                    textAlign: "left",
+                    width: 68,
+                    position: "relative",
+                    right: 10,
+                  }}
+                />
+
+                <p
+                  style={{
+                    float: "left",
+                    width: 190,
+                    textAlign: "left",
+                    marginLeft: -30,
+                    fontSize: 13,
+                    color: "#858585",
+                  }}
+                >
+                  20 June 2022
+                </p>
+              </div>
+
+              <div>
+                <p
+                  style={{
+                    float: "left",
+                    width: 190,
+                    textAlign: "left",
+                    marginLeft: 17,
+                  }}
+                >
+                  Review
+                </p>
+              </div>
+            </>
+          ) : status === "4" ? (
+            <>
+              <div>
+                <p
+                  style={{
+                    float: "left",
+                    width: 190,
+                    textAlign: "left",
+                    marginLeft: 17,
+                    marginRight: 17,
+                  }}
+                >
+                  Translator has accepted the job.
+                </p>
+                <AiFillCheckCircle
+                  style={{ float: "left", fontSize: 20, color: "#46BC52" }}
+                />
+              </div>
+
+              <div>
+                <p
+                  style={{
+                    float: "left",
+                    width: 206,
+                    textAlign: "left",
+                    marginLeft: 17,
+                  }}
+                >
+                  Pay
+                </p>
+                <AiFillCheckCircle
+                  style={{ float: "left", fontSize: 20, color: "#46BC52" }}
+                />
+                <p
+                  style={{
+                    float: "left",
+                    width: 190,
+                    textAlign: "left",
+                    marginLeft: 17,
+                    fontSize: 13,
+                    color: "#858585",
+                  }}
+                >
+                  payment amount : {price}
+                </p>
+              </div>
+
+              <div>
+                <p
+                  style={{
+                    float: "left",
+                    width: 206,
+                    textAlign: "left",
+                    marginLeft: 17,
+                  }}
+                >
+                  Translating
+                </p>
+                <AiFillCheckCircle
+                  style={{ float: "left", fontSize: 20, color: "#46BC52" }}
+                />
+                <FaCalendarAlt
+                  style={{
+                    float: "left",
+                    fontSize: 16,
+                    textAlign: "left",
+                    width: 68,
+                    position: "relative",
+                    right: 10,
+                  }}
+                />
+                <p
+                  style={{
+                    float: "left",
+                    width: 190,
+                    textAlign: "left",
+                    marginLeft: -30,
+                    fontSize: 13,
+                    color: "#858585",
+                  }}
+                >
+                  Dateline {deadline}
                 </p>
               </div>
 
@@ -706,7 +707,7 @@ export default function Status(props) {
                 </p>
               </div>
             </>
-          ):status === 5?(
+          ):status === "5"?(
           <>
             <div>
               <p
@@ -749,7 +750,7 @@ export default function Status(props) {
                   color: "#858585",
                 }}
               >
-                payment amount : $32.5
+                payment amount : {price}
               </p>
             </div>
 
@@ -787,7 +788,7 @@ export default function Status(props) {
                   color: "#858585",
                 }}
               >
-                Dateline 20 June 2022
+                Dateline {deadline}
               </p>
             </div>
 

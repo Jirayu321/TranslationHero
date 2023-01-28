@@ -1,6 +1,6 @@
 /* 1 */
 .App-header {
-  min-height: 3vh;
+  min-height: 10vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -21,7 +21,7 @@
 }
 .textDescription1_overviwe {
   font-size: 40px;
-  width: 600px;
+  width: 50vw;
 }
 .boxleftbutton_overviwe {
   left: -2%;
@@ -73,7 +73,7 @@
   position: absolute;
   width: 330px;
   height: 330px;
-  left: 800px;
+  left: 53vw;
   border-radius: 100%;
 }
 .boxYellow_overviwe {
@@ -84,7 +84,7 @@
   position: absolute;
   width: 330px;
   height: 330px;
-  left: 1000px;
+  left: 70vw;
   border-radius: 100%;
 }
 .boxImg1_overviwe {
@@ -108,6 +108,15 @@
   font-size: 45px;
   color: #0097fe;
   margin-bottom: 70px;
+  text-align: center;
+}
+.Content {
+  text-align: center;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  height: 500px;
+  margin: 1rem;
+  justify-items: center;
 }
 .ContentBox2_1_overviwe {
   width: 350px;
@@ -116,13 +125,12 @@
   border: 1px solid rgb(229, 229, 229);
   box-shadow: rgb(0 0 0 / 20%) 0px 4px 20px;
   border-radius: 20px;
-  position: absolute;
-  left: 50px;
+  display: inline-grid;
+  justify-items: center;
+  /* position: absolute;
+  left: 50px; */
 }
-.ContentBox2Img_overviwe {
-  width: 75%;
-}
-.ContentBox2_2_overviwe {
+/* .ContentBox2_2_overviwe {
   width: 350px;
   height: 500px;
   background: rgb(255, 255, 255);
@@ -141,9 +149,12 @@
   border-radius: 20px;
   position: absolute;
   left: 980px;
+} */
+.ContentBox2Img_overviwe {
+  width: 75%;
 }
+
 .textDescriptionBox2_overviwe {
-  position: absolute;
   width: 280px;
   height: 231px;
   font-style: normal;
@@ -151,10 +162,7 @@
   font-size: 20px;
   display: flex;
   align-items: center;
-  text-align: center;
   color: rgb(51, 51, 51);
-  margin: 30px;
-  top: 185px;
 }
 
 /* 3 */
