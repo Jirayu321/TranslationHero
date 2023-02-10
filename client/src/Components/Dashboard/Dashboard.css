@@ -90,6 +90,7 @@
   padding: 20px;
   float: left;
   margin: 13px 6px 5px 13px;
+  border: none;
 }
 .group2 {
   display: grid;

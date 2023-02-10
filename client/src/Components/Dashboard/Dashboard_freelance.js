@@ -22,6 +22,7 @@ import {
   TextField,
   Autocomplete,
   IconButton,
+  Modal,
 } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
@@ -65,6 +66,7 @@ export default function Dashboard_freelance() {
   const [data3, setData3] = React.useState([]);
   const [type, settype] = React.useState(null);
   const [hovering, setHovering] = React.useState(false);
+  const [open, setOpen] = React.useState(false);
   const url = "http://localhost:3001/api";
   const eiei = new Date();
 
@@ -78,7 +80,9 @@ export default function Dashboard_freelance() {
       goLogin();
     }
   };
-
+  const handleClose = () => {
+    setOpen(false);
+  };
   React.useEffect(() => {
     checklogin();
     getOrder(name);
@@ -155,7 +159,6 @@ export default function Dashboard_freelance() {
       }
     }
   };
-  
   console.log("data1", data1);
   return (
     <div className="App-body3">
@@ -183,6 +186,59 @@ export default function Dashboard_freelance() {
         <Drawer languages={Doc} value={Value} />
 
         <Box component="main">
+          <Modal
+            hideBackdrop
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="keep-mounted-modal-title"
+            aria-describedby="keep-mounted-modal-description"
+          >
+            <Box
+              sx={{
+                position: "absolute",
+                top: "50%",
+                left: "45%",
+                transform: "translate(-50%, -70%)",
+                width: 700,
+                bgcolor: "background.paper",
+                boxShadow: 24,
+                p: 4,
+                borderRadius: 5,
+                border: "1px solid #E5E5E5",
+                textAlign: "center",
+                paddingRight: 0,
+                paddingLeft: "25px",
+              }}
+            >
+              <Map1 />
+
+              <div
+                style={{ marginTop: 10, textAlign: "left", float: "left" }}
+              ></div>
+              <div
+                style={{
+                  marginTop: 10,
+                  textAlign: "right",
+                  marginRight: "20px",
+                }}
+              >
+                <button
+                  style={{
+                    height: 40,
+                    borderRadius: 5,
+                    color: "#034D82",
+                    fontWeight: 700,
+                    filter: "drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.1))",
+                    background: "#FFFFFF",
+                    border: "1px solid #034D82",
+                  }}
+                  onClick={() => handleClose(2)}
+                >
+                  Close
+                </button>
+              </div>
+            </Box>
+          </Modal>
           <div className="mainDashboard">
             <div className="HeaderDashboard">
               <p className="HDashboard">Dashboard</p>
@@ -248,10 +304,11 @@ export default function Dashboard_freelance() {
                 </div>
               </div>
 
-              <div
+              <button
                 className="box_salary"
                 onMouseEnter={() => setHovering(true)}
                 onMouseLeave={() => setHovering(false)}
+                onClick={() => setOpen(true)}
               >
                 <h3>Customer Map</h3>
                 <div style={{ textAlign: "center", marginTop: 20 }}>
@@ -260,7 +317,7 @@ export default function Dashboard_freelance() {
                     <div className="HoverText">click view map</div>
                   ) : null}
                 </div>
-              </div>
+              </button>
             </div>
 
             <div className="group2">
@@ -513,10 +570,6 @@ export default function Dashboard_freelance() {
                 </div>
                 <h3>Comment</h3>
               </div>
-            </div>
-
-            <div className="group2">
-              <Map1 />
             </div>
           </div>
         </Box>

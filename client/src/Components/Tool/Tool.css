@@ -81,6 +81,21 @@
   background-color: #ffffff;
   justify-content: center;
 }
+.BoxModal2 {
+  position: absolute;
+  top: 10%;
+  left: 1%;
+  width: 98vw;
+  height: 80vh;
+  box-shadow: 24px;
+  padding: 2.9vw;
+  border-radius: 5px;
+  border: 1px solid #e5e5e5;
+  text-align: center;
+  /* display: flex; */
+  background-color: #ffffff;
+  /* justify-content: center; */
+}
 .BoxModalButton {
   box-sizing: border-box;
   width: 230px;

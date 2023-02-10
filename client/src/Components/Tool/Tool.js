@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Box, Modal, Autocomplete, TextField } from "@mui/material";
 import Drawer from "../Drawer/DrawerTranslate";
-import Navbars from "../Navbar/navbarTanslater";
+import Navbars from "../Navbar/navbarHome2.js";
 import SunEditor from "suneditor-react";
 import "suneditor/dist/css/suneditor.min.css";
 import Icons from "../../Images/icons_ai.png";
@@ -18,11 +18,13 @@ import { useNavigate, useLocation } from "react-router-dom";
 
 function Tool() {
   const [typeOpen, setTypeOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(false);
   const [page, setPage] = React.useState("");
   const [languages, setLanguages] = React.useState("");
   const [languages2, setLanguages2] = React.useState("");
   const [textex, setText] = React.useState("");
   const [translateFrom, setTranslateFrom] = React.useState("");
+  const [result, setResult] = React.useState("");
 
   // const [value_Text, setValue_Text] = React.useState("");
   const navigate = useNavigate();
@@ -36,10 +38,10 @@ function Tool() {
     } else {
       navigate("/Login");
     }
-  }, [navigate,Value]);
+  }, [navigate, Value]);
 
   const handleChange = (content) => {
-    console.log(content.trim());
+    console.log(":::", content.trim());
     setText(content);
   };
 
@@ -60,30 +62,32 @@ function Tool() {
   const TranslateFrom = (x) => {
     setLanguages(x);
     if (x === "English") {
-      setTranslateFrom("en");
+      setTranslateFrom("en-GB");
     } else if (x === "Thai") {
-      setTranslateFrom("th");
+      setTranslateFrom("th-TH");
     } else if (x === "German") {
-      setTranslateFrom("de");
+      setTranslateFrom("de-DE");
     } else {
-      setTranslateFrom("en");
+      setTranslateFrom("en-GB");
     }
   };
 
   const translate = () => {
-    const text = textex
+    const text = textex;
     const translateTo = languages2;
     console.log(typeof text);
     let apiUrl = `https://api.mymemory.translated.net/get?q=${text}&langpair=${translateFrom}|${translateTo}`;
     fetch(apiUrl)
       .then((res) => res.json())
       .then((data) => {
+        console.log("data::", data);
         const valueText = data.responseData.translatedText;
-        console.log(valueText);
+        setResult(valueText);
       })
       .catch((e) => {
         console.log(e);
       });
+    setOpen(true);
   };
 
   return (
@@ -92,7 +96,7 @@ function Tool() {
         <Navbars />
       </header>
       <Box sx={{ display: "flex", width: "100% " }}>
-        <Drawer languages={Doc}  value={Value}/>
+        <Drawer languages={Doc} value={Value} />
         <Box component="main">
           <div className="BobyTool">
             <p className="TextHTool">Tool</p>
@@ -239,11 +243,58 @@ function Tool() {
                 <ImTextColor className="ImTextColor" />
               </button>
 
-              <button className="BoxModalButton">
+              <button
+                className="BoxModalButton"
+                style={{
+                  color: "beige",
+                  border: "1px solid",
+                }}
+              >
                 <p>IMAGE SCAN</p>
                 <br />
                 <FaRegFileImage className="ImTextColor" />
               </button>
+            </Box>
+          </Modal>
+          <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box className="BoxModal2">
+              <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <p>Result</p>
+                <button
+                  style={{
+                    height: 40,
+                    borderRadius: 5,
+                    color: "#034D82",
+                    fontWeight: 700,
+                    filter: "drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.1))",
+                    background: "#FFFFFF",
+                    border: "1px solid #034D82",
+                    marginBottom: 5,
+                  }}
+                  onClick={() => setOpen(false)}
+                >
+                  Close
+                </button>
+              </div>
+
+              <div
+                style={{
+                  width: " 100%",
+                  height: "500px",
+                  background: " #F6FBFE",
+                  border: "1px solid #E5E5E5",
+                  borderRadius: 5,
+                  textAlign: "start",
+                  padding: "20px",
+                }}
+              >
+                <p>{result}</p>
+              </div>
             </Box>
           </Modal>
         </Box>

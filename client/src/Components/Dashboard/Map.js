@@ -13,7 +13,7 @@ function Map1() {
           latitude: 13.736717,
           zoom: 6,
         }}
-        style={{ width: "40vw", height: "40vh" }}
+        style={{ width: "45vw", height: "40vh" }}
         mapStyle="https://api.maptiler.com/maps/streets/style.json?key=qIIg1bS0SsYVMmXn5Bn5"
       >
         <NavigationControl position="top-left" />
