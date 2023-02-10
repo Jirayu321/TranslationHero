@@ -26,14 +26,16 @@ const navbarHome2 = (props) => {
       navigate("/Order", { state: { languages: `${x}`, value: `${value}` } });
     } else if (pathname === "/Chat") {
       navigate("/Chat", { state: { languages: `${x}`, value: `${value}` } });
-    } else {
+    } else if (pathname === "/Chats") {
+      navigate("/Chats", { state: { languages: `${x}`, value: `${value}` } });
+    } else if (pathname === "/Dashboard_freelance") {
+      navigate("/Dashboard_freelance", { state: { languages: `${x}`, value: `${value}` } });
+    }else {
       navigate("/Notification", {
         state: { languages: `${x}`, value: `${value}` },
       });
     }
   };
-
- 
 
   return (
     <Navbar expand="lg" id="navbardb2">

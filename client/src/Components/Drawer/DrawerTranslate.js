@@ -95,14 +95,16 @@ export default function DrawerTranslate(props) {
                       }
                     />
                   </ListItemIcon>
-                ) : index === 3 ? (
-                  <ListItemIcon id={"icons_translate"}>
-                    <IoNotifications
-                      className="icons"
-                      // onClick={() => navigate("/Notification")}
-                    />
-                  </ListItemIcon>
-                ) : null}
+                ) 
+                // : index === 3 ? (
+                //   <ListItemIcon id={"icons_translate"}>
+                //     <IoNotifications
+                //       className="icons"
+                //       // onClick={() => navigate("/Notification")}
+                //     />
+                //   </ListItemIcon>
+                // ) 
+                : null}
               </ListItem>
             ))}
           </List>
@@ -153,14 +155,16 @@ export default function DrawerTranslate(props) {
                       }
                     />
                   </ListItemIcon>
-                ) : index === 3 ? (
-                  <ListItemIcon id={"icons_translate"}>
-                    <IoNotifications
-                      className="icons"
-                      // onClick={() => navigate("/Notification")}
-                    />
-                  </ListItemIcon>
-                ) : null}
+                ) 
+                // :index === 3 ? (
+                //   <ListItemIcon id={"icons_translate"}>
+                //     <IoNotifications
+                //       className="icons"
+                //       // onClick={() => navigate("/Notification")}
+                //     />
+                //   </ListItemIcon>
+                // ) 
+                 : null}
               </ListItem>
             ))}
           </List>
@@ -211,14 +215,16 @@ export default function DrawerTranslate(props) {
                       }
                     />
                   </ListItemIcon>
-                ) : index === 3 ? (
-                  <ListItemIcon id={"icons_translate"}>
-                    <IoNotifications
-                      className="icons"
-                      // onClick={() => navigate("/Notification")}
-                    />
-                  </ListItemIcon>
-                ) : null}
+                ) 
+                // :index === 3 ? (
+                //   <ListItemIcon id={"icons_translate"}>
+                //     <IoNotifications
+                //       className="icons"
+                //       // onClick={() => navigate("/Notification")}
+                //     />
+                //   </ListItemIcon>
+                // ) 
+                : null}
               </ListItem>
             ))}
           </List>

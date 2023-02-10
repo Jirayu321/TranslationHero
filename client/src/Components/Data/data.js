@@ -367,6 +367,12 @@ export const data5 = [
   { code: "", label: "Birth Certificate" },
 ];
 
+export const data6 = [
+  { code: "", label: "In progress" },
+  { code: "", label: "Cancle" },
+  { code: "", label: "late" },
+  { code: "", label: "Succeed" },
+];
 export const datatest = [
   { code: "", label: "English" },
   { code: "", label: "German" },

@@ -110,9 +110,7 @@ export default function Status(props) {
                     fontSize: 13,
                     color: "#858585",
                   }}
-                >
-                  {/* Dateline 20 June 2022 */}
-                </p>
+                ></p>
               </div>
 
               <div>
@@ -146,9 +144,7 @@ export default function Status(props) {
                     fontSize: 13,
                     color: "#858585",
                   }}
-                >
-                  {/* 20 June 2022 */}
-                </p>
+                ></p>
               </div>
 
               <div>
@@ -278,9 +274,7 @@ export default function Status(props) {
                     fontSize: 13,
                     color: "#858585",
                   }}
-                >
-                  20 June 2022
-                </p>
+                ></p>
               </div>
 
               <div>
@@ -412,9 +406,7 @@ export default function Status(props) {
                     fontSize: 13,
                     color: "#858585",
                   }}
-                >
-                  20 June 2022
-                </p>
+                ></p>
               </div>
 
               <div>
@@ -549,9 +541,7 @@ export default function Status(props) {
                     fontSize: 13,
                     color: "#858585",
                   }}
-                >
-                  20 June 2022
-                </p>
+                ></p>
               </div>
 
               <div>
@@ -686,9 +676,7 @@ export default function Status(props) {
                     fontSize: 13,
                     color: "#858585",
                   }}
-                >
-                  20 June 2022
-                </p>
+                ></p>
               </div>
 
               <div>
@@ -707,146 +695,144 @@ export default function Status(props) {
                 </p>
               </div>
             </>
-          ):status === "5"?(
-          <>
-            <div>
-              <p
-                style={{
-                  float: "left",
-                  width: 190,
-                  textAlign: "left",
-                  marginLeft: 17,
-                  marginRight: 17,
-                }}
-              >
-                Translator has accepted the job.
-              </p>
-              <AiFillCheckCircle
-                style={{ float: "left", fontSize: 20, color: "#46BC52" }}
-              />
-            </div>
+          ) : status === "5" ? (
+            <>
+              <div>
+                <p
+                  style={{
+                    float: "left",
+                    width: 190,
+                    textAlign: "left",
+                    marginLeft: 17,
+                    marginRight: 17,
+                  }}
+                >
+                  Translator has accepted the job.
+                </p>
+                <AiFillCheckCircle
+                  style={{ float: "left", fontSize: 20, color: "#46BC52" }}
+                />
+              </div>
 
-            <div>
-              <p
-                style={{
-                  float: "left",
-                  width: 206,
-                  textAlign: "left",
-                  marginLeft: 17,
-                }}
-              >
-                Pay
-              </p>
-              <AiFillCheckCircle
-                style={{ float: "left", fontSize: 20, color: "#46BC52" }}
-              />
-              <p
-                style={{
-                  float: "left",
-                  width: 190,
-                  textAlign: "left",
-                  marginLeft: 17,
-                  fontSize: 13,
-                  color: "#858585",
-                }}
-              >
-                payment amount : {price}
-              </p>
-            </div>
+              <div>
+                <p
+                  style={{
+                    float: "left",
+                    width: 206,
+                    textAlign: "left",
+                    marginLeft: 17,
+                  }}
+                >
+                  Pay
+                </p>
+                <AiFillCheckCircle
+                  style={{ float: "left", fontSize: 20, color: "#46BC52" }}
+                />
+                <p
+                  style={{
+                    float: "left",
+                    width: 190,
+                    textAlign: "left",
+                    marginLeft: 17,
+                    fontSize: 13,
+                    color: "#858585",
+                  }}
+                >
+                  payment amount : {price}
+                </p>
+              </div>
 
-            <div>
-              <p
-                style={{
-                  float: "left",
-                  width: 206,
-                  textAlign: "left",
-                  marginLeft: 17,
-                }}
-              >
-                Translating
-              </p>
-              <AiFillCheckCircle
-                style={{ float: "left", fontSize: 20, color: "#46BC52" }}
-              />
-              <FaCalendarAlt
-                style={{
-                  float: "left",
-                  fontSize: 16,
-                  textAlign: "left",
-                  width: 68,
-                  position: "relative",
-                  right: 10,
-                }}
-              />
-              <p
-                style={{
-                  float: "left",
-                  width: 190,
-                  textAlign: "left",
-                  marginLeft: -30,
-                  fontSize: 13,
-                  color: "#858585",
-                }}
-              >
-                Dateline {deadline}
-              </p>
-            </div>
+              <div>
+                <p
+                  style={{
+                    float: "left",
+                    width: 206,
+                    textAlign: "left",
+                    marginLeft: 17,
+                  }}
+                >
+                  Translating
+                </p>
+                <AiFillCheckCircle
+                  style={{ float: "left", fontSize: 20, color: "#46BC52" }}
+                />
+                <FaCalendarAlt
+                  style={{
+                    float: "left",
+                    fontSize: 16,
+                    textAlign: "left",
+                    width: 68,
+                    position: "relative",
+                    right: 10,
+                  }}
+                />
+                <p
+                  style={{
+                    float: "left",
+                    width: 190,
+                    textAlign: "left",
+                    marginLeft: -30,
+                    fontSize: 13,
+                    color: "#858585",
+                  }}
+                >
+                  Dateline {deadline}
+                </p>
+              </div>
 
-            <div>
-              <p
-                style={{
-                  float: "left",
-                  width: 206,
-                  textAlign: "left",
-                  marginLeft: 17,
-                }}
-              >
-                Send to
-              </p>
-              <AiFillCheckCircle
-                style={{ float: "left", fontSize: 20, color: "#46BC52" }}
-              />
-              <FaCalendarAlt
-                style={{
-                  float: "left",
-                  fontSize: 16,
-                  textAlign: "left",
-                  width: 68,
-                  position: "relative",
-                  right: 10,
-                }}
-              />
+              <div>
+                <p
+                  style={{
+                    float: "left",
+                    width: 206,
+                    textAlign: "left",
+                    marginLeft: 17,
+                  }}
+                >
+                  Send to
+                </p>
+                <AiFillCheckCircle
+                  style={{ float: "left", fontSize: 20, color: "#46BC52" }}
+                />
+                <FaCalendarAlt
+                  style={{
+                    float: "left",
+                    fontSize: 16,
+                    textAlign: "left",
+                    width: 68,
+                    position: "relative",
+                    right: 10,
+                  }}
+                />
 
-              <p
-                style={{
-                  float: "left",
-                  width: 190,
-                  textAlign: "left",
-                  marginLeft: -30,
-                  fontSize: 13,
-                  color: "#858585",
-                }}
-              >
-                20 June 2022
-              </p>
-            </div>
+                <p
+                  style={{
+                    float: "left",
+                    width: 190,
+                    textAlign: "left",
+                    marginLeft: -30,
+                    fontSize: 13,
+                    color: "#858585",
+                  }}
+                ></p>
+              </div>
 
-            <div>
-              <p
-                style={{
-                  float: "left",
-                  width: 206,
-                  textAlign: "left",
-                  marginLeft: 17,
-                }}
-              >
-                Review
-              </p>
-              <AiFillCheckCircle
-                style={{ float: "left", fontSize: 20, color: "#46BC52" }}
-              />
-            </div>
-          </>
+              <div>
+                <p
+                  style={{
+                    float: "left",
+                    width: 206,
+                    textAlign: "left",
+                    marginLeft: 17,
+                  }}
+                >
+                  Review
+                </p>
+                <AiFillCheckCircle
+                  style={{ float: "left", fontSize: 20, color: "#46BC52" }}
+                />
+              </div>
+            </>
           ) : null}
           <hr style={{ width: " 90%", height: 1, margin: 15 }} />
         </div>

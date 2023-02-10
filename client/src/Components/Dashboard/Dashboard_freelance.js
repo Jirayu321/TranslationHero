@@ -5,7 +5,6 @@ import {
   ListItemIcon,
   ListItemText,
   Rating,
-  // Drawer,
   Toolbar,
   List,
   Avatar,
@@ -13,7 +12,24 @@ import {
   Select,
   styled,
   InputBase,
+  Paper,
+  Table,
+  TableBody,
+  TableContainer,
+  TableCell,
+  TableRow,
+  TableHead,
+  TextField,
+  Autocomplete,
+  IconButton,
 } from "@mui/material";
+import StarIcon from "@mui/icons-material/Star";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { AdapterLuxon } from "@mui/x-date-pickers/AdapterLuxon";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { MdArrowDropDown } from "react-icons/md";
+import { IoIosEye } from "react-icons/io";
+
 import Drawer from "../Drawer/DrawerTranslate";
 import Navbars from "../Navbar/navbarHome2.js";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -29,6 +45,9 @@ import All_work from "../../Images/All_work.png";
 import Map from "../../Images/Map.png";
 
 import Chart from "./Chart.js";
+import ProgressBar from "./ProgressBar";
+import Map1 from "./Map";
+import { data6 } from "../Data/data";
 import "./Dashboard.css";
 
 export default function Dashboard_freelance() {
@@ -38,7 +57,16 @@ export default function Dashboard_freelance() {
   const auth = useSelector((state) => state.auth);
   let Doc = location?.state?.languages;
   let Value = auth?.token;
-  // let value = auth?._id;
+  const name = { Translator_name: auth?.name };
+  const [data1, setData1] = React.useState([]);
+  const [all_work, setAll_work] = React.useState(0);
+  const [old_work, setOld_work] = React.useState(0);
+  const [country, setCountry] = React.useState(0);
+  const [data3, setData3] = React.useState([]);
+  const [type, settype] = React.useState(null);
+  const [hovering, setHovering] = React.useState(false);
+  const url = "http://localhost:3001/api";
+  const eiei = new Date();
 
   const goLogin = () => {
     navigate("/Login");
@@ -50,79 +78,26 @@ export default function Dashboard_freelance() {
       goLogin();
     }
   };
+
   React.useEffect(() => {
     checklogin();
-  });
-
-  // const [value, setValue] = React.useState(4);
-  // const [value2, setValue2] = React.useState(5);
-  // const [sizeState, setSize] = React.useState();
-  const [data1, setData1] = React.useState([]);
-  const [all_work, setAll_work] = React.useState(0);
-  const [old_work, setOld_work] = React.useState(0);
-  const [data2, setData2] = React.useState([]);
-
-  const [hovering, setHovering] = React.useState(false);
-
-  // const handleSizeChange = React.useCallback((event) => {
-  //   setSize(Number(event.target.value));
-  // }, []);
-
-  // const handlesetMonthChange = React.useCallback((event) => {
-  //   setMonth(Number(event.target.value));
-  // }, []);
-
-  // const handlesetTypeChange = React.useCallback((event) => {
-  //   setType(Number(event.target.value));
-  // }, []);
-
-  // const BootstrapInput = styled(InputBase)(({ theme }) => ({
-  //   "label + &": {
-  //     marginTop: theme.spacing(3),
-  //   },
-  //   "& .MuiInputBase-input": {
-  //     borderRadius: 4,
-  //     position: "relative",
-  //     backgroundColor: theme.palette.background.paper,
-  //     border: "1px solid #ced4da",
-  //     fontSize: 16,
-  //     padding: "10px 26px 10px 12px",
-  //     transition: theme.transitions.create(["border-color", "box-shadow"]),
-  //     fontFamily: [
-  //       "-apple-system",
-  //       "BlinkMacSystemFont",
-  //       '"Segoe UI"',
-  //       "Roboto",
-  //       '"Helvetica Neue"',
-  //       "Arial",
-  //       "sans-serif",
-  //       '"Apple Color Emoji"',
-  //       '"Segoe UI Emoji"',
-  //       '"Segoe UI Symbol"',
-  //     ].join(","),
-  //     "&:focus": {
-  //       borderRadius: 4,
-  //       borderColor: "#80bdff",
-  //       boxShadow: "0 0 0 0.2rem rgba(0,123,255,.25)",
-  //     },
-  //   },
-  // }));
-
-  // let { x } = useParams();
-  // console.log("jijijij",auth);
-  // const { innerWidth: width } = window;
-  const name = { Translator_name: auth?.name };
-  const url = "http://localhost:3001/api";
+    getOrder(name);
+  }, []);
 
   const setDataOrder = (i) => {
     let all_work = i?.length;
+    console.log("i:", i);
     setAll_work(all_work);
-    const ll = i.filter((item) => item.Customer_name);
-    setOld_work(ll.length);
+    const ll = i?.filter((item) => item?.Customer_name);
+    setOld_work(ll?.length);
     const DataOrder = i?.map((item, index) => {
       try {
         const formattedDate = moment(item?.Date).format("MM/DD/YYYY");
-        let formattedDate2 = moment(item?.Date).format("h:mm:ss a");
+        let formattedDate2 = moment(item?.Deadline).format("MM/DD/YYYY");
+        const dateNow = moment(eiei).format("MM/DD/YYYY");
+        const checkDate = dateNow > formattedDate2;
+        setCountry(1);
+
         return {
           index: index,
           orderID: index,
@@ -131,7 +106,9 @@ export default function Dashboard_freelance() {
           translator: item?.Translator_name,
           orderPrice: item?.Price,
           orderedDate: formattedDate,
-          status: formattedDate2,
+          status: item?.Status,
+          Customer: item?.Customer_name,
+          orderDeadline: checkDate,
         };
       } catch (e) {
         console.error(e);
@@ -155,7 +132,7 @@ export default function Dashboard_freelance() {
     //     return null;
     //   }
     // });
-    setData2(All.length);
+    setData3(All.length);
   };
 
   const getOrder = async (values) => {
@@ -178,11 +155,7 @@ export default function Dashboard_freelance() {
       }
     }
   };
-
-  React.useEffect(() => {
-    getOrder(name);
-  }, []);
-
+  
   console.log("data1", data1);
   return (
     <div className="App-body3">
@@ -252,7 +225,7 @@ export default function Dashboard_freelance() {
                   <br />
                   <div className="BoxDB">
                     <img src={Country} alt="Country" id="img_icons2" />
-                    <p id="int_count">0</p>
+                    <p id="int_count">{country}</p>
                   </div>
                   <br />
                 </div>
@@ -267,98 +240,284 @@ export default function Dashboard_freelance() {
                   <br />
                 </div>
               </div>
+
               <div className="Wallet">
                 <h3>Wallet</h3>
                 <div className="ChartDB1">
                   <Chart />
                 </div>
               </div>
-              <div className="box_salary">
+
+              <div
+                className="box_salary"
+                onMouseEnter={() => setHovering(true)}
+                onMouseLeave={() => setHovering(false)}
+              >
                 <h3>Customer Map</h3>
                 <div style={{ textAlign: "center", marginTop: 20 }}>
-                  <img
-                    src={Map}
-                    alt="Map"
-                    onMouseEnter={() => setHovering(true)}
-                    onMouseLeave={() => setHovering(false)}
-                  />
-                  {hovering ? <div className="HoverText">oncoming</div> : null}
+                  <img src={Map} alt="Map1" />
+                  {hovering ? (
+                    <div className="HoverText">click view map</div>
+                  ) : null}
                 </div>
               </div>
             </div>
 
-            {/* <div className="group2">
+            <div className="group2">
               <div className="Job_status">
                 <h3>Job status</h3>
+                <Paper
+                  component="form"
+                  sx={{
+                    p: "2px 4px",
+                    display: "flex",
+                    alignItems: "center",
+                    backgroundColor: "#FBFBFB",
+                    boxShadow: "none",
+                  }}
+                >
+                  <LocalizationProvider dateAdapter={AdapterLuxon}>
+                    <div style={{ float: "left" }}>
+                      <div style={{ marginBottom: 10 }}>
+                        <p
+                          style={{
+                            fontWeight: "bold",
+                            fontSize: 20,
+                            color: "#333333",
+                          }}
+                        >
+                          Select date
+                        </p>
+                      </div>
+                      <DatePicker
+                        label="Select date"
+                        // value={value}
+                        // inputFormat="DD/MMM/YYYY"
+                        mask="__/__/___"
+                        onChange={(newValue) => {
+                          // setValue(newValue);
+                        }}
+                        renderInput={(Props) => (
+                          <React.Fragment>
+                            <TextField {...Props} />
+                          </React.Fragment>
+                        )}
+                      />
+                    </div>
+                  </LocalizationProvider>
+                  <div style={{ float: "left", marginLeft: 90 }}>
+                    <div style={{ marginBottom: 10 }}>
+                      <p
+                        style={{
+                          fontWeight: "bold",
+                          fontSize: 20,
+                          color: "#333333",
+                        }}
+                      >
+                        Select status
+                      </p>
+                    </div>
+                    <Autocomplete
+                      id="country-select-demo"
+                      options={data6}
+                      sx={{ width: 260 }}
+                      autoHighlight
+                      getOptionLabel={(option) => option.label}
+                      onChange={(event, value) => settype(value.label)}
+                      popupIcon={
+                        <MdArrowDropDown
+                          style={{ color: "#333333", width: 30, height: 33 }}
+                        />
+                      }
+                      renderOption={(props, option) => (
+                        <Box
+                          component="li"
+                          sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
+                          {...props}
+                        >
+                          {option.label}
+                        </Box>
+                      )}
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          label="Select status"
+                          inputProps={{
+                            ...params.inputProps,
+                            autoComplete: "new-password",
+                          }}
+                        />
+                      )}
+                    />
+                  </div>
+                </Paper>
+
                 <div style={{ textAlign: "center", marginTop: 20 }}>
-                   <img src={Map} alt="Map" /> 
+                  <div
+                    style={{
+                      textAlign: "left",
+                      width: "fit-content",
+                    }}
+                  >
+                    <TableContainer
+                      component={Paper}
+                      style={{ width: "58vw", marginBottom: 20 }}
+                    >
+                      <Table>
+                        <TableHead>
+                          <TableRow>
+                            <TableCell align="center" className="roworderID">
+                              ID
+                            </TableCell>
+
+                            <TableCell align="center" className="rowCustomer">
+                              Customer
+                            </TableCell>
+
+                            <TableCell align="center" className="rowType">
+                              Type
+                            </TableCell>
+
+                            <TableCell align="center" className="rowCustomer">
+                              Status
+                            </TableCell>
+
+                            <TableCell align="center" className="rowCustomer">
+                              Price
+                            </TableCell>
+
+                            <TableCell align="center"></TableCell>
+                          </TableRow>
+                        </TableHead>
+                      </Table>
+                    </TableContainer>
+                    {data1.map((row) => (
+                      <TableContainer
+                        component={Paper}
+                        style={{ width: "58vw", marginBottom: 20 }}
+                      >
+                        <Table>
+                          <TableHead>
+                            <TableRow key={row?.orderID}>
+                              <TableCell align="center" className="roworderID">
+                                {row?.orderID}
+                              </TableCell>
+
+                              <TableCell align="center" className="rowCustomer">
+                                {row?.Customer}
+                              </TableCell>
+
+                              <TableCell align="center" className="rowType">
+                                {row?.orderName}
+                              </TableCell>
+                              {row?.orderDeadline === true ? (
+                                <TableCell
+                                  align="center"
+                                  className="rowCustomer"
+                                  style={{ color: "#047ACF" }}
+                                >
+                                  late
+                                </TableCell>
+                              ) : (
+                                <>
+                                  {row?.status === "1" ? (
+                                    <TableCell
+                                      align="center"
+                                      className="rowCustomer"
+                                      style={{ color: "#FFC100" }}
+                                    >
+                                      In progress
+                                    </TableCell>
+                                  ) : (
+                                    <TableCell
+                                      align="center"
+                                      className="rowCustomer"
+                                      style={{ color: "#46BC52" }}
+                                    >
+                                      Succeed
+                                    </TableCell>
+                                  )}
+                                </>
+                              )}
+
+                              <TableCell align="center" className="rowCustomer">
+                                {row?.orderPrice}
+                              </TableCell>
+
+                              <TableCell align="center" className="rowType">
+                                <IconButton onClick={() => navigate("/Chats")}>
+                                  <IoIosEye style={{ width: 20 }} />
+                                </IconButton>
+                              </TableCell>
+                            </TableRow>
+                          </TableHead>
+                        </Table>
+                      </TableContainer>
+                    ))}
+                  </div>
                 </div>
               </div>
+
               <div className="Review">
                 <h3>Review</h3>
-                <div style={{ textAlign: "center", marginTop: 20 }}>
-                  <img src={Map} alt="Map" /> 
+                <div>
+                  <p style={{ color: "#333333", fontWeight: 300 }}>
+                    Text something
+                  </p>
                 </div>
+                <div>
+                  <Box
+                    sx={{
+                      width: 200,
+                      display: "grid",
+                      alignItems: "center",
+                      gridTemplateColumns: "20% 80%",
+                    }}
+                  >
+                    <Box>{0}</Box>
+                    <Rating
+                      name="text-feedback"
+                      value={0}
+                      readOnly
+                      precision={0.5}
+                      emptyIcon={
+                        <StarIcon
+                          style={{ opacity: 0.55 }}
+                          fontSize="inherit"
+                        />
+                      }
+                    />
+                  </Box>
+                </div>
+                <div className="boxliststars">
+                  <div className="liststars">
+                    <p>5 stars</p>
+                    <ProgressBar progress={0} />
+                  </div>
+                  <div className="liststars">
+                    <p>4 stars</p>
+                    <ProgressBar progress={0} />
+                  </div>
+                  <div className="liststars">
+                    <p>3 stars</p>
+                    <ProgressBar progress={0} />
+                  </div>
+                  <div className="liststars">
+                    <p>2 stars</p>
+                    <ProgressBar progress={0} />
+                  </div>
+                  <div className="liststars">
+                    <p>1 stars</p>
+                    <ProgressBar progress={0} />
+                  </div>
+                </div>
+                <h3>Comment</h3>
               </div>
-              {/* <div className="box_search">
-                <div className="in_box_search">
-                  <p id="head3">Year</p>
-                  <br />
-                  <Select
-                    value={sizeState}
-                    onChange={handleSizeChange}
-                    input={<BootstrapInput className="Select" />}
-                    IconComponent={() => <FaAngleDown className="FaAngleDown" />}
-                    className="Select"
-                  >
-                    <MenuItem value={2021}>2021</MenuItem>
-                    <MenuItem value={2022}>2022</MenuItem>
-                  </Select>
-                </div>
+            </div>
 
-                <div className="in_box_search">
-                  <p id="head3">Month</p>
-                  <br />
-                  <Select
-                    value={month}
-                    onChange={handlesetMonthChange}
-                    input={<BootstrapInput className="Select" />}
-                    IconComponent={() => <FaAngleDown className="FaAngleDown" />}
-                    className="Select"
-                  >
-                    <MenuItem value={0}>All</MenuItem>
-                    <MenuItem value={1}>January</MenuItem>
-                    <MenuItem value={2}>February</MenuItem>
-                    <MenuItem value={3}>March</MenuItem>
-                    <MenuItem value={4}>April</MenuItem>
-                    <MenuItem value={5}>May</MenuItem>
-                    <MenuItem value={6}>June</MenuItem>
-                    <MenuItem value={7}>July</MenuItem>
-                    <MenuItem value={8}>August</MenuItem>
-                    <MenuItem value={9}>September</MenuItem>
-                    <MenuItem value={10}>October</MenuItem>
-                    <MenuItem value={11}>November</MenuItem>
-                    <MenuItem value={12}>December</MenuItem>
-                  </Select>
-                </div>
-
-                <div className="in_box_search">
-                  <p id="head3">Type</p>
-                  <br />
-                  <Select
-                    value={type}
-                    onChange={handlesetTypeChange}
-                    input={<BootstrapInput className="Select" />}
-                    IconComponent={() => <FaAngleDown className="FaAngleDown" />}
-                    className="Select"
-                  >
-                    <MenuItem value={0}>All</MenuItem>
-                    <MenuItem value={1}>General offical</MenuItem>
-                    <MenuItem value={2}>Document offical</MenuItem>
-                  </Select>
-                </div>
-              </div> 
-            </div> */}
+            <div className="group2">
+              <Map1 />
+            </div>
           </div>
         </Box>
       </Box>
