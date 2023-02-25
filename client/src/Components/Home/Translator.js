@@ -3,17 +3,17 @@ import * as React from "react";
 import Navbars from "../Navbar/navbarHome";
 import Footer from "../Footer/Footer";
 
-
 import { FaLanguage, FaUserCheck, FaMedal } from "react-icons/fa";
 import { useNavigate, useLocation } from "react-router-dom";
 import { TranslatorEN, TranslatorDE, TranslatorTH } from "../Data/DataLanguage";
+import "./Translator.css";
 
 const Translator = () => {
   const { innerWidth: width, innerHeight: height } = window;
   const location = useLocation();
   const navigate = useNavigate();
   let Doc = location?.state?.languages;
-  
+
   React.useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -36,9 +36,9 @@ const Translator = () => {
         )}
       </header>
       {Doc === undefined ? (
-        <>
-          <div>
-            <div>
+        <div>
+          <div className="Translator_headtext">
+            <div style={{ width: "100vw" }}>
               <div
                 style={{
                   top: 100,
@@ -67,15 +67,7 @@ const Translator = () => {
               ></div>
             </div>
 
-            <div
-              style={{
-                textAlign: "center",
-                justifyItems: "center",
-                width: 1100,
-                display: "inline-grid",
-                marginTop: 50,
-              }}
-            >
+            <div>
               <div>
                 <p
                   style={{
@@ -88,14 +80,15 @@ const Translator = () => {
                 </p>
               </div>
               <div>
-                <p style={{ fontSize: 28, color: "#444444" }}>
+                <p style={{ fontSize: 28, color: "#444444", width: 1000 }}>
                   {TranslatorEN[1].label}
                 </p>
               </div>
               <div
                 style={{
-                  position: "absolute",
-                  top: 380,
+                  display: "flex",
+                  justifyContent: "center",
+                  marginTop: 20,
                 }}
               >
                 <button
@@ -144,7 +137,7 @@ const Translator = () => {
                 </p>
               </div>
 
-              <div style={{ display: "inline-flex" }}>
+              <div style={{ display: "flex", justifyContent: "center" }}>
                 <div
                   style={{
                     width: width * 0.25,
@@ -419,11 +412,11 @@ const Translator = () => {
               <Footer v="English" />
             </div>
           </div>
-        </>
+        </div>
       ) : Doc === "German" ? (
-        <>
-          <div>
-            <div>
+        <div>
+          <div className="Translator_headtext">
+            <div style={{ width: "100vw" }}>
               <div
                 style={{
                   top: 100,
@@ -452,15 +445,7 @@ const Translator = () => {
               ></div>
             </div>
 
-            <div
-              style={{
-                textAlign: "center",
-                justifyItems: "center",
-                width: 1100,
-                display: "inline-grid",
-                marginTop: 50,
-              }}
-            >
+            <div>
               <div>
                 <p
                   style={{
@@ -473,14 +458,15 @@ const Translator = () => {
                 </p>
               </div>
               <div>
-                <p style={{ fontSize: 28, color: "#444444" }}>
+                <p style={{ fontSize: 28, color: "#444444", width: 1000 }}>
                   {TranslatorDE[1].label}
                 </p>
               </div>
               <div
                 style={{
-                  position: "absolute",
-                  top: 380,
+                  display: "flex",
+                  justifyContent: "center",
+                  marginTop: 20,
                 }}
               >
                 <button
@@ -529,7 +515,7 @@ const Translator = () => {
                 </p>
               </div>
 
-              <div style={{ display: "inline-flex" }}>
+              <div style={{ display: "flex", justifyContent: "center" }}>
                 <div
                   style={{
                     width: width * 0.25,
@@ -804,11 +790,11 @@ const Translator = () => {
               <Footer v="German" />
             </div>
           </div>
-        </>
+        </div>
       ) : Doc === "Thai" ? (
-        <>
-          <div>
-            <div>
+        <div>
+          <div className="Translator_headtext">
+            <div style={{ width: "100vw" }}>
               <div
                 style={{
                   top: 100,
@@ -837,15 +823,7 @@ const Translator = () => {
               ></div>
             </div>
 
-            <div
-              style={{
-                textAlign: "center",
-                justifyItems: "center",
-                width: 1100,
-                display: "inline-grid",
-                marginTop: 50,
-              }}
-            >
+            <div>
               <div>
                 <p
                   style={{
@@ -858,14 +836,15 @@ const Translator = () => {
                 </p>
               </div>
               <div>
-                <p style={{ fontSize: 28, color: "#444444" }}>
+                <p style={{ fontSize: 28, color: "#444444", width: 1000 }}>
                   {TranslatorTH[1].label}
                 </p>
               </div>
               <div
                 style={{
-                  position: "absolute",
-                  top: 380,
+                  display: "flex",
+                  justifyContent: "center",
+                  marginTop: 20,
                 }}
               >
                 <button
@@ -914,7 +893,7 @@ const Translator = () => {
                 </p>
               </div>
 
-              <div style={{ display: "inline-flex" }}>
+              <div style={{ display: "flex", justifyContent: "center" }}>
                 <div
                   style={{
                     width: width * 0.25,
@@ -1189,11 +1168,11 @@ const Translator = () => {
               <Footer v="Thai" />
             </div>
           </div>
-        </>
+        </div>
       ) : (
-        <>
-          <div>
-            <div>
+        <div>
+          <div className="Translator_headtext">
+            <div style={{ width: "100vw" }}>
               <div
                 style={{
                   top: 100,
@@ -1222,15 +1201,7 @@ const Translator = () => {
               ></div>
             </div>
 
-            <div
-              style={{
-                textAlign: "center",
-                justifyItems: "center",
-                width: 1100,
-                display: "inline-grid",
-                marginTop: 50,
-              }}
-            >
+            <div>
               <div>
                 <p
                   style={{
@@ -1243,14 +1214,15 @@ const Translator = () => {
                 </p>
               </div>
               <div>
-                <p style={{ fontSize: 28, color: "#444444" }}>
+                <p style={{ fontSize: 28, color: "#444444", width: 1000 }}>
                   {TranslatorEN[1].label}
                 </p>
               </div>
               <div
                 style={{
-                  position: "absolute",
-                  top: 380,
+                  display: "flex",
+                  justifyContent: "center",
+                  marginTop: 20,
                 }}
               >
                 <button
@@ -1299,7 +1271,7 @@ const Translator = () => {
                 </p>
               </div>
 
-              <div style={{ display: "inline-flex" }}>
+              <div style={{ display: "flex", justifyContent: "center" }}>
                 <div
                   style={{
                     width: width * 0.25,
@@ -1574,7 +1546,7 @@ const Translator = () => {
               <Footer v="English" />
             </div>
           </div>
-        </>
+        </div>
       )}
     </>
   );

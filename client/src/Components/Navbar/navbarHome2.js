@@ -29,12 +29,19 @@ const navbarHome2 = (props) => {
     } else if (pathname === "/Chats") {
       navigate("/Chats", { state: { languages: `${x}`, value: `${value}` } });
     } else if (pathname === "/Dashboard_freelance") {
-      navigate("/Dashboard_freelance", { state: { languages: `${x}`, value: `${value}` } });
-    }else {
+      navigate("/Dashboard_freelance", {
+        state: { languages: `${x}`, value: `${value}` },
+      });
+    } else {
       navigate("/Notification", {
         state: { languages: `${x}`, value: `${value}` },
       });
     }
+  };
+
+  const Logout = () => {
+    dispatch(logoutUser());
+    window.location.reload();
   };
 
   return (
@@ -178,10 +185,7 @@ const navbarHome2 = (props) => {
                   padding: 0,
                 }}
               >
-                <NavDropdown.Item
-                  onClick={() => dispatch(logoutUser())}
-                  className="Logout"
-                >
+                <NavDropdown.Item onClick={() => Logout()} className="Logout">
                   Logout
                 </NavDropdown.Item>
               </NavDropdown>

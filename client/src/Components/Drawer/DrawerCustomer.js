@@ -94,21 +94,22 @@ export default function DrawerInHome(props) {
                         }
                       />
                     </ListItemIcon>
-                  ) : index === 4 ? (
-                    <ListItemIcon id={"button_icons"}>
-                      <IoNotifications
-                        className="icons"
-                        onClick={() =>
-                          navigate("/Notification", {
-                            state: {
-                              languages: `${languages}`,
-                              // value: `${checkValue}`,
-                            },
-                          })
-                        }
-                      />
-                    </ListItemIcon>
-                  ) : null}
+                  ) : // : index === 4 ? (
+                  //   <ListItemIcon id={"button_icons"}>
+                  //     <IoNotifications
+                  //       className="icons"
+                  //       onClick={() =>
+                  //         navigate("/Notification", {
+                  //           state: {
+                  //             languages: `${languages}`,
+                  //             // value: `${checkValue}`,
+                  //           },
+                  //         })
+                  //       }
+                  //     />
+                  //   </ListItemIcon>
+                  // )
+                  null}
                 </>
               </ListItem>
             ))}
@@ -174,21 +175,22 @@ export default function DrawerInHome(props) {
                         }
                       />
                     </ListItemIcon>
-                  ) : index === 4 ? (
-                    <ListItemIcon id={"button_icons"}>
-                      <IoNotifications
-                        className="icons"
-                        onClick={() =>
-                          navigate("/Notification", {
-                            state: {
-                              languages: `${languages}`,
-                              // value: `${checkValue}`,
-                            },
-                          })
-                        }
-                      />
-                    </ListItemIcon>
-                  ) : null}
+                  ) : // : index === 4 ? (
+                  //   <ListItemIcon id={"button_icons"}>
+                  //     <IoNotifications
+                  //       className="icons"
+                  //       onClick={() =>
+                  //         navigate("/Notification", {
+                  //           state: {
+                  //             languages: `${languages}`,
+                  //             // value: `${checkValue}`,
+                  //           },
+                  //         })
+                  //       }
+                  //     />
+                  //   </ListItemIcon>
+                  // )
+                  null}
                 </>
               </ListItem>
             ))}
@@ -254,21 +256,22 @@ export default function DrawerInHome(props) {
                         }
                       />
                     </ListItemIcon>
-                  ) : index === 4 ? (
-                    <ListItemIcon id={"button_icons"}>
-                      <IoNotifications
-                        className="icons"
-                        onClick={() =>
-                          navigate("/Notification", {
-                            state: {
-                              languages: `${languages}`,
-                              // value: `${checkValue}`,
-                            },
-                          })
-                        }
-                      />
-                    </ListItemIcon>
-                  ) : null}
+                  ) : // : index === 4 ? (
+                  //   <ListItemIcon id={"button_icons"}>
+                  //     <IoNotifications
+                  //       className="icons"
+                  //       onClick={() =>
+                  //         navigate("/Notification", {
+                  //           state: {
+                  //             languages: `${languages}`,
+                  //             // value: `${checkValue}`,
+                  //           },
+                  //         })
+                  //       }
+                  //     />
+                  //   </ListItemIcon>
+                  // )
+                  null}
                 </>
               </ListItem>
             ))}
@@ -334,106 +337,108 @@ export default function DrawerInHome(props) {
                         }
                       />
                     </ListItemIcon>
-                  ) : index === 4 ? (
-                    <ListItemIcon id={"button_icons"}>
-                      <IoNotifications
-                        className="icons"
-                        onClick={() =>
-                          navigate("/Notification", {
-                            state: {
-                              languages: `${languages}`,
-                              // value: `${checkValue}`,
-                            },
-                          })
-                        }
-                      />
-                    </ListItemIcon>
-                  ) : null}
+                  ) : // : index === 4 ? (
+                  //   <ListItemIcon id={"button_icons"}>
+                  //     <IoNotifications
+                  //       className="icons"
+                  //       onClick={() =>
+                  //         navigate("/Notification", {
+                  //           state: {
+                  //             languages: `${languages}`,
+                  //             // value: `${checkValue}`,
+                  //           },
+                  //         })
+                  //       }
+                  //     />
+                  //   </ListItemIcon>
+                  // )
+                  null}
                 </>
               </ListItem>
             ))}
           </List>
-        ) : pathname === "/Notification" ? (
-          <List>
-            {["0", "1", "2", "3", "4"].map((text, index) => (
-              <ListItem button key={text} id={"button_manu"}>
-                <>
-                  {index === 0 ? (
-                    <ListItemIcon id={"button_icons"}>
-                      <FaHome
-                        className="icons"
-                        onClick={() =>
-                          navigate("/In", {
-                            state: {
-                              languages: `${languages}`,
-                              // value: `${checkValue}`,
-                            },
-                          })
-                        }
-                      />
-                    </ListItemIcon>
-                  ) : index === 1 ? (
-                    <ListItemIcon id={"button_icons"}>
-                      <FaLanguage
-                        className="icons"
-                        onClick={() =>
-                          navigate("/Matching", {
-                            state: {
-                              languages: `${languages}`,
-                              // value: `${checkValue}`,
-                            },
-                          })
-                        }
-                      />
-                    </ListItemIcon>
-                  ) : index === 2 ? (
-                    <ListItemIcon id={"button_icons"}>
-                      <FaShoppingCart
-                        className="icons"
-                        onClick={() =>
-                          navigate("/Order", {
-                            state: {
-                              languages: `${languages}`,
-                              // value: `${checkValue}`,
-                            },
-                          })
-                        }
-                      />
-                    </ListItemIcon>
-                  ) : index === 3 ? (
-                    <ListItemIcon id={"button_icons"}>
-                      <IoChatbubblesSharp
-                        className="icons"
-                        onClick={() =>
-                          navigate("/Chat", {
-                            state: {
-                              languages: `${languages}`,
-                              // value: `${checkValue}`,
-                            },
-                          })
-                        }
-                      />
-                    </ListItemIcon>
-                  ) : index === 4 ? (
-                    <ListItemIcon id={"button_icons2"}>
-                      <IoNotifications
-                        className="icons"
-                        onClick={() =>
-                          navigate("/Notification", {
-                            state: {
-                              languages: `${languages}`,
-                              // value: `${checkValue}`,
-                            },
-                          })
-                        }
-                      />
-                    </ListItemIcon>
-                  ) : null}
-                </>
-              </ListItem>
-            ))}
-          </List>
-        ) : null}
+        ) : // : pathname === "/Notification" ? (
+        //   <List>
+        //     {["0", "1", "2", "3", "4"].map((text, index) => (
+        //       <ListItem button key={text} id={"button_manu"}>
+        //         <>
+        //           {index === 0 ? (
+        //             <ListItemIcon id={"button_icons"}>
+        //               <FaHome
+        //                 className="icons"
+        //                 onClick={() =>
+        //                   navigate("/In", {
+        //                     state: {
+        //                       languages: `${languages}`,
+        //                       // value: `${checkValue}`,
+        //                     },
+        //                   })
+        //                 }
+        //               />
+        //             </ListItemIcon>
+        //           ) : index === 1 ? (
+        //             <ListItemIcon id={"button_icons"}>
+        //               <FaLanguage
+        //                 className="icons"
+        //                 onClick={() =>
+        //                   navigate("/Matching", {
+        //                     state: {
+        //                       languages: `${languages}`,
+        //                       // value: `${checkValue}`,
+        //                     },
+        //                   })
+        //                 }
+        //               />
+        //             </ListItemIcon>
+        //           ) : index === 2 ? (
+        //             <ListItemIcon id={"button_icons"}>
+        //               <FaShoppingCart
+        //                 className="icons"
+        //                 onClick={() =>
+        //                   navigate("/Order", {
+        //                     state: {
+        //                       languages: `${languages}`,
+        //                       // value: `${checkValue}`,
+        //                     },
+        //                   })
+        //                 }
+        //               />
+        //             </ListItemIcon>
+        //           ) : index === 3 ? (
+        //             <ListItemIcon id={"button_icons"}>
+        //               <IoChatbubblesSharp
+        //                 className="icons"
+        //                 onClick={() =>
+        //                   navigate("/Chat", {
+        //                     state: {
+        //                       languages: `${languages}`,
+        //                       // value: `${checkValue}`,
+        //                     },
+        //                   })
+        //                 }
+        //               />
+        //             </ListItemIcon>
+        //           ) : index === 4 ? (
+        //             <ListItemIcon id={"button_icons2"}>
+        //               <IoNotifications
+        //                 className="icons"
+        //                 onClick={() =>
+        //                   navigate("/Notification", {
+        //                     state: {
+        //                       languages: `${languages}`,
+        //                       // value: `${checkValue}`,
+        //                     },
+        //                   })
+        //                 }
+        //               />
+        //             </ListItemIcon>
+        //           ) : null}
+        //         </>
+        //       </ListItem>
+        //     ))}
+        //   </List>
+        // )
+        null}
       </Box>
     </Drawer>
   );

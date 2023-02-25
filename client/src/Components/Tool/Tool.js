@@ -15,6 +15,7 @@ import {
 import { data } from "../Data/data";
 import "./Tool.css";
 import { useNavigate, useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 function Tool() {
   const [typeOpen, setTypeOpen] = React.useState(false);
@@ -29,8 +30,10 @@ function Tool() {
   // const [value_Text, setValue_Text] = React.useState("");
   const navigate = useNavigate();
   const location = useLocation();
+  const dispatch = useDispatch();
+  const auth = useSelector((state) => state.auth);
   let Doc = location?.state?.languages;
-  let Value = location?.state?.value;
+  let Value = auth?.token;
 
   React.useEffect(() => {
     if (Value) {
@@ -93,7 +96,23 @@ function Tool() {
   return (
     <div className="AppBobyTool">
       <header className="App-header">
-        <Navbars />
+        {Doc === "English" ? (
+          <Navbars
+            navigate={navigate}
+            languages="English"
+            dispatch={dispatch}
+          />
+        ) : Doc === "Thai" ? (
+          <Navbars navigate={navigate} languages="Thai" dispatch={dispatch} />
+        ) : Doc === "German" ? (
+          <Navbars navigate={navigate} languages="German" dispatch={dispatch} />
+        ) : (
+          <Navbars
+            navigate={navigate}
+            languages="English"
+            dispatch={dispatch}
+          />
+        )}
       </header>
       <Box sx={{ display: "flex", width: "100% " }}>
         <Drawer languages={Doc} value={Value} />

@@ -30,11 +30,11 @@ import {
   FaUserCircle,
 } from "react-icons/fa";
 
-// import {
-//   // IoChatbubblesSharp,
-//   // IoNotifications,
-//   IoDocumentText,
-// } from "react-icons/io5";
+import {
+  // IoChatbubblesSharp,
+  // IoNotifications,
+  IoDocumentText,
+} from "react-icons/io5";
 import { useNavigate, useLocation } from "react-router-dom";
 import { PaymentEN, PaymentDE, PaymentTH } from "../Data/DataLanguage";
 
@@ -108,6 +108,12 @@ export default function Chat() {
           Status: item?.Status,
           Price: item?.Price,
           Deadline: formattedDate2,
+          Translator_name: item?.Translator_name,
+          Customers_will_get: item?.Customers_will_get,
+          Job_description: item?.Job_description,
+          Number_of_edits: item?.Number_of_edits,
+          Send_to: item?.Send_to,
+          Review: item?.Review,
         };
       } catch (e) {
         console.error(e);
@@ -378,341 +384,347 @@ export default function Chat() {
                     height: "68vh",
                     overflow: "scroll",
                     position: "absolute",
-                    top: 145,
+                    top: 90,
                   }}
                 >
                   {/* <div
-                  style={{
-                    margin: 20,
-                    marginTop: 0,
-                  }}
-                >
-                  <div style={{ float: "left" }}>
-                    <FaUserCircle
-                      alt="avatar"
-                      style={{
-                        width: 35,
-                        height: "auto",
-                        margin: 10,
-                        display: "block",
-                        color: "#3333",
-                      }}
-                    />
-                  </div>
-                  <div
                     style={{
-                      padding: 7,
-                      background: "rgb(247 244 244)",
-                      width: 200,
-                      height: "auto",
-                      borderRadius: 12,
-                      overflow: "hidden",
-                      textAlign: "initial",
-                      fontSize: 15,
+                      margin: 20,
+                      marginTop: 0,
                     }}
                   >
-                    <p>
-                      Hello, I'm Ozone Black. I'm your translator. You can
-                      inquire here. I will reply you as soon as possible
-                    </p>
+                    <div style={{ float: "left" }}>
+                      <FaUserCircle
+                        alt="avatar"
+                        style={{
+                          width: 35,
+                          height: "auto",
+                          margin: 10,
+                          display: "block",
+                          color: "#3333",
+                        }}
+                      />
+                    </div>
                     <div
                       style={{
+                        padding: 7,
+                        background: "rgb(247 244 244)",
+                        width: 200,
+                        height: "auto",
+                        borderRadius: 12,
+                        overflow: "hidden",
+                        textAlign: "initial",
+                        fontSize: 15,
+                      }}
+                    >
+                      <p>
+                        Hello, I'm Ozone Black. I'm your translator. You can
+                        inquire here. I will reply you as soon as possible
+                      </p>
+                      <div
+                        style={{
+                          color: "#808080",
+                          fontWeight: 0,
+                          fontSize: 12,
+                          position: "absolute",
+                          left: 300,
+                          marginTop: "-10px",
+                        }}
+                      >
+                        <p>1:08 PM</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div
+                    style={{
+                      margin: 20,
+                      marginLeft: 285,
+                    }}
+                  >
+                    <div
+                      style={{
+                        float: "left",
                         color: "#808080",
                         fontWeight: 0,
                         fontSize: 12,
+                        marginRight: 10,
+                      }}
+                    >
+                      <p>1:08 PM</p>
+                    </div>
+
+                    <div
+                      style={{
+                        padding: 7,
+                        background: "#E6F2FA",
+                        width: 200,
+                        height: "auto",
+                        borderRadius: 12,
+                        overflow: "hidden",
+                        textAlign: "initial",
+                        fontSize: 15,
+                      }}
+                    >
+                      <p>I want to ask more.</p>
+                    </div>
+                    <div
+                      style={{
+                        position: "absolute",
+                        left: 570,
+                        marginTop: "-35px",
+                      }}
+                    >
+                      <FaUserCircle
+                        alt="avatar"
+                        style={{
+                          // width: "98%",
+                          color: "#3333",
+                          width: 35,
+                          height: "auto",
+                          margin: 0,
+                          display: "block",
+                        }}
+                      />
+                    </div>
+                  </div> */}
+
+                  {/* <div
+                    style={{
+                      margin: 20,
+                    }}
+                  >
+                    <div
+                      style={{
+                        float: "left",
+                        color: "#808080",
+                        fontWeight: 0,
+                        fontSize: 12,
+                        marginRight: 10,
+                      }}
+                    >
+                      <FaUserCircle
+                        alt="avatar"
+                        style={{
+                          width: 35,
+                          height: "auto",
+                          margin: 0,
+                          display: "block",
+                          color: "#3333",
+                        }}
+                      />
+                    </div>
+                    <div
+                      style={{
+                        padding: 7,
+                        background: "rgb(247 244 244)",
+                        width: 200,
+                        height: "auto",
+                        borderRadius: 12,
+                        overflow: "hidden",
+                        textAlign: "initial",
+                        fontSize: 15,
+                      }}
+                    >
+                      <p>Create a contract.</p>
+                    </div>
+                    <div
+                      style={{
                         position: "absolute",
                         left: 300,
-                        marginTop: "-10px",
+                        marginTop: "-35px",
+                        color: "#808080",
+                        fontWeight: 0,
+                        fontSize: 12,
                       }}
                     >
                       <p>1:08 PM</p>
                     </div>
                   </div>
-                </div> */}
-
-                  {/* <div
-                  style={{
-                    margin: 20,
-                    marginLeft: 285,
-                  }}
-                >
-                  <div
-                    style={{
-                      float: "left",
-                      color: "#808080",
-                      fontWeight: 0,
-                      fontSize: 12,
-                      marginRight: 10,
-                    }}
-                  >
-                    <p>1:08 PM</p>
-                  </div>
 
                   <div
                     style={{
-                      padding: 7,
-                      background: "#E6F2FA",
-                      width: 200,
-                      height: "auto",
-                      borderRadius: 12,
-                      overflow: "hidden",
-                      textAlign: "initial",
-                      fontSize: 15,
-                    }}
-                  >
-                    <p>I want to ask more.</p>
-                  </div>
-                  <div
-                    style={{
-                      position: "absolute",
-                      left: 570,
-                      marginTop: "-35px",
-                    }}
-                  >
-                    <FaUserCircle
-                      alt="avatar"
-                      style={{
-                        // width: "98%",
-                        color: "#3333",
-                        width: 35,
-                        height: "auto",
-                        margin: 0,
-                        display: "block",
-                      }}
-                    />
-                  </div>
-                </div>
-
-                <div
-                  style={{
-                    margin: 20,
-                  }}
-                >
-                  <div
-                    style={{
-                      float: "left",
-                      color: "#808080",
-                      fontWeight: 0,
-                      fontSize: 12,
-                      marginRight: 10,
-                    }}
-                  >
-                    <FaUserCircle
-                      alt="avatar"
-                      style={{
-                        width: 35,
-                        height: "auto",
-                        margin: 0,
-                        display: "block",
-                        color: "#3333",
-                      }}
-                    />
-                  </div>
-                  <div
-                    style={{
-                      padding: 7,
-                      background: "rgb(247 244 244)",
-                      width: 200,
-                      height: "auto",
-                      borderRadius: 12,
-                      overflow: "hidden",
-                      textAlign: "initial",
-                      fontSize: 15,
-                    }}
-                  >
-                    <p>Create a contract.</p>
-                  </div>
-                  <div
-                    style={{
-                      position: "absolute",
-                      left: 300,
-                      marginTop: "-35px",
-                      color: "#808080",
-                      fontWeight: 0,
-                      fontSize: 12,
-                    }}
-                  >
-                    <p>1:08 PM</p>
-                  </div>
-                </div>
-
-                <div
-                  style={{
-                    margin: 20,
-                  }}
-                >
-                  <div
-                    style={{
-                      float: "left",
-                      color: "#808080",
-                      fontWeight: 0,
-                      fontSize: 12,
-                      marginRight: 10,
-                    }}
-                  >
-                    <FaUserCircle
-                      alt="avatar"
-                      style={{
-                        width: 35,
-                        height: "auto",
-                        margin: 0,
-                        display: "block",
-                        color: "#3333",
-                      }}
-                    />
-                  </div>
-                  <div
-                    style={{
-                      padding: 7,
-                      background: "rgb(247 244 244)",
-                      width: 200,
-                      height: "auto",
-                      borderRadius: 12,
-                      overflow: "hidden",
-                      textAlign: "center",
-                      color: "#FFC100",
+                      margin: 20,
                     }}
                   >
                     <div
                       style={{
-                        background: "#FAFAFA",
-                        boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-                        bordeRadius: 5,
-                        fontSize: 50,
-                        width: 165,
-                        height: 90,
-                        padding: 5,
-                        margin: 10,
-                        borderRadius: 10,
-                        marginBottom: 11,
+                        float: "left",
+                        color: "#808080",
+                        fontWeight: 0,
+                        fontSize: 12,
+                        marginRight: 10,
                       }}
                     >
-                      <IoDocumentText />
+                      <FaUserCircle
+                        alt="avatar"
+                        style={{
+                          width: 35,
+                          height: "auto",
+                          margin: 0,
+                          display: "block",
+                          color: "#3333",
+                        }}
+                      />
                     </div>
-                    <button
-                      style={{
-                        background: "#FAFAFA",
-                        boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-                        borderRadius: 5,
-                        width: 140,
-                        height: "auto",
-                        border: "none",
-                        fontSize: 15,
-                        color: "#FFC100",
-                        padding: 5,
-                        marginBottom: 10,
-                      }}
-                      // onClick={() => Create_Quotation()}
-                    >
-                      <p style={{ marginBottom: 0 }}>Create Quotation.</p>
-                    </button>
-                  </div>
-                  <div
-                    style={{
-                      position: "absolute",
-                      left: 300,
-                      marginTop: "-35px",
-                      color: "#808080",
-                      fontWeight: 0,
-                      fontSize: 12,
-                    }}
-                  >
-                    <p>1:08 PM</p>
-                  </div>
-                </div>
-
-                <div
-                  style={{
-                    margin: 20,
-                  }}
-                >
-                  <div
-                    style={{
-                      float: "left",
-                      color: "#808080",
-                      fontWeight: 0,
-                      fontSize: 12,
-                      marginRight: 10,
-                    }}
-                  >
-                    <FaUserCircle
-                      alt="avatar"
-                      style={{
-                        width: 35,
-                        height: "auto",
-                        margin: 0,
-                        display: "block",
-                        color: "#3333",
-                      }}
-                    />
-                  </div>
-                  <div
-                    style={{
-                      padding: 7,
-                      background: "rgb(247 244 244)",
-                      width: 200,
-                      height: "auto",
-                      borderRadius: 12,
-                      overflow: "hidden",
-                      textAlign: "initial",
-                      fontSize: 16,
-                    }}
-                  >
                     <div
                       style={{
-                        background: "#FAFAFA",
-                        boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-                        bordeRadius: 5,
-                        fontSize: 14,
-                        width: 165,
-                        padding: 10,
-                        margin: 10,
-                        borderRadius: 10,
-                        marginBottom: 11,
+                        padding: 7,
+                        background: "rgb(247 244 244)",
+                        width: 200,
+                        height: "auto",
+                        borderRadius: 12,
+                        overflow: "hidden",
+                        textAlign: "center",
+                        color: "#FFC100",
                       }}
                     >
-                      <p style={{ textAlign: "center" }}>Quotation</p>
-                      <p>Job description</p>
-                      <p style={{ color: "e5e5e5", fontSize: 13 }}>
-                        Although cards can support multiple actions, UI
-                        controls, and an overflow menu, use restraint and
-                        remember that cards are entry points to more complex and
-                        detailed information.
-                      </p>
-                      <p>Deadline</p>
-                      <p style={{ color: "e5e5e5", fontSize: 13 }}>
-                        Although cards can support multiple actions, UI
-                        controls, and an overflow menu, use restraint and
-                        remember that cards are entry points to more complex and
-                        detailed information.
-                      </p>
-                      <div style={{ position: "relative", left: "35%" }}>
-                        <button
+                      <div
+                        style={{
+                          background: "#FAFAFA",
+                          boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+                          bordeRadius: 5,
+                          fontSize: 50,
+                          width: 165,
+                          height: 90,
+                          padding: 5,
+                          margin: 10,
+                          borderRadius: 10,
+                          marginBottom: 11,
+                        }}
+                      >
+                        <IoDocumentText />
+                      </div>
+                      <button
+                        style={{
+                          background: "#FAFAFA",
+                          boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+                          borderRadius: 5,
+                          width: 140,
+                          height: "auto",
+                          border: "none",
+                          fontSize: 15,
+                          color: "#FFC100",
+                          padding: 5,
+                          marginBottom: 10,
+                        }}
+                        // onClick={() => Create_Quotation()}
+                      >
+                        <p style={{ marginBottom: 0 }}>Create Quotation.</p>
+                      </button>
+                    </div>
+                    <div
+                      style={{
+                        position: "absolute",
+                        left: 300,
+                        marginTop: "-35px",
+                        color: "#808080",
+                        fontWeight: 0,
+                        fontSize: 12,
+                      }}
+                    >
+                      <p>1:08 PM</p>
+                    </div>
+                  </div> */}
+
+                  {openChat?.Status === "1" || openChat?.Status === "2" ? (
+                    <div
+                      style={{
+                        margin: 20,
+                      }}
+                    >
+                      <div
+                        style={{
+                          float: "left",
+                          color: "#808080",
+                          fontWeight: 0,
+                          fontSize: 12,
+                          marginRight: 10,
+                        }}
+                      >
+                        <FaUserCircle
+                          alt="avatar"
                           style={{
-                            color: "#FFC100",
-                            background: "transparent",
-                            border: "none",
+                            width: 35,
+                            height: "auto",
+                            margin: 0,
+                            display: "block",
+                            color: "#3333",
                           }}
-                          onClick={() => Create_Quotation()}
+                        />
+                      </div>
+                      <div
+                        style={{
+                          padding: 7,
+                          background: "rgb(247 244 244)",
+                          width: 200,
+                          height: "auto",
+                          borderRadius: 12,
+                          overflow: "hidden",
+                          textAlign: "initial",
+                          fontSize: 16,
+                        }}
+                      >
+                        <div
+                          style={{
+                            background: "#FAFAFA",
+                            boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+                            bordeRadius: 5,
+                            fontSize: 14,
+                            width: 165,
+                            padding: 10,
+                            margin: 10,
+                            borderRadius: 10,
+                            marginBottom: 11,
+                          }}
                         >
-                          Pay
-                        </button>
+                          <p
+                            style={{
+                              textAlign: "center",
+                              fontWeight: "bold",
+                              fontSize: "large",
+                            }}
+                          >
+                            Quotation
+                          </p>
+                          <p style={{ fontWeight: "bold" }}>Job description</p>
+                          <p style={{ color: "e5e5e5", fontSize: 13 }}>
+                            {openChat?.Job_description}
+                          </p>
+                          <p style={{ fontWeight: "bold" }}>Deadline</p>
+                          <p style={{ color: "e5e5e5", fontSize: 13 }}>
+                            {openChat?.Deadline}
+                          </p>
+                          <div style={{ position: "relative", left: "35%" }}>
+                            <button
+                              style={{
+                                color: "#FFC100",
+                                background: "transparent",
+                                border: "none",
+                              }}
+                              // onClick={() => Create_Quotation()}
+                            >
+                              Pay
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        style={{
+                          position: "absolute",
+                          left: 300,
+                          marginTop: "-35px",
+                          color: "#808080",
+                          fontWeight: 0,
+                          fontSize: 12,
+                        }}
+                      >
+                        <p>1:08 PM</p>
                       </div>
                     </div>
-                  </div>
-                  <div
-                    style={{
-                      position: "absolute",
-                      left: 300,
-                      marginTop: "-35px",
-                      color: "#808080",
-                      fontWeight: 0,
-                      fontSize: 12,
-                    }}
-                  >
-                    <p>1:08 PM</p>
-                  </div>
-                </div> */}
+                  ) : (
+                    <></>
+                  )}
                 </div>
 
                 <div style={{ position: "fixed", top: 700, left: 470 }}>
@@ -731,7 +743,7 @@ export default function Chat() {
                       inputProps={{ "aria-label": "Type something here..." }}
                     />
                     <IconButton
-                      type="submit"
+                      // type="submit"
                       sx={{ p: "10px" }}
                       aria-label="search"
                     >

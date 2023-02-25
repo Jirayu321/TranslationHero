@@ -64,7 +64,6 @@ const Customer = () => {
   const goSignup = () => {
     navigate("/Signup");
   };
-  
 
   const cutsting = (x) => {
     console.log(x);
@@ -207,6 +206,9 @@ const Customer = () => {
                       float: "left",
                       borderRadius: 20,
                       boxShadow: " 0px 4px 5px rgba(0, 0, 0, 0.1)",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
                     }}
                   >
                     <label htmlFor="icon-button-file">
@@ -249,6 +251,9 @@ const Customer = () => {
                       float: "left",
                       borderRadius: 20,
                       boxShadow: " 0px 4px 5px rgba(0, 0, 0, 0.1)",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
                     }}
                   >
                     <label htmlFor="icon-button-file">
@@ -270,8 +275,6 @@ const Customer = () => {
                             fontWeight: "bold",
                             fontSize: 24,
                             color: "#B5B5B5",
-                            margin: "5%",
-                            marginTop: "50%",
                           }}
                         >
                           {cutsting(file)}
@@ -748,7 +751,7 @@ const Customer = () => {
                         </div>
                       </div>
 
-                      <div >
+                      <div>
                         <p
                           style={{
                             fontWeight: "bold",
@@ -959,6 +962,9 @@ const Customer = () => {
                       float: "left",
                       borderRadius: 20,
                       boxShadow: " 0px 4px 5px rgba(0, 0, 0, 0.1)",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
                     }}
                   >
                     <label htmlFor="icon-button-file">
@@ -1000,6 +1006,9 @@ const Customer = () => {
                       float: "left",
                       borderRadius: 20,
                       boxShadow: " 0px 4px 5px rgba(0, 0, 0, 0.1)",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
                     }}
                   >
                     <label htmlFor="icon-button-file">
@@ -1020,8 +1029,6 @@ const Customer = () => {
                             fontWeight: "bold",
                             fontSize: 24,
                             color: "#B5B5B5",
-                            margin: "5%",
-                            marginTop: "50%",
                           }}
                         >
                           {file}
@@ -1498,7 +1505,7 @@ const Customer = () => {
                         </div>
                       </div>
 
-                      <div >
+                      <div>
                         <p
                           style={{
                             fontWeight: "bold",
@@ -1709,6 +1716,9 @@ const Customer = () => {
                       float: "left",
                       borderRadius: 20,
                       boxShadow: " 0px 4px 5px rgba(0, 0, 0, 0.1)",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
                     }}
                   >
                     <label htmlFor="icon-button-file">
@@ -1750,6 +1760,9 @@ const Customer = () => {
                       float: "left",
                       borderRadius: 20,
                       boxShadow: " 0px 4px 5px rgba(0, 0, 0, 0.1)",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
                     }}
                   >
                     <label htmlFor="icon-button-file">
@@ -1770,8 +1783,6 @@ const Customer = () => {
                             fontWeight: "bold",
                             fontSize: 24,
                             color: "#B5B5B5",
-                            margin: "5%",
-                            marginTop: "50%",
                           }}
                         >
                           {file}
@@ -2248,7 +2259,7 @@ const Customer = () => {
                         </div>
                       </div>
 
-                      <div >
+                      <div>
                         <p
                           style={{
                             fontWeight: "bold",
@@ -2458,6 +2469,9 @@ const Customer = () => {
                       float: "left",
                       borderRadius: 20,
                       boxShadow: " 0px 4px 5px rgba(0, 0, 0, 0.1)",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
                     }}
                   >
                     <label htmlFor="icon-button-file">
@@ -2499,6 +2513,9 @@ const Customer = () => {
                       float: "left",
                       borderRadius: 20,
                       boxShadow: " 0px 4px 5px rgba(0, 0, 0, 0.1)",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
                     }}
                   >
                     <label htmlFor="icon-button-file">
@@ -2519,8 +2536,6 @@ const Customer = () => {
                             fontWeight: "bold",
                             fontSize: 24,
                             color: "#B5B5B5",
-                            margin: "5%",
-                            marginTop: "50%",
                           }}
                         >
                           {cutsting(file)}

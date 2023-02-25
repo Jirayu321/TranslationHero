@@ -56,12 +56,12 @@ export default function Home2() {
   const location = useLocation();
   const auth = useSelector((state) => state.auth);
   let Doc = location?.state?.languages;
-  let value = auth._id;
+  let value = auth?.token;
 
   const [type, setType] = React.useState(1);
   const { innerWidth: width } = window;
   const goLogin = (x) => {
-    // navigate("/Login");
+    navigate("/Login");
   };
   const checklogin = () => {
     if (value) {
@@ -274,7 +274,7 @@ export default function Home2() {
                       flexDirection: "row",
                       overflowX: "scroll",
                       maxWidth: "90%",
-                      textAlign: "center"
+                      textAlign: "center",
                     }}
                   >
                     <button
@@ -927,7 +927,7 @@ export default function Home2() {
                       flexDirection: "row",
                       overflowX: "scroll",
                       maxWidth: "90%",
-                      textAlign: "center"
+                      textAlign: "center",
                     }}
                   >
                     <div
@@ -2098,7 +2098,7 @@ export default function Home2() {
                       flexDirection: "row",
                       overflowX: "scroll",
                       maxWidth: "90%",
-                      textAlign: "center"
+                      textAlign: "center",
                     }}
                   >
                     <button
@@ -2751,7 +2751,7 @@ export default function Home2() {
                       flexDirection: "row",
                       overflowX: "scroll",
                       maxWidth: "90%",
-                      textAlign: "center"
+                      textAlign: "center",
                     }}
                   >
                     <div
@@ -3922,7 +3922,7 @@ export default function Home2() {
                       flexDirection: "row",
                       overflowX: "scroll",
                       maxWidth: "90%",
-                      textAlign: "center"
+                      textAlign: "center",
                     }}
                   >
                     <button
@@ -4575,7 +4575,7 @@ export default function Home2() {
                       flexDirection: "row",
                       overflowX: "scroll",
                       maxWidth: "90%",
-                      textAlign: "center"
+                      textAlign: "center",
                     }}
                   >
                     <div
@@ -5746,7 +5746,7 @@ export default function Home2() {
                       flexDirection: "row",
                       overflowX: "scroll",
                       maxWidth: "90%",
-                      textAlign: "center"
+                      textAlign: "center",
                     }}
                   >
                     <button
@@ -6399,7 +6399,7 @@ export default function Home2() {
                       flexDirection: "row",
                       overflowX: "scroll",
                       maxWidth: "90%",
-                      textAlign: "center"
+                      textAlign: "center",
                     }}
                   >
                     <div

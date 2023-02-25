@@ -22,6 +22,7 @@ import Navbars from "../Navbar/navbarHome2";
 import Status from "./status";
 import { Paper, IconButton, InputBase } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
+import { updateOrder } from "../../slices/auth";
 import {
   // FaHome,
   // FaLanguage,
@@ -57,15 +58,7 @@ export default function Chat() {
   const [data, setData] = React.useState([]);
   const [openChat, setOpenChat] = React.useState("");
 
-  const [translatorname, setTranslatorname] = React.useState("");
-  const [customername, setCustomername] = React.useState("");
-  const [jobdescription, setJobdescription] = React.useState("");
-
-  const [deadline, setDeadline] = React.useState(new Date());
   const [price, setPrice] = React.useState("");
-
-  const [customerswillget, setCustomerswillget] = React.useState("");
-  const [numberofedits, setNumberofedits] = React.useState("");
 
   const [order, setOrder] = React.useState({
     Date: "",
@@ -79,6 +72,7 @@ export default function Chat() {
     Status: "",
     Send_to: "",
     Review: "",
+    id: "",
   });
 
   const navigate = useNavigate();
@@ -114,11 +108,27 @@ export default function Chat() {
     setCreateQ(true);
   };
   const handleOpen_ScanQR = () => {
-    // setPayOpen(false);
+    setOrder({
+      ...order,
+      Status: "2",
+      Date: openChat?.Date,
+      Translator_name: openChat?.Translator_name,
+      Review: openChat?.Review,
+      Send_to: openChat?.Send_to,
+      Number_of_edits: openChat?.Number_of_edits,
+      Price: openChat?.Price,
+      Deadline: openChat?.Deadline,
+      Job_description: openChat?.Job_description,
+      Customers_will_get: openChat?.Customers_will_get,
+      Customer_name: openChat?.Customer_name,
+      id: openChat?.id,
+    });
     setScanQR(true);
   };
   const handleClose_scanQR = () => {
-    setStep(2);
+    console.log("hi", order);
+    dispatch(updateOrder(order));
+    navigate("/Order");
     setCreateQ(false);
     setPayOpen(false);
     setScanQR(false);
@@ -137,7 +147,7 @@ export default function Chat() {
     const Day_List = i?.map((item, index) => {
       try {
         const formattedDate = moment(item?.Date).calendar();
-        let formattedDate2 = moment(item?.Deadline).format('ll');
+        let formattedDate2 = moment(item?.Deadline).format("ll");
         return {
           id: item?._id,
           orderID: index,
@@ -146,6 +156,13 @@ export default function Chat() {
           Status: item?.Status,
           Price: item?.Price,
           Deadline: formattedDate2,
+          Customer_name: item?.Customer_name,
+          Customers_will_get: item?.Customers_will_get,
+          Job_description: item?.Job_description,
+          Number_of_edits: item?.Number_of_edits,
+          Send_to: item?.Send_to,
+          Review: item?.Review,
+          Date: item?.Date,
         };
       } catch (e) {
         console.error(e);
@@ -187,7 +204,7 @@ export default function Chat() {
 
     getOrder(name);
   }, []);
-
+  console.log("openChat:", openChat);
   return (
     <div className="App-body">
       <header className="App-header">
@@ -369,7 +386,7 @@ export default function Chat() {
                     height: "68vh",
                     overflow: "scroll",
                     position: "absolute",
-                    top: 145,
+                    top: 90,
                   }}
                 >
                   {/* <div
@@ -704,6 +721,104 @@ export default function Chat() {
                     <p>1:08 PM</p>
                   </div>
                 </div> */}
+                  {openChat?.Status === "1" || openChat?.Status === "2" ? (
+                    <div
+                      style={{
+                        margin: 20,
+                      }}
+                    >
+                      <div
+                        style={{
+                          float: "left",
+                          color: "#808080",
+                          fontWeight: 0,
+                          fontSize: 12,
+                          marginRight: 10,
+                        }}
+                      >
+                        <FaUserCircle
+                          alt="avatar"
+                          style={{
+                            width: 35,
+                            height: "auto",
+                            margin: 0,
+                            display: "block",
+                            color: "#3333",
+                          }}
+                        />
+                      </div>
+                      <div
+                        style={{
+                          padding: 7,
+                          background: "rgb(247 244 244)",
+                          width: 200,
+                          height: "auto",
+                          borderRadius: 12,
+                          overflow: "hidden",
+                          textAlign: "initial",
+                          fontSize: 16,
+                        }}
+                      >
+                        <div
+                          style={{
+                            background: "#FAFAFA",
+                            boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+                            bordeRadius: 5,
+                            fontSize: 14,
+                            width: 165,
+                            padding: 10,
+                            margin: 10,
+                            borderRadius: 10,
+                            marginBottom: 11,
+                          }}
+                        >
+                          <p
+                            style={{
+                              textAlign: "center",
+                              fontWeight: "bold",
+                              fontSize: "large",
+                            }}
+                          >
+                            Quotation
+                          </p>
+                          <p style={{ fontWeight: "bold" }}>Job description</p>
+                          <p style={{ color: "e5e5e5", fontSize: 13 }}>
+                            {openChat?.Job_description}
+                          </p>
+                          <p style={{ fontWeight: "bold" }}>Deadline</p>
+                          <p style={{ color: "e5e5e5", fontSize: 13 }}>
+                            {openChat?.Deadline}
+                          </p>
+                          <div style={{ position: "relative", left: "35%" }}>
+                            <button
+                              style={{
+                                color: "#FFC100",
+                                background: "transparent",
+                                border: "none",
+                              }}
+                              onClick={() => Create_Quotation()}
+                            >
+                              Pay
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        style={{
+                          position: "absolute",
+                          left: 300,
+                          marginTop: "-35px",
+                          color: "#808080",
+                          fontWeight: 0,
+                          fontSize: 12,
+                        }}
+                      >
+                        <p>1:08 PM</p>
+                      </div>
+                    </div>
+                  ) : (
+                    <></>
+                  )}
                 </div>
 
                 <div style={{ position: "fixed", top: 700, left: 470 }}>
@@ -722,7 +837,7 @@ export default function Chat() {
                       inputProps={{ "aria-label": "Type something here..." }}
                     />
                     <IconButton
-                      type="submit"
+                      // type="submit"
                       sx={{ p: "10px" }}
                       aria-label="search"
                     >
@@ -761,7 +876,7 @@ export default function Chat() {
                     id="keep-mounted-modal-description"
                     style={{ mt: 2, fontWeight: 700 }}
                   >
-                    Quotation
+                    Quotation 99
                   </p>
 
                   <div
@@ -787,7 +902,8 @@ export default function Chat() {
                       <LocalizationProvider dateAdapter={AdapterLuxon}>
                         <MobileDatePicker
                           inputFormat="dd MMM yyyy"
-                          value={order.Date}
+                          // defaultValue={openChat?.Date}
+                          value={openChat?.Date}
                           onChange={(e) => setOrder({ ...order, Date: e })}
                           renderInput={(params) => (
                             <TextField
@@ -826,7 +942,7 @@ export default function Chat() {
                         </p>
                         <input
                           type="text"
-                          value={order.Translator_name}
+                          defaultValue={openChat?.Translator_name}
                           onChange={(e) =>
                             setOrder({
                               ...order,
@@ -865,7 +981,7 @@ export default function Chat() {
                         </p>
                         <input
                           type="text"
-                          value={order.Customer_name}
+                          defaultValue={openChat?.Customer_name}
                           onChange={(e) =>
                             setOrder({
                               ...order,
@@ -898,7 +1014,7 @@ export default function Chat() {
                         Job description
                       </p>
                       <textarea
-                        value={order.Job_description}
+                        defaultValue={openChat?.Job_description}
                         onChange={(e) =>
                           setOrder({
                             ...order,
@@ -930,7 +1046,7 @@ export default function Chat() {
                         Customers will get
                       </p>
                       <textarea
-                        value={order.Customers_will_get}
+                        defaultValue={openChat?.Customers_will_get}
                         onChange={(e) =>
                           setOrder({
                             ...order,
@@ -971,7 +1087,7 @@ export default function Chat() {
                         <LocalizationProvider dateAdapter={AdapterLuxon}>
                           <MobileDatePicker
                             inputFormat="dd MMM yyyy"
-                            value={order.Deadline}
+                            value={openChat?.Deadline}
                             onChange={(e) =>
                               setOrder({
                                 ...order,
@@ -1011,7 +1127,7 @@ export default function Chat() {
                         </p>
                         <input
                           type="text"
-                          value={order.Number_of_edits}
+                          defaultValue={openChat?.Number_of_edits}
                           onChange={(e) =>
                             setOrder({
                               ...order,
@@ -1052,7 +1168,7 @@ export default function Chat() {
                         </p>
                         <input
                           type="text"
-                          value={order.Price}
+                          defaultValue={openChat?.Price}
                           onChange={(e) =>
                             setOrder({
                               ...order,
