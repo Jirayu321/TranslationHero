@@ -92,7 +92,7 @@ export default function Chat() {
   let Value = auth?.token;
 
   const name = { Translator_name: auth?.name };
-  const url = "http://localhost:3001/api";
+  const url = "https://54.244.204.59/api";
 
   const setDataOrder = (i) => {
     console.log(i);

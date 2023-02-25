@@ -47,7 +47,7 @@ const navbarHome2 = (props) => {
   return (
     <Navbar expand="lg" id="navbardb2">
       <Container fluid>
-        <Navbar.Brand href="/In">
+        <Navbar.Brand>
           <img src={logo} alt="Logo" />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />

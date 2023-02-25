@@ -93,7 +93,7 @@ export default function Order() {
   //   ),
   // ];
   const name = { Customer_name: auth?.name };
-  const url = "http://localhost:3001/api";
+  const url = "https://54.244.204.59/api";
 
   const setDataOrder = (i) => {
     console.log(i);

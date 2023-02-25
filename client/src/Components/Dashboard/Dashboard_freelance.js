@@ -67,7 +67,7 @@ export default function Dashboard_freelance() {
   const [type, settype] = React.useState(null);
   const [hovering, setHovering] = React.useState(false);
   const [open, setOpen] = React.useState(false);
-  const url = "http://localhost:3001/api";
+  const url = "https://54.244.204.59/api";
   const eiei = new Date();
 
   const goLogin = () => {
@@ -245,7 +245,7 @@ export default function Dashboard_freelance() {
               <div className="gbutton">
                 {/* <button>Default</button>
               <button>Save</button> */}
-                <button className="Settingbutton">Setting Dashboard</button>
+                {/* <button className="Settingbutton">Setting Dashboard</button> */}
               </div>
             </div>
 
