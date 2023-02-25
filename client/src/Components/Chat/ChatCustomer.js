@@ -31,11 +31,11 @@ import {
   FaUserCircle,
 } from "react-icons/fa";
 
-import {
-  // IoChatbubblesSharp,
-  // IoNotifications,
-  IoDocumentText,
-} from "react-icons/io5";
+// import {
+//   // IoChatbubblesSharp,
+//   // IoNotifications,
+//   IoDocumentText,
+// } from "react-icons/io5";
 import { useNavigate, useLocation } from "react-router-dom";
 import { PaymentEN, PaymentDE, PaymentTH } from "../Data/DataLanguage";
 
@@ -53,12 +53,12 @@ export default function Chat() {
   const [createQ, setCreateQ] = React.useState(false);
   const [payOpen, setPayOpen] = React.useState(false);
   const [scanQR, setScanQR] = React.useState(false);
-  const [step, setStep] = React.useState(0);
+  // const [step, setStep] = React.useState(0);
 
   const [data, setData] = React.useState([]);
   const [openChat, setOpenChat] = React.useState("");
 
-  const [price, setPrice] = React.useState("");
+  // const [price, setPrice] = React.useState("");
 
   const [order, setOrder] = React.useState({
     Date: "",
@@ -100,7 +100,7 @@ export default function Chat() {
   const Pay_Open = () => {
     dispatch(createOrder(order));
     setPayOpen(true);
-    setStep(1);
+    // setStep(1);
     setCreateQ(false);
   };
   const handleOpen = () => {
@@ -1206,7 +1206,7 @@ export default function Chat() {
                             marginBottom: 0,
                           }}
                         >
-                          {price}
+                          {openChat?.Price}
                         </p>
                       </div>
                     </div>

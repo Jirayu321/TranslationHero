@@ -1,20 +1,20 @@
 import * as React from "react";
 import {
   Box,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
+  // ListItem,
+  // ListItemIcon,
+  // ListItemText,
   Rating,
-  Toolbar,
-  List,
-  Avatar,
-  MenuItem,
-  Select,
-  styled,
-  InputBase,
+  // Toolbar,
+  // List,
+  // Avatar,
+  // MenuItem,
+  // Select,
+  // styled,
+  // InputBase,
   Paper,
   Table,
-  TableBody,
+  // TableBody,
   TableContainer,
   TableCell,
   TableRow,
@@ -63,11 +63,13 @@ export default function Dashboard_freelance() {
   const [all_work, setAll_work] = React.useState(0);
   const [old_work, setOld_work] = React.useState(0);
   const [country, setCountry] = React.useState(0);
-  const [data3, setData3] = React.useState([]);
+  const [data3, setData3] = React.useState();
   const [type, settype] = React.useState(null);
   const [hovering, setHovering] = React.useState(false);
   const [open, setOpen] = React.useState(false);
   const url = "https://54.244.204.59/api";
+  // const url = "http://localhost:3001/api";
+
   const eiei = new Date();
 
   const goLogin = () => {

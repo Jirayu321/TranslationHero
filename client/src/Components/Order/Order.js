@@ -94,6 +94,8 @@ export default function Order() {
   // ];
   const name = { Customer_name: auth?.name };
   const url = "https://54.244.204.59/api";
+  // const url = "http://localhost:3001/api";
+
 
   const setDataOrder = (i) => {
     console.log(i);
@@ -1315,7 +1317,11 @@ export default function Order() {
                                 },
                               }}
                             >
-                              <TableCell component="th" scope="row" align="center">
+                              <TableCell
+                                component="th"
+                                scope="row"
+                                align="center"
+                              >
                                 {row.orderID}
                               </TableCell>
                               <TableCell align="center">
@@ -2205,7 +2211,11 @@ export default function Order() {
                                 },
                               }}
                             >
-                              <TableCell component="th" scope="row" align="center">
+                              <TableCell
+                                component="th"
+                                scope="row"
+                                align="center"
+                              >
                                 {row.orderID}
                               </TableCell>
                               <TableCell align="center">
@@ -3095,7 +3105,11 @@ export default function Order() {
                                 },
                               }}
                             >
-                              <TableCell component="th" scope="row" align="center">
+                              <TableCell
+                                component="th"
+                                scope="row"
+                                align="center"
+                              >
                                 {row.orderID}
                               </TableCell>
                               <TableCell align="center">

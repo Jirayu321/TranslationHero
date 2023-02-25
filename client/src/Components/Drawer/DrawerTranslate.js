@@ -7,7 +7,10 @@ import {
   Toolbar,
   List,
 } from "@mui/material";
-import { IoChatbubblesSharp, IoNotifications } from "react-icons/io5";
+import {
+  IoChatbubblesSharp,
+  //  IoNotifications
+} from "react-icons/io5";
 import { BsTranslate } from "react-icons/bs";
 import { MdSpaceDashboard } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
@@ -32,7 +35,7 @@ export default function DrawerTranslate(props) {
   // React.useEffect(() => {
   //   checklogin();
   // });
-  
+
   return (
     <Drawer
       variant="permanent"
@@ -95,16 +98,15 @@ export default function DrawerTranslate(props) {
                       }
                     />
                   </ListItemIcon>
-                ) 
-                // : index === 3 ? (
+                ) : // : index === 3 ? (
                 //   <ListItemIcon id={"icons_translate"}>
                 //     <IoNotifications
                 //       className="icons"
                 //       // onClick={() => navigate("/Notification")}
                 //     />
                 //   </ListItemIcon>
-                // ) 
-                : null}
+                // )
+                null}
               </ListItem>
             ))}
           </List>
@@ -155,16 +157,15 @@ export default function DrawerTranslate(props) {
                       }
                     />
                   </ListItemIcon>
-                ) 
-                // :index === 3 ? (
+                ) : // :index === 3 ? (
                 //   <ListItemIcon id={"icons_translate"}>
                 //     <IoNotifications
                 //       className="icons"
                 //       // onClick={() => navigate("/Notification")}
                 //     />
                 //   </ListItemIcon>
-                // ) 
-                 : null}
+                // )
+                null}
               </ListItem>
             ))}
           </List>
@@ -215,16 +216,15 @@ export default function DrawerTranslate(props) {
                       }
                     />
                   </ListItemIcon>
-                ) 
-                // :index === 3 ? (
+                ) : // :index === 3 ? (
                 //   <ListItemIcon id={"icons_translate"}>
                 //     <IoNotifications
                 //       className="icons"
                 //       // onClick={() => navigate("/Notification")}
                 //     />
                 //   </ListItemIcon>
-                // ) 
-                : null}
+                // )
+                null}
               </ListItem>
             ))}
           </List>

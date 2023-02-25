@@ -30,11 +30,11 @@ import {
   FaUserCircle,
 } from "react-icons/fa";
 
-import {
-  // IoChatbubblesSharp,
-  // IoNotifications,
-  IoDocumentText,
-} from "react-icons/io5";
+// import {
+//   // IoChatbubblesSharp,
+//   // IoNotifications,
+//   // IoDocumentText,
+// } from "react-icons/io5";
 import { useNavigate, useLocation } from "react-router-dom";
 import { PaymentEN, PaymentDE, PaymentTH } from "../Data/DataLanguage";
 
@@ -93,6 +93,8 @@ export default function Chat() {
 
   const name = { Translator_name: auth?.name };
   const url = "https://54.244.204.59/api";
+  // const url = "http://localhost:3001/api";
+
 
   const setDataOrder = (i) => {
     console.log(i);

@@ -7,7 +7,9 @@ import {
   Toolbar,
   List,
 } from "@mui/material";
-import { IoChatbubblesSharp, IoNotifications } from "react-icons/io5";
+import { IoChatbubblesSharp, 
+  // IoNotifications
+ } from "react-icons/io5";
 import { FaHome, FaLanguage, FaShoppingCart } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
