@@ -26,6 +26,7 @@ function Tool() {
   const [textex, setText] = React.useState("");
   const [translateFrom, setTranslateFrom] = React.useState("");
   const [result, setResult] = React.useState("");
+  const [option, setOption] = React.useState("1");
 
   // const [value_Text, setValue_Text] = React.useState("");
   const navigate = useNavigate();
@@ -78,7 +79,7 @@ function Tool() {
   const translate = () => {
     const text = textex;
     const translateTo = languages2;
-    console.log(typeof text);
+    console.log(text,translateTo);
     let apiUrl = `https://api.mymemory.translated.net/get?q=${text}&langpair=${translateFrom}|${translateTo}`;
     fetch(apiUrl)
       .then((res) => res.json())
@@ -275,6 +276,7 @@ function Tool() {
               </button>
             </Box>
           </Modal>
+
           <Modal
             open={open}
             onClose={handleClose}
@@ -300,20 +302,145 @@ function Tool() {
                   Close
                 </button>
               </div>
+              {option === "4" ? (
+                <textarea
+                  style={{
+                    width: " 100%",
+                    height: "500px",
+                    background: " #F6FBFE",
+                    border: "1px solid #E5E5E5",
+                    borderRadius: 5,
+                    textAlign: "start",
+                    padding: "20px",
+                  }}
+                >
+                  <p></p>
+                </textarea>
+              ) : (
+                <div
+                  style={{
+                    width: " 100%",
+                    height: "500px",
+                    background: " #F6FBFE",
+                    border: "1px solid #E5E5E5",
+                    borderRadius: 5,
+                    textAlign: "start",
+                    padding: "20px",
+                  }}
+                >
+                  <p>{result}</p>
+                </div>
+              )}
 
-              <div
-                style={{
-                  width: " 100%",
-                  height: "500px",
-                  background: " #F6FBFE",
-                  border: "1px solid #E5E5E5",
-                  borderRadius: 5,
-                  textAlign: "start",
-                  padding: "20px",
-                }}
-              >
-                <p>{result}</p>
-              </div>
+              {option === "1" ? (
+                <div className="rowbuttonTools">
+                  <button
+                    onClick={() => setOption("1")}
+                    className="Toolsbutton2"
+                  >
+                    Option 1
+                  </button>
+                  <button
+                    onClick={() => setOption("2")}
+                    className="Toolsbutton"
+                  >
+                    Option 2
+                  </button>
+                  <button
+                    onClick={() => setOption("3")}
+                    className="Toolsbutton"
+                  >
+                    Option 3
+                  </button>
+                  <button
+                    onClick={() => setOption("4")}
+                    className="Toolsbutton"
+                  >
+                    Option 4
+                  </button>
+                </div>
+              ) : option === "2" ? (
+                <div className="rowbuttonTools">
+                  <button
+                    onClick={() => setOption("1")}
+                    className="Toolsbutton"
+                  >
+                    Option 1
+                  </button>
+                  <button
+                    onClick={() => setOption("2")}
+                    className="Toolsbutton2"
+                  >
+                    Option 2
+                  </button>
+                  <button
+                    onClick={() => setOption("3")}
+                    className="Toolsbutton"
+                  >
+                    Option 3
+                  </button>
+                  <button
+                    onClick={() => setOption("4")}
+                    className="Toolsbutton"
+                  >
+                    Option 4
+                  </button>
+                </div>
+              ) : option === "3" ? (
+                <div className="rowbuttonTools">
+                  <button
+                    onClick={() => setOption("1")}
+                    className="Toolsbutton"
+                  >
+                    Option 1
+                  </button>
+                  <button
+                    onClick={() => setOption("2")}
+                    className="Toolsbutton"
+                  >
+                    Option 2
+                  </button>
+                  <button
+                    onClick={() => setOption("3")}
+                    className="Toolsbutton2"
+                  >
+                    Option 3
+                  </button>
+                  <button
+                    onClick={() => setOption("4")}
+                    className="Toolsbutton"
+                  >
+                    Option 4
+                  </button>
+                </div>
+              ) : option === "4" ? (
+                <div className="rowbuttonTools">
+                  <button
+                    onClick={() => setOption("1")}
+                    className="Toolsbutton"
+                  >
+                    Option 1
+                  </button>
+                  <button
+                    onClick={() => setOption("2")}
+                    className="Toolsbutton"
+                  >
+                    Option 2
+                  </button>
+                  <button
+                    onClick={() => setOption("3")}
+                    className="Toolsbutton"
+                  >
+                    Option 3
+                  </button>
+                  <button
+                    onClick={() => setOption("4")}
+                    className="Toolsbutton2"
+                  >
+                    Option 4
+                  </button>
+                </div>
+              ) : null}
             </Box>
           </Modal>
         </Box>
