@@ -147,6 +147,30 @@ export const createOrder = createAsyncThunk(
   }
 );
 
+// export const getOrder = async (values) => {
+//   console.log("values:", values);
+//   try {
+//     const token = await axios.get(`${url}/getOrder`, {
+//       params: { Translator_name: values.Translator_name },
+//     });
+//     await console.log(token?.data);
+//     return token.data;
+//     // setDataOrder(token?.data);
+//   } catch (error) {
+//     if (error.response && error.response.status === 404) {
+//       throw new Error("Translator not found");
+//     } else if (error.response && error.response.status === 500) {
+//       throw new Error("Internal server error");
+//     } else if (error.response && error.response.status === 400) {
+//       throw new Error("Bad request");
+//     } else {
+//       throw new Error("Something went wrong");
+//     }
+//     // return rejectWithValue(error.response.data);
+//     // console.log(error.response);
+//   }
+// };
+
 const authSlice = createSlice({
   name: "auth",
   initialState,

@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.get("/", async (req, res) => {
   try {
-    // console.log("req.query", req.query.Customer_name);
+    console.log("req.query", req?.query);
     if (
       req.query.Customer_name !== null &&
       req.query.Customer_name !== undefined

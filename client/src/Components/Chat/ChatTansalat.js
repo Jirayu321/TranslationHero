@@ -91,7 +91,7 @@ export default function Chat() {
   let Doc = location?.state?.languages;
   let Value = auth?.token;
 
-  const name = { Translator_name: auth?.name };
+  const name = auth?.name;
   const url = "https://54.244.204.59/api";
   // const url = "http://localhost:3001/api";
 
@@ -124,26 +124,25 @@ export default function Chat() {
     setData(Day_List);
   };
 
-  const getOrder = async (values) => {
+  const getOrder = async (translatorName) => {
     try {
-      const token = await axios.get(`${url}/getOrder`, {
-        params: { Translator_name: values.Translator_name },
+      const response = await axios.get(`${url}/getOrder`, {
+        params: { Translator_name: translatorName },
       });
-      await console.log(token?.data);
-
-      setDataOrder(token?.data);
+      setDataOrder(response?.data);
+      console.log(response?.data);
     } catch (error) {
-      if (error.response && error.response.status === 404) {
-        throw new Error("Translator not found");
-      } else if (error.response && error.response.status === 500) {
-        throw new Error("Internal server error");
-      } else if (error.response && error.response.status === 400) {
-        throw new Error("Bad request");
-      } else {
-        throw new Error("Something went wrong");
+      if (error.response) {
+        const { status } = error.response;
+        if (status === 404) {
+          throw new Error(`Translator '${translatorName}' not found`);
+        } else if (status === 500) {
+          throw new Error("Internal server error");
+        } else if (status === 400) {
+          throw new Error("Bad request");
+        }
       }
-      // return rejectWithValue(error.response.data);
-      // console.log(error.response);
+      throw new Error("Something went wrong");
     }
   };
 
