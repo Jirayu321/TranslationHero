@@ -25,18 +25,31 @@ const Home = () => {
 
   const [open, setOpen] = React.useState(false);
 
-  const handleClose = (x) => {
-    console.log(x);
+  const handleClose = (x, y) => {
+    console.log("x:", x);
     if (x === 1) {
-      navigate("/", { state: { languages: `${x}`, accept: true } });
-      setOpen(false);
+      if (y === "English") {
+        navigate("/", { state: { languages: `${y}`, accept: true } });
+        setOpen(false);
+      } else if (y === "Thai") {
+        navigate("/", { state: { languages: `${y}`, accept: true } });
+        setOpen(false);
+      } else if (y === "German") {
+        navigate("/", { state: { languages: `${y}`, accept: true } });
+        setOpen(false);
+      } else {
+        navigate("/", { state: { languages: `${y}`, accept: true } });
+        setOpen(false);
+      }
     } else {
-      navigate("/", { state: { languages: `${x}`, accept: false } });
+      navigate("/", { state: { languages: `English`, accept: false } });
       setOpen(false);
     }
   };
   const check_cookei = () => {
     if (Aoc === true) {
+      setOpen(false);
+    } else if (Aoc === false) {
       setOpen(false);
     } else {
       setOpen(true);
@@ -130,7 +143,7 @@ const Home = () => {
                   border: "none",
                   filter: "drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.1))",
                 }}
-                onClick={() => handleClose(1)}
+                onClick={() => handleClose(1, Doc)}
               >
                 {overviewEN[9].label}
               </button>
@@ -211,7 +224,7 @@ const Home = () => {
                   border: "none",
                   filter: "drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.1))",
                 }}
-                onClick={() => handleClose(1)}
+                onClick={() => handleClose(1, Doc)}
               >
                 {overviewTH[9].label}
               </button>
@@ -292,7 +305,7 @@ const Home = () => {
                   border: "none",
                   filter: "drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.1))",
                 }}
-                onClick={() => handleClose(1)}
+                onClick={() => handleClose(1, Doc)}
               >
                 {overviewDE[9].label}
               </button>
@@ -373,7 +386,7 @@ const Home = () => {
                   border: "none",
                   filter: "drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.1))",
                 }}
-                onClick={() => handleClose(1)}
+                onClick={() => handleClose(1, Doc)}
               >
                 {overviewEN[9].label}
               </button>
@@ -571,7 +584,7 @@ const Home = () => {
             </div>
 
             <div>
-              <Footer v="English" />
+              <Footer v="English" a={Aoc} />
             </div>
           </div>
         </>
@@ -748,7 +761,7 @@ const Home = () => {
             </div>
 
             <div>
-              <Footer v="German" />
+              <Footer v="German" a={Aoc} />
             </div>
           </div>
         </>
@@ -925,7 +938,7 @@ const Home = () => {
             </div>
 
             <div>
-              <Footer v="Thai" />
+              <Footer v="Thai" a={Aoc} />
             </div>
           </div>
         </>
@@ -1102,7 +1115,7 @@ const Home = () => {
             </div>
 
             <div>
-              <Footer v="English" />
+              <Footer v="English" a={Aoc} />
             </div>
           </div>
         </>

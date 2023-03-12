@@ -106,7 +106,7 @@ export default function Dashboard_freelance() {
 
         return {
           index: index,
-          orderID: index,
+          orderID: index + 1,
           orderType: item?.Order_type,
           orderName: item?.Order_type,
           translator: item?.Translator_name,
@@ -411,13 +411,19 @@ export default function Dashboard_freelance() {
                   </div>
                 </Paper>
 
-                <div style={{ textAlign: "center", marginTop: 20 }}>
-                  <div
-                    style={{
-                      textAlign: "left",
-                      width: "fit-content",
-                    }}
-                  >
+                <div
+                  style={{
+                    // textAlign: "center",
+                    marginTop: 20,
+                    textAlign: "left",
+                    width: "60vw",
+                    display: "flex",
+                    overflowY: "scroll",
+                    flexDirection: "column",
+                    height: "65vh",
+                  }}
+                >
+                  <div style={{}}>
                     <TableContainer
                       component={Paper}
                       style={{ width: "58vw", marginBottom: 20 }}
@@ -453,7 +459,11 @@ export default function Dashboard_freelance() {
                     {data1.map((row) => (
                       <TableContainer
                         component={Paper}
-                        style={{ width: "58vw", marginBottom: 20 }}
+                        style={{
+                          width: "58vw",
+                          marginBottom: 20,
+                          height: "8vh",
+                        }}
                       >
                         <Table>
                           <TableHead>

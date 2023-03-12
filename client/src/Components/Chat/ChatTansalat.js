@@ -95,7 +95,6 @@ export default function Chat() {
   const url = "https://54.244.204.59/api";
   // const url = "http://localhost:3001/api";
 
-
   const setDataOrder = (i) => {
     console.log(i);
     const Day_List = i?.map((item, index) => {
@@ -274,6 +273,10 @@ export default function Chat() {
                     color: "#353535",
                     fontWeight: 500,
                     fontSize: 18,
+                    display: "flex",
+                    overflowY: "scroll",
+                    flexDirection: "column",
+                    height: "60vh",
                   }}
                 >
                   {data.map((i) => (

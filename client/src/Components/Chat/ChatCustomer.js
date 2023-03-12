@@ -277,6 +277,10 @@ export default function Chat() {
                     color: "#353535",
                     fontWeight: 500,
                     fontSize: 18,
+                    display: "flex",
+                    overflowY: "scroll",
+                    flexDirection: "column",
+                    height: "60vh",
                   }}
                 >
                   {data.map((i) => (

@@ -85,7 +85,7 @@ const Customer = () => {
       </header>
       {Doc === undefined ? (
         <>
-          <div>
+          <div style={{ display: "flex", justifyContent: "center" }}>
             <div>
               <div
                 style={{
@@ -136,7 +136,7 @@ const Customer = () => {
                 </p>
               </div>
               <div className="textCustomerH">
-                <p style={{ fontSize: 23, color: "#444444" }}>
+                <p style={{ fontSize: 23, color: "#444444", width: "80vw" }}>
                   {CustomerEN[1].label}
                 </p>
               </div>
@@ -841,7 +841,7 @@ const Customer = () => {
         </>
       ) : Doc === "German" ? (
         <>
-          <div>
+          <div style={{ display: "flex", justifyContent: "center" }}>
             <div>
               <div
                 style={{
@@ -892,7 +892,7 @@ const Customer = () => {
                 </p>
               </div>
               <div className="textCustomerH">
-                <p style={{ fontSize: 23, color: "#444444" }}>
+                <p style={{ fontSize: 23, color: "#444444", width: "80vw" }}>
                   {CustomerDE[1].label}
                 </p>
               </div>
@@ -1595,7 +1595,7 @@ const Customer = () => {
         </>
       ) : Doc === "Thai" ? (
         <>
-          <div>
+          <div style={{ display: "flex", justifyContent: "center" }}>
             <div>
               <div
                 style={{
@@ -1646,7 +1646,7 @@ const Customer = () => {
                 </p>
               </div>
               <div className="textCustomerH">
-                <p style={{ fontSize: 23, color: "#444444" }}>
+                <p style={{ fontSize: 23, color: "#444444", width: "80vw" }}>
                   {CustomerTH[1].label}
                 </p>
               </div>
@@ -2348,7 +2348,7 @@ const Customer = () => {
         </>
       ) : (
         <>
-          <div>
+          <div style={{ display: "flex", justifyContent: "center" }}>
             <div>
               <div
                 style={{
@@ -2399,7 +2399,7 @@ const Customer = () => {
                 </p>
               </div>
               <div className="textCustomerH">
-                <p style={{ fontSize: 23, color: "#444444" }}>
+                <p style={{ fontSize: 23, color: "#444444", width: "80vw" }}>
                   {CustomerEN[1].label}
                 </p>
               </div>

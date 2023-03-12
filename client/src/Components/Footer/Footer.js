@@ -19,18 +19,19 @@ const Footer = (props) => {
   const navigate = useNavigate();
 
   let languages = props?.v;
+  let accept = props?.a;
   let pathname = window.location.pathname;
   console.log(pathname);
   const switchLanguage = (x) => {
     if (pathname === "/") {
       if (x === "English") {
-        navigate("/", { state: { languages: `${x}` } });
+        navigate("/", { state: { languages: `${x}`, accept: true } });
       } else if (x === "German") {
-        navigate("/", { state: { languages: `${x}` } });
+        navigate("/", { state: { languages: `${x}`, accept: true } });
       } else if (x === "Thai") {
-        navigate("/", { state: { languages: `${x}` } });
+        navigate("/", { state: { languages: `${x}`, accept: true } });
       } else {
-        navigate("/", { state: { languages: "English" } });
+        navigate("/", { state: { languages: "English", accept: true } });
       }
     } else if (pathname === "/Home/Services/Customer") {
       if (x === "English") {
@@ -315,9 +316,7 @@ const Footer = (props) => {
           </div>
 
           <div className="ContentFooter2">
-            <p className="textFooter3">
-              {FooterTH[9].label}.
-            </p>
+            <p className="textFooter3">{FooterTH[9].label}.</p>
             <p className="textFooter4">{FooterTH[5].label}</p>
           </div>
         </>
