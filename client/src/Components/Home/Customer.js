@@ -159,7 +159,7 @@ const Customer = () => {
         </Box>
       </Modal>
       <>
-        <div className="fram1">
+        <div className="fram1C">
           <div style={{ display: "flex", justifyContent: "center" }}>
             <div
               style={{
