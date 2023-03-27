@@ -19,9 +19,9 @@ const Footer = (props) => {
   const navigate = useNavigate();
 
   let languages = props?.v;
-  let accept = props?.a;
+  // let accept = props?.a;
   let pathname = window.location.pathname;
-  console.log(pathname);
+  // console.log(pathname);
   const switchLanguage = (x) => {
     if (pathname === "/") {
       if (x === "English") {
@@ -59,7 +59,7 @@ const Footer = (props) => {
       }
     }
   };
-  console.log("props:", props?.v);
+  // console.log("props:", props?.v);
   return (
     <>
       {languages === "English" ? (

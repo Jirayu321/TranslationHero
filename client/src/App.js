@@ -11,7 +11,7 @@ import "./App.css";
 function App() {
   const dispatch = useDispatch();
   // verion2
-  const Home = lazy(() => import("./Components/Home/Home.js"));
+  const Home = lazy(() => import("./Components/Home/Home.jsx"));
   const Customer = lazy(() => import("./Components/Home/Customer"));
 
   // verion1
