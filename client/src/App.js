@@ -1,34 +1,48 @@
-import * as React from "react";
+import React, { useEffect, lazy, Suspense } from "react";
 import { StyledEngineProvider } from "@mui/material/styles";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { loadUser } from "./slices/auth";
+
 import "./App.css";
 
-import Matching from "./Components/Matching/Matching";
-import Freelance from "./Components/Dashboard/Dashboard_freelance";
-import Home from "./Components/Home/Home.js";
-import Customer from "./Components/Home/Customer";
-import Translator from "./Components/Home/Translator";
-import Home2 from "./Components/Home/Home2.js";
-import Login from "./Components/Login/Login";
-import ForgetPassword from "./Components/Login/ForgetPassword";
-import CreateNewPassword from "./Components/Login/CreateNewPassword";
-import Signup from "./Components/Sign_up/Signup";
-import Chat from "./Components/Chat/ChatCustomer";
-import Chats from "./Components/Chat/ChatTansalat";
-import Order from "./Components/Order/Order";
-import Notification from "./Components/Notification/NotificaionCustomer";
-import Tool from "./Components/Tool/Tool";
+// import Home from "./Components/Home/Home.js";
 
 function App() {
   const dispatch = useDispatch();
-  React.useEffect(() => {
+  // verion2
+  const Home = lazy(() => import("./Components/Home/Home.js"));
+  const Customer = lazy(() => import("./Components/Home/Customer"));
+
+  // verion1
+  const Freelance = lazy(() =>
+    import("./Components/Dashboard/Dashboard_freelance")
+  );
+  const Translator = lazy(() => import("./Components/Home/Translator"));
+  const Home2 = lazy(() => import("./Components/Home/Home2.js"));
+  const Login = lazy(() => import("./Components/Login/Login"));
+  const ForgetPassword = lazy(() =>
+    import("./Components/Login/ForgetPassword")
+  );
+  const CreateNewPassword = lazy(() =>
+    import("./Components/Login/CreateNewPassword")
+  );
+  const Signup = lazy(() => import("./Components/Sign_up/Signup"));
+  const Chat = lazy(() => import("./Components/Chat/ChatCustomer"));
+  const Chats = lazy(() => import("./Components/Chat/ChatTansalat"));
+  const Order = lazy(() => import("./Components/Order/Order"));
+  const Notification = lazy(() =>
+    import("./Components/Notification/NotificaionCustomer")
+  );
+  const Tool = lazy(() => import("./Components/Tool/Tool"));
+  const Matching = lazy(() => import("./Components/Matching/Matching"));
+
+  useEffect(() => {
     dispatch(loadUser(null));
   }, [dispatch]);
 
   return (
-    <>
+    <Suspense fallback={<div>Loading...</div>}>
       <div className="App">
         <BrowserRouter>
           <div className="App-body">
@@ -61,7 +75,7 @@ function App() {
           </div>
         </BrowserRouter>
       </div>
-    </>
+    </Suspense>
   );
 }
 
