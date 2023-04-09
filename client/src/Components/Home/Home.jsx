@@ -430,7 +430,12 @@ const Home = () => {
               >
                 Order here
               </button>
-              <button className={styles.fram1_button2}>Subscribe</button>
+              <button
+                className={styles.fram1_button2}
+                onClick={() => navigate("/Signup")}
+              >
+                Subscribe
+              </button>
             </div>
 
             <div className={styles.Infram1}>
