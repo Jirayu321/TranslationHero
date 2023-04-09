@@ -301,7 +301,7 @@
 }
 .Content_button1 {
   background: linear-gradient(91.8deg, #ff725a 1.03%, #eca51f 99.01%);
-  border-radius: 5px 0px 0px 5px;
+  border-radius: 5px;
   color: #ffffff;
   display: flex;
   justify-content: center;
@@ -312,7 +312,7 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  border-radius: 0px 5px 5px 0px;
+  border-radius: 5px;
   display: flex;
   justify-content: center;
   border: 1px solid #e5e5e5;
@@ -533,6 +533,7 @@
   border: 1px solid transparent;
   width: 13vw;
   margin-top: 80px;
+  
 }
 .box4_overviwe0 {
   background: url("../../Images/box4_overviwe0.png");

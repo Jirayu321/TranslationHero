@@ -65,7 +65,11 @@ const Footer = (props) => {
       {languages === "English" ? (
         <>
           <div className="ContentFooter">
-            <img src={logo} alt="logo" style={{ width: 160, float: "left" }} />
+            <img
+              src={logo}
+              alt="logo"
+              style={{ width: 170, marginTop: 38, float: "left" }}
+            />
             <div style={{ float: "left" }}>
               <p className="textFooter1">{FooterEN[0].label}</p>
               <p className="textFooter1">{FooterEN[1].label}</p>

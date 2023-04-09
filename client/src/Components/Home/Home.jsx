@@ -1,4 +1,4 @@
-import React, { useEffect, lazy } from "react";
+import React, { useEffect } from "react";
 import Navbars from "../Navbar/navbarHome";
 import Footer from "../Footer/Footer";
 // import { useSelector } from "react-redux";

@@ -4,6 +4,7 @@
   padding: 20px;
   display: grid;
   grid-template-columns: auto auto auto auto;
+  justify-content: space-evenly;
 }
 .textFooter1 {
   font-weight: 500;

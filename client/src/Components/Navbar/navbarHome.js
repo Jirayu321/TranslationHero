@@ -13,9 +13,9 @@ const navbarHome = (props) => {
 
   const promotion = (x) => {
     if (x === 1) {
-      window.scrollTo(0, 500);
+      window.scrollTo(0, 0);
     } else {
-      window.scrollTo(0, 1250);
+      navigate("/About_us");
     }
   };
 
@@ -44,14 +44,14 @@ const navbarHome = (props) => {
           <>
             <div className="dd">
               {pathname === "/" || pathname === "/Home/Order/Customer" ? (
-                <div className="NavLi">
+                <div className="NavLi" onClick={() => navigate("/")}>
                   <p className="textNavA">
                     {overviewEN[0].label}
                     {/* home */}
                   </p>
                 </div>
               ) : (
-                <div className="NavLi">
+                <div className="NavLi" onClick={() => navigate("/")}>
                   <p className="textNavO">
                     {overviewEN[0].label}
                     {/* home */}
@@ -71,7 +71,7 @@ const navbarHome = (props) => {
                 <div
                   className="NavLi"
                   style={{ color: "black" }}
-                  // onClick={() => goHome(you)}
+                  onClick={() => promotion(2)}
                 >
                   <p className="textNavO">About us</p>
                 </div>
@@ -94,8 +94,16 @@ const navbarHome = (props) => {
                     </div>
                   }
                 >
-                  <NavDropdown.Item>General Document</NavDropdown.Item>
-                  <NavDropdown.Item>Official Document</NavDropdown.Item>
+                  <NavDropdown.Item
+                    onClick={() => navigate("/Services_general")}
+                  >
+                    General Document
+                  </NavDropdown.Item>
+                  <NavDropdown.Item
+                    onClick={() => navigate("/Services_official")}
+                  >
+                    Official Document
+                  </NavDropdown.Item>
                 </NavDropdown>
               ) : (
                 <NavDropdown
@@ -114,8 +122,16 @@ const navbarHome = (props) => {
                     </div>
                   }
                 >
-                  <NavDropdown.Item>General Document</NavDropdown.Item>
-                  <NavDropdown.Item>Official Document</NavDropdown.Item>
+                  <NavDropdown.Item
+                    onClick={() => navigate("/Services_general")}
+                  >
+                    General Document
+                  </NavDropdown.Item>
+                  <NavDropdown.Item
+                    onClick={() => navigate("/Services_official")}
+                  >
+                    Official Document
+                  </NavDropdown.Item>
                 </NavDropdown>
               )}
 
@@ -124,7 +140,7 @@ const navbarHome = (props) => {
                   <p className="textNavA">Price</p>
                 </div>
               ) : (
-                <div className="NavLi" onClick={() => goHome(you)}>
+                <div className="NavLi" onClick={() => promotion(1)}>
                   <p className="textNavO">Price</p>
                 </div>
               )}

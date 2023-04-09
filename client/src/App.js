@@ -12,8 +12,13 @@ function App() {
   const dispatch = useDispatch();
   // verion2
   const Home = lazy(() => import("./Components/Home/Home.jsx"));
-  const Customer = lazy(() => import("./Components/Home/Customer"));
-
+  const Customer = lazy(() => import("./Components/Home/Customer.jsx"));
+  const Services_official = lazy(() =>
+    import("./Components/Services/Services_official.jsx")
+  );
+  const Services_general = lazy(() =>
+    import("./Components/Services/Services_general.jsx")
+  );
   // verion1
   const Freelance = lazy(() =>
     import("./Components/Dashboard/Dashboard_freelance")
@@ -31,6 +36,7 @@ function App() {
   const Chat = lazy(() => import("./Components/Chat/ChatCustomer"));
   const Chats = lazy(() => import("./Components/Chat/ChatTansalat"));
   const Order = lazy(() => import("./Components/Order/Order"));
+  const About_us = lazy(() => import("./Components/About_us/About_us"));
   const Notification = lazy(() =>
     import("./Components/Notification/NotificaionCustomer")
   );
@@ -50,6 +56,15 @@ function App() {
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/Home/Order/Customer" element={<Customer />} />
+                <Route path="/About_us" element={<About_us />} />
+                <Route
+                  path="/Services_official"
+                  element={<Services_official />}
+                />
+                <Route
+                  path="/Services_general"
+                  element={<Services_general />}
+                />
                 <Route path="/Notification" element={<Notification />} />
                 <Route path="/Matching" element={<Matching />} />
                 <Route
