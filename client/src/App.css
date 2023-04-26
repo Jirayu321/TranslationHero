@@ -69,16 +69,7 @@ p {
 }
 
 /* loin */
-.textLogin {
-  width: 125px;
-  font-weight: 500;
-  font-size: 50px;
-  background: linear-gradient(272.41deg, #ffd033 0.82%, #0097fe 92.13%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin-top: 20px;
-}
+
 
 /* ForgetPassword */
 

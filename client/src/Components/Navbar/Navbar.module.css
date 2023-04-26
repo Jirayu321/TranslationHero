@@ -1,0 +1,15 @@
+.button {
+  background: transparent;
+  border: transparent;
+  position: relative;
+  left: 35px;
+}
+.text {
+  background: linear-gradient(98.35deg, #3b005f 5.13%, #1466b1 100.51%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 500;
+  font-size: 25px;
+  font-family: "DBHeavent";
+}

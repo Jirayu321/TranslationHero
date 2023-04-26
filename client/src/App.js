@@ -25,14 +25,14 @@ function App() {
   );
   const Translator = lazy(() => import("./Components/Home/Translator"));
   const Home2 = lazy(() => import("./Components/Home/Home2.js"));
-  const Login = lazy(() => import("./Components/Login/Login"));
+  const Login = lazy(() => import("./Components/Login/Login.jsx"));
   const ForgetPassword = lazy(() =>
-    import("./Components/Login/ForgetPassword")
+    import("./Components/Login/ForgetPassword.jsx")
   );
   const CreateNewPassword = lazy(() =>
-    import("./Components/Login/CreateNewPassword")
+    import("./Components/Login/CreateNewPassword.jsx")
   );
-  const Signup = lazy(() => import("./Components/Sign_up/Signup"));
+  const Signup = lazy(() => import("./Components/Sign_up/Signup.jsx"));
   const Chat = lazy(() => import("./Components/Chat/ChatCustomer"));
   const Chats = lazy(() => import("./Components/Chat/ChatTansalat"));
   const Order = lazy(() => import("./Components/Order/Order"));

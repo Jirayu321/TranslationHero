@@ -5,14 +5,14 @@ import Navbars from "../Navbar/navbarLogin";
 import { useNavigate, useLocation } from "react-router-dom";
 import { FiEyeOff, FiEye } from "react-icons/fi";
 
-import Login1 from "../../Images/login.png";
-
 import IconButton from "@mui/material/IconButton";
+import styles from "./Login.module.css";
 
 const CreateNewPassword = () => {
-  const { innerWidth: width } = window;
+
   const navigate = useNavigate();
   const location = useLocation();
+  let Doc = location?.state?.languages;
   const [password, setPassword] = React.useState("");
   const [confirm, setConfirm] = React.useState("");
   const [type, setType] = React.useState("password");
@@ -53,60 +53,48 @@ const CreateNewPassword = () => {
     });
   return (
     <>
-      <header
-        className="App-header"
-        style={{ color: "transparent", position: "absolute" }}
-      >
-        <Navbars />
+    <header className={styles?.header}>
+        {Doc === undefined ? (
+          <Navbars navigate={navigate} languages="English" />
+        ) : Doc === "Thai" ? (
+          <Navbars navigate={navigate} languages="Thai" />
+        ) : Doc === "German" ? (
+          <Navbars navigate={navigate} languages="German" />
+        ) : (
+          <Navbars navigate={navigate} languages="English" />
+        )}
       </header>
-      <div>
+      <div style={{ display: "flex" }}>
         <div
           style={{
-            position: "absolute",
+            position: "relative",
             width: "50%",
-            height: " -webkit-fill-available",
-            background: "#66C0FE",
-          }}
-        >
-          <img
-            src={Login1}
-            alt="Login"
-            style={{ width: 460, position: "absolute", top: " 10%", left: 100 }}
-          />
-        </div>
-
-        <div
-          style={{
-            position: "absolute",
-            width: "50%",
-            height: "-webkit-fill-available",
-            left: "50%",
-            background: "#FFF3CC",
+            height: "100vh",
           }}
         >
           <div
             style={{
               position: "fixed",
               top: 130,
-              left: width * 0.59,
-              textAlign: "-webkit-center",
+              left: 100,
               width: 500,
-              height: 460,
               background: " #FFFFFF",
-              boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
+              // boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
               borderRadius: 20,
               padding: 30,
             }}
           >
             <div style={{ padding: 20 }}>
-              <h2 className="textCreateNewPassword">Create New Password</h2>
-
+              <h2 className={styles.textLogin}>Create New Password</h2>
+              <p className={styles.textLogin2}>Please create a new password.</p>
               <div style={{ textAlign: "left" }}>
                 <p
                   style={{
                     fontWeight: 500,
                     fontSize: 20,
                     color: "#242424",
+                    textAlign: "left",
+                    fontFamily: "DBHeavent",
                   }}
                 >
                   New password
@@ -130,7 +118,7 @@ const CreateNewPassword = () => {
                 <IconButton
                   onClick={handleClickShowPassword}
                   edge="end"
-                  style={{ position: "absolute", right: 61, top: 190 }}
+                  style={{ position: "absolute", right: 60, top: 220 }}
                 >
                   {values ? <FiEye /> : <FiEyeOff />}
                 </IconButton>
@@ -142,6 +130,8 @@ const CreateNewPassword = () => {
                     fontWeight: 500,
                     fontSize: 20,
                     color: "#242424",
+                    textAlign: "left",
+                    fontFamily: "DBHeavent",
                   }}
                 >
                   Confirm new password
@@ -165,45 +155,36 @@ const CreateNewPassword = () => {
                 <IconButton
                   onClick={handleClickShowConfirmPassword}
                   edge="end"
-                  style={{ position: "absolute", right: 61, top: 282 }}
+                  style={{ position: "absolute", right: 60, top: 312 }}
                 >
                   {values2 ? <FiEye /> : <FiEyeOff />}
                 </IconButton>
               </div>
 
-              <button
-                style={{
-                  width: "100%",
-                  borderRadius: 20,
-                  background: "#001E33",
-                  height: 40,
-                  color: "#FFFFFF",
-                  fontSize: 18,
-                  borderColor: "transparent",
-                  marginBottom: 30,
-                  marginTop: 25,
-                }}
-                onClick={Save}
-              >
-                <p
-                  style={{
-                    color: "#FFFFFF",
-                    fontSize: 18,
-                    textDecorationLine: "none",
-                    fontWeight: 500,
-                  }}
-                >
-                  Save
-                </p>
+              <button className={styles.button} onClick={Save}>
+                <p>Save</p>
               </button>
             </div>
           </div>
-          <div style={{ top: "90%", position: "absolute", marginLeft: "25%" }}>
+
+          <div style={{ top: "95vh", position: "relative", right: "30%" }}>
             <div style={{ float: "right" }}>
-              <p>Privacy policy</p>
+              <p className={styles.textPolicy}>Privacy policy</p>
             </div>
             <div style={{ float: "right", marginRight: 50 }}>
-              <p>Copyrights Give Network 2021.</p>
+              <p className={styles.textPolicy}>Copyrights Give Network 2021.</p>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div className={styles?.img_CreateNewPassword}>
+            <div>
+              <p className={styles.textimg1}>Translation Hero</p>
+              <p className={styles.textimg2}>
+                ...เรายินดีต้อนรับนักแปลทุกท่านเข้าสู่ระบบ
+                และพร้อมรับประสบการณ์ในการทำงานใหม่ๆผ่าน เครื่องมือที่น่าสนใจ...
+              </p>
             </div>
           </div>
         </div>
