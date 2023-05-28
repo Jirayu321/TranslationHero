@@ -8,14 +8,9 @@
   /* color: white; */
   position: absolute;
   width: 100vw;
+  font-family: "DBHeavent";
 }
-.fram1C {
-  background: linear-gradient(0deg, rgb(255 255 255 / 0%), rgba(0, 0, 0, 0.2)),
-    url("../../Images/fram1Home.png");
-  height: 85vh;
-  /* background-position: center; */
-  background-repeat: round;
-}
+
 .fram1_button2 {
   background: transparent;
   border-radius: 26.5px;
@@ -29,6 +24,7 @@
   border: 1px solid #ffffff;
   margin: 20px;
   width: 13vw;
+  font-family: "DBHeavent";
 }
 .textCustomerH {
   display: contents;
@@ -36,23 +32,27 @@
 .textHeading2_overviwe {
   font-weight: bold;
   font-size: 40px;
-  margin-bottom: 70px;
+  margin-bottom: 20px;
   text-align: center;
   color: #333333;
+  font-family: "DBHeavent";
 }
 .Get_Quote {
-  background: linear-gradient(
-    91.8deg,
-    #0097fe 1.03%,
-    #0075ff 1.04%,
-    #9e70ff 99.01%
-  );
+  background: linear-gradient(98.35deg, #3b005f 5.13%, #1466b1 100.51%);
+  float: left;
+  width: 135px;
+  height: 40px;
+  padding: 2px;
+  border-radius: 30px;
+  text-align: center;
+  border-color: transparent;
 }
 .BsFileEarmarkFill {
   font-size: 28px;
   line-height: 28px;
   display: flex;
   align-items: center;
+  font-family: "DBHeavent";
 }
 .textHeading2_overviwe2 {
   font-weight: bold;
@@ -60,13 +60,14 @@
   margin-bottom: 40px;
   text-align: start;
   color: #333333;
+  font-family: "DBHeavent";
 }
 .BoxFilter {
   border: 1px solid rgb(229, 229, 229);
   height: 135px;
   padding-top: 10px;
   border-radius: 10px;
-  width: 90vw;
+  width: 86vw;
 }
 .boxPrice {
   display: flex;
@@ -78,12 +79,14 @@
   display: flex;
   align-items: center;
   color: #bdbdbd;
+  font-family: "DBHeavent";
 }
 .PriceInt {
   font-weight: 500;
   font-size: 25px;
   line-height: 38px;
   align-items: center;
+  font-family: "DBHeavent";
 
   color: #df0000;
 }
@@ -107,11 +110,13 @@
   border-radius: 20px;
   margin-top: 20px;
   background: linear-gradient(98.35deg, #3b005f 5.13%, #1466b1 100.51%);
+  font-family: "DBHeavent";
 }
 .profile {
   width: 30%;
   color: #e6e6e6;
   font-size: 60px;
+  font-family: "DBHeavent";
 }
 .Logo {
   background: url("../../logo.svg");
@@ -130,4 +135,82 @@
   align-items: center;
   text-align: center;
   color: #242424;
+  font-family: "DBHeavent";
+}
+
+.fromdetail {
+  position: absolute;
+  width: 52vw;
+  height: 725px;
+  border: 1px solid #e5e5e5;
+  box-sizing: border-box;
+  border-radius: 20px;
+  left: 42vw;
+  padding: 20px;
+  text-align: left;
+  display: grid;
+  align-content: start;
+  justify-content: space-around;
+  grid-template-columns: auto auto;
+}
+.datePickerWrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.buttonAddandDelete {
+  width: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  font-size: 20px;
+  background: transparent;
+  border: none;
+  font-family: "DBHeavent";
+}
+.TextbuttonAddandDelete1 {
+  color: #f04438;
+}
+.TextbuttonAddandDelete2 {
+  background: linear-gradient(98.35deg, #3b005f 5.13%, #1466b1 100.51%);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-family: "DBHeavent";
+}
+.Box_next {
+  position: absolute;
+  width: 100%;
+  height: 100px;
+  top: 80vh;
+  box-shadow: 1px -6px 8px -2px rgba(16, 24, 40, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px 35px;
+}
+.buttonArrow {
+  background: #ffffff;
+  border: 1px solid #f1f1f1;
+  border-radius: 32px;
+  margin: 0px 10px;
+  width: 35px;
+  height: 35px;
+  font-size: 16px;
+  font-family: "DBHeavent";
+}
+.buttonArrow2 {
+  background: linear-gradient(98.35deg, #3b005f 5.13%, #1466b1 100.51%);
+  border: none;
+  border-radius: 32px;
+  margin: 0px 10px;
+  width: 35px;
+  height: 35px;
+  font-size: 16px;
+  font-family: "DBHeavent";
+  color: #e5e5e5;
+}
+.buttonArrow .icon1 {
+  font-size: 16px;
+  display: inline;
+  color: #3b005f;
 }

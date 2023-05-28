@@ -5,7 +5,10 @@ import Footer from "../Footer/Footer";
 import { useNavigate, useLocation } from "react-router-dom";
 
 import { data, data2, data3, data4, data5 } from "../Data/data";
-import { FaUserCircle } from "react-icons/fa";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+
 import {
   IconButton,
   Input,
@@ -18,9 +21,18 @@ import {
   Rating,
   Modal,
   Typography,
+  InputAdornment,
 } from "@mui/material";
+import EventIcon from "@mui/icons-material/Event";
 
+import { FaUserCircle } from "react-icons/fa";
 import { MdArrowDropDown } from "react-icons/md";
+import { RiDeleteBin5Fill } from "react-icons/ri";
+import {
+  IoMdAddCircleOutline,
+  IoIosArrowBack,
+  IoIosArrowForward,
+} from "react-icons/io";
 
 import Fileimg from "../../Images/file.png";
 
@@ -54,6 +66,14 @@ const Customer = () => {
     checked5: false,
   });
   const [open, setOpen] = React.useState(false);
+
+  // const [date, setDate] = React.useState(new Date());
+
+  // const onChange = (date) => {
+  //   setDate(date);
+  // };
+
+  const [selectedDate, setSelectedDate] = React.useState(new Date());
 
   const handleChange = (event) => {
     setTextarea(event.target.value);
@@ -203,7 +223,13 @@ const Customer = () => {
       </Modal>
 
       <>
-        <div className={styles.fram1C}>
+        <div
+          style={{
+            background: `linear-gradient(0deg, rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.2)), url(${require("../../Images/fram1Home.png")})`,
+            height: "85vh",
+            backgroundRepeat: "round",
+          }}
+        >
           <div style={{ display: "flex", justifyContent: "center" }}>
             <div
               style={{
@@ -266,7 +292,7 @@ const Customer = () => {
                     position: "absolute",
                     left: width * 0.08,
                     width: 415,
-                    height: 570,
+                    height: 725,
                     background: "#FFFFFF",
                     border: "1px solid #E5E5E5",
                     boxSizing: "border-box",
@@ -305,7 +331,7 @@ const Customer = () => {
                     position: "absolute",
                     left: width * 0.08,
                     width: 415,
-                    height: 570,
+                    height: 725,
                     background: "#FFFFFF",
                     border: "1px solid #E5E5E5",
                     boxSizing: "border-box",
@@ -344,23 +370,8 @@ const Customer = () => {
                 </div>
               )}
 
-              <div
-                style={{
-                  position: "absolute",
-                  width: width * 0.55,
-                  height: 570,
-                  border: "1px solid #E5E5E5",
-                  boxSizing: " border-box",
-                  borderRadius: 20,
-                  left: width * 0.42,
-                  padding: 10,
-                  textAlign: "left",
-                  // borderLeft: "none",
-                  // borderBottomLeftRadius: "unset",
-                  // borderTopLeftRadius: "unset",
-                }}
-              >
-                <div style={{ float: "left", marginLeft: 90 }}>
+              <div className={styles.fromdetail}>
+                <div style={{ float: "left" }}>
                   <div style={{ marginBottom: 10 }}>
                     <p
                       style={{
@@ -374,7 +385,12 @@ const Customer = () => {
                   </div>
                   <Autocomplete
                     id="country-select-demo"
-                    sx={{ width: 285 }}
+                    sx={{
+                      width: 300,
+                      margin: 0,
+                      marginBottom: "30px",
+                      height: "30px",
+                    }}
                     options={data2}
                     autoHighlight
                     getOptionLabel={(option) => option.label}
@@ -406,7 +422,7 @@ const Customer = () => {
                   />
                 </div>
 
-                <div style={{ float: "left", marginLeft: 60 }}>
+                <div style={{ float: "left" }}>
                   <div style={{ marginBottom: 10 }}>
                     <p
                       style={{
@@ -421,7 +437,12 @@ const Customer = () => {
                   {type === null ? (
                     <Autocomplete
                       id="country-select-demo"
-                      sx={{ width: 285 }}
+                      sx={{
+                        width: 300,
+                        margin: 0,
+                        marginBottom: "30px",
+                        height: "30px",
+                      }}
                       options={data5}
                       autoHighlight
                       getOptionLabel={(option) => option.label}
@@ -454,7 +475,12 @@ const Customer = () => {
                   ) : type === "Official Document" ? (
                     <Autocomplete
                       id="country-select-demo"
-                      sx={{ width: 285 }}
+                      sx={{
+                        width: 300,
+                        margin: 0,
+                        marginBottom: "30px",
+                        height: "30px",
+                      }}
                       options={data4}
                       autoHighlight
                       getOptionLabel={(option) => option.label}
@@ -487,7 +513,12 @@ const Customer = () => {
                   ) : type === "General Document" ? (
                     <Autocomplete
                       id="country-select-demo"
-                      sx={{ width: 285 }}
+                      sx={{
+                        width: 300,
+                        margin: 0,
+                        marginBottom: "30px",
+                        height: "30px",
+                      }}
                       options={data3}
                       autoHighlight
                       getOptionLabel={(option) => option.label}
@@ -520,7 +551,12 @@ const Customer = () => {
                   ) : (
                     <Autocomplete
                       id="country-select-demo"
-                      sx={{ width: 285 }}
+                      sx={{
+                        width: 300,
+                        margin: 0,
+                        marginBottom: "30px",
+                        height: "30px",
+                      }}
                       options={data5}
                       autoHighlight
                       getOptionLabel={(option) => option.label}
@@ -556,9 +592,6 @@ const Customer = () => {
                 <div
                   style={{
                     float: "left",
-                    margin: 30,
-                    marginLeft: 90,
-                    marginBottom: 20,
                   }}
                 >
                   <div style={{ marginBottom: 10 }}>
@@ -575,7 +608,12 @@ const Customer = () => {
 
                   <Autocomplete
                     id="country-select-demo"
-                    sx={{ width: 285 }}
+                    sx={{
+                      width: 300,
+                      margin: 0,
+                      marginBottom: "30px",
+                      height: "30px",
+                    }}
                     options={data}
                     autoHighlight
                     getOptionLabel={(option) => option.label}
@@ -607,7 +645,11 @@ const Customer = () => {
                   />
                 </div>
 
-                <div style={{ float: "left", margin: 30, marginBottom: 20 }}>
+                <div
+                  style={{
+                    float: "left",
+                  }}
+                >
                   <div style={{ marginBottom: 10 }}>
                     <p
                       style={{
@@ -621,7 +663,12 @@ const Customer = () => {
                   </div>
                   <Autocomplete
                     id="country-select-demo"
-                    sx={{ width: 285 }}
+                    sx={{
+                      width: 300,
+                      margin: 0,
+                      marginBottom: "30px",
+                      height: "30px",
+                    }}
                     options={data}
                     autoHighlight
                     getOptionLabel={(option) => option.label}
@@ -653,15 +700,47 @@ const Customer = () => {
                   />
                 </div>
 
+                <div>
+                  <div style={{ marginBottom: 10 }}>
+                    <p
+                      style={{
+                        fontWeight: "bold",
+                        fontSize: 24,
+                        color: "#333333",
+                      }}
+                    >
+                      Deadline
+                    </p>
+                  </div>
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <DatePicker
+                      label="Date picker"
+                      value={selectedDate}
+                      onChange={(date) => setSelectedDate(date)}
+                      renderInput={(props) => (
+                        <TextField
+                          {...props}
+                          sx={{ position: "absolute", width: "45vw" }}
+                          InputProps={{
+                            startAdornment: (
+                              <InputAdornment position="start">
+                                <EventIcon />
+                              </InputAdornment>
+                            ),
+                          }}
+                        />
+                      )}
+                    />
+                  </LocalizationProvider>
+                </div>
+
+                <br />
+
                 <div
                   style={{
-                    float: "left",
+                    marginTop: 80,
                     marginRight: 50,
-                    marginLeft: 50,
                     marginBottom: 0,
-                    position: "absolute",
-                    top: 270,
-                    left: 50,
                   }}
                 >
                   <div style={{ marginBottom: 10 }}>
@@ -678,11 +757,11 @@ const Customer = () => {
                   <textarea
                     value={textarea}
                     onChange={handleChange}
-                    maxLength={150}
+                    maxLength={300}
                     style={{
                       position: "absolute",
-                      width: 625,
-                      height: 185,
+                      width: "45.5vw",
+                      height: 140,
                       background: "#FFFFFF",
                       border: "1px solid #E5E5E5",
                       boxSizing: "border-box",
@@ -692,25 +771,47 @@ const Customer = () => {
                   />
                 </div>
 
-                <button
-                  style={{
-                    float: "left",
-                    position: "absolute",
-                    top: 508,
-                    left: 595,
-                    width: 135,
-                    padding: 10,
-                    borderRadius: 30,
-                    textAlign: "center",
-                    borderColor: "transparent",
-                  }}
-                  onClick={() => promotion(1)}
-                  className={styles.Get_Quote}
-                >
-                  <p style={{ color: "#FFFFFF", fontSize: 18 }}>
-                    {CustomerEN[11].label}
-                  </p>
-                </button>
+                <br />
+
+                <div style={{ position: "relative", top: 160 }}>
+                  <button className={styles.buttonAddandDelete}>
+                    <RiDeleteBin5Fill style={{ color: " #f04438" }} />
+                    <p className={styles.TextbuttonAddandDelete1}>Delete</p>
+                  </button>
+                </div>
+                <div style={{ position: "relative", top: 160, left: 200 }}>
+                  <button className={styles.buttonAddandDelete}>
+                    <IoMdAddCircleOutline
+                      style={{
+                        color: "#3b005f",
+                        fontSize: 20,
+                      }}
+                    />
+                    <p className={styles.TextbuttonAddandDelete2}>Add order</p>
+                  </button>
+                </div>
+
+                {/* ตรงนี้ */}
+                <div className={styles.Box_next}>
+                  <div>
+                    <button className={styles.buttonArrow}>
+                      <IoIosArrowBack className={styles.icon1} />
+                    </button>
+                    <button className={styles.buttonArrow}>1</button>
+                    <button className={styles.buttonArrow2}>2</button>
+                    <button className={styles.buttonArrow}>
+                      <IoIosArrowForward className={styles.icon1} />
+                    </button>
+                  </div>
+                  <button
+                    onClick={() => promotion(1)}
+                    className={styles.Get_Quote}
+                  >
+                    <p style={{ color: "#FFFFFF", fontSize: 18 }}>
+                      {CustomerEN[11].label}
+                    </p>
+                  </button>
+                </div>
               </div>
             </div>
 
@@ -731,7 +832,7 @@ const Customer = () => {
                     boxSizing: "border-box",
                     textAlign: "left",
                     padding: 20,
-                    top: 600,
+                    top: "95vh",
                   }}
                 >
                   <div>
@@ -761,7 +862,12 @@ const Customer = () => {
                         </div>
                         <Autocomplete
                           id="country-select-demo"
-                          sx={{ width: 285 }}
+                          sx={{
+                            width: 300,
+                            margin: 0,
+                            marginBottom: "30px",
+                            height: "30px",
+                          }}
                           options={data2}
                           autoHighlight
                           getOptionLabel={(option) => option.label}
@@ -977,6 +1083,7 @@ const Customer = () => {
               ></div>
             )}
           </div>
+
           <div style={{ position: "relative" }}>
             <div>
               <Footer v="English" />
