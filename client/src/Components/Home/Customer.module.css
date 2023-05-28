@@ -91,17 +91,33 @@
   color: #df0000;
 }
 .cardTranslator {
-  width: 20vw;
+  width: 23vw;
+  height: 390px;
   background: white;
   border-radius: 20px;
   margin-bottom: 50px;
-  padding-bottom: 50px;
-  border: 1px solid;
-  border: 1px solid rgb(229, 229, 229);
+  padding: 15px;
+  padding-bottom: 40px;
+  padding-top: 30px;
   margin-top: 15px;
+  border: 1px solid rgb(229, 229, 229);
+}
+.iconcardTranslator {
+  background: linear-gradient(91.8deg, #ff725a 1.03%, #eca51f 99.01%);
+  width: 35px;
+  height: 33px;
+  border-radius: 25px;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px;
+}
+.iconcardTranslator img {
+  width: 20px;
+  height: 20px;
 }
 .Deal {
-  width: 200px;
+  width: 100%;
   height: 40px;
   font-weight: 500;
   font-size: 20px;
@@ -113,7 +129,7 @@
   font-family: "DBHeavent";
 }
 .profile {
-  width: 30%;
+  width: 100%;
   color: #e6e6e6;
   font-size: 60px;
   font-family: "DBHeavent";
@@ -129,13 +145,48 @@
 }
 .H_text01 {
   font-weight: bold;
-  font-size: 17px;
+  font-size: 24px;
   line-height: 40px;
   display: flex;
   align-items: center;
   text-align: center;
   color: #242424;
   font-family: "DBHeavent";
+}
+.H_Model {
+  font-size: 14px;
+  color: #4f4f4f;
+}
+.H_Model2 {
+  font-size: 20px;
+  text-align: end;
+}
+.H_Model3 {
+  font-size: 20px;
+  text-align: end;
+  color: #f04438;
+}
+.Box_detailH_Model {
+  margin-bottom: 24px;
+  display: flex;
+  justify-content: space-between;
+}
+.buttonModel1 {
+  width: 100%;
+  background: linear-gradient(98.35deg, #3b005f 5.13%, #1466b1 100.51%);
+  color: #e5e5e5;
+  border-radius: 32px;
+  margin-bottom: 20px;
+  border: none;
+  height: 40px;
+}
+.buttonModel1_2 {
+  width: 100%;
+  background: transparent;
+  color: #ffa0a0;
+  border-radius: 32px;
+  border: 1px solid #ffa0a0;
+  height: 40px;
 }
 
 .fromdetail {

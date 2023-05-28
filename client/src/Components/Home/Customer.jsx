@@ -18,12 +18,18 @@ import {
   FormControlLabel,
   Checkbox,
   Stack,
-  Rating,
   Modal,
   Typography,
   InputAdornment,
+  Badge,
+  Alert,
+  Collapse,
+  AlertTitle,
 } from "@mui/material";
+import { styled } from "@mui/material/styles";
+
 import EventIcon from "@mui/icons-material/Event";
+import CloseIcon from "@mui/icons-material/Close";
 
 import { FaUserCircle } from "react-icons/fa";
 import { MdArrowDropDown } from "react-icons/md";
@@ -35,6 +41,9 @@ import {
 } from "react-icons/io";
 
 import Fileimg from "../../Images/file.png";
+import languages from "../../Images/languages.png";
+import rating from "../../Images/Rating.png";
+import skills from "../../Images/skills.png";
 
 import {
   CustomerEN,
@@ -45,19 +54,26 @@ import {
 import styles from "./Customer.module.css";
 
 const Customer = () => {
-  const { innerWidth: width, innerHeight: height } = window;
+  const { innerWidth: width } = window;
   const location = useLocation();
   const navigate = useNavigate();
   let Doc = location?.state?.languages;
 
-  const [type, settype] = React.useState(null);
-  const [trantype, setTranstype] = React.useState("");
-  const [textarea, setTextarea] = React.useState("");
-  const [price, setPrice] = React.useState("");
-  const [tranfrom, setTranfrom] = React.useState("");
-  const [tranto, setTranto] = React.useState("");
-  const [file, setFile] = React.useState("");
   const [promo, setPromo] = React.useState("");
+  const [from, setFrom] = React.useState({
+    file: "",
+    document_Type: "",
+    translation_Type: "",
+    tranfrom: "",
+    tranto: "",
+    Deadline: new Date(),
+    Additional_explanation: "",
+    type: "",
+  });
+  const [groupData, setGroupData] = React.useState(null);
+  const count = groupData?.length;
+  const [page, setPage] = React.useState(1);
+
   const [checked, setChecked] = React.useState({
     checked1: false,
     checked2: false,
@@ -67,48 +83,102 @@ const Customer = () => {
   });
   const [open, setOpen] = React.useState(false);
 
-  // const [date, setDate] = React.useState(new Date());
-
-  // const onChange = (date) => {
-  //   setDate(date);
-  // };
-
-  const [selectedDate, setSelectedDate] = React.useState(new Date());
+  const [openModel1, setOpenModel1] = React.useState(false);
 
   const handleChange = (event) => {
-    setTextarea(event.target.value);
+    setFrom({ ...from, Additional_explanation: event.target.value });
   };
 
   React.useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+    console.log("groupData,page:", groupData, count);
+  }, [groupData]);
 
-  const set_price = (trantype) => {
-    // console.log("trantype :", typeof trantype);
-    if (trantype === "Article") {
-      setPrice("15 $");
-    } else if (trantype === "Identification Card") {
-      setPrice("20 $");
-    } else if (trantype === "Family Status Registration") {
-      setPrice("25 $");
-    } else if (trantype === "Personal information") {
-      setPrice("35 $");
-    } else if (trantype === "Civil Registration Certificate") {
-      setPrice("45 $");
-    } else if (trantype === "Certificate of use (the noun prefix") {
-      setPrice("55 $");
-    } else if (trantype === "") {
-      setPrice("0 $");
+  function Add_data() {
+    if (groupData === null) {
+      setGroupData([from]);
+      setFrom({
+        file: "",
+        document_Type: "",
+        translation_Type: "",
+        tranfrom: "",
+        tranto: "",
+        Deadline: new Date(),
+        Additional_explanation: "",
+      });
     } else {
-      setPrice("100 $");
+      setGroupData([...groupData, from]);
+      setFrom({
+        file: "",
+        document_Type: "",
+        translation_Type: "",
+        tranfrom: "",
+        tranto: "",
+        Deadline: new Date(),
+        Additional_explanation: "",
+      });
     }
-  };
+  }
 
-  const promotion = (x) => {
+  function Delete_data(e) {
+    console.log("groupData:", groupData);
+    let x = e - 1;
+    groupData.splice(x, 1);
+  }
+
+  function switch_page(x) {
+    console.log("page:", page);
+    if (x === "next") {
+      if (page === count) {
+        setPage(count);
+      } else {
+        if (count) {
+          setPage((prevPage) => prevPage + 1);
+        }
+      }
+    } else if (x === "back") {
+      if (page === 1) {
+        setPage(1);
+      } else {
+        setPage((prevPage) => prevPage - 1);
+      }
+    } else {
+      setPage(x);
+    }
+  }
+  const StyledBadge = styled(Badge)(({ theme }) => ({
+    "& .MuiBadge-badge": {
+      backgroundColor: "#44b700",
+      color: "#44b700",
+      boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
+      "&::after": {
+        position: "absolute",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100%",
+        borderRadius: "50%",
+        animation: "ripple 1.2s infinite ease-in-out",
+        border: "1px solid currentColor",
+        content: '""',
+      },
+    },
+    "@keyframes ripple": {
+      "0%": {
+        transform: "scale(.8)",
+        opacity: 1,
+      },
+      "100%": {
+        transform: "scale(2.4)",
+        opacity: 0,
+      },
+    },
+  }));
+
+  function promotion(x) {
     setPromo(x);
     window.scrollTo(0, 1500);
-    set_price(trantype);
-  };
+    setGroupData([from]);
+  }
 
   const goSignup = () => {
     navigate("/Signup");
@@ -122,6 +192,10 @@ const Customer = () => {
   function Deal() {
     window.scroll(0, 0);
     setOpen(true);
+    setTimeout(function () {
+      setOpen(false);
+      setOpenModel1(true);
+    }, 10000);
   }
 
   return (
@@ -141,8 +215,8 @@ const Customer = () => {
       {/* Modal */}
       <Modal
         hideBackdrop
-        open={open}
-        onClose={() => setOpen(false)}
+        open={openModel1}
+        onClose={() => openModel1(false)}
         aria-labelledby="keep-mounted-modal-title"
         aria-describedby="keep-mounted-modal-description"
       >
@@ -157,12 +231,16 @@ const Customer = () => {
             border: "1px solid #E5E5E5",
             textAlign: "center",
             top: "15vh",
-            left: "30vw",
+            left: "35vw",
           }}
         >
           <Typography
             id="keep-mounted-modal-description"
-            sx={{ mt: 2, textAlign: "center" }}
+            sx={{
+              mt: 2,
+              textAlign: "center",
+              borderBottom: "1px solid #C4C4C4",
+            }}
           >
             <div className={styles.Logo} />
             <p className={styles.H_text01}>
@@ -175,52 +253,135 @@ const Customer = () => {
               mt: 2,
             }}
           ></Typography>
-          <Typography
-            id="keep-mounted-modal-description"
-            sx={{
-              mt: 2,
-              textAlign: "left",
-              overflowY: "auto",
-            }}
-          >
-            <div>
-              <p>Document Type</p>
-              <p></p>
-            </div>
+          {groupData ? (
+            <Typography
+              id="keep-mounted-modal-description"
+              sx={{
+                mt: 2,
+                textAlign: "left",
+                overflowY: "auto",
+              }}
+            >
+              <div className={styles.Box_detailH_Model}>
+                <p className={styles.H_Model}>Document Type</p>
+                <p className={styles.H_Model2}>{groupData[0]?.document_Type}</p>
+              </div>
 
-            <div>
-              <p>Translation Type</p>
-              <p></p>
-            </div>
+              <div className={styles.Box_detailH_Model}>
+                <p className={styles.H_Model}>Translation Type</p>
+                <p className={styles.H_Model2}>
+                  {groupData[0]?.translation_Type}
+                </p>
+              </div>
 
-            <div>
-              <p>Translate to</p>
-              <p></p>
-            </div>
+              <div className={styles.Box_detailH_Model}>
+                <p className={styles.H_Model}>Translate to</p>
+                <p className={styles.H_Model2}>{groupData[0]?.tranto}</p>
+              </div>
 
-            <div>
-              <p>Additional explanation</p>
-              <p></p>
-            </div>
+              <div className={styles.Box_detailH_Model}>
+                <p className={styles.H_Model}>Additional explanation</p>
+                <p className={styles.H_Model2}>
+                  {groupData[0]?.Additional_explanation}
+                </p>
+              </div>
 
-            <div>
-              <p>Price</p>
-              <p></p>
-            </div>
+              <div className={styles.Box_detailH_Model}>
+                <p className={styles.H_Model}>Price</p>
+                <p className={styles.H_Model3}></p>
+              </div>
 
-            <div>
-              <p></p>
-              <p></p>
-            </div>
-          </Typography>
-          <div
-            style={{
-              textAlign: "left",
-              borderTop: "1px solid #C4C4C4",
-            }}
-          ></div>
+              <button
+                className={styles.buttonModel1}
+                onClick={() => setOpenModel1(false)}
+              >
+                Pay
+              </button>
+              <button
+                className={styles.buttonModel1_2}
+                onClick={() => setOpenModel1(false)}
+              >
+                Cancel
+              </button>
+            </Typography>
+          ) : (
+            <Typography
+              id="keep-mounted-modal-description"
+              sx={{
+                mt: 2,
+                textAlign: "left",
+                overflowY: "auto",
+              }}
+            >
+              <div className={styles.Box_detailH_Model}>
+                <p className={styles.H_Model}>Document Type</p>
+                <p className={styles.H_Model2}>{groupData?.document_Type}</p>
+              </div>
+
+              <div className={styles.Box_detailH_Model}>
+                <p className={styles.H_Model}>Translation Type</p>
+                <p className={styles.H_Model2}>{groupData?.translation_Type}</p>
+              </div>
+
+              <div className={styles.Box_detailH_Model}>
+                <p className={styles.H_Model}>Translate to</p>
+                <p className={styles.H_Model2}>{groupData?.translation_Type}</p>
+              </div>
+
+              <div className={styles.Box_detailH_Model}>
+                <p className={styles.H_Model}>Additional explanation</p>
+                <p className={styles.H_Model2}>{groupData?.translation_Type}</p>
+              </div>
+
+              <div className={styles.Box_detailH_Model}>
+                <p className={styles.H_Model}>Price</p>
+                <p className={styles.H_Model3}>{groupData?.translation_Type}</p>
+              </div>
+
+              <button className={styles.buttonModel1}>Pay</button>
+              <button
+                className={styles.buttonModel1_2}
+                onClick={() => setOpenModel1(false)}
+              >
+                Cancel
+              </button>
+            </Typography>
+          )}
         </Box>
       </Modal>
+
+      {/* Alert */}
+      <Box
+        sx={{
+          width: " 30%",
+          position: "absolute",
+          top: "80px",
+
+          left: "67vw",
+        }}
+      >
+        <Collapse in={open}>
+          <Alert
+            severity="info"
+            action={
+              <IconButton
+                aria-label="close"
+                color="inherit"
+                size="small"
+                onClick={() => {
+                  setOpen(false);
+                }}
+              >
+                <CloseIcon fontSize="inherit" />
+              </IconButton>
+            }
+            sx={{ mb: 2 }}
+          >
+            <AlertTitle>Please wait a moment.</AlertTitle>
+            The translator is accepting your work
+          </Alert>
+        </Collapse>
+      </Box>
 
       <>
         <div
@@ -263,7 +424,12 @@ const Customer = () => {
                   top: 40,
                 }}
               >
-                <button className={styles.fram1_button2}>Subscribe</button>
+                <button
+                  className={styles.fram1_button2}
+                  onClick={() => goSignup()}
+                >
+                  Subscribe
+                </button>
               </div>
             </div>
           </div>
@@ -286,7 +452,7 @@ const Customer = () => {
             </div>
 
             <div>
-              {file === "" ? (
+              {from?.file === "" ? (
                 <div
                   style={{
                     position: "absolute",
@@ -310,7 +476,9 @@ const Customer = () => {
                       id="icon-button-file"
                       type="file"
                       style={{ display: "none" }}
-                      onChange={(e) => setFile(e.target.value)}
+                      onChange={(e) =>
+                        setFrom({ ...from, file: e.target.value })
+                      }
                     />
                     <IconButton
                       color="primary"
@@ -349,7 +517,9 @@ const Customer = () => {
                       id="icon-button-file"
                       type="file"
                       style={{ display: "none" }}
-                      onChange={(e) => setFile(e.target.value)}
+                      onChange={(e) =>
+                        setFrom({ ...from, file: e.target.value })
+                      }
                     />
                     <IconButton
                       color="primary"
@@ -363,7 +533,7 @@ const Customer = () => {
                           color: "#B5B5B5",
                         }}
                       >
-                        {cutsting(file)}
+                        {cutsting(from?.file)}
                       </p>
                     </IconButton>
                   </label>
@@ -392,9 +562,12 @@ const Customer = () => {
                       height: "30px",
                     }}
                     options={data2}
+                    defaultValue={(option) => option?.label}
                     autoHighlight
-                    getOptionLabel={(option) => option.label}
-                    onChange={(event, value) => settype(value?.label)}
+                    getOptionLabel={(option) => option?.label}
+                    onChange={(event, value) =>
+                      setFrom({ ...from, document_Type: value?.label })
+                    }
                     popupIcon={
                       <MdArrowDropDown
                         style={{ color: "#333333", width: 30, height: 33 }}
@@ -434,7 +607,7 @@ const Customer = () => {
                       {CustomerEN[4].label}
                     </p>
                   </div>
-                  {type === null ? (
+                  {from?.document_Type === null ? (
                     <Autocomplete
                       id="country-select-demo"
                       sx={{
@@ -445,8 +618,10 @@ const Customer = () => {
                       }}
                       options={data5}
                       autoHighlight
-                      getOptionLabel={(option) => option.label}
-                      onChange={(event, value) => setTranstype(value.label)}
+                      getOptionLabel={(option) => option?.label}
+                      onChange={(event, value) =>
+                        setFrom({ ...from, translation_Type: value?.label })
+                      }
                       popupIcon={
                         <MdArrowDropDown
                           style={{ color: "#333333", width: 30, height: 33 }}
@@ -472,7 +647,7 @@ const Customer = () => {
                         />
                       )}
                     />
-                  ) : type === "Official Document" ? (
+                  ) : from?.document_Type === "Official Document" ? (
                     <Autocomplete
                       id="country-select-demo"
                       sx={{
@@ -483,8 +658,10 @@ const Customer = () => {
                       }}
                       options={data4}
                       autoHighlight
-                      getOptionLabel={(option) => option.label}
-                      onChange={(event, value) => setTranstype(value?.label)}
+                      getOptionLabel={(option) => option?.label}
+                      onChange={(event, value) =>
+                        setFrom({ ...from, translation_Type: value?.label })
+                      }
                       popupIcon={
                         <MdArrowDropDown
                           style={{ color: "#333333", width: 30, height: 33 }}
@@ -510,7 +687,7 @@ const Customer = () => {
                         />
                       )}
                     />
-                  ) : type === "General Document" ? (
+                  ) : from?.document_Type === "General Document" ? (
                     <Autocomplete
                       id="country-select-demo"
                       sx={{
@@ -521,8 +698,10 @@ const Customer = () => {
                       }}
                       options={data3}
                       autoHighlight
-                      getOptionLabel={(option) => option.label}
-                      onChange={(event, value) => setTranstype(value?.label)}
+                      getOptionLabel={(option) => option?.label}
+                      onChange={(event, value) =>
+                        setFrom({ ...from, translation_Type: value?.label })
+                      }
                       popupIcon={
                         <MdArrowDropDown
                           style={{ color: "#333333", width: 30, height: 33 }}
@@ -559,7 +738,7 @@ const Customer = () => {
                       }}
                       options={data5}
                       autoHighlight
-                      getOptionLabel={(option) => option.label}
+                      getOptionLabel={(option) => option?.label}
                       onChange={(event, value) => console.log(value?.label)}
                       popupIcon={
                         <MdArrowDropDown
@@ -616,8 +795,10 @@ const Customer = () => {
                     }}
                     options={data}
                     autoHighlight
-                    getOptionLabel={(option) => option.label}
-                    onChange={(event, value) => setTranfrom(value?.label)}
+                    getOptionLabel={(option) => option?.label}
+                    onChange={(event, value) =>
+                      setFrom({ ...from, tranfrom: value?.label })
+                    }
                     popupIcon={
                       <MdArrowDropDown
                         style={{ color: "#333333", width: 30, height: 33 }}
@@ -671,8 +852,10 @@ const Customer = () => {
                     }}
                     options={data}
                     autoHighlight
-                    getOptionLabel={(option) => option.label}
-                    onChange={(event, value) => setTranto(value?.label)}
+                    getOptionLabel={(option) => option?.label}
+                    onChange={(event, value) =>
+                      setFrom({ ...from, tranto: value?.label })
+                    }
                     popupIcon={
                       <MdArrowDropDown
                         style={{ color: "#333333", width: 30, height: 33 }}
@@ -715,8 +898,8 @@ const Customer = () => {
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DatePicker
                       label="Date picker"
-                      value={selectedDate}
-                      onChange={(date) => setSelectedDate(date)}
+                      value={from?.Deadline}
+                      onChange={(date) => setFrom({ ...from, Deadline: date })}
                       renderInput={(props) => (
                         <TextField
                           {...props}
@@ -738,7 +921,7 @@ const Customer = () => {
 
                 <div
                   style={{
-                    marginTop: 80,
+                    marginTop: 65,
                     marginRight: 50,
                     marginBottom: 0,
                   }}
@@ -755,7 +938,7 @@ const Customer = () => {
                     </p>
                   </div>
                   <textarea
-                    value={textarea}
+                    value={from?.Additional_explanation}
                     onChange={handleChange}
                     maxLength={300}
                     style={{
@@ -774,13 +957,31 @@ const Customer = () => {
                 <br />
 
                 <div style={{ position: "relative", top: 160 }}>
-                  <button className={styles.buttonAddandDelete}>
-                    <RiDeleteBin5Fill style={{ color: " #f04438" }} />
-                    <p className={styles.TextbuttonAddandDelete1}>Delete</p>
-                  </button>
+                  {page === 1 ? (
+                    <></>
+                  ) : (
+                    <button
+                      className={styles.buttonAddandDelete}
+                      onClick={() => Delete_data(page)}
+                    >
+                      <RiDeleteBin5Fill style={{ color: " #f04438" }} />
+                      <p className={styles.TextbuttonAddandDelete1}>Delete</p>
+                    </button>
+                  )}
                 </div>
-                <div style={{ position: "relative", top: 160, left: 200 }}>
-                  <button className={styles.buttonAddandDelete}>
+
+                <div
+                  style={{
+                    position: "relative",
+                    top: 160,
+                    left: 200,
+                    width: "100px",
+                  }}
+                >
+                  <button
+                    className={styles.buttonAddandDelete}
+                    onClick={() => Add_data()}
+                  >
                     <IoMdAddCircleOutline
                       style={{
                         color: "#3b005f",
@@ -791,15 +992,41 @@ const Customer = () => {
                   </button>
                 </div>
 
-                {/* ตรงนี้ */}
                 <div className={styles.Box_next}>
                   <div>
-                    <button className={styles.buttonArrow}>
+                    <button
+                      className={styles.buttonArrow}
+                      onClick={() => switch_page("back")}
+                    >
                       <IoIosArrowBack className={styles.icon1} />
                     </button>
-                    <button className={styles.buttonArrow}>1</button>
-                    <button className={styles.buttonArrow2}>2</button>
-                    <button className={styles.buttonArrow}>
+
+                    {groupData === null || groupData === undefined ? (
+                      <button className={styles.buttonArrow2}>1</button>
+                    ) : (
+                      groupData?.map((item, index) => {
+                        const buttonNumber = index + 1;
+                        const isCurrentPage = buttonNumber === page;
+                        const buttonStyle = isCurrentPage
+                          ? styles.buttonArrow2
+                          : styles.buttonArrow;
+
+                        return (
+                          <button
+                            key={index}
+                            className={buttonStyle}
+                            onClick={() => switch_page(buttonNumber)}
+                          >
+                            {buttonNumber}
+                          </button>
+                        );
+                      })
+                    )}
+
+                    <button
+                      className={styles.buttonArrow}
+                      onClick={() => switch_page("next")}
+                    >
                       <IoIosArrowForward className={styles.icon1} />
                     </button>
                   </div>
@@ -870,8 +1097,10 @@ const Customer = () => {
                           }}
                           options={data2}
                           autoHighlight
-                          getOptionLabel={(option) => option.label}
-                          onChange={(event, value) => settype(value?.label)}
+                          getOptionLabel={(option) => option?.label}
+                          onChange={(event, value) =>
+                            setFrom({ ...from, type: value?.label })
+                          }
                           popupIcon={
                             <MdArrowDropDown
                               style={{
@@ -994,72 +1223,124 @@ const Customer = () => {
                       </div>
                     </div>
 
+                    {/* ตรงนี้ */}
                     <div>
                       <div className={styles.cardTranslator}>
-                        <div
-                          style={{
-                            position: "relative",
-                            top: 30,
-                            textAlign: "center",
-                          }}
-                        >
-                          {/* <img
-                              src={profile}
-                              alt="profile"
-                              className={styles.profile}
-                            /> */}
-                          <FaUserCircle
-                            alt="avatar"
-                            className={styles.profile}
-                          />
-                          <p
+                        <div>
+                          <div
                             style={{
-                              marginTop: 10,
-                              fontWeight: 400,
-                              fontSize: 18,
+                              width: " 100%",
+                              display: "grid",
+                              justifyContent: "center",
+                              textAlign: "center",
                             }}
                           >
-                            Habi
-                          </p>
-                          <div style={{ width: "100%", marginLeft: 60 }}>
-                            <p style={{ float: "left", marginRight: 10 }}>
-                              5.0
-                            </p>
-                            <Stack spacing={1}>
-                              <Rating
-                                name="half-rating-read"
-                                defaultValue={5}
-                                readOnly
-                              />
+                            <Stack direction="row" spacing={2}>
+                              <StyledBadge
+                                overlap="circular"
+                                anchorOrigin={{
+                                  vertical: "bottom",
+                                  horizontal: "right",
+                                }}
+                                variant="dot"
+                              >
+                                <FaUserCircle
+                                  alt="avatar"
+                                  className={styles.profile}
+                                />
+                              </StyledBadge>
                             </Stack>
+                            <p
+                              style={{
+                                marginTop: 10,
+                                fontWeight: 400,
+                                fontSize: 18,
+                              }}
+                            >
+                              Habi Yang
+                            </p>
                           </div>
 
                           <div
                             style={{
-                              fontSize: 13,
-                              marginLeft: 30,
-                              marginRight: 30,
-                              marginTop: 10,
+                              width: "100%",
+                              display: "flex",
+                              marginBottom: 10,
                             }}
                           >
-                            <p style={{ float: "left" }}>Skills :</p>
-                            <p>General Document, Official Document</p>
-                          </div>
-
-                          <div
-                            style={{
-                              fontSize: 13,
-                              marginLeft: 30,
-                              marginRight: 30,
-                              marginTop: 10,
-                            }}
-                          >
-                            <p style={{ float: "left" }}>Languages :</p>
-                            <p>English,汉语 官话,粵語, ไทย,한국어</p>
-                            <div className={styles.boxPrice}>
-                              <p className={styles.Price}>Price</p>
-                              <p className={styles.PriceInt}>35.99฿</p>
+                            <div className={styles.iconcardTranslator}>
+                              <img src={rating} alt="rating" />
                             </div>
+
+                            <div>
+                              <p
+                                style={{
+                                  color: "#BDBDBD",
+                                  fontSize: "12px",
+                                }}
+                              >
+                                Rating
+                              </p>
+                              <p style={{ marginRight: 10 }}>5.0</p>
+                            </div>
+                          </div>
+
+                          <div
+                            style={{
+                              width: "100%",
+                              display: "flex",
+                              marginBottom: 10,
+                            }}
+                          >
+                            <div className={styles.iconcardTranslator}>
+                              <img src={skills} alt="skills" />
+                            </div>
+
+                            <div>
+                              <p
+                                style={{
+                                  color: "#BDBDBD",
+                                  fontSize: "12px",
+                                }}
+                              >
+                                Skills
+                              </p>
+                              <p>General Document, Official Document</p>
+                            </div>
+                          </div>
+
+                          <div
+                            style={{
+                              width: "100%",
+                              display: "flex",
+                              marginBottom: 10,
+                            }}
+                          >
+                            <div className={styles.iconcardTranslator}>
+                              <img src={languages} alt="languages" />
+                            </div>
+
+                            <div>
+                              <p
+                                style={{
+                                  color: "#BDBDBD",
+                                  fontSize: "12px",
+                                }}
+                              >
+                                Languages
+                              </p>
+                              <p>English,汉语 官话,粵語, ไทย,한국어</p>
+                            </div>
+                          </div>
+
+                          <div
+                            style={{
+                              fontSize: 13,
+                              marginLeft: 30,
+                              marginRight: 30,
+                              marginTop: 10,
+                            }}
+                          >
                             <button
                               className={styles.Deal}
                               onClick={() => Deal()}
@@ -1069,7 +1350,6 @@ const Customer = () => {
                           </div>
                         </div>
                       </div>
-                      {/* dlmldmfl;dm */}
                     </div>
                   </div>
                 </div>
