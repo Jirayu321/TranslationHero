@@ -24,11 +24,11 @@ import { useNavigate, useLocation } from "react-router-dom";
 
 // import Fileimg from "../../Images/file.png";
 
-import {
-  CustomerEN,
-  //  CustomerDE,
-  //  CustomerTH
-} from "../Data/DataLanguage";
+// import {
+//   // CustomerEN,
+//   //  CustomerDE,
+//   //  CustomerTH
+// } from "../Data/DataLanguage";
 
 import styles from "./About_us.module.css";
 

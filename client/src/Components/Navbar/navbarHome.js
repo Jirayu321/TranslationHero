@@ -1,7 +1,11 @@
 import * as React from "react";
 import logo from "../../logo.svg";
 import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
-import { overviewEN, overviewTH, overviewDE } from "../Data/DataLanguage";
+import {
+  overviewEN,
+  // overviewTH,
+  //  overviewDE
+} from "../Data/DataLanguage";
 // import { Link } from "react-router-dom";
 import "./Navbar.css";
 
@@ -59,7 +63,7 @@ const navbarHome = (props) => {
                 </div>
               )}
 
-              {pathname === "/AboutUs" ? (
+              {pathname === "/About_us" ? (
                 <div
                   className="NavLi"
                   style={{ color: "black" }}
@@ -76,7 +80,8 @@ const navbarHome = (props) => {
                   <p className="textNavO">About us</p>
                 </div>
               )}
-              {pathname === "/General_Document" ||
+              {pathname === "/Services_general" ||
+              pathname === "/General_Document" ||
               pathname === "/Official Document" ? (
                 <NavDropdown
                   className="NavLi"
@@ -136,11 +141,11 @@ const navbarHome = (props) => {
               )}
 
               {pathname === "/Price" ? (
-                <div className="NavLi" onClick={() => promotion(1)}>
+                <div className="NavLi" onClick={() => navigate("/Price")}>
                   <p className="textNavA">Price</p>
                 </div>
               ) : (
-                <div className="NavLi" onClick={() => promotion(1)}>
+                <div className="NavLi" onClick={() => navigate("/Price")}>
                   <p className="textNavO">Price</p>
                 </div>
               )}

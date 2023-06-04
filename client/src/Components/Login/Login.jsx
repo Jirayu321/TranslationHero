@@ -23,7 +23,7 @@ import {
 import styles from "./Login.module.css";
 
 const Login = () => {
-  const { innerWidth: width } = window;
+  // const { innerWidth: width } = window;
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();

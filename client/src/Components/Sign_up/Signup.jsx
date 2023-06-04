@@ -3,13 +3,21 @@ import * as React from "react";
 import Navbars from "../Navbar/navbarLogin";
 
 //test
-import { useDispatch, useSelector } from "react-redux";
-import { registerUser } from "../../slices/auth";
+// import {
+//   useDispatch,
+//   // useSelector
+// } from "react-redux";
+
+// import { registerUser } from "../../slices/auth";
 
 // import { data, data5 } from "../Data/data";
 // import logo from "../../logo.svg";
 // import { BsArrowRightShort, BsArrowLeftShort } from "react-icons/bs";
-import { FiEyeOff, FiEye, FiImage } from "react-icons/fi";
+import {
+  FiEyeOff,
+  FiEye,
+  // FiImage
+} from "react-icons/fi";
 // import { AiFillCheckCircle } from "react-icons/ai";
 // import { MdCameraAlt, MdArrowDropDown } from "react-icons/md";
 // import Login1 from "../../Images/Sign_up.png";
@@ -58,7 +66,7 @@ import {
   // REGI02_Box2v01EN,
   // REGI02_Box2v01DE,
   // REGI02_Box2v01TH,
-  REGI02_Box3v01EN,
+  // REGI02_Box3v01EN,
   // REGI02_Box3v01DE,
   // REGI02_Box3v01TH,
   // REGI02_Box5v01EN,
@@ -100,8 +108,8 @@ const Signup = () => {
   let Doc = location?.state?.languages;
 
   //test
-  const dispatch = useDispatch();
-  const auth = useSelector((state) => state.auth);
+  // const dispatch = useDispatch();
+  // const auth = useSelector((state) => state.auth);
 
   const [images, setImages] = React.useState([]);
   const [imageURLs, setImageURLs] = React.useState([]);
@@ -151,7 +159,7 @@ const Signup = () => {
   // const [open2, setOpen2] = React.useState(false);
 
   // const [open3, setOpen3] = React.useState(false);
-  const [open4, setOpen4] = React.useState(false);
+  // const [open4, setOpen4] = React.useState(false);
   // const [checked, setChecked] = React.useState(false);
   // const [checked2, setChecked2] = React.useState(false);
 
@@ -264,22 +272,22 @@ const Signup = () => {
   //   setOpen4(true);
   // };
 
-  const handleClose5 = () => {
-    setOpen4(false);
-    console.log("translators:", translators);
-    dispatch(registerUser(translators));
-    navigate(
-      "/Login"
-      // , {
-      //   state: {
-      //     languages: `${Doc}`,
-      //     email: `${email}`,
-      //     password: `${password}`,
-      //     type: `${screen}`,
-      //   },
-      // }
-    );
-  };
+  // const handleClose5 = () => {
+  //   setOpen4(false);
+  //   console.log("translators:", translators);
+  //   dispatch(registerUser(translators));
+  //   navigate(
+  //     "/Login"
+  //     // , {
+  //     //   state: {
+  //     //     languages: `${Doc}`,
+  //     //     email: `${email}`,
+  //     //     password: `${password}`,
+  //     //     type: `${screen}`,
+  //     //   },
+  //     // }
+  //   );
+  // };
 
   const handleClickShowPassword = (i) => {
     if (i === 1) {
@@ -1251,7 +1259,7 @@ const Signup = () => {
 
                   <button
                     className={styles.button}
-                    onClick={() => setScreenNumber(4)}
+                    onClick={() => setScreenNumber(3)}
                   >
                     Next
                   </button>
@@ -1289,7 +1297,7 @@ const Signup = () => {
 
                   <button
                     className={styles.button}
-                    onClick={() => setScreenNumber(5)}
+                    onClick={() => setScreenNumber(3)}
                   >
                     Next
                   </button>

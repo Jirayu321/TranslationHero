@@ -1,5 +1,6 @@
 import * as React from "react";
 
+import emailjs from "@emailjs/browser";
 import Navbars from "../Navbar/navbarHome";
 import Footer from "../Footer/Footer";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -40,10 +41,17 @@ import {
   IoIosArrowForward,
 } from "react-icons/io";
 
+import Cards from "./Cards.js";
+
+import Logo from "../../logo.svg";
 import Fileimg from "../../Images/file.png";
 import languages from "../../Images/languages.png";
 import rating from "../../Images/Rating.png";
 import skills from "../../Images/skills.png";
+import card from "../../Images/card.png";
+import MobileBanking from "../../Images/MobileBanking.png";
+import Gpay from "../../Images/Gpay.png";
+import Promptpay from "../../Images/Promptpay.png";
 
 import {
   CustomerEN,
@@ -69,6 +77,7 @@ const Customer = () => {
     Deadline: new Date(),
     Additional_explanation: "",
     type: "",
+    Price: generatePrice(),
   });
   const [groupData, setGroupData] = React.useState(null);
   const count = groupData?.length;
@@ -83,14 +92,23 @@ const Customer = () => {
   });
   const [open, setOpen] = React.useState(false);
 
-  const [openModel1, setOpenModel1] = React.useState(false);
+  const [openModel, setopenModel] = React.useState({
+    openModel1: false,
+    openModel2: false,
+    openModel3: false,
+    openModel4: false,
+    openModel5: false,
+  });
+
+  const [choose, setChoose] = React.useState(false);
+  const [email, setEmail] = React.useState("");
 
   const handleChange = (event) => {
     setFrom({ ...from, Additional_explanation: event.target.value });
   };
 
   React.useEffect(() => {
-    console.log("groupData,page:", groupData, count);
+    console.log("groupData,page:", groupData);
   }, [groupData]);
 
   function Add_data() {
@@ -104,6 +122,7 @@ const Customer = () => {
         tranto: "",
         Deadline: new Date(),
         Additional_explanation: "",
+        Price: generatePrice(),
       });
     } else {
       setGroupData([...groupData, from]);
@@ -115,6 +134,7 @@ const Customer = () => {
         tranto: "",
         Deadline: new Date(),
         Additional_explanation: "",
+        Price: generatePrice(),
       });
     }
   }
@@ -145,6 +165,7 @@ const Customer = () => {
       setPage(x);
     }
   }
+
   const StyledBadge = styled(Badge)(({ theme }) => ({
     "& .MuiBadge-badge": {
       backgroundColor: "#44b700",
@@ -177,7 +198,7 @@ const Customer = () => {
   function promotion(x) {
     setPromo(x);
     window.scrollTo(0, 1500);
-    setGroupData([from]);
+    Add_data();
   }
 
   const goSignup = () => {
@@ -189,13 +210,106 @@ const Customer = () => {
     return x.slice(0, 30);
   };
 
-  function Deal() {
-    window.scroll(0, 0);
-    setOpen(true);
-    setTimeout(function () {
-      setOpen(false);
-      setOpenModel1(true);
-    }, 10000);
+  function generatePrice() {
+    const PriceCount = (Math.floor(Math.random() * 999) + 1).toString();
+
+    return PriceCount + "฿";
+  }
+
+  function sendEmail() {
+    const datatext = {
+      email: email,
+      subject: "Thank you.",
+      message: "Your payment has been successfully processed.",
+    };
+    emailjs
+      .send(
+        "service_u5757dr",
+        "template_dueh1d9",
+        datatext,
+        "BikYNuNxSh4MGJ69-"
+      )
+      .then(
+        (result) => {
+          console.log(result.text);
+        },
+        (error) => {
+          console.log(error.text);
+        }
+      );
+  }
+
+  function OpneMode(x) {
+    if (x === 1) {
+      window.scroll(0, 0);
+      setOpen(true);
+      setTimeout(function () {
+        setOpen(false);
+        setopenModel({
+          ...openModel,
+          openModel1: true,
+        });
+      }, 3000);
+    } else if (x === 2) {
+      setopenModel({
+        ...openModel,
+        openModel2: true,
+      });
+    } else if (x === 3) {
+      setopenModel({
+        ...openModel,
+        openModel3: true,
+      });
+    } else if (x === 4) {
+      setopenModel({
+        ...openModel,
+        openModel1: false,
+        openModel2: false,
+        openModel3: false,
+        openModel4: true,
+      });
+    } else if (x === 5) {
+      sendEmail();
+      setopenModel({
+        ...openModel,
+        openModel4: false,
+        openModel5: true,
+      });
+    } else if (x === 6) {
+      setopenModel({
+        ...openModel,
+        openModel5: false,
+      });
+      navigate("/");
+    } else if (x === "back to receipt") {
+      setopenModel({
+        ...openModel,
+        openModel2: false,
+      });
+      setChoose(false);
+    } else if (x === "back to Payment") {
+      setChoose(false);
+      setopenModel({
+        ...openModel,
+        openModel3: false,
+      });
+    }
+  }
+
+  function generateOrderNumber() {
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const randomLetter = () => chars[Math.floor(Math.random() * chars.length)];
+
+    const letters = randomLetter() + randomLetter();
+    const language = Math.floor(Math.random() * 100)
+      .toString()
+      .padStart(2, "0");
+
+    const orderCount = Math.floor(Math.random() * 1000)
+      .toString()
+      .padStart(3, "0");
+
+    return letters + language + orderCount;
   }
 
   return (
@@ -215,15 +329,20 @@ const Customer = () => {
       {/* Modal */}
       <Modal
         hideBackdrop
-        open={openModel1}
-        onClose={() => openModel1(false)}
+        open={openModel?.openModel1}
+        onClose={() =>
+          setopenModel({
+            ...openModel,
+            openModel1: false,
+          })
+        }
         aria-labelledby="keep-mounted-modal-title"
         aria-describedby="keep-mounted-modal-description"
       >
         <Box
           sx={{
             position: "absolute",
-            width: 400,
+            width: "50vw",
             bgcolor: "background.paper",
             boxShadow: 24,
             p: 4,
@@ -231,7 +350,7 @@ const Customer = () => {
             border: "1px solid #E5E5E5",
             textAlign: "center",
             top: "15vh",
-            left: "35vw",
+            left: "25vw",
           }}
         >
           <Typography
@@ -242,11 +361,12 @@ const Customer = () => {
               borderBottom: "1px solid #C4C4C4",
             }}
           >
-            <div className={styles.Logo} />
+            <img src={Logo} alt="logo" className={styles.Logo} />
             <p className={styles.H_text01}>
               Receipt confirming the order of translation
             </p>
           </Typography>
+
           <Typography
             id="keep-mounted-modal-description"
             sx={{
@@ -288,18 +408,23 @@ const Customer = () => {
 
               <div className={styles.Box_detailH_Model}>
                 <p className={styles.H_Model}>Price</p>
-                <p className={styles.H_Model3}></p>
+                <p className={styles.H_Model3}>{groupData[0]?.Price}</p>
               </div>
 
               <button
                 className={styles.buttonModel1}
-                onClick={() => setOpenModel1(false)}
+                onClick={() => OpneMode(2)}
               >
                 Pay
               </button>
               <button
                 className={styles.buttonModel1_2}
-                onClick={() => setOpenModel1(false)}
+                onClick={() =>
+                  setopenModel({
+                    ...openModel,
+                    openModel1: false,
+                  })
+                }
               >
                 Cancel
               </button>
@@ -317,7 +442,6 @@ const Customer = () => {
                 <p className={styles.H_Model}>Document Type</p>
                 <p className={styles.H_Model2}>{groupData?.document_Type}</p>
               </div>
-
               <div className={styles.Box_detailH_Model}>
                 <p className={styles.H_Model}>Translation Type</p>
                 <p className={styles.H_Model2}>{groupData?.translation_Type}</p>
@@ -341,12 +465,402 @@ const Customer = () => {
               <button className={styles.buttonModel1}>Pay</button>
               <button
                 className={styles.buttonModel1_2}
-                onClick={() => setOpenModel1(false)}
+                onClick={() =>
+                  setopenModel({
+                    ...openModel,
+                    openModel1: false,
+                  })
+                }
               >
                 Cancel
               </button>
             </Typography>
           )}
+        </Box>
+      </Modal>
+
+      <Modal
+        hideBackdrop
+        open={openModel?.openModel2}
+        onClose={() =>
+          setopenModel({
+            ...openModel,
+            openModel2: false,
+          })
+        }
+        aria-labelledby="keep-mounted-modal-title"
+        aria-describedby="keep-mounted-modal-description"
+      >
+        <Box
+          sx={{
+            position: "absolute",
+            width: "50vw",
+            height: "75vh",
+            bgcolor: "background.paper",
+            boxShadow: 24,
+            p: 4,
+            borderRadius: 5,
+            border: "1px solid #E5E5E5",
+            textAlign: "center",
+            top: "10vh",
+            left: "25vw",
+          }}
+        >
+          <Typography
+            id="keep-mounted-modal-description"
+            sx={{
+              mt: 2,
+              textAlign: "center",
+              borderBottom: "1px solid #C4C4C4",
+            }}
+          >
+            <img src={Logo} alt="logo" className={styles.Logo} />
+            <p className={styles.H_text01}>Payment</p>
+          </Typography>
+          <Typography id="keep-mounted-modal-description">
+            <div>
+              <div className={styles.boxpayment}>
+                {choose === false ? (
+                  <button
+                    className={styles.cardpayment}
+                    onClick={() => setChoose(true)}
+                  >
+                    <img src={card} alt="card" />
+                    <p>card</p>
+                  </button>
+                ) : (
+                  <button
+                    className={styles.cardpayment3}
+                    onClick={() => setChoose(false)}
+                  >
+                    <img src={card} alt="card" />
+                    <p>card</p>
+                  </button>
+                )}
+
+                <button className={styles.cardpayment2}>
+                  <img src={MobileBanking} alt="MobileBanking" />
+                  <p>Mobile Banking</p>
+                </button>
+                <button className={styles.cardpayment2}>
+                  <img src={Promptpay} alt="Promptpay" />
+                  <p>Prompt pay</p>
+                </button>
+                <button className={styles.cardpayment2}>
+                  <img src={Gpay} alt="Gpay" />
+                  <p>Google Pay</p>
+                </button>
+              </div>
+              {/* <div className={styles.boxpayment}>
+                <div className={styles.cardpayment}>
+                  <img src={card} alt="card" />
+                  <p>card</p>
+                </div>
+                <div className={styles.cardpayment}>
+                  <img src={card} alt="card" />
+                  <p>card</p>
+                </div>
+                <div className={styles.cardpayment}>
+                  <img src={card} alt="card" />
+                  <p>card</p>
+                </div>
+                <div className={styles.cardpayment}>
+                  <img src={card} alt="card" />
+                  <p>card</p>
+                </div>
+              </div>
+              <div className={styles.boxpayment}>
+                <div className={styles.cardpayment}>
+                  <img src={card} alt="card" />
+                  <p>card</p>
+                </div>
+                <div className={styles.cardpayment}>
+                  <img src={card} alt="card" />
+                  <p>card</p>
+                </div>
+                <div className={styles.cardpayment}>
+                  <img src={card} alt="card" />
+                  <p>card</p>
+                </div>
+                <div className={styles.cardpayment}>
+                  <img src={card} alt="card" />
+                  <p>card</p>
+                </div>
+              </div> */}
+            </div>
+            <div style={{ position: "relative", top: "120px" }}>
+              <button
+                className={styles.buttonModel1}
+                onClick={() => OpneMode(3)}
+              >
+                Pay
+              </button>
+              <button
+                className={styles.buttonModel1_2}
+                onClick={() => OpneMode("back to receipt")}
+              >
+                Back to Receipt
+              </button>
+            </div>
+          </Typography>
+        </Box>
+      </Modal>
+
+      <Modal
+        hideBackdrop
+        open={openModel?.openModel3}
+        onClose={() =>
+          setopenModel({
+            ...openModel,
+            openModel3: false,
+          })
+        }
+        aria-labelledby="keep-mounted-modal-title"
+        aria-describedby="keep-mounted-modal-description"
+      >
+        <Box
+          sx={{
+            position: "absolute",
+            width: "50vw",
+            height: "80vh",
+            bgcolor: "background.paper",
+            boxShadow: 24,
+            p: 4,
+            borderRadius: 5,
+            border: "1px solid #E5E5E5",
+            textAlign: "center",
+            top: "10vh",
+            left: "25vw",
+          }}
+        >
+          <Typography
+            id="keep-mounted-modal-description"
+            sx={{
+              mt: 2,
+              textAlign: "center",
+              borderBottom: "1px solid #C4C4C4",
+            }}
+          >
+            <img src={Logo} alt="logo" className={styles.Logo} />
+          </Typography>
+          <Cards />
+          <Typography id="keep-mounted-modal-description">
+            <div style={{ position: "relative", top: "15px" }}>
+              <button
+                className={styles.buttonModel1}
+                onClick={() => OpneMode(4)}
+              >
+                Pay
+              </button>
+              <button
+                className={styles.buttonModel1_2}
+                onClick={() => OpneMode("back to Payment")}
+              >
+                Back to Payment
+              </button>
+            </div>
+          </Typography>
+        </Box>
+      </Modal>
+
+      <Modal
+        hideBackdrop
+        open={openModel?.openModel4}
+        onClose={() =>
+          setopenModel({
+            ...openModel,
+            openModel4: false,
+          })
+        }
+        aria-labelledby="keep-mounted-modal-title"
+        aria-describedby="keep-mounted-modal-description"
+      >
+        <Box
+          sx={{
+            position: "absolute",
+            width: "50vw",
+            height: "55vh",
+            bgcolor: "background.paper",
+            boxShadow: 24,
+            p: 4,
+            borderRadius: 5,
+            border: "1px solid #E5E5E5",
+            textAlign: "center",
+            top: "10vh",
+            left: "25vw",
+          }}
+        >
+          <Typography
+            id="keep-mounted-modal-description"
+            sx={{
+              mt: 2,
+              textAlign: "center",
+              borderBottom: "1px solid #C4C4C4",
+            }}
+          >
+            <img src={Logo} alt="logo" className={styles.Logo} />
+            <p className={styles.H_text01}>Enter your email</p>
+            <p className={styles.H_text02}>
+              Please enter your email to track and receive your order.
+            </p>
+          </Typography>
+          <Typography>
+            <div>
+              <p
+                style={{
+                  fontWeight: 500,
+                  fontSize: 20,
+                  color: "#242424",
+                  textAlign: "left",
+                  fontFamily: "DBHeavent",
+                }}
+              >
+                Email
+              </p>
+              <input
+                type="text"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Example@mail.com"
+                style={{
+                  background: "#FFFFFF",
+                  border: "1px solid #F1F1F1 ",
+                  borderRadius: 20,
+                  width: "100%",
+                  height: 30,
+                  padding: 20,
+                  paddingLeft: 12,
+                  margin: 10,
+                  fontSize: 13,
+                }}
+              />
+            </div>
+          </Typography>
+          <Typography id="keep-mounted-modal-description">
+            <div style={{ position: "relative", top: "15px" }}>
+              <button
+                className={styles.buttonModel1}
+                onClick={() => OpneMode(5)}
+              >
+                Sent
+              </button>
+            </div>
+          </Typography>
+        </Box>
+      </Modal>
+
+      <Modal
+        hideBackdrop
+        open={openModel?.openModel5}
+        onClose={() =>
+          setopenModel({
+            ...openModel,
+            openModel5: false,
+          })
+        }
+        aria-labelledby="keep-mounted-modal-title"
+        aria-describedby="keep-mounted-modal-description"
+      >
+        <Box
+          sx={{
+            position: "absolute",
+            width: "35vw",
+            bgcolor: "background.paper",
+            boxShadow: 24,
+            p: 4,
+            borderRadius: 5,
+            border: "1px solid #E5E5E5",
+            textAlign: "center",
+            top: "10vh",
+            left: "30vw",
+          }}
+        >
+          <Typography
+            id="keep-mounted-modal-description"
+            sx={{
+              mt: 2,
+              textAlign: "center",
+              borderBottom: "1px solid #C4C4C4",
+            }}
+          >
+            <img src={Logo} alt="logo" className={styles.Logo} />
+            <p className={styles.H_text01}>Thank you.</p>
+            <p className={styles.H_text02}>
+              Your payment has been successfully processed.
+            </p>
+          </Typography>
+          <Typography>
+            <div style={{ margin: 25 }}>
+              <p
+                style={{
+                  fontWeight: 500,
+                  fontSize: 20,
+                  color: "#242424",
+                  fontFamily: "DBHeavent",
+                }}
+              >
+                TRANSACTION NO.
+              </p>
+              <p
+                style={{
+                  fontWeight: 500,
+                  fontSize: 20,
+                  color: "#242424",
+                  fontFamily: "DBHeaventLi",
+                }}
+              >
+                {generateOrderNumber()}
+              </p>
+            </div>
+            <div style={{ margin: 25 }}>
+              <p
+                style={{
+                  fontWeight: 500,
+                  fontSize: 20,
+                  color: "#242424",
+
+                  fontFamily: "DBHeavent",
+                }}
+              >
+                AMOUNT
+              </p>
+              {groupData ? (
+                <p
+                  style={{
+                    fontWeight: 500,
+                    fontSize: 20,
+                    color: "#242424",
+
+                    fontFamily: "DBHeaventLi",
+                  }}
+                >
+                  {groupData[0]?.Price}
+                </p>
+              ) : (
+                <p
+                  style={{
+                    fontWeight: 500,
+                    fontSize: 20,
+                    color: "#242424",
+
+                    fontFamily: "DBHeaventLi",
+                  }}
+                >
+                  {groupData?.Price}
+                </p>
+              )}
+            </div>
+          </Typography>
+          <Typography id="keep-mounted-modal-description">
+            <div style={{ position: "relative", top: "15px" }}>
+              <button
+                className={styles.buttonModel1}
+                onClick={() => OpneMode(6)}
+              >
+                Back to home
+              </button>
+            </div>
+          </Typography>
         </Box>
       </Modal>
 
@@ -562,6 +1076,9 @@ const Customer = () => {
                       height: "30px",
                     }}
                     options={data2}
+                    isOptionEqualToValue={(option, value) =>
+                      option.code === value
+                    }
                     defaultValue={(option) => option?.label}
                     autoHighlight
                     getOptionLabel={(option) => option?.label}
@@ -617,6 +1134,9 @@ const Customer = () => {
                         height: "30px",
                       }}
                       options={data5}
+                      isOptionEqualToValue={(option, value) =>
+                        option.code === value
+                      }
                       autoHighlight
                       getOptionLabel={(option) => option?.label}
                       onChange={(event, value) =>
@@ -657,6 +1177,9 @@ const Customer = () => {
                         height: "30px",
                       }}
                       options={data4}
+                      isOptionEqualToValue={(option, value) =>
+                        option.code === value
+                      }
                       autoHighlight
                       getOptionLabel={(option) => option?.label}
                       onChange={(event, value) =>
@@ -697,6 +1220,9 @@ const Customer = () => {
                         height: "30px",
                       }}
                       options={data3}
+                      isOptionEqualToValue={(option, value) =>
+                        option.code === value
+                      }
                       autoHighlight
                       getOptionLabel={(option) => option?.label}
                       onChange={(event, value) =>
@@ -737,6 +1263,9 @@ const Customer = () => {
                         height: "30px",
                       }}
                       options={data5}
+                      isOptionEqualToValue={(option, value) =>
+                        option.code === value
+                      }
                       autoHighlight
                       getOptionLabel={(option) => option?.label}
                       onChange={(event, value) => console.log(value?.label)}
@@ -794,6 +1323,9 @@ const Customer = () => {
                       height: "30px",
                     }}
                     options={data}
+                    isOptionEqualToValue={(option, value) =>
+                      option.code === value
+                    }
                     autoHighlight
                     getOptionLabel={(option) => option?.label}
                     onChange={(event, value) =>
@@ -851,6 +1383,9 @@ const Customer = () => {
                       height: "30px",
                     }}
                     options={data}
+                    isOptionEqualToValue={(option, value) =>
+                      option.code === value
+                    }
                     autoHighlight
                     getOptionLabel={(option) => option?.label}
                     onChange={(event, value) =>
@@ -1096,6 +1631,9 @@ const Customer = () => {
                             height: "30px",
                           }}
                           options={data2}
+                          isOptionEqualToValue={(option, value) =>
+                            option.code === value
+                          }
                           autoHighlight
                           getOptionLabel={(option) => option?.label}
                           onChange={(event, value) =>
@@ -1343,7 +1881,7 @@ const Customer = () => {
                           >
                             <button
                               className={styles.Deal}
-                              onClick={() => Deal()}
+                              onClick={() => OpneMode(1)}
                             >
                               Deal
                             </button>
@@ -1363,7 +1901,6 @@ const Customer = () => {
               ></div>
             )}
           </div>
-
           <div style={{ position: "relative" }}>
             <div>
               <Footer v="English" />

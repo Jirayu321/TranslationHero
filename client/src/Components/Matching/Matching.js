@@ -30,14 +30,14 @@ import { MdArrowDropDown } from "react-icons/md";
 
 import {
   Translate02EN,
-  Translate02DE,
-  Translate02TH,
+  // Translate02DE,
+  // Translate02TH,
   CustomerEN,
-  CustomerDE,
-  CustomerTH,
+  // CustomerDE,
+  // CustomerTH,
   Translate01EN,
-  Translate01TH,
-  Translate01DE,
+  // Translate01TH,
+  // Translate01DE,
 } from "../Data/DataLanguage";
 
 import axios from "axios";
@@ -65,7 +65,6 @@ const Matching = () => {
   const url = "https://54.244.204.59/api";
   // const url = "http://localhost:3001/api";
 
-
   //logic createOrder
   const formattedDate = new Date();
   // const [order, setOrder] = React.useState({
@@ -85,11 +84,15 @@ const Matching = () => {
 
   console.log("images :", typeof images);
 
+  function gologin() {
+    navigate("/Login");
+  }
+
   React.useEffect(() => {
     if (value) {
-      console.log("auth", auth);
+      console.log("auth:", value);
     } else {
-      navigate("/Login");
+      gologin();
     }
   }, [value]);
 

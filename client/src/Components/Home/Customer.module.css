@@ -135,13 +135,10 @@
   font-family: "DBHeavent";
 }
 .Logo {
-  background: url("../../logo.svg");
   width: 100px;
   height: 70px;
   background-size: contain;
   background-repeat: no-repeat;
-  position: relative;
-  left: 35%;
 }
 .H_text01 {
   font-weight: bold;
@@ -150,8 +147,20 @@
   display: flex;
   align-items: center;
   text-align: center;
+  justify-content: center;
   color: #242424;
   font-family: "DBHeavent";
+}
+.H_text02 {
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 40px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  color: #242424;
+  font-family: "DBHeaventLi";
 }
 .H_Model {
   font-size: 14px;
@@ -264,4 +273,82 @@
   font-size: 16px;
   display: inline;
   color: #3b005f;
+}
+.boxpayment {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+}
+.cardpayment {
+  width: 150px;
+  height: 120px;
+  border: 1px solid #c4c4c4;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  padding: 10px;
+  border-radius: 10px;
+  margin: 20px 20px 20px 0px;
+  background: transparent;
+}
+.cardpayment2 {
+  width: 150px;
+  height: 120px;
+  border: 1px solid #c4c4c4;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  padding: 10px;
+  border-radius: 10px;
+  margin: 20px 20px 20px 0px;
+  background: #646464;
+  color: #a9a9a9;
+}
+.cardpayment3 {
+  width: 150px;
+  height: 120px;
+  border: 1px solid #c4c4c4;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  padding: 10px;
+  border-radius: 10px;
+  margin: 20px 20px 20px 0px;
+  background: linear-gradient(98.35deg, #3b005f 5.13%, #1466b1 100.51%);
+  color: #e5e5e5;
+}
+.cardpayment:hover {
+  background: linear-gradient(98.35deg, #3b005f 5.13%, #1466b1 100.51%);
+  color: #e5e5e5;
+}
+.cardpayment img {
+  width: 50px;
+  height: 50px;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.cardpayment2 img {
+  width: 50px;
+  height: 50px;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.cardpayment3 img {
+  width: 50px;
+  height: 50px;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.App_payment {
+  margin: 10px;
+}
+.form_group {
+  margin: 10px;
+}
+.form_group2 {
+  margin: 10px;
+  display: grid;
+  grid-template-columns: auto auto;
+}
+.cvc{
+  margin-right: 35px;
 }

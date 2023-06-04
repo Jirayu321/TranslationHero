@@ -13,10 +13,10 @@ function App() {
   // verion2
   const Home = lazy(() => import("./Components/Home/Home.jsx"));
   const Customer = lazy(() => import("./Components/Home/Customer.jsx"));
-  const Services_official = lazy(() =>
+  const ServicesOfficial = lazy(() =>
     import("./Components/Services/Services_official.jsx")
   );
-  const Services_general = lazy(() =>
+  const ServicesGeneral = lazy(() =>
     import("./Components/Services/Services_general.jsx")
   );
   // verion1
@@ -33,16 +33,16 @@ function App() {
     import("./Components/Login/CreateNewPassword.jsx")
   );
   const Signup = lazy(() => import("./Components/Sign_up/Signup.jsx"));
-  const Chat = lazy(() => import("./Components/Chat/ChatCustomer"));
-  const Chats = lazy(() => import("./Components/Chat/ChatTansalat"));
-  const Order = lazy(() => import("./Components/Order/Order"));
-  const About_us = lazy(() => import("./Components/About_us/About_us"));
+  // const Chat = lazy(() => import("./Components/Chat/ChatCustomer"));
+  // const Chats = lazy(() => import("./Components/Chat/ChatTansalat"));
+  // const Order = lazy(() => import("./Components/Order/Order"));
+  // const Matching = lazy(() => import("./Components/Matching/Matching"));
+  const AboutUs = lazy(() => import("./Components/About_us/About_us.jsx"));
   const Notification = lazy(() =>
     import("./Components/Notification/NotificaionCustomer")
   );
   const Tool = lazy(() => import("./Components/Tool/Tool"));
-  const Matching = lazy(() => import("./Components/Matching/Matching"));
-
+  const Price = lazy(() => import("./Components/Price/Price.jsx"));
   useEffect(() => {
     dispatch(loadUser(null));
   }, [dispatch]);
@@ -56,17 +56,15 @@ function App() {
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/Home/Order/Customer" element={<Customer />} />
-                <Route path="/About_us" element={<About_us />} />
+                <Route path="/About_us" element={<AboutUs />} />
                 <Route
                   path="/Services_official"
-                  element={<Services_official />}
+                  element={<ServicesOfficial />}
                 />
-                <Route
-                  path="/Services_general"
-                  element={<Services_general />}
-                />
+                <Route path="/Services_general" element={<ServicesGeneral />} />
+                <Route path="/Price" element={<Price />} />
                 <Route path="/Notification" element={<Notification />} />
-                <Route path="/Matching" element={<Matching />} />
+                {/* <Route path="/Matching" element={<Matching />} /> */}
                 <Route
                   path="/Home/Services/Translator"
                   element={<Translator />}
@@ -80,11 +78,11 @@ function App() {
                 <Route path="/Signup" element={<Signup />} />
 
                 <Route path="/In" element={<Home2 />} />
-                <Route path="/Order" element={<Order />} />
+                {/* <Route path="/Order" element={<Order />} /> */}
                 <Route path="/Dashboard_freelance" element={<Freelance />} />
                 <Route path="/Tool" element={<Tool />} />
-                <Route path="/Chat" element={<Chat />} />
-                <Route path="/Chats" element={<Chats />} />
+                {/* <Route path="/Chat" element={<Chat />} />
+                <Route path="/Chats" element={<Chats />} /> */}
               </Routes>
             </StyledEngineProvider>
           </div>
