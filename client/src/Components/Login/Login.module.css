@@ -7,33 +7,36 @@
   background-position: center;
   background-size: cover;
   width: 600px;
-  height: 730px;
+  height: 630px;
   position: relative;
-  left: 80px;
-  top: 20px;
+  right: 20px;
+  top: -55px;
   padding: 50px;
+  border-radius: 15px;
 }
 .img_ForgetPassword {
   background: url("../../Images/ForgetPassword.png");
   background-position: center;
   background-size: cover;
   width: 600px;
-  height: 730px;
+  height: 630px;
   position: relative;
-  left: 80px;
-  top: 20px;
+  right: 20px;
+  top: -55px;
   padding: 50px;
+  border-radius: 15px;
 }
 .img_CreateNewPassword {
   background: url("../../Images/CreateNewPassword.png");
   background-position: center;
   background-size: cover;
   width: 600px;
-  height: 730px;
+  height: 630px;
   position: relative;
-  left: 80px;
-  top: 20px;
+  right: 20px;
+  top: -55px;
   padding: 50px;
+  border-radius: 15px;
 }
 
 .textimg1 {
@@ -87,7 +90,7 @@
 }
 .textPolicy {
   color: #001e33;
-  font-family: "DBHeavent";
+  font-family: "DBHeaventLi";
   font-size: 20px;
 }
 .textLi {

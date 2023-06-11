@@ -2,14 +2,10 @@ import React, { useRef } from "react";
 import emailjs from "@emailjs/browser";
 import Navbars from "../Navbar/navbarLogin";
 
-
-
-
-import {useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import styles from "./Login.module.css";
 
 const ForgetPassword = () => {
-
   const form = useRef();
   const navigate = useNavigate();
   const location = useLocation();
@@ -46,7 +42,7 @@ const ForgetPassword = () => {
 
   return (
     <>
-     <header className={styles?.header}>
+      <header className={styles?.header}>
         {Doc === undefined ? (
           <Navbars navigate={navigate} languages="English" />
         ) : Doc === "Thai" ? (
@@ -58,19 +54,26 @@ const ForgetPassword = () => {
         )}
       </header>
 
-      <div style={{ display: "flex" }}>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "auto auto",
+          justifyContent: "space-between",
+        }}
+      >
         <div
           style={{
             position: "relative",
-            width: "50%",
-            height: "100vh",
+            top: 130,
+            left: 100,
+            // width: "50%",
+            // height: "100vh",
           }}
         >
           <div
             style={{
-              position: "fixed",
-              top: 130,
-              left: 100,
+              // position: "fixed",
+
               width: 500,
               background: " #FFFFFF",
               borderRadius: 20,
@@ -116,15 +119,16 @@ const ForgetPassword = () => {
                   </button>
                 </form>
               </div>
-            </div>
-          </div>
-
-          <div style={{ top: "95vh", position: "relative", right: "30%" }}>
-            <div style={{ float: "right" }}>
-              <p className={styles.textPolicy}>Privacy policy</p>
-            </div>
-            <div style={{ float: "right", marginRight: 50 }}>
-              <p className={styles.textPolicy}>Copyrights Give Network 2021.</p>
+              <div style={{ position: "relative", right: "25px", top: "35px" }}>
+                <div style={{ float: "right" }}>
+                  <p className={styles.textPolicy}>Privacy policy</p>
+                </div>
+                <div style={{ float: "right", marginRight: 50 }}>
+                  <p className={styles.textPolicy}>
+                    Copyrights Give Network 2021.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>

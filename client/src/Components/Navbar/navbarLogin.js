@@ -13,7 +13,10 @@ const navbarLogin = (props) => {
     navigate("/", { state: { languages: `${x}` } });
   };
   return (
-    <Navbar expand="lg" style={{ transition: "initial", boxShadow: "none" }}>
+    <Navbar
+      expand="lg"
+      style={{ transition: "initial", boxShadow: "none", position: "initial" }}
+    >
       <Container fluid style={{ backgroundColor: "transparent" }}>
         <Navbar.Brand href="/" onClick={() => goHome(you)}>
           <img src={logo} alt="Logo" />

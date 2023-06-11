@@ -20,9 +20,6 @@ import styles from "./Home.module.css";
 const Home = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  // const styles= lazy(() => import('./Home.module.css'));
-
-  // const auth = useSelector((state) => state.auth);
 
   let Doc = location?.state?.languages;
   let Aoc = location?.state?.accept;
@@ -437,50 +434,49 @@ const Home = () => {
                 Subscribe
               </button>
             </div>
-
-            <div className={styles.Infram1}>
-              <div className={styles.BoxInfram1}>
-                <div className={styles.detileBoxInfram1}>
-                  <div>
-                    <p className={styles.intInfram1}>95%</p>
-                  </div>
-
-                  <div className={styles.BoxThumbs}>
-                    <img src={Thumbs} alt="Thumbs" className={styles.Thumbs} />
-                  </div>
+          </div>
+          <div className={styles.Infram1}>
+            <div className={styles.BoxInfram1}>
+              <div className={styles.detileBoxInfram1}>
+                <div>
+                  <p className={styles.intInfram1}>95%</p>
                 </div>
-                <p className={styles.textBoxInfram1}>
-                  The percentage of total active users on the site.
-                </p>
-              </div>
-              <div className={styles.BoxInfram1}>
-                <div className={styles.detileBoxInfram1}>
-                  <div>
-                    <p className={styles.intInfram1}>90%</p>
-                  </div>
 
-                  <div className={styles.BoxThumbs}>
-                    <img src={Thumbs} alt="Thumbs" className={styles.Thumbs} />
-                  </div>
+                <div className={styles.BoxThumbs}>
+                  <img src={Thumbs} alt="Thumbs" className={styles.Thumbs} />
                 </div>
-                <p className={styles.textBoxInfram1}>
-                  Employment percentage and accuracy of work.
-                </p>
               </div>
-              <div className={styles.BoxInfram1}>
-                <div className={styles.detileBoxInfram1}>
-                  <div>
-                    <p className={styles.intInfram1}>100%</p>
-                  </div>
+              <p className={styles.textBoxInfram1}>
+                The percentage of total active users on the site.
+              </p>
+            </div>
+            <div className={styles.BoxInfram1}>
+              <div className={styles.detileBoxInfram1}>
+                <div>
+                  <p className={styles.intInfram1}>90%</p>
+                </div>
 
-                  <div className={styles.BoxThumbs}>
-                    <img src={Thumbs} alt="Thumbs" className={styles.Thumbs} />
-                  </div>
+                <div className={styles.BoxThumbs}>
+                  <img src={Thumbs} alt="Thumbs" className={styles.Thumbs} />
                 </div>
-                <p className={styles.textBoxInfram1}>
-                  Comprehensive and good after-sales service.
-                </p>
               </div>
+              <p className={styles.textBoxInfram1}>
+                Employment percentage and accuracy of work.
+              </p>
+            </div>
+            <div className={styles.BoxInfram1}>
+              <div className={styles.detileBoxInfram1}>
+                <div>
+                  <p className={styles.intInfram1}>100%</p>
+                </div>
+
+                <div className={styles.BoxThumbs}>
+                  <img src={Thumbs} alt="Thumbs" className={styles.Thumbs} />
+                </div>
+              </div>
+              <p className={styles.textBoxInfram1}>
+                Comprehensive and good after-sales service.
+              </p>
             </div>
           </div>
         </div>
@@ -576,50 +572,50 @@ const Home = () => {
             </div>
           </div>
           <div className={styles.Content3_1}></div>
-        </div>
 
-        <div className={styles.box4_overviwe}>
-          <div className={styles.Inbox4_overviwe}>
-            <div className={styles.deteilbox4_overviwe}>
-              <p className={styles.h_text3}>{overviewEN[5].label}</p>
-              <p className={styles.textDescription3_overviwe}>
-                Online translation platform
-              </p>
-              <div>
-                <button
-                  className={styles.buttonbox4_overviwe}
-                  onClick={() => goSignup("English")}
-                >
-                  <p>{overviewEN[7].label}</p>
-                </button>
+          <div className={styles.box4_overviwe}>
+            <div className={styles.Inbox4_overviwe}>
+              <div className={styles.deteilbox4_overviwe}>
+                <p className={styles.h_text3}>{overviewEN[5].label}</p>
+                <p className={styles.textDescription3_overviwe}>
+                  Online translation platform
+                </p>
+                <div>
+                  <button
+                    className={styles.buttonbox4_overviwe}
+                    onClick={() => goSignup("English")}
+                  >
+                    <p>{overviewEN[7].label}</p>
+                  </button>
+                </div>
               </div>
-            </div>
 
-            <div className={styles.Inbox4_overviwe2}>
-              <div className={styles.box4_overviwe0}>
-                <div className={styles.imgbox4_overviwe0}>
-                  <img
-                    src={box4_overviwe1}
-                    alt="box4_overviwe1"
-                    className={styles.box4_overviwe1}
-                  />
-                  <img
-                    src={box4_overviwe2}
-                    alt="box4_overviwe2"
-                    className={styles.box4_overviwe2}
-                  />
-                  <img
-                    src={box4_overviwe3}
-                    alt="box4_overviwe3"
-                    className={styles.box4_overviwe3}
-                  />
+              <div className={styles.Inbox4_overviwe2}>
+                <div className={styles.box4_overviwe0}>
+                  <div className={styles.imgbox4_overviwe0}>
+                    <img
+                      src={box4_overviwe1}
+                      alt="box4_overviwe1"
+                      className={styles.box4_overviwe1}
+                    />
+                    <img
+                      src={box4_overviwe2}
+                      alt="box4_overviwe2"
+                      className={styles.box4_overviwe2}
+                    />
+                    <img
+                      src={box4_overviwe3}
+                      alt="box4_overviwe3"
+                      className={styles.box4_overviwe3}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          <div style={{ width: "100vw", position: "absolute" }}>
-            <Footer v="English" a={Aoc} />
+            <div style={{ width: "100vw", position: "absolute" }}>
+              <Footer v="English" a={Aoc} />
+            </div>
           </div>
         </div>
       </>

@@ -1594,7 +1594,7 @@ const Customer = () => {
                     boxSizing: "border-box",
                     textAlign: "left",
                     padding: 20,
-                    top: "95vh",
+                    top: "800px",
                   }}
                 >
                   <div>
@@ -1901,7 +1901,7 @@ const Customer = () => {
               ></div>
             )}
           </div>
-          <div style={{ position: "relative" }}>
+          <div style={{ position: "relative",top:"200px" }}>
             <div>
               <Footer v="English" />
             </div>

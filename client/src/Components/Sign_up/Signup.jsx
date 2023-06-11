@@ -1,6 +1,7 @@
 import * as React from "react";
 // import emailjs from "@emailjs/browser";
 import Navbars from "../Navbar/navbarLogin";
+import { Formik } from "formik";
 
 //test
 // import {
@@ -145,7 +146,8 @@ const Signup = () => {
     question: "",
     type: "",
   });
-  console.log("", translators?.languages);
+
+  // console.log("", translators?.languages);
   // const [email, setEmail] = React.useState("");
   // const [password, setPassword] = React.useState("");
 
@@ -387,12 +389,18 @@ const Signup = () => {
         )}
       </header>
 
-      <div style={{ display: "flex" }}>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "auto auto",
+          justifyContent: "space-between",
+          marginBottom: "30px",
+        }}
+      >
         <div
           style={{
             position: "relative",
-            width: "50%",
-            height: "100vh",
+            left: 100,
           }}
         >
           {screen === "" ? (
@@ -400,9 +408,6 @@ const Signup = () => {
               <div>
                 <div
                   style={{
-                    position: "fixed",
-                    top: 60,
-                    left: 100,
                     width: 500,
                     background: " #FFFFFF",
                     borderRadius: 20,
@@ -525,7 +530,7 @@ const Signup = () => {
                     <IconButton
                       onClick={() => handleClickShowPassword(1)}
                       edge="end"
-                      style={{ position: "absolute", right: 40, top: 350 }}
+                      style={{ position: "absolute", right: 40, top: 344 }}
                     >
                       {values ? <FiEye /> : <FiEyeOff />}
                     </IconButton>
@@ -574,7 +579,7 @@ const Signup = () => {
                     <IconButton
                       onClick={() => handleClickShowPassword(2)}
                       edge="end"
-                      style={{ position: "absolute", right: 40, top: 440 }}
+                      style={{ position: "absolute", right: 40, top: 435 }}
                     >
                       {values2 ? <FiEye /> : <FiEyeOff />}
                     </IconButton>
@@ -1392,7 +1397,7 @@ const Signup = () => {
           ) : null}
           <>
             {Doc === "English" ? (
-              <div style={{ top: "95vh", position: "relative", right: "30%" }}>
+              <div style={{ position: "relative", right: "20%" }}>
                 <div style={{ float: "right" }}>
                   <p className={styles.textPolicy}>{REGI01_box1EN[14].label}</p>
                 </div>
@@ -1401,7 +1406,7 @@ const Signup = () => {
                 </div>
               </div>
             ) : Doc === "Thai" ? (
-              <div style={{ top: "95vh", position: "relative", right: "30%" }}>
+              <div style={{ position: "relative", right: "20%" }}>
                 <div style={{ float: "right" }}>
                   <p className={styles.textPolicy}>{REGI01_box1TH[14].label}</p>
                 </div>
@@ -1410,7 +1415,7 @@ const Signup = () => {
                 </div>
               </div>
             ) : Doc === "German" ? (
-              <div style={{ top: "95vh", position: "relative", right: "30%" }}>
+              <div style={{ position: "relative", right: "20%" }}>
                 <div style={{ float: "right" }}>
                   <p className={styles.textPolicy}>{REGI01_box1DE[14].label}</p>
                 </div>
@@ -1419,7 +1424,7 @@ const Signup = () => {
                 </div>
               </div>
             ) : (
-              <div style={{ top: "95vh", position: "relative", right: "30%" }}>
+              <div style={{ position: "relative", right: "20%" }}>
                 <div style={{ float: "right" }}>
                   <p className={styles.textPolicy}>{REGI01_box1EN[14].label}</p>
                 </div>

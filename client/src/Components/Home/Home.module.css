@@ -13,7 +13,7 @@
 .fram1 {
   background: linear-gradient(0deg, rgb(255 255 255 / 0%), rgba(0, 0, 0, 0.2)),
     url("../../Images/fram1Home.png");
-  height: 100vh;
+  /* height: 100vh; */
   /* background-position: center; */
   background-repeat: round;
 }
@@ -126,11 +126,10 @@
   border: transparent;
 }
 .boxBlue_overviwe {
-  top: 20vh;
-  position: absolute;
-  /* width: 330px; */
-  /* height: 330px; */
-  left: 35vw;
+  display: grid;
+  justify-content: center;
+  margin-top: 100px;
+  margin-bottom: 100px;
 }
 .h_text1 {
   font-weight: 700;
@@ -146,7 +145,7 @@
     #0075ff 1.04%,
     #9e70ff 99.01%
   );
-  -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 .h_text2 {
@@ -174,7 +173,7 @@
     #0075ff 1.04%,
     #9e70ff 99.01%
   );
-  -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 .boxImg1_overviwe {
@@ -185,11 +184,12 @@
 
 .Infram1 {
   display: grid;
-  width: 85vw;
+  justify-content: space-evenly;
   grid-template-columns: auto auto auto;
-  position: absolute;
-  left: -26vw;
-  top: 26vw;
+  margin-bottom: 50px;
+  /* position: absolute; */
+  /* left: -26vw; */
+  /* top: 26vw; */
 }
 .BoxInfram1 {
   background: #ffffff;
@@ -209,10 +209,7 @@
 }
 /* 2 */
 .box2_overviwe {
-  /* position: absolute;
-  top: 65%; */
   width: 100vw;
-  height: 185vh;
   margin-bottom: 60px;
 }
 .intInfram1 {
@@ -372,7 +369,7 @@
   );
   mix-blend-mode: normal;
   opacity: 0.05;
-  height: 90vh;
+  /* height: 90vh; */
   position: relative;
   top: -75vh;
 }
@@ -458,6 +455,7 @@
 .box4_overviwe {
   width: 100vw;
   position: relative;
+  margin-top: 100px;
 }
 .textHeading4_overviwe {
   font-weight: 800;
@@ -506,7 +504,7 @@
 .Inbox4_overviwe {
   display: flex;
   justify-content: space-around;
-  height: 50vh;
+  /* height: 50vh; */
 }
 .Inbox4_overviwe2 {
   display: inline;
@@ -514,6 +512,7 @@
 .deteilbox4_overviwe {
   position: relative;
   left: 85px;
+  top: 130px;
 }
 .buttonbox4_overviwe {
   background: linear-gradient(
@@ -533,15 +532,14 @@
   border: 1px solid transparent;
   width: 13vw;
   margin-top: 80px;
-  
 }
 .box4_overviwe0 {
   background: url("../../Images/box4_overviwe0.png");
   width: 70vw;
-  height: 83vh;
+  height: 570px;
   position: relative;
-  top: -27vh;
-  left: 0.5vw;
+  /* top: -27vh; */
+  left: 0.35vw;
 }
 
 .imgbox4_overviwe0 {

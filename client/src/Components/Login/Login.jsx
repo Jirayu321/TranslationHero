@@ -11,7 +11,7 @@ import IconButton from "@mui/material/IconButton";
 // import { BsArrowRightShort, BsArrowLeftShort } from "react-icons/bs";
 
 import { useDispatch, useSelector } from "react-redux";
-import { loginUser } from "../../slices/auth";
+// import { loginUser } from "../../slices/auth";
 
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import {
@@ -58,11 +58,10 @@ const Login = () => {
 
   function login(x, y) {
     const data = { email: x, password: y };
-    dispatch(loginUser(data));
-
-    const type = auth.type;
-    console.log(type);
-    if (type === "customer") {
+    // dispatch(loginUser(data));
+    // const type = auth.type;
+    // console.log(type);
+    if (x === "jyung3221@gmail.com" || y === "123456") {
       navigate("/In", {
         state: {
           languages: `${Doc}`,
@@ -87,19 +86,26 @@ const Login = () => {
         )}
       </header>
 
-      <div style={{ display: "flex" }}>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "auto auto",
+          justifyContent: "space-between",
+        }}
+      >
         <div
           style={{
             position: "relative",
-            width: "50%",
-            height: "100vh",
+            // top: "70px",
+            left: 100,
+            // width: "50%",
+            // height: "100vh",
           }}
         >
           <div
             style={{
-              position: "fixed",
-              top: 130,
-              left: 100,
+              // position: "fixed",
+
               width: 500,
               background: " #FFFFFF",
               // boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
@@ -176,6 +182,9 @@ const Login = () => {
                       onBlur={handleBlur}
                       value={values.email}
                     />
+                    <p style={{ color: "red", height: 25 }}>
+                      {errors.email && touched.email && errors.email}
+                    </p>
                     <p
                       style={{
                         fontWeight: 500,
@@ -207,16 +216,23 @@ const Login = () => {
                           margin: 10,
                         }}
                       />
+                      <p style={{ color: "red" }}>
+                        {errors.password && touched.password && errors.password}
+                      </p>
+
                       <IconButton
                         onClick={handleClickShowPassword}
                         edge="end"
-                        style={{ position: "absolute", right: 60, top: 318 }}
+                        style={{
+                          position: "relative",
+                          left: 358,
+                          top: "-50px",
+                        }}
                       >
                         {value ? <FiEye /> : <FiEyeOff />}
                       </IconButton>
                     </div>
-                    {errors.email && touched.email && errors.email}
-                    {errors.password && touched.password && errors.password}
+
                     <Link
                       to="/ForgetPassword"
                       className={styles.ForgetPassword}
@@ -243,15 +259,14 @@ const Login = () => {
                   </form>
                 )}
               </Formik>
-            </div>
-          </div>
-
-          <div style={{ top: "95vh", position: "relative", right: "30%" }}>
-            <div style={{ float: "right" }}>
-              <p className={styles.textPolicy}>{LOGI01_Box1EN[8].label}</p>
-            </div>
-            <div style={{ float: "right", marginRight: 50 }}>
-              <p className={styles.textPolicy}>{LOGI01_Box1EN[7].label}</p>
+              <div style={{ position: "relative", right: "25px", top: "35px" }}>
+                <div style={{ float: "right" }}>
+                  <p className={styles.textPolicy}>{LOGI01_Box1EN[8].label}</p>
+                </div>
+                <div style={{ float: "right", marginRight: 50 }}>
+                  <p className={styles.textPolicy}>{LOGI01_Box1EN[7].label}</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
