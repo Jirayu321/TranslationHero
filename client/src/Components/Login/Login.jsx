@@ -177,6 +177,7 @@ const Login = () => {
                         padding: 20,
                         paddingLeft: 12,
                         margin: 10,
+                        marginLeft: 0,
                       }}
                       onChange={handleChange}
                       onBlur={handleBlur}
@@ -214,6 +215,7 @@ const Login = () => {
                           padding: 20,
                           paddingLeft: 12,
                           margin: 10,
+                          marginLeft:0,
                         }}
                       />
                       <p style={{ color: "red" }}>

@@ -445,6 +445,7 @@ const Signup = () => {
                         padding: 20,
                         paddingLeft: 12,
                         margin: 10,
+                        marginLeft: 0,
                         fontSize: 13,
                       }}
                     />
@@ -482,6 +483,7 @@ const Signup = () => {
                         padding: 20,
                         paddingLeft: 12,
                         margin: 10,
+                        marginLeft: 0,
                         fontSize: 13,
                       }}
                     />
@@ -522,6 +524,7 @@ const Signup = () => {
                           padding: 20,
                           paddingLeft: 12,
                           margin: 10,
+                          marginLeft: 0,
                           fontSize: 13,
                         }}
                       />
@@ -571,6 +574,7 @@ const Signup = () => {
                           padding: 20,
                           paddingLeft: 12,
                           margin: 10,
+                          marginLeft: 0,
                           fontSize: 13,
                         }}
                       />
@@ -618,6 +622,7 @@ const Signup = () => {
                         padding: 20,
                         paddingLeft: 12,
                         margin: 10,
+                        marginLeft: 0,
                         fontSize: 13,
                       }}
                     />
