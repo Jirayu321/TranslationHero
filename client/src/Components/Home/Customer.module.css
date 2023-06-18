@@ -10,7 +10,6 @@
   width: 100vw;
   font-family: "DBHeavent";
 }
-
 .fram1_button2 {
   background: transparent;
   border-radius: 26.5px;
@@ -68,27 +67,6 @@
   padding-top: 10px;
   border-radius: 10px;
   width: 86vw;
-}
-.boxPrice {
-  display: flex;
-  justify-content: space-around;
-}
-.Price {
-  font-size: 25px;
-  line-height: 38px;
-  display: flex;
-  align-items: center;
-  color: #bdbdbd;
-  font-family: "DBHeavent";
-}
-.PriceInt {
-  font-weight: 500;
-  font-size: 25px;
-  line-height: 38px;
-  align-items: center;
-  font-family: "DBHeavent";
-
-  color: #df0000;
 }
 .cardTranslator {
   width: 23vw;
@@ -197,7 +175,6 @@
   border: 1px solid #ffa0a0;
   height: 40px;
 }
-
 .fromdetail {
   position: absolute;
   width: 52vw;
@@ -213,11 +190,6 @@
   justify-content: space-around;
   grid-template-columns: auto auto;
 }
-.datePickerWrapper {
-  position: relative;
-  display: inline-block;
-}
-
 .buttonAddandDelete {
   width: 100px;
   display: flex;
@@ -227,9 +199,6 @@
   background: transparent;
   border: none;
   font-family: "DBHeavent";
-}
-.TextbuttonAddandDelete1 {
-  color: #f04438;
 }
 .TextbuttonAddandDelete2 {
   background: linear-gradient(98.35deg, #3b005f 5.13%, #1466b1 100.51%);
@@ -247,6 +216,9 @@
   align-items: center;
   justify-content: space-between;
   padding: 0px 35px;
+}
+.BoxNumber {
+  display: flex;
 }
 .buttonArrow {
   background: #ffffff;
@@ -300,8 +272,8 @@
   padding: 10px;
   border-radius: 10px;
   margin: 20px 20px 20px 0px;
-  background: #646464;
-  color: #a9a9a9;
+  background: #a9a9a9;
+  color: #404040;
 }
 .cardpayment3 {
   width: 150px;
@@ -338,17 +310,7 @@
   background-size: contain;
   background-repeat: no-repeat;
 }
-.App_payment {
-  margin: 10px;
-}
-.form_group {
-  margin: 10px;
-}
-.form_group2 {
-  margin: 10px;
-  display: grid;
-  grid-template-columns: auto auto;
-}
-.cvc{
-  margin-right: 35px;
-}
+/* .datePickerWrapper {
+  position: relative;
+  display: inline-block;
+} */

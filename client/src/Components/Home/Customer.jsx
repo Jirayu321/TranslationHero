@@ -67,7 +67,7 @@ const Customer = () => {
   const navigate = useNavigate();
   let Doc = location?.state?.languages;
 
-  const [promo, setPromo] = React.useState("");
+  const [promo, setPromo] = React.useState(""); //Promo code คือเปิดตัวด้านล่าง
   const [from, setFrom] = React.useState({
     file: "",
     document_Type: "",
@@ -79,10 +79,12 @@ const Customer = () => {
     type: "",
     Price: generatePrice(),
   });
-  const [groupData, setGroupData] = React.useState(null);
-  const count = groupData?.length;
-  const [page, setPage] = React.useState(1);
+  const [groupData, setGroupData] = React.useState(null); //เก็บข้อมูลทั้งหมดที่เราเพิ่มเข้ามา
 
+  let count = groupData?.length; //นับจำนวนข้อมูลทั้งหมดที่เราเพิ่มเข้ามา
+  let count2 = groupData?.length + 1; //นับจำนวนข้อมูลทั้งหมดที่เราเพิ่มเข้ามา
+
+  const [page, setPage] = React.useState(1);
   const [checked, setChecked] = React.useState({
     checked1: false,
     checked2: false,
@@ -90,8 +92,8 @@ const Customer = () => {
     checked4: false,
     checked5: false,
   });
-  const [open, setOpen] = React.useState(false);
-
+  const [open, setOpen] = React.useState(false); // alert
+  const [openDatePicker, setOpenDatePicker] = React.useState(false);
   const [openModel, setopenModel] = React.useState({
     openModel1: false,
     openModel2: false,
@@ -99,7 +101,6 @@ const Customer = () => {
     openModel4: false,
     openModel5: false,
   });
-
   const [choose, setChoose] = React.useState(false);
   const [email, setEmail] = React.useState("");
 
@@ -111,47 +112,95 @@ const Customer = () => {
     console.log("groupData,page:", groupData);
   }, [groupData]);
 
+  console.log("groupData:", groupData);
+  console.log("count:", count);
+  console.log("count2:", count2);
+  console.log("page:", page);
+
+  const handleDateChange = (date) => {
+    setFrom((prevFrom) => ({
+      ...prevFrom,
+      Deadline: date,
+    }));
+  };
+
   function Add_data() {
     if (groupData === null) {
       setGroupData([from]);
       setFrom({
-        file: "",
-        document_Type: "",
-        translation_Type: "",
-        tranfrom: "",
-        tranto: "",
-        Deadline: new Date(),
-        Additional_explanation: "",
-        Price: generatePrice(),
+        file: from.file,
+        document_Type: from.document_Type,
+        translation_Type: from.translation_Type,
+        tranfrom: from.tranfrom,
+        tranto: from.tranto,
+        Deadline: from.Deadline,
+        Additional_explanation: from.Additional_explanation,
+        Price: "",
       });
+      setPage(2);
     } else {
       setGroupData([...groupData, from]);
       setFrom({
-        file: "",
-        document_Type: "",
-        translation_Type: "",
-        tranfrom: "",
-        tranto: "",
-        Deadline: new Date(),
-        Additional_explanation: "",
-        Price: generatePrice(),
+        file: from.file,
+        document_Type: from.document_Type,
+        translation_Type: from.translation_Type,
+        tranfrom: from.tranfrom,
+        tranto: from.tranto,
+        Deadline: from.Deadline,
+        Additional_explanation: from.Additional_explanation,
+        Price: "",
       });
+      setPage(page + 1);
     }
   }
+  const createButtons = () => {
+    if (count2 === 1) {
+      return <button className={styles.buttonArrow2}>1</button>;
+    } else if (count) {
+      let buttons = [];
+      let someCondition = count2;
+      for (let i = 0; i < someCondition; i++) {
+        const buttonNumber = i + 1;
+        const isCurrentPage = buttonNumber === page;
+        const buttonStyle = isCurrentPage
+          ? styles.buttonArrow2
+          : styles.buttonArrow;
+
+        buttons.push(
+          <button
+            key={i}
+            className={buttonStyle}
+            onClick={() => setPage(buttonNumber)}
+          >
+            {buttonNumber}
+          </button>
+        );
+      }
+      return buttons;
+    }
+  };
 
   function Delete_data(e) {
-    console.log("groupData:", groupData);
-    let x = e - 1;
-    groupData.splice(x, 1);
+    let x = e - 1; //เลือกตำแหน่งข้อมูลที่เราเลือก
+    groupData.splice(x, 1); //ลบข้อมูลที่เราเลือก
+    if (count === null || count === undefined || count === 1) {
+      setPage(1);
+    } else {
+      if (page === 2) {
+        setGroupData(null);
+      } else {
+        setPage(page - 1);
+      }
+    }
   }
 
   function switch_page(x) {
     console.log("page:", page);
     if (x === "next") {
-      if (page === count) {
+      if (count === 1) {
         setPage(count);
       } else {
-        if (count) {
+        if (page <= count) {
           setPage((prevPage) => prevPage + 1);
         }
       }
@@ -198,7 +247,6 @@ const Customer = () => {
   function promotion(x) {
     setPromo(x);
     window.scrollTo(0, 1500);
-    Add_data();
   }
 
   const goSignup = () => {
@@ -240,6 +288,7 @@ const Customer = () => {
   }
 
   function OpneMode(x) {
+    console.log("x:", x);
     if (x === 1) {
       window.scroll(0, 0);
       setOpen(true);
@@ -327,6 +376,7 @@ const Customer = () => {
       </header>
 
       {/* Modal */}
+      {/* Receipt */}
       <Modal
         hideBackdrop
         open={openModel?.openModel1}
@@ -479,6 +529,7 @@ const Customer = () => {
         </Box>
       </Modal>
 
+      {/* Payment */}
       <Modal
         hideBackdrop
         open={openModel?.openModel2}
@@ -606,6 +657,7 @@ const Customer = () => {
         </Box>
       </Modal>
 
+      {/* card */}
       <Modal
         hideBackdrop
         open={openModel?.openModel3}
@@ -663,6 +715,7 @@ const Customer = () => {
         </Box>
       </Modal>
 
+      {/*  email to track */}
       <Modal
         hideBackdrop
         open={openModel?.openModel4}
@@ -749,6 +802,7 @@ const Customer = () => {
         </Box>
       </Modal>
 
+      {/* Thank you */}
       <Modal
         hideBackdrop
         open={openModel?.openModel5}
@@ -966,6 +1020,7 @@ const Customer = () => {
             </div>
 
             <div>
+              {/* file */}
               {from?.file === "" ? (
                 <div
                   style={{
@@ -1054,6 +1109,7 @@ const Customer = () => {
                 </div>
               )}
 
+              {/* fromdetail */}
               <div className={styles.fromdetail}>
                 <div style={{ float: "left" }}>
                   <div style={{ marginBottom: 10 }}>
@@ -1430,11 +1486,15 @@ const Customer = () => {
                       Deadline
                     </p>
                   </div>
+
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DatePicker
                       label="Date picker"
                       value={from?.Deadline}
-                      onChange={(date) => setFrom({ ...from, Deadline: date })}
+                      onChange={handleDateChange}
+                      open={openDatePicker}
+                      onOpen={() => setOpenDatePicker(true)}
+                      onClose={() => setOpenDatePicker(false)}
                       renderInput={(props) => (
                         <TextField
                           {...props}
@@ -1442,7 +1502,9 @@ const Customer = () => {
                           InputProps={{
                             startAdornment: (
                               <InputAdornment position="start">
-                                <EventIcon />
+                                <EventIcon
+                                  onClick={() => setOpenDatePicker(true)}
+                                />
                               </InputAdornment>
                             ),
                           }}
@@ -1490,7 +1552,7 @@ const Customer = () => {
                 </div>
 
                 <br />
-
+                {/*button Delete page */}
                 <div style={{ position: "relative", top: 160 }}>
                   {page === 1 ? (
                     <></>
@@ -1528,35 +1590,18 @@ const Customer = () => {
                 </div>
 
                 <div className={styles.Box_next}>
-                  <div>
+                  <div className={styles.BoxNumber}>
                     <button
                       className={styles.buttonArrow}
                       onClick={() => switch_page("back")}
                     >
                       <IoIosArrowBack className={styles.icon1} />
                     </button>
-
-                    {groupData === null || groupData === undefined ? (
+                    {count === null || count === undefined ? (
                       <button className={styles.buttonArrow2}>1</button>
-                    ) : (
-                      groupData?.map((item, index) => {
-                        const buttonNumber = index + 1;
-                        const isCurrentPage = buttonNumber === page;
-                        const buttonStyle = isCurrentPage
-                          ? styles.buttonArrow2
-                          : styles.buttonArrow;
-
-                        return (
-                          <button
-                            key={index}
-                            className={buttonStyle}
-                            onClick={() => switch_page(buttonNumber)}
-                          >
-                            {buttonNumber}
-                          </button>
-                        );
-                      })
-                    )}
+                    ) : count >= 1 ? (
+                      <div>{createButtons()}</div>
+                    ) : null}
 
                     <button
                       className={styles.buttonArrow}
@@ -1577,6 +1622,7 @@ const Customer = () => {
               </div>
             </div>
 
+            {/* promo */}
             {promo === 1 ? (
               <div
                 style={{
@@ -1901,7 +1947,8 @@ const Customer = () => {
               ></div>
             )}
           </div>
-          <div style={{ position: "relative",top:"200px" }}>
+          {/* Footer */}
+          <div style={{ position: "relative", top: "200px" }}>
             <div>
               <Footer v="English" />
             </div>
