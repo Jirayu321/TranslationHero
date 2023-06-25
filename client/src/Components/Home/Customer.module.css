@@ -260,7 +260,9 @@
   padding: 10px;
   border-radius: 10px;
   margin: 20px 20px 20px 0px;
-  background: transparent;
+  /* background: transparent; */
+  color: #ffffff;
+  background: #d0d5dd;
 }
 .cardpayment2 {
   width: 150px;
@@ -272,8 +274,8 @@
   padding: 10px;
   border-radius: 10px;
   margin: 20px 20px 20px 0px;
-  background: #a9a9a9;
-  color: #404040;
+  background: #d0d5dd;
+  color: #ffffff;
 }
 .cardpayment3 {
   width: 150px;
@@ -286,11 +288,11 @@
   border-radius: 10px;
   margin: 20px 20px 20px 0px;
   background: linear-gradient(98.35deg, #3b005f 5.13%, #1466b1 100.51%);
-  color: #e5e5e5;
+  color: #ffffff;
 }
 .cardpayment:hover {
   background: linear-gradient(98.35deg, #3b005f 5.13%, #1466b1 100.51%);
-  color: #e5e5e5;
+  color: #ffffff;
 }
 .cardpayment img {
   width: 50px;
@@ -310,7 +312,12 @@
   background-size: contain;
   background-repeat: no-repeat;
 }
-/* .datePickerWrapper {
-  position: relative;
-  display: inline-block;
-} */
+.App_payment {
+  margin-top: 10px;
+}
+.form_group input {
+  margin: 10px 0px;
+}
+.form_group2 input {
+  margin: 10px 0px;
+}

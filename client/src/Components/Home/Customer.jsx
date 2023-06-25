@@ -41,7 +41,7 @@ import {
   IoIosArrowForward,
 } from "react-icons/io";
 
-import Cards from "./Cards.js";
+// import Cards from "./Cards.js";
 
 import Logo from "../../logo.svg";
 import Fileimg from "../../Images/file.png";
@@ -50,7 +50,8 @@ import rating from "../../Images/Rating.png";
 import skills from "../../Images/skills.png";
 import card from "../../Images/card.png";
 import MobileBanking from "../../Images/MobileBanking.png";
-import Gpay from "../../Images/Gpay.png";
+// import Gpay from "../../Images/Gpay.png";
+import Gpay2 from "../../Images/Gpay2.png";
 import Promptpay from "../../Images/Promptpay.png";
 
 import {
@@ -58,6 +59,11 @@ import {
   //  CustomerDE,
   //  CustomerTH
 } from "../Data/DataLanguage";
+
+// card
+import Card from "react-credit-cards-2";
+import Payment from "payment";
+import "react-credit-cards-2/dist/es/styles-compiled.css";
 
 import styles from "./Customer.module.css";
 
@@ -70,21 +76,23 @@ const Customer = () => {
   const [promo, setPromo] = React.useState(""); //Promo code คือเปิดตัวด้านล่าง
   const [from, setFrom] = React.useState({
     file: "",
-    document_Type: "",
-    translation_Type: "",
-    tranfrom: "",
-    tranto: "",
+    document_Type: null,
+    translation_Type: null,
+    tranfrom: null,
+    tranto: null,
     Deadline: new Date(),
     Additional_explanation: "",
-    type: "",
+    type: null,
     Price: generatePrice(),
   });
   const [groupData, setGroupData] = React.useState(null); //เก็บข้อมูลทั้งหมดที่เราเพิ่มเข้ามา
 
+  const [deleteData, setDelete] = React.useState(false);
+  const [page, setPage] = React.useState(1);
+
   let count = groupData?.length; //นับจำนวนข้อมูลทั้งหมดที่เราเพิ่มเข้ามา
   let count2 = groupData?.length + 1; //นับจำนวนข้อมูลทั้งหมดที่เราเพิ่มเข้ามา
 
-  const [page, setPage] = React.useState(1);
   const [checked, setChecked] = React.useState({
     checked1: false,
     checked2: false,
@@ -102,20 +110,43 @@ const Customer = () => {
     openModel5: false,
   });
   const [choose, setChoose] = React.useState(false);
+
   const [email, setEmail] = React.useState("");
 
-  const handleChange = (event) => {
-    setFrom({ ...from, Additional_explanation: event.target.value });
-  };
-
   React.useEffect(() => {
-    console.log("groupData,page:", groupData);
+    if (groupData) {
+      let document_Type = groupData[0]?.document_Type;
+      let translation_Type = groupData[0]?.translation_Type;
+      let tranfrom = groupData[0]?.tranfrom;
+      let tranto = groupData[0]?.tranto;
+      let Deadline = groupData[0]?.Deadline;
+      let Additional_explanation = groupData[0]?.Additional_explanation;
+      console.log(
+        "data:",
+        page,
+        ",",
+        document_Type,
+        ",",
+        translation_Type,
+        ",",
+        tranfrom,
+        ",",
+        tranto,
+        ",",
+        Deadline,
+        ",",
+        Additional_explanation
+      );
+    } else {
+      console.log("groupData,page:", groupData);
+    }
   }, [groupData]);
 
-  console.log("groupData:", groupData);
-  console.log("count:", count);
-  console.log("count2:", count2);
-  console.log("page:", page);
+  // console.log("from:", from);
+  // console.log("groupData:", groupData);
+  // console.log("count:", count);
+  // console.log("count2:", count2);
+  // console.log("page:", page);
 
   const handleDateChange = (date) => {
     setFrom((prevFrom) => ({
@@ -124,39 +155,92 @@ const Customer = () => {
     }));
   };
 
+  function chagngepage(x, y) {
+    if (groupData) {
+      let index = x - 1;
+      let document_Type = groupData[index]?.document_Type;
+      let translation_Type = groupData[index]?.translation_Type;
+      let tranfrom = groupData[index]?.tranfrom;
+      let tranto = groupData[index]?.tranto;
+      let Deadline = groupData[index]?.Deadline;
+      let Additional_explanation = groupData[index]?.Additional_explanation;
+      if (y === 1) {
+        setFrom({
+          file: "",
+          document_Type: null,
+          translation_Type: null,
+          tranfrom: null,
+          tranto: null,
+          Deadline: new Date(),
+          Additional_explanation: "",
+          type: null,
+          Price: "",
+        });
+        setPage(x);
+      } else {
+        setFrom({
+          file: "",
+          document_Type: document_Type,
+          translation_Type: translation_Type,
+          tranfrom: tranfrom,
+          tranto: tranto,
+          Deadline: Deadline,
+          Additional_explanation: Additional_explanation,
+          type: "",
+          Price: generatePrice(),
+        });
+        setPage(x);
+      }
+    } else {
+      setFrom({
+        file: "",
+        document_Type: null,
+        translation_Type: null,
+        tranfrom: null,
+        tranto: null,
+        Deadline: new Date(),
+        Additional_explanation: "",
+        type: null,
+        Price: "",
+      });
+      setPage(x);
+    }
+  }
+
   function Add_data() {
     if (groupData === null) {
       setGroupData([from]);
-      setFrom({
-        file: from.file,
-        document_Type: from.document_Type,
-        translation_Type: from.translation_Type,
-        tranfrom: from.tranfrom,
-        tranto: from.tranto,
-        Deadline: from.Deadline,
-        Additional_explanation: from.Additional_explanation,
-        Price: "",
-      });
-      setPage(2);
+      chagngepage(2, 0);
     } else {
       setGroupData([...groupData, from]);
-      setFrom({
-        file: from.file,
-        document_Type: from.document_Type,
-        translation_Type: from.translation_Type,
-        tranfrom: from.tranfrom,
-        tranto: from.tranto,
-        Deadline: from.Deadline,
-        Additional_explanation: from.Additional_explanation,
-        Price: "",
-      });
-      setPage(page + 1);
+      let x = page + 1;
+      chagngepage(x, 1);
     }
   }
+
   const createButtons = () => {
-    if (count2 === 1) {
-      return <button className={styles.buttonArrow2}>1</button>;
-    } else if (count) {
+    if (deleteData === true) {
+      let buttons = [];
+      let someCondition = count;
+      for (let i = 0; i < someCondition; i++) {
+        const buttonNumber = i + 1;
+        const isCurrentPage = buttonNumber === page;
+        const buttonStyle = isCurrentPage
+          ? styles.buttonArrow2
+          : styles.buttonArrow;
+        buttons.push(
+          <button
+            key={i}
+            className={buttonStyle}
+            onClick={() => chagngepage(buttonNumber, 0)}
+          >
+            {buttonNumber}
+          </button>
+        );
+      }
+      return buttons;
+    } else {
+      // console.log("deleteData:", deleteData, count);
       let buttons = [];
       let someCondition = count2;
       for (let i = 0; i < someCondition; i++) {
@@ -165,12 +249,11 @@ const Customer = () => {
         const buttonStyle = isCurrentPage
           ? styles.buttonArrow2
           : styles.buttonArrow;
-
         buttons.push(
           <button
             key={i}
             className={buttonStyle}
-            onClick={() => setPage(buttonNumber)}
+            onClick={() => chagngepage(buttonNumber, 0)}
           >
             {buttonNumber}
           </button>
@@ -183,35 +266,55 @@ const Customer = () => {
   function Delete_data(e) {
     let x = e - 1; //เลือกตำแหน่งข้อมูลที่เราเลือก
     groupData.splice(x, 1); //ลบข้อมูลที่เราเลือก
-    if (count === null || count === undefined || count === 1) {
-      setPage(1);
-    } else {
+    setDelete(true);
+    if (count) {
       if (page === 2) {
-        setGroupData(null);
+        setPage(page - 1);
+      } else if (count === 1) {
+        setPage(1);
       } else {
         setPage(page - 1);
       }
+    } else {
+      setPage(1);
     }
   }
 
   function switch_page(x) {
-    console.log("page:", page);
+    // console.log("ssss:", page, count);
     if (x === "next") {
-      if (count === 1) {
-        setPage(count);
-      } else {
-        if (page <= count) {
-          setPage((prevPage) => prevPage + 1);
+      if (count) {
+        let z = page + 1;
+        // console.log("4444:", "page:", page, "count:", count);
+        if (page === count) {
+          if (count === 1 || page === 1) {
+            // console.log("5555:", "page:", page, "count:", count);
+            if (deleteData === true) {
+              setPage(1);
+            } else {
+              chagngepage(z, 0);
+            }
+          } else {
+            // console.log("666", "page:", page, "count:", count);
+            setPage(page);
+            // chagngepage(z, 0);
+          }
+        } else {
+          // console.log("777", "page:", page, "count:", count);
+          chagngepage(z, 0);
         }
+      } else {
+        // console.log("8888", "page:", page, "count:", count);
+        setPage(1);
       }
     } else if (x === "back") {
+      // console.log("back:", "page:", page, "count:", count);
       if (page === 1) {
         setPage(1);
       } else {
-        setPage((prevPage) => prevPage - 1);
+        let y = page - 1;
+        chagngepage(y, 0);
       }
-    } else {
-      setPage(x);
     }
   }
 
@@ -245,8 +348,17 @@ const Customer = () => {
   }));
 
   function promotion(x) {
-    setPromo(x);
-    window.scrollTo(0, 1500);
+    let y = from?.translation_Type;
+    if (y) {
+      if (groupData === null) {
+        setPromo(x);
+        window.scrollTo(0, 1500);
+      } else {
+        setGroupData([...groupData, from]);
+        setPromo(x);
+        window.scrollTo(0, 1500);
+      }
+    }
   }
 
   const goSignup = () => {
@@ -288,8 +400,9 @@ const Customer = () => {
   }
 
   function OpneMode(x) {
-    console.log("x:", x);
+    // console.log("x:", x);
     if (x === 1) {
+      setFrom({ ...from, Price: generatePrice() });
       window.scroll(0, 0);
       setOpen(true);
       setTimeout(function () {
@@ -361,6 +474,229 @@ const Customer = () => {
     return letters + language + orderCount;
   }
 
+  const Cards = () => {
+    // Define the initial state of the form and create a reference to the form.
+    const [state, setState] = React.useState({
+      number: "",
+      name: "",
+      expiry: "",
+      cvc: "",
+      issuer: "",
+      focused: "",
+      formData: null,
+    });
+    const formRef = React.useRef();
+
+    // Function to remove all non-numeric characters from a string.
+    function clearNumber(value = "") {
+      return value.replace(/\D+/g, "");
+    }
+
+    // Function to format a credit card number based on the card issuer.
+    function formatCreditCardNumber(value) {
+      if (!value) {
+        return value;
+      }
+
+      // Determine the type of the card based on the number.
+      const issuer = Payment.fns.cardType(value);
+      const clearValue = clearNumber(value);
+      let nextValue;
+
+      switch (issuer) {
+        case "amex":
+          nextValue = `${clearValue.slice(0, 4)} ${clearValue.slice(
+            4,
+            10
+          )} ${clearValue.slice(10, 15)}`;
+          break;
+        case "dinersclub":
+          nextValue = `${clearValue.slice(0, 4)} ${clearValue.slice(
+            4,
+            10
+          )} ${clearValue.slice(10, 14)}`;
+          break;
+        default:
+          nextValue = `${clearValue.slice(0, 4)} ${clearValue.slice(
+            4,
+            8
+          )} ${clearValue.slice(8, 12)} ${clearValue.slice(12, 19)}`;
+          break;
+      }
+
+      return nextValue.trim();
+    }
+
+    // Function to limit the length of the CVC based on the card issuer.
+    function formatCVC(value, prevValue, allValues = {}) {
+      const clearValue = clearNumber(value);
+      let maxLength = 4;
+      if (allValues.number) {
+        const issuer = Payment.fns.cardType(allValues.number);
+        maxLength = issuer === "amex" ? 4 : 3;
+      }
+      return clearValue.slice(0, maxLength);
+    }
+
+    // Function to format the expiration date.
+    function formatExpirationDate(value) {
+      const clearValue = clearNumber(value);
+      if (clearValue.length >= 3) {
+        return `${clearValue.slice(0, 2)}/${clearValue.slice(2, 4)}`;
+      }
+      return clearValue;
+    }
+
+    // Function to prepare the form data for display.
+    function formatFormData(data) {
+      return Object.keys(data).map((d) => `${d}: ${data[d]}`);
+    }
+
+    // Callback function to handle the credit card validation result.
+    const handleCallback = ({ issuer }, isValid) => {
+      if (isValid) {
+        setState((prevState) => ({ ...prevState, issuer }));
+      }
+    };
+
+    // Function to handle input focus.
+    const handleInputFocus = ({ target }) => {
+      setState((prevState) => ({ ...prevState, focused: target.name }));
+    };
+
+    // Function to handle changes to the input values.
+    const handleInputChange = ({ target }) => {
+      let value = target.value;
+      if (target.name === "number") {
+        value = formatCreditCardNumber(value);
+      } else if (target.name === "expiry") {
+        value = formatExpirationDate(value);
+      } else if (target.name === "cvc") {
+        value = formatCVC(value);
+      }
+
+      // Update the state with the new value.
+      setState((prevState) => ({ ...prevState, [target.name]: value }));
+    };
+
+    // Function to handle form submission.
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      const { issuer } = state;
+      const formData = [...e.target.elements]
+        .filter((d) => d.name)
+        .reduce((acc, d) => {
+          acc[d.name] = d.value;
+          OpneMode(4);
+          return acc;
+        }, {});
+
+      // Reset the form and update the state with the form data.
+      setState((prevState) => ({ ...prevState, formData }));
+      formRef.current.reset();
+    };
+
+    // Render the form and credit card preview.
+    return (
+      <div key="Payment">
+        <div className={styles.App_payment}>
+          <Card
+            number={state?.number}
+            name={state?.name}
+            expiry={state?.expiry}
+            cvc={state?.cvc}
+            focused={state?.focused}
+            callback={handleCallback}
+          />
+
+          <form ref={formRef} onSubmit={handleSubmit}>
+            <div className={styles.form_group}>
+              <input
+                type="tel"
+                name="number"
+                className="form-control"
+                placeholder="Card Number"
+                pattern="[\d\s]{16,22}"
+                required
+                maxLength={19}
+                onChange={handleInputChange}
+                onFocus={handleInputFocus}
+              />
+            </div>
+            <div className={styles.form_group}>
+              <input
+                type="text"
+                name="name"
+                className="form-control"
+                placeholder="Name"
+                required
+                onChange={handleInputChange}
+                onFocus={handleInputFocus}
+                value={state?.name}
+              />
+            </div>
+            <div className={styles.form_group2}>
+              <div className={styles.cvc}>
+                <input
+                  type="tel"
+                  name="expiry"
+                  className="form-control"
+                  placeholder="Valid Thru"
+                  pattern="\d\d/\d\d"
+                  required
+                  onChange={handleInputChange}
+                  onFocus={handleInputFocus}
+                  value={state?.expiry}
+                />
+              </div>
+              <div>
+                <input
+                  type="tel"
+                  name="cvc"
+                  className="form-control"
+                  placeholder="CVC"
+                  pattern="\d{3,4}"
+                  required
+                  onChange={handleInputChange}
+                  onFocus={handleInputFocus}
+                  value={state?.cvc}
+                />
+              </div>
+            </div>
+            <input type="hidden" name="issuer" value={state?.issuer} />
+            {/* <input type="submit" value="Submit" /> */}
+
+            <div id="keep-mounted-modal-description">
+              <div style={{ position: "relative", top: "15px" }}>
+                <button
+                  className={styles.buttonModel1}
+                  // onClick={() => OpneMode(4)}
+                  type="submit"
+                  value="Submit"
+                >
+                  Pay
+                </button>
+                <button
+                  className={styles.buttonModel1_2}
+                  onClick={() => OpneMode("back to Payment")}
+                >
+                  Back to Payment
+                </button>
+              </div>
+            </div>
+          </form>
+          {state?.formData && (
+            <div className="App-highlight">
+              {formatFormData(state?.formData).map((d, i) => (
+                <div key={i}>{d}</div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  };
+
   return (
     <>
       <header className={styles.App_header}>
@@ -403,7 +739,7 @@ const Customer = () => {
             left: "25vw",
           }}
         >
-          <Typography
+          <div
             id="keep-mounted-modal-description"
             sx={{
               mt: 2,
@@ -415,16 +751,16 @@ const Customer = () => {
             <p className={styles.H_text01}>
               Receipt confirming the order of translation
             </p>
-          </Typography>
+          </div>
 
-          <Typography
+          <div
             id="keep-mounted-modal-description"
             sx={{
               mt: 2,
             }}
-          ></Typography>
+          ></div>
           {groupData ? (
-            <Typography
+            <div
               id="keep-mounted-modal-description"
               sx={{
                 mt: 2,
@@ -478,9 +814,9 @@ const Customer = () => {
               >
                 Cancel
               </button>
-            </Typography>
+            </div>
           ) : (
-            <Typography
+            <div
               id="keep-mounted-modal-description"
               sx={{
                 mt: 2,
@@ -490,29 +826,36 @@ const Customer = () => {
             >
               <div className={styles.Box_detailH_Model}>
                 <p className={styles.H_Model}>Document Type</p>
-                <p className={styles.H_Model2}>{groupData?.document_Type}</p>
+                <p className={styles.H_Model2}>{from?.document_Type}</p>
               </div>
               <div className={styles.Box_detailH_Model}>
                 <p className={styles.H_Model}>Translation Type</p>
-                <p className={styles.H_Model2}>{groupData?.translation_Type}</p>
+                <p className={styles.H_Model2}>{from?.translation_Type}</p>
               </div>
 
               <div className={styles.Box_detailH_Model}>
                 <p className={styles.H_Model}>Translate to</p>
-                <p className={styles.H_Model2}>{groupData?.translation_Type}</p>
+                <p className={styles.H_Model2}>{from?.tranto}</p>
               </div>
 
               <div className={styles.Box_detailH_Model}>
                 <p className={styles.H_Model}>Additional explanation</p>
-                <p className={styles.H_Model2}>{groupData?.translation_Type}</p>
+                <p className={styles.H_Model2}>
+                  {from?.Additional_explanation}
+                </p>
               </div>
 
               <div className={styles.Box_detailH_Model}>
                 <p className={styles.H_Model}>Price</p>
-                <p className={styles.H_Model3}>{groupData?.translation_Type}</p>
+                <p className={styles.H_Model3}>{from?.Price}</p>
               </div>
 
-              <button className={styles.buttonModel1}>Pay</button>
+              <button
+                className={styles.buttonModel1}
+                onClick={() => OpneMode(2)}
+              >
+                Pay
+              </button>
               <button
                 className={styles.buttonModel1_2}
                 onClick={() =>
@@ -524,7 +867,7 @@ const Customer = () => {
               >
                 Cancel
               </button>
-            </Typography>
+            </div>
           )}
         </Box>
       </Modal>
@@ -557,7 +900,7 @@ const Customer = () => {
             left: "25vw",
           }}
         >
-          <Typography
+          <div
             id="keep-mounted-modal-description"
             sx={{
               mt: 2,
@@ -567,8 +910,8 @@ const Customer = () => {
           >
             <img src={Logo} alt="logo" className={styles.Logo} />
             <p className={styles.H_text01}>Payment</p>
-          </Typography>
-          <Typography id="keep-mounted-modal-description">
+          </div>
+          <div id="keep-mounted-modal-description">
             <div>
               <div className={styles.boxpayment}>
                 {choose === false ? (
@@ -598,7 +941,7 @@ const Customer = () => {
                   <p>Prompt pay</p>
                 </button>
                 <button className={styles.cardpayment2}>
-                  <img src={Gpay} alt="Gpay" />
+                  <img src={Gpay2} alt="Gpay" />
                   <p>Google Pay</p>
                 </button>
               </div>
@@ -653,7 +996,7 @@ const Customer = () => {
                 Back to Receipt
               </button>
             </div>
-          </Typography>
+          </div>
         </Box>
       </Modal>
 
@@ -674,14 +1017,14 @@ const Customer = () => {
           sx={{
             position: "absolute",
             width: "50vw",
-            height: "80vh",
+            height: "88vh",
             bgcolor: "background.paper",
             boxShadow: 24,
             p: 4,
             borderRadius: 5,
             border: "1px solid #E5E5E5",
             textAlign: "center",
-            top: "10vh",
+            top: "7vh",
             left: "25vw",
           }}
         >
@@ -696,7 +1039,7 @@ const Customer = () => {
             <img src={Logo} alt="logo" className={styles.Logo} />
           </Typography>
           <Cards />
-          <Typography id="keep-mounted-modal-description">
+          {/* <div id="keep-mounted-modal-description">
             <div style={{ position: "relative", top: "15px" }}>
               <button
                 className={styles.buttonModel1}
@@ -711,7 +1054,7 @@ const Customer = () => {
                 Back to Payment
               </button>
             </div>
-          </Typography>
+          </div> */}
         </Box>
       </Modal>
 
@@ -743,7 +1086,7 @@ const Customer = () => {
             left: "25vw",
           }}
         >
-          <Typography
+          <div
             id="keep-mounted-modal-description"
             sx={{
               mt: 2,
@@ -756,8 +1099,8 @@ const Customer = () => {
             <p className={styles.H_text02}>
               Please enter your email to track and receive your order.
             </p>
-          </Typography>
-          <Typography>
+          </div>
+          <div>
             <div>
               <p
                 style={{
@@ -788,8 +1131,8 @@ const Customer = () => {
                 }}
               />
             </div>
-          </Typography>
-          <Typography id="keep-mounted-modal-description">
+          </div>
+          <div id="keep-mounted-modal-description">
             <div style={{ position: "relative", top: "15px" }}>
               <button
                 className={styles.buttonModel1}
@@ -798,7 +1141,7 @@ const Customer = () => {
                 Sent
               </button>
             </div>
-          </Typography>
+          </div>
         </Box>
       </Modal>
 
@@ -829,7 +1172,7 @@ const Customer = () => {
             left: "30vw",
           }}
         >
-          <Typography
+          <div
             id="keep-mounted-modal-description"
             sx={{
               mt: 2,
@@ -842,8 +1185,8 @@ const Customer = () => {
             <p className={styles.H_text02}>
               Your payment has been successfully processed.
             </p>
-          </Typography>
-          <Typography>
+          </div>
+          <div>
             <div style={{ margin: 25 }}>
               <p
                 style={{
@@ -904,8 +1247,8 @@ const Customer = () => {
                 </p>
               )}
             </div>
-          </Typography>
-          <Typography id="keep-mounted-modal-description">
+          </div>
+          <div id="keep-mounted-modal-description">
             <div style={{ position: "relative", top: "15px" }}>
               <button
                 className={styles.buttonModel1}
@@ -914,7 +1257,7 @@ const Customer = () => {
                 Back to home
               </button>
             </div>
-          </Typography>
+          </div>
         </Box>
       </Modal>
 
@@ -1132,12 +1475,9 @@ const Customer = () => {
                       height: "30px",
                     }}
                     options={data2}
-                    isOptionEqualToValue={(option, value) =>
-                      option.code === value
-                    }
-                    defaultValue={(option) => option?.label}
+                    defaultValue={null}
                     autoHighlight
-                    getOptionLabel={(option) => option?.label}
+                    value={from?.document_Type}
                     onChange={(event, value) =>
                       setFrom({ ...from, document_Type: value?.label })
                     }
@@ -1165,6 +1505,11 @@ const Customer = () => {
                         }}
                       />
                     )}
+                    isOptionEqualToValue={(option, value) =>
+                      value === undefined ||
+                      value === "" ||
+                      option.id === value.id
+                    }
                   />
                 </div>
 
@@ -1189,12 +1534,10 @@ const Customer = () => {
                         marginBottom: "30px",
                         height: "30px",
                       }}
+                      defaultValue={null}
                       options={data5}
-                      isOptionEqualToValue={(option, value) =>
-                        option.code === value
-                      }
                       autoHighlight
-                      getOptionLabel={(option) => option?.label}
+                      value={from?.translation_Type}
                       onChange={(event, value) =>
                         setFrom({ ...from, translation_Type: value?.label })
                       }
@@ -1222,6 +1565,11 @@ const Customer = () => {
                           }}
                         />
                       )}
+                      isOptionEqualToValue={(option, value) =>
+                        value === undefined ||
+                        value === "" ||
+                        option.id === value.id
+                      }
                     />
                   ) : from?.document_Type === "Official Document" ? (
                     <Autocomplete
@@ -1232,12 +1580,10 @@ const Customer = () => {
                         marginBottom: "30px",
                         height: "30px",
                       }}
+                      defaultValue={null}
                       options={data4}
-                      isOptionEqualToValue={(option, value) =>
-                        option.code === value
-                      }
                       autoHighlight
-                      getOptionLabel={(option) => option?.label}
+                      value={from?.translation_Type}
                       onChange={(event, value) =>
                         setFrom({ ...from, translation_Type: value?.label })
                       }
@@ -1265,6 +1611,11 @@ const Customer = () => {
                           }}
                         />
                       )}
+                      isOptionEqualToValue={(option, value) =>
+                        value === undefined ||
+                        value === "" ||
+                        option.id === value.id
+                      }
                     />
                   ) : from?.document_Type === "General Document" ? (
                     <Autocomplete
@@ -1276,11 +1627,9 @@ const Customer = () => {
                         height: "30px",
                       }}
                       options={data3}
-                      isOptionEqualToValue={(option, value) =>
-                        option.code === value
-                      }
                       autoHighlight
-                      getOptionLabel={(option) => option?.label}
+                      defaultValue={null}
+                      value={from?.translation_Type}
                       onChange={(event, value) =>
                         setFrom({ ...from, translation_Type: value?.label })
                       }
@@ -1308,6 +1657,11 @@ const Customer = () => {
                           }}
                         />
                       )}
+                      isOptionEqualToValue={(option, value) =>
+                        value === undefined ||
+                        value === "" ||
+                        option.id === value.id
+                      }
                     />
                   ) : (
                     <Autocomplete
@@ -1319,11 +1673,9 @@ const Customer = () => {
                         height: "30px",
                       }}
                       options={data5}
-                      isOptionEqualToValue={(option, value) =>
-                        option.code === value
-                      }
                       autoHighlight
-                      getOptionLabel={(option) => option?.label}
+                      defaultValue={null}
+                      value={from?.translation_Type}
                       onChange={(event, value) => console.log(value?.label)}
                       popupIcon={
                         <MdArrowDropDown
@@ -1349,6 +1701,11 @@ const Customer = () => {
                           }}
                         />
                       )}
+                      isOptionEqualToValue={(option, value) =>
+                        value === undefined ||
+                        value === "" ||
+                        option.id === value.id
+                      }
                     />
                   )}
                 </div>
@@ -1379,11 +1736,9 @@ const Customer = () => {
                       height: "30px",
                     }}
                     options={data}
-                    isOptionEqualToValue={(option, value) =>
-                      option.code === value
-                    }
                     autoHighlight
-                    getOptionLabel={(option) => option?.label}
+                    defaultValue={null}
+                    value={from?.tranfrom}
                     onChange={(event, value) =>
                       setFrom({ ...from, tranfrom: value?.label })
                     }
@@ -1411,6 +1766,11 @@ const Customer = () => {
                         }}
                       />
                     )}
+                    isOptionEqualToValue={(option, value) =>
+                      value === undefined ||
+                      value === "" ||
+                      option.id === value.id
+                    }
                   />
                 </div>
 
@@ -1439,11 +1799,9 @@ const Customer = () => {
                       height: "30px",
                     }}
                     options={data}
-                    isOptionEqualToValue={(option, value) =>
-                      option.code === value
-                    }
                     autoHighlight
-                    getOptionLabel={(option) => option?.label}
+                    defaultValue={null}
+                    value={from?.tranto}
                     onChange={(event, value) =>
                       setFrom({ ...from, tranto: value?.label })
                     }
@@ -1471,6 +1829,11 @@ const Customer = () => {
                         }}
                       />
                     )}
+                    isOptionEqualToValue={(option, value) =>
+                      value === undefined ||
+                      value === "" ||
+                      option.id === value.id
+                    }
                   />
                 </div>
 
@@ -1536,7 +1899,12 @@ const Customer = () => {
                   </div>
                   <textarea
                     value={from?.Additional_explanation}
-                    onChange={handleChange}
+                    onChange={(event, value) =>
+                      setFrom({
+                        ...from,
+                        Additional_explanation: event.target.value,
+                      })
+                    }
                     maxLength={300}
                     style={{
                       position: "absolute",
@@ -1668,52 +2036,6 @@ const Customer = () => {
                             {CustomerEN[5].label}
                           </p>
                         </div>
-                        <Autocomplete
-                          id="country-select-demo"
-                          sx={{
-                            width: 300,
-                            margin: 0,
-                            marginBottom: "30px",
-                            height: "30px",
-                          }}
-                          options={data2}
-                          isOptionEqualToValue={(option, value) =>
-                            option.code === value
-                          }
-                          autoHighlight
-                          getOptionLabel={(option) => option?.label}
-                          onChange={(event, value) =>
-                            setFrom({ ...from, type: value?.label })
-                          }
-                          popupIcon={
-                            <MdArrowDropDown
-                              style={{
-                                color: "#333333",
-                                width: 30,
-                                height: 33,
-                              }}
-                            />
-                          }
-                          renderOption={(props, option) => (
-                            <Box
-                              component="li"
-                              sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
-                              {...props}
-                            >
-                              {option.label}
-                            </Box>
-                          )}
-                          renderInput={(params) => (
-                            <TextField
-                              {...params}
-                              label={CustomerEN[9].label}
-                              inputProps={{
-                                ...params.inputProps,
-                                autoComplete: "new-password",
-                              }}
-                            />
-                          )}
-                        />
                       </div>
 
                       <div>
@@ -1947,6 +2269,7 @@ const Customer = () => {
               ></div>
             )}
           </div>
+
           {/* Footer */}
           <div style={{ position: "relative", top: "200px" }}>
             <div>

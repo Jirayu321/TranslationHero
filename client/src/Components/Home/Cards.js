@@ -1,11 +1,13 @@
+// Import the necessary libraries and CSS.
 import React, { useState, useRef } from "react";
 import Card from "react-credit-cards-2";
 import Payment from "payment";
-
 import "react-credit-cards-2/dist/es/styles-compiled.css";
 import styles from "./Customer.module.css";
 
+// Define the Cards component.
 const Cards = () => {
+  // Define the initial state of the form and create a reference to the form.
   const [state, setState] = useState({
     number: "",
     name: "",
@@ -15,17 +17,20 @@ const Cards = () => {
     focused: "",
     formData: null,
   });
-
   const formRef = useRef();
 
+  // Function to remove all non-numeric characters from a string.
   function clearNumber(value = "") {
     return value.replace(/\D+/g, "");
   }
 
+  // Function to format a credit card number based on the card issuer.
   function formatCreditCardNumber(value) {
     if (!value) {
       return value;
     }
+
+    // Determine the type of the card based on the number.
     const issuer = Payment.fns.cardType(value);
     const clearValue = clearNumber(value);
     let nextValue;
@@ -54,6 +59,7 @@ const Cards = () => {
     return nextValue.trim();
   }
 
+  // Function to limit the length of the CVC based on the card issuer.
   function formatCVC(value, prevValue, allValues = {}) {
     const clearValue = clearNumber(value);
     let maxLength = 4;
@@ -64,6 +70,7 @@ const Cards = () => {
     return clearValue.slice(0, maxLength);
   }
 
+  // Function to format the expiration date.
   function formatExpirationDate(value) {
     const clearValue = clearNumber(value);
     if (clearValue.length >= 3) {
@@ -72,23 +79,26 @@ const Cards = () => {
     return clearValue;
   }
 
+  // Function to prepare the form data for display.
   function formatFormData(data) {
     return Object.keys(data).map((d) => `${d}: ${data[d]}`);
   }
 
+  // Callback function to handle the credit card validation result.
   const handleCallback = ({ issuer }, isValid) => {
     if (isValid) {
       setState((prevState) => ({ ...prevState, issuer }));
     }
   };
 
+  // Function to handle input focus.
   const handleInputFocus = ({ target }) => {
     setState((prevState) => ({ ...prevState, focused: target.name }));
   };
 
+  // Function to handle changes to the input values.
   const handleInputChange = ({ target }) => {
     let value = target.value;
-    // console.log("log:",target?.value);
     if (target.name === "number") {
       value = formatCreditCardNumber(value);
     } else if (target.name === "expiry") {
@@ -96,9 +106,12 @@ const Cards = () => {
     } else if (target.name === "cvc") {
       value = formatCVC(value);
     }
+
+    // Update the state with the new value.
     setState((prevState) => ({ ...prevState, [target.name]: value }));
   };
 
+  // Function to handle form submission.
   const handleSubmit = (e) => {
     e.preventDefault();
     const { issuer } = state;
@@ -109,12 +122,12 @@ const Cards = () => {
         return acc;
       }, {});
 
+    // Reset the form and update the state with the form data.
     setState((prevState) => ({ ...prevState, formData }));
     formRef.current.reset();
   };
 
-  //   const { name, number, expiry, cvc, focused, issuer, formData } = state;
-
+  // Render the form and credit card preview.
   return (
     <div key="Payment">
       <div className={styles.App_payment}>
@@ -134,11 +147,10 @@ const Cards = () => {
               name="number"
               className="form-control"
               placeholder="Card Number"
-              pattern="[\d| ]{16,22}"
+              pattern="[\d\s]{16,22}"
               required
               onChange={handleInputChange}
               onFocus={handleInputFocus}
-              //   value={state?.number}
             />
           </div>
           <div className={styles.form_group}>
@@ -182,6 +194,7 @@ const Cards = () => {
             </div>
           </div>
           <input type="hidden" name="issuer" value={state?.issuer} />
+          <input type="submit" value="Submit" />
         </form>
         {state?.formData && (
           <div className="App-highlight">
@@ -195,4 +208,5 @@ const Cards = () => {
   );
 };
 
+// Export the Cards component.
 export default Cards;
