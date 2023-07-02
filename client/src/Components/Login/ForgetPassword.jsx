@@ -64,8 +64,8 @@ const ForgetPassword = () => {
         <div
           style={{
             position: "relative",
-            top: 130,
-            left: 100,
+            left: 83,
+            // top: 130,
             // width: "50%",
             // height: "100vh",
           }}
@@ -111,6 +111,7 @@ const ForgetPassword = () => {
                       padding: 20,
                       paddingLeft: 12,
                       margin: 10,
+                      marginLeft: 0,
                     }}
                     onChange={(e) => setEmail(e.target.value)}
                   />
@@ -119,7 +120,9 @@ const ForgetPassword = () => {
                   </button>
                 </form>
               </div>
-              <div style={{ position: "relative", right: "25px", top: "35px" }}>
+              <div
+                style={{ position: "relative", right: "40px", top: "285px" }}
+              >
                 <div style={{ float: "right" }}>
                   <p className={styles.textPolicy}>Privacy policy</p>
                 </div>

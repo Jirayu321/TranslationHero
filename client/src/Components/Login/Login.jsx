@@ -261,7 +261,7 @@ const Login = () => {
                   </form>
                 )}
               </Formik>
-              <div style={{ position: "relative", right: "25px", top: "35px" }}>
+              <div style={{ position: "relative", right: "48px", top: "35px" }}>
                 <div style={{ float: "right" }}>
                   <p className={styles.textPolicy}>{LOGI01_Box1EN[8].label}</p>
                 </div>

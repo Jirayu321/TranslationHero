@@ -9,7 +9,6 @@ import IconButton from "@mui/material/IconButton";
 import styles from "./Login.module.css";
 
 const CreateNewPassword = () => {
-
   const navigate = useNavigate();
   const location = useLocation();
   let Doc = location?.state?.languages;
@@ -53,7 +52,7 @@ const CreateNewPassword = () => {
     });
   return (
     <>
-    <header className={styles?.header}>
+      <header className={styles?.header}>
         {Doc === undefined ? (
           <Navbars navigate={navigate} languages="English" />
         ) : Doc === "Thai" ? (
@@ -64,19 +63,20 @@ const CreateNewPassword = () => {
           <Navbars navigate={navigate} languages="English" />
         )}
       </header>
-      <div style={{ display: "flex" }}>
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
         <div
           style={{
             position: "relative",
             width: "50%",
-            height: "100vh",
+            left: 83,
+            // height: "100vh",
           }}
         >
           <div
             style={{
-              position: "fixed",
-              top: 130,
-              left: 100,
+              // position: "fixed",
+              // top: 130,
+              // left: 100,
               width: 500,
               background: " #FFFFFF",
               // boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
@@ -113,12 +113,14 @@ const CreateNewPassword = () => {
                     padding: 20,
                     paddingLeft: 12,
                     margin: 10,
+                    marginLeft: 0,
+
                   }}
                 />
                 <IconButton
                   onClick={handleClickShowPassword}
                   edge="end"
-                  style={{ position: "absolute", right: 60, top: 220 }}
+                  style={{ position: "absolute", right: 290, top: 220 }}
                 >
                   {values ? <FiEye /> : <FiEyeOff />}
                 </IconButton>
@@ -150,12 +152,14 @@ const CreateNewPassword = () => {
                     padding: 20,
                     paddingLeft: 12,
                     margin: 10,
+                    marginLeft: 0,
+
                   }}
                 />
                 <IconButton
                   onClick={handleClickShowConfirmPassword}
                   edge="end"
-                  style={{ position: "absolute", right: 60, top: 312 }}
+                  style={{ position: "absolute", right: 290, top: 312 }}
                 >
                   {values2 ? <FiEye /> : <FiEyeOff />}
                 </IconButton>
@@ -167,7 +171,7 @@ const CreateNewPassword = () => {
             </div>
           </div>
 
-          <div style={{ top: "95vh", position: "relative", right: "30%" }}>
+          <div style={{ top: "140px", position: "relative", right: "45%" }}>
             <div style={{ float: "right" }}>
               <p className={styles.textPolicy}>Privacy policy</p>
             </div>

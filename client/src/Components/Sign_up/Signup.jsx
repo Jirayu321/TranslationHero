@@ -191,18 +191,6 @@ const Signup = () => {
     setImages([...e.target.files]);
   }
 
-  function ChangeType(i) {
-    switch (i) {
-      case 1:
-        setType_User("Freelance Translators");
-        break;
-      case 2:
-        setType_User("Company");
-        break;
-      default:
-        setType_User("");
-    }
-  }
   //ตรงนี้ customer
   // const handleOpen = (e) => {
   //   e.preventDefault();
@@ -339,11 +327,12 @@ const Signup = () => {
   //   setOpenModal12(false);
   // };
 
-  console.log("screen", screen);
+  console.log("screen", screen, translators?.type);
+  // console.log("tpye:", translators?.type);
   function setScreenNumber(i) {
     switch (i) {
       case "type": {
-        setTranslators({ ...translators, tpye: type_User });
+        setTranslators({ ...translators, type: type_User });
         setScreen("1");
         break;
       }
@@ -394,7 +383,7 @@ const Signup = () => {
           display: "grid",
           gridTemplateColumns: "auto auto",
           justifyContent: "space-between",
-          marginBottom: "30px",
+          // marginBottom: "30px",
         }}
       >
         <div
@@ -533,7 +522,7 @@ const Signup = () => {
                     <IconButton
                       onClick={() => handleClickShowPassword(1)}
                       edge="end"
-                      style={{ position: "absolute", right: 40, top: 344 }}
+                      style={{ position: "absolute", right: 50, top: 344 }}
                     >
                       {values ? <FiEye /> : <FiEyeOff />}
                     </IconButton>
@@ -583,7 +572,7 @@ const Signup = () => {
                     <IconButton
                       onClick={() => handleClickShowPassword(2)}
                       edge="end"
-                      style={{ position: "absolute", right: 40, top: 435 }}
+                      style={{ position: "absolute", right: 50, top: 435 }}
                     >
                       {values2 ? <FiEye /> : <FiEyeOff />}
                     </IconButton>
@@ -634,6 +623,7 @@ const Signup = () => {
                   >
                     Create account
                   </button>
+
                   <div className={styles.box1}>
                     <p className={styles.textLogin}>Already a member?</p>
                     <button
@@ -651,13 +641,11 @@ const Signup = () => {
               <div>
                 <div
                   style={{
-                    position: "fixed",
-                    top: 60,
-                    left: 100,
                     width: 500,
                     background: " #FFFFFF",
                     borderRadius: 20,
                     padding: 30,
+                    height: "690px",
                   }}
                 >
                   <h2 className={styles.textH}>Choose your account type.</h2>
@@ -670,15 +658,15 @@ const Signup = () => {
                       {type_User === "Freelance Translators" ? (
                         <button
                           className={styles.button4}
-                          onClick={() => ChangeType(1)}
+                          onClick={() => setType_User("Freelance Translators")}
                         >
-                          <div className={styles.crown} />
+                          <div className={styles.crown2} />
                           <p>Freelance Translators</p>
                         </button>
                       ) : (
                         <button
                           className={styles.button3}
-                          onClick={() => ChangeType(1)}
+                          onClick={() => setType_User("Freelance Translators")}
                         >
                           <div className={styles.crown} />
                           <p>Freelance Translators</p>
@@ -687,15 +675,15 @@ const Signup = () => {
                       {type_User === "Company" ? (
                         <button
                           className={styles.button4}
-                          onClick={() => ChangeType(2)}
+                          onClick={() => setType_User("Company")}
                         >
-                          <div className={styles.briefcase} />
+                          <div className={styles.briefcase2} />
                           <p>Company</p>
                         </button>
                       ) : (
                         <button
                           className={styles.button3}
-                          onClick={() => ChangeType(2)}
+                          onClick={() => setType_User("Company")}
                         >
                           <div className={styles.briefcase} />
                           <p>Company</p>
@@ -727,9 +715,9 @@ const Signup = () => {
               <div>
                 <div
                   style={{
-                    position: "fixed",
-                    top: 60,
-                    left: 100,
+                    // position: "fixed",
+                    // top: 60,
+                    // left: 100,
                     width: 500,
                     background: " #FFFFFF",
                     borderRadius: 20,
@@ -866,9 +854,9 @@ const Signup = () => {
               <div>
                 <div
                   style={{
-                    position: "fixed",
-                    top: 60,
-                    left: 100,
+                    // position: "fixed",
+                    // top: 60,
+                    // left: 100,
                     width: 500,
                     background: " #FFFFFF",
                     borderRadius: 20,
@@ -1008,9 +996,9 @@ const Signup = () => {
               <div>
                 <div
                   style={{
-                    position: "fixed",
-                    top: 60,
-                    left: 100,
+                    // position: "fixed",
+                    // top: 60,
+                    // left: 100,
                     width: 500,
                     background: " #FFFFFF",
                     borderRadius: 20,
@@ -1150,9 +1138,9 @@ const Signup = () => {
               <div>
                 <div
                   style={{
-                    position: "fixed",
-                    top: 60,
-                    left: 100,
+                    // position: "fixed",
+                    // top: 60,
+                    // left: 100,
                     width: 500,
                     background: " #FFFFFF",
                     borderRadius: 20,
@@ -1269,7 +1257,7 @@ const Signup = () => {
 
                   <button
                     className={styles.button}
-                    onClick={() => setScreenNumber(3)}
+                    onClick={() => setScreenNumber(4)}
                   >
                     Next
                   </button>
@@ -1290,9 +1278,9 @@ const Signup = () => {
               <div>
                 <div
                   style={{
-                    position: "fixed",
-                    top: 60,
-                    left: 100,
+                    // position: "fixed",
+                    // top: 60,
+                    // left: 100,
                     width: 500,
                     background: " #FFFFFF",
                     borderRadius: 20,
@@ -1307,7 +1295,7 @@ const Signup = () => {
 
                   <button
                     className={styles.button}
-                    onClick={() => setScreenNumber(3)}
+                    onClick={() => setScreenNumber(5)}
                   >
                     Next
                   </button>
@@ -1328,9 +1316,9 @@ const Signup = () => {
               <div>
                 <div
                   style={{
-                    position: "fixed",
-                    top: 60,
-                    left: 100,
+                    // position: "fixed",
+                    // top: 60,
+                    // left: 100,
                     width: 500,
                     background: " #FFFFFF",
                     borderRadius: 20,
@@ -1366,9 +1354,9 @@ const Signup = () => {
               <div>
                 <div
                   style={{
-                    position: "fixed",
-                    top: 60,
-                    left: 100,
+                    // position: "fixed",
+                    // top: 60,
+                    // left: 100,
                     width: 500,
                     background: " #FFFFFF",
                     borderRadius: 20,

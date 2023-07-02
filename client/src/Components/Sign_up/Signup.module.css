@@ -7,7 +7,7 @@
   background-position: center;
   background-size: cover;
   width: 600px;
-  height: 700px;
+  height: 770px;
   position: relative;
   right: 20px;
   top: -55px;
@@ -113,6 +113,22 @@
   background-size: cover;
   margin: 10px;
 }
+.crown2 {
+  background: url("../../Images/crown2.png");
+  width: 25px;
+  height: 25px;
+  background-position: center;
+  background-size: cover;
+  margin: 10px;
+}
+.briefcase2 {
+  background: url("../../Images/briefcase2.png");
+  width: 25px;
+  height: 25px;
+  background-position: center;
+  background-size: cover;
+  margin: 10px;
+}
 .button3 p {
   font-weight: 500;
   font-size: 30px;
@@ -124,6 +140,7 @@
   font-size: 30px;
   font-family: "DBHeavent";
   margin-left: 10px;
+  color: #ffffff;
 }
 .textPolicy {
   color: #001e33;

@@ -7,7 +7,7 @@
   background-position: center;
   background-size: cover;
   width: 600px;
-  height: 630px;
+  height: 700px;
   position: relative;
   right: 20px;
   top: -55px;
@@ -19,7 +19,7 @@
   background-position: center;
   background-size: cover;
   width: 600px;
-  height: 630px;
+  height: 730px;
   position: relative;
   right: 20px;
   top: -55px;
@@ -31,7 +31,7 @@
   background-position: center;
   background-size: cover;
   width: 600px;
-  height: 630px;
+  height: 730px;
   position: relative;
   right: 20px;
   top: -55px;
@@ -117,5 +117,5 @@
 .box {
   display: flex;
   position: relative;
-  left: 25%;
+  left: 20%;
 }
