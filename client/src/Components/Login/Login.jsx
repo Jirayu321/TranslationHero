@@ -10,7 +10,8 @@ import { Formik } from "formik";
 import IconButton from "@mui/material/IconButton";
 // import { BsArrowRightShort, BsArrowLeftShort } from "react-icons/bs";
 
-import { useDispatch, useSelector } from "react-redux";
+// import { useDispatch, useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 // import { loginUser } from "../../slices/auth";
 
 import { Link, useNavigate, useLocation } from "react-router-dom";
@@ -25,10 +26,10 @@ import styles from "./Login.module.css";
 const Login = () => {
   // const { innerWidth: width } = window;
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const location = useLocation();
 
-  const auth = useSelector((state) => state.auth);
+  // const auth = useSelector((state) => state.auth);
 
   const [type, setType] = React.useState("password");
   const [value, setValue] = React.useState(false);
@@ -38,13 +39,13 @@ const Login = () => {
 
   let Doc = location?.state?.languages;
 
-  const goSignup = (x) => {
-    navigate("/Signup", { state: { languages: `${x}` } });
-  };
+  // const goSignup = (x) => {
+  //   navigate("/Signup", { state: { languages: `${x}` } });
+  // };
 
-  const goHome = (x) => {
-    navigate("/", { state: { languages: `${x}` } });
-  };
+  // const goHome = (x) => {
+  //   navigate("/", { state: { languages: `${x}` } });
+  // };
 
   const handleClickShowPassword = () => {
     if (type === "password") {
@@ -57,7 +58,7 @@ const Login = () => {
   };
 
   function login(x, y) {
-    const data = { email: x, password: y };
+    // const data = { email: x, password: y };
     // dispatch(loginUser(data));
     // const type = auth.type;
     // console.log(type);
