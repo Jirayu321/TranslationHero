@@ -95,7 +95,7 @@ const Signup = () => {
     type: "",
   });
 
-  const [screen, setScreen] = React.useState("5");
+  const [screen, setScreen] = React.useState("");
   const [type, setType] = React.useState("password");
   const [type2, setType2] = React.useState("password");
   const [valuestype, setValuestype] = React.useState(false);
