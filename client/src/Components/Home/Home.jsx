@@ -70,10 +70,6 @@ const Home = () => {
     navigate("/Home/Order/Customer", { state: { languages: `${x}` } });
   };
 
-  // const goTranslator = (x) => {
-  //   navigate("/Home/Services/Translator", { state: { languages: `${x}` } });
-  // };
-
   return (
     <>
       <header className={styles.App_header}>
@@ -545,7 +541,12 @@ const Home = () => {
                   help you because we have a document translation support system
                   for you.
                 </p>
-                <button className={styles.Content2button}>Get Start</button>
+                <button
+                  className={styles.Content2button}
+                  onClick={() => navigate("/Login")}
+                >
+                  Get Start
+                </button>
               </div>
               <div>
                 <img src={Home2} alt="Home2" className={styles.Home1} />

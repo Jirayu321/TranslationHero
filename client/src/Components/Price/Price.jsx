@@ -5,6 +5,14 @@ import Footer from "../Footer/Footer";
 import { useNavigate, useLocation } from "react-router-dom";
 
 import Mask from "../../Images/Mask.png";
+import { TextField, Autocomplete, Box } from "@mui/material";
+import { FaUserCircle } from "react-icons/fa";
+import { AiFillStar } from "react-icons/ai";
+
+import { data2, data2_1 } from "../Data/data";
+import { MdArrowDropDown } from "react-icons/md";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { makeStyles } from "@mui/styles";
 import styles from "./Price.module.css";
 
 const Price = () => {
@@ -13,9 +21,12 @@ const Price = () => {
 
   let Doc = location?.state?.languages;
   let Aoc = location?.state?.accept;
+  const [from, setFrom] = React.useState({
+    document_Type: "",
+    Rating: "",
+  });
 
-  const [type, setType] = React.useState(1);
-  const [typeDoc, setTypeDoc] = React.useState(1);
+  const [type, setType] = React.useState(2);
 
   const handle = (x) => {
     console.log("x:", x);
@@ -26,43 +37,37 @@ const Price = () => {
       case 2:
         setType(2);
         break;
-      case 3:
-        setType(3);
-        break;
-      case 4:
-        setType(4);
-        break;
-      case 5:
-        setType(5);
-        break;
-      case 6:
-        setType(6);
-        break;
       default:
         setType(1);
     }
   };
 
-  const handletypeDoc = (x) => {
-    console.log("x:", x);
-    switch (x) {
-      case 1:
-        setTypeDoc(1);
-        break;
-      case 2:
-        setTypeDoc(2);
-        break;
-      case 3:
-        setTypeDoc(3);
-        break;
-      case 4:
-        setTypeDoc(4);
-        break;
-      default:
-        setTypeDoc(1);
-    }
-  };
+  const useStyles = makeStyles(() => ({
+    root: {
+      display: "flex",
+      padding: "4px 16px",
+      alignItems: "center",
+      gap: "16px",
+      flex: "1 0 0",
+      borderRadius: "60px",
+      border: "1px solid #E5E5E5",
+      background: "#FFFF",
+      width: "400px",
+    },
+  }));
 
+  const theme = createTheme({
+    components: {
+      MuiOutlinedInput: {
+        styleOverrides: {
+          notchedOutline: {
+            border: "none",
+          },
+        },
+      },
+    },
+  });
+  const classes = useStyles();
   return (
     <>
       <header className={styles.App_header}>
@@ -258,70 +263,581 @@ const Price = () => {
         ) : (
           <div className={styles.fram3_5}>
             <div className={styles.detailefram3_5}>
+              <div className={styles.boxAutocomplete1}>
+                <div>
+                  <div style={{ marginBottom: 10 }}>
+                    <p className={styles.Htext0}>นักแปลที่มีอยู่ในระบบ</p>
+                  </div>
+                  <div className={styles.boxAutocomplete2}>
+                    <div>
+                      <p className={styles.Htext1}>Type Document</p>
+                      <ThemeProvider theme={theme}>
+                        <Autocomplete
+                          id="country-select-demo"
+                          className={classes.root}
+                          options={data2}
+                          defaultValue={null}
+                          autoHighlight
+                          value={from?.document_Type}
+                          onChange={(event, value) =>
+                            setFrom({ ...from, document_Type: value?.label })
+                          }
+                          popupIcon={
+                            <MdArrowDropDown
+                              style={{
+                                color: "#828282",
+                                width: 30,
+                                height: 33,
+                              }}
+                            />
+                          }
+                          renderOption={(props, option) => (
+                            <Box
+                              component="li"
+                              sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
+                              {...props}
+                            >
+                              {option.label}
+                            </Box>
+                          )}
+                          renderInput={(params) => (
+                            <TextField {...params} placeholder="Select Type" />
+                          )}
+                          isOptionEqualToValue={(option, value) =>
+                            value === undefined ||
+                            value === "" ||
+                            option.id === value.id
+                          }
+                        />
+                      </ThemeProvider>
+                    </div>
+                    <div>
+                      <p className={styles.Htext1}>Rating</p>
+                      <ThemeProvider theme={theme}>
+                        <Autocomplete
+                          id="country-select-demo"
+                          className={classes.root}
+                          options={data2_1}
+                          defaultValue={null}
+                          autoHighlight
+                          value={from?.Rating}
+                          onChange={(event, value) =>
+                            setFrom({ ...from, Rating: value?.label })
+                          }
+                          popupIcon={
+                            <MdArrowDropDown
+                              style={{
+                                color: "#828282",
+                                width: 30,
+                                height: 33,
+                              }}
+                            />
+                          }
+                          renderOption={(props, option) => (
+                            <Box
+                              component="li"
+                              sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
+                              {...props}
+                            >
+                              {option.label}
+                            </Box>
+                          )}
+                          renderInput={(params) => (
+                            <TextField
+                              {...params}
+                              placeholder="Select Rating"
+                            />
+                          )}
+                          isOptionEqualToValue={(option, value) =>
+                            value === undefined ||
+                            value === "" ||
+                            option.id === value.id
+                          }
+                        />
+                      </ThemeProvider>
+                    </div>
+                  </div>
+                </div>
+              </div>
               <div className={styles.con_detailefram3_5}>
                 <div className={styles.Boxfram3_5}>
-                  <div className={styles.ImgBox3_5_1} />
-                  <p>รับรองเอกสารเพื่อใช้ในต่างประเทศ</p>
+                  <div className={styles.ImgBox3_5_1}>
+                    <FaUserCircle alt="avatar" className={styles.profile} />
+                    <div className={styles.topBoxfram3_5}>
+                      <p> Habi Yang</p>
+                      <div
+                        style={{
+                          display: " inline-flex",
+                          alignItems: "center",
+                        }}
+                      >
+                        <AiFillStar className={styles.star} />
+                        <p>0.0</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className={styles.detaileframIBox3_5_1}>
+                    <div className={styles.Top20} />
+                    <p>Top 10 Official Document</p>
+                    <div className={styles.budget} />
+                    <p>English,ไทย</p>
+                  </div>
                 </div>
 
                 <div className={styles.Boxfram3_5}>
-                  <div className={styles.ImgBox3_5_2} />
-                  <p>
-                    รับรองเอกสาร รับรองใบสมัคร เพื่อเรียนต่อต่างประเทศ
-                    (Affidavit of support /Sponsor Notarization)
-                  </p>
-                </div>
-                <div className={styles.Boxfram3_5}>
-                  <div className={styles.ImgBox3_5_3} />
-                  <p>รับรองสำเนาเอกสาร (Certified true copy)</p>
-                </div>
-
-                <div className={styles.Boxfram3_5}>
-                  <div className={styles.ImgBox3_5_4} />
-                  <p>รับรองสถานะการเงิน (Statement notarization)</p>
-                </div>
-                <div className={styles.Boxfram3_5}>
-                  <div className={styles.ImgBox3_5_5} />
-                  <p>รับรองคำแปลเอกสาร (Certified correct translation)</p>
-                </div>
-                <div className={styles.Boxfram3_5}>
-                  <div className={styles.ImgBox3_5_6} />
-                  <p>
-                    รับรองลายมือชื่อ บุคคล กรรมการนิติบุคคล บริษัทจำกัด
-                    บริษัทมหาช (Signature notarization and Legalization)
-                  </p>
+                  <div className={styles.ImgBox3_5_1}>
+                    <FaUserCircle alt="avatar" className={styles.profile} />
+                    <div className={styles.topBoxfram3_5}>
+                      <p> Habi Yang</p>
+                      <div
+                        style={{
+                          display: " inline-flex",
+                          alignItems: "center",
+                        }}
+                      >
+                        <AiFillStar className={styles.star} />
+                        <p>0.0</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className={styles.detaileframIBox3_5_1}>
+                    <div className={styles.Top20} />
+                    <p>Top 10 General Document</p>
+                    <div className={styles.budget} />
+                    <p><p>English,ไทย</p></p>
+                  </div>
                 </div>
 
                 <div className={styles.Boxfram3_5}>
-                  <div className={styles.ImgBox3_5_7} />
-                  <p>รับรองข้อเท็จจริง (Marine protest notary public)</p>
-                </div>
-                <div className={styles.Boxfram3_5}>
-                  <div className={styles.ImgBox3_5_8} />
-                  <p>รับรองความมีอยู่จริงของเอกสาร (Existence of Document)</p>
-                </div>
-                <div className={styles.Boxfram3_5}>
-                  <div className={styles.ImgBox3_5_9} />
-                  <p>
-                    รับรองการทำสัญญาระหว่างเอกชน (Contract agreement notary
-                    public)
-                  </p>
+                  <div className={styles.ImgBox3_5_1}>
+                    <FaUserCircle alt="avatar" className={styles.profile} />
+                    <div className={styles.topBoxfram3_5}>
+                      <p> Habi Yang</p>
+                      <div
+                        style={{
+                          display: " inline-flex",
+                          alignItems: "center",
+                        }}
+                      >
+                        <AiFillStar className={styles.star} />
+                        <p>0.0</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className={styles.detaileframIBox3_5_1}>
+                    <div className={styles.Top20} />
+                    <p>Top 10 Official Document</p>
+                    <div className={styles.budget} />
+                    <p><p>English,ไทย</p></p>
+                  </div>
                 </div>
 
                 <div className={styles.Boxfram3_5}>
-                  <div className={styles.ImgBox3_5_10} />
-                  <p>รับรองคำสาบาน (Applicant declaration)</p>
+                  <div className={styles.ImgBox3_5_1}>
+                    <FaUserCircle alt="avatar" className={styles.profile} />
+                    <div className={styles.topBoxfram3_5}>
+                      <p> Habi Yang</p>
+                      <div
+                        style={{
+                          display: " inline-flex",
+                          alignItems: "center",
+                        }}
+                      >
+                        <AiFillStar className={styles.star} />
+                        <p>0.0</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className={styles.detaileframIBox3_5_1}>
+                    <div className={styles.Top20} />
+                    <p>Top 10 General Document</p>
+                    <div className={styles.budget} />
+                    <p><p>English,ไทย</p></p>
+                  </div>
                 </div>
+
                 <div className={styles.Boxfram3_5}>
-                  <div className={styles.ImgBox3_5_11} />
-                  <p>รับรองคำให้การ (Declaration notary public)</p>
+                  <div className={styles.ImgBox3_5_1}>
+                    <FaUserCircle alt="avatar" className={styles.profile} />
+                    <div className={styles.topBoxfram3_5}>
+                      <p> Habi Yang</p>
+                      <div
+                        style={{
+                          display: " inline-flex",
+                          alignItems: "center",
+                        }}
+                      >
+                        <AiFillStar className={styles.star} />
+                        <p>0.0</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className={styles.detaileframIBox3_5_1}>
+                    <div className={styles.Top20} />
+                    <p>Top 10 Official Document</p>
+                    <div className={styles.budget} />
+                    <p><p>English,ไทย</p></p>
+                  </div>
                 </div>
+
                 <div className={styles.Boxfram3_5}>
-                  <div className={styles.ImgBox3_5_12} />
-                  <p>
-                    รับรองหนังสืออนุญาตจากผู้ปกครอง (Letter of authorization for
-                    travel)
-                  </p>
+                  <div className={styles.ImgBox3_5_1}>
+                    <FaUserCircle alt="avatar" className={styles.profile} />
+                    <div className={styles.topBoxfram3_5}>
+                      <p> Habi Yang</p>
+                      <div
+                        style={{
+                          display: " inline-flex",
+                          alignItems: "center",
+                        }}
+                      >
+                        <AiFillStar className={styles.star} />
+                        <p>0.0</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className={styles.detaileframIBox3_5_1}>
+                    <div className={styles.Top20} />
+                    <p>Top 10 General Document</p>
+                    <div className={styles.budget} />
+                    <p><p>English,ไทย</p></p>
+                  </div>
+                </div>
+
+                <div className={styles.Boxfram3_5}>
+                  <div className={styles.ImgBox3_5_1}>
+                    <FaUserCircle alt="avatar" className={styles.profile} />
+                    <div className={styles.topBoxfram3_5}>
+                      <p> Habi Yang</p>
+                      <div
+                        style={{
+                          display: " inline-flex",
+                          alignItems: "center",
+                        }}
+                      >
+                        <AiFillStar className={styles.star} />
+                        <p>0.0</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className={styles.detaileframIBox3_5_1}>
+                    <div className={styles.Top20} />
+                    <p>Top 10 Official Document</p>
+                    <div className={styles.budget} />
+                    <p><p>English,ไทย</p></p>
+                  </div>
+                </div>
+
+                <div className={styles.Boxfram3_5}>
+                  <div className={styles.ImgBox3_5_1}>
+                    <FaUserCircle alt="avatar" className={styles.profile} />
+                    <div className={styles.topBoxfram3_5}>
+                      <p> Habi Yang</p>
+                      <div
+                        style={{
+                          display: " inline-flex",
+                          alignItems: "center",
+                        }}
+                      >
+                        <AiFillStar className={styles.star} />
+                        <p>0.0</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className={styles.detaileframIBox3_5_1}>
+                    <div className={styles.Top20} />
+                    <p>Top 10 General Document</p>
+                    <div className={styles.budget} />
+                    <p><p>English,ไทย</p></p>
+                  </div>
+                </div>
+
+                <div className={styles.Boxfram3_5}>
+                  <div className={styles.ImgBox3_5_1}>
+                    <FaUserCircle alt="avatar" className={styles.profile} />
+                    <div className={styles.topBoxfram3_5}>
+                      <p> Habi Yang</p>
+                      <div
+                        style={{
+                          display: " inline-flex",
+                          alignItems: "center",
+                        }}
+                      >
+                        <AiFillStar className={styles.star} />
+                        <p>0.0</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className={styles.detaileframIBox3_5_1}>
+                    <div className={styles.Top20} />
+                    <p>Top 10 Official Document</p>
+                    <div className={styles.budget} />
+                    <p><p>English,ไทย</p></p>
+                  </div>
+                </div>
+
+                <div className={styles.Boxfram3_5}>
+                  <div className={styles.ImgBox3_5_1}>
+                    <FaUserCircle alt="avatar" className={styles.profile} />
+                    <div className={styles.topBoxfram3_5}>
+                      <p> Habi Yang</p>
+                      <div
+                        style={{
+                          display: " inline-flex",
+                          alignItems: "center",
+                        }}
+                      >
+                        <AiFillStar className={styles.star} />
+                        <p>0.0</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className={styles.detaileframIBox3_5_1}>
+                    <div className={styles.Top20} />
+                    <p>Top 10 General Document</p>
+                    <div className={styles.budget} />
+                    <p><p>English,ไทย</p></p>
+                  </div>
+                </div>
+
+                <div className={styles.Boxfram3_5}>
+                  <div className={styles.ImgBox3_5_1}>
+                    <FaUserCircle alt="avatar" className={styles.profile} />
+                    <div className={styles.topBoxfram3_5}>
+                      <p> Habi Yang</p>
+                      <div
+                        style={{
+                          display: " inline-flex",
+                          alignItems: "center",
+                        }}
+                      >
+                        <AiFillStar className={styles.star} />
+                        <p>0.0</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className={styles.detaileframIBox3_5_1}>
+                    <div className={styles.Top20} />
+                    <p>Top 10 Official Document</p>
+                    <div className={styles.budget} />
+                    <p><p>English,ไทย</p></p>
+                  </div>
+                </div>
+
+                <div className={styles.Boxfram3_5}>
+                  <div className={styles.ImgBox3_5_1}>
+                    <FaUserCircle alt="avatar" className={styles.profile} />
+                    <div className={styles.topBoxfram3_5}>
+                      <p> Habi Yang</p>
+                      <div
+                        style={{
+                          display: " inline-flex",
+                          alignItems: "center",
+                        }}
+                      >
+                        <AiFillStar className={styles.star} />
+                        <p>0.0</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className={styles.detaileframIBox3_5_1}>
+                    <div className={styles.Top20} />
+                    <p>Top 10 General Document</p>
+                    <div className={styles.budget} />
+                    <p><p>English,ไทย</p></p>
+                  </div>
+                </div>
+
+                <div className={styles.Boxfram3_5}>
+                  <div className={styles.ImgBox3_5_1}>
+                    <FaUserCircle alt="avatar" className={styles.profile} />
+                    <div className={styles.topBoxfram3_5}>
+                      <p> Habi Yang</p>
+                      <div
+                        style={{
+                          display: " inline-flex",
+                          alignItems: "center",
+                        }}
+                      >
+                        <AiFillStar className={styles.star} />
+                        <p>0.0</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className={styles.detaileframIBox3_5_1}>
+                    <div className={styles.Top20} />
+                    <p>Top 10 Official Document</p>
+                    <div className={styles.budget} />
+                    <p><p>English,ไทย</p></p>
+                  </div>
+                </div>
+
+                <div className={styles.Boxfram3_5}>
+                  <div className={styles.ImgBox3_5_1}>
+                    <FaUserCircle alt="avatar" className={styles.profile} />
+                    <div className={styles.topBoxfram3_5}>
+                      <p> Habi Yang</p>
+                      <div
+                        style={{
+                          display: " inline-flex",
+                          alignItems: "center",
+                        }}
+                      >
+                        <AiFillStar className={styles.star} />
+                        <p>0.0</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className={styles.detaileframIBox3_5_1}>
+                    <div className={styles.Top20} />
+                    <p>Top 10 General Document</p>
+                    <div className={styles.budget} />
+                    <p><p>English,ไทย</p></p>
+                  </div>
+                </div>
+
+                <div className={styles.Boxfram3_5}>
+                  <div className={styles.ImgBox3_5_1}>
+                    <FaUserCircle alt="avatar" className={styles.profile} />
+                    <div className={styles.topBoxfram3_5}>
+                      <p> Habi Yang</p>
+                      <div
+                        style={{
+                          display: " inline-flex",
+                          alignItems: "center",
+                        }}
+                      >
+                        <AiFillStar className={styles.star} />
+                        <p>0.0</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className={styles.detaileframIBox3_5_1}>
+                    <div className={styles.Top20} />
+                    <p>Top 10 Official Document</p>
+                    <div className={styles.budget} />
+                    <p><p>English,ไทย</p></p>
+                  </div>
+                </div>
+
+                <div className={styles.Boxfram3_5}>
+                  <div className={styles.ImgBox3_5_1}>
+                    <FaUserCircle alt="avatar" className={styles.profile} />
+                    <div className={styles.topBoxfram3_5}>
+                      <p> Habi Yang</p>
+                      <div
+                        style={{
+                          display: " inline-flex",
+                          alignItems: "center",
+                        }}
+                      >
+                        <AiFillStar className={styles.star} />
+                        <p>0.0</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className={styles.detaileframIBox3_5_1}>
+                    <div className={styles.Top20} />
+                    <p>Top 10 General Document</p>
+                    <div className={styles.budget} />
+                    <p><p>English,ไทย</p></p>
+                  </div>
+                </div>
+
+                <div className={styles.Boxfram3_5}>
+                  <div className={styles.ImgBox3_5_1}>
+                    <FaUserCircle alt="avatar" className={styles.profile} />
+                    <div className={styles.topBoxfram3_5}>
+                      <p> Habi Yang</p>
+                      <div
+                        style={{
+                          display: " inline-flex",
+                          alignItems: "center",
+                        }}
+                      >
+                        <AiFillStar className={styles.star} />
+                        <p>0.0</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className={styles.detaileframIBox3_5_1}>
+                    <div className={styles.Top20} />
+                    <p>Top 10 Official Document</p>
+                    <div className={styles.budget} />
+                    <p><p>English,ไทย</p></p>
+                  </div>
+                </div>
+
+                <div className={styles.Boxfram3_5}>
+                  <div className={styles.ImgBox3_5_1}>
+                    <FaUserCircle alt="avatar" className={styles.profile} />
+                    <div className={styles.topBoxfram3_5}>
+                      <p> Habi Yang</p>
+                      <div
+                        style={{
+                          display: " inline-flex",
+                          alignItems: "center",
+                        }}
+                      >
+                        <AiFillStar className={styles.star} />
+                        <p>0.0</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className={styles.detaileframIBox3_5_1}>
+                    <div className={styles.Top20} />
+                    <p>Top 10 General Document</p>
+                    <div className={styles.budget} />
+                    <p><p>English,ไทย</p></p>
+                  </div>
+                </div>
+
+                <div className={styles.Boxfram3_5}>
+                  <div className={styles.ImgBox3_5_1}>
+                    <FaUserCircle alt="avatar" className={styles.profile} />
+                    <div className={styles.topBoxfram3_5}>
+                      <p> Habi Yang</p>
+                      <div
+                        style={{
+                          display: " inline-flex",
+                          alignItems: "center",
+                        }}
+                      >
+                        <AiFillStar className={styles.star} />
+                        <p>0.0</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className={styles.detaileframIBox3_5_1}>
+                    <div className={styles.Top20} />
+                    <p>Top 10 Official Document</p>
+                    <div className={styles.budget} />
+                    <p><p>English,ไทย</p></p>
+                  </div>
+                </div>
+
+                <div className={styles.Boxfram3_5}>
+                  <div className={styles.ImgBox3_5_1}>
+                    <FaUserCircle alt="avatar" className={styles.profile} />
+                    <div className={styles.topBoxfram3_5}>
+                      <p> Habi Yang</p>
+                      <div
+                        style={{
+                          display: " inline-flex",
+                          alignItems: "center",
+                        }}
+                      >
+                        <AiFillStar className={styles.star} />
+                        <p>0.0</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className={styles.detaileframIBox3_5_1}>
+                    <div className={styles.Top20} />
+                    <p>Top 10 General Document</p>
+                    <div className={styles.budget} />
+                    <p><p>English,ไทย</p></p>
+                  </div>
                 </div>
               </div>
             </div>

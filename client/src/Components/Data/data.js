@@ -334,6 +334,15 @@ export const data2 = [
   { code: "", label: "General Document" },
 ];
 
+export const data2_1 = [
+  { code: "", label: "5" },
+  { code: "", label: "4" },
+  { code: "", label: "3" },
+  { code: "", label: "2" },
+  { code: "", label: "1" },
+  { code: "", label: "0" },
+];
+
 export const data3 = [
   { code: "", label: "Article" },
   { code: "", label: "Novel" },
@@ -842,7 +851,7 @@ export const germanNavbar = [
   { no: 6, label: "Registrieren" },
 ];
 
-export const thaiFooter  = [
+export const thaiFooter = [
   { no: 1, label: "ช่วยเหลือ" },
   { no: 2, label: "ติดตามเรา" },
   { no: 3, label: "ดาวน์โหลด" },
@@ -851,12 +860,20 @@ export const thaiFooter  = [
   { no: 6, label: "นโยบายความเป็นส่วนตัว" },
   { no: 7, label: "ติดต่อเรา" },
   { no: 8, label: "โทรศัพท์" },
-  { no: 9, label: "บริษัท โกลบอล อินเตอร์พริเตอร์ แอนด์ โวลันเทียร์ เอ็ดดูเคชั่น เน็ตเวิร์ค จำกัด 178/49 หมู่ที่ 11 ตำบล ห้วยใหญ่ อำเภอ บางละมุง จังหวัด ชลบุรี 20150" },
-  { no: 10, label: "ลิขสิทธิ์ บริษัท โกลบอล อินเตอร์พริเตอร์ แอนด์ โวลันเทียร์ เอ็ดดูเคชั่น เน็ตเวิร์ค จำกัด 2022" },
+  {
+    no: 9,
+    label:
+      "บริษัท โกลบอล อินเตอร์พริเตอร์ แอนด์ โวลันเทียร์ เอ็ดดูเคชั่น เน็ตเวิร์ค จำกัด 178/49 หมู่ที่ 11 ตำบล ห้วยใหญ่ อำเภอ บางละมุง จังหวัด ชลบุรี 20150",
+  },
+  {
+    no: 10,
+    label:
+      "ลิขสิทธิ์ บริษัท โกลบอล อินเตอร์พริเตอร์ แอนด์ โวลันเทียร์ เอ็ดดูเคชั่น เน็ตเวิร์ค จำกัด 2022",
+  },
   { no: 11, label: "นโยบายความเป็นส่วนตัว" },
 ];
 
-export const engFooter  = [
+export const engFooter = [
   { no: 1, label: "Helps" },
   { no: 2, label: "Follow us" },
   { no: 3, label: "Download" },
@@ -865,12 +882,16 @@ export const engFooter  = [
   { no: 6, label: "Privacy policy" },
   { no: 7, label: "Contact us" },
   { no: 8, label: "Tel. +66 xxxxxxx" },
-  { no: 9, label: "GLOBAL INTERPRETER AND VOLUNTEER EDUCATION NETWORK COMPANY LIMITED 178/49 Moo 11 Tambol Huay Yai, Amphur Banglamung, Chonburi 20150 " },
+  {
+    no: 9,
+    label:
+      "GLOBAL INTERPRETER AND VOLUNTEER EDUCATION NETWORK COMPANY LIMITED 178/49 Moo 11 Tambol Huay Yai, Amphur Banglamung, Chonburi 20150 ",
+  },
   { no: 10, label: "Copyrights GIVE Network Co., Ltd. 2022" },
   { no: 11, label: "Privacy policy" },
 ];
 
-export const germanFooter  = [
+export const germanFooter = [
   { no: 1, label: "Hilfe" },
   { no: 2, label: "Folgen Sie uns" },
   { no: 3, label: "Download" },
@@ -879,12 +900,16 @@ export const germanFooter  = [
   { no: 6, label: "Datenschutzrichtlinie" },
   { no: 7, label: "Kontaktieren Sie uns" },
   { no: 8, label: "Tel. +66 xxxxxxx" },
-  { no: 9, label: "GLOBAL INTERPRETER AND VOLUNTEER EDUCATION NETWORK COMPANY LIMITED 178/49 Moo 11 Tambol Huay Yai, Amphur Banglamung, Chonburi 20150 " },
+  {
+    no: 9,
+    label:
+      "GLOBAL INTERPRETER AND VOLUNTEER EDUCATION NETWORK COMPANY LIMITED 178/49 Moo 11 Tambol Huay Yai, Amphur Banglamung, Chonburi 20150 ",
+  },
   { no: 10, label: "Copyrights GIVE Network Co., Ltd. 2022" },
   { no: 11, label: "Datenschutzrichtlinie" },
 ];
 
-export const engOverview  = [
+export const engOverview = [
   { no: 1, label: "Translation Hero" },
   { no: 2, label: "New translation service solutions for you " },
   { no: 3, label: "Your Order" },
@@ -912,20 +937,32 @@ export const engOverview  = [
   { no: 24, label: "Free online platform / dashboard / report" },
   { no: 25, label: "Individual and Corporate are both welcome" },
   { no: 26, label: "Punctual payment" },
-  { no: 27, label: "Adaptable digital platform according to the need of customers/businesses" },
+  {
+    no: 27,
+    label:
+      "Adaptable digital platform according to the need of customers/businesses",
+  },
   { no: 28, label: "For customers" },
   { no: 29, label: "Order easily" },
-  { no: 30, label: "Various levels of translation solutions available according to the need of customers" },
+  {
+    no: 30,
+    label:
+      "Various levels of translation solutions available according to the need of customers",
+  },
   { no: 31, label: "Various types of translation services" },
   { no: 32, label: "Notification and tracking system" },
   { no: 33, label: "Guarantee date of delivery" },
   { no: 34, label: "Secured and standard payment system" },
   { no: 35, label: "Direct communication with translator" },
   { no: 36, label: "High security system of data protection" },
-  { no: 37, label: "GLOBAL INTERPRETER AND VOLUNTEER EDUCATION NETWORK COMPANY LIMITED cares about your privacy.This Privacy Policy outlines an important section on the types of personal information the company collects from its customers and how we use and protect that information This policy will also tell you what you need to do. Personal information you have provided or use through the website whether it is an Internet computer number (IP ADDRESS), cookies (COOKIE) or additional details (INQUIRY FORM) that are contact information for the company such as name, address, telephone number, e-mail address, etc.,You must accept. and agree that it is a right and the ownership of the company." },
-]
+  {
+    no: 37,
+    label:
+      "GLOBAL INTERPRETER AND VOLUNTEER EDUCATION NETWORK COMPANY LIMITED cares about your privacy.This Privacy Policy outlines an important section on the types of personal information the company collects from its customers and how we use and protect that information This policy will also tell you what you need to do. Personal information you have provided or use through the website whether it is an Internet computer number (IP ADDRESS), cookies (COOKIE) or additional details (INQUIRY FORM) that are contact information for the company such as name, address, telephone number, e-mail address, etc.,You must accept. and agree that it is a right and the ownership of the company.",
+  },
+];
 
-export const thaiOverview  = [
+export const thaiOverview = [
   { no: 1, label: "ทรานสเลชั่น ฮีโร่" },
   { no: 2, label: "ทางเลือกใหม่ของการบริการด้านการแปลสำหรับคุณ" },
   { no: 3, label: "ออเดอร์ของคุณ" },
@@ -953,7 +990,10 @@ export const thaiOverview  = [
   { no: 24, label: "มีแพลตฟอร์มออนไลน์ แดชบอร์ด และรายงานให้ฟรี" },
   { no: 25, label: "เรายินดีร่วมงานกับทั้งผู้แปลอิสระและธุรกิจแปลเอกสาร" },
   { no: 26, label: "มีระบบการจ่ายค่าตอบแทนตรงเวลา" },
-  { no: 27, label: "มีแพลตฟอร์มที่สามารถปรับเปลี่ยนได้ตามความต้องการของลูกค้าและธุรกิจ" },
+  {
+    no: 27,
+    label: "มีแพลตฟอร์มที่สามารถปรับเปลี่ยนได้ตามความต้องการของลูกค้าและธุรกิจ",
+  },
   { no: 28, label: "สำหรับลูกค้า" },
   { no: 29, label: "มีความสะดวกสบายให้การสั่งงาน" },
   { no: 30, label: "มีทางเลือกหลากหลายให้ลูกค้าเลือกแปลได้ตามความต้องการ" },
@@ -963,10 +1003,14 @@ export const thaiOverview  = [
   { no: 34, label: "มีระบบการรับชำระเงินที่ปลอดภัยและมีมาตรฐาน" },
   { no: 35, label: "มีระบบให้ติดต่อสื่อสารกับผู้แปลโดยตรงได้" },
   { no: 36, label: "มีระบบที่มีมาตรฐานความปลอดภัยของข้อมูลสูง" },
-  { no: 37, label: "บริษัท โกลบอล อินเตอร์พริเตอร์ แอนด์ โวลันเทียร์ เอ็ดดูเคชั่น เน็ตเวิร์ค จำกัด ใส่ใจในความเป็นส่วนตัวของคุณ นโยบายความเป็นส่วนตัวนี้สรุปส่วนที่สำคัญเกี่ยวกับประเภทของข้อมูลส่วนบุคคลที่บริษัทรวบรวมจากลูกค้า และวิธีที่เราใช้และปกป้องข้อมูลนั้น นโยบายนี้ยังจะบอกคุณถึงสิ่งที่คุณต้องการทำ ข้อมูลส่วนบุคคลที่คุณให้หรือใช้ผ่านเว็บไซต์ ไม่ว่าจะเป็นหมายเลขอินเทอร์เน็ตคอมพิวเตอร์ (ที่อยู่ IP) คุกกี้  หรือรายละเอียดเพิ่มเติม (แบบฟอร์มสอบถาม) ที่เป็นข้อมูลติดต่อของบริษัท เช่น ชื่อ ที่อยู่ หมายเลขโทรศัพท์ e -ที่อยู่อีเมล ฯลฯ คุณต้องยอมรับ และตกลงว่าเป็นสิทธิและบริษัทเป็นเจ้าของ " },
-]
+  {
+    no: 37,
+    label:
+      "บริษัท โกลบอล อินเตอร์พริเตอร์ แอนด์ โวลันเทียร์ เอ็ดดูเคชั่น เน็ตเวิร์ค จำกัด ใส่ใจในความเป็นส่วนตัวของคุณ นโยบายความเป็นส่วนตัวนี้สรุปส่วนที่สำคัญเกี่ยวกับประเภทของข้อมูลส่วนบุคคลที่บริษัทรวบรวมจากลูกค้า และวิธีที่เราใช้และปกป้องข้อมูลนั้น นโยบายนี้ยังจะบอกคุณถึงสิ่งที่คุณต้องการทำ ข้อมูลส่วนบุคคลที่คุณให้หรือใช้ผ่านเว็บไซต์ ไม่ว่าจะเป็นหมายเลขอินเทอร์เน็ตคอมพิวเตอร์ (ที่อยู่ IP) คุกกี้  หรือรายละเอียดเพิ่มเติม (แบบฟอร์มสอบถาม) ที่เป็นข้อมูลติดต่อของบริษัท เช่น ชื่อ ที่อยู่ หมายเลขโทรศัพท์ e -ที่อยู่อีเมล ฯลฯ คุณต้องยอมรับ และตกลงว่าเป็นสิทธิและบริษัทเป็นเจ้าของ ",
+  },
+];
 
-export const germanOverview  = [
+export const germanOverview = [
   { no: 1, label: "Translation Hero" },
   { no: 2, label: "Neuer Übersetzungsdienst für Sie" },
   { no: 3, label: "Ihr Auftrag" },
@@ -994,39 +1038,51 @@ export const germanOverview  = [
   { no: 24, label: "Frei zugängige Online Plattform / Dashboard / Report" },
   { no: 25, label: "Sowohl Freiberufler als auch Unternehmen sind willkommen" },
   { no: 26, label: "Pünkliche Auszahlung" },
-  { no: 27, label: "Anpassungsfähige digitale Platform abhängig der Kundenwünsche und der Geschäftsmodelle" },
+  {
+    no: 27,
+    label:
+      "Anpassungsfähige digitale Platform abhängig der Kundenwünsche und der Geschäftsmodelle",
+  },
   { no: 28, label: "Für Kunden" },
   { no: 29, label: "Einfache Austragsabwicklung" },
-  { no: 30, label: "Umfangreiche Stufen der verfügbaren Übersetzungsergebnisse in Anhängigkeit der Kundenwünsche" },
+  {
+    no: 30,
+    label:
+      "Umfangreiche Stufen der verfügbaren Übersetzungsergebnisse in Anhängigkeit der Kundenwünsche",
+  },
   { no: 31, label: "Umfangreiche Arten der Übersetzungsdienstleistung" },
   { no: 32, label: "Benachrichtigungs- und Nachverfolgungssystem" },
   { no: 33, label: "Garantiertes Lieferdatum" },
   { no: 34, label: "Gesichertes und standartisiertes Bezahlsystem" },
   { no: 35, label: "Direkte Kommunikation mit dem Übersetzer" },
   { no: 36, label: "Hohes Sicherheitssystem zum Schutz der Daten" },
-  { no: 37, label: "GLOBAL INTERPRETER AND VOLUNTEER EDUCATION NETWORK COMPANY LIMITED cares about your privacy.This Privacy Policy outlines an important section on the types of personal information the company collects from its customers and how we use and protect that information This policy will also tell you what you need to do. Personal information you have provided or use through the website whether it is an Internet computer number (IP ADDRESS), cookies (COOKIE) or additional details (INQUIRY FORM) that are contact information for the company such as name, address, telephone number, e-mail address, etc.,You must accept. and agree that it is a right and the ownership of the company." },
-]
+  {
+    no: 37,
+    label:
+      "GLOBAL INTERPRETER AND VOLUNTEER EDUCATION NETWORK COMPANY LIMITED cares about your privacy.This Privacy Policy outlines an important section on the types of personal information the company collects from its customers and how we use and protect that information This policy will also tell you what you need to do. Personal information you have provided or use through the website whether it is an Internet computer number (IP ADDRESS), cookies (COOKIE) or additional details (INQUIRY FORM) that are contact information for the company such as name, address, telephone number, e-mail address, etc.,You must accept. and agree that it is a right and the ownership of the company.",
+  },
+];
 
-export const engLogin  = [
+export const engLogin = [
   { no: 1, label: "Login" },
   { no: 2, label: "E-mail" },
   { no: 3, label: "Password" },
   { no: 4, label: "Forget password" },
-]
+];
 
-export const thaiLogin  = [
+export const thaiLogin = [
   { no: 1, label: "เข้าสู่ระบบ" },
   { no: 2, label: "อีเมล" },
   { no: 3, label: "รหัสผ่าน" },
   { no: 4, label: "ลืมรหัสผ่าน" },
-]
+];
 
-export const germanLogin  = [
+export const germanLogin = [
   { no: 1, label: "Anmelden" },
   { no: 2, label: "E-Mail" },
   { no: 3, label: "Passwort" },
   { no: 4, label: "Passwort vergessen" },
-]
+];
 
 export const engSignupCustomers = [
   { no: 1, label: "Sign up" },
@@ -1039,7 +1095,7 @@ export const engSignupCustomers = [
   { no: 8, label: "Confirm password" },
   { no: 9, label: "Mobile phone" },
   { no: 10, label: "Submit" },
-]
+];
 
 export const thaiSignupCustomers = [
   { no: 1, label: "สมัครสมาชิก" },
@@ -1052,7 +1108,7 @@ export const thaiSignupCustomers = [
   { no: 8, label: "ยืนยันรหัสผ่าน" },
   { no: 9, label: "โทรศัพท์มือถือ" },
   { no: 10, label: "ส่งข้อมูล" },
-]
+];
 
 export const germanSignupCustomers = [
   { no: 1, label: "Registrieren" },
@@ -1065,36 +1121,46 @@ export const germanSignupCustomers = [
   { no: 8, label: "Passwort bestätigen" },
   { no: 9, label: "Handynummer" },
   { no: 10, label: "Einrichten" },
-]
+];
 
-export const engEnterVerficationCode =[
+export const engEnterVerficationCode = [
   { no: 1, label: "The verification code has been sent to MOBILE NO. " },
   { no: 2, label: "Send the code again" },
   { no: 3, label: "Change phone number" },
   { no: 4, label: "VorVerify" },
-]
+];
 
-export const thaiEnterVerficationCode =[
+export const thaiEnterVerficationCode = [
   { no: 1, label: "รหัสตรวจสอบได้ส่งไปยังโทรศัพท์มือถือหมายเลข " },
   { no: 2, label: "ขอรหัสตรวจสอบใหม่อีกครั้ง" },
   { no: 3, label: "เปลี่ยนหมายเลขโทรศัพท์" },
   { no: 4, label: "ตรวจสอบ" },
-]
+];
 
-export const germanSEnterVerficationCode =[
-  { no: 1, label: "Der Verifizierungscode wurde an Ihre Handynummer ... gesendet" },
+export const germanSEnterVerficationCode = [
+  {
+    no: 1,
+    label: "Der Verifizierungscode wurde an Ihre Handynummer ... gesendet",
+  },
   { no: 2, label: "Den Code erneut senden" },
   { no: 3, label: "Handynummer ändern" },
   { no: 4, label: "Bestätigen" },
-]
+];
 
-export const  engSignUpTranslatorFreelance =[
+export const engSignUpTranslatorFreelance = [
   { no: 1, label: "Company" },
   { no: 2, label: "Freelance Translators" },
   { no: 3, label: "Upload a picture of your ID card" },
-  { no: 4, label: "(such as JPG, PDF, PNG and the file size does not exceed 25Mb.)" },
+  {
+    no: 4,
+    label: "(such as JPG, PDF, PNG and the file size does not exceed 25Mb.)",
+  },
   { no: 5, label: "Example of uploading a picture of your ID card" },
-  { no: 6, label: "Upload a picture of the front page of the bank book or Details of your digital bank account or Your digital bank account" },
+  {
+    no: 6,
+    label:
+      "Upload a picture of the front page of the bank book or Details of your digital bank account or Your digital bank account",
+  },
   { no: 7, label: "Example of uploading a picture of your bankbook page" },
   { no: 8, label: "Next" },
   { no: 9, label: "Education/Certificate/Proof of Language Competency" },
@@ -1107,15 +1173,22 @@ export const  engSignUpTranslatorFreelance =[
   { no: 16, label: "Test" },
   { no: 17, label: "Answer" },
   { no: 18, label: "Submit" },
-]
+];
 
-export const  thaiSignUpTranslatorFreelance =[
+export const thaiSignUpTranslatorFreelance = [
   { no: 1, label: "บริษัท" },
   { no: 2, label: "ผู้แปลภาษาอิสระ" },
   { no: 3, label: "อัพโหลดรูปบัตรจำตัวประชาชนของคุณ" },
-  { no: 4, label: "(เช่น JPG, PDF, PNG และขนาดของไฟล์ต้องไม่เกิน 25 เมกะไบต์)" },
+  {
+    no: 4,
+    label: "(เช่น JPG, PDF, PNG และขนาดของไฟล์ต้องไม่เกิน 25 เมกะไบต์)",
+  },
   { no: 5, label: "ตัวอย่างการอัพโหลดรูปบัตรจำตัวประชาชน" },
-  { no: 6, label: "อัพโหลดรูปสมุดบัญชีธนาคารหน้าแรก หรือ รายละเอียดบัญชีออนไลน์ หรือ บัญชีออนไลน์ของคุณ" },
+  {
+    no: 6,
+    label:
+      "อัพโหลดรูปสมุดบัญชีธนาคารหน้าแรก หรือ รายละเอียดบัญชีออนไลน์ หรือ บัญชีออนไลน์ของคุณ",
+  },
   { no: 7, label: "ตัวอย่างการอัพโหลดรูปสมุดบัญชีธนาคาร" },
   { no: 8, label: "ถัดไป" },
   { no: 9, label: "การศึกษา/ใบประกาศนียบัตร/หลักฐานแสดงความสามารถทางด้านภาษา" },
@@ -1128,16 +1201,27 @@ export const  thaiSignUpTranslatorFreelance =[
   { no: 16, label: "แบบทดสอบ" },
   { no: 17, label: "คำตอบ" },
   { no: 18, label: "ส่ง" },
-]
+];
 
-export const  germanSignUpTranslatorFreelance =[
+export const germanSignUpTranslatorFreelance = [
   { no: 1, label: "Gesellschaft" },
   { no: 2, label: "Freiberufliche Übersetzer" },
   { no: 3, label: "Abbildung des Personalausweises hochladen" },
-  { no: 4, label: "Bsp.: JPG, PDF, PNG und die Datei darf die Dateingröße von 25 MB nicht überschreiten" },
+  {
+    no: 4,
+    label:
+      "Bsp.: JPG, PDF, PNG und die Datei darf die Dateingröße von 25 MB nicht überschreiten",
+  },
   { no: 5, label: "Beispiel Hochladen einer Abbildung des Personalausweises" },
-  { no: 6, label: "Hochladen einer Abbildung der Titelseite der Bankverbindung oder der Details oder der digitalen Bankverbindung" },
-  { no: 7, label: "Beispiel eines Hochladens einer Abbildung der Bankverbindung" },
+  {
+    no: 6,
+    label:
+      "Hochladen einer Abbildung der Titelseite der Bankverbindung oder der Details oder der digitalen Bankverbindung",
+  },
+  {
+    no: 7,
+    label: "Beispiel eines Hochladens einer Abbildung der Bankverbindung",
+  },
   { no: 8, label: "Weiter" },
   { no: 9, label: "Bildung/Zertifizierung/Beleg der Sprachkompetenz" },
   { no: 10, label: "Portfolio/Lebenslauf" },
@@ -1149,32 +1233,53 @@ export const  germanSignUpTranslatorFreelance =[
   { no: 16, label: "Test" },
   { no: 17, label: "Antwort" },
   { no: 18, label: "Einreichen" },
-]
+];
 
-
-export const engTermsandConditions =[
+export const engTermsandConditions = [
   { no: 1, label: "Terms and Conditions" },
-  { no: 2, label: "The translator agrees to provide truthful information to Global Interpreter and Volunteer Education Network Co., Ltd., especially in regards to the translator's language proficiency. The translator will be responsible for the quality of work received and delivered to the customer within the agreed deadline If any error occurs, the translator is willing to take responsibility and complete the work and deliver it to the customer on time without causing damage to Global Interpreter and Volunteer Education Network Co., Ltd. which is the owner of the platform. The translator will be responsible for that work directly with the customer." },
+  {
+    no: 2,
+    label:
+      "The translator agrees to provide truthful information to Global Interpreter and Volunteer Education Network Co., Ltd., especially in regards to the translator's language proficiency. The translator will be responsible for the quality of work received and delivered to the customer within the agreed deadline If any error occurs, the translator is willing to take responsibility and complete the work and deliver it to the customer on time without causing damage to Global Interpreter and Volunteer Education Network Co., Ltd. which is the owner of the platform. The translator will be responsible for that work directly with the customer.",
+  },
   { no: 3, label: "Accept the terms and conditions." },
-  { no: 4, label: "Your translator application has been successfully submitted. Please wait for the confirmation by email" },
-]
+  {
+    no: 4,
+    label:
+      "Your translator application has been successfully submitted. Please wait for the confirmation by email",
+  },
+];
 
-
-export const thaiTermsandConditions =[
+export const thaiTermsandConditions = [
   { no: 1, label: "ข้อกำหนดและเงื่อนไข" },
-  { no: 2, label: "ผู้แปลตกลงที่จะให้ข้อมูลที่เป็นความจริงแก่ บริษัท โกลบอล อินเตอร์พริเตอร์ แอนด์ โวลันเทียร์ เอ็ดดูเคชั่น เน็ตเวิร์ค จำกัด โดยเฉพาะอย่างยิ่งในเรื่องของความสามารถทางด้านภาษาของตัวผู้แปล ทั้งนี้ ผู้แปลสัญญาว่าจะรับผิดชอบต่อคุณภาพงานที่รับไปและส่งมอบให้แก่ลูกค้าภายในกำหนดเวลาที่ได้ตกลงไว้ หากเกิดข้อผิดพลาดประการใด ทางผู้แปลยินดีที่จะรับผิดชอบและแก้ไขงานให้สำเร็จลุล่วงและส่งมอบให้กับลูกค้าตามกำหนดเวลา โดยไม่ทำให้บริษัท โกลบอล อินเตอร์พริเตอร์ แอนด์ โวลันเทียร์ เอ็ดดูเคชั่น เน็ตเวิร์ค จำกัด ซึ่งเป็นเจ้าของแพล็ตฟอร์มเกิดความเสียหาย อย่างไรก็ตาม หากมีความเสียใดๆเกิดขึ้นแก่ลูกค้า ทางผู้แปลจะรับผิดชอบงานที่ว่านั้นกับทางลูกค้าโดยตรง" },
+  {
+    no: 2,
+    label:
+      "ผู้แปลตกลงที่จะให้ข้อมูลที่เป็นความจริงแก่ บริษัท โกลบอล อินเตอร์พริเตอร์ แอนด์ โวลันเทียร์ เอ็ดดูเคชั่น เน็ตเวิร์ค จำกัด โดยเฉพาะอย่างยิ่งในเรื่องของความสามารถทางด้านภาษาของตัวผู้แปล ทั้งนี้ ผู้แปลสัญญาว่าจะรับผิดชอบต่อคุณภาพงานที่รับไปและส่งมอบให้แก่ลูกค้าภายในกำหนดเวลาที่ได้ตกลงไว้ หากเกิดข้อผิดพลาดประการใด ทางผู้แปลยินดีที่จะรับผิดชอบและแก้ไขงานให้สำเร็จลุล่วงและส่งมอบให้กับลูกค้าตามกำหนดเวลา โดยไม่ทำให้บริษัท โกลบอล อินเตอร์พริเตอร์ แอนด์ โวลันเทียร์ เอ็ดดูเคชั่น เน็ตเวิร์ค จำกัด ซึ่งเป็นเจ้าของแพล็ตฟอร์มเกิดความเสียหาย อย่างไรก็ตาม หากมีความเสียใดๆเกิดขึ้นแก่ลูกค้า ทางผู้แปลจะรับผิดชอบงานที่ว่านั้นกับทางลูกค้าโดยตรง",
+  },
   { no: 3, label: "ยอมรับข้อกำหนดและเงื่อนไข" },
-  { no: 4, label: "ใบสมัครผู้แปลของคุณได้ถูกส่งสำเร็จแล้ว กรุณารอการยืนยันทางอีเมล" },
-]
+  {
+    no: 4,
+    label: "ใบสมัครผู้แปลของคุณได้ถูกส่งสำเร็จแล้ว กรุณารอการยืนยันทางอีเมล",
+  },
+];
 
-export const germanTermsandConditions =[
+export const germanTermsandConditions = [
   { no: 1, label: "Geschäftsbedingung" },
-  { no: 2, label: "The translator agrees to provide truthful information to Global Interpreter and Volunteer Education Network Co., Ltd., especially in regards to the translator's language proficiency. The translator will be responsible for the quality of work received and delivered to the customer within the agreed deadline If any error occurs, the translator is willing to take responsibility and complete the work and deliver it to the customer on time without causing damage to Global Interpreter and Volunteer Education Network Co., Ltd. which is the owner of the platform. The translator will be responsible for that work directly with the customer." },
+  {
+    no: 2,
+    label:
+      "The translator agrees to provide truthful information to Global Interpreter and Volunteer Education Network Co., Ltd., especially in regards to the translator's language proficiency. The translator will be responsible for the quality of work received and delivered to the customer within the agreed deadline If any error occurs, the translator is willing to take responsibility and complete the work and deliver it to the customer on time without causing damage to Global Interpreter and Volunteer Education Network Co., Ltd. which is the owner of the platform. The translator will be responsible for that work directly with the customer.",
+  },
   { no: 3, label: "Accept the terms and conditions." },
-  { no: 4, label: "Your translator application has been successfully submitted. Please wait for the confirmation by email" },
-]
+  {
+    no: 4,
+    label:
+      "Your translator application has been successfully submitted. Please wait for the confirmation by email",
+  },
+];
 
-export const engSignupTranslatorCompany =[
+export const engSignupTranslatorCompany = [
   { no: 1, label: "Company name" },
   { no: 2, label: "Juristic Person Number" },
   { no: 3, label: "Website" },
@@ -1184,11 +1289,18 @@ export const engSignupTranslatorCompany =[
   { no: 7, label: "Province" },
   { no: 8, label: "Postal Code" },
   { no: 9, label: "Company Registration Certificate" },
-  { no: 10, label: "Example of uploading a picture of your company registration certificate." },
-  { no: 11, label: "Languages in which the company can accept translation work" },
-]
+  {
+    no: 10,
+    label:
+      "Example of uploading a picture of your company registration certificate.",
+  },
+  {
+    no: 11,
+    label: "Languages in which the company can accept translation work",
+  },
+];
 
-export const thaiSignupTranslatorCompany =[
+export const thaiSignupTranslatorCompany = [
   { no: 1, label: "ชื่อบริษัท" },
   { no: 2, label: "เลขทะเบียนนิติบุคคล" },
   { no: 3, label: "เว็บไซต์" },
@@ -1198,12 +1310,15 @@ export const thaiSignupTranslatorCompany =[
   { no: 7, label: "จังหวัด" },
   { no: 8, label: "รหัสไปรษณีย์" },
   { no: 9, label: "หนังสือจดทะเบียนบริษัท/หนังสือจดทะเบียนนิติบุคคล" },
-  { no: 10, label: "ตัวอย่างการอัพโหลดรูปหนังสือจดทะเบียนบริษัท/หนังสือจดทะเบียนนิติบุคคล" },
+  {
+    no: 10,
+    label:
+      "ตัวอย่างการอัพโหลดรูปหนังสือจดทะเบียนบริษัท/หนังสือจดทะเบียนนิติบุคคล",
+  },
   { no: 11, label: "ภาษาที่บริษัทสามารถรับงานแปลได้" },
+];
 
-]
-
-export const germanSignupTranslatorCompany =[
+export const germanSignupTranslatorCompany = [
   { no: 1, label: "Name der Firma" },
   { no: 2, label: "Handelsregisternummer" },
   { no: 3, label: "Webseite" },
@@ -1214,49 +1329,64 @@ export const germanSignupTranslatorCompany =[
   { no: 8, label: "Postleitzahl" },
   { no: 9, label: "Handelsregistereintrag" },
   { no: 10, label: "Beispiel Hochladen des Handelsregistereintrags" },
-  { no: 11, label: "Übersetzungsprachen, die die Firma Übersetzungsarbeiten akzeptiert" },
-]
+  {
+    no: 11,
+    label: "Übersetzungsprachen, die die Firma Übersetzungsarbeiten akzeptiert",
+  },
+];
 
-export const engTermsandConditions2 =[
-  { no: 1, label: "The company agrees to provide truthful information to Global Interpreter and Volunteer Education Network Company Limited. Languages ​​as stated above by the company, whereby Global Interpreter and Volunteer Education Network Co., Ltd. will not test the language proficiency of the translators to whom the Company will submit work. The company promises to be responsible for the quality of work received and deliver to the customer within the agreed timeframe. If an error occurs, the company is willing to take responsibility, complete the work and deliver it to the customer on time without causing damage to Global Interpreter and Volunteer Education Network Co., Ltd. which is the owner of the platform. The company will be responsible for that work directly with the customer." },
-]
+export const engTermsandConditions2 = [
+  {
+    no: 1,
+    label:
+      "The company agrees to provide truthful information to Global Interpreter and Volunteer Education Network Company Limited. Languages ​​as stated above by the company, whereby Global Interpreter and Volunteer Education Network Co., Ltd. will not test the language proficiency of the translators to whom the Company will submit work. The company promises to be responsible for the quality of work received and deliver to the customer within the agreed timeframe. If an error occurs, the company is willing to take responsibility, complete the work and deliver it to the customer on time without causing damage to Global Interpreter and Volunteer Education Network Co., Ltd. which is the owner of the platform. The company will be responsible for that work directly with the customer.",
+  },
+];
 
-export const thaiTermsandConditions2 =[
-  { no: 1, label:"บริษัทตกลงที่จะให้ข้อมูลที่เป็นความจริงแก่ บริษัท โกลบอล อินเตอร์พริเตอร์ แอนด์ โวลันเทียร์ เอ็ดดูเคชั่น เน็ตเวิร์ค จำกัด ทั้งนี้ บริษัทสัญญาที่จะรับและส่งต่องานแปลให้แก่ผู้แปลที่มีความสามารถทางภาษาต่างๆตามที่บริษัทได้แจ้งไว้ข้างต้น โดยที่บริษัท โกลบอล อินเตอร์พริเตอร์ แอนด์ โวลันเทียร์ เอ็ดดูเคชั่น เน็ตเวิร์ค จำกัด จะไม่ทำการทดสอบความสามารถทางภาษาของผู้แปลที่บริษัทจะส่งงานต่อให้ ทางบริษัทสัญญาว่าจะรับผิดชอบต่อคุณภาพงานที่รับไปและส่งมอบให้แก่ลูกค้าภายในกำหนดเวลาที่ได้ตกลงไว้ หากเกิดข้อผิดพลาด ทางบริษัทยินดีที่จะรับผิดชอบและแก้ไขงานให้สำเร็จลุล่วงและส่งมอบให้กับลูกค้าตามกำหนดเวลา โดยไม่ทำให้บริษัท โกลบอล อินเตอร์พริเตอร์ แอนด์ โวลันเทียร์ เอ็ดดูเคชั่น เน็ตเวิร์ค จำกัด ซึ่งเป็นเจ้าของแพล็ตฟอร์มเกิดความเสียหาย อย่างไรก็ตาม หากมีความเสียใดๆเกิดขึ้นแก่ลูกค้า ทางบริษัทจะรับผิดชอบงานที่ว่านั้นกับทางลูกค้าโดยตรง"},
-]
+export const thaiTermsandConditions2 = [
+  {
+    no: 1,
+    label:
+      "บริษัทตกลงที่จะให้ข้อมูลที่เป็นความจริงแก่ บริษัท โกลบอล อินเตอร์พริเตอร์ แอนด์ โวลันเทียร์ เอ็ดดูเคชั่น เน็ตเวิร์ค จำกัด ทั้งนี้ บริษัทสัญญาที่จะรับและส่งต่องานแปลให้แก่ผู้แปลที่มีความสามารถทางภาษาต่างๆตามที่บริษัทได้แจ้งไว้ข้างต้น โดยที่บริษัท โกลบอล อินเตอร์พริเตอร์ แอนด์ โวลันเทียร์ เอ็ดดูเคชั่น เน็ตเวิร์ค จำกัด จะไม่ทำการทดสอบความสามารถทางภาษาของผู้แปลที่บริษัทจะส่งงานต่อให้ ทางบริษัทสัญญาว่าจะรับผิดชอบต่อคุณภาพงานที่รับไปและส่งมอบให้แก่ลูกค้าภายในกำหนดเวลาที่ได้ตกลงไว้ หากเกิดข้อผิดพลาด ทางบริษัทยินดีที่จะรับผิดชอบและแก้ไขงานให้สำเร็จลุล่วงและส่งมอบให้กับลูกค้าตามกำหนดเวลา โดยไม่ทำให้บริษัท โกลบอล อินเตอร์พริเตอร์ แอนด์ โวลันเทียร์ เอ็ดดูเคชั่น เน็ตเวิร์ค จำกัด ซึ่งเป็นเจ้าของแพล็ตฟอร์มเกิดความเสียหาย อย่างไรก็ตาม หากมีความเสียใดๆเกิดขึ้นแก่ลูกค้า ทางบริษัทจะรับผิดชอบงานที่ว่านั้นกับทางลูกค้าโดยตรง",
+  },
+];
 
-export const germanTermsandConditions2 =[
-  { no: 1, label: "The company agrees to provide truthful information to Global Interpreter and Volunteer Education Network Company Limited. Languages ​​as stated above by the company, whereby Global Interpreter and Volunteer Education Network Co., Ltd. will not test the language proficiency of the translators to whom the Company will submit work. The company promises to be responsible for the quality of work received and deliver to the customer within the agreed timeframe. If an error occurs, the company is willing to take responsibility, complete the work and deliver it to the customer on time without causing damage to Global Interpreter and Volunteer Education Network Co., Ltd. which is the owner of the platform. The company will be responsible for that work directly with the customer." },
-]
+export const germanTermsandConditions2 = [
+  {
+    no: 1,
+    label:
+      "The company agrees to provide truthful information to Global Interpreter and Volunteer Education Network Company Limited. Languages ​​as stated above by the company, whereby Global Interpreter and Volunteer Education Network Co., Ltd. will not test the language proficiency of the translators to whom the Company will submit work. The company promises to be responsible for the quality of work received and deliver to the customer within the agreed timeframe. If an error occurs, the company is willing to take responsibility, complete the work and deliver it to the customer on time without causing damage to Global Interpreter and Volunteer Education Network Co., Ltd. which is the owner of the platform. The company will be responsible for that work directly with the customer.",
+  },
+];
 
-export const  engDashboardMenu =[
+export const engDashboardMenu = [
   { no: 1, label: "Dashboard" },
   { no: 2, label: "Tools" },
   { no: 3, label: "Chat" },
   { no: 4, label: "Notification" },
   { no: 5, label: "Setting" },
   { no: 6, label: "Logout" },
-]
+];
 
-export const  thaiDashboardMenu =[
+export const thaiDashboardMenu = [
   { no: 1, label: "แดชบอร์ด" },
   { no: 2, label: "เครื่องมือ" },
   { no: 3, label: "แชท" },
   { no: 4, label: "การแจ้งเตือน" },
   { no: 5, label: "การตั้งค่า" },
   { no: 6, label: "ออกจากระบบ" },
-]
+];
 
-export const  germanDashboardMenu =[
+export const germanDashboardMenu = [
   { no: 1, label: "Dashboard" },
   { no: 2, label: "Werkzeuge" },
   { no: 3, label: "Chat" },
   { no: 4, label: "Benachrichtigung" },
   { no: 5, label: "Einstellung" },
   { no: 6, label: "Abmelden" },
-]
+];
 
-export const  engDashboard =[
+export const engDashboard = [
   { no: 1, label: "All customers" },
   { no: 2, label: "Former customers" },
   { no: 3, label: "Country" },
@@ -1274,9 +1404,9 @@ export const  engDashboard =[
   { no: 15, label: "Review" },
   { no: 16, label: "Comment" },
   { no: 17, label: "Team" },
-]
+];
 
-export const  germanDashboard =[
+export const germanDashboard = [
   { no: 1, label: "Alle Kunden" },
   { no: 2, label: "Ehemalige Kunden" },
   { no: 3, label: "Land" },
@@ -1294,9 +1424,9 @@ export const  germanDashboard =[
   { no: 15, label: "Beurteilung" },
   { no: 16, label: "Kommentar" },
   { no: 17, label: "Team" },
-]
+];
 
-export const  thaiDashboard =[
+export const thaiDashboard = [
   { no: 1, label: "ลูกค้าทั้งหมด" },
   { no: 2, label: "ลูกค้าเก่า" },
   { no: 3, label: "ประเทศ" },
@@ -1314,9 +1444,9 @@ export const  thaiDashboard =[
   { no: 15, label: "รีวิว" },
   { no: 16, label: "ความคิดเห็น" },
   { no: 17, label: "ทีมงาน" },
-]
+];
 
-export const engMenuHome =[
+export const engMenuHome = [
   { no: 1, label: "Home" },
   { no: 2, label: "Translate" },
   { no: 3, label: "Your Order" },
@@ -1324,9 +1454,9 @@ export const engMenuHome =[
   { no: 5, label: "Notification" },
   { no: 6, label: "Setting" },
   { no: 7, label: "Logout" },
-]
+];
 
-export const germanMenuHome =[
+export const germanMenuHome = [
   { no: 1, label: "Startseite" },
   { no: 2, label: "Übersetzen" },
   { no: 3, label: "Ihr Auftrag" },
@@ -1334,9 +1464,9 @@ export const germanMenuHome =[
   { no: 5, label: "Benachrichtigung" },
   { no: 6, label: "Einstellung" },
   { no: 7, label: "Abmelden" },
-]
+];
 
-export const thaiMenuHome =[
+export const thaiMenuHome = [
   { no: 1, label: "หน้าแรก" },
   { no: 2, label: "แปล" },
   { no: 3, label: "ออเดอร์ของคุณ" },
@@ -1344,9 +1474,9 @@ export const thaiMenuHome =[
   { no: 5, label: "การแจ้งเตือน" },
   { no: 6, label: "การตั้งค่า" },
   { no: 7, label: "ออกจากระบบ" },
-]
+];
 
-export const engHome =[
+export const engHome = [
   { no: 1, label: "General Document" },
   { no: 2, label: "Official Document" },
   { no: 3, label: "Article" },
@@ -1362,9 +1492,9 @@ export const engHome =[
   { no: 13, label: "Certificate of use (the noun prefix)" },
   { no: 14, label: "Birth Certificate" },
   { no: 15, label: "Popular Translators" },
-]
+];
 
-export const germanHome =[
+export const germanHome = [
   { no: 1, label: "Allgemeine Dokumente" },
   { no: 2, label: "Offizielle Dokumente" },
   { no: 3, label: "Artikel" },
@@ -1380,9 +1510,9 @@ export const germanHome =[
   { no: 13, label: "Verwendungsnachweis" },
   { no: 14, label: "Geburtsurkunde" },
   { no: 15, label: "Beliebte Übersetzer" },
-]
+];
 
-export const thaiHome =[
+export const thaiHome = [
   { no: 1, label: "เอกสารทั่วไป" },
   { no: 2, label: "เอกสารทางการ" },
   { no: 3, label: "บทความ" },
@@ -1398,4 +1528,4 @@ export const thaiHome =[
   { no: 13, label: "หนังสือรับรอง" },
   { no: 14, label: "สูติบัตร" },
   { no: 15, label: "นักแปลยอดนิยม" },
-]
+];

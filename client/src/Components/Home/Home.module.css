@@ -535,11 +535,11 @@
 }
 .box4_overviwe0 {
   background: url("../../Images/box4_overviwe0.png");
-  width: 70vw;
+  width: 1038px;
   height: 570px;
   position: relative;
   /* top: -27vh; */
-  left: 0.35vw;
+  left: 1.6vw;
 }
 
 .imgbox4_overviwe0 {
@@ -567,3 +567,27 @@
   top: -125px;
   left: 160px;
 }
+
+/* Medium devices (landscape tablets, 768px and up)
+@media only screen and (min-width: 768px) {
+  .h_text1 {
+    font-size: 35px;
+  }
+  .imgbox4_overviwe0 {
+    display: none;
+  }
+  .box4_overviwe0 {
+    display: none;
+  }
+  .div_Accepted {
+    display: none;
+  }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+/* @media only screen and (min-width: 992px) {
+} */
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+/* @media only screen and (min-width: 1200px) {
+} */

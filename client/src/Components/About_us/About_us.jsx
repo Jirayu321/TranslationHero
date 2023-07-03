@@ -69,7 +69,7 @@ const About_us = () => {
 
       <>
         <div className={styles.fram1C}>
-          <div style={{ display: "flex", justifyContent: "center" }}>
+          <div style={{ height: "1vw" }}>
             <div
               style={{
                 textAlign: "center",
@@ -103,12 +103,26 @@ const About_us = () => {
               </div>
             </div>
           </div>
-        </div>
-        <div className={styles.frame2}>
-          <div className={styles.detailefram_general}>
-            <div className={styles.Boxfram3_3}>
+          <div className={styles.frame2}>
+            <div className={styles.detailefram_general}>
+              <div className={styles.Boxfram3_3}>
+                <div>
+                  <p className={styles.HBoxdetaile3_1}>machine based </p>
+                  <p className={styles.HBoxdetaile3_1}>translator</p>
+                  <p className={styles.HBoxdetaile_general}>
+                    AI support translator, a helper that makes the work of
+                    translators even easier. Correct grammar and reduce the
+                    time, the work process is faster.
+                  </p>
+                </div>
+                <div className={styles.Imggeneral5} />
+              </div>
+            </div>
+          </div>
+          <div className={styles.frame3}>
+            <div className={styles.Boxfram3_3_2}>
               <div>
-                <p className={styles.HBoxdetaile3_1}>machine based </p>
+                <p className={styles.HBoxdetaile3_1}>1 stop service for</p>
                 <p className={styles.HBoxdetaile3_1}>translator</p>
                 <p className={styles.HBoxdetaile_general}>
                   AI support translator, a helper that makes the work of
@@ -116,49 +130,36 @@ const About_us = () => {
                   the work process is faster.
                 </p>
               </div>
-              <div className={styles.Imggeneral5} />
+              <div className={styles.Imggeneral1} />
             </div>
-          </div>
-        </div>
-        <div className={styles.frame3}>
-          <div className={styles.Boxfram3_3_2}>
-            <div>
-              <p className={styles.HBoxdetaile3_1}>1 stop service for</p>
-              <p className={styles.HBoxdetaile3_1}>translator</p>
-              <p className={styles.HBoxdetaile_general}>
-                AI support translator, a helper that makes the work of
-                translators even easier. Correct grammar and reduce the time,
-                the work process is faster.
-              </p>
-            </div>
-            <div className={styles.Imggeneral1} />
-          </div>
 
-          <div className={styles.Boxfram3_3_3}>
-            <div className={styles.Imggeneral2} />
-            <div style={{ marginLeft: 100 }}>
-              <p className={styles.HBoxdetaile3_1}>Recommend more,</p>
-              <p className={styles.HBoxdetaile3_1}>gain more</p>
-              <p className={styles.HBoxdetaile_general}>
-                The more you recommend, the more The more customers recommend
-                our services, the more The more you get more privileges.
-              </p>
+            <div className={styles.Boxfram3_3_3}>
+              <div className={styles.Imggeneral2} />
+              <div style={{ marginLeft: 100 }}>
+                <p className={styles.HBoxdetaile3_1}>Recommend more,</p>
+                <p className={styles.HBoxdetaile3_1}>gain more</p>
+                <p className={styles.HBoxdetaile_general}>
+                  The more you recommend, the more The more customers recommend
+                  our services, the more The more you get more privileges.
+                </p>
+              </div>
+            </div>
+
+            <div className={styles.Boxfram3_3_4}>
+              <div>
+                <p className={styles.HBoxdetaile3_1}>Personal Tool </p>
+                <p className={styles.HBoxdetaile3_1}>Assistant</p>
+                <p className={styles.HBoxdetaile_general}>
+                  Translation tool for translators We have tools that make the
+                  work of translators easier and more efficient.
+                </p>
+              </div>
+              <div className={styles.Imggeneral3} />
+            </div>
+            <div style={{ width: "100vw" }}>
+              <Footer v="English" />
             </div>
           </div>
-        </div>
-        <div className={styles.Boxfram3_3_4}>
-          <div>
-            <p className={styles.HBoxdetaile3_1}>Personal Tool </p>
-            <p className={styles.HBoxdetaile3_1}>Assistant</p>
-            <p className={styles.HBoxdetaile_general}>
-              Translation tool for translators We have tools that make the work
-              of translators easier and more efficient.
-            </p>
-          </div>
-          <div className={styles.Imggeneral3} />
-        </div>
-        <div style={{ width: "100vw" }}>
-          <Footer v="English" />
         </div>
       </>
     </>
