@@ -36,7 +36,10 @@
     #0075ff 1.04%,
     #9e70ff 99.01%
   );
+  background-clip: border-box;
   -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
   -webkit-text-fill-color: transparent;
 }
 .h_text2 {
@@ -541,7 +544,7 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  text-fill-color: transparent;
+  -webkit-text-fill-color: transparent;
   font-size: 24px;
 }
 .Boxfram3_5 p {
@@ -550,7 +553,7 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  text-fill-color: transparent;
+  -webkit-text-fill-color: transparent;
   font-size: 24px;
 }
 
