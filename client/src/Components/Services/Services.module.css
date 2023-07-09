@@ -272,7 +272,7 @@
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  height: 260vh;
+  height: 300vh;
 }
 .detailefram3_3 {
   background: linear-gradient(to right, #0097fe, #0075ff, #9e70ff);

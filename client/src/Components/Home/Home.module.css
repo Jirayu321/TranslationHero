@@ -27,11 +27,9 @@
   margin-left: -30px;
 }
 .fram1_button1 {
-  background: linear-gradient(
-    91.8deg,
-    #0097fe 1.03%,
-    #0075ff 1.04%,
-    #9e70ff 99.01%
+  background: var(
+    --bg,
+    linear-gradient(109deg, #0097fe 0%, #0075ff 0.01%, #9e70ff 100%)
   );
   border-radius: 26.5px;
   font-weight: 300;
@@ -187,9 +185,6 @@
   justify-content: space-evenly;
   grid-template-columns: auto auto auto;
   margin-bottom: 50px;
-  /* position: absolute; */
-  /* left: -26vw; */
-  /* top: 26vw; */
 }
 .BoxInfram1 {
   background: #ffffff;
@@ -219,6 +214,9 @@
   display: flex;
   align-items: center;
   color: #333333;
+}
+.Home1 {
+  width: 100%;
 }
 .BoxThumbs {
   background: linear-gradient(
@@ -289,31 +287,62 @@
   margin: 1rem;
   align-items: baseline;
   justify-content: center;
+  font-family: "D";
 }
 .Content button {
   width: 20vw;
   height: 3.6vw;
-  font-size: 24px;
   align-items: center;
 }
 .Content_button1 {
   background: linear-gradient(91.8deg, #ff725a 1.03%, #eca51f 99.01%);
-  border-radius: 5px;
   color: #ffffff;
   display: flex;
   justify-content: center;
   border: transparent;
+  border-radius: 15px 0px 0px 15px;
+  font-family: "DBHeavent";
+  font-weight: 600;
+  font-size: 35px;
 }
 .Content_button2 {
   background: linear-gradient(91.8deg, #ff725a 1.03%, #eca51f 99.01%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  border-radius: 5px;
   display: flex;
   justify-content: center;
   border: 1px solid #e5e5e5;
+  border-radius: 0px 15px 15px 0px;
+  font-family: "DBHeavent";
+  font-size: 35px;
+  font-weight: 600;
 }
+.Content_button3 {
+  background: linear-gradient(91.8deg, #ff725a 1.03%, #eca51f 99.01%);
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  border: transparent;
+  border-radius: 0px 15px 15px 0px;
+  font-family: "DBHeavent";
+  font-weight: 600;
+  font-size: 35px;
+}
+.Content_button4 {
+  background: linear-gradient(91.8deg, #ff725a 1.03%, #eca51f 99.01%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: flex;
+  justify-content: center;
+  border: 1px solid #e5e5e5;
+  border-radius: 15px 0px 0px 15px;
+  font-family: "DBHeavent";
+  font-size: 35px;
+  font-weight: 600;
+}
+
 .ContentBox2_1_overviwe {
   width: 350px;
   height: 500px;
@@ -343,22 +372,22 @@
   font-size: 22px;
 }
 .Content2button {
-  background: linear-gradient(
-    91.8deg,
-    #0097fe 1.03%,
-    #0075ff 1.04%,
-    #9e70ff 99.01%
+  background: var(
+    --bg,
+    linear-gradient(109deg, #0097fe 0%, #0075ff 0.01%, #9e70ff 100%)
   );
+
   border-radius: 26.5px;
   color: #ffffff;
   display: flex;
   justify-content: center;
   border: transparent;
   margin-top: 70px;
-  width: 140px;
+  width: 13vw;
   height: 50px;
   align-items: center;
-  font-weight: 300;
+  font-family: "DBHeaventLi";
+  font-size: 40px;
 }
 .Content3_1 {
   background: linear-gradient(
@@ -535,10 +564,9 @@
 }
 .box4_overviwe0 {
   background: url("../../Images/box4_overviwe0.png");
-  width: 1038px;
+  width: 66vw;
   height: 570px;
   position: relative;
-  /* top: -27vh; */
   left: 1.6vw;
 }
 
@@ -568,26 +596,177 @@
   left: 160px;
 }
 
-/* Medium devices (landscape tablets, 768px and up)
-@media only screen and (min-width: 768px) {
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 768px) {
+  .fram1 {
+    height: auto;
+  }
+  .boxBlue_overviwe {
+    margin-top: 300px;
+    margin-bottom: 50px;
+  }
+  .boxBlue_overviwe p {
+    text-align: center;
+  }
   .h_text1 {
-    font-size: 35px;
+    font-size: 42px;
+    display: grid;
+  }
+  .h_text2 {
+    margin: 0px;
+    display: grid;
+  }
+  .set_fram1_button {
+    width: 100vw;
+    display: grid;
+    justify-content: center;
+    margin-top: 200px;
+    margin-left: 0px;
+  }
+  .fram1_button1 {
+    width: 80vw;
+    padding: 12px 40px;
+  }
+  .fram1_button2 {
+    width: 80vw;
+    padding: 12px 40px;
+  }
+  .Infram1 {
+    display: grid;
+    justify-content: center;
+    grid-template-columns: auto;
+    margin-top: 100px;
+  }
+  .BoxInfram1 {
+    width: 80vw;
+    height: 30vw;
+    margin-bottom: 30px;
+    padding: 12px 24px;
+    border-radius: 20px;
+  }
+  .Content button {
+    width: 40vw;
+    height: 14vw;
+    align-items: center;
+  }
+  .Content2 {
+    grid-template-columns: auto;
+    margin-top: 15vw;
+  }
+  .Content2Text {
+    width: 85vw;
+  }
+
+  .Content2button {
+    border-radius: 35px;
+    margin: 40px 0px;
+    width: 85vw;
+    height: 75px;
+  }
+  .Content3text1 {
+    display: grid;
+    justify-content: flex-start;
+  }
+  .divfontContent3text1 {
+    margin-left: 50px;
+  }
+  .divfontContent3text1_1 {
+    width: 81vw;
+    left: 56px;
+  }
+  .Accepted {
+    width: 80vw;
+    height: 50vw;
+  }
+  .Inbox4_overviwe {
+    display: grid;
+    grid-template-columns: auto;
+    justify-content: center;
+    text-align: center;
+    /* height: 50vh; */
+  }
+  .deteilbox4_overviwe {
+    position: relative;
+    left: 0px;
+    top: 80px;
+    display: grid;
+    justify-content: center;
+  }
+  .h_text3 {
+    line-height: 40px;
+    display: grid;
+    /* align-items: center; */
+    /* text-align: center; */
+  }
+  .textDescription3_overviwe {
+    font-size: 20px;
+    color: rgb(68, 68, 68);
+    margin: 0px;
+    width: 400px;
+    display: inline-block;
+    margin-top: 30px;
+    /* font-weight: 400; */
+  }
+  .buttonbox4_overviwe {
+    background: var(
+      --bg,
+      linear-gradient(109deg, #0097fe 0%, #0075ff 0.01%, #9e70ff 100%)
+    );
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    border: transparent;
+    align-items: center;
+    font-family: "DBHeaventLi";
+    font-size: 40px;
+    border-radius: 35px;
+    margin: 40px 0px;
+    width: 85vw;
+    height: 75px;
   }
   .imgbox4_overviwe0 {
-    display: none;
+    top: 315px;
+    left: 0px;
+  }
+  .imgbox4_overviwe0 img {
+    width: 95px;
+    height: 75px;
+  }
+  .Inbox4_overviwe2 {
+    display: grid;
+    width: 100vw;
   }
   .box4_overviwe0 {
-    display: none;
+    width: 115vw;
+    height: 630px;
+    left: -15vw;
   }
-  .div_Accepted {
-    display: none;
+  .box4_overviwe3 {
+    top: -90px;
+    left: 30vw;
+  }
+  .box4_overviwe2 {
+    top: 15px;
+    left: 3vw;
+  }
+  .box4_overviwe1 {
+    top: 190px;
+    left: -3vw;
   }
 }
 
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+}
+
 /* Large devices (laptops/desktops, 992px and up) */
-/* @media only screen and (min-width: 992px) {
-} */
+@media only screen and (min-width: 992px) {
+}
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
-/* @media only screen and (min-width: 1200px) {
-} */
+@media only screen and (min-width: 1200px) {
+}

@@ -1,6 +1,6 @@
 import React from "react";
 import Navbars from "../Navbar/navbarHome";
-import Footer from "../Footer/Footer";
+import Footer from "../Footer/Footer.jsx";
 
 import { useNavigate, useLocation } from "react-router-dom";
 
@@ -13,6 +13,7 @@ import { data2, data2_1 } from "../Data/data";
 import { MdArrowDropDown } from "react-icons/md";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { makeStyles } from "@mui/styles";
+
 import styles from "./Price.module.css";
 
 const Price = () => {

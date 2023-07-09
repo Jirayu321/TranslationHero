@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import Navbars from "../Navbar/navbarHome";
-import Footer from "../Footer/Footer";
+import Footer from "../Footer/Footer.jsx";
 import { useNavigate, useLocation } from "react-router-dom";
 
 // import { data, data2, data3, data4, data5 } from "../Data/data";

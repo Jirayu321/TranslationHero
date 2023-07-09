@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import Navbars from "../Navbar/navbarHome";
-import Footer from "../Footer/Footer";
+import Footer from "../Footer/Footer.jsx";
 
 import { FaLanguage, FaUserCheck, FaMedal } from "react-icons/fa";
 import { useNavigate, useLocation } from "react-router-dom";

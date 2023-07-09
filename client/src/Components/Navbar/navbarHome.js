@@ -7,6 +7,9 @@ import {
   //  overviewDE
 } from "../Data/DataLanguage";
 // import { Link } from "react-router-dom";
+import { AiFillCaretDown } from "react-icons/ai";
+import manu from "../../Images/menu01.svg";
+import styles from "./Navbar.module.css";
 import "./Navbar.css";
 
 const navbarHome = (props) => {
@@ -43,20 +46,22 @@ const navbarHome = (props) => {
           </div>
         </Navbar.Brand>
 
-        <Navbar.Toggle aria-controls="navbarScroll" />
+        <Navbar.Toggle>
+          <img src={manu} alt="toggle icon" />
+        </Navbar.Toggle>
         <Navbar.Collapse id="navbarScroll">
           <>
-            <div className="dd">
+            <div className={styles.dd}>
               {pathname === "/" || pathname === "/Home/Order/Customer" ? (
-                <div className="NavLi" onClick={() => navigate("/")}>
-                  <p className="textNavA">
+                <div className={styles.NavLi} onClick={() => navigate("/")}>
+                  <p className={styles.textNavA}>
                     {overviewEN[0].label}
                     {/* home */}
                   </p>
                 </div>
               ) : (
-                <div className="NavLi" onClick={() => navigate("/")}>
-                  <p className="textNavO">
+                <div className={styles.NavLi} onClick={() => navigate("/")}>
+                  <p className={styles.textNavO}>
                     {overviewEN[0].label}
                     {/* home */}
                   </p>
@@ -65,27 +70,25 @@ const navbarHome = (props) => {
 
               {pathname === "/About_us" ? (
                 <div
-                  className="NavLi"
+                  className={styles.NavLi}
                   style={{ color: "black" }}
                   onClick={() => promotion(2)}
                 >
-                  <p className="textNavA">About us</p>
+                  <p className={styles.textNavA}>About us</p>
                 </div>
               ) : (
                 <div
-                  className="NavLi"
+                  className={styles.NavLi}
                   style={{ color: "black" }}
                   onClick={() => promotion(2)}
                 >
-                  <p className="textNavO">About us</p>
+                  <p className={styles.textNavO}>About us</p>
                 </div>
               )}
               {pathname === "/Services_general" ||
-              pathname === "/General_Document" ||
-              pathname === "/Official Document" ? (
+              pathname === "/Services_official" ? (
                 <NavDropdown
-                  className="NavLi"
-                  // onClick={() => promotion(1)}
+                  className={styles.NavLi}
                   style={{
                     marginLeft: 10,
                     color: "#808080",
@@ -94,8 +97,9 @@ const navbarHome = (props) => {
                     padding: 0,
                   }}
                   title={
-                    <div className="icon_accounts">
-                      <p className="textNavA">Services</p>
+                    <div className={styles.icon_accounts}>
+                      <p className={styles.textNavA}>Services</p>
+                      <AiFillCaretDown className={styles.AiFillCaretDown1} />
                     </div>
                   }
                 >
@@ -112,18 +116,17 @@ const navbarHome = (props) => {
                 </NavDropdown>
               ) : (
                 <NavDropdown
-                  className="NavLi"
-                  // onClick={() => promotion(1)}
+                  className={styles.NavLi}
                   style={{
-                    // marginLeft: 10,
                     color: "#808080",
                     fontSize: 20,
                     float: "left",
                     padding: 0,
                   }}
                   title={
-                    <div>
-                      <p className="textNavO">Services</p>
+                    <div className={styles.icon_accounts}>
+                      <p className={styles.textNavO}>Services</p>
+                      <AiFillCaretDown className={styles.AiFillCaretDown2} />
                     </div>
                   }
                 >
@@ -141,31 +144,46 @@ const navbarHome = (props) => {
               )}
 
               {pathname === "/Price" ? (
-                <div className="NavLi" onClick={() => navigate("/Price")}>
-                  <p className="textNavA">Price</p>
+                <div
+                  className={styles.NavLi}
+                  onClick={() => navigate("/Price")}
+                >
+                  <p className={styles.textNavA}>Price</p>
                 </div>
               ) : (
-                <div className="NavLi" onClick={() => navigate("/Price")}>
-                  <p className="textNavO">Price</p>
+                <div
+                  className={styles.NavLi}
+                  onClick={() => navigate("/Price")}
+                >
+                  <p className={styles.textNavO}>Price</p>
+                </div>
+              )}
+
+              {pathname === "/FAQs" ? (
+                <div
+                  className={styles.NavLi}
+                  style={{ color: "black" }}
+                  onClick={() => navigate("/FAQs")}
+                >
+                  <p className={styles.textNavA}>FAQs</p>
+                </div>
+              ) : (
+                <div
+                  className={styles.NavLi}
+                  style={{ color: "black" }}
+                  onClick={() => navigate("/FAQs")}
+                >
+                  <p className={styles.textNavO}>FAQs</p>
                 </div>
               )}
             </div>
 
-            <div className="dd2">
+            <div className={styles.dd2}>
               <button
-                className="buttonLogin"
+                className={styles.buttonLogin}
                 onClick={() => gologin("English")}
               >
-                <p
-                  style={{
-                    color: "#FFFF",
-                    fontSize: 18,
-                    lineHeight: 21,
-                    textDecorationLine: "none",
-                  }}
-                >
-                  {overviewEN[4].label}
-                </p>
+                <p className={styles.textP}>{overviewEN[4].label}</p>
               </button>
             </div>
           </>
