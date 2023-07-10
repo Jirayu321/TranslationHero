@@ -444,3 +444,94 @@
   top: 25px;
   left: 30px;
 }
+
+@media only screen and (max-width: 768px) {
+  .fram1 {
+    height: 130vw;
+  }
+  .boxBlue_overviwe {
+    position: inherit;
+    display: grid;
+    justify-content: center;
+    width: 100vw;
+    margin-top: 30vw;
+  }
+  .h_text1 {
+    font-size: 42px;
+    line-height: unset;
+  }
+
+  .h_text2 {
+    font-size: 22px;
+    margin: 0px;
+    display: grid;
+    line-height: unset;
+  }
+  .set_fram1_button {
+    margin-top: 100px;
+  }
+  .Boxbtn_fram3 {
+    width: 25vw;
+  }
+  .Mask {
+    width: 30vw;
+  }
+  .bodertell {
+    width: 8px;
+    margin-top: -10px;
+  }
+  .Indetailefram3 {
+    padding: 24px 16px;
+    width: 45vw;
+    height: 30vw;
+    border: 4px solid #1466b1;
+  }
+  .textIndetailefram3_2 {
+    font-size: 24px;
+  }
+  .textIndetailefram3_1 {
+    font-size: 18px;
+  }
+  .fram2 {
+    height: 0vw;
+  }
+  .textHeading2_overviwe {
+    height: 25vw;
+    font-size: 42px;
+  }
+
+  .textHeading2_overviwe3_5 {
+    font-size: 20px;
+    line-height: unset;
+    width: 75vw;
+    position: relative;
+    left: 15vw;
+    top: -110px;
+  }
+  .boxAutocomplete2 {
+    grid-template-columns: auto;
+    display: grid;
+    justify-content: center;
+    width: auto;
+  }
+  .con_detailefram3_5 {
+    grid-template-columns: auto;
+  }
+  .boxAutocomplete1 {
+    position: relative;
+    width: unset;
+    top: 110px;
+    left: 0px;
+    display: grid;
+    justify-content: center;
+  }
+  .Boxfram3_5 {
+    width: unset;
+  }
+  .ImgBox3_5_1 {
+    grid-template-columns: 10% auto;
+    border-bottom: 1px solid #d9d9d9;
+    padding: 10px 0px;
+    width: 75vw;
+  }
+}

@@ -209,11 +209,11 @@
 .dropdown-toggle::after {
   display: none;
 }
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 768px) {
   .dropdown-menu[data-bs-popper] {
-    top: 50%;
+    top: 45%;
     position: absolute;
-    left: 300px;
+    left: 312px;
     margin-top: 0.125rem;
   }
 }

@@ -639,14 +639,15 @@
   }
   .BoxInfram1 {
     width: 80vw;
-    height: 30vw;
+    height: 25vw;
     margin-bottom: 30px;
-    padding: 12px 24px;
+    padding: 24px 24px;
     border-radius: 20px;
+    justify-content: normal;
   }
   .Content button {
     width: 40vw;
-    height: 14vw;
+    height: 10vw;
     align-items: center;
   }
   .Content2 {

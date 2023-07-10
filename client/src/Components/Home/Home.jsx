@@ -84,334 +84,342 @@ const Home = () => {
         )}
       </header>
 
-      {/* Modal cookei*/}
-      {Doc === "English" ? (
-        <Modal
-          hideBackdrop
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="keep-mounted-modal-title"
-          aria-describedby="keep-mounted-modal-description"
-        >
-          <Box
-            sx={{
-              position: "absolute",
-              top: "50%",
-              left: "16%",
-              transform: "translate(-50%, -70%)",
-              width: 400,
-              bgcolor: "background.paper",
-              boxShadow: 24,
-              p: 4,
-              borderRadius: 5,
-              border: "1px solid #E5E5E5",
-              textAlign: "center",
-            }}
-          >
-            <Typography
-              id="keep-mounted-modal-description"
-              sx={{ mt: 2, fontWeight: 700 }}
-            >
-              {overviewEN[20].label}
-            </Typography>
-            <Typography
-              id="keep-mounted-modal-description"
-              sx={{
-                mt: 2,
-                textAlign: "left",
-                overflowY: "auto",
-                height: 200,
-              }}
-            >
-              {overviewEN[8].label}
-            </Typography>
-            <div
-              style={{
-                textAlign: "left",
-                borderTop: "1px solid #C4C4C4",
-              }}
-            ></div>
-
-            <div style={{ marginTop: 10, textAlign: "left", float: "left" }}>
-              <button
-                style={{
-                  height: 40,
-                  background: " #034D82",
-                  borderRadius: 5,
-                  color: "#FFFFFF",
-                  fontWeight: 700,
-                  border: "none",
-                  filter: "drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.1))",
-                }}
-                onClick={() => handleClose(1, Doc)}
-              >
-                {overviewEN[9].label}
-              </button>
-            </div>
-            <div style={{ marginTop: 10, textAlign: "right" }}>
-              <button
-                style={{
-                  height: 40,
-                  borderRadius: 5,
-                  color: "#034D82",
-                  fontWeight: 700,
-                  filter: "drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.1))",
-                  background: "#FFFFFF",
-                  border: "1px solid #034D82",
-                }}
-                onClick={() => handleClose(2)}
-              >
-                {overviewEN[10].label}
-              </button>
-            </div>
-          </Box>
-        </Modal>
-      ) : Doc === "Thai" ? (
-        <Modal
-          hideBackdrop
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="keep-mounted-modal-title"
-          aria-describedby="keep-mounted-modal-description"
-        >
-          <Box
-            sx={{
-              position: "absolute",
-              top: "50%",
-              left: "16%",
-              transform: "translate(-50%, -70%)",
-              width: 400,
-              bgcolor: "background.paper",
-              boxShadow: 24,
-              p: 4,
-              borderRadius: 5,
-              border: "1px solid #E5E5E5",
-              textAlign: "center",
-            }}
-          >
-            <Typography
-              id="keep-mounted-modal-description"
-              sx={{ mt: 2, fontWeight: 700 }}
-            >
-              {overviewTH[20].label}
-            </Typography>
-            <Typography
-              id="keep-mounted-modal-description"
-              sx={{
-                mt: 2,
-                textAlign: "left",
-                overflowY: "auto",
-                height: 200,
-              }}
-            >
-              {overviewTH[8].label}
-            </Typography>
-            <div
-              style={{
-                textAlign: "left",
-                borderTop: "1px solid #C4C4C4",
-              }}
-            ></div>
-
-            <div style={{ marginTop: 10, textAlign: "left", float: "left" }}>
-              <button
-                style={{
-                  height: 40,
-                  background: " #034D82",
-                  borderRadius: 5,
-                  color: "#FFFFFF",
-                  fontWeight: 700,
-                  border: "none",
-                  filter: "drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.1))",
-                }}
-                onClick={() => handleClose(1, Doc)}
-              >
-                {overviewTH[9].label}
-              </button>
-            </div>
-            <div style={{ marginTop: 10, textAlign: "right" }}>
-              <button
-                style={{
-                  height: 40,
-                  borderRadius: 5,
-                  color: "#034D82",
-                  fontWeight: 700,
-                  filter: "drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.1))",
-                  background: "#FFFFFF",
-                  border: "1px solid #034D82",
-                }}
-                onClick={() => handleClose(2)}
-              >
-                {overviewTH[10].label}
-              </button>
-            </div>
-          </Box>
-        </Modal>
-      ) : Doc === "German" ? (
-        <Modal
-          hideBackdrop
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="keep-mounted-modal-title"
-          aria-describedby="keep-mounted-modal-description"
-        >
-          <Box
-            sx={{
-              position: "absolute",
-              top: "50%",
-              left: "16%",
-              transform: "translate(-50%, -70%)",
-              width: 400,
-              bgcolor: "background.paper",
-              boxShadow: 24,
-              p: 4,
-              borderRadius: 5,
-              border: "1px solid #E5E5E5",
-              textAlign: "center",
-            }}
-          >
-            <Typography
-              id="keep-mounted-modal-description"
-              sx={{ mt: 2, fontWeight: 700 }}
-            >
-              {overviewDE[20].label}
-            </Typography>
-            <Typography
-              id="keep-mounted-modal-description"
-              sx={{
-                mt: 2,
-                textAlign: "left",
-                overflowY: "auto",
-                height: 200,
-              }}
-            >
-              {overviewDE[8].label}
-            </Typography>
-            <div
-              style={{
-                textAlign: "left",
-                borderTop: "1px solid #C4C4C4",
-              }}
-            ></div>
-
-            <div style={{ marginTop: 10, textAlign: "left", float: "left" }}>
-              <button
-                style={{
-                  height: 40,
-                  background: " #034D82",
-                  borderRadius: 5,
-                  color: "#FFFFFF",
-                  fontWeight: 700,
-                  border: "none",
-                  filter: "drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.1))",
-                }}
-                onClick={() => handleClose(1, Doc)}
-              >
-                {overviewDE[9].label}
-              </button>
-            </div>
-            <div style={{ marginTop: 10, textAlign: "right" }}>
-              <button
-                style={{
-                  height: 40,
-                  borderRadius: 5,
-                  color: "#034D82",
-                  fontWeight: 700,
-                  filter: "drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.1))",
-                  background: "#FFFFFF",
-                  border: "1px solid #034D82",
-                }}
-                onClick={() => handleClose(2)}
-              >
-                {overviewDE[10].label}
-              </button>
-            </div>
-          </Box>
-        </Modal>
-      ) : (
-        <Modal
-          hideBackdrop
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="keep-mounted-modal-title"
-          aria-describedby="keep-mounted-modal-description"
-        >
-          <Box
-            sx={{
-              position: "absolute",
-              top: "50%",
-              left: "16%",
-              transform: "translate(-50%, -70%)",
-              width: 400,
-              bgcolor: "background.paper",
-              boxShadow: 24,
-              p: 4,
-              borderRadius: 5,
-              border: "1px solid #E5E5E5",
-              textAlign: "center",
-            }}
-          >
-            <Typography
-              id="keep-mounted-modal-description"
-              sx={{ mt: 2, fontWeight: 700 }}
-            >
-              {overviewEN[20].label}
-            </Typography>
-            <Typography
-              id="keep-mounted-modal-description"
-              sx={{
-                mt: 2,
-                textAlign: "left",
-                overflowY: "auto",
-                height: 200,
-              }}
-            >
-              {overviewEN[8].label}
-            </Typography>
-            <div
-              style={{
-                textAlign: "left",
-                borderTop: "1px solid #C4C4C4",
-              }}
-            ></div>
-
-            <div style={{ marginTop: 10, textAlign: "left", float: "left" }}>
-              <button
-                style={{
-                  height: 40,
-                  background: " #034D82",
-                  borderRadius: 5,
-                  color: "#FFFFFF",
-                  fontWeight: 700,
-                  border: "none",
-                  filter: "drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.1))",
-                }}
-                onClick={() => handleClose(1, Doc)}
-              >
-                {overviewEN[9].label}
-              </button>
-            </div>
-            <div style={{ marginTop: 10, textAlign: "right" }}>
-              <button
-                style={{
-                  height: 40,
-                  borderRadius: 5,
-                  color: "#034D82",
-                  fontWeight: 700,
-                  filter: "drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.1))",
-                  background: "#FFFFFF",
-                  border: "1px solid #034D82",
-                }}
-                onClick={() => handleClose(2)}
-              >
-                {overviewEN[10].label}
-              </button>
-            </div>
-          </Box>
-        </Modal>
-      )}
       {width > 768 ? (
         <>
+          {/* Modal cookei*/}
+          {Doc === "English" ? (
+            <Modal
+              hideBackdrop
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="keep-mounted-modal-title"
+              aria-describedby="keep-mounted-modal-description"
+            >
+              <Box
+                sx={{
+                  position: "absolute",
+                  top: "50%",
+                  left: "16%",
+                  transform: "translate(-50%, -70%)",
+                  width: 400,
+                  bgcolor: "background.paper",
+                  boxShadow: 24,
+                  p: 4,
+                  borderRadius: 5,
+                  border: "1px solid #E5E5E5",
+                  textAlign: "center",
+                }}
+              >
+                <Typography
+                  id="keep-mounted-modal-description"
+                  sx={{ mt: 2, fontWeight: 700 }}
+                >
+                  {overviewEN[20].label}
+                </Typography>
+                <Typography
+                  id="keep-mounted-modal-description"
+                  sx={{
+                    mt: 2,
+                    textAlign: "left",
+                    overflowY: "auto",
+                    height: 200,
+                  }}
+                >
+                  {overviewEN[8].label}
+                </Typography>
+                <div
+                  style={{
+                    textAlign: "left",
+                    borderTop: "1px solid #C4C4C4",
+                  }}
+                ></div>
+
+                <div
+                  style={{ marginTop: 10, textAlign: "left", float: "left" }}
+                >
+                  <button
+                    style={{
+                      height: 40,
+                      background: " #034D82",
+                      borderRadius: 5,
+                      color: "#FFFFFF",
+                      fontWeight: 700,
+                      border: "none",
+                      filter: "drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.1))",
+                    }}
+                    onClick={() => handleClose(1, Doc)}
+                  >
+                    {overviewEN[9].label}
+                  </button>
+                </div>
+                <div style={{ marginTop: 10, textAlign: "right" }}>
+                  <button
+                    style={{
+                      height: 40,
+                      borderRadius: 5,
+                      color: "#034D82",
+                      fontWeight: 700,
+                      filter: "drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.1))",
+                      background: "#FFFFFF",
+                      border: "1px solid #034D82",
+                    }}
+                    onClick={() => handleClose(2)}
+                  >
+                    {overviewEN[10].label}
+                  </button>
+                </div>
+              </Box>
+            </Modal>
+          ) : Doc === "Thai" ? (
+            <Modal
+              hideBackdrop
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="keep-mounted-modal-title"
+              aria-describedby="keep-mounted-modal-description"
+            >
+              <Box
+                sx={{
+                  position: "absolute",
+                  top: "50%",
+                  left: "16%",
+                  transform: "translate(-50%, -70%)",
+                  width: 400,
+                  bgcolor: "background.paper",
+                  boxShadow: 24,
+                  p: 4,
+                  borderRadius: 5,
+                  border: "1px solid #E5E5E5",
+                  textAlign: "center",
+                }}
+              >
+                <Typography
+                  id="keep-mounted-modal-description"
+                  sx={{ mt: 2, fontWeight: 700 }}
+                >
+                  {overviewTH[20].label}
+                </Typography>
+                <Typography
+                  id="keep-mounted-modal-description"
+                  sx={{
+                    mt: 2,
+                    textAlign: "left",
+                    overflowY: "auto",
+                    height: 200,
+                  }}
+                >
+                  {overviewTH[8].label}
+                </Typography>
+                <div
+                  style={{
+                    textAlign: "left",
+                    borderTop: "1px solid #C4C4C4",
+                  }}
+                ></div>
+
+                <div
+                  style={{ marginTop: 10, textAlign: "left", float: "left" }}
+                >
+                  <button
+                    style={{
+                      height: 40,
+                      background: " #034D82",
+                      borderRadius: 5,
+                      color: "#FFFFFF",
+                      fontWeight: 700,
+                      border: "none",
+                      filter: "drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.1))",
+                    }}
+                    onClick={() => handleClose(1, Doc)}
+                  >
+                    {overviewTH[9].label}
+                  </button>
+                </div>
+                <div style={{ marginTop: 10, textAlign: "right" }}>
+                  <button
+                    style={{
+                      height: 40,
+                      borderRadius: 5,
+                      color: "#034D82",
+                      fontWeight: 700,
+                      filter: "drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.1))",
+                      background: "#FFFFFF",
+                      border: "1px solid #034D82",
+                    }}
+                    onClick={() => handleClose(2)}
+                  >
+                    {overviewTH[10].label}
+                  </button>
+                </div>
+              </Box>
+            </Modal>
+          ) : Doc === "German" ? (
+            <Modal
+              hideBackdrop
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="keep-mounted-modal-title"
+              aria-describedby="keep-mounted-modal-description"
+            >
+              <Box
+                sx={{
+                  position: "absolute",
+                  top: "50%",
+                  left: "16%",
+                  transform: "translate(-50%, -70%)",
+                  width: 400,
+                  bgcolor: "background.paper",
+                  boxShadow: 24,
+                  p: 4,
+                  borderRadius: 5,
+                  border: "1px solid #E5E5E5",
+                  textAlign: "center",
+                }}
+              >
+                <Typography
+                  id="keep-mounted-modal-description"
+                  sx={{ mt: 2, fontWeight: 700 }}
+                >
+                  {overviewDE[20].label}
+                </Typography>
+                <Typography
+                  id="keep-mounted-modal-description"
+                  sx={{
+                    mt: 2,
+                    textAlign: "left",
+                    overflowY: "auto",
+                    height: 200,
+                  }}
+                >
+                  {overviewDE[8].label}
+                </Typography>
+                <div
+                  style={{
+                    textAlign: "left",
+                    borderTop: "1px solid #C4C4C4",
+                  }}
+                ></div>
+
+                <div
+                  style={{ marginTop: 10, textAlign: "left", float: "left" }}
+                >
+                  <button
+                    style={{
+                      height: 40,
+                      background: " #034D82",
+                      borderRadius: 5,
+                      color: "#FFFFFF",
+                      fontWeight: 700,
+                      border: "none",
+                      filter: "drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.1))",
+                    }}
+                    onClick={() => handleClose(1, Doc)}
+                  >
+                    {overviewDE[9].label}
+                  </button>
+                </div>
+                <div style={{ marginTop: 10, textAlign: "right" }}>
+                  <button
+                    style={{
+                      height: 40,
+                      borderRadius: 5,
+                      color: "#034D82",
+                      fontWeight: 700,
+                      filter: "drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.1))",
+                      background: "#FFFFFF",
+                      border: "1px solid #034D82",
+                    }}
+                    onClick={() => handleClose(2)}
+                  >
+                    {overviewDE[10].label}
+                  </button>
+                </div>
+              </Box>
+            </Modal>
+          ) : (
+            <Modal
+              hideBackdrop
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="keep-mounted-modal-title"
+              aria-describedby="keep-mounted-modal-description"
+            >
+              <Box
+                sx={{
+                  position: "absolute",
+                  top: "50%",
+                  left: "16%",
+                  transform: "translate(-50%, -70%)",
+                  width: 400,
+                  bgcolor: "background.paper",
+                  boxShadow: 24,
+                  p: 4,
+                  borderRadius: 5,
+                  border: "1px solid #E5E5E5",
+                  textAlign: "center",
+                }}
+              >
+                <Typography
+                  id="keep-mounted-modal-description"
+                  sx={{ mt: 2, fontWeight: 700 }}
+                >
+                  {overviewEN[20].label}
+                </Typography>
+                <Typography
+                  id="keep-mounted-modal-description"
+                  sx={{
+                    mt: 2,
+                    textAlign: "left",
+                    overflowY: "auto",
+                    height: 200,
+                  }}
+                >
+                  {overviewEN[8].label}
+                </Typography>
+                <div
+                  style={{
+                    textAlign: "left",
+                    borderTop: "1px solid #C4C4C4",
+                  }}
+                ></div>
+
+                <div
+                  style={{ marginTop: 10, textAlign: "left", float: "left" }}
+                >
+                  <button
+                    style={{
+                      height: 40,
+                      background: " #034D82",
+                      borderRadius: 5,
+                      color: "#FFFFFF",
+                      fontWeight: 700,
+                      border: "none",
+                      filter: "drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.1))",
+                    }}
+                    onClick={() => handleClose(1, Doc)}
+                  >
+                    {overviewEN[9].label}
+                  </button>
+                </div>
+                <div style={{ marginTop: 10, textAlign: "right" }}>
+                  <button
+                    style={{
+                      height: 40,
+                      borderRadius: 5,
+                      color: "#034D82",
+                      fontWeight: 700,
+                      filter: "drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.1))",
+                      background: "#FFFFFF",
+                      border: "1px solid #034D82",
+                    }}
+                    onClick={() => handleClose(2)}
+                  >
+                    {overviewEN[10].label}
+                  </button>
+                </div>
+              </Box>
+            </Modal>
+          )}
           <div className={styles.fram1}>
             <div className={styles.boxBlue_overviwe}>
               <p className={styles.h_text1}>Translation Hero</p>
@@ -626,6 +634,340 @@ const Home = () => {
         </>
       ) : (
         <>
+          {/* Modal cookei*/}
+          {Doc === "English" ? (
+            <Modal
+              hideBackdrop
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="keep-mounted-modal-title"
+              aria-describedby="keep-mounted-modal-description"
+            >
+              <Box
+                sx={{
+                  position: "absolute",
+                  top: "50%",
+                  left: "30%",
+                  transform: "translate(-50%, -70%)",
+                  width: 400,
+                  bgcolor: "background.paper",
+                  boxShadow: 24,
+                  p: 4,
+                  borderRadius: 5,
+                  border: "1px solid #E5E5E5",
+                  textAlign: "center",
+                }}
+              >
+                <Typography
+                  id="keep-mounted-modal-description"
+                  sx={{ mt: 2, fontWeight: 700 }}
+                >
+                  {overviewEN[20].label}
+                </Typography>
+                <Typography
+                  id="keep-mounted-modal-description"
+                  sx={{
+                    mt: 2,
+                    textAlign: "left",
+                    overflowY: "auto",
+                    height: 200,
+                  }}
+                >
+                  {overviewEN[8].label}
+                </Typography>
+                <div
+                  style={{
+                    textAlign: "left",
+                    borderTop: "1px solid #C4C4C4",
+                  }}
+                ></div>
+
+                <div
+                  style={{ marginTop: 10, textAlign: "left", float: "left" }}
+                >
+                  <button
+                    style={{
+                      height: 40,
+                      background: " #034D82",
+                      borderRadius: 5,
+                      color: "#FFFFFF",
+                      fontWeight: 700,
+                      border: "none",
+                      filter: "drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.1))",
+                    }}
+                    onClick={() => handleClose(1, Doc)}
+                  >
+                    {overviewEN[9].label}
+                  </button>
+                </div>
+                <div style={{ marginTop: 10, textAlign: "right" }}>
+                  <button
+                    style={{
+                      height: 40,
+                      borderRadius: 5,
+                      color: "#034D82",
+                      fontWeight: 700,
+                      filter: "drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.1))",
+                      background: "#FFFFFF",
+                      border: "1px solid #034D82",
+                    }}
+                    onClick={() => handleClose(2)}
+                  >
+                    {overviewEN[10].label}
+                  </button>
+                </div>
+              </Box>
+            </Modal>
+          ) : Doc === "Thai" ? (
+            <Modal
+              hideBackdrop
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="keep-mounted-modal-title"
+              aria-describedby="keep-mounted-modal-description"
+            >
+              <Box
+                sx={{
+                  position: "absolute",
+                  top: "50%",
+                  left: "30%",
+                  transform: "translate(-50%, -70%)",
+                  width: 400,
+                  bgcolor: "background.paper",
+                  boxShadow: 24,
+                  p: 4,
+                  borderRadius: 5,
+                  border: "1px solid #E5E5E5",
+                  textAlign: "center",
+                }}
+              >
+                <Typography
+                  id="keep-mounted-modal-description"
+                  sx={{ mt: 2, fontWeight: 700 }}
+                >
+                  {overviewTH[20].label}
+                </Typography>
+                <Typography
+                  id="keep-mounted-modal-description"
+                  sx={{
+                    mt: 2,
+                    textAlign: "left",
+                    overflowY: "auto",
+                    height: 200,
+                  }}
+                >
+                  {overviewTH[8].label}
+                </Typography>
+                <div
+                  style={{
+                    textAlign: "left",
+                    borderTop: "1px solid #C4C4C4",
+                  }}
+                ></div>
+
+                <div
+                  style={{ marginTop: 10, textAlign: "left", float: "left" }}
+                >
+                  <button
+                    style={{
+                      height: 40,
+                      background: " #034D82",
+                      borderRadius: 5,
+                      color: "#FFFFFF",
+                      fontWeight: 700,
+                      border: "none",
+                      filter: "drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.1))",
+                    }}
+                    onClick={() => handleClose(1, Doc)}
+                  >
+                    {overviewTH[9].label}
+                  </button>
+                </div>
+                <div style={{ marginTop: 10, textAlign: "right" }}>
+                  <button
+                    style={{
+                      height: 40,
+                      borderRadius: 5,
+                      color: "#034D82",
+                      fontWeight: 700,
+                      filter: "drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.1))",
+                      background: "#FFFFFF",
+                      border: "1px solid #034D82",
+                    }}
+                    onClick={() => handleClose(2)}
+                  >
+                    {overviewTH[10].label}
+                  </button>
+                </div>
+              </Box>
+            </Modal>
+          ) : Doc === "German" ? (
+            <Modal
+              hideBackdrop
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="keep-mounted-modal-title"
+              aria-describedby="keep-mounted-modal-description"
+            >
+              <Box
+                sx={{
+                  position: "absolute",
+                  top: "50%",
+                  left: "30%",
+                  transform: "translate(-50%, -70%)",
+                  width: 400,
+                  bgcolor: "background.paper",
+                  boxShadow: 24,
+                  p: 4,
+                  borderRadius: 5,
+                  border: "1px solid #E5E5E5",
+                  textAlign: "center",
+                }}
+              >
+                <Typography
+                  id="keep-mounted-modal-description"
+                  sx={{ mt: 2, fontWeight: 700 }}
+                >
+                  {overviewDE[20].label}
+                </Typography>
+                <Typography
+                  id="keep-mounted-modal-description"
+                  sx={{
+                    mt: 2,
+                    textAlign: "left",
+                    overflowY: "auto",
+                    height: 200,
+                  }}
+                >
+                  {overviewDE[8].label}
+                </Typography>
+                <div
+                  style={{
+                    textAlign: "left",
+                    borderTop: "1px solid #C4C4C4",
+                  }}
+                ></div>
+
+                <div
+                  style={{ marginTop: 10, textAlign: "left", float: "left" }}
+                >
+                  <button
+                    style={{
+                      height: 40,
+                      background: " #034D82",
+                      borderRadius: 5,
+                      color: "#FFFFFF",
+                      fontWeight: 700,
+                      border: "none",
+                      filter: "drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.1))",
+                    }}
+                    onClick={() => handleClose(1, Doc)}
+                  >
+                    {overviewDE[9].label}
+                  </button>
+                </div>
+                <div style={{ marginTop: 10, textAlign: "right" }}>
+                  <button
+                    style={{
+                      height: 40,
+                      borderRadius: 5,
+                      color: "#034D82",
+                      fontWeight: 700,
+                      filter: "drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.1))",
+                      background: "#FFFFFF",
+                      border: "1px solid #034D82",
+                    }}
+                    onClick={() => handleClose(2)}
+                  >
+                    {overviewDE[10].label}
+                  </button>
+                </div>
+              </Box>
+            </Modal>
+          ) : (
+            <Modal
+              hideBackdrop
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="keep-mounted-modal-title"
+              aria-describedby="keep-mounted-modal-description"
+            >
+              <Box
+                sx={{
+                  position: "absolute",
+                  top: "50%",
+                  left: "30%",
+                  transform: "translate(-50%, -70%)",
+                  width: 400,
+                  bgcolor: "background.paper",
+                  boxShadow: 24,
+                  p: 4,
+                  borderRadius: 5,
+                  border: "1px solid #E5E5E5",
+                  textAlign: "center",
+                }}
+              >
+                <Typography
+                  id="keep-mounted-modal-description"
+                  sx={{ mt: 2, fontWeight: 700 }}
+                >
+                  {overviewEN[20].label}
+                </Typography>
+                <Typography
+                  id="keep-mounted-modal-description"
+                  sx={{
+                    mt: 2,
+                    textAlign: "left",
+                    overflowY: "auto",
+                    height: 200,
+                  }}
+                >
+                  {overviewEN[8].label}
+                </Typography>
+                <div
+                  style={{
+                    textAlign: "left",
+                    borderTop: "1px solid #C4C4C4",
+                  }}
+                ></div>
+
+                <div
+                  style={{ marginTop: 10, textAlign: "left", float: "left" }}
+                >
+                  <button
+                    style={{
+                      height: 40,
+                      background: " #034D82",
+                      borderRadius: 5,
+                      color: "#FFFFFF",
+                      fontWeight: 700,
+                      border: "none",
+                      filter: "drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.1))",
+                    }}
+                    onClick={() => handleClose(1, Doc)}
+                  >
+                    {overviewEN[9].label}
+                  </button>
+                </div>
+                <div style={{ marginTop: 10, textAlign: "right" }}>
+                  <button
+                    style={{
+                      height: 40,
+                      borderRadius: 5,
+                      color: "#034D82",
+                      fontWeight: 700,
+                      filter: "drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.1))",
+                      background: "#FFFFFF",
+                      border: "1px solid #034D82",
+                    }}
+                    onClick={() => handleClose(2)}
+                  >
+                    {overviewEN[10].label}
+                  </button>
+                </div>
+              </Box>
+            </Modal>
+          )}
           <div className={styles.fram1}>
             <div className={styles.boxBlue_overviwe}>
               <p className={styles.h_text1}>Translation Hero</p>
