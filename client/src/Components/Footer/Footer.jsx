@@ -23,7 +23,7 @@ const Footer = (props) => {
   let pathname = window.location.pathname;
   const { innerWidth: width } = window;
 
-  console.log(languages);
+  // console.log(languages);
 
   const switchLanguage = (x) => {
     if (pathname === "/") {

@@ -181,8 +181,11 @@
 @media only screen and (min-width: 1024px) {
   .textFooter2 {
     font-size: 12px;
-    width: auto;
+    width: 25vw;
     justify-self: center;
+  }
+  .ContentFooter2 {
+    font-size: 12px;
   }
   .ImgApp_store {
     margin: 10px;

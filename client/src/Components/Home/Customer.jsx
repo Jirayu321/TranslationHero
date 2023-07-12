@@ -112,9 +112,10 @@ const Customer = () => {
   const [choose, setChoose] = React.useState(false);
 
   const [email, setEmail] = React.useState("");
+  const [countButtons, setcountButtons] = React.useState(0);
 
   React.useEffect(() => {
-    if (groupData) {
+    if (groupData !== null) {
       let document_Type = groupData[0]?.document_Type;
       let translation_Type = groupData[0]?.translation_Type;
       let tranfrom = groupData[0]?.tranfrom;
@@ -122,9 +123,6 @@ const Customer = () => {
       let Deadline = groupData[0]?.Deadline;
       let Additional_explanation = groupData[0]?.Additional_explanation;
       console.log(
-        "data:",
-        page,
-        ",",
         document_Type,
         ",",
         translation_Type,
@@ -138,15 +136,9 @@ const Customer = () => {
         Additional_explanation
       );
     } else {
-      console.log("groupData,page:", groupData);
+      console.log("Data:", groupData);
     }
   }, [groupData]);
-
-  // console.log("from:", from);
-  // console.log("groupData:", groupData);
-  // console.log("count:", count);
-  // console.log("count2:", count2);
-  // console.log("page:", page);
 
   const handleDateChange = (date) => {
     setFrom((prevFrom) => ({
@@ -155,9 +147,12 @@ const Customer = () => {
     }));
   };
 
-  function chagngepage(x, y) {
-    if (groupData) {
+  function chagngeDataPage(x, y) {
+    console.log("x:", x, "y:", y, "groupData:", groupData);
+
+    if (groupData !== null) {
       let index = x - 1;
+      let file = groupData[index]?.file;
       let document_Type = groupData[index]?.document_Type;
       let translation_Type = groupData[index]?.translation_Type;
       let tranfrom = groupData[index]?.tranfrom;
@@ -179,7 +174,7 @@ const Customer = () => {
         setPage(x);
       } else {
         setFrom({
-          file: "",
+          file: file,
           document_Type: document_Type,
           translation_Type: translation_Type,
           tranfrom: tranfrom,
@@ -210,12 +205,16 @@ const Customer = () => {
   function Add_data() {
     if (groupData === null) {
       setGroupData([from]);
-      chagngepage(2, 0);
+      chagngeDataPage(2, 0);
     } else {
+      console.log("c1:", groupData);
       setGroupData([...groupData, from]);
       let x = page + 1;
-      chagngepage(x, 1);
+      chagngeDataPage(x, 1);
     }
+  }
+  function SUMbuttons(x) {
+    console.log(x);
   }
 
   const createButtons = () => {
@@ -232,15 +231,15 @@ const Customer = () => {
           <button
             key={i}
             className={buttonStyle}
-            onClick={() => chagngepage(buttonNumber, 0)}
+            onClick={() => chagngeDataPage(buttonNumber, 0)}
           >
             {buttonNumber}
           </button>
         );
       }
+      SUMbuttons(buttons.length, 0);
       return buttons;
     } else {
-      // console.log("deleteData:", deleteData, count);
       let buttons = [];
       let someCondition = count2;
       for (let i = 0; i < someCondition; i++) {
@@ -253,12 +252,14 @@ const Customer = () => {
           <button
             key={i}
             className={buttonStyle}
-            onClick={() => chagngepage(buttonNumber, 0)}
+            onClick={() => chagngeDataPage(buttonNumber, 0)}
           >
             {buttonNumber}
           </button>
         );
       }
+      SUMbuttons(buttons.length, 0);
+      // console.log("buttons2");
       return buttons;
     }
   };
@@ -266,11 +267,10 @@ const Customer = () => {
   function Delete_data(e) {
     let x = e - 1; //เลือกตำแหน่งข้อมูลที่เราเลือก
     groupData.splice(x, 1); //ลบข้อมูลที่เราเลือก
+    // console.log(groupData);
     setDelete(true);
-    if (count) {
-      if (page === 2) {
-        setPage(page - 1);
-      } else if (count === 1) {
+    if (typeof count === "number") {
+      if (count === 1) {
         setPage(1);
       } else {
         setPage(page - 1);
@@ -281,39 +281,38 @@ const Customer = () => {
   }
 
   function switch_page(x) {
-    // console.log("ssss:", page, count);
+    let C = groupData?.length;
+    let z = page + 1;
+    console.log(countButtons);
     if (x === "next") {
-      if (count) {
-        let z = page + 1;
-        // console.log("4444:", "page:", page, "count:", count);
-        if (page === count) {
-          if (count === 1 || page === 1) {
-            // console.log("5555:", "page:", page, "count:", count);
-            if (deleteData === true) {
-              setPage(1);
-            } else {
-              chagngepage(z, 0);
-            }
-          } else {
-            // console.log("666", "page:", page, "count:", count);
-            setPage(page);
-            // chagngepage(z, 0);
-          }
+      console.log("page:", page, "length:", C, "groupData", groupData);
+      if (typeof C === "number") {
+        if (page > C) {
+          chagngeDataPage(page, 0);
         } else {
-          // console.log("777", "page:", page, "count:", count);
-          chagngepage(z, 0);
+          if (page < C) {
+            chagngeDataPage(z, 0);
+          } else {
+            if (page === C) {
+              if (page === 1) {
+                chagngeDataPage(page, 0);
+              } else {
+                chagngeDataPage(page, 0);
+              }
+            } else {
+              console.log("5555");
+            }
+          }
         }
       } else {
-        // console.log("8888", "page:", page, "count:", count);
         setPage(1);
       }
     } else if (x === "back") {
-      // console.log("back:", "page:", page, "count:", count);
       if (page === 1) {
         setPage(1);
       } else {
         let y = page - 1;
-        chagngepage(y, 0);
+        chagngeDataPage(y, 0);
       }
     }
   }
@@ -367,7 +366,11 @@ const Customer = () => {
 
   const cutsting = (x) => {
     console.log(x);
-    return x.slice(0, 30);
+    if (x !== undefined) {
+      return x.slice(0, 30);
+    } else {
+      return null;
+    }
   };
 
   function generatePrice() {
@@ -582,7 +585,7 @@ const Customer = () => {
     // Function to handle form submission.
     const handleSubmit = (e) => {
       e.preventDefault();
-      const { issuer } = state;
+      // const { issuer } = state;
       const formData = [...e.target.elements]
         .filter((d) => d.name)
         .reduce((acc, d) => {
@@ -1965,7 +1968,7 @@ const Customer = () => {
                     >
                       <IoIosArrowBack className={styles.icon1} />
                     </button>
-                    {count === null || count === undefined ? (
+                    {typeof count !== "number" ? (
                       <button className={styles.buttonArrow2}>1</button>
                     ) : count >= 1 ? (
                       <div>{createButtons()}</div>
