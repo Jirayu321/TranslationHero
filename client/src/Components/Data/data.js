@@ -404,10 +404,7 @@ export const data5 = [
     label: "House Registration Thor. Ror. 14 (Home page: House registration )",
   },
   { code: "", label: "House Registration" },
-  {
-    code: "",
-    label: "House Registration Thor. Ror. 14 (Home page: House registration )",
-  },
+
   { code: "", label: " House registration Thor. Ror. 14 (personal list page)" },
   { code: "", label: "House registration Thor. Ror. 14 (Revised page)" },
   { code: "", label: "dentification Card" },

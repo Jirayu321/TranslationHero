@@ -85,6 +85,17 @@ const Customer = () => {
     type: null,
     Price: generatePrice(),
   });
+  const [from2, setFrom2] = React.useState({
+    file: "",
+    document_Type: null,
+    translation_Type: null,
+    tranfrom: null,
+    tranto: null,
+    Deadline: new Date(),
+    Additional_explanation: "",
+    type: null,
+    Price: generatePrice(),
+  });
   const [groupData, setGroupData] = React.useState(null); //เก็บข้อมูลทั้งหมดที่เราเพิ่มเข้ามา
 
   const [deleteData, setDelete] = React.useState(false);
@@ -112,7 +123,7 @@ const Customer = () => {
   const [choose, setChoose] = React.useState(false);
 
   const [email, setEmail] = React.useState("");
-  const [countButtons, setcountButtons] = React.useState(0);
+  // const [countButtons, setcountButtons] = React.useState(0);
 
   React.useEffect(() => {
     if (groupData !== null) {
@@ -149,7 +160,6 @@ const Customer = () => {
 
   function chagngeDataPage(x, y) {
     console.log("x:", x, "y:", y, "groupData:", groupData);
-
     if (groupData !== null) {
       let index = x - 1;
       let file = groupData[index]?.file;
@@ -162,52 +172,96 @@ const Customer = () => {
       if (y === 1) {
         setFrom({
           file: "",
-          document_Type: null,
-          translation_Type: null,
-          tranfrom: null,
-          tranto: null,
+          document_Type: "",
+          translation_Type: "",
+          tranfrom: "",
+          tranto: "",
           Deadline: new Date(),
           Additional_explanation: "",
-          type: null,
+          type: "",
           Price: "",
         });
         setPage(x);
       } else {
-        setFrom({
-          file: file,
-          document_Type: document_Type,
-          translation_Type: translation_Type,
-          tranfrom: tranfrom,
-          tranto: tranto,
-          Deadline: Deadline,
-          Additional_explanation: Additional_explanation,
+        setFrom2({
+          file: from.file,
+          document_Type: from.document_Type,
+          translation_Type: from.translation_Type,
+          tranfrom: from.tranfrom,
+          tranto: from.tranto,
+          Deadline: from.Deadline,
+          Additional_explanation: from.Additional_explanation,
           type: "",
-          Price: generatePrice(),
+          Price: "",
         });
+        if (typeof translation_Type !== "undefined") {
+          console.log("dddd", typeof translation_Type);
+          setFrom({
+            file: file,
+            document_Type: document_Type,
+            translation_Type: translation_Type,
+            tranfrom: tranfrom,
+            tranto: tranto,
+            Deadline: Deadline,
+            Additional_explanation: Additional_explanation,
+            type: "",
+            Price: "",
+          });
+        } else {
+          if (typeof from2.translation_Type !== "undefined") {
+            console.log("8888")
+            setFrom({
+              file: from2.file,
+              document_Type: from2.document_Type,
+              translation_Type: from2.translation_Type,
+              tranfrom: from2.tranfrom,
+              tranto: from2.tranto,
+              Deadline: from2.Deadline,
+              Additional_explanation: from2.Additional_explanation,
+              type: "",
+              Price: "",
+            });
+          } else {
+            setFrom({
+              file: "",
+              document_Type: "",
+              translation_Type: "",
+              tranfrom: "",
+              tranto: "",
+              Deadline: new Date(),
+              Additional_explanation: "",
+              type: "",
+              Price: "",
+            });
+          }
+        }
         setPage(x);
       }
     } else {
-      setFrom({
-        file: "",
-        document_Type: null,
-        translation_Type: null,
-        tranfrom: null,
-        tranto: null,
-        Deadline: new Date(),
-        Additional_explanation: "",
-        type: null,
-        Price: "",
-      });
+      setGroupData([from]);
       setPage(x);
+      console.log("groupData:", groupData);
     }
   }
 
   function Add_data() {
     if (groupData === null) {
+      console.log("c1:", groupData);
       setGroupData([from]);
+      setFrom({
+        file: "",
+        document_Type: "",
+        translation_Type: "",
+        tranfrom: "",
+        tranto: "",
+        Deadline: new Date(),
+        Additional_explanation: "",
+        type: "",
+        Price: "",
+      });
       chagngeDataPage(2, 0);
     } else {
-      console.log("c1:", groupData);
+      console.log("c2:", groupData);
       setGroupData([...groupData, from]);
       let x = page + 1;
       chagngeDataPage(x, 1);
@@ -273,7 +327,8 @@ const Customer = () => {
       if (count === 1) {
         setPage(1);
       } else {
-        setPage(page - 1);
+        let z = page - 1;
+        chagngeDataPage(z, 0);
       }
     } else {
       setPage(1);
@@ -283,7 +338,7 @@ const Customer = () => {
   function switch_page(x) {
     let C = groupData?.length;
     let z = page + 1;
-    console.log(countButtons);
+    // console.log(countButtons);
     if (x === "next") {
       console.log("page:", page, "length:", C, "groupData", groupData);
       if (typeof C === "number") {
@@ -365,11 +420,11 @@ const Customer = () => {
   };
 
   const cutsting = (x) => {
-    console.log(x);
+    // console.log(x);
     if (x !== undefined) {
       return x.slice(0, 30);
     } else {
-      return null;
+      setFrom({ ...from, file: "" });
     }
   };
 
@@ -1478,7 +1533,7 @@ const Customer = () => {
                       height: "30px",
                     }}
                     options={data2}
-                    defaultValue={null}
+                    defaultValue={from?.document_Type}
                     autoHighlight
                     value={from?.document_Type}
                     onChange={(event, value) =>
@@ -1537,7 +1592,7 @@ const Customer = () => {
                         marginBottom: "30px",
                         height: "30px",
                       }}
-                      defaultValue={null}
+                      defaultValue={from?.translation_Type}
                       options={data5}
                       autoHighlight
                       value={from?.translation_Type}
@@ -1583,7 +1638,7 @@ const Customer = () => {
                         marginBottom: "30px",
                         height: "30px",
                       }}
-                      defaultValue={null}
+                      defaultValue={from?.translation_Type}
                       options={data4}
                       autoHighlight
                       value={from?.translation_Type}
@@ -1631,7 +1686,7 @@ const Customer = () => {
                       }}
                       options={data3}
                       autoHighlight
-                      defaultValue={null}
+                      defaultValue={from?.translation_Type}
                       value={from?.translation_Type}
                       onChange={(event, value) =>
                         setFrom({ ...from, translation_Type: value?.label })
@@ -1677,7 +1732,7 @@ const Customer = () => {
                       }}
                       options={data5}
                       autoHighlight
-                      defaultValue={null}
+                      defaultValue={from?.translation_Type}
                       value={from?.translation_Type}
                       onChange={(event, value) => console.log(value?.label)}
                       popupIcon={
@@ -1740,7 +1795,7 @@ const Customer = () => {
                     }}
                     options={data}
                     autoHighlight
-                    defaultValue={null}
+                    defaultValue={from?.tranfrom}
                     value={from?.tranfrom}
                     onChange={(event, value) =>
                       setFrom({ ...from, tranfrom: value?.label })
@@ -1803,7 +1858,7 @@ const Customer = () => {
                     }}
                     options={data}
                     autoHighlight
-                    defaultValue={null}
+                    defaultValue={from?.tranto}
                     value={from?.tranto}
                     onChange={(event, value) =>
                       setFrom({ ...from, tranto: value?.label })
