@@ -74,16 +74,29 @@ const Customer = () => {
   let Doc = location?.state?.languages;
 
   const [promo, setPromo] = React.useState(""); //Promo code คือเปิดตัวด้านล่าง
+
+  function getCurrentDate() {
+    const date = new Date();
+    let day = date.getDate();
+    let month = date.getMonth() + 1;
+    const year = date.getFullYear();
+
+    if (day < 10) day = `0${day}`;
+    if (month < 10) month = `0${month}`;
+
+    return `${month}/${day}/${year}`;
+  }
   const [from, setFrom] = React.useState({
     file: "",
     document_Type: null,
     translation_Type: null,
     tranfrom: null,
     tranto: null,
-    Deadline: new Date(),
+    Deadline: getCurrentDate(),
     Additional_explanation: "",
     type: null,
     Price: generatePrice(),
+    orderNumber: "",
   });
   const [from2, setFrom2] = React.useState({
     file: "",
@@ -91,10 +104,11 @@ const Customer = () => {
     translation_Type: null,
     tranfrom: null,
     tranto: null,
-    Deadline: new Date(),
+    Deadline: getCurrentDate(),
     Additional_explanation: "",
     type: null,
     Price: generatePrice(),
+    orderNumber: "",
   });
   const [groupData, setGroupData] = React.useState(null); //เก็บข้อมูลทั้งหมดที่เราเพิ่มเข้ามา
 
@@ -176,7 +190,7 @@ const Customer = () => {
           translation_Type: "",
           tranfrom: "",
           tranto: "",
-          Deadline: new Date(),
+          Deadline: getCurrentDate(),
           Additional_explanation: "",
           type: "",
           Price: "",
@@ -193,6 +207,7 @@ const Customer = () => {
           Additional_explanation: from.Additional_explanation,
           type: "",
           Price: "",
+          orderNumber: "",
         });
         if (typeof translation_Type !== "undefined") {
           console.log("dddd", typeof translation_Type);
@@ -206,10 +221,11 @@ const Customer = () => {
             Additional_explanation: Additional_explanation,
             type: "",
             Price: "",
+            orderNumber: "",
           });
         } else {
           if (typeof from2.translation_Type !== "undefined") {
-            console.log("8888")
+            console.log("8888");
             setFrom({
               file: from2.file,
               document_Type: from2.document_Type,
@@ -220,6 +236,7 @@ const Customer = () => {
               Additional_explanation: from2.Additional_explanation,
               type: "",
               Price: "",
+              orderNumber: "",
             });
           } else {
             setFrom({
@@ -228,10 +245,11 @@ const Customer = () => {
               translation_Type: "",
               tranfrom: "",
               tranto: "",
-              Deadline: new Date(),
+              Deadline: getCurrentDate(),
               Additional_explanation: "",
               type: "",
               Price: "",
+              orderNumber: "",
             });
           }
         }
@@ -254,10 +272,11 @@ const Customer = () => {
         translation_Type: "",
         tranfrom: "",
         tranto: "",
-        Deadline: new Date(),
+        Deadline: getCurrentDate(),
         Additional_explanation: "",
         type: "",
         Price: "",
+        orderNumber: "",
       });
       chagngeDataPage(2, 0);
     } else {
@@ -433,6 +452,13 @@ const Customer = () => {
 
     return PriceCount + "฿";
   }
+  function generateOrderNumber(length) {
+    // Generate a random number
+    let orderNumber = Math.floor(Math.random() * Math.pow(10, length));
+
+    // Pad the number with zeroes
+    return orderNumber.toString().padStart(length, "0");
+  }
 
   function sendEmail() {
     const datatext = {
@@ -460,7 +486,11 @@ const Customer = () => {
   function OpneMode(x) {
     // console.log("x:", x);
     if (x === 1) {
-      setFrom({ ...from, Price: generatePrice() });
+      setFrom({
+        ...from,
+        Price: generatePrice(),
+        orderNumber: generateOrderNumber(12),
+      });
       window.scroll(0, 0);
       setOpen(true);
       setTimeout(function () {
@@ -786,15 +816,15 @@ const Customer = () => {
         <Box
           sx={{
             position: "absolute",
-            width: "50vw",
+            width: "36vw",
             bgcolor: "background.paper",
             boxShadow: 24,
             p: 4,
             borderRadius: 5,
             border: "1px solid #E5E5E5",
             textAlign: "center",
-            top: "15vh",
-            left: "25vw",
+            top: "10vh",
+            left: "35vw",
           }}
         >
           <div
@@ -811,100 +841,92 @@ const Customer = () => {
             </p>
           </div>
 
+          <div className={styles.borderReceipt}></div>
           <div
             id="keep-mounted-modal-description"
             sx={{
               mt: 2,
+              textAlign: "left",
+              overflowY: "auto",
             }}
-          ></div>
+          >
+            {groupData ? (
+              <>
+                <div className={styles.Box_detailH_Model}>
+                  <p className={styles.H_Model}>Ref Number</p>
+                  <p className={styles.H_Model2}>{groupData[0]?.orderNumber}</p>
+                </div>
+                <div className={styles.Box_detailH_Model}>
+                  <p className={styles.H_Model}>Date</p>
+                  <p className={styles.H_Model2}>{groupData[0]?.Deadline}</p>
+                </div>
+                <div className={styles.Box_detailH_Model}>
+                  <p className={styles.H_Model}>Translator</p>
+                  <p className={styles.H_Model2}>Habi Yang</p>
+                </div>
+              </>
+            ) : (
+              <>
+                <div className={styles.Box_detailH_Model}>
+                  <p className={styles.H_Model}>Ref Number</p>
+                  <p className={styles.H_Model2}>000088874612</p>
+                </div>
+                <div className={styles.Box_detailH_Model}>
+                  <p className={styles.H_Model}>Date</p>
+                  <p className={styles.H_Model2}>07-12-2023</p>
+                </div>
+                <div className={styles.Box_detailH_Model}>
+                  <p className={styles.H_Model}>Translator</p>
+                  <p className={styles.H_Model2}>Habi Yang</p>
+                </div>
+              </>
+            )}
+          </div>
+          <div className={styles.borderReceipt}></div>
           {groupData ? (
-            <div
-              id="keep-mounted-modal-description"
-              sx={{
-                mt: 2,
-                textAlign: "left",
-                overflowY: "auto",
-              }}
-            >
-              <div className={styles.Box_detailH_Model}>
-                <p className={styles.H_Model}>Document Type</p>
-                <p className={styles.H_Model2}>{groupData[0]?.document_Type}</p>
-              </div>
+            <>
+              {groupData?.map((item, index) => (
+                <div
+                  key={index}
+                  id="keep-mounted-modal-description"
+                  style={{
+                    mt: 2,
+                    textAlign: "left",
+                    overflowY: "auto",
+                    height: 140,
+                  }}
+                >
+                  <div className={styles.Box_detailH_Model}>
+                    <p className={styles.H_Model2}>Order{index + 1}</p>
+                    <p className={styles.H_Model}></p>
+                  </div>
+                  <div className={styles.Box_detailH_Model}>
+                    <p className={styles.H_Model}>Document Type</p>
+                    <p className={styles.H_Model2}>{item?.document_Type}</p>
+                  </div>
 
-              <div className={styles.Box_detailH_Model}>
-                <p className={styles.H_Model}>Translation Type</p>
-                <p className={styles.H_Model2}>
-                  {groupData[0]?.translation_Type}
-                </p>
-              </div>
+                  <div className={styles.Box_detailH_Model}>
+                    <p className={styles.H_Model}>Translation Type</p>
+                    <p className={styles.H_Model2}>{item?.translation_Type}</p>
+                  </div>
 
-              <div className={styles.Box_detailH_Model}>
-                <p className={styles.H_Model}>Translate to</p>
-                <p className={styles.H_Model2}>{groupData[0]?.tranto}</p>
-              </div>
+                  <div className={styles.Box_detailH_Model}>
+                    <p className={styles.H_Model}>Translate to</p>
+                    <p className={styles.H_Model2}>{item?.tranto}</p>
+                  </div>
 
-              <div className={styles.Box_detailH_Model}>
-                <p className={styles.H_Model}>Additional explanation</p>
-                <p className={styles.H_Model2}>
-                  {groupData[0]?.Additional_explanation}
-                </p>
-              </div>
-
-              <div className={styles.Box_detailH_Model}>
-                <p className={styles.H_Model}>Price</p>
-                <p className={styles.H_Model3}>{groupData[0]?.Price}</p>
-              </div>
-
-              <button
-                className={styles.buttonModel1}
-                onClick={() => OpneMode(2)}
-              >
-                Pay
-              </button>
-              <button
-                className={styles.buttonModel1_2}
-                onClick={() =>
-                  setopenModel({
-                    ...openModel,
-                    openModel1: false,
-                  })
-                }
-              >
-                Cancel
-              </button>
-            </div>
-          ) : (
-            <div
-              id="keep-mounted-modal-description"
-              sx={{
-                mt: 2,
-                textAlign: "left",
-                overflowY: "auto",
-              }}
-            >
-              <div className={styles.Box_detailH_Model}>
-                <p className={styles.H_Model}>Document Type</p>
-                <p className={styles.H_Model2}>{from?.document_Type}</p>
-              </div>
-              <div className={styles.Box_detailH_Model}>
-                <p className={styles.H_Model}>Translation Type</p>
-                <p className={styles.H_Model2}>{from?.translation_Type}</p>
-              </div>
-
-              <div className={styles.Box_detailH_Model}>
-                <p className={styles.H_Model}>Translate to</p>
-                <p className={styles.H_Model2}>{from?.tranto}</p>
-              </div>
-
-              <div className={styles.Box_detailH_Model}>
-                <p className={styles.H_Model}>Additional explanation</p>
-                <p className={styles.H_Model2}>
-                  {from?.Additional_explanation}
-                </p>
-              </div>
-
-              <div className={styles.Box_detailH_Model}>
-                <p className={styles.H_Model}>Price</p>
+                  <div className={styles.Box_detailH_Model}>
+                    <p className={styles.H_Model}>Additional explanation</p>
+                    <p className={styles.H_Model2}>
+                      {item?.Additional_explanation}
+                    </p>
+                  </div>
+                  <div className={styles.borderReceipt}></div>
+                </div>
+              ))}
+              <div className={styles.borderReceipt}></div>
+              <div className={styles.Box_detailH_Model2}>
+                <p className={styles.H_Model}>TOTAL :</p>
                 <p className={styles.H_Model3}>{from?.Price}</p>
               </div>
 
@@ -925,7 +947,68 @@ const Customer = () => {
               >
                 Cancel
               </button>
-            </div>
+            </>
+          ) : (
+            <>
+              <div
+                id="keep-mounted-modal-description"
+                style={{
+                  mt: 2,
+                  textAlign: "left",
+                  overflowY: "auto",
+                  height: 140,
+                }}
+              >
+                <div className={styles.Box_detailH_Model}>
+                  <p className={styles.H_Model2}>Order 1</p>
+                  <p className={styles.H_Model}></p>
+                </div>
+                <div className={styles.Box_detailH_Model}>
+                  <p className={styles.H_Model}>Document Type</p>
+                  <p className={styles.H_Model2}>{from?.document_Type}</p>
+                </div>
+                <div className={styles.Box_detailH_Model}>
+                  <p className={styles.H_Model}>Translation Type</p>
+                  <p className={styles.H_Model2}>{from?.translation_Type}</p>
+                </div>
+
+                <div className={styles.Box_detailH_Model}>
+                  <p className={styles.H_Model}>Translate to</p>
+                  <p className={styles.H_Model2}>{from?.tranto}</p>
+                </div>
+
+                <div className={styles.Box_detailH_Model}>
+                  <p className={styles.H_Model}>Additional explanation</p>
+                  <p className={styles.H_Model2}>
+                    {from?.Additional_explanation}
+                  </p>
+                </div>
+              </div>
+
+              <div className={styles.borderReceipt}></div>
+              <div className={styles.Box_detailH_Model2}>
+                <p className={styles.H_Model}>TOTAL :</p>
+                <p className={styles.H_Model3}>{from?.Price}</p>
+              </div>
+
+              <button
+                className={styles.buttonModel1}
+                onClick={() => OpneMode(2)}
+              >
+                Pay
+              </button>
+              <button
+                className={styles.buttonModel1_2}
+                onClick={() =>
+                  setopenModel({
+                    ...openModel,
+                    openModel1: false,
+                  })
+                }
+              >
+                Cancel
+              </button>
+            </>
           )}
         </Box>
       </Modal>

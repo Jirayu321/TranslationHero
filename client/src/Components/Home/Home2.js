@@ -56,7 +56,7 @@ export default function Home2() {
   const location = useLocation();
   const auth = useSelector((state) => state.auth);
   let Doc = location?.state?.languages;
-  // let value = auth?.token;
+  let value = auth?.token;
 
   const [type, setType] = React.useState(1);
   const { innerWidth: width } = window;
@@ -65,17 +65,17 @@ export default function Home2() {
     navigate("/Login");
   };
 
-  // const checklogin = () => {
-  //   if (value) {
-  //     console.log("value :", value);
-  //   } else {
-  //     goLogin();
-  //   }
-  // };
+  const checklogin = () => {
+    if (value) {
+      console.log("value :", value);
+    } else {
+      goLogin();
+    }
+  };
 
-  // React.useEffect(() => {
-  //   checklogin();
-  // });
+  React.useEffect(() => {
+    checklogin();
+  });
 
   // function createData(
   //   orderID,

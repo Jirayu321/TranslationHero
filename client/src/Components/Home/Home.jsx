@@ -113,6 +113,7 @@ const Home = () => {
                 >
                   {overviewEN[8].label}
                 </Typography>
+                
                 <div
                   style={{
                     textAlign: "left",

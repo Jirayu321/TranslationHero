@@ -142,10 +142,10 @@
 }
 .H_Model {
   font-size: 14px;
-  color: #4f4f4f;
+  color: var(--gray-500, #667085);
 }
 .H_Model2 {
-  font-size: 20px;
+  font-size: 16px;
   text-align: end;
 }
 .H_Model3 {
@@ -154,7 +154,7 @@
   color: #f04438;
 }
 .Box_detailH_Model {
-  margin-bottom: 24px;
+  margin-bottom: 15px;
   display: flex;
   justify-content: space-between;
 }
@@ -321,4 +321,12 @@
 .form_group2 input {
   margin: 10px 0px;
 }
-
+.borderReceipt {
+  border-bottom: 1px solid #c4c4c4;
+}
+.Box_detailH_Model2 {
+  margin-top: 30px;
+  margin-bottom: 24px;
+  display: flex;
+  justify-content: space-between;
+}
