@@ -885,45 +885,48 @@ const Customer = () => {
           <div className={styles.borderReceipt}></div>
           {groupData ? (
             <>
-              {groupData?.map((item, index) => (
-                <div
-                  key={index}
-                  id="keep-mounted-modal-description"
-                  style={{
-                    mt: 2,
-                    textAlign: "left",
-                    overflowY: "auto",
-                    height: 140,
-                  }}
-                >
-                  <div className={styles.Box_detailH_Model}>
-                    <p className={styles.H_Model2}>Order{index + 1}</p>
-                    <p className={styles.H_Model}></p>
-                  </div>
-                  <div className={styles.Box_detailH_Model}>
-                    <p className={styles.H_Model}>Document Type</p>
-                    <p className={styles.H_Model2}>{item?.document_Type}</p>
-                  </div>
+              <div
+                // key={index}
+                id="keep-mounted-modal-description"
+                style={{
+                  mt: 2,
+                  textAlign: "left",
+                  overflowY: "auto",
+                  height: 140,
+                }}
+              >
+                {groupData?.map((item, index) => (
+                  <div key={index}>
+                    <div className={styles.Box_detailH_Model}>
+                      <p className={styles.H_Model2}>Order{index + 1}</p>
+                      <p className={styles.H_Model}></p>
+                    </div>
+                    <div className={styles.Box_detailH_Model}>
+                      <p className={styles.H_Model}>Document Type</p>
+                      <p className={styles.H_Model2}>{item?.document_Type}</p>
+                    </div>
 
-                  <div className={styles.Box_detailH_Model}>
-                    <p className={styles.H_Model}>Translation Type</p>
-                    <p className={styles.H_Model2}>{item?.translation_Type}</p>
-                  </div>
+                    <div className={styles.Box_detailH_Model}>
+                      <p className={styles.H_Model}>Translation Type</p>
+                      <p className={styles.H_Model2}>
+                        {item?.translation_Type}
+                      </p>
+                    </div>
 
-                  <div className={styles.Box_detailH_Model}>
-                    <p className={styles.H_Model}>Translate to</p>
-                    <p className={styles.H_Model2}>{item?.tranto}</p>
-                  </div>
+                    <div className={styles.Box_detailH_Model}>
+                      <p className={styles.H_Model}>Translate to</p>
+                      <p className={styles.H_Model2}>{item?.tranto}</p>
+                    </div>
 
-                  <div className={styles.Box_detailH_Model}>
-                    <p className={styles.H_Model}>Additional explanation</p>
-                    <p className={styles.H_Model2}>
-                      {item?.Additional_explanation}
-                    </p>
+                    <div className={styles.Box_detailH_Model}>
+                      <p className={styles.H_Model}>Additional explanation</p>
+                      <p className={styles.H_Model2}>
+                        {item?.Additional_explanation}
+                      </p>
+                    </div>
                   </div>
-                  <div className={styles.borderReceipt}></div>
-                </div>
-              ))}
+                ))}
+              </div>
               <div className={styles.borderReceipt}></div>
               <div className={styles.Box_detailH_Model2}>
                 <p className={styles.H_Model}>TOTAL :</p>
