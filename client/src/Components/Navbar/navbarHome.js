@@ -1,6 +1,12 @@
 import * as React from "react";
 import logo from "../../logo.svg";
-import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
+import {
+  Navbar,
+  Container,
+  Nav,
+  NavDropdown,
+  Offcanvas,
+} from "react-bootstrap";
 import {
   overviewEN,
   // overviewTH,
@@ -49,151 +55,153 @@ const navbarHome = (props) => {
         <Navbar.Toggle>
           <img src={manu} alt="toggle icon" />
         </Navbar.Toggle>
-        <Navbar.Collapse id="navbarScroll">
-          <>
-            <div className={styles.dd}>
-              {pathname === "/" || pathname === "/Home/Order/Customer" ? (
-                <div className={styles.NavLi} onClick={() => navigate("/")}>
-                  <p className={styles.textNavA}>
-                    {overviewEN[0].label}
-                    {/* home */}
-                  </p>
-                </div>
-              ) : (
-                <div className={styles.NavLi} onClick={() => navigate("/")}>
-                  <p className={styles.textNavO}>
-                    {overviewEN[0].label}
-                    {/* home */}
-                  </p>
-                </div>
-              )}
+        {/* <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-md`} /> */}
 
-              {pathname === "/About_us" ? (
-                <div
-                  className={styles.NavLi}
-                  style={{ color: "black" }}
-                  onClick={() => promotion(2)}
-                >
-                  <p className={styles.textNavA}>About us</p>
-                </div>
-              ) : (
-                <div
-                  className={styles.NavLi}
-                  style={{ color: "black" }}
-                  onClick={() => promotion(2)}
-                >
-                  <p className={styles.textNavO}>About us</p>
-                </div>
-              )}
-              {pathname === "/Services_general" ||
-              pathname === "/Services_official" ? (
-                <NavDropdown
-                  className={styles.NavLi}
-                  style={{
-                    marginLeft: 10,
-                    color: "#808080",
-                    fontSize: 20,
-                    float: "left",
-                    padding: 0,
-                  }}
-                  title={
-                    <div className={styles.icon_accounts}>
-                      <p className={styles.textNavA}>Services</p>
-                      <AiFillCaretDown className={styles.AiFillCaretDown1} />
-                    </div>
-                  }
-                >
-                  <NavDropdown.Item
-                    onClick={() => navigate("/Services_general")}
+        <Navbar.Offcanvas
+          id={`offcanvasNavbar-expand-md`}
+          aria-labelledby={`offcanvasNavbarLabel-expand-md`}
+          placement="end"
+        >
+          <Offcanvas.Header closeButton></Offcanvas.Header>
+          <Offcanvas.Body>
+            <>
+              <div className={styles.dd}>
+                {pathname === "/" || pathname === "/Home/Order/Customer" ? (
+                  <div className={styles.NavLi} onClick={() => navigate("/")}>
+                    <p className={styles.textNavA}>
+                      {overviewEN[0].label}
+                      {/* home */}
+                    </p>
+                  </div>
+                ) : (
+                  <div className={styles.NavLi} onClick={() => navigate("/")}>
+                    <p className={styles.textNavO}>
+                      {overviewEN[0].label}
+                      {/* home */}
+                    </p>
+                  </div>
+                )}
+
+                {pathname === "/About_us" ? (
+                  <div
+                    className={styles.NavLi}
+                    style={{ color: "black" }}
+                    onClick={() => promotion(2)}
                   >
-                    General Document
-                  </NavDropdown.Item>
-                  <NavDropdown.Item
-                    onClick={() => navigate("/Services_official")}
+                    <p className={styles.textNavA}>About us</p>
+                  </div>
+                ) : (
+                  <div
+                    className={styles.NavLi}
+                    style={{ color: "black" }}
+                    onClick={() => promotion(2)}
                   >
-                    Official Document
-                  </NavDropdown.Item>
-                </NavDropdown>
-              ) : (
-                <NavDropdown
-                  className={styles.NavLi}
-                  style={{
-                    color: "#808080",
-                    fontSize: 20,
-                    float: "left",
-                    padding: 0,
-                  }}
-                  title={
-                    <div className={styles.icon_accounts}>
-                      <p className={styles.textNavO}>Services</p>
-                      <AiFillCaretDown className={styles.AiFillCaretDown2} />
-                    </div>
-                  }
-                >
-                  <NavDropdown.Item
-                    onClick={() => navigate("/Services_general")}
+                    <p className={styles.textNavO}>About us</p>
+                  </div>
+                )}
+                {pathname === "/Services_general" ||
+                pathname === "/Services_official" ? (
+                  <NavDropdown
+                    className={styles.NavLi}
+                    style={{
+                      marginLeft: 10,
+                      color: "#808080",
+                      fontSize: 20,
+                      float: "left",
+                      padding: 0,
+                    }}
+                    title={
+                      <div className={styles.icon_accounts}>
+                        <p className={styles.textNavA}>Services</p>
+                        <AiFillCaretDown className={styles.AiFillCaretDown1} />
+                      </div>
+                    }
                   >
-                    General Document
-                  </NavDropdown.Item>
-                  <NavDropdown.Item
-                    onClick={() => navigate("/Services_official")}
+                    <NavDropdown.Item
+                      onClick={() => navigate("/Services_general")}
+                    >
+                      General Document
+                    </NavDropdown.Item>
+                    <NavDropdown.Item
+                      onClick={() => navigate("/Services_official")}
+                    >
+                      Official Document
+                    </NavDropdown.Item>
+                  </NavDropdown>
+                ) : (
+                  <NavDropdown
+                    className={styles.NavLi}
+                    style={{
+                      color: "#808080",
+                      fontSize: 20,
+                      float: "left",
+                      padding: 0,
+                    }}
+                    title={
+                      <div className={styles.icon_accounts}>
+                        <p className={styles.textNavO}>Services</p>
+                        <AiFillCaretDown className={styles.AiFillCaretDown2} />
+                      </div>
+                    }
                   >
-                    Official Document
-                  </NavDropdown.Item>
-                </NavDropdown>
-              )}
+                    <NavDropdown.Item
+                      onClick={() => navigate("/Services_general")}
+                    >
+                      General Document
+                    </NavDropdown.Item>
+                    <NavDropdown.Item
+                      onClick={() => navigate("/Services_official")}
+                    >
+                      Official Document
+                    </NavDropdown.Item>
+                  </NavDropdown>
+                )}
 
-              {pathname === "/Price" ? (
-                <div
-                  className={styles.NavLi}
-                  onClick={() => navigate("/Price")}
-                >
-                  <p className={styles.textNavA}>Price</p>
-                </div>
-              ) : (
-                <div
-                  className={styles.NavLi}
-                  onClick={() => navigate("/Price")}
-                >
-                  <p className={styles.textNavO}>Price</p>
-                </div>
-              )}
+                {pathname === "/Price" ? (
+                  <div
+                    className={styles.NavLi}
+                    onClick={() => navigate("/Price")}
+                  >
+                    <p className={styles.textNavA}>Price</p>
+                  </div>
+                ) : (
+                  <div
+                    className={styles.NavLi}
+                    onClick={() => navigate("/Price")}
+                  >
+                    <p className={styles.textNavO}>Price</p>
+                  </div>
+                )}
 
-              {pathname === "/FAQs" ? (
-                <div
-                  className={styles.NavLi}
-                  style={{ color: "black" }}
-                  onClick={() => navigate("/FAQs")}
-                >
-                  <p className={styles.textNavA}>FAQs</p>
+                {pathname === "/FAQs" ? (
+                  <div
+                    className={styles.NavLi}
+                    style={{ color: "black" }}
+                    onClick={() => navigate("/FAQs")}
+                  >
+                    <p className={styles.textNavA}>FAQs</p>
+                  </div>
+                ) : (
+                  <div
+                    className={styles.NavLi}
+                    style={{ color: "black" }}
+                    onClick={() => navigate("/FAQs")}
+                  >
+                    <p className={styles.textNavO}>FAQs</p>
+                  </div>
+                )}
+                <div className={styles.dd2}>
+                  <button
+                    className={styles.buttonLogin}
+                    onClick={() => gologin("English")}
+                  >
+                    <p className={styles.textP}>{overviewEN[4].label}</p>
+                  </button>
                 </div>
-              ) : (
-                <div
-                  className={styles.NavLi}
-                  style={{ color: "black" }}
-                  onClick={() => navigate("/FAQs")}
-                >
-                  <p className={styles.textNavO}>FAQs</p>
-                </div>
-              )}
-            </div>
-
-            <div className={styles.dd2}>
-              <button
-                className={styles.buttonLogin}
-                onClick={() => gologin("English")}
-              >
-                <p className={styles.textP}>{overviewEN[4].label}</p>
-              </button>
-            </div>
-          </>
-
-          <Nav
-            className="me-auto my-2 my-lg-0"
-            style={{ maxHeight: "100px" }}
-            navbarScroll
-          ></Nav>
-        </Navbar.Collapse>
+              </div>
+            </>
+          </Offcanvas.Body>
+        </Navbar.Offcanvas>
       </Container>
     </Navbar>
   );

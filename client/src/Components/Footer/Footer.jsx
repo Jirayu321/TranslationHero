@@ -22,7 +22,9 @@ const Footer = (props) => {
   // let accept = props?.a;
   let pathname = window.location.pathname;
   const { innerWidth: width } = window;
-  // console.log(pathname);
+
+  console.log(languages);
+
   const switchLanguage = (x) => {
     if (pathname === "/") {
       if (x === "English") {
@@ -63,16 +65,12 @@ const Footer = (props) => {
 
   return (
     <>
-      {width > 768 ? (
+      {width > 1024 ? (
         <>
           {languages === "English" ? (
             <>
               <div className={styles.ContentFooter}>
-                <img
-                  src={logo}
-                  alt="logo"
-                  style={{ width: 170, marginTop: 38, float: "left" }}
-                />
+                <img src={logo} alt="logo" className={styles.logo} />
                 <div style={{ float: "left" }}>
                   <p className={styles.textFooter1}>{FooterEN[0].label}</p>
                   <p className={styles.textFooter1}>{FooterEN[1].label}</p>
@@ -140,9 +138,8 @@ const Footer = (props) => {
                   <p className={styles.textFooter1}>{FooterEN[5].label}</p>
                 </div>
 
-                <div style={{ float: "left" }}>
+                <div className={styles.box4}>
                   <p className={styles.textFooter1}>{FooterEN[6].label}</p>
-
                   <p className={styles.textFooter2}>
                     {FooterEN[7].label}
                     <br />
@@ -208,11 +205,7 @@ const Footer = (props) => {
           ) : languages === "Thai" ? (
             <>
               <div className={styles.ContentFooter}>
-                <img
-                  src={logo}
-                  alt="logo"
-                  style={{ width: 160, float: "left" }}
-                />
+                <img src={logo} alt="logo" className={styles.logo} />
                 <div style={{ float: "left" }}>
                   <p className={styles.textFooter1}>{FooterTH[0].label}</p>
                   <p className={styles.textFooter1}>{FooterTH[1].label}</p>
@@ -280,7 +273,7 @@ const Footer = (props) => {
                   <p className={styles.textFooter1}>{FooterTH[5].label}</p>
                 </div>
 
-                <div style={{ float: "left" }}>
+                <div className={styles.box4}>
                   <p className={styles.textFooter1}>{FooterTH[6].label}</p>
 
                   <p className={styles.textFooter2}>
@@ -348,12 +341,7 @@ const Footer = (props) => {
           ) : languages === "German" ? (
             <>
               <div className={styles.ContentFooter}>
-                <img
-                  src={logo}
-                  alt="logo"
-                  className={styles.logo}
-                  style={{ width: 160, float: "left" }}
-                />
+                <img src={logo} alt="logo" className={styles.logo} />
                 <div style={{ float: "left" }}>
                   <p className={styles.textFooter1}>{FooterDE[0].label}</p>
                   <p className={styles.textFooter1}>{FooterDE[1].label}</p>
@@ -421,7 +409,7 @@ const Footer = (props) => {
                   <p className={styles.textFooter1}>{FooterDE[5].label}</p>
                 </div>
 
-                <div style={{ float: "left" }}>
+                <div className={styles.box4}>
                   <p className={styles.textFooter1}>{FooterDE[6].label}</p>
 
                   <p className={styles.textFooter2}>
@@ -489,12 +477,7 @@ const Footer = (props) => {
           ) : (
             <>
               <div className={styles.ContentFooter}>
-                <img
-                  src={logo}
-                  alt="logo"
-                  className={styles.logo}
-                  style={{ width: 160, float: "left" }}
-                />
+                <img src={logo} alt="logo" className={styles.logo} />
                 <div style={{ float: "left" }}>
                   <p className={styles.textFooter1}>{FooterEN[0].label}</p>
                   <p className={styles.textFooter1}>{FooterEN[1].label}</p>
@@ -560,7 +543,7 @@ const Footer = (props) => {
                   <p className={styles.textFooter1}>{FooterEN[5].label}</p>
                 </div>
 
-                <div style={{ float: "left" }}>
+                <div className={styles.box4}>
                   <p className={styles.textFooter1}>{FooterEN[6].label}</p>
 
                   <p className={styles.textFooter2}>
@@ -629,48 +612,17 @@ const Footer = (props) => {
         </>
       ) : (
         <>
-          {/* {languages === "English" ? (
+          {languages === "English" ? (
             <>
               <div className={styles.ContentFooter}>
-                <img
-                  src={logo}
-                  alt="logo"
-                  style={{ width: 170, marginTop: 38, float: "left" }}
-                />
-                <div style={{ float: "left" }}>
-                  <p className={styles.textFooter1}>{FooterEN[0].label}</p>
-                  <p className={styles.textFooter1}>{FooterEN[1].label}</p>
-                  <p className={styles.textFooter1}>{FooterEN[2].label}</p>
-                  <div style={{ margin: 0, marginTop: 90 }}>
-                    <div
-                      className={styles.boxImgFooter}
-                      style={{ marginLeft: 0 }}
-                    >
-                      <img
-                        className={styles.ImgApp_store}
-                        src={App_store}
-                        alt="App_store"
-                      />
-                    </div>
-                    <div className={styles.boxImgFooter}>
-                      <img
-                        className={styles.ImgGoogle_play}
-                        src={Google_play}
-                        alt="Google_play"
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                <div style={{ float: "left" }}>
+                <img src={logo} alt="logo" className={styles.logo} />
+                <div className={styles.BoxAutocomplete}>
                   <Autocomplete
                     id="country-select-demo"
-                    sx={{ width: 200, background: "#ffff" }}
+                    sx={{ background: "#ffff", width: "80vw" }}
                     options={data}
                     autoHighlight
-                    isOptionEqualToValue={(option, value) =>
-                      option.id === value.id
-                    }
+                    getOptionLabel={(option) => option.label}
                     onChange={(event, value) => switchLanguage(value?.label)}
                     popupIcon={
                       <MdArrowDropDown
@@ -697,16 +649,19 @@ const Footer = (props) => {
                       />
                     )}
                   />
+                </div>
+
+                <div>
+                  <p className={styles.textFooter1}>{FooterEN[0].label}</p>
+                  <p className={styles.textFooter1}>{FooterEN[1].label}</p>
+                  <p className={styles.textFooter1}>{FooterEN[2].label}</p>
                   <p className={styles.textFooter1}>{FooterEN[3].label}</p>
-
                   <p className={styles.textFooter1}>{FooterEN[4].label}</p>
-
                   <p className={styles.textFooter1}>{FooterEN[5].label}</p>
                 </div>
 
-                <div style={{ float: "left" }}>
+                <div className={styles.BoxAutocomplete}>
                   <p className={styles.textFooter1}>{FooterEN[6].label}</p>
-
                   <p className={styles.textFooter2}>
                     {FooterEN[7].label}
                     <br />
@@ -715,7 +670,7 @@ const Footer = (props) => {
                     09.00 - 18.00
                   </p>
 
-                  <div style={{ marginTop: 10 }}>
+                  <div className={styles.groupbutton}>
                     <button
                       className={styles.boxIconsFooter}
                       style={{
@@ -723,22 +678,22 @@ const Footer = (props) => {
                       }}
                       onClick={() => {
                         window.open(
-                          "https://www.facebook.com/translation.hero.company"
+                          "https://www.instagram.com/translationhero/"
                         );
                       }}
                     >
-                      <FaFacebookF className={styles.IconsFooter} />
+                      <BsInstagram className={styles.IconsFooter} />
                     </button>
 
                     <button
                       className={styles.boxIconsFooter}
                       onClick={() => {
                         window.open(
-                          "https://www.instagram.com/translationhero/"
+                          "https://www.facebook.com/translation.hero.company"
                         );
                       }}
                     >
-                      <BsInstagram className={styles.IconsFooter} />
+                      <FaFacebookF className={styles.IconsFooter} />
                     </button>
 
                     <button
@@ -760,6 +715,26 @@ const Footer = (props) => {
                     >
                       <BsTwitter className={styles.IconsFooter} />
                     </button>
+                  </div>
+
+                  <div className={styles.groupdownload}>
+                    <div
+                      className={styles.boxImgFooter}
+                      style={{ marginLeft: 0 }}
+                    >
+                      <img
+                        className={styles.ImgApp_store}
+                        src={App_store}
+                        alt="App_store"
+                      />
+                    </div>
+                    <div className={styles.boxImgFooter}>
+                      <img
+                        className={styles.ImgGoogle_play}
+                        src={Google_play}
+                        alt="Google_play"
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -772,45 +747,14 @@ const Footer = (props) => {
           ) : languages === "Thai" ? (
             <>
               <div className={styles.ContentFooter}>
-                <img
-                  src={logo}
-                  alt="logo"
-                  style={{ width: 160, float: "left" }}
-                />
-                <div style={{ float: "left" }}>
-                  <p className={styles.textFooter1}>{FooterTH[0].label}</p>
-                  <p className={styles.textFooter1}>{FooterTH[1].label}</p>
-                  <p className={styles.textFooter1}>{FooterTH[2].label}</p>
-                  <div style={{ margin: 0, marginTop: 56 }}>
-                    <div
-                      className={styles.boxImgFooter}
-                      style={{ marginLeft: 0 }}
-                    >
-                      <img
-                        className={styles.ImgApp_store}
-                        src={App_store}
-                        alt="App_store"
-                      />
-                    </div>
-                    <div className={styles.boxImgFooter}>
-                      <img
-                        className={styles.ImgGoogle_play}
-                        src={Google_play}
-                        alt="Google_play"
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                <div style={{ float: "left" }}>
+                <img src={logo} alt="logo" className={styles.logo} />
+                <div className={styles.BoxAutocomplete}>
                   <Autocomplete
                     id="country-select-demo"
-                    sx={{ width: 200, background: "#ffff" }}
+                    sx={{ background: "#ffff", width: "80vw" }}
                     options={data}
                     autoHighlight
-                    isOptionEqualToValue={(option, value) =>
-                      option.id === value.id
-                    }
+                    getOptionLabel={(option) => option.label}
                     onChange={(event, value) => switchLanguage(value?.label)}
                     popupIcon={
                       <MdArrowDropDown
@@ -829,7 +773,7 @@ const Footer = (props) => {
                     renderInput={(params) => (
                       <TextField
                         {...params}
-                        label="เลือกภาษา"
+                        label="Choose a language"
                         inputProps={{
                           ...params.inputProps,
                           autoComplete: "new-password",
@@ -837,16 +781,19 @@ const Footer = (props) => {
                       />
                     )}
                   />
+                </div>
+
+                <div>
+                  <p className={styles.textFooter1}>{FooterTH[0].label}</p>
+                  <p className={styles.textFooter1}>{FooterTH[1].label}</p>
+                  <p className={styles.textFooter1}>{FooterTH[2].label}</p>
                   <p className={styles.textFooter1}>{FooterTH[3].label}</p>
-
                   <p className={styles.textFooter1}>{FooterTH[4].label}</p>
-
                   <p className={styles.textFooter1}>{FooterTH[5].label}</p>
                 </div>
 
-                <div style={{ float: "left" }}>
+                <div className={styles.BoxAutocomplete}>
                   <p className={styles.textFooter1}>{FooterTH[6].label}</p>
-
                   <p className={styles.textFooter2}>
                     {FooterTH[7].label}
                     <br />
@@ -855,7 +802,7 @@ const Footer = (props) => {
                     09.00 - 18.00
                   </p>
 
-                  <div style={{ marginTop: 10 }}>
+                  <div className={styles.groupbutton}>
                     <button
                       className={styles.boxIconsFooter}
                       style={{
@@ -863,22 +810,22 @@ const Footer = (props) => {
                       }}
                       onClick={() => {
                         window.open(
-                          "https://www.facebook.com/translation.hero.company"
+                          "https://www.instagram.com/translationhero/"
                         );
                       }}
                     >
-                      <FaFacebookF className={styles.IconsFooter} />
+                      <BsInstagram className={styles.IconsFooter} />
                     </button>
 
                     <button
                       className={styles.boxIconsFooter}
                       onClick={() => {
                         window.open(
-                          "https://www.instagram.com/translationhero/"
+                          "https://www.facebook.com/translation.hero.company"
                         );
                       }}
                     >
-                      <BsInstagram className={styles.IconsFooter} />
+                      <FaFacebookF className={styles.IconsFooter} />
                     </button>
 
                     <button
@@ -900,6 +847,26 @@ const Footer = (props) => {
                     >
                       <BsTwitter className={styles.IconsFooter} />
                     </button>
+                  </div>
+
+                  <div className={styles.groupdownload}>
+                    <div
+                      className={styles.boxImgFooter}
+                      style={{ marginLeft: 0 }}
+                    >
+                      <img
+                        className={styles.ImgApp_store}
+                        src={App_store}
+                        alt="App_store"
+                      />
+                    </div>
+                    <div className={styles.boxImgFooter}>
+                      <img
+                        className={styles.ImgGoogle_play}
+                        src={Google_play}
+                        alt="Google_play"
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -912,46 +879,14 @@ const Footer = (props) => {
           ) : languages === "German" ? (
             <>
               <div className={styles.ContentFooter}>
-                <img
-                  src={logo}
-                  alt="logo"
-                  className={styles.logo}
-                  style={{ width: 160, float: "left" }}
-                />
-                <div style={{ float: "left" }}>
-                  <p className={styles.textFooter1}>{FooterDE[0].label}</p>
-                  <p className={styles.textFooter1}>{FooterDE[1].label}</p>
-                  <p className={styles.textFooter1}>{FooterDE[2].label}</p>
-                  <div style={{ margin: 0, marginTop: 90 }}>
-                    <div
-                      className={styles.boxImgFooter}
-                      style={{ marginLeft: 0 }}
-                    >
-                      <img
-                        className={styles.ImgApp_store}
-                        src={App_store}
-                        alt="App_store"
-                      />
-                    </div>
-                    <div className={styles.boxImgFooter}>
-                      <img
-                        className={styles.ImgGoogle_play}
-                        src={Google_play}
-                        alt="Google_play"
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                <div style={{ float: "left" }}>
+                <img src={logo} alt="logo" className={styles.logo} />
+                <div className={styles.BoxAutocomplete}>
                   <Autocomplete
                     id="country-select-demo"
-                    sx={{ width: 200, background: "#ffff" }}
+                    sx={{ background: "#ffff", width: "80vw" }}
                     options={data}
                     autoHighlight
-                    isOptionEqualToValue={(option, value) =>
-                      option.id === value.id
-                    }
+                    getOptionLabel={(option) => option.label}
                     onChange={(event, value) => switchLanguage(value?.label)}
                     popupIcon={
                       <MdArrowDropDown
@@ -970,7 +905,7 @@ const Footer = (props) => {
                     renderInput={(params) => (
                       <TextField
                         {...params}
-                        label="Wählen Sie eine Sprache"
+                        label="Choose a language"
                         inputProps={{
                           ...params.inputProps,
                           autoComplete: "new-password",
@@ -978,16 +913,19 @@ const Footer = (props) => {
                       />
                     )}
                   />
+                </div>
+
+                <div>
+                  <p className={styles.textFooter1}>{FooterDE[0].label}</p>
+                  <p className={styles.textFooter1}>{FooterDE[1].label}</p>
+                  <p className={styles.textFooter1}>{FooterDE[2].label}</p>
                   <p className={styles.textFooter1}>{FooterDE[3].label}</p>
-
                   <p className={styles.textFooter1}>{FooterDE[4].label}</p>
-
                   <p className={styles.textFooter1}>{FooterDE[5].label}</p>
                 </div>
 
-                <div style={{ float: "left" }}>
+                <div className={styles.BoxAutocomplete}>
                   <p className={styles.textFooter1}>{FooterDE[6].label}</p>
-
                   <p className={styles.textFooter2}>
                     {FooterDE[7].label}
                     <br />
@@ -996,7 +934,7 @@ const Footer = (props) => {
                     09.00 - 18.00
                   </p>
 
-                  <div style={{ marginTop: 10 }}>
+                  <div className={styles.groupbutton}>
                     <button
                       className={styles.boxIconsFooter}
                       style={{
@@ -1004,22 +942,22 @@ const Footer = (props) => {
                       }}
                       onClick={() => {
                         window.open(
-                          "https://www.facebook.com/translation.hero.company"
+                          "https://www.instagram.com/translationhero/"
                         );
                       }}
                     >
-                      <FaFacebookF className={styles.IconsFooter} />
+                      <BsInstagram className={styles.IconsFooter} />
                     </button>
 
                     <button
                       className={styles.boxIconsFooter}
                       onClick={() => {
                         window.open(
-                          "https://www.instagram.com/translationhero/"
+                          "https://www.facebook.com/translation.hero.company"
                         );
                       }}
                     >
-                      <BsInstagram className={styles.IconsFooter} />
+                      <FaFacebookF className={styles.IconsFooter} />
                     </button>
 
                     <button
@@ -1042,6 +980,26 @@ const Footer = (props) => {
                       <BsTwitter className={styles.IconsFooter} />
                     </button>
                   </div>
+
+                  <div className={styles.groupdownload}>
+                    <div
+                      className={styles.boxImgFooter}
+                      style={{ marginLeft: 0 }}
+                    >
+                      <img
+                        className={styles.ImgApp_store}
+                        src={App_store}
+                        alt="App_store"
+                      />
+                    </div>
+                    <div className={styles.boxImgFooter}>
+                      <img
+                        className={styles.ImgGoogle_play}
+                        src={Google_play}
+                        alt="Google_play"
+                      />
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -1050,137 +1008,139 @@ const Footer = (props) => {
                 <p className={styles.textFooter4}>{FooterDE[5].label}</p>
               </div>
             </>
-          ) : ( */}
-          <>
-            <div className={styles.ContentFooter}>
-              <img src={logo} alt="logo" className={styles.logo} />
-              <div>
-                <Autocomplete
-                  id="country-select-demo"
-                  sx={{ background: "#ffff" }}
-                  options={data}
-                  autoHighlight
-                  getOptionLabel={(option) => option.label}
-                  onChange={(event, value) => switchLanguage(value?.label)}
-                  popupIcon={
-                    <MdArrowDropDown
-                      style={{ color: "#034D82", width: 30, height: 33 }}
-                    />
-                  }
-                  renderOption={(props, option) => (
-                    <Box
-                      component="li"
-                      sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
-                      {...props}
-                    >
-                      {option.label}
-                    </Box>
-                  )}
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      label="Choose a language"
-                      inputProps={{
-                        ...params.inputProps,
-                        autoComplete: "new-password",
+          ) : (
+            <>
+              <div className={styles.ContentFooter}>
+                <img src={logo} alt="logo" className={styles.logo} />
+                <div className={styles.BoxAutocomplete}>
+                  <Autocomplete
+                    id="country-select-demo"
+                    sx={{ background: "#ffff", width: "80vw" }}
+                    options={data}
+                    autoHighlight
+                    getOptionLabel={(option) => option.label}
+                    onChange={(event, value) => switchLanguage(value?.label)}
+                    popupIcon={
+                      <MdArrowDropDown
+                        style={{ color: "#034D82", width: 30, height: 33 }}
+                      />
+                    }
+                    renderOption={(props, option) => (
+                      <Box
+                        component="li"
+                        sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
+                        {...props}
+                      >
+                        {option.label}
+                      </Box>
+                    )}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label="Choose a language"
+                        inputProps={{
+                          ...params.inputProps,
+                          autoComplete: "new-password",
+                        }}
+                      />
+                    )}
+                  />
+                </div>
+
+                <div>
+                  <p className={styles.textFooter1}>{FooterEN[0].label}</p>
+                  <p className={styles.textFooter1}>{FooterEN[1].label}</p>
+                  <p className={styles.textFooter1}>{FooterEN[2].label}</p>
+                  <p className={styles.textFooter1}>{FooterEN[3].label}</p>
+                  <p className={styles.textFooter1}>{FooterEN[4].label}</p>
+                  <p className={styles.textFooter1}>{FooterEN[5].label}</p>
+                </div>
+
+                <div className={styles.BoxAutocomplete}>
+                  <p className={styles.textFooter1}>{FooterEN[6].label}</p>
+                  <p className={styles.textFooter2}>
+                    {FooterEN[7].label}
+                    <br />
+                    {FooterEN[8].label}
+                    <br />
+                    09.00 - 18.00
+                  </p>
+
+                  <div className={styles.groupbutton}>
+                    <button
+                      className={styles.boxIconsFooter}
+                      style={{
+                        marginLeft: 0,
                       }}
-                    />
-                  )}
-                />
-              </div>
+                      onClick={() => {
+                        window.open(
+                          "https://www.instagram.com/translationhero/"
+                        );
+                      }}
+                    >
+                      <BsInstagram className={styles.IconsFooter} />
+                    </button>
 
-              <div>
-                <p className={styles.textFooter1}>{FooterEN[0].label}</p>
-                <p className={styles.textFooter1}>{FooterEN[1].label}</p>
-                <p className={styles.textFooter1}>{FooterEN[2].label}</p>
-                <p className={styles.textFooter1}>{FooterEN[3].label}</p>
-                <p className={styles.textFooter1}>{FooterEN[4].label}</p>
-                <p className={styles.textFooter1}>{FooterEN[5].label}</p>
-              </div>
+                    <button
+                      className={styles.boxIconsFooter}
+                      onClick={() => {
+                        window.open(
+                          "https://www.facebook.com/translation.hero.company"
+                        );
+                      }}
+                    >
+                      <FaFacebookF className={styles.IconsFooter} />
+                    </button>
 
-              <div>
-                <p className={styles.textFooter1}>{FooterEN[6].label}</p>
-                <p className={styles.textFooter2}>
-                  {FooterEN[7].label}
-                  <br />
-                  {FooterEN[8].label}
-                  <br />
-                  09.00 - 18.00
-                </p>
+                    <button
+                      className={styles.boxIconsFooter}
+                      onClick={() => {
+                        window.open(
+                          "https://www.linkedin.com/in/translation-hero/"
+                        );
+                      }}
+                    >
+                      <FaLinkedinIn className={styles.IconsFooter} />
+                    </button>
 
-                <div className={styles.groupbutton}>
-                  <button
-                    className={styles.boxIconsFooter}
-                    style={{
-                      marginLeft: 0,
-                    }}
-                    onClick={() => {
-                      window.open("https://www.instagram.com/translationhero/");
-                    }}
-                  >
-                    <BsInstagram className={styles.IconsFooter} />
-                  </button>
-
-                  <button
-                    className={styles.boxIconsFooter}
-                    onClick={() => {
-                      window.open(
-                        "https://www.facebook.com/translation.hero.company"
-                      );
-                    }}
-                  >
-                    <FaFacebookF className={styles.IconsFooter} />
-                  </button>
-
-                  <button
-                    className={styles.boxIconsFooter}
-                    onClick={() => {
-                      window.open(
-                        "https://www.linkedin.com/in/translation-hero/"
-                      );
-                    }}
-                  >
-                    <FaLinkedinIn className={styles.IconsFooter} />
-                  </button>
-
-                  <button
-                    className={styles.boxIconsFooter}
-                    onClick={() => {
-                      window.open("https://twitter.com/Translationhero");
-                    }}
-                  >
-                    <BsTwitter className={styles.IconsFooter} />
-                  </button>
-                </div>
-
-                <div className={styles.groupdownload}>
-                  <div
-                    className={styles.boxImgFooter}
-                    style={{ marginLeft: 0 }}
-                  >
-                    <img
-                      className={styles.ImgApp_store}
-                      src={App_store}
-                      alt="App_store"
-                    />
+                    <button
+                      className={styles.boxIconsFooter}
+                      onClick={() => {
+                        window.open("https://twitter.com/Translationhero");
+                      }}
+                    >
+                      <BsTwitter className={styles.IconsFooter} />
+                    </button>
                   </div>
-                  <div className={styles.boxImgFooter}>
-                    <img
-                      className={styles.ImgGoogle_play}
-                      src={Google_play}
-                      alt="Google_play"
-                    />
+
+                  <div className={styles.groupdownload}>
+                    <div
+                      className={styles.boxImgFooter}
+                      style={{ marginLeft: 0 }}
+                    >
+                      <img
+                        className={styles.ImgApp_store}
+                        src={App_store}
+                        alt="App_store"
+                      />
+                    </div>
+                    <div className={styles.boxImgFooter}>
+                      <img
+                        className={styles.ImgGoogle_play}
+                        src={Google_play}
+                        alt="Google_play"
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            <div className={styles.ContentFooter2}>
-              <p className={styles.textFooter3}>{FooterEN[9].label}.</p>
-              <p className={styles.textFooter4}>{FooterEN[5].label}</p>
-            </div>
-          </>
-          {/* )} */}
+              <div className={styles.ContentFooter2}>
+                <p className={styles.textFooter3}>{FooterEN[9].label}.</p>
+                <p className={styles.textFooter4}>{FooterEN[5].label}</p>
+              </div>
+            </>
+          )}
         </>
       )}
     </>

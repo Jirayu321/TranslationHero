@@ -95,21 +95,7 @@ const Home = () => {
               aria-labelledby="keep-mounted-modal-title"
               aria-describedby="keep-mounted-modal-description"
             >
-              <Box
-                sx={{
-                  position: "absolute",
-                  top: "50%",
-                  left: "16%",
-                  transform: "translate(-50%, -70%)",
-                  width: 400,
-                  bgcolor: "background.paper",
-                  boxShadow: 24,
-                  p: 4,
-                  borderRadius: 5,
-                  border: "1px solid #E5E5E5",
-                  textAlign: "center",
-                }}
-              >
+              <Box className={styles.BoxModal}>
                 <Typography
                   id="keep-mounted-modal-description"
                   sx={{ mt: 2, fontWeight: 700 }}
@@ -178,21 +164,7 @@ const Home = () => {
               aria-labelledby="keep-mounted-modal-title"
               aria-describedby="keep-mounted-modal-description"
             >
-              <Box
-                sx={{
-                  position: "absolute",
-                  top: "50%",
-                  left: "16%",
-                  transform: "translate(-50%, -70%)",
-                  width: 400,
-                  bgcolor: "background.paper",
-                  boxShadow: 24,
-                  p: 4,
-                  borderRadius: 5,
-                  border: "1px solid #E5E5E5",
-                  textAlign: "center",
-                }}
-              >
+              <Box className={styles.BoxModal}>
                 <Typography
                   id="keep-mounted-modal-description"
                   sx={{ mt: 2, fontWeight: 700 }}
@@ -261,21 +233,7 @@ const Home = () => {
               aria-labelledby="keep-mounted-modal-title"
               aria-describedby="keep-mounted-modal-description"
             >
-              <Box
-                sx={{
-                  position: "absolute",
-                  top: "50%",
-                  left: "16%",
-                  transform: "translate(-50%, -70%)",
-                  width: 400,
-                  bgcolor: "background.paper",
-                  boxShadow: 24,
-                  p: 4,
-                  borderRadius: 5,
-                  border: "1px solid #E5E5E5",
-                  textAlign: "center",
-                }}
-              >
+              <Box className={styles.BoxModal}>
                 <Typography
                   id="keep-mounted-modal-description"
                   sx={{ mt: 2, fontWeight: 700 }}
@@ -344,21 +302,7 @@ const Home = () => {
               aria-labelledby="keep-mounted-modal-title"
               aria-describedby="keep-mounted-modal-description"
             >
-              <Box
-                sx={{
-                  position: "absolute",
-                  top: "50%",
-                  left: "16%",
-                  transform: "translate(-50%, -70%)",
-                  width: 400,
-                  bgcolor: "background.paper",
-                  boxShadow: 24,
-                  p: 4,
-                  borderRadius: 5,
-                  border: "1px solid #E5E5E5",
-                  textAlign: "center",
-                }}
-              >
+              <Box className={styles.BoxModal}>
                 <Typography
                   id="keep-mounted-modal-description"
                   sx={{ mt: 2, fontWeight: 700 }}
@@ -420,6 +364,7 @@ const Home = () => {
               </Box>
             </Modal>
           )}
+
           <div className={styles.fram1}>
             <div className={styles.boxBlue_overviwe}>
               <p className={styles.h_text1}>Translation Hero</p>
@@ -506,13 +451,13 @@ const Home = () => {
               <div className={styles.Content}>
                 <button
                   onClick={() => setUsertype("Customer")}
-                  className={styles.Content_button2}
+                  className={styles.Content_button4}
                 >
                   Customer
                 </button>
                 <button
                   onClick={() => setUsertype("Translator")}
-                  className={styles.Content_button1}
+                  className={styles.Content_button3}
                 >
                   Translator
                 </button>
@@ -536,7 +481,7 @@ const Home = () => {
                   </button>
                 </div>
                 <div>
-                  <img src={Home1} alt="Home1" className={styles.Hpme1} />
+                  <img src={Home1} alt="Home1" className={styles.Home1} />
                 </div>
               </div>
             ) : (
@@ -593,7 +538,7 @@ const Home = () => {
                   <p className={styles.textDescription3_overviwe}>
                     Online translation platform
                   </p>
-                  <div>
+                  <div className={styles.Boxbuttonbox4_overviwe}>
                     <button
                       className={styles.buttonbox4_overviwe}
                       onClick={() => goCustomer()}
@@ -646,10 +591,10 @@ const Home = () => {
               <Box
                 sx={{
                   position: "absolute",
-                  top: "50%",
-                  left: "30%",
+                  top: "60%",
+                  left: "50%",
                   transform: "translate(-50%, -70%)",
-                  width: 400,
+                  width: "80vw",
                   bgcolor: "background.paper",
                   boxShadow: 24,
                   p: 4,
@@ -729,10 +674,10 @@ const Home = () => {
               <Box
                 sx={{
                   position: "absolute",
-                  top: "50%",
-                  left: "30%",
+                  top: "60%",
+                  left: "50%",
                   transform: "translate(-50%, -70%)",
-                  width: 400,
+                  width: "80vw",
                   bgcolor: "background.paper",
                   boxShadow: 24,
                   p: 4,
@@ -812,10 +757,10 @@ const Home = () => {
               <Box
                 sx={{
                   position: "absolute",
-                  top: "50%",
-                  left: "30%",
+                  top: "60%",
+                  left: "50%",
                   transform: "translate(-50%, -70%)",
-                  width: 400,
+                  width: "80vw",
                   bgcolor: "background.paper",
                   boxShadow: 24,
                   p: 4,
@@ -895,10 +840,10 @@ const Home = () => {
               <Box
                 sx={{
                   position: "absolute",
-                  top: "50%",
-                  left: "30%",
+                  top: "60%",
+                  left: "50%",
                   transform: "translate(-50%, -70%)",
-                  width: 400,
+                  width: "80vw",
                   bgcolor: "background.paper",
                   boxShadow: 24,
                   p: 4,
@@ -968,6 +913,7 @@ const Home = () => {
               </Box>
             </Modal>
           )}
+
           <div className={styles.fram1}>
             <div className={styles.boxBlue_overviwe}>
               <p className={styles.h_text1}>Translation Hero</p>
@@ -1153,7 +1099,7 @@ const Home = () => {
                   <p className={styles.textDescription3_overviwe}>
                     Online translation platform
                   </p>
-                  <div>
+                  <div className={styles.Boxbuttonbox4_overviwe}>
                     <button
                       className={styles.buttonbox4_overviwe}
                       onClick={() => goCustomer()}

@@ -24,7 +24,7 @@
 .dd2 {
   display: flex;
   position: absolute;
-  left: 86%;
+  left: 85%;
 }
 .buttonLogin {
   position: initial;
@@ -164,10 +164,8 @@
   margin-top: 5px;
 }
 .textP {
-  color: "#FFFF";
-  font-size: 18;
-  line-height: 21;
-  text-decoration-line: "none";
+  color: #ffff;
+  font-size: 18px;
 }
 
 .dropdown-menu[data-bs-popper] {
@@ -225,15 +223,15 @@
     left: 0px;
     width: 80vw;
     display: grid;
-    grid-template-columns: auto auto auto;
-    justify-content: center;
+    /* grid-template-columns: auto auto auto; */
+    grid-template-columns: auto;
+    /* justify-content: center; */
+    justify-content: flex-start;
   }
   .dd2 {
     display: grid;
-    position: relative;
-    left: 53%;
-    top: -50px;
-    justify-content: center;
+    position: unset;
+    /* justify-content: center; */
     width: 100px;
   }
   .NavLi {
@@ -241,5 +239,14 @@
   }
   .buttonLogin {
     width: 100px;
+  }
+}
+@media only screen and (min-width: 1024px) {
+  .NavLi {
+    margin: 0px 10px;
+  }
+  .buttonLogin {
+    width: 125px;
+    margin: 0px;
   }
 }
