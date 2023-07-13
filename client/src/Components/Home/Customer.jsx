@@ -86,6 +86,7 @@ const Customer = () => {
 
     return `${month}/${day}/${year}`;
   }
+
   const [from, setFrom] = React.useState({
     file: "",
     document_Type: null,
@@ -98,6 +99,7 @@ const Customer = () => {
     Price: generatePrice(),
     orderNumber: "",
   });
+
   const [from2, setFrom2] = React.useState({
     file: "",
     document_Type: null,
@@ -110,6 +112,7 @@ const Customer = () => {
     Price: generatePrice(),
     orderNumber: "",
   });
+
   const [groupData, setGroupData] = React.useState(null); //เก็บข้อมูลทั้งหมดที่เราเพิ่มเข้ามา
 
   const [deleteData, setDelete] = React.useState(false);
@@ -127,6 +130,7 @@ const Customer = () => {
   });
   const [open, setOpen] = React.useState(false); // alert
   const [openDatePicker, setOpenDatePicker] = React.useState(false);
+
   const [openModel, setopenModel] = React.useState({
     openModel1: false,
     openModel2: false,
@@ -134,34 +138,15 @@ const Customer = () => {
     openModel4: false,
     openModel5: false,
   });
-  const [choose, setChoose] = React.useState(false);
 
+  const [choose, setChoose] = React.useState(false);
   const [email, setEmail] = React.useState("");
-  // const [countButtons, setcountButtons] = React.useState(0);
 
   React.useEffect(() => {
-    if (groupData !== null) {
-      let document_Type = groupData[0]?.document_Type;
-      let translation_Type = groupData[0]?.translation_Type;
-      let tranfrom = groupData[0]?.tranfrom;
-      let tranto = groupData[0]?.tranto;
-      let Deadline = groupData[0]?.Deadline;
-      let Additional_explanation = groupData[0]?.Additional_explanation;
-      console.log(
-        document_Type,
-        ",",
-        translation_Type,
-        ",",
-        tranfrom,
-        ",",
-        tranto,
-        ",",
-        Deadline,
-        ",",
-        Additional_explanation
-      );
-    } else {
+    if (groupData === null) {
       console.log("Data:", groupData);
+    } else {
+      console.log("say hi");
     }
   }, [groupData]);
 
@@ -452,6 +437,7 @@ const Customer = () => {
 
     return PriceCount + "฿";
   }
+
   function generateOrderNumber(length) {
     // Generate a random number
     let orderNumber = Math.floor(Math.random() * Math.pow(10, length));
@@ -546,21 +532,21 @@ const Customer = () => {
     }
   }
 
-  function generateOrderNumber() {
-    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    const randomLetter = () => chars[Math.floor(Math.random() * chars.length)];
+  // function generateOrderNumber() {
+  //   const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  //   const randomLetter = () => chars[Math.floor(Math.random() * chars.length)];
 
-    const letters = randomLetter() + randomLetter();
-    const language = Math.floor(Math.random() * 100)
-      .toString()
-      .padStart(2, "0");
+  //   const letters = randomLetter() + randomLetter();
+  //   const language = Math.floor(Math.random() * 100)
+  //     .toString()
+  //     .padStart(2, "0");
 
-    const orderCount = Math.floor(Math.random() * 1000)
-      .toString()
-      .padStart(3, "0");
+  //   const orderCount = Math.floor(Math.random() * 1000)
+  //     .toString()
+  //     .padStart(3, "0");
 
-    return letters + language + orderCount;
-  }
+  //   return letters + language + orderCount;
+  // }
 
   const Cards = () => {
     // Define the initial state of the form and create a reference to the form.
@@ -640,14 +626,7 @@ const Customer = () => {
       return Object.keys(data).map((d) => `${d}: ${data[d]}`);
     }
 
-    // Callback function to handle the credit card validation result.
-    const handleCallback = ({ issuer }, isValid) => {
-      if (isValid) {
-        setState((prevState) => ({ ...prevState, issuer }));
-      }
-    };
-
-    // Function to handle input focus.
+    // // Function to handle input focus.
     const handleInputFocus = ({ target }) => {
       setState((prevState) => ({ ...prevState, focused: target.name }));
     };
@@ -670,12 +649,11 @@ const Customer = () => {
     // Function to handle form submission.
     const handleSubmit = (e) => {
       e.preventDefault();
-      // const { issuer } = state;
       const formData = [...e.target.elements]
         .filter((d) => d.name)
         .reduce((acc, d) => {
           acc[d.name] = d.value;
-          OpneMode(4);
+          // OpneMode(4);
           return acc;
         }, {});
 
@@ -694,7 +672,7 @@ const Customer = () => {
             expiry={state?.expiry}
             cvc={state?.cvc}
             focused={state?.focused}
-            callback={handleCallback}
+            // callback={handleCallback}
           />
 
           <form ref={formRef} onSubmit={handleSubmit}>
@@ -752,7 +730,6 @@ const Customer = () => {
               </div>
             </div>
             <input type="hidden" name="issuer" value={state?.issuer} />
-            {/* <input type="submit" value="Submit" /> */}
 
             <div id="keep-mounted-modal-description">
               <div style={{ position: "relative", top: "15px" }}>
@@ -898,7 +875,7 @@ const Customer = () => {
                 {groupData?.map((item, index) => (
                   <div key={index}>
                     <div className={styles.Box_detailH_Model}>
-                      <p className={styles.H_Model2}>Order{index + 1}</p>
+                      <p className={styles.H_Model2}>Order {index + 1}</p>
                       <p className={styles.H_Model}></p>
                     </div>
                     <div className={styles.Box_detailH_Model}>
@@ -1820,7 +1797,9 @@ const Customer = () => {
                       autoHighlight
                       defaultValue={from?.translation_Type}
                       value={from?.translation_Type}
-                      onChange={(event, value) => console.log(value?.label)}
+                      onChange={(event, value) =>
+                        setFrom({ ...from, translation_Type: value?.label })
+                      }
                       popupIcon={
                         <MdArrowDropDown
                           style={{ color: "#333333", width: 30, height: 33 }}

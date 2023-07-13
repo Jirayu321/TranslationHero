@@ -13,6 +13,7 @@
 .fram1 {
   background: linear-gradient(0deg, rgb(255 255 255 / 0%), rgba(0, 0, 0, 0.2)),
     url("../../Images/fram1Home.png");
+  background-repeat: no-repeat;
   /* height: 100vh; */
   /* background-position: center; */
   background-repeat: round;
@@ -564,6 +565,7 @@
 }
 .box4_overviwe0 {
   background: url("../../Images/box4_overviwe0.png");
+  background-repeat: no-repeat;
   width: 66vw;
   height: 570px;
   position: relative;

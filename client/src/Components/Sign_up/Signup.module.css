@@ -5,6 +5,7 @@
 .img_Signup1 {
   background: url("../../Images/Register1.png");
   background-position: center;
+  background-repeat:no-repeat;
   background-size: cover;
   width: 600px;
   height: 770px;
@@ -17,6 +18,7 @@
 .img_Signup2 {
   background: url("../../Images/Register2.png");
   background-position: center;
+  background-repeat:no-repeat;
   background-size: cover;
   width: 600px;
   height: 700px;
@@ -29,6 +31,7 @@
 .img_Signup3 {
   background: url("../../Images/Register3.png");
   background-position: center;
+  background-repeat:no-repeat;
   background-size: cover;
   width: 600px;
   height: 700px;
@@ -103,6 +106,7 @@
   width: 25px;
   height: 25px;
   background-position: center;
+  background-repeat:no-repeat;
   background-size: cover;
   margin: 10px;
 }
@@ -111,11 +115,13 @@
   width: 25px;
   height: 25px;
   background-position: center;
+  background-repeat:no-repeat;
   background-size: cover;
   margin: 10px;
 }
 .crown2 {
   background: url("../../Images/crown2.png");
+  background-repeat:no-repeat;
   width: 25px;
   height: 25px;
   background-position: center;
@@ -124,6 +130,7 @@
 }
 .briefcase2 {
   background: url("../../Images/briefcase2.png");
+  background-repeat:no-repeat;
   width: 25px;
   height: 25px;
   background-position: center;
@@ -170,6 +177,7 @@
 }
 .cloud_upload {
   background: url("../../Images/cloud_upload.png");
+  background-repeat:no-repeat;
   width: 25px;
   height: 25px;
   background-position: center;
