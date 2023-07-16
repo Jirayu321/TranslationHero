@@ -133,7 +133,7 @@ const Customer = () => {
       console.log("Data:", groupData);
       // window.scrollTo(0, 10);
     } else {
-      console.log("add_Data");
+      console.log("add_Data", groupData);
     }
   }, [groupData]);
 
@@ -149,14 +149,16 @@ const Customer = () => {
       let index = x - 1;
       console.log(
         "chagngeDataPage",
-        "inde:",
+        "index:",
         index,
         "pageed:",
         page,
         "countButtons:",
         countButtons,
         "count:",
-        count
+        count,
+        "groupData:",
+        groupData
       );
       let file = groupData[index]?.file;
       let document_Type = groupData[index]?.document_Type;
@@ -182,8 +184,12 @@ const Customer = () => {
         setPage(x);
       } else if (y === 0) {
         console.log("เปลี่ยนหน้า");
-        if (page < count) {
-          if (typeof translation_Type !== "undefined") {
+        if (typeof translation_Type !== "undefined") {
+          console.log("66", Additional_explanation, index);
+          let j = page - 1;
+          let z = groupData[j]?.Additional_explanation;
+          if (typeof z !== "undefined") {
+            console.log("5555", z);
             setFrom({
               file: file,
               document_Type: document_Type,
@@ -198,55 +204,26 @@ const Customer = () => {
             });
             setPage(x);
           } else {
-            groupData.splice(index, 0, from);
+            setGroupData([...groupData, from]);
             setFrom({
-              file: "",
-              document_Type: "",
-              translation_Type: "",
-              tranfrom: "",
-              tranto: "",
-              Deadline: getCurrentDate(),
-              Additional_explanation: "",
+              file: file,
+              document_Type: document_Type,
+              translation_Type: translation_Type,
+              tranfrom: tranfrom,
+              tranto: tranto,
+              Deadline: Deadline,
+              Additional_explanation: Additional_explanation,
               type: "",
               Price: "",
+              orderNumber: "",
             });
-            console.log("groupData", groupData);
             setPage(x);
           }
         } else {
-          if (typeof translation_Type !== "undefined") {
-            console.log("index", index);
-            groupData.splice(index, 0, from);
-            setFrom({
-              file: file,
-              document_Type: document_Type,
-              translation_Type: translation_Type,
-              tranfrom: tranfrom,
-              tranto: tranto,
-              Deadline: Deadline,
-              Additional_explanation: Additional_explanation,
-              type: "",
-              Price: "",
-              orderNumber: "",
-            });
-            setPage(x);
-          } else {
-            console.log("index", index);
-            groupData.splice(index, 0, from);
-            setFrom({
-              file: "",
-              document_Type: "",
-              translation_Type: "",
-              tranfrom: "",
-              tranto: "",
-              Deadline: getCurrentDate(),
-              Additional_explanation: "",
-              type: "",
-              Price: "",
-            });
-            console.log("groupData", groupData);
-            setPage(x);
-          }
+          console.log("777");
+          setGroupData([...groupData, from]);
+          // console.log("groupData", groupData);
+          setPage(x);
         }
       } else {
         console.log("อื่นๆ");
@@ -435,7 +412,7 @@ const Customer = () => {
         setPromo(x);
         window.scrollTo(0, h);
       } else {
-        // setGroupData([...groupData, from]);
+        setGroupData([...groupData, from]);
         setPromo(x);
         window.scrollTo(0, h);
       }

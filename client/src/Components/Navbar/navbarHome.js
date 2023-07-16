@@ -173,7 +173,7 @@ const navbarHome = (props) => {
                   </div>
                 )}
 
-                {pathname === "/FAQs" ? (
+                {/* {pathname === "/FAQs" ? (
                   <div
                     className={styles.NavLi}
                     style={{ color: "black" }}
@@ -189,7 +189,7 @@ const navbarHome = (props) => {
                   >
                     <p className={styles.textNavO}>FAQs</p>
                   </div>
-                )}
+                )} */}
                 <div className={styles.dd2}>
                   <button
                     className={styles.buttonLogin}
