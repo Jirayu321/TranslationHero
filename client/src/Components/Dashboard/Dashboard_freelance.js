@@ -37,7 +37,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import moment from "moment";
-import axios from "axios";
+// import axios from "axios";
 
 import All_online from "../../Images/All_customers.png";
 import Old_customers from "../../Images//Old_customers.png";
@@ -58,37 +58,40 @@ export default function Dashboard_freelance() {
   const auth = useSelector((state) => state.auth);
   let Doc = location?.state?.languages;
   let Value = auth?.token;
-  const name = { Translator_name: auth?.name };
+  // const name = { Translator_name: auth?.name };
   const [data1, setData1] = React.useState([]);
   const [all_work, setAll_work] = React.useState(0);
   const [old_work, setOld_work] = React.useState(0);
   const [country, setCountry] = React.useState(0);
-  const [data3, setData3] = React.useState();
-  const [type, settype] = React.useState(null);
+  // const [data3, setData3] = React.useState();
+  // const [type, settype] = React.useState(null);
   const [hovering, setHovering] = React.useState(false);
   const [open, setOpen] = React.useState(false);
-  const url = "https://54.244.204.59/api";
+  // const url = "https://54.244.204.59/api";
   // const url = "http://localhost:3001/api";
 
   const eiei = new Date();
 
-  const goLogin = () => {
-    navigate("/Login");
-  };
-  const checklogin = () => {
-    if (Value) {
-      console.log("value :", Value);
-    } else {
-      goLogin();
-    }
-  };
+  // const goLogin = () => {
+  //   navigate("/Login");
+  // };
+  // const checklogin = () => {
+  //   if (Value) {
+  //     console.log("value :", Value);
+  //   } else {
+  //     goLogin();
+  //   }
+  // };
   const handleClose = () => {
     setOpen(false);
   };
-  React.useEffect(() => {
-    checklogin();
-    getOrder(name);
-  }, []);
+
+  // React.useEffect(() => {
+  //   if (Value) {
+  //     checklogin();
+  //     getOrder(name);
+  //   }
+  // }, [Value]);
 
   const setDataOrder = (i) => {
     let all_work = i?.length;
@@ -138,29 +141,29 @@ export default function Dashboard_freelance() {
     //     return null;
     //   }
     // });
-    setData3(All.length);
+    // setData3(All?.length);
   };
 
-  const getOrder = async (values) => {
-    try {
-      const token = await axios.get(`${url}/getOrder`, {
-        params: { Translator_name: values.Translator_name },
-      });
-      const token2 = await axios.get(`${url}/getUsers`, {});
-      setDataOrder(token?.data);
-      setAllUser(token2?.data);
-    } catch (error) {
-      if (error.response && error.response.status === 404) {
-        throw new Error("Translator not found");
-      } else if (error.response && error.response.status === 500) {
-        throw new Error("Internal server error");
-      } else if (error.response && error.response.status === 400) {
-        throw new Error("Bad request");
-      } else {
-        throw new Error("Something went wrong");
-      }
-    }
-  };
+  // const getOrder = async (values) => {
+  //   try {
+  //     const token = await axios.get(`${url}/getOrder`, {
+  //       params: { Translator_name: values.Translator_name },
+  //     });
+  //     const token2 = await axios.get(`${url}/getUsers`, {});
+  //     setDataOrder(token?.data);
+  //     setAllUser(token2?.data);
+  //   } catch (error) {
+  //     if (error.response && error.response.status === 404) {
+  //       throw new Error("Translator not found");
+  //     } else if (error.response && error.response.status === 500) {
+  //       throw new Error("Internal server error");
+  //     } else if (error.response && error.response.status === 400) {
+  //       throw new Error("Bad request");
+  //     } else {
+  //       throw new Error("Something went wrong");
+  //     }
+  //   }
+  // };
   console.log("data1", data1);
   return (
     <div className="App-body3">
@@ -382,7 +385,8 @@ export default function Dashboard_freelance() {
                       sx={{ width: 260 }}
                       autoHighlight
                       getOptionLabel={(option) => option.label}
-                      onChange={(event, value) => settype(value.label)}
+                      // onChange={(event, value) => settype(value?.label)}
+                      onChange={(event, value) => console.log(value?.label)}
                       popupIcon={
                         <MdArrowDropDown
                           style={{ color: "#333333", width: 30, height: 33 }}

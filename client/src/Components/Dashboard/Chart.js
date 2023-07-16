@@ -84,6 +84,9 @@ const Chart1 = () => {
       offsetX: 10,
     },
   });
+  
+  // React.useEffect(() => {
+  // }, []);
 
   return (
     <div>

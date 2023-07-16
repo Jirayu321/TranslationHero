@@ -28,7 +28,7 @@ const Home = () => {
   const [usertype, setUsertype] = React.useState("Customer");
   const { innerWidth: width } = window;
   const handleClose = (x, y) => {
-    console.log("x:", x);
+    // console.log("x:", x);
     if (x === 1) {
       if (y === "English") {
         navigate("/", { state: { languages: `${y}`, accept: true } });
@@ -62,9 +62,9 @@ const Home = () => {
     check_cookei();
   });
 
-  const goSignup = (x) => {
-    navigate("/Signup", { state: { languages: `${x}` } });
-  };
+  // const goSignup = (x) => {
+  //   navigate("/Signup", { state: { languages: `${x}` } });
+  // };
 
   const goCustomer = (x) => {
     navigate("/Home/Order/Customer", { state: { languages: `${x}` } });

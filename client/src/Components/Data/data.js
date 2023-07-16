@@ -334,6 +334,12 @@ export const data2 = [
   { code: "", label: "General Document" },
 ];
 
+export const data2_2 = [
+  { code: "", label: "All" },
+  { code: "", label: "Official Document" },
+  { code: "", label: "General Document" },
+];
+
 export const data2_1 = [
   { code: "", label: "5" },
   { code: "", label: "4" },
