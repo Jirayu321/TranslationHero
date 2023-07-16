@@ -375,6 +375,7 @@
   top: 10vh;
   left: 25vw;
 }
+
 @media only screen and (max-width: 768px) {
   .backgroundfram1 {
     background: linear-gradient(
@@ -740,7 +741,7 @@
     box-shadow: 1px -6px 8px -2px rgba(16, 24, 40, 0.1);
   }
   .diviconcardTranslator {
-    width: 120%;
+    width: 75%;
     display: flex;
     margin-bottom: 10px;
   }
@@ -816,6 +817,10 @@
     height: 100px;
   }
   .cardpayment2 {
+    width: 100px;
+    height: 100px;
+  }
+  .cardpayment3 {
     width: 100px;
     height: 100px;
   }
@@ -903,6 +908,21 @@
   }
 }
 @media only screen and (min-width: 350px) {
+  .ModalReceipt {
+    position: absolute;
+    width: 90vw;
+    height: 175vw;
+    background-color: #fff;
+    box-shadow: 0px 11px 15px -7px rgba(0, 0, 0, 0.2),
+      0px 24px 38px 3px rgba(0, 0, 0, 0.14),
+      0px 9px 46px 8px rgba(0, 0, 0, 0.12);
+    padding: 32px;
+    border-radius: 20px;
+    border: 1px solid #e5e5e5;
+    text-align: center;
+    top: 5vw;
+    left: 5vw;
+  }
   .ModalBoxPayment {
     position: absolute;
     width: 90vw;
@@ -924,6 +944,11 @@
     margin: 20px 10px;
   }
   .cardpayment2 {
+    width: 120px;
+    height: 100px;
+    margin: 20px 10px;
+  }
+  .cardpayment3 {
     width: 120px;
     height: 100px;
     margin: 20px 10px;
