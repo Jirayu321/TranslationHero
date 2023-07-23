@@ -2340,7 +2340,6 @@ const Signup = () => {
                         renderInput={(params) => (
                           <TextField {...params} label="languages" />
                         )}
-                        // sx={{ width: "500px" }}
                       />
                     </div>
 
@@ -2377,7 +2376,6 @@ const Signup = () => {
                         renderInput={(params) => (
                           <TextField {...params} label="documents" />
                         )}
-                        // sx={{ width: "500px" }}
                       />
                     </div>
 
@@ -2413,12 +2411,13 @@ const Signup = () => {
 
                       <input
                         type="text"
-                        onChange={(e) =>
-                          setTranslators([
-                            { ...translators, documents: e.target.value },
-                          ])
-                        }
-                        value={translators.documents}
+                        // onChange={(e) =>
+                        //   // setTranslators([
+                        //   //   { ...translators, documents: e.target.value },
+                        //   // ])
+                        //   console.log(e)
+                        // }
+                        // value={translators.documents}
                         placeholder="Enter your service"
                         style={{
                           background: "#FFFFFF",
