@@ -2973,12 +2973,12 @@ const Signup = () => {
                       <textarea
                         type="text"
                         maxLength={300}
-                        onChange={(e) =>
-                          setTranslators([
-                            { ...translators, answer: e.target.value },
-                          ])
-                        }
-                        value={translators.answer}
+                        // onChange={(e) =>
+                        //   setTranslators([
+                        //     { ...translators, answer: e.target.value },
+                        //   ])
+                        // }
+                        // value={translators.answer}
                         placeholder="Enter your answer"
                         className={styles.Additional_explanation}
                       />
