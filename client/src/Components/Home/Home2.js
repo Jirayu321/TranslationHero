@@ -61,15 +61,15 @@ export default function Home2() {
   const [type, setType] = React.useState(1);
   const { innerWidth: width } = window;
 
-  const goLogin = (x) => {
-    navigate("/Login");
-  };
+  // const goLogin = (x) => {
+  //   navigate("/Login");
+  // };
 
   const checklogin = () => {
     if (value) {
       console.log("value :", value);
     } else {
-      goLogin();
+      // goLogin();
     }
   };
 

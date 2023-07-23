@@ -644,7 +644,7 @@
           rgba(0, 0, 0, 0.2)
         )
         round,
-      url(/static/media/fram1Home.1fb01138.png);
+      url("../../Images/fram1Home.png");
     height: 180vw;
     background-repeat: no-repeat;
     background-size: cover;
@@ -1182,7 +1182,7 @@
           rgba(0, 0, 0, 0.2)
         )
         round,
-      url(/static/media/fram1Home.1fb01138.png);
+      url("../../Images/fram1Home.png");
     height: 130vw;
     background-repeat: no-repeat;
     background-size: cover;
@@ -1393,7 +1393,7 @@
           rgba(0, 0, 0, 0.2)
         )
         round,
-      url(/static/media/fram1Home.1fb01138.png);
+      url("../../Images/fram1Home.png");
     height: 100vw;
     background-repeat: no-repeat;
     background-size: cover;

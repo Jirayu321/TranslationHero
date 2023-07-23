@@ -14,8 +14,9 @@
     url("../../Images/fram1Home.png");
   height: 100vh;
   background-repeat: no-repeat;
-  /* background-position: center; */
-  background-repeat: round;
+  background-size: cover;
+  display: grid;
+  justify-content: center;
 }
 .boxBlue_overviwe {
   top: 20vh;
@@ -276,9 +277,10 @@
 .fram3_7 {
   background: url("../../Images/fram2_7.png");
   background-repeat: no-repeat;
+  background-size: cover;
   /* height: 345vh; */
   margin-top: -160px;
-  background-repeat: round;
+  /* background-repeat: round; */
   /* margin-bottom: 100px; */
 }
 .detailefram3 {
@@ -926,8 +928,8 @@
   background: linear-gradient(0deg, rgb(255 255 255 / 0%), rgba(0, 0, 0, 0.2)),
     url("../../Images/fram1Home.png");
   background-repeat: no-repeat;
-  height: 85vh;
-  background-repeat: round;
+  background-size: cover;
+  height: 140vw;
 }
 
 @media only screen and (max-width: 768px) {
@@ -936,7 +938,7 @@
     display: grid;
     justify-content: center;
     width: 100vw;
-    margin-top: 30vw;
+    margin-top: 15vw;
   }
   .h_text1 {
     font-size: 42px;
@@ -957,6 +959,7 @@
     margin: 0px;
     display: grid;
     justify-content: center;
+    margin-top: 50px;
   }
   .detailefram_general {
     position: initial;
@@ -968,6 +971,313 @@
     height: auto;
   }
   .HBoxdetaile_general {
-    margin: 30px 0px;
+    margin: 15px 0px;
+    font-size: 20px;
+  }
+  .HBoxdetaile3_1 {
+    font-size: 32px;
+    line-height: 40px;
+  }
+
+  /*  Services_official */
+  .fram1 {
+    height: 125vw;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  .boxBlue_overviwe {
+    margin-top: 25vw;
+  }
+  .set_fram1_button {
+    width: 100vw;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    justify-content: center;
+    margin-top: 70px;
+    margin-left: 0px;
+    font-family: "DBHeaventLi";
+    font-size: 24px;
+  }
+  .btn_fram1_1 {
+    width: 23vw;
+    height: 28vw;
+    margin: 15px;
+    font-weight: 500;
+    line-height: 24px;
+  }
+  .btn_fram1_2 {
+    width: 23vw;
+    height: 28vw;
+    margin: 15px;
+    font-weight: 500;
+    line-height: 24px;
+  }
+}
+@media only screen and (min-width: 320px) {
+  .boxBlue_overviwe {
+    margin-top: 40vw;
+  }
+  .h_text1 {
+    font-size: 32px;
+  }
+  .h_text2 {
+    font-size: 22px;
+    width: 70vw;
+  }
+  .HBoxdetaile3_1 {
+    font-size: 25px;
+    line-height: 25px;
+  }
+  .HBoxdetaile_general {
+    margin: 15px 0px;
+    font-size: 16px;
+  }
+  .Boxfram3_3 {
+    padding: 25px;
+    justify-items: center;
+  }
+  .detailefram_general {
+    margin-bottom: 40px;
+  }
+  .Imggeneral1 {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    width: 55vw;
+    height: 35vw;
+    border-radius: 10px;
+  }
+  .Imggeneral2 {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    width: 55vw;
+    height: 35vw;
+    border-radius: 10px;
+  }
+  .Imggeneral3 {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    width: 55vw;
+    height: 35vw;
+    border-radius: 10px;
+  }
+  .Imggeneral4 {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    width: 55vw;
+    height: 35vw;
+    border-radius: 10px;
+  }
+  .Imggeneral5 {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    width: 55vw;
+    height: 35vw;
+    border-radius: 10px;
+  }
+}
+@media only screen and (min-width: 350px) {
+  .HBoxdetaile_general {
+    font-size: 18px;
+  }
+}
+@media only screen and (min-width: 480px) {
+  .fram1_general {
+    height: 130vw;
+  }
+  .h_text2 {
+    font-size: 22px;
+    width: 50vw;
+  }
+  .HBoxdetaile3_1 {
+    font-size: 30px;
+    line-height: 25px;
+  }
+  .Imggeneral1 {
+    width: 100%;
+  }
+  .Imggeneral2 {
+    width: 100%;
+  }
+  .Imggeneral3 {
+    width: 100%;
+  }
+  .Imggeneral4 {
+    width: 100%;
+  }
+  .Imggeneral5 {
+    width: 100%;
+  }
+  .Boxfram3_3 {
+    justify-items: unset;
+  }
+}
+@media only screen and (min-width: 600px) {
+  .boxBlue_overviwe {
+    margin-top: 25vw;
+  }
+  .h_text1 {
+    font-size: 42px;
+  }
+  .HBoxdetaile_general {
+    font-size: 20px;
+  }
+}
+@media only screen and (min-width: 768px) {
+  .fram1_general {
+    height: 100vw;
+  }
+  .h_text2 {
+    font-size: 18px;
+    width: 90vw;
+    margin-left: 3vw;
+    margin-top: 0px;
+  }
+  .fram3_7 {
+    margin-top: -75px;
+    display: grid;
+    justify-content: center;
+  }
+  .textHeading2_overviwe {
+    height: 20vw;
+    margin: 60px 0px;
+    display: grid;
+    align-content: center;
+  }
+  .fram2 {
+    font-size: 42px;
+    line-height: unset;
+  }
+  .detailefram_general {
+    position: unset;
+    width: 75vw;
+    height: 30vw;
+  }
+  .Boxfram3_3 {
+    justify-items: unset;
+    grid-template-columns: auto auto;
+    justify-content: space-between;
+  }
+  .Imggeneral1 {
+    width: 30vw;
+    height: 20vw;
+  }
+  .Imggeneral2 {
+    width: 30vw;
+    height: 20vw;
+    margin-right: 20px;
+  }
+  .Imggeneral3 {
+    width: 30vw;
+    height: 20vw;
+  }
+  .Imggeneral4 {
+    width: 30vw;
+    height: 20vw;
+  }
+  .Imggeneral5 {
+    width: 30vw;
+    height: 20vw;
+    margin-right: 15px;
+  }
+}
+@media only screen and (min-width: 800px) {
+  .fram1_general {
+    height: 95vw;
+  }
+  .h_text2 {
+    margin-left: 2vw;
+    margin-top: -15px;
+    width: 70vw;
+  }
+}
+@media only screen and (min-width: 1024px) {
+  .fram1_general {
+    height: 95vw;
+    display: grid;
+    grid-template-columns: auto;
+    width: 100vw;
+  }
+  .boxBlue_overviwe {
+    margin-top: 25vw;
+    position: unset;
+    justify-self: center;
+  }
+  .h_text1 {
+    font-size: 42px;
+    justify-content: center;
+  }
+  .h_text2 {
+    margin-left: 1vw;
+    margin-top: -15px;
+    justify-content: center;
+  }
+  .fram2 {
+    font-size: 42px;
+    line-height: unset;
+    display: grid;
+    justify-content: center;
+    height: 30vw;
+  }
+  .textHeading2_overviwe {
+    height: auto;
+  }
+  .HBoxdetaile3_1 {
+    font-size: 32px;
+    line-height: 35px;
+  }
+  .Boxfram3_3 {
+    justify-content: unset;
+  }
+  .detailefram_general {
+    position: unset;
+    width: 75vw;
+    height: 26vw;
+  }
+  .Imggeneral2 {
+    margin-right: 0px;
+  }
+}
+@media only screen and (min-width: 1400px) {
+  .fram1_general {
+    height: 60vw;
+    width: 100vw;
+    background-position: bottom;
+  }
+  .boxBlue_overviwe {
+    margin-top: 18vw;
+  }
+  .h_text1 {
+    font-size: 50px;
+  }
+  .h_text2 {
+    margin-left: 1vw;
+    margin-top: -5px;
+    font-size: 20px;
+  }
+  .fram2 {
+    font-size: 50px;
+    height: 25vw;
+  }
+  .HBoxdetaile3_1 {
+    font-size: 42px;
+    line-height: 45px;
+  }
+  .Boxfram3_3 {
+    justify-content: space-between;
+  }
+  .detailefram_general {
+    position: unset;
+    width: 65vw;
+    height: 25vw;
+    margin: 55px 0px;
+  }
+  .HBoxdetaile_general {
+    font-size: 25px;
+    width: 80%;
   }
 }

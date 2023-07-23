@@ -2,6 +2,7 @@ import * as React from "react";
 // import emailjs from "@emailjs/browser";
 import Navbars from "../Navbar/navbarLogin";
 import { Formik } from "formik";
+import { data, data2 } from "../Data/data";
 
 //test
 // import {
@@ -19,6 +20,11 @@ import {
   FiEye,
   // FiImage
 } from "react-icons/fi";
+import { MdArrowDropDown } from "react-icons/md";
+import File from "../../Images/file.svg";
+import Checkcircle from "../../Images/checkcircle.svg";
+import Check from "../../Images/Check.svg";
+import Logo from "../../logo.svg";
 
 import {
   REGI01_box1EN,
@@ -30,15 +36,15 @@ import {
   IconButton,
   // Radio,
   // RadioGroup,
-  // FormControlLabel,
-  // FormControl,
+  FormControlLabel,
+  FormGroup,
   Input,
-  // Modal,
+  Modal,
   // Typography,
-  // Box,
-  // Checkbox,
-  // Autocomplete,
-  // TextField,
+  Box,
+  Checkbox,
+  Autocomplete,
+  TextField,
 } from "@mui/material";
 
 import { useNavigate, useLocation } from "react-router-dom";
@@ -60,6 +66,8 @@ const Signup = () => {
   const [images3, setImages3] = React.useState([]);
   const [images4, setImages4] = React.useState([]);
   const [images5, setImages5] = React.useState([]);
+  const [images6, setImages6] = React.useState([]);
+  const [images7, setImages7] = React.useState([]);
   const [imageURLs, setImageURLs] = React.useState([]);
   const [type_User, setType_User] = React.useState("");
 
@@ -94,10 +102,15 @@ const Signup = () => {
     question: "",
     type: "",
   });
+  const [openModel, setopenModel] = React.useState({
+    openModel1: false,
+    openModel2: false,
+  });
 
   const [screen, setScreen] = React.useState("");
   const [type, setType] = React.useState("password");
   const [type2, setType2] = React.useState("password");
+  const [checked, setChecked] = React.useState(false);
   const [valuestype, setValuestype] = React.useState(false);
   const [valuestype2, setValuestype2] = React.useState(false);
 
@@ -121,6 +134,14 @@ const Signup = () => {
       images5.forEach((image) => x.push(URL.createObjectURL(image)));
       setImageURLs(x);
       setTranslators({ ...translators, bookbank: imageURLs });
+    } else if (y === 6) {
+      images6.forEach((image) => x.push(URL.createObjectURL(image)));
+      setImageURLs(x);
+      setTranslators({ ...translators, watermark: imageURLs });
+    } else if (y === 7) {
+      images7.forEach((image) => x.push(URL.createObjectURL(image)));
+      setImageURLs(x);
+      setTranslators({ ...translators, certificate: imageURLs });
     }
   }
 
@@ -151,7 +172,17 @@ const Signup = () => {
       const newImageUrls = [];
       setProFile(newImageUrls, 5);
     }
-  }, [images, images2, images3, images4, images5]);
+    if (images6.length > 0) {
+      console.log("images5:", images5);
+      const newImageUrls = [];
+      setProFile(newImageUrls, 6);
+    }
+    if (images7.length > 0) {
+      console.log("images5:", images5);
+      const newImageUrls = [];
+      setProFile(newImageUrls, 7);
+    }
+  }, [images, images2, images3, images4, images5, images6, images7]);
 
   function onImageChange(e, i) {
     const files = [...e.target.files];
@@ -236,14 +267,42 @@ const Signup = () => {
         setScreen("7");
         break;
       case 7:
-        navigate("/Login");
+        setopenModel({
+          ...openModel,
+          openModel1: true,
+        });
+        // navigate("/Login");
+        break;
+      case "back":
+        setTranslators({ ...translators, type: "" });
+        setType_User("");
+        setScreen("type");
         break;
       default:
         setScreen("");
     }
   }
 
+  function OpneMode(x) {
+    if (x === 2) {
+      setopenModel({
+        ...openModel,
+        openModel1: false,
+        openModel2: true,
+      });
+      setTimeout(function () {
+        setopenModel({
+          ...openModel,
+          openModel1: false,
+          openModel2: false,
+        });
+        navigate("/Login");
+      }, 3000);
+    }
+  }
+
   console.log("screen", screen, translators?.type);
+
   return (
     <>
       <header className={styles?.header}>
@@ -258,12 +317,107 @@ const Signup = () => {
         )}
       </header>
 
+      <Modal
+        hideBackdrop
+        open={openModel?.openModel1}
+        onClose={() =>
+          setopenModel({
+            ...openModel,
+            openModel1: false,
+          })
+        }
+        aria-labelledby="keep-mounted-modal-title"
+        aria-describedby="keep-mounted-modal-description"
+      >
+        <Box className={styles.ModalBoxPayment}>
+          <div
+            id="keep-mounted-modal-description"
+            sx={{
+              mt: 2,
+              textAlign: "center",
+            }}
+          >
+            <img src={Logo} alt="logo" className={styles.Logo} />
+            <p className={styles.H_text01}>Terms and Conditions</p>
+            <p className={styles.H_text02}>
+              The company agrees to provide truthful information. and can
+              receive translation work and forward it to translators who are
+              competent in the languages stated by the company above. and will
+              be responsible for all translation works translated from the
+              company
+            </p>
+          </div>
+          <div className={styles.borderReceipt}></div>
+          <div id="keep-mounted-modal-description">
+            <div>
+              <div className={styles.boxpayment}>
+                <FormGroup>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={checked}
+                        onChange={(e) => setChecked(true)}
+                      />
+                    }
+                    label="accept the terms and conditions"
+                  />
+                </FormGroup>
+              </div>
+            </div>
+            <div className={styles.BoxbuttonModalBoxPayment}>
+              {checked === true ? (
+                <button
+                  className={styles.buttonModel1}
+                  onClick={() => OpneMode(2)}
+                >
+                  Submit
+                </button>
+              ) : (
+                <button
+                  className={styles.buttonModel2}
+                  // onClick={() => OpneMode(2)}
+                >
+                  Submit
+                </button>
+              )}
+            </div>
+          </div>
+        </Box>
+      </Modal>
+
+      <Modal
+        hideBackdrop
+        open={openModel?.openModel2}
+        onClose={() =>
+          setopenModel({
+            ...openModel,
+            openModel2: false,
+          })
+        }
+        aria-labelledby="keep-mounted-modal-title"
+        aria-describedby="keep-mounted-modal-description"
+      >
+        <Box className={styles.ModalBoxPayment2}>
+          <div
+            id="keep-mounted-modal-description"
+            sx={{
+              mt: 2,
+              textAlign: "center",
+            }}
+          >
+            <img src={Check} alt="logo" className={styles.Logo2} />
+            <p className={styles.H_text03}>
+              Your translator application has been sent. Wait for confirmation
+              by email
+            </p>
+          </div>
+        </Box>
+      </Modal>
       <div
         style={{
           display: "grid",
           gridTemplateColumns: "auto auto",
           justifyContent: "space-between",
-          // marginBottom: "30px",
         }}
       >
         <div
@@ -572,7 +726,7 @@ const Signup = () => {
                     background: " #FFFFFF",
                     borderRadius: 20,
                     padding: 30,
-                    height: "690px",
+                    height: "600px",
                   }}
                 >
                   <h2 className={styles.textH}>Choose your account type.</h2>
@@ -656,17 +810,7 @@ const Signup = () => {
           ) : screen === "1" ? (
             <>
               <div>
-                <div
-                  style={{
-                    // position: "fixed",
-                    // top: 60,
-                    // left: 100,
-                    width: 500,
-                    background: " #FFFFFF",
-                    borderRadius: 20,
-                    padding: 30,
-                  }}
-                >
+                <div className={styles.BoxInputImg1}>
                   <h2 className={styles.textH}>
                     1.Upload your profile picture.
                   </h2>
@@ -726,7 +870,7 @@ const Signup = () => {
                             borderRadius: 20,
                             width: "100%",
                             height: 200,
-                            padding: 50,
+                            // padding: 50,
                             position: "relative",
                             borderStyle: "",
                             borderColor: "#0865A8",
@@ -735,40 +879,33 @@ const Signup = () => {
                             marginLeft: 0,
                           }}
                         >
-                          <label htmlFor="icon-button-file">
-                            <Input
-                              accept="image/*"
-                              id="icon-button-file"
-                              type="file"
-                              style={{ display: "none" }}
-                              onChange={(e) =>
-                                setTranslators({
-                                  ...translators,
-                                  portfolio: e.target.value,
-                                })
-                              }
-                            />
-                            <IconButton
-                              color="primary"
-                              aria-label="upload picture"
-                              component="span"
-                            >
-                              {imageURLs.map((imageSrc, idx) => (
-                                <img
-                                  key={idx}
-                                  src={imageSrc}
-                                  alt="imageURLs"
-                                  style={{
-                                    position: "absolute",
-                                    width: 90,
-                                    height: 90,
-                                    borderRadius: "100%",
-                                    top: -20,
-                                  }}
-                                />
-                              ))}
-                            </IconButton>
-                          </label>
+                          <Input
+                            accept="image/*"
+                            id="icon-button-file"
+                            type="file"
+                            style={{ display: "none" }}
+                            onChange={(e) =>
+                              setTranslators({
+                                ...translators,
+                                portfolio: e.target.value,
+                              })
+                            }
+                          />
+                          <IconButton
+                            color="primary"
+                            aria-label="upload picture"
+                            component="span"
+                            className={styles.BoximgProfile}
+                          >
+                            {imageURLs.map((imageSrc, idx) => (
+                              <img
+                                key={idx}
+                                src={imageSrc}
+                                alt="imageURLs"
+                                className={styles.imgProflie}
+                              />
+                            ))}
+                          </IconButton>
                         </div>
                       )}
                     </div>
@@ -782,7 +919,7 @@ const Signup = () => {
                   </button>
                   <button
                     className={styles.button}
-                    onClick={() => setScreen("type")}
+                    onClick={() => setScreenNumber("back")}
                   >
                     Back
                   </button>
@@ -801,322 +938,443 @@ const Signup = () => {
           ) : screen === "2" ? (
             <>
               <div>
-                <div
-                  style={{
-                    width: 550,
-                    background: " #FFFFFF",
-                    borderRadius: 20,
-                    padding: 30,
-                  }}
-                >
-                  <h2 className={styles.textH}>
-                    2.Upload a picture of your ID card.
-                  </h2>
-                  <p className={styles.textLogin2}>
-                    (such as JPG, PDF, PNG and the file size does not exceed
-                    25Mb.)
-                  </p>
-                  <div style={{ textAlign: "left", marginTop: 10 }}>
-                    <div style={{ textAlign: "center" }}>
-                      {images2.length < 1 ? (
-                        <div
-                          style={{
-                            background: "#FFFFFF",
-                            borderRadius: 20,
-                            width: "100%",
-                            height: 300,
-                            padding: 60,
-                            position: "relative",
-                            borderStyle: "solid",
-                            borderColor: "#D0D5DD",
-                            borderWidth: 2,
-                            margin: 20,
-                            marginLeft: 0,
-                          }}
-                        >
-                          <label htmlFor="icon-button-file">
-                            <Input
-                              accept="image/*"
-                              id="icon-button-file"
-                              type="file"
-                              style={{ display: "none" }}
-                              onChange={(e) => onImageChange(e, 2)}
-                            />
-                            <IconButton
-                              color="primary"
-                              aria-label="upload picture"
-                              component="span"
-                            >
-                              <div className={styles.cloud_upload} />
-                              <p
-                                style={{
-                                  position: "absolute",
-                                  top: 60,
-                                  width: 100,
-                                  fontWeight: 500,
-                                  fontSize: 25,
-                                  color: "#D0D5DD",
-                                  fontFamily: "DBHeavent",
-                                }}
+                {translators?.type === "Freelance Translators" ? (
+                  <div className={styles.BoxInputImg2}>
+                    <h2 className={styles.textH}>
+                      2.Upload a picture of your ID card.
+                    </h2>
+                    <p className={styles.textLogin2}>
+                      (such as JPG, PDF, PNG and the file size does not exceed
+                      25Mb.)
+                    </p>
+                    <div style={{ textAlign: "left", marginTop: 10 }}>
+                      <div style={{ textAlign: "center" }}>
+                        {images2.length < 1 ? (
+                          <div className={styles.BoxIdcard}>
+                            <label htmlFor="icon-button-file">
+                              <Input
+                                accept="image/*"
+                                id="icon-button-file"
+                                type="file"
+                                style={{ display: "none" }}
+                                onChange={(e) => onImageChange(e, 2)}
+                              />
+                              <IconButton
+                                color="primary"
+                                aria-label="upload picture"
+                                component="span"
                               >
-                                Upload File
-                              </p>
-                            </IconButton>
-                          </label>
-                        </div>
-                      ) : (
-                        <div
-                          style={{
-                            background: "#FFFFFF",
-                            borderRadius: 20,
-                            width: "100%",
-                            height: 200,
-                            padding: 50,
-                            position: "relative",
-                            borderStyle: "",
-                            borderColor: "#0865A8",
-                            borderWidth: 2,
-                            margin: 20,
-                            marginLeft: 0,
-                          }}
-                        >
-                          <label htmlFor="icon-button-file">
-                            <Input
-                              accept="image/*"
-                              id="icon-button-file"
-                              type="file"
-                              style={{ display: "none" }}
-                              onChange={(e) =>
-                                setTranslators({
-                                  ...translators,
-                                  idcard: e.target.value,
-                                })
-                              }
-                            />
-                            <IconButton
-                              color="primary"
-                              aria-label="upload picture"
-                              component="span"
-                            >
-                              {imageURLs.map((imageSrc, idx) => (
-                                <img
-                                  key={idx}
-                                  src={imageSrc}
-                                  alt="imageURLs"
+                                <div className={styles.cloud_upload} />
+                                <p
                                   style={{
                                     position: "absolute",
-                                    width: 90,
-                                    height: 90,
-                                    borderRadius: "100%",
-                                    top: -20,
+                                    top: 60,
+                                    width: 100,
+                                    fontWeight: 500,
+                                    fontSize: 25,
+                                    color: "#D0D5DD",
+                                    fontFamily: "DBHeavent",
                                   }}
-                                />
-                              ))}
-                            </IconButton>
-                          </label>
+                                >
+                                  Upload File
+                                </p>
+                              </IconButton>
+                            </label>
+                          </div>
+                        ) : (
+                          <div className={styles.BoxIdcard}>
+                            <label htmlFor="icon-button-file">
+                              <Input
+                                accept="image/*"
+                                id="icon-button-file"
+                                type="file"
+                                style={{ display: "none" }}
+                                onChange={(e) =>
+                                  setTranslators({
+                                    ...translators,
+                                    idcard: e.target.value,
+                                  })
+                                }
+                              />
+                              <IconButton
+                                color="primary"
+                                aria-label="upload picture"
+                                component="span"
+                              >
+                                <div className={styles.cloud_upload} />
+                                <p
+                                  style={{
+                                    position: "absolute",
+                                    top: 60,
+                                    width: 100,
+                                    fontWeight: 500,
+                                    fontSize: 25,
+                                    color: "#D0D5DD",
+                                    fontFamily: "DBHeavent",
+                                  }}
+                                >
+                                  Upload File
+                                </p>
+                              </IconButton>
+                            </label>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                    {translators.idcard !== "" ? (
+                      <>
+                        <div className={styles.BoxSuccessFile}>
+                          <img src={File} alt="file" />
+                          <div>
+                            <p>{images2[0]?.name}</p>
+                          </div>
+                          <img src={Checkcircle} alt="checkcircle" />
                         </div>
-                      )}
+                        <button
+                          className={styles.button}
+                          onClick={() => setScreenNumber(2)}
+                        >
+                          Next
+                        </button>
+                      </>
+                    ) : (
+                      <button
+                        className={styles.button}
+                        // onClick={() => setScreenNumber(2)}
+                      >
+                        Next
+                      </button>
+                    )}
+
+                    <button
+                      className={styles.button}
+                      onClick={() => setScreen("1")}
+                    >
+                      Back
+                    </button>
+                    <div className={styles.box1}>
+                      <p className={styles.textLogin}>Already a member?</p>
+                      <button
+                        className={styles.button2}
+                        onClick={() => navigate("/Login")}
+                      >
+                        <p className={styles.textLogin3}>Login</p>
+                      </button>
                     </div>
                   </div>
-                  {translators.idcard !== "" ? (
-                    <button
-                      className={styles.button}
-                      onClick={() => setScreenNumber(2)}
+                ) : (
+                  <div className={styles.BoxInputImg2}>
+                    <h2 className={styles.textH}>2.Your company information</h2>
+                    <p className={styles.textLogin2}>
+                      Please complete your information.
+                    </p>
+                    <Formik
+                      initialValues={{
+                        companyName: "",
+                        juristicPersonNumber: "",
+                        website: "",
+                      }}
+                      onSubmit={(values, { setSubmitting }) => {
+                        if (
+                          values.companyName !== "" ||
+                          values.juristicPersonNumber !== "" ||
+                          values.website !== ""
+                        ) {
+                          console.log("values:", values);
+                          setTranslators({
+                            ...translators,
+                            companyName: values.companyName,
+                            juristicPersonNumber: values.juristicPersonNumber,
+                            website: values.website,
+                          });
+                          setSubmitting(false);
+                          setScreenNumber(2);
+                        } else {
+                          console.log("err:", "มันไม่ได้");
+                          setSubmitting(false);
+                        }
+                      }}
                     >
-                      Next
-                    </button>
-                  ) : (
-                    <button
-                      className={styles.button}
-                      // onClick={() => setScreenNumber(2)}
-                    >
-                      Next
-                    </button>
-                  )}
+                      {({
+                        values,
+                        errors,
+                        touched,
+                        handleChange,
+                        handleBlur,
+                        handleSubmit,
+                        isSubmitting,
+                      }) => (
+                        <form onSubmit={handleSubmit}>
+                          <div style={{ textAlign: "left", marginTop: 10 }}>
+                            <p
+                              style={{
+                                fontWeight: 500,
+                                fontSize: 20,
+                                color: "#242424",
+                                textAlign: "left",
+                                fontFamily: "DBHeavent",
+                              }}
+                            >
+                              Company name
+                            </p>
+                            <input
+                              type="text"
+                              name="companyName"
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              value={values.companyName}
+                              placeholder="Enter your account name"
+                              style={{
+                                background: "#FFFFFF",
+                                border: "1px solid #F1F1F1 ",
+                                borderRadius: 20,
+                                width: "100%",
+                                height: 30,
+                                padding: 20,
+                                paddingLeft: 12,
+                                margin: 10,
+                                marginLeft: 0,
+                                fontSize: 13,
+                              }}
+                            />
+                          </div>
 
-                  <button
-                    className={styles.button}
-                    onClick={() => setScreen("1")}
-                  >
-                    Back
-                  </button>
-                  <div className={styles.box1}>
-                    <p className={styles.textLogin}>Already a member?</p>
-                    <button
-                      className={styles.button2}
-                      onClick={() => navigate("/Login")}
-                    >
-                      <p className={styles.textLogin3}>Login</p>
-                    </button>
+                          <div style={{ textAlign: "left" }}>
+                            <p
+                              style={{
+                                fontWeight: 500,
+                                fontSize: 20,
+                                color: "#242424",
+                                textAlign: "left",
+                                fontFamily: "DBHeavent",
+                              }}
+                            >
+                              Juristic Person Number
+                            </p>
+                            <input
+                              type="text"
+                              name="juristicPersonNumber"
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              value={values.juristicPersonNumber}
+                              placeholder="Enter your Juristic Person Number"
+                              style={{
+                                background: "#FFFFFF",
+                                border: "1px solid #F1F1F1",
+                                borderRadius: 20,
+                                width: "100%",
+                                height: 30,
+                                padding: 20,
+                                paddingLeft: 12,
+                                margin: 10,
+                                marginLeft: 0,
+                                fontSize: 13,
+                              }}
+                            />
+                          </div>
+
+                          <div style={{ textAlign: "left", marginBottom: 20 }}>
+                            <p
+                              style={{
+                                fontWeight: 500,
+                                fontSize: 20,
+                                color: "#242424",
+                                textAlign: "left",
+                                fontFamily: "DBHeavent",
+                              }}
+                            >
+                              Website
+                            </p>
+                            <input
+                              type="text"
+                              name="website"
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              value={values.website}
+                              placeholder="www.Example.com"
+                              style={{
+                                background: "#FFFFFF",
+                                border: "1px solid #F1F1F1",
+                                borderRadius: 20,
+                                width: "100%",
+                                height: 30,
+                                padding: 20,
+                                paddingLeft: 12,
+                                margin: 10,
+                                marginLeft: 0,
+                                fontSize: 13,
+                              }}
+                            />
+                          </div>
+                          <button
+                            className={styles.button}
+                            type="submit"
+                            disabled={isSubmitting}
+                            // onClick={() => setScreenNumber(2)}
+                          >
+                            Next
+                          </button>
+
+                          <button
+                            className={styles.button}
+                            onClick={() => setScreen("1")}
+                          >
+                            Back
+                          </button>
+                          <div className={styles.box1}>
+                            <p className={styles.textLogin}>
+                              Already a member?
+                            </p>
+                            <button
+                              className={styles.button2}
+                              onClick={() => navigate("/Login")}
+                            >
+                              <p className={styles.textLogin3}>Login</p>
+                            </button>
+                          </div>
+                        </form>
+                      )}
+                    </Formik>
                   </div>
-                </div>
+                )}
               </div>
             </>
           ) : screen === "3" ? (
             <>
               <div>
-                <div
-                  style={{
-                    width: 500,
-                    background: " #FFFFFF",
-                    borderRadius: 20,
-                    padding: 30,
-                  }}
-                >
-                  <h2 className={styles.textH}>
-                    3.Education/Certificate/Proof of Language Competency.
-                  </h2>
-                  <p className={styles.textLogin2}>
-                    (such as JPG, PDF, PNG and the file size does not exceed
-                    25Mb.)
-                  </p>
-                  <div style={{ textAlign: "left", marginTop: 10 }}>
-                    <div style={{ textAlign: "center" }}>
-                      {images3.length < 1 ? (
-                        <div
-                          style={{
-                            background: "#FFFFFF",
-                            borderRadius: 20,
-                            width: "100%",
-                            height: 300,
-                            padding: 60,
-                            position: "relative",
-                            borderStyle: "solid",
-                            borderColor: "#D0D5DD",
-                            borderWidth: 2,
-                            margin: 20,
-                            marginLeft: 0,
-                          }}
-                        >
-                          <label htmlFor="icon-button-file">
-                            <Input
-                              accept="image/*"
-                              id="icon-button-file"
-                              type="file"
-                              style={{ display: "none" }}
-                              onChange={(e) => onImageChange(e, 3)}
-                            />
-                            <IconButton
-                              color="primary"
-                              aria-label="upload picture"
-                              component="span"
-                            >
-                              <div className={styles.cloud_upload} />
-                              <p
-                                style={{
-                                  position: "absolute",
-                                  top: 60,
-                                  width: 100,
-                                  fontWeight: 500,
-                                  fontSize: 25,
-                                  color: "#D0D5DD",
-                                  fontFamily: "DBHeavent",
-                                }}
+                {translators?.type === "Freelance Translators" ? (
+                  <div className={styles.BoxInputImg2}>
+                    <h2 className={styles.textH}>
+                      3.Education/Certificate/Proof of Language Competency.
+                    </h2>
+                    <p className={styles.textLogin2}>
+                      (such as JPG, PDF, PNG and the file size does not exceed
+                      25Mb.)
+                    </p>
+                    <div style={{ textAlign: "left", marginTop: 10 }}>
+                      <div style={{ textAlign: "center" }}>
+                        {images3.length < 1 ? (
+                          <div className={styles.BoxIdcard}>
+                            <label htmlFor="icon-button-file">
+                              <Input
+                                accept="image/*"
+                                id="icon-button-file"
+                                type="file"
+                                style={{ display: "none" }}
+                                onChange={(e) => onImageChange(e, 3)}
+                              />
+                              <IconButton
+                                color="primary"
+                                aria-label="upload picture"
+                                component="span"
                               >
-                                Upload File
-                              </p>
-                            </IconButton>
-                          </label>
-                        </div>
-                      ) : (
-                        <div
-                          style={{
-                            background: "#FFFFFF",
-                            borderRadius: 20,
-                            width: "100%",
-                            height: 200,
-                            padding: 50,
-                            position: "relative",
-                            borderStyle: "",
-                            borderColor: "#0865A8",
-                            borderWidth: 2,
-                            margin: 20,
-                            marginLeft: 0,
-                          }}
-                        >
-                          <label htmlFor="icon-button-file">
-                            <Input
-                              accept="image/*"
-                              id="icon-button-file"
-                              type="file"
-                              style={{ display: "none" }}
-                              onChange={(e) =>
-                                setTranslators({
-                                  ...translators,
-                                  education: e.target.value,
-                                })
-                              }
-                            />
-                            <IconButton
-                              color="primary"
-                              aria-label="upload picture"
-                              component="span"
-                            >
-                              {imageURLs.map((imageSrc, idx) => (
-                                <img
-                                  key={idx}
-                                  src={imageSrc}
-                                  alt="imageURLs"
+                                <div className={styles.cloud_upload} />
+                                <p
                                   style={{
                                     position: "absolute",
-                                    width: 90,
-                                    height: 90,
-                                    borderRadius: "100%",
-                                    top: -20,
+                                    top: 60,
+                                    width: 100,
+                                    fontWeight: 500,
+                                    fontSize: 25,
+                                    color: "#D0D5DD",
+                                    fontFamily: "DBHeavent",
                                   }}
-                                />
-                              ))}
-                            </IconButton>
-                          </label>
+                                >
+                                  Upload File
+                                </p>
+                              </IconButton>
+                            </label>
+                          </div>
+                        ) : (
+                          <div className={styles.BoxIdcard}>
+                            <label htmlFor="icon-button-file">
+                              <Input
+                                accept="image/*"
+                                id="icon-button-file"
+                                type="file"
+                                style={{ display: "none" }}
+                                onChange={(e) =>
+                                  setTranslators({
+                                    ...translators,
+                                    education: e.target.value,
+                                  })
+                                }
+                              />
+                              <IconButton
+                                color="primary"
+                                aria-label="upload picture"
+                                component="span"
+                              >
+                                <div className={styles.cloud_upload} />
+                                <p
+                                  style={{
+                                    position: "absolute",
+                                    top: 60,
+                                    width: 100,
+                                    fontWeight: 500,
+                                    fontSize: 25,
+                                    color: "#D0D5DD",
+                                    fontFamily: "DBHeavent",
+                                  }}
+                                >
+                                  Upload File
+                                </p>
+                              </IconButton>
+                            </label>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
+                    {translators.education !== "" ? (
+                      <>
+                        <div className={styles.BoxSuccessFile}>
+                          <img src={File} alt="file" />
+                          <div>
+                            <p>{images3[0]?.name}</p>
+                          </div>
+                          <img src={Checkcircle} alt="checkcircle" />
                         </div>
-                      )}
+                        <button
+                          className={styles.button}
+                          onClick={() => setScreenNumber(3)}
+                        >
+                          Next
+                        </button>
+                      </>
+                    ) : (
+                      <button
+                        className={styles.button}
+                        // onClick={() => setScreenNumber(2)}
+                      >
+                        Next
+                      </button>
+                    )}
+                    <button
+                      className={styles.button}
+                      onClick={() => setScreen("2")}
+                    >
+                      Back
+                    </button>
+                    <div className={styles.box1}>
+                      <p className={styles.textLogin}>Already a member?</p>
+                      <button
+                        className={styles.button2}
+                        onClick={() => navigate("/Login")}
+                      >
+                        <p className={styles.textLogin3}>Login</p>
+                      </button>
                     </div>
                   </div>
-
-                  {translators.education !== "" ? (
-                    <button
-                      className={styles.button}
-                      onClick={() => setScreenNumber(3)}
-                    >
-                      Next
-                    </button>
-                  ) : (
-                    <button
-                      className={styles.button}
-                      // onClick={() => setScreenNumber(2)}
-                    >
-                      Next
-                    </button>
-                  )}
-                  <button
-                    className={styles.button}
-                    onClick={() => setScreen("2")}
-                  >
-                    Back
-                  </button>
-                  <div className={styles.box1}>
-                    <p className={styles.textLogin}>Already a member?</p>
-                    <button
-                      className={styles.button2}
-                      onClick={() => navigate("/Login")}
-                    >
-                      <p className={styles.textLogin3}>Login</p>
-                    </button>
-                  </div>
-                </div>
+                ) : (
+                  <></>
+                )}
               </div>
             </>
           ) : screen === "4" ? (
             <>
               <div>
-                <div
-                  style={{
-                    width: 500,
-                    background: " #FFFFFF",
-                    borderRadius: 20,
-                    padding: 30,
-                  }}
-                >
+                <div className={styles.BoxInputImg2}>
                   <h2 className={styles.textH}>4.Portfolio/CV.</h2>
                   <p className={styles.textLogin2}>
                     (such as JPG, PDF, PNG and the file size does not exceed
@@ -1125,21 +1383,7 @@ const Signup = () => {
                   <div style={{ textAlign: "left", marginTop: 10 }}>
                     <div style={{ textAlign: "center" }}>
                       {images4.length < 1 ? (
-                        <div
-                          style={{
-                            background: "#FFFFFF",
-                            borderRadius: 20,
-                            width: "100%",
-                            height: 300,
-                            padding: 60,
-                            position: "relative",
-                            borderStyle: "solid",
-                            borderColor: "#D0D5DD",
-                            borderWidth: 2,
-                            margin: 20,
-                            marginLeft: 0,
-                          }}
-                        >
+                        <div className={styles.BoxIdcard}>
                           <label htmlFor="icon-button-file">
                             <Input
                               accept="image/*"
@@ -1171,21 +1415,7 @@ const Signup = () => {
                           </label>
                         </div>
                       ) : (
-                        <div
-                          style={{
-                            background: "#FFFFFF",
-                            borderRadius: 20,
-                            width: "100%",
-                            height: 200,
-                            padding: 50,
-                            position: "relative",
-                            borderStyle: "",
-                            borderColor: "#0865A8",
-                            borderWidth: 2,
-                            margin: 20,
-                            marginLeft: 0,
-                          }}
-                        >
+                        <div className={styles.BoxIdcard}>
                           <label htmlFor="icon-button-file">
                             <Input
                               accept="image/*"
@@ -1204,20 +1434,20 @@ const Signup = () => {
                               aria-label="upload picture"
                               component="span"
                             >
-                              {imageURLs.map((imageSrc, idx) => (
-                                <img
-                                  key={idx}
-                                  src={imageSrc}
-                                  alt="imageURLs"
-                                  style={{
-                                    position: "absolute",
-                                    width: 90,
-                                    height: 90,
-                                    borderRadius: "100%",
-                                    top: -20,
-                                  }}
-                                />
-                              ))}
+                              <div className={styles.cloud_upload} />
+                              <p
+                                style={{
+                                  position: "absolute",
+                                  top: 60,
+                                  width: 100,
+                                  fontWeight: 500,
+                                  fontSize: 25,
+                                  color: "#D0D5DD",
+                                  fontFamily: "DBHeavent",
+                                }}
+                              >
+                                Upload File
+                              </p>
                             </IconButton>
                           </label>
                         </div>
@@ -1225,12 +1455,21 @@ const Signup = () => {
                     </div>
                   </div>
                   {translators.portfolio !== "" ? (
-                    <button
-                      className={styles.button}
-                      onClick={() => setScreenNumber(3)}
-                    >
-                      Next
-                    </button>
+                    <>
+                      <div className={styles.BoxSuccessFile}>
+                        <img src={File} alt="file" />
+                        <div>
+                          <p>{images4[0]?.name}</p>
+                        </div>
+                        <img src={Checkcircle} alt="checkcircle" />
+                      </div>
+                      <button
+                        className={styles.button}
+                        onClick={() => setScreenNumber(4)}
+                      >
+                        Next
+                      </button>
+                    </>
                   ) : (
                     <button
                       className={styles.button}
@@ -1261,14 +1500,7 @@ const Signup = () => {
           ) : screen === "5" ? (
             <>
               <div>
-                <div
-                  style={{
-                    width: 500,
-                    background: " #FFFFFF",
-                    borderRadius: 20,
-                    padding: 30,
-                  }}
-                >
+                <div className={styles.BoxInputImg3}>
                   <h2 className={styles.textH}>5.Banking and Finance</h2>
                   <p className={styles.textLogin2}>
                     Please complete your financial information.
@@ -1276,38 +1508,23 @@ const Signup = () => {
                   <div style={{ textAlign: "left", marginTop: 10 }}>
                     <Formik
                       initialValues={{
-                        name: "",
-                        email: "",
-                        password: "",
-                        confirmPassword: "",
-                        mobilePhone: "",
-                      }}
-                      validate={(values) => {
-                        const errors = {};
-                        if (!values.email) {
-                          errors.email = "Required";
-                        } else if (
-                          !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(
-                            values.email
-                          )
-                        ) {
-                          errors.email = "Invalid email address";
-                        }
-                        return errors;
+                        bankname: "",
+                        Branchname: "",
+                        accountname: "",
+                        accountnumber: "",
                       }}
                       onSubmit={(values, { setSubmitting }) => {
                         if (values) {
                           console.log("values:", values);
                           setTranslators({
                             ...translators,
-                            name: values.name,
-                            email: values.email,
-                            password: values.password,
-                            confirmPassword: values.confirmPassword,
-                            mobilePhone: values.mobilePhone,
+                            bankname: values.bankname,
+                            Branchname: values.Branchname,
+                            accountname: values.accountname,
+                            accountnumber: values.accountnumber,
                           });
                           setSubmitting(false);
-                          setScreen("type");
+                          setScreenNumber(5);
                         } else {
                           console.log("err:", "มันไม่ได้");
                           setSubmitting(false);
@@ -1338,10 +1555,10 @@ const Signup = () => {
                             </p>
                             <input
                               type="text"
-                              name="name"
+                              name="bankname"
                               onChange={handleChange}
                               onBlur={handleBlur}
-                              value={values.name}
+                              value={values.bankname}
                               placeholder="Bank name"
                               style={{
                                 background: "#FFFFFF",
@@ -1371,11 +1588,11 @@ const Signup = () => {
                               Branch name
                             </p>
                             <input
-                              type="email"
-                              name="email"
+                              type="text"
+                              name="branchname"
                               onChange={handleChange}
                               onBlur={handleBlur}
-                              value={values.email}
+                              value={values.branchname}
                               placeholder="Branch name"
                               style={{
                                 background: "#FFFFFF",
@@ -1407,11 +1624,10 @@ const Signup = () => {
 
                             <input
                               type="text"
-                              name="password"
-                              autoComplete="password"
+                              name="accountname"
                               onChange={handleChange}
                               onBlur={handleBlur}
-                              value={values.password}
+                              value={values.accountname}
                               placeholder="Account name"
                               style={{
                                 background: "#FFFFFF",
@@ -1444,11 +1660,10 @@ const Signup = () => {
 
                             <input
                               type="text"
-                              name="confirmPassword"
-                              autoComplete="confirmPassword"
+                              name="accountnumber"
                               onChange={handleChange}
                               onBlur={handleBlur}
-                              value={values.confirmPassword}
+                              value={values.accountnumber}
                               placeholder="Account number"
                               style={{
                                 background: "#FFFFFF",
@@ -1490,20 +1705,7 @@ const Signup = () => {
                               Download your bank book page. File size must not
                               exceed 25Mb.
                             </p>
-                            <div
-                              style={{
-                                background: "#FFFFFF",
-                                borderRadius: 20,
-                                width: "100%",
-                                padding: 60,
-                                position: "relative",
-                                borderStyle: "solid",
-                                borderColor: "#D0D5DD",
-                                borderWidth: 2,
-                                margin: 20,
-                                marginLeft: 0,
-                              }}
-                            >
+                            <div className={styles.BoxuploadBookbank}>
                               <label htmlFor="icon-button-file">
                                 <Input
                                   accept="image/*"
@@ -1516,58 +1718,51 @@ const Signup = () => {
                                   color="primary"
                                   aria-label="upload picture"
                                   component="span"
+                                  className={styles.setInbuttonBookbank}
                                 >
                                   <img
                                     src={downloadcloud01}
                                     alt="downloadcloud01"
                                   />
-                                  <p
-                                    style={{
-                                      position: "absolute",
-                                      top: 60,
-                                      width: 100,
-                                      fontWeight: 500,
-                                      fontSize: 25,
-                                      color: "#D0D5DD",
-                                      fontFamily: "DBHeavent",
-                                    }}
-                                  >
-                                    Upload File
-                                  </p>
+                                  <p>Upload File</p>
                                 </IconButton>
                               </label>
                             </div>
-                            {/* 
-                              
-                              <p>Upload file</p> */}
                           </div>
+
+                          {translators.bookbank !== "" ? (
+                            <>
+                              <div className={styles.BoxSuccessFile}>
+                                <img src={File} alt="file" />
+                                <div>
+                                  <p>{images5[0]?.name}</p>
+                                </div>
+                                <img src={Checkcircle} alt="checkcircle" />
+                              </div>
+                              <button
+                                className={styles.button}
+                                type="submit"
+                                disabled={isSubmitting}
+                                // onClick={() => setScreen("type")}
+                              >
+                                Next
+                              </button>
+                            </>
+                          ) : (
+                            <button className={styles.button}>Next</button>
+                          )}
 
                           <button
                             className={styles.button}
-                            type="submit"
-                            disabled={isSubmitting}
-                            // onClick={() => setScreen("type")}
+                            onClick={() => setScreen("4")}
                           >
-                            Next
+                            Back
                           </button>
                         </form>
                       )}
                     </Formik>
                   </div>
 
-                  {/* <button
-                    className={styles.button}
-                    onClick={() => setScreenNumber(5)}
-                  >
-                    Next
-                  </button> */}
-
-                  <button
-                    className={styles.button}
-                    onClick={() => setScreen("4")}
-                  >
-                    Back
-                  </button>
                   <div className={styles.box1}>
                     <p className={styles.textLogin}>Already a member?</p>
                     <button
@@ -1583,22 +1778,139 @@ const Signup = () => {
           ) : screen === "6" ? (
             <>
               <div>
-                <div
-                  style={{
-                    // position: "fixed",
-                    // top: 60,
-                    // left: 100,
-                    width: 500,
-                    background: " #FFFFFF",
-                    borderRadius: 20,
-                    padding: 30,
-                  }}
-                >
+                <div className={styles.BoxInputImg2}>
                   <h2 className={styles.textH}>6.Skill and your service.</h2>
                   <p className={styles.textLogin2}>
                     Please complete your information.
                   </p>
-                  <div style={{ textAlign: "left", marginTop: 10 }}></div>
+
+                  <div style={{ textAlign: "left", marginTop: 10 }}>
+                    <p
+                      style={{
+                        fontWeight: 500,
+                        fontSize: 20,
+                        color: "#242424",
+                        textAlign: "left",
+                        fontFamily: "DBHeavent",
+                      }}
+                    >
+                      What languages can you translate?
+                    </p>
+
+                    <Autocomplete
+                      multiple
+                      id="multiple-limit-tags"
+                      options={data}
+                      getOptionLabel={(option) => option.label}
+                      // value={translators?.languages}
+                      onChange={(event, value) =>
+                        setTranslators({
+                          ...translators,
+                          languages: value?.label ? value.label : "",
+                        })
+                      }
+                      popupIcon={
+                        <MdArrowDropDown
+                          style={{ color: "#333333", width: 30, height: 33 }}
+                        />
+                      }
+                      renderInput={(params) => (
+                        <TextField {...params} label="languages" />
+                      )}
+                      // sx={{ width: "500px" }}
+                    />
+                  </div>
+
+                  <div style={{ textAlign: "left", marginTop: 10 }}>
+                    <p
+                      style={{
+                        fontWeight: 500,
+                        fontSize: 20,
+                        color: "#242424",
+                        textAlign: "left",
+                        fontFamily: "DBHeavent",
+                      }}
+                    >
+                      What kind of documents can you translate?
+                    </p>
+
+                    <Autocomplete
+                      multiple
+                      id="multiple-limit-tags"
+                      options={data2}
+                      getOptionLabel={(option) => option.label}
+                      // value={translators?.documents}
+                      onChange={(event, value) =>
+                        setTranslators({
+                          ...translators,
+                          documents: value?.label ? value.label : "",
+                        })
+                      }
+                      popupIcon={
+                        <MdArrowDropDown
+                          style={{ color: "#333333", width: 30, height: 33 }}
+                        />
+                      }
+                      renderInput={(params) => (
+                        <TextField {...params} label="documents" />
+                      )}
+                      // sx={{ width: "500px" }}
+                    />
+                  </div>
+
+                  <div
+                    style={{
+                      textAlign: "left",
+                      marginTop: 10,
+                      marginBottom: 10,
+                    }}
+                  >
+                    <p
+                      style={{
+                        fontWeight: 500,
+                        fontSize: 20,
+                        color: "#242424",
+                        textAlign: "left",
+                        fontFamily: "DBHeavent",
+                      }}
+                    >
+                      Your service
+                    </p>
+                    <p
+                      style={{
+                        fontSize: 20,
+                        color: "#242424",
+                        textAlign: "left",
+                        fontFamily: "DBHeaventLi",
+                      }}
+                    >
+                      your services like Get stamped documents from the embassy,
+                      there is a service to deliver documents.
+                    </p>
+
+                    <input
+                      type="text"
+                      onChange={(e) =>
+                        setTranslators([
+                          { ...translators, documents: e.target.value },
+                        ])
+                      }
+                      value={translators.documents}
+                      placeholder="Enter your service"
+                      style={{
+                        background: "#FFFFFF",
+                        border: "1px solid rgb(196 196 196",
+                        borderRadius: 0,
+                        width: "100%",
+                        height: 55,
+                        padding: 20,
+                        paddingLeft: 12,
+                        margin: 10,
+                        marginLeft: 0,
+                        fontSize: 13,
+                      }}
+                    />
+                  </div>
 
                   <button
                     className={styles.button}
@@ -1606,12 +1918,14 @@ const Signup = () => {
                   >
                     Next
                   </button>
+
                   <button
                     className={styles.button}
                     onClick={() => setScreen("5")}
                   >
                     Back
                   </button>
+
                   <div className={styles.box1}>
                     <p className={styles.textLogin}>Already a member?</p>
                     <button
@@ -1627,23 +1941,86 @@ const Signup = () => {
           ) : screen === "7" ? (
             <>
               <div>
-                <div
-                  style={{
-                    // position: "fixed",
-                    // top: 60,
-                    // left: 100,
-                    width: 500,
-                    background: " #FFFFFF",
-                    borderRadius: 20,
-                    padding: 30,
-                  }}
-                >
+                <div className={styles.BoxInputImg2}>
                   <h2 className={styles.textH}>7.Test Skill.</h2>
                   <p className={styles.textLogin2}>
                     Please complete your information.
                   </p>
-                  <div style={{ textAlign: "left", marginTop: 10 }}></div>
+                  <div style={{ textAlign: "left", marginTop: 10 }}>
+                    <p
+                      style={{
+                        fontWeight: 500,
+                        fontSize: 20,
+                        color: "#242424",
+                        textAlign: "left",
+                        fontFamily: "DBHeavent",
+                      }}
+                    >
+                      Language to answer
+                    </p>
 
+                    <Autocomplete
+                      multiple
+                      id="multiple-limit-tags"
+                      options={data}
+                      getOptionLabel={(option) => option.label}
+                      value={translators?.answer}
+                      onChange={(event, value) =>
+                        setTranslators({
+                          ...translators,
+                          answer: value?.label ? value.label : "",
+                        })
+                      }
+                      popupIcon={
+                        <MdArrowDropDown
+                          style={{ color: "#333333", width: 30, height: 33 }}
+                        />
+                      }
+                      renderInput={(params) => (
+                        <TextField {...params} label="languages" />
+                      )}
+                      // sx={{ width: "500px" }}
+                    />
+                  </div>
+
+                  <div style={{ textAlign: "left", marginTop: 10 }}>
+                    <p
+                      style={{
+                        fontWeight: 500,
+                        fontSize: 20,
+                        color: "#242424",
+                        textAlign: "left",
+                        fontFamily: "DBHeavent",
+                      }}
+                    >
+                      Question
+                    </p>
+                    <p
+                      style={{
+                        fontSize: 20,
+                        color: "#242424",
+                        textAlign: "left",
+                        fontFamily: "DBHeaventLi",
+                      }}
+                    >
+                      What do you think are the requirements or boundaries for
+                      learning a language? And what is each language's unique
+                      difficulty? Explain.
+                    </p>
+
+                    <textarea
+                      type="text"
+                      maxLength={300}
+                      onChange={(e) =>
+                        setTranslators([
+                          { ...translators, answer: e.target.value },
+                        ])
+                      }
+                      value={translators.answer}
+                      placeholder="Enter your answer"
+                      className={styles.Additional_explanation}
+                    />
+                  </div>
                   <button
                     className={styles.button}
                     onClick={() => setScreenNumber(7)}

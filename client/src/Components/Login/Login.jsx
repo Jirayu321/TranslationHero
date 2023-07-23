@@ -57,21 +57,22 @@ const Login = () => {
     }
   };
 
-  function login(x, y) {
-    // const data = { email: x, password: y };
-    // dispatch(loginUser(data));
-    // const type = auth.type;
-    // console.log(type);
-    if (x === "jyung3221@gmail.com" || y === "123456") {
-      navigate("/In", {
-        state: {
-          languages: `${Doc}`,
-        },
-      });
-    } else if (type === "translators") {
-      navigate("/Dashboard_freelance");
-    }
-  }
+  // function login(x, y) {
+  //   // const data = { email: x, password: y };
+  //   // dispatch(loginUser(data));
+  //   // const type = auth.type;
+  //   // console.log(type);
+  //   if (x === "jyung3221@gmail.com" || y === "123456") {
+  //     // navigate("/In", {
+  //     //   state: {
+  //     //     languages: `${Doc}`,
+  //     //   },
+  //     // });
+  //     navigate("/In");
+  //   } else if (type === "translators") {
+  //     navigate("/Dashboard_freelance");
+  //   }
+  // }
 
   return (
     <>
@@ -136,7 +137,12 @@ const Login = () => {
                   if (values) {
                     const email = values?.email;
                     const password = values?.password;
-                    login(email, password);
+                    if (
+                      email === "jyung3221@gmail.com" ||
+                      password === "123456"
+                    ) {
+                      navigate("/Dashboard_freelance");
+                    }
                     setSubmitting(false);
                   } else {
                     console.log("err:", "มันไม่ได้");
@@ -216,7 +222,7 @@ const Login = () => {
                           padding: 20,
                           paddingLeft: 12,
                           margin: 10,
-                          marginLeft:0,
+                          marginLeft: 0,
                         }}
                       />
                       <p style={{ color: "red" }}>

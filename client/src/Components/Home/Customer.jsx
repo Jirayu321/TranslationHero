@@ -35,6 +35,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { FaUserCircle } from "react-icons/fa";
 import { MdArrowDropDown } from "react-icons/md";
 import { RiDeleteBin5Fill } from "react-icons/ri";
+
 import {
   IoMdAddCircleOutline,
   IoIosArrowBack,
@@ -1434,7 +1435,7 @@ const Customer = () => {
                           <p
                             style={{
                               fontWeight: "bold",
-                              fontSize: 24,
+                              fontSize: 16,
                               color: "#B5B5B5",
                             }}
                           >
@@ -2955,7 +2956,7 @@ const Customer = () => {
                           <p
                             style={{
                               fontWeight: "bold",
-                              fontSize: 24,
+                              fontSize: 16,
                               color: "#B5B5B5",
                             }}
                           >

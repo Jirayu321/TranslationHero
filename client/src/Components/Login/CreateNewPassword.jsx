@@ -18,10 +18,12 @@ const CreateNewPassword = () => {
   const [type2, setType2] = React.useState("password");
   const [values, setValues] = React.useState(false);
   const [values2, setValues2] = React.useState(false);
+  const [saved, setSaved] = React.useState(false);
 
   let Email = location?.state?.email;
   let Type = location?.state?.type;
   console.log("test01:", Email, Type);
+
   const handleClickShowPassword = () => {
     if (type === "password") {
       setValues(!values);
@@ -42,14 +44,21 @@ const CreateNewPassword = () => {
     }
   };
 
-  const Save = () =>
-    navigate("/Login", {
-      state: {
-        email: `${Email}`,
-        password: `${password}`,
-        type: `${Type}`,
-      },
-    });
+  const Save = () => {
+    if (saved === false) {
+      setSaved(!saved);
+    } else {
+      // console.log(saved);
+      navigate("/Login", {
+        state: {
+          email: `${Email}`,
+          password: `${password}`,
+          type: `${Type}`,
+        },
+      });
+    }
+  };
+
   return (
     <>
       <header className={styles?.header}>
@@ -84,91 +93,105 @@ const CreateNewPassword = () => {
               padding: 30,
             }}
           >
-            <div style={{ padding: 20 }}>
-              <h2 className={styles.textLogin}>Create New Password</h2>
-              <p className={styles.textLogin2}>Please create a new password.</p>
-              <div style={{ textAlign: "left" }}>
-                <p
-                  style={{
-                    fontWeight: 500,
-                    fontSize: 20,
-                    color: "#242424",
-                    textAlign: "left",
-                    fontFamily: "DBHeavent",
-                  }}
-                >
-                  New password
+            {saved === false ? (
+              <div style={{ padding: 20 }}>
+                <h2 className={styles.textLogin}>Create New Password</h2>
+                <p className={styles.textLogin2}>
+                  Please create a new password.
                 </p>
-                <input
-                  type={type}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Enter your new password"
-                  style={{
-                    background: "#FFFFFF",
-                    border: "1px solid #F1F1F1",
-                    borderRadius: 20,
-                    width: "100%",
-                    height: 30,
-                    padding: 20,
-                    paddingLeft: 12,
-                    margin: 10,
-                    marginLeft: 0,
+                
+                <div style={{ textAlign: "left" }}>
+                  <p
+                    style={{
+                      fontWeight: 500,
+                      fontSize: 20,
+                      color: "#242424",
+                      textAlign: "left",
+                      fontFamily: "DBHeavent",
+                    }}
+                  >
+                    New password
+                  </p>
+                  <input
+                    type={type}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="Enter your new password"
+                    style={{
+                      background: "#FFFFFF",
+                      border: "1px solid #F1F1F1",
+                      borderRadius: 20,
+                      width: "100%",
+                      height: 30,
+                      padding: 20,
+                      paddingLeft: 12,
+                      margin: 10,
+                      marginLeft: 0,
+                    }}
+                  />
+                  <IconButton
+                    onClick={handleClickShowPassword}
+                    edge="end"
+                    style={{ position: "absolute", right: 290, top: 220 }}
+                  >
+                    {values ? <FiEye /> : <FiEyeOff />}
+                  </IconButton>
+                </div>
 
-                  }}
-                />
-                <IconButton
-                  onClick={handleClickShowPassword}
-                  edge="end"
-                  style={{ position: "absolute", right: 290, top: 220 }}
-                >
-                  {values ? <FiEye /> : <FiEyeOff />}
-                </IconButton>
+                <div style={{ textAlign: "left" }}>
+                  <p
+                    style={{
+                      fontWeight: 500,
+                      fontSize: 20,
+                      color: "#242424",
+                      textAlign: "left",
+                      fontFamily: "DBHeavent",
+                    }}
+                  >
+                    Confirm new password
+                  </p>
+                  <input
+                    type={type2}
+                    value={confirm}
+                    onChange={(e) => setConfirm(e.target.value)}
+                    placeholder="Enter your new password"
+                    style={{
+                      background: "#FFFFFF",
+                      border: "1px solid #F1F1F1",
+                      borderRadius: 20,
+                      width: "100%",
+                      height: 30,
+                      padding: 20,
+                      paddingLeft: 12,
+                      margin: 10,
+                      marginLeft: 0,
+                    }}
+                  />
+                  <IconButton
+                    onClick={handleClickShowConfirmPassword}
+                    edge="end"
+                    style={{ position: "absolute", right: 290, top: 312 }}
+                  >
+                    {values2 ? <FiEye /> : <FiEyeOff />}
+                  </IconButton>
+                </div>
+
+                <button className={styles.button} onClick={Save}>
+                  <p>Save</p>
+                </button>
               </div>
-
-              <div style={{ textAlign: "left" }}>
-                <p
-                  style={{
-                    fontWeight: 500,
-                    fontSize: 20,
-                    color: "#242424",
-                    textAlign: "left",
-                    fontFamily: "DBHeavent",
-                  }}
-                >
-                  Confirm new password
+            ) : (
+              <div style={{ padding: 20 }}>
+                <h2 className={styles.textLogin}>Successfully</h2>
+                <p className={styles.textLogin2}>
+                  Changed password successfully, please log in again.
                 </p>
-                <input
-                  type={type2}
-                  value={confirm}
-                  onChange={(e) => setConfirm(e.target.value)}
-                  placeholder="Enter your new password"
-                  style={{
-                    background: "#FFFFFF",
-                    border: "1px solid #F1F1F1",
-                    borderRadius: 20,
-                    width: "100%",
-                    height: 30,
-                    padding: 20,
-                    paddingLeft: 12,
-                    margin: 10,
-                    marginLeft: 0,
 
-                  }}
-                />
-                <IconButton
-                  onClick={handleClickShowConfirmPassword}
-                  edge="end"
-                  style={{ position: "absolute", right: 290, top: 312 }}
-                >
-                  {values2 ? <FiEye /> : <FiEyeOff />}
-                </IconButton>
+                <button className={styles.button} onClick={Save}>
+                  <p>Login</p>
+                </button>
               </div>
-
-              <button className={styles.button} onClick={Save}>
-                <p>Save</p>
-              </button>
-            </div>
+            )}
           </div>
 
           <div style={{ top: "140px", position: "relative", right: "45%" }}>
