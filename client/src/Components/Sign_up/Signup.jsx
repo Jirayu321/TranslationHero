@@ -68,6 +68,7 @@ const Signup = () => {
   const [images5, setImages5] = React.useState([]);
   const [images6, setImages6] = React.useState([]);
   const [images7, setImages7] = React.useState([]);
+  const [images8, setImages8] = React.useState([]);
   const [imageURLs, setImageURLs] = React.useState([]);
   const [type_User, setType_User] = React.useState("");
 
@@ -173,19 +174,25 @@ const Signup = () => {
       setProFile(newImageUrls, 5);
     }
     if (images6.length > 0) {
-      console.log("images5:", images5);
+      console.log("images5:", images6);
       const newImageUrls = [];
       setProFile(newImageUrls, 6);
     }
     if (images7.length > 0) {
-      console.log("images5:", images5);
+      console.log("images5:", images7);
       const newImageUrls = [];
       setProFile(newImageUrls, 7);
     }
-  }, [images, images2, images3, images4, images5, images6, images7]);
+    if (images8.length > 0) {
+      console.log("images5:", images8);
+      const newImageUrls = [];
+      setProFile(newImageUrls, 8);
+    }
+  }, [images, images2, images3, images4, images5, images6, images7, images8]);
 
   function onImageChange(e, i) {
     const files = [...e.target.files];
+    console.log(i);
     switch (i) {
       case 1:
         console.log("case 1");
@@ -208,6 +215,18 @@ const Signup = () => {
         console.log("case 5");
         setImages5(files);
         break;
+      case 6:
+        console.log("case 6");
+        setImages6(files);
+        break;
+      case 7:
+        console.log("case 7");
+        setImages7(files);
+        break;
+      case 8:
+        console.log("case 8");
+        setImages8(files);
+        break;
       default:
         console.log("Invalid case");
         setImages([]);
@@ -215,6 +234,9 @@ const Signup = () => {
         setImages3([]);
         setImages4([]);
         setImages5([]);
+        setImages6([]);
+        setImages7([]);
+        setImages8([]);
     }
   }
 
@@ -413,6 +435,7 @@ const Signup = () => {
           </div>
         </Box>
       </Modal>
+
       <div
         style={{
           display: "grid",
@@ -870,7 +893,6 @@ const Signup = () => {
                             borderRadius: 20,
                             width: "100%",
                             height: 200,
-                            // padding: 50,
                             position: "relative",
                             borderStyle: "",
                             borderColor: "#0865A8",
@@ -1074,10 +1096,10 @@ const Signup = () => {
                         juristicPersonNumber: "",
                         website: "",
                       }}
-                      onSubmit={(values, { setSubmitting }) => {
+                      onSubmit={(values, { setSubmitting, resetForm }) => {
                         if (
-                          values.companyName !== "" ||
-                          values.juristicPersonNumber !== "" ||
+                          values.companyName !== "" &&
+                          values.juristicPersonNumber !== "" &&
                           values.website !== ""
                         ) {
                           console.log("values:", values);
@@ -1088,6 +1110,7 @@ const Signup = () => {
                             website: values.website,
                           });
                           setSubmitting(false);
+                          resetForm({ values: "" });
                           setScreenNumber(2);
                         } else {
                           console.log("err:", "มันไม่ได้");
@@ -1367,164 +1390,38 @@ const Signup = () => {
                     </div>
                   </div>
                 ) : (
-                  <></>
-                )}
-              </div>
-            </>
-          ) : screen === "4" ? (
-            <>
-              <div>
-                <div className={styles.BoxInputImg2}>
-                  <h2 className={styles.textH}>4.Portfolio/CV.</h2>
-                  <p className={styles.textLogin2}>
-                    (such as JPG, PDF, PNG and the file size does not exceed
-                    25Mb.)
-                  </p>
-                  <div style={{ textAlign: "left", marginTop: 10 }}>
-                    <div style={{ textAlign: "center" }}>
-                      {images4.length < 1 ? (
-                        <div className={styles.BoxIdcard}>
-                          <label htmlFor="icon-button-file">
-                            <Input
-                              accept="image/*"
-                              id="icon-button-file"
-                              type="file"
-                              style={{ display: "none" }}
-                              onChange={(e) => onImageChange(e, 4)}
-                            />
-                            <IconButton
-                              color="primary"
-                              aria-label="upload picture"
-                              component="span"
-                            >
-                              <div className={styles.cloud_upload} />
-                              <p
-                                style={{
-                                  position: "absolute",
-                                  top: 60,
-                                  width: 100,
-                                  fontWeight: 500,
-                                  fontSize: 25,
-                                  color: "#D0D5DD",
-                                  fontFamily: "DBHeavent",
-                                }}
-                              >
-                                Upload File
-                              </p>
-                            </IconButton>
-                          </label>
-                        </div>
-                      ) : (
-                        <div className={styles.BoxIdcard}>
-                          <label htmlFor="icon-button-file">
-                            <Input
-                              accept="image/*"
-                              id="icon-button-file"
-                              type="file"
-                              style={{ display: "none" }}
-                              onChange={(e) =>
-                                setTranslators({
-                                  ...translators,
-                                  portfolio: e.target.value,
-                                })
-                              }
-                            />
-                            <IconButton
-                              color="primary"
-                              aria-label="upload picture"
-                              component="span"
-                            >
-                              <div className={styles.cloud_upload} />
-                              <p
-                                style={{
-                                  position: "absolute",
-                                  top: 60,
-                                  width: 100,
-                                  fontWeight: 500,
-                                  fontSize: 25,
-                                  color: "#D0D5DD",
-                                  fontFamily: "DBHeavent",
-                                }}
-                              >
-                                Upload File
-                              </p>
-                            </IconButton>
-                          </label>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                  {translators.portfolio !== "" ? (
-                    <>
-                      <div className={styles.BoxSuccessFile}>
-                        <img src={File} alt="file" />
-                        <div>
-                          <p>{images4[0]?.name}</p>
-                        </div>
-                        <img src={Checkcircle} alt="checkcircle" />
-                      </div>
-                      <button
-                        className={styles.button}
-                        onClick={() => setScreenNumber(4)}
-                      >
-                        Next
-                      </button>
-                    </>
-                  ) : (
-                    <button
-                      className={styles.button}
-                      // onClick={() => setScreenNumber(2)}
-                    >
-                      Next
-                    </button>
-                  )}
-
-                  <button
-                    className={styles.button}
-                    onClick={() => setScreen("3")}
-                  >
-                    Back
-                  </button>
-                  <div className={styles.box1}>
-                    <p className={styles.textLogin}>Already a member?</p>
-                    <button
-                      className={styles.button2}
-                      onClick={() => navigate("/Login")}
-                    >
-                      <p className={styles.textLogin3}>Login</p>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </>
-          ) : screen === "5" ? (
-            <>
-              <div>
-                <div className={styles.BoxInputImg3}>
-                  <h2 className={styles.textH}>5.Banking and Finance</h2>
-                  <p className={styles.textLogin2}>
-                    Please complete your financial information.
-                  </p>
-                  <div style={{ textAlign: "left", marginTop: 10 }}>
+                  <div className={styles.BoxInputImg3}>
+                    <h2 className={styles.textH}>3.Your company address</h2>
+                    <p className={styles.textLogin2}>
+                      Please complete your information.
+                    </p>
                     <Formik
                       initialValues={{
-                        bankname: "",
-                        Branchname: "",
-                        accountname: "",
-                        accountnumber: "",
+                        Address: "",
+                        country: "",
+                        province: "",
+                        district: "",
+                        postalCode: "",
                       }}
                       onSubmit={(values, { setSubmitting }) => {
-                        if (values) {
+                        if (
+                          values?.address !== "" &&
+                          values?.country !== "" &&
+                          values?.province !== "" &&
+                          values?.district !== "" &&
+                          values?.postalCode !== ""
+                        ) {
                           console.log("values:", values);
                           setTranslators({
                             ...translators,
-                            bankname: values.bankname,
-                            Branchname: values.Branchname,
-                            accountname: values.accountname,
-                            accountnumber: values.accountnumber,
+                            address: values?.address,
+                            country: values?.country,
+                            province: values?.province,
+                            district: values?.district,
+                            postalCode: values?.postalCode,
                           });
                           setSubmitting(false);
-                          setScreenNumber(5);
+                          setScreenNumber(3);
                         } else {
                           console.log("err:", "มันไม่ได้");
                           setSubmitting(false);
@@ -1551,15 +1448,15 @@ const Signup = () => {
                                 fontFamily: "DBHeavent",
                               }}
                             >
-                              Bank name
+                              Address
                             </p>
                             <input
                               type="text"
-                              name="bankname"
+                              name="Address"
                               onChange={handleChange}
                               onBlur={handleBlur}
-                              value={values.bankname}
-                              placeholder="Bank name"
+                              value={values.address}
+                              placeholder="Enter your company address"
                               style={{
                                 background: "#FFFFFF",
                                 border: "1px solid #F1F1F1 ",
@@ -1585,15 +1482,15 @@ const Signup = () => {
                                 fontFamily: "DBHeavent",
                               }}
                             >
-                              Branch name
+                              Country
                             </p>
                             <input
                               type="text"
-                              name="branchname"
+                              name="country"
                               onChange={handleChange}
                               onBlur={handleBlur}
-                              value={values.branchname}
-                              placeholder="Branch name"
+                              value={values.country}
+                              placeholder="Enter your Country"
                               style={{
                                 background: "#FFFFFF",
                                 border: "1px solid #F1F1F1",
@@ -1619,21 +1516,19 @@ const Signup = () => {
                                 fontFamily: "DBHeavent",
                               }}
                             >
-                              Account name
+                              Province
                             </p>
-
                             <input
                               type="text"
-                              name="accountname"
+                              name="province"
                               onChange={handleChange}
                               onBlur={handleBlur}
-                              value={values.accountname}
-                              placeholder="Account name"
+                              value={values.province}
+                              placeholder="Enter your  Province"
                               style={{
                                 background: "#FFFFFF",
-                                border: "1px solid #F1F1F1 ",
+                                border: "1px solid #F1F1F1",
                                 borderRadius: 20,
-                                borderColor: "#F1F1F1",
                                 width: "100%",
                                 height: 30,
                                 padding: 20,
@@ -1655,21 +1550,19 @@ const Signup = () => {
                                 fontFamily: "DBHeavent",
                               }}
                             >
-                              Account number
+                              District
                             </p>
-
                             <input
                               type="text"
-                              name="accountnumber"
+                              name="district"
                               onChange={handleChange}
                               onBlur={handleBlur}
-                              value={values.accountnumber}
-                              placeholder="Account number"
+                              value={values.district}
+                              placeholder="Enter your  District"
                               style={{
                                 background: "#FFFFFF",
-                                border: "1px solid #F1F1F1 ",
+                                border: "1px solid #F1F1F1",
                                 borderRadius: 20,
-                                borderColor: "#F1F1F1",
                                 width: "100%",
                                 height: 30,
                                 padding: 20,
@@ -1681,7 +1574,7 @@ const Signup = () => {
                             />
                           </div>
 
-                          <div style={{ textAlign: "left" }}>
+                          <div style={{ textAlign: "left", marginBottom: 20 }}>
                             <p
                               style={{
                                 fontWeight: 500,
@@ -1691,358 +1584,1429 @@ const Signup = () => {
                                 fontFamily: "DBHeavent",
                               }}
                             >
-                              Book Bank
+                              Postal Code
                             </p>
-                            <p
+                            <input
+                              type="text"
+                              name="postalCode"
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              value={values.postalCode}
+                              placeholder="Enter your  Postal Code"
                               style={{
-                                fontWeight: 500,
-                                fontSize: 18,
-                                color: "#242424",
-                                textAlign: "left",
-                                fontFamily: "DBHeaventLi",
+                                background: "#FFFFFF",
+                                border: "1px solid #F1F1F1",
+                                borderRadius: 20,
+                                width: "100%",
+                                height: 30,
+                                padding: 20,
+                                paddingLeft: 12,
+                                margin: 10,
+                                marginLeft: 0,
+                                fontSize: 13,
                               }}
-                            >
-                              Download your bank book page. File size must not
-                              exceed 25Mb.
-                            </p>
-                            <div className={styles.BoxuploadBookbank}>
-                              <label htmlFor="icon-button-file">
-                                <Input
-                                  accept="image/*"
-                                  id="icon-button-file"
-                                  type="file"
-                                  style={{ display: "none" }}
-                                  onChange={(e) => onImageChange(e, 5)}
-                                />
-                                <IconButton
-                                  color="primary"
-                                  aria-label="upload picture"
-                                  component="span"
-                                  className={styles.setInbuttonBookbank}
-                                >
-                                  <img
-                                    src={downloadcloud01}
-                                    alt="downloadcloud01"
-                                  />
-                                  <p>Upload File</p>
-                                </IconButton>
-                              </label>
-                            </div>
+                            />
                           </div>
-
-                          {translators.bookbank !== "" ? (
-                            <>
-                              <div className={styles.BoxSuccessFile}>
-                                <img src={File} alt="file" />
-                                <div>
-                                  <p>{images5[0]?.name}</p>
-                                </div>
-                                <img src={Checkcircle} alt="checkcircle" />
-                              </div>
-                              <button
-                                className={styles.button}
-                                type="submit"
-                                disabled={isSubmitting}
-                                // onClick={() => setScreen("type")}
-                              >
-                                Next
-                              </button>
-                            </>
-                          ) : (
-                            <button className={styles.button}>Next</button>
-                          )}
 
                           <button
                             className={styles.button}
-                            onClick={() => setScreen("4")}
+                            type="submit"
+                            disabled={isSubmitting}
+                            // onClick={() => setScreenNumber(2)}
+                          >
+                            Next
+                          </button>
+
+                          <button
+                            className={styles.button}
+                            onClick={() => setScreen("2")}
                           >
                             Back
                           </button>
+                          <div className={styles.box1}>
+                            <p className={styles.textLogin}>
+                              Already a member?
+                            </p>
+                            <button
+                              className={styles.button2}
+                              onClick={() => navigate("/Login")}
+                            >
+                              <p className={styles.textLogin3}>Login</p>
+                            </button>
+                          </div>
                         </form>
                       )}
                     </Formik>
                   </div>
+                )}
+              </div>
+            </>
+          ) : screen === "4" ? (
+            <>
+              <div>
+                {translators?.type === "Freelance Translators" ? (
+                  <div className={styles.BoxInputImg2}>
+                    <h2 className={styles.textH}>4.Portfolio/CV.</h2>
+                    <p className={styles.textLogin2}>
+                      (such as JPG, PDF, PNG and the file size does not exceed
+                      25Mb.)
+                    </p>
+                    <div style={{ textAlign: "left", marginTop: 10 }}>
+                      <div style={{ textAlign: "center" }}>
+                        {images4.length < 1 ? (
+                          <div className={styles.BoxIdcard}>
+                            <label htmlFor="icon-button-file">
+                              <Input
+                                accept="image/*"
+                                id="icon-button-file"
+                                type="file"
+                                style={{ display: "none" }}
+                                onChange={(e) => onImageChange(e, 4)}
+                              />
+                              <IconButton
+                                color="primary"
+                                aria-label="upload picture"
+                                component="span"
+                              >
+                                <div className={styles.cloud_upload} />
+                                <p
+                                  style={{
+                                    position: "absolute",
+                                    top: 60,
+                                    width: 100,
+                                    fontWeight: 500,
+                                    fontSize: 25,
+                                    color: "#D0D5DD",
+                                    fontFamily: "DBHeavent",
+                                  }}
+                                >
+                                  Upload File
+                                </p>
+                              </IconButton>
+                            </label>
+                          </div>
+                        ) : (
+                          <div className={styles.BoxIdcard}>
+                            <label htmlFor="icon-button-file">
+                              <Input
+                                accept="image/*"
+                                id="icon-button-file"
+                                type="file"
+                                style={{ display: "none" }}
+                                onChange={(e) =>
+                                  setTranslators({
+                                    ...translators,
+                                    portfolio: e.target.value,
+                                  })
+                                }
+                              />
+                              <IconButton
+                                color="primary"
+                                aria-label="upload picture"
+                                component="span"
+                              >
+                                <div className={styles.cloud_upload} />
+                                <p
+                                  style={{
+                                    position: "absolute",
+                                    top: 60,
+                                    width: 100,
+                                    fontWeight: 500,
+                                    fontSize: 25,
+                                    color: "#D0D5DD",
+                                    fontFamily: "DBHeavent",
+                                  }}
+                                >
+                                  Upload File
+                                </p>
+                              </IconButton>
+                            </label>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                    {translators.portfolio !== "" ? (
+                      <>
+                        <div className={styles.BoxSuccessFile}>
+                          <img src={File} alt="file" />
+                          <div>
+                            <p>{images4[0]?.name}</p>
+                          </div>
+                          <img src={Checkcircle} alt="checkcircle" />
+                        </div>
+                        <button
+                          className={styles.button}
+                          onClick={() => setScreenNumber(4)}
+                        >
+                          Next
+                        </button>
+                      </>
+                    ) : (
+                      <button
+                        className={styles.button}
+                        // onClick={() => setScreenNumber(2)}
+                      >
+                        Next
+                      </button>
+                    )}
 
-                  <div className={styles.box1}>
-                    <p className={styles.textLogin}>Already a member?</p>
                     <button
-                      className={styles.button2}
-                      onClick={() => navigate("/Login")}
+                      className={styles.button}
+                      onClick={() => setScreen("3")}
                     >
-                      <p className={styles.textLogin3}>Login</p>
+                      Back
                     </button>
+                    <div className={styles.box1}>
+                      <p className={styles.textLogin}>Already a member?</p>
+                      <button
+                        className={styles.button2}
+                        onClick={() => navigate("/Login")}
+                      >
+                        <p className={styles.textLogin3}>Login</p>
+                      </button>
+                    </div>
                   </div>
-                </div>
+                ) : (
+                  <div className={styles.BoxInputImg2}>
+                    <h2 className={styles.textH}>
+                      4.Upload a picture to use as a watermark.
+                    </h2>
+                    <p className={styles.textLogin2}>
+                      (such as JPG, PDF, PNG and the file size does not exceed
+                      25Mb.)
+                    </p>
+                    <div style={{ textAlign: "left", marginTop: 10 }}>
+                      <div style={{ textAlign: "center" }}>
+                        {images6.length < 1 ? (
+                          <div className={styles.BoxIdcard}>
+                            <label htmlFor="icon-button-file">
+                              <Input
+                                accept="image/*"
+                                id="icon-button-file"
+                                type="file"
+                                style={{ display: "none" }}
+                                onChange={(e) => onImageChange(e, 6)}
+                              />
+                              <IconButton
+                                color="primary"
+                                aria-label="upload picture"
+                                component="span"
+                              >
+                                <div className={styles.cloud_upload} />
+                                <p
+                                  style={{
+                                    position: "absolute",
+                                    top: 60,
+                                    width: 100,
+                                    fontWeight: 500,
+                                    fontSize: 25,
+                                    color: "#D0D5DD",
+                                    fontFamily: "DBHeavent",
+                                  }}
+                                >
+                                  Upload File
+                                </p>
+                              </IconButton>
+                            </label>
+                          </div>
+                        ) : (
+                          <div className={styles.BoxIdcard}>
+                            <label htmlFor="icon-button-file">
+                              <Input
+                                accept="image/*"
+                                id="icon-button-file"
+                                type="file"
+                                style={{ display: "none" }}
+                                onChange={(e) =>
+                                  setTranslators({
+                                    ...translators,
+                                    watermark: e.target.value,
+                                  })
+                                }
+                              />
+                              <IconButton
+                                color="primary"
+                                aria-label="upload picture"
+                                component="span"
+                              >
+                                <div className={styles.cloud_upload} />
+                                <p
+                                  style={{
+                                    position: "absolute",
+                                    top: 60,
+                                    width: 100,
+                                    fontWeight: 500,
+                                    fontSize: 25,
+                                    color: "#D0D5DD",
+                                    fontFamily: "DBHeavent",
+                                  }}
+                                >
+                                  Upload File
+                                </p>
+                              </IconButton>
+                            </label>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                    {translators.watermark !== "" ? (
+                      <>
+                        <div className={styles.BoxSuccessFile}>
+                          <img src={File} alt="file" />
+                          <div>
+                            <p>{images6[0]?.name}</p>
+                          </div>
+                          <img src={Checkcircle} alt="checkcircle" />
+                        </div>
+                        <button
+                          className={styles.button}
+                          onClick={() => setScreenNumber(4)}
+                        >
+                          Next
+                        </button>
+                      </>
+                    ) : (
+                      <button
+                        className={styles.button}
+                        // onClick={() => setScreenNumber(2)}
+                      >
+                        Next
+                      </button>
+                    )}
+
+                    <button
+                      className={styles.button}
+                      onClick={() => setScreen("3")}
+                    >
+                      Back
+                    </button>
+                    <div className={styles.box1}>
+                      <p className={styles.textLogin}>Already a member?</p>
+                      <button
+                        className={styles.button2}
+                        onClick={() => navigate("/Login")}
+                      >
+                        <p className={styles.textLogin3}>Login</p>
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </>
+          ) : screen === "5" ? (
+            <>
+              <div>
+                {translators?.type === "Freelance Translators" ? (
+                  <div className={styles.BoxInputImg3}>
+                    <h2 className={styles.textH}>5.Banking and Finance</h2>
+                    <p className={styles.textLogin2}>
+                      Please complete your financial information.
+                    </p>
+                    <div style={{ textAlign: "left", marginTop: 10 }}>
+                      <Formik
+                        initialValues={{
+                          bankname: "",
+                          Branchname: "",
+                          accountname: "",
+                          accountnumber: "",
+                        }}
+                        onSubmit={(values, { setSubmitting }) => {
+                          if (values) {
+                            console.log("values:", values);
+                            setTranslators({
+                              ...translators,
+                              bankname: values.bankname,
+                              Branchname: values.Branchname,
+                              accountname: values.accountname,
+                              accountnumber: values.accountnumber,
+                            });
+                            setSubmitting(false);
+                            setScreenNumber(5);
+                          } else {
+                            console.log("err:", "มันไม่ได้");
+                            setSubmitting(false);
+                          }
+                        }}
+                      >
+                        {({
+                          values,
+                          errors,
+                          touched,
+                          handleChange,
+                          handleBlur,
+                          handleSubmit,
+                          isSubmitting,
+                        }) => (
+                          <form onSubmit={handleSubmit}>
+                            <div style={{ textAlign: "left", marginTop: 10 }}>
+                              <p
+                                style={{
+                                  fontWeight: 500,
+                                  fontSize: 20,
+                                  color: "#242424",
+                                  textAlign: "left",
+                                  fontFamily: "DBHeavent",
+                                }}
+                              >
+                                Bank name
+                              </p>
+                              <input
+                                type="text"
+                                name="bankname"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values.bankname}
+                                placeholder="Bank name"
+                                style={{
+                                  background: "#FFFFFF",
+                                  border: "1px solid #F1F1F1 ",
+                                  borderRadius: 20,
+                                  width: "100%",
+                                  height: 30,
+                                  padding: 20,
+                                  paddingLeft: 12,
+                                  margin: 10,
+                                  marginLeft: 0,
+                                  fontSize: 13,
+                                }}
+                              />
+                            </div>
+
+                            <div style={{ textAlign: "left" }}>
+                              <p
+                                style={{
+                                  fontWeight: 500,
+                                  fontSize: 20,
+                                  color: "#242424",
+                                  textAlign: "left",
+                                  fontFamily: "DBHeavent",
+                                }}
+                              >
+                                Branch name
+                              </p>
+                              <input
+                                type="text"
+                                name="branchname"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values.branchname}
+                                placeholder="Branch name"
+                                style={{
+                                  background: "#FFFFFF",
+                                  border: "1px solid #F1F1F1",
+                                  borderRadius: 20,
+                                  width: "100%",
+                                  height: 30,
+                                  padding: 20,
+                                  paddingLeft: 12,
+                                  margin: 10,
+                                  marginLeft: 0,
+                                  fontSize: 13,
+                                }}
+                              />
+                            </div>
+
+                            <div style={{ textAlign: "left" }}>
+                              <p
+                                style={{
+                                  fontWeight: 500,
+                                  fontSize: 20,
+                                  color: "#242424",
+                                  textAlign: "left",
+                                  fontFamily: "DBHeavent",
+                                }}
+                              >
+                                Account name
+                              </p>
+
+                              <input
+                                type="text"
+                                name="accountname"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values.accountname}
+                                placeholder="Account name"
+                                style={{
+                                  background: "#FFFFFF",
+                                  border: "1px solid #F1F1F1 ",
+                                  borderRadius: 20,
+                                  borderColor: "#F1F1F1",
+                                  width: "100%",
+                                  height: 30,
+                                  padding: 20,
+                                  paddingLeft: 12,
+                                  margin: 10,
+                                  marginLeft: 0,
+                                  fontSize: 13,
+                                }}
+                              />
+                            </div>
+
+                            <div style={{ textAlign: "left" }}>
+                              <p
+                                style={{
+                                  fontWeight: 500,
+                                  fontSize: 20,
+                                  color: "#242424",
+                                  textAlign: "left",
+                                  fontFamily: "DBHeavent",
+                                }}
+                              >
+                                Account number
+                              </p>
+
+                              <input
+                                type="text"
+                                name="accountnumber"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values.accountnumber}
+                                placeholder="Account number"
+                                style={{
+                                  background: "#FFFFFF",
+                                  border: "1px solid #F1F1F1 ",
+                                  borderRadius: 20,
+                                  borderColor: "#F1F1F1",
+                                  width: "100%",
+                                  height: 30,
+                                  padding: 20,
+                                  paddingLeft: 12,
+                                  margin: 10,
+                                  marginLeft: 0,
+                                  fontSize: 13,
+                                }}
+                              />
+                            </div>
+
+                            <div style={{ textAlign: "left" }}>
+                              <p
+                                style={{
+                                  fontWeight: 500,
+                                  fontSize: 20,
+                                  color: "#242424",
+                                  textAlign: "left",
+                                  fontFamily: "DBHeavent",
+                                }}
+                              >
+                                Book Bank
+                              </p>
+                              <p
+                                style={{
+                                  fontWeight: 500,
+                                  fontSize: 18,
+                                  color: "#242424",
+                                  textAlign: "left",
+                                  fontFamily: "DBHeaventLi",
+                                }}
+                              >
+                                Download your bank book page. File size must not
+                                exceed 25Mb.
+                              </p>
+                              <div className={styles.BoxuploadBookbank}>
+                                <label htmlFor="icon-button-file">
+                                  <Input
+                                    accept="image/*"
+                                    id="icon-button-file"
+                                    type="file"
+                                    style={{ display: "none" }}
+                                    onChange={(e) => onImageChange(e, 5)}
+                                  />
+                                  <IconButton
+                                    color="primary"
+                                    aria-label="upload picture"
+                                    component="span"
+                                    className={styles.setInbuttonBookbank}
+                                  >
+                                    <img
+                                      src={downloadcloud01}
+                                      alt="downloadcloud01"
+                                    />
+                                    <p>Upload File</p>
+                                  </IconButton>
+                                </label>
+                              </div>
+                            </div>
+
+                            {translators.bookbank !== "" ? (
+                              <>
+                                <div className={styles.BoxSuccessFile}>
+                                  <img src={File} alt="file" />
+                                  <div>
+                                    <p>{images5[0]?.name}</p>
+                                  </div>
+                                  <img src={Checkcircle} alt="checkcircle" />
+                                </div>
+                                <button
+                                  className={styles.button}
+                                  type="submit"
+                                  disabled={isSubmitting}
+                                  // onClick={() => setScreen("type")}
+                                >
+                                  Next
+                                </button>
+                              </>
+                            ) : (
+                              <button className={styles.button}>Next</button>
+                            )}
+
+                            <button
+                              className={styles.button}
+                              onClick={() => setScreen("4")}
+                            >
+                              Back
+                            </button>
+                          </form>
+                        )}
+                      </Formik>
+                    </div>
+
+                    <div className={styles.box1}>
+                      <p className={styles.textLogin}>Already a member?</p>
+                      <button
+                        className={styles.button2}
+                        onClick={() => navigate("/Login")}
+                      >
+                        <p className={styles.textLogin3}>Login</p>
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <div className={styles.BoxInputImg2}>
+                    <h2 className={styles.textH}>
+                      5.Company Registration Certificate.
+                    </h2>
+                    <p className={styles.textLogin2}>
+                      (such as JPG, PDF, PNG and the file size does not exceed
+                      25Mb.)
+                    </p>
+                    <div style={{ textAlign: "left", marginTop: 10 }}>
+                      <div style={{ textAlign: "center" }}>
+                        {images7.length < 1 ? (
+                          <div className={styles.BoxIdcard}>
+                            <label htmlFor="icon-button-file">
+                              <Input
+                                accept="image/*"
+                                id="icon-button-file"
+                                type="file"
+                                style={{ display: "none" }}
+                                onChange={(e) => onImageChange(e, 7)}
+                              />
+                              <IconButton
+                                color="primary"
+                                aria-label="upload picture"
+                                component="span"
+                              >
+                                <div className={styles.cloud_upload} />
+                                <p
+                                  style={{
+                                    position: "absolute",
+                                    top: 60,
+                                    width: 100,
+                                    fontWeight: 500,
+                                    fontSize: 25,
+                                    color: "#D0D5DD",
+                                    fontFamily: "DBHeavent",
+                                  }}
+                                >
+                                  Upload File
+                                </p>
+                              </IconButton>
+                            </label>
+                          </div>
+                        ) : (
+                          <div className={styles.BoxIdcard}>
+                            <label htmlFor="icon-button-file">
+                              <Input
+                                accept="image/*"
+                                id="icon-button-file"
+                                type="file"
+                                style={{ display: "none" }}
+                                onChange={(e) =>
+                                  setTranslators({
+                                    ...translators,
+                                    certificate: e.target.value,
+                                  })
+                                }
+                              />
+                              <IconButton
+                                color="primary"
+                                aria-label="upload picture"
+                                component="span"
+                              >
+                                <div className={styles.cloud_upload} />
+                                <p
+                                  style={{
+                                    position: "absolute",
+                                    top: 60,
+                                    width: 100,
+                                    fontWeight: 500,
+                                    fontSize: 25,
+                                    color: "#D0D5DD",
+                                    fontFamily: "DBHeavent",
+                                  }}
+                                >
+                                  Upload File
+                                </p>
+                              </IconButton>
+                            </label>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                    {translators.certificate !== "" ? (
+                      <>
+                        <div className={styles.BoxSuccessFile}>
+                          <img src={File} alt="file" />
+                          <div>
+                            <p>{images7[0]?.name}</p>
+                          </div>
+                          <img src={Checkcircle} alt="checkcircle" />
+                        </div>
+                        <button
+                          className={styles.button}
+                          onClick={() => setScreenNumber(5)}
+                        >
+                          Next
+                        </button>
+                      </>
+                    ) : (
+                      <button
+                        className={styles.button}
+                        // onClick={() => setScreenNumber(2)}
+                      >
+                        Next
+                      </button>
+                    )}
+
+                    <button
+                      className={styles.button}
+                      onClick={() => setScreen("4")}
+                    >
+                      Back
+                    </button>
+                    <div className={styles.box1}>
+                      <p className={styles.textLogin}>Already a member?</p>
+                      <button
+                        className={styles.button2}
+                        onClick={() => navigate("/Login")}
+                      >
+                        <p className={styles.textLogin3}>Login</p>
+                      </button>
+                    </div>
+                  </div>
+                )}
               </div>
             </>
           ) : screen === "6" ? (
             <>
               <div>
-                <div className={styles.BoxInputImg2}>
-                  <h2 className={styles.textH}>6.Skill and your service.</h2>
-                  <p className={styles.textLogin2}>
-                    Please complete your information.
-                  </p>
-
-                  <div style={{ textAlign: "left", marginTop: 10 }}>
-                    <p
-                      style={{
-                        fontWeight: 500,
-                        fontSize: 20,
-                        color: "#242424",
-                        textAlign: "left",
-                        fontFamily: "DBHeavent",
-                      }}
-                    >
-                      What languages can you translate?
+                {translators?.type === "Freelance Translators" ? (
+                  <div className={styles.BoxInputImg2}>
+                    <h2 className={styles.textH}>6.Skill and your service.</h2>
+                    <p className={styles.textLogin2}>
+                      Please complete your information.
                     </p>
 
-                    <Autocomplete
-                      multiple
-                      id="multiple-limit-tags"
-                      options={data}
-                      getOptionLabel={(option) => option.label}
-                      // value={translators?.languages}
-                      onChange={(event, value) =>
-                        setTranslators({
-                          ...translators,
-                          languages: value?.label ? value.label : "",
-                        })
-                      }
-                      popupIcon={
-                        <MdArrowDropDown
-                          style={{ color: "#333333", width: 30, height: 33 }}
-                        />
-                      }
-                      renderInput={(params) => (
-                        <TextField {...params} label="languages" />
-                      )}
-                      // sx={{ width: "500px" }}
-                    />
-                  </div>
+                    <div style={{ textAlign: "left", marginTop: 10 }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 20,
+                          color: "#242424",
+                          textAlign: "left",
+                          fontFamily: "DBHeavent",
+                        }}
+                      >
+                        What languages can you translate?
+                      </p>
 
-                  <div style={{ textAlign: "left", marginTop: 10 }}>
-                    <p
+                      <Autocomplete
+                        multiple
+                        id="multiple-limit-tags"
+                        options={data}
+                        getOptionLabel={(option) => option.label}
+                        // value={translators?.languages}
+                        onChange={(event, value) =>
+                          setTranslators({
+                            ...translators,
+                            languages: value?.label ? value.label : "",
+                          })
+                        }
+                        popupIcon={
+                          <MdArrowDropDown
+                            style={{ color: "#333333", width: 30, height: 33 }}
+                          />
+                        }
+                        renderInput={(params) => (
+                          <TextField {...params} label="languages" />
+                        )}
+                        // sx={{ width: "500px" }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left", marginTop: 10 }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 20,
+                          color: "#242424",
+                          textAlign: "left",
+                          fontFamily: "DBHeavent",
+                        }}
+                      >
+                        What kind of documents can you translate?
+                      </p>
+
+                      <Autocomplete
+                        multiple
+                        id="multiple-limit-tags"
+                        options={data2}
+                        getOptionLabel={(option) => option.label}
+                        // value={translators?.documents}
+                        onChange={(event, value) =>
+                          setTranslators({
+                            ...translators,
+                            documents: value?.label ? value.label : "",
+                          })
+                        }
+                        popupIcon={
+                          <MdArrowDropDown
+                            style={{ color: "#333333", width: 30, height: 33 }}
+                          />
+                        }
+                        renderInput={(params) => (
+                          <TextField {...params} label="documents" />
+                        )}
+                        // sx={{ width: "500px" }}
+                      />
+                    </div>
+
+                    <div
                       style={{
-                        fontWeight: 500,
-                        fontSize: 20,
-                        color: "#242424",
                         textAlign: "left",
-                        fontFamily: "DBHeavent",
+                        marginTop: 10,
+                        marginBottom: 10,
                       }}
                     >
-                      What kind of documents can you translate?
-                    </p>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 20,
+                          color: "#242424",
+                          textAlign: "left",
+                          fontFamily: "DBHeavent",
+                        }}
+                      >
+                        Your service
+                      </p>
+                      <p
+                        style={{
+                          fontSize: 20,
+                          color: "#242424",
+                          textAlign: "left",
+                          fontFamily: "DBHeaventLi",
+                        }}
+                      >
+                        your services like Get stamped documents from the
+                        embassy, there is a service to deliver documents.
+                      </p>
 
-                    <Autocomplete
-                      multiple
-                      id="multiple-limit-tags"
-                      options={data2}
-                      getOptionLabel={(option) => option.label}
-                      // value={translators?.documents}
-                      onChange={(event, value) =>
-                        setTranslators({
-                          ...translators,
-                          documents: value?.label ? value.label : "",
-                        })
-                      }
-                      popupIcon={
-                        <MdArrowDropDown
-                          style={{ color: "#333333", width: 30, height: 33 }}
-                        />
-                      }
-                      renderInput={(params) => (
-                        <TextField {...params} label="documents" />
-                      )}
-                      // sx={{ width: "500px" }}
-                    />
-                  </div>
+                      <input
+                        type="text"
+                        onChange={(e) =>
+                          setTranslators([
+                            { ...translators, documents: e.target.value },
+                          ])
+                        }
+                        value={translators.documents}
+                        placeholder="Enter your service"
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid rgb(196 196 196",
+                          borderRadius: 0,
+                          width: "100%",
+                          height: 55,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          marginLeft: 0,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
 
-                  <div
-                    style={{
-                      textAlign: "left",
-                      marginTop: 10,
-                      marginBottom: 10,
-                    }}
-                  >
-                    <p
-                      style={{
-                        fontWeight: 500,
-                        fontSize: 20,
-                        color: "#242424",
-                        textAlign: "left",
-                        fontFamily: "DBHeavent",
-                      }}
-                    >
-                      Your service
-                    </p>
-                    <p
-                      style={{
-                        fontSize: 20,
-                        color: "#242424",
-                        textAlign: "left",
-                        fontFamily: "DBHeaventLi",
-                      }}
-                    >
-                      your services like Get stamped documents from the embassy,
-                      there is a service to deliver documents.
-                    </p>
-
-                    <input
-                      type="text"
-                      onChange={(e) =>
-                        setTranslators([
-                          { ...translators, documents: e.target.value },
-                        ])
-                      }
-                      value={translators.documents}
-                      placeholder="Enter your service"
-                      style={{
-                        background: "#FFFFFF",
-                        border: "1px solid rgb(196 196 196",
-                        borderRadius: 0,
-                        width: "100%",
-                        height: 55,
-                        padding: 20,
-                        paddingLeft: 12,
-                        margin: 10,
-                        marginLeft: 0,
-                        fontSize: 13,
-                      }}
-                    />
-                  </div>
-
-                  <button
-                    className={styles.button}
-                    onClick={() => setScreenNumber(6)}
-                  >
-                    Next
-                  </button>
-
-                  <button
-                    className={styles.button}
-                    onClick={() => setScreen("5")}
-                  >
-                    Back
-                  </button>
-
-                  <div className={styles.box1}>
-                    <p className={styles.textLogin}>Already a member?</p>
                     <button
-                      className={styles.button2}
-                      onClick={() => navigate("/Login")}
+                      className={styles.button}
+                      onClick={() => setScreenNumber(6)}
                     >
-                      <p className={styles.textLogin3}>Login</p>
+                      Next
                     </button>
+
+                    <button
+                      className={styles.button}
+                      onClick={() => setScreen("5")}
+                    >
+                      Back
+                    </button>
+
+                    <div className={styles.box1}>
+                      <p className={styles.textLogin}>Already a member?</p>
+                      <button
+                        className={styles.button2}
+                        onClick={() => navigate("/Login")}
+                      >
+                        <p className={styles.textLogin3}>Login</p>
+                      </button>
+                    </div>
                   </div>
-                </div>
+                ) : (
+                  <div className={styles.BoxInputImg3}>
+                    <h2 className={styles.textH}>6.Banking and Finance</h2>
+                    <p className={styles.textLogin2}>
+                      Please complete your financial information.
+                    </p>
+                    <div style={{ textAlign: "left", marginTop: 10 }}>
+                      <Formik
+                        initialValues={{
+                          bankname: "",
+                          branchname: "",
+                          accountname: "",
+                          accountnumber: "",
+                        }}
+                        onSubmit={(values, { setSubmitting }) => {
+                          if (
+                            values.bankname !== "" &&
+                            values.branchname !== "" &&
+                            values.accountname !== "" &&
+                            values.accountnumber !== ""
+                          ) {
+                            console.log("values:", values);
+                            setTranslators({
+                              ...translators,
+                              bankname: values.bankname,
+                              Branchname: values.branchname,
+                              accountname: values.accountname,
+                              accountnumber: values.accountnumber,
+                            });
+                            setSubmitting(false);
+                            setScreenNumber(6);
+                          } else {
+                            console.log("err:", "มันไม่ได้");
+                            setSubmitting(false);
+                          }
+                        }}
+                      >
+                        {({
+                          values,
+                          errors,
+                          touched,
+                          handleChange,
+                          handleBlur,
+                          handleSubmit,
+                          isSubmitting,
+                        }) => (
+                          <form onSubmit={handleSubmit}>
+                            <div style={{ textAlign: "left", marginTop: 10 }}>
+                              <p
+                                style={{
+                                  fontWeight: 500,
+                                  fontSize: 20,
+                                  color: "#242424",
+                                  textAlign: "left",
+                                  fontFamily: "DBHeavent",
+                                }}
+                              >
+                                Bank name
+                              </p>
+                              <input
+                                type="text"
+                                name="bankname"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values.bankname}
+                                placeholder="Bank name"
+                                style={{
+                                  background: "#FFFFFF",
+                                  border: "1px solid #F1F1F1 ",
+                                  borderRadius: 20,
+                                  width: "100%",
+                                  height: 30,
+                                  padding: 20,
+                                  paddingLeft: 12,
+                                  margin: 10,
+                                  marginLeft: 0,
+                                  fontSize: 13,
+                                }}
+                              />
+                            </div>
+
+                            <div style={{ textAlign: "left" }}>
+                              <p
+                                style={{
+                                  fontWeight: 500,
+                                  fontSize: 20,
+                                  color: "#242424",
+                                  textAlign: "left",
+                                  fontFamily: "DBHeavent",
+                                }}
+                              >
+                                Branch name
+                              </p>
+                              <input
+                                type="text"
+                                name="branchname"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values.branchname}
+                                placeholder="Branch name"
+                                style={{
+                                  background: "#FFFFFF",
+                                  border: "1px solid #F1F1F1",
+                                  borderRadius: 20,
+                                  width: "100%",
+                                  height: 30,
+                                  padding: 20,
+                                  paddingLeft: 12,
+                                  margin: 10,
+                                  marginLeft: 0,
+                                  fontSize: 13,
+                                }}
+                              />
+                            </div>
+
+                            <div style={{ textAlign: "left" }}>
+                              <p
+                                style={{
+                                  fontWeight: 500,
+                                  fontSize: 20,
+                                  color: "#242424",
+                                  textAlign: "left",
+                                  fontFamily: "DBHeavent",
+                                }}
+                              >
+                                Account name
+                              </p>
+
+                              <input
+                                type="text"
+                                name="accountname"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values.accountname}
+                                placeholder="Account name"
+                                style={{
+                                  background: "#FFFFFF",
+                                  border: "1px solid #F1F1F1 ",
+                                  borderRadius: 20,
+                                  borderColor: "#F1F1F1",
+                                  width: "100%",
+                                  height: 30,
+                                  padding: 20,
+                                  paddingLeft: 12,
+                                  margin: 10,
+                                  marginLeft: 0,
+                                  fontSize: 13,
+                                }}
+                              />
+                            </div>
+
+                            <div style={{ textAlign: "left" }}>
+                              <p
+                                style={{
+                                  fontWeight: 500,
+                                  fontSize: 20,
+                                  color: "#242424",
+                                  textAlign: "left",
+                                  fontFamily: "DBHeavent",
+                                }}
+                              >
+                                Account number
+                              </p>
+
+                              <input
+                                type="text"
+                                name="accountnumber"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values.accountnumber}
+                                placeholder="Account number"
+                                style={{
+                                  background: "#FFFFFF",
+                                  border: "1px solid #F1F1F1 ",
+                                  borderRadius: 20,
+                                  borderColor: "#F1F1F1",
+                                  width: "100%",
+                                  height: 30,
+                                  padding: 20,
+                                  paddingLeft: 12,
+                                  margin: 10,
+                                  marginLeft: 0,
+                                  fontSize: 13,
+                                }}
+                              />
+                            </div>
+
+                            <div style={{ textAlign: "left" }}>
+                              <p
+                                style={{
+                                  fontWeight: 500,
+                                  fontSize: 20,
+                                  color: "#242424",
+                                  textAlign: "left",
+                                  fontFamily: "DBHeavent",
+                                }}
+                              >
+                                Book Bank
+                              </p>
+                              <p
+                                style={{
+                                  fontWeight: 500,
+                                  fontSize: 18,
+                                  color: "#242424",
+                                  textAlign: "left",
+                                  fontFamily: "DBHeaventLi",
+                                }}
+                              >
+                                Download your bank book page. File size must not
+                                exceed 25Mb.
+                              </p>
+                              <div className={styles.BoxuploadBookbank}>
+                                <label htmlFor="icon-button-file">
+                                  <Input
+                                    accept="image/*"
+                                    id="icon-button-file"
+                                    type="file"
+                                    style={{ display: "none" }}
+                                    onChange={(e) => onImageChange(e, 8)}
+                                  />
+                                  <IconButton
+                                    color="primary"
+                                    aria-label="upload picture"
+                                    component="span"
+                                    className={styles.setInbuttonBookbank}
+                                  >
+                                    <img
+                                      src={downloadcloud01}
+                                      alt="downloadcloud01"
+                                    />
+                                    <p>Upload File</p>
+                                  </IconButton>
+                                </label>
+                              </div>
+                            </div>
+
+                            {images8.length > 0 ? (
+                              <>
+                                <div className={styles.BoxSuccessFile}>
+                                  <img src={File} alt="file" />
+                                  <div>
+                                    <p>{images8[0]?.name}</p>
+                                  </div>
+                                  <img src={Checkcircle} alt="checkcircle" />
+                                </div>
+                                <button
+                                  className={styles.button}
+                                  type="submit"
+                                  disabled={isSubmitting}
+                                  // onClick={() => setScreen("type")}
+                                >
+                                  Next
+                                </button>
+                              </>
+                            ) : (
+                              <button className={styles.button}>Next</button>
+                            )}
+
+                            <button
+                              className={styles.button}
+                              onClick={() => setScreen("5")}
+                            >
+                              Back
+                            </button>
+                          </form>
+                        )}
+                      </Formik>
+                    </div>
+
+                    <div className={styles.box1}>
+                      <p className={styles.textLogin}>Already a member?</p>
+                      <button
+                        className={styles.button2}
+                        onClick={() => navigate("/Login")}
+                      >
+                        <p className={styles.textLogin3}>Login</p>
+                      </button>
+                    </div>
+                  </div>
+                )}
               </div>
             </>
           ) : screen === "7" ? (
             <>
               <div>
-                <div className={styles.BoxInputImg2}>
-                  <h2 className={styles.textH}>7.Test Skill.</h2>
-                  <p className={styles.textLogin2}>
-                    Please complete your information.
-                  </p>
-                  <div style={{ textAlign: "left", marginTop: 10 }}>
-                    <p
-                      style={{
-                        fontWeight: 500,
-                        fontSize: 20,
-                        color: "#242424",
-                        textAlign: "left",
-                        fontFamily: "DBHeavent",
-                      }}
-                    >
-                      Language to answer
+                {translators?.type !== "Freelance Translators" ? (
+                  <div className={styles.BoxInputImg2}>
+                    <h2 className={styles.textH}>7.Skill and your service.</h2>
+                    <p className={styles.textLogin2}>
+                      Please complete your information.
                     </p>
 
-                    <Autocomplete
-                      multiple
-                      id="multiple-limit-tags"
-                      options={data}
-                      getOptionLabel={(option) => option.label}
-                      value={translators?.answer}
-                      onChange={(event, value) =>
-                        setTranslators({
-                          ...translators,
-                          answer: value?.label ? value.label : "",
-                        })
-                      }
-                      popupIcon={
-                        <MdArrowDropDown
-                          style={{ color: "#333333", width: 30, height: 33 }}
-                        />
-                      }
-                      renderInput={(params) => (
-                        <TextField {...params} label="languages" />
-                      )}
-                      // sx={{ width: "500px" }}
-                    />
-                  </div>
+                    <div style={{ textAlign: "left", marginTop: 10 }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 20,
+                          color: "#242424",
+                          textAlign: "left",
+                          fontFamily: "DBHeavent",
+                        }}
+                      >
+                        What languages can you translate?
+                      </p>
 
-                  <div style={{ textAlign: "left", marginTop: 10 }}>
-                    <p
+                      <Autocomplete
+                        multiple
+                        id="multiple-limit-tags"
+                        options={data}
+                        getOptionLabel={(option) => option.label}
+                        // value={translators?.languages}
+                        onChange={(event, value) =>
+                          setTranslators({
+                            ...translators,
+                            languages: value?.label ? value.label : "",
+                          })
+                        }
+                        popupIcon={
+                          <MdArrowDropDown
+                            style={{ color: "#333333", width: 30, height: 33 }}
+                          />
+                        }
+                        renderInput={(params) => (
+                          <TextField {...params} label="languages" />
+                        )}
+                        // sx={{ width: "500px" }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left", marginTop: 10 }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 20,
+                          color: "#242424",
+                          textAlign: "left",
+                          fontFamily: "DBHeavent",
+                        }}
+                      >
+                        What kind of documents can you translate?
+                      </p>
+
+                      <Autocomplete
+                        multiple
+                        id="multiple-limit-tags"
+                        options={data2}
+                        getOptionLabel={(option) => option.label}
+                        // value={translators?.documents}
+                        onChange={(event, value) =>
+                          setTranslators({
+                            ...translators,
+                            documents: value?.label ? value.label : "",
+                          })
+                        }
+                        popupIcon={
+                          <MdArrowDropDown
+                            style={{ color: "#333333", width: 30, height: 33 }}
+                          />
+                        }
+                        renderInput={(params) => (
+                          <TextField {...params} label="documents" />
+                        )}
+                        // sx={{ width: "500px" }}
+                      />
+                    </div>
+
+                    <div
                       style={{
-                        fontWeight: 500,
-                        fontSize: 20,
-                        color: "#242424",
                         textAlign: "left",
-                        fontFamily: "DBHeavent",
+                        marginTop: 10,
+                        marginBottom: 10,
                       }}
                     >
-                      Question
-                    </p>
-                    <p
-                      style={{
-                        fontSize: 20,
-                        color: "#242424",
-                        textAlign: "left",
-                        fontFamily: "DBHeaventLi",
-                      }}
-                    >
-                      What do you think are the requirements or boundaries for
-                      learning a language? And what is each language's unique
-                      difficulty? Explain.
-                    </p>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 20,
+                          color: "#242424",
+                          textAlign: "left",
+                          fontFamily: "DBHeavent",
+                        }}
+                      >
+                        Your service
+                      </p>
+                      <p
+                        style={{
+                          fontSize: 20,
+                          color: "#242424",
+                          textAlign: "left",
+                          fontFamily: "DBHeaventLi",
+                        }}
+                      >
+                        your services like Get stamped documents from the
+                        embassy, there is a service to deliver documents.
+                      </p>
 
-                    <textarea
-                      type="text"
-                      maxLength={300}
-                      onChange={(e) =>
-                        setTranslators([
-                          { ...translators, answer: e.target.value },
-                        ])
-                      }
-                      value={translators.answer}
-                      placeholder="Enter your answer"
-                      className={styles.Additional_explanation}
-                    />
-                  </div>
-                  <button
-                    className={styles.button}
-                    onClick={() => setScreenNumber(7)}
-                  >
-                    Next
-                  </button>
-                  <button
-                    className={styles.button}
-                    onClick={() => setScreen("6")}
-                  >
-                    Back
-                  </button>
-                  <div className={styles.box1}>
-                    <p className={styles.textLogin}>Already a member?</p>
+                      <input
+                        type="text"
+                        onChange={(e) =>
+                          setTranslators([
+                            { ...translators, documents: e.target.value },
+                          ])
+                        }
+                        value={translators.documents}
+                        placeholder="Enter your service"
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid rgb(196 196 196",
+                          borderRadius: 0,
+                          width: "100%",
+                          height: 55,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          marginLeft: 0,
+                          fontSize: 13,
+                        }}
+                      />
+                    </div>
+
                     <button
-                      className={styles.button2}
-                      onClick={() => navigate("/Login")}
+                      className={styles.button}
+                      onClick={() => setScreenNumber(7)}
                     >
-                      <p className={styles.textLogin3}>Login</p>
+                      Next
                     </button>
+
+                    <button
+                      className={styles.button}
+                      onClick={() => setScreen("6")}
+                    >
+                      Back
+                    </button>
+
+                    <div className={styles.box1}>
+                      <p className={styles.textLogin}>Already a member?</p>
+                      <button
+                        className={styles.button2}
+                        onClick={() => navigate("/Login")}
+                      >
+                        <p className={styles.textLogin3}>Login</p>
+                      </button>
+                    </div>
                   </div>
-                </div>
+                ) : (
+                  <div className={styles.BoxInputImg2}>
+                    <h2 className={styles.textH}>7.Test Skill.</h2>
+                    <p className={styles.textLogin2}>
+                      Please complete your information.
+                    </p>
+                    <div style={{ textAlign: "left", marginTop: 10 }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 20,
+                          color: "#242424",
+                          textAlign: "left",
+                          fontFamily: "DBHeavent",
+                        }}
+                      >
+                        Language to answer
+                      </p>
+
+                      <Autocomplete
+                        multiple
+                        id="multiple-limit-tags"
+                        options={data}
+                        getOptionLabel={(option) => option.label}
+                        value={translators?.answer}
+                        onChange={(event, value) =>
+                          setTranslators({
+                            ...translators,
+                            answer: value?.label ? value.label : "",
+                          })
+                        }
+                        popupIcon={
+                          <MdArrowDropDown
+                            style={{ color: "#333333", width: 30, height: 33 }}
+                          />
+                        }
+                        renderInput={(params) => (
+                          <TextField {...params} label="languages" />
+                        )}
+                        // sx={{ width: "500px" }}
+                      />
+                    </div>
+
+                    <div style={{ textAlign: "left", marginTop: 10 }}>
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: 20,
+                          color: "#242424",
+                          textAlign: "left",
+                          fontFamily: "DBHeavent",
+                        }}
+                      >
+                        Question
+                      </p>
+                      <p
+                        style={{
+                          fontSize: 20,
+                          color: "#242424",
+                          textAlign: "left",
+                          fontFamily: "DBHeaventLi",
+                        }}
+                      >
+                        What do you think are the requirements or boundaries for
+                        learning a language? And what is each language's unique
+                        difficulty? Explain.
+                      </p>
+
+                      <textarea
+                        type="text"
+                        maxLength={300}
+                        onChange={(e) =>
+                          setTranslators([
+                            { ...translators, answer: e.target.value },
+                          ])
+                        }
+                        value={translators.answer}
+                        placeholder="Enter your answer"
+                        className={styles.Additional_explanation}
+                      />
+                    </div>
+                    <button
+                      className={styles.button}
+                      onClick={() => setScreenNumber(7)}
+                    >
+                      Submit
+                    </button>
+                    <button
+                      className={styles.button}
+                      onClick={() => setScreen("6")}
+                    >
+                      Back
+                    </button>
+                    <div className={styles.box1}>
+                      <p className={styles.textLogin}>Already a member?</p>
+                      <button
+                        className={styles.button2}
+                        onClick={() => navigate("/Login")}
+                      >
+                        <p className={styles.textLogin3}>Login</p>
+                      </button>
+                    </div>
+                  </div>
+                )}
               </div>
             </>
           ) : null}
