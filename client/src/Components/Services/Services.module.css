@@ -1315,14 +1315,15 @@
     background-position: bottom;
   }
   .boxBlue_overviwe {
-    margin-top: 18vw;
+    margin-top: -10vw;
+    display: grid;
+    justify-items: center;
+    align-content: center;
   }
   .h_text1 {
     font-size: 50px;
   }
   .h_text2 {
-    margin-left: 14vw;
-    margin-top: -15px;
     font-size: 20px;
   }
   .fram2 {
