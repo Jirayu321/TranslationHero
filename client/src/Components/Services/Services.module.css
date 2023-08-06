@@ -233,6 +233,7 @@
   text-align: center;
   color: #333333;
   font-family: "DBHeavent";
+  background-image: linear-gradient(#fafafb, #f5f5f6);
 }
 .fram3 {
   background: url("../../Images/fram2_1.png");
@@ -1242,6 +1243,71 @@
     margin-right: 0px;
   }
 }
+@media only screen and (min-width: 1300px) {
+  .set_fram1_button {
+    width: 65vw;
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto;
+    justify-content: space-evenly;
+    margin-top: 70px;
+    margin-left: 38px;
+    font-family: "DBHeaventLi";
+    font-size: 24px;
+  }
+  .fram1 {
+    height: 70vw;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    display: grid;
+    justify-content: center;
+  }
+  .textHeading2_overviwe {
+    height: 0vw;
+    margin: 60px 0px;
+    display: grid;
+    align-content: center;
+    justify-items: center;
+    margin-top: -230px;
+  }
+  .fram2 {
+    background: #fcfcfd;
+  }
+  .textHeading2_overviwe3 {
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 38px;
+    color: #333333;
+    width: 75vw;
+    position: relative;
+    left: 0vw;
+    top: 6vw;
+    font-family: "DBHeaventLi";
+  }
+  .textHeading2_overviwe4 {
+    font-weight: 400;
+    line-height: 2px;
+    color: #333333;
+    width: 100vw;
+    height: 3vw;
+    font-family: "DBHeavent";
+    position: relative;
+    left: 0vw;
+    top: 5vw;
+    font-size: 50px;
+  }
+  .textHeading2_overviwe3_5 {
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 38px;
+    color: #333333;
+    width: 75vw;
+    position: absolute;
+    left: 15vw;
+    font-family: "DBHeaventLi";
+    top: 1020px;
+  }
+}
 @media only screen and (min-width: 1400px) {
   .fram1_general {
     height: 60vw;
@@ -1255,13 +1321,14 @@
     font-size: 50px;
   }
   .h_text2 {
-    margin-left: 1vw;
-    margin-top: -5px;
+    margin-left: 14vw;
+    margin-top: -15px;
     font-size: 20px;
   }
   .fram2 {
     font-size: 50px;
-    height: 25vw;
+    height: 5vw;
+    background: #fcfcfd;
   }
   .HBoxdetaile3_1 {
     font-size: 42px;
@@ -1279,5 +1346,15 @@
   .HBoxdetaile_general {
     font-size: 25px;
     width: 80%;
+  }
+  .set_fram1_button {
+    width: 100vw;
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto;
+    justify-content: space-evenly;
+    margin-top: 70px;
+    margin-left: 0px;
+    font-family: "DBHeaventLi";
+    font-size: 24px;
   }
 }

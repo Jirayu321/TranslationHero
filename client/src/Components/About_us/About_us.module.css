@@ -261,7 +261,6 @@
     background-repeat: round;
   }
 }
-
 @media only screen and (min-width: 320px) {
   .H_text01 {
     background: linear-gradient(
@@ -532,8 +531,10 @@
     height: 165vw;
   }
 }
-
 @media only screen and (min-width: 768px) {
+  .H_text01 {
+    font-size: 52px;
+  }
   .Boxfram1C {
     text-align: center;
     justify-items: center;
@@ -565,7 +566,7 @@
   }
   .detailefram_general2 {
     background: linear-gradient(to right, #0097fe, #0075ff, #9e70ff);
-    height: 65w;
+    height: 65vw;
     width: 60vw;
     padding: 5px;
     border-radius: 20px;
@@ -809,7 +810,6 @@
     margin: 10vw 0px 32px;
   }
 }
-
 @media only screen and (min-width: 1500px) {
   .Boxfram3_3_2 {
     margin-top: 25vw;

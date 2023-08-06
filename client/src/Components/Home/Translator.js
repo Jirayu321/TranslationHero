@@ -35,6 +35,7 @@ const Translator = () => {
           <Navbars navigate={navigate} languages="English" />
         )}
       </header>
+      
       {Doc === undefined ? (
         <div>
           <div className="Translator_headtext">

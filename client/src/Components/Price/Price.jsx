@@ -53,7 +53,10 @@ const Price = () => {
       borderRadius: "60px",
       border: "1px solid #E5E5E5",
       background: "#FFFF",
-      width: "400px",
+      // width: "400px",
+      marginLeft: "0px",
+      marginRight: "10px",
+      width: "35vw",
     },
     root2: {
       display: "flex",
@@ -961,7 +964,7 @@ const Price = () => {
             {type === 1 ? (
               <p className={styles.textHeading2_overviwe}></p>
             ) : (
-              <>
+              <div className={styles.fram2_2}>
                 <p className={styles.textHeading2_overviwe}>
                   ขั้นตอนการประเมินราคา
                 </p>
@@ -970,7 +973,7 @@ const Price = () => {
                   อีกทั้งยังมีเซอร์วิสต่างจากนักแปล
                   ซึ่งราคาและขั้นตอนจะแตกต่างกันไปแล้วแต่นักแปลที่ท่านเลือก
                 </p>
-              </>
+              </div>
             )}
           </div>
 
