@@ -15,10 +15,18 @@
   color: white;
 }
 .mainDashboard {
-  padding: 1rem;
+  padding: 2.5rem;
+  margin: 100px;
+  margin-top: 0px;
+  margin-right: 0px;
+  margin-bottom: 30px;
+  background: #f2f2ff;
+  border-radius: 25px;
+  width: 92vw;
+  height: 80vw;
 }
 .HeaderDashboard {
-  width: 90.5vw;
+  width: 60.5vw;
   display: grid;
   grid-template-columns: auto auto;
   justify-content: space-between;
@@ -40,6 +48,7 @@
   display: grid;
   grid-template-columns: auto auto auto;
   justify-content: left;
+  margin-top: 50px;
 }
 .BoxAllg1 {
   display: grid;
@@ -51,7 +60,7 @@
   position: relative;
   width: 170px;
   height: 120px;
-  background: #f6fbfe;
+  background: #f2fdff;
   border-radius: 6px;
   text-align: start;
   padding: 20px;
@@ -62,7 +71,7 @@
   position: relative;
   width: 170px;
   height: 120px;
-  background: #f6fbfe;
+  background: #f2fdff;
   border-radius: 6px;
   text-align: start;
   padding: 20px;
@@ -73,7 +82,7 @@
   position: relative;
   width: 500px;
   height: 260px;
-  background: #f6fbfe;
+  background: #f2fdff;
   border-radius: 6px;
   text-align: start;
   padding: 20px;
@@ -84,7 +93,7 @@
   position: relative;
   width: 411px;
   height: 260px;
-  background: #f6fbfe;
+  background: #f2fdff;
   border-radius: 6px;
   text-align: start;
   padding: 20px;
@@ -99,7 +108,7 @@
 }
 .Job_status {
   position: relative;
-  width: 61vw;
+  width: 58.5vw;
   height: 90vh;
   background: #f6fbfe;
   border-radius: 6px;
@@ -112,7 +121,7 @@
   position: relative;
   width: 411px;
   height: 90vh;
-  background: #f6fbfe;
+  background: #f2fdff;
   border-radius: 6px;
   text-align: start;
   padding: 20px;
@@ -169,4 +178,3 @@
 .rowType {
   width: 215px;
 }
-

@@ -36,7 +36,7 @@ import Navbars from "../Navbar/navbarHome2.js";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import moment from "moment";
+// import moment from "moment";
 // import axios from "axios";
 
 import All_online from "../../Images/All_customers.png";
@@ -70,7 +70,7 @@ export default function Dashboard_freelance() {
   // const url = "https://54.244.204.59/api";
   // const url = "http://localhost:3001/api";
 
-  const eiei = new Date();
+  // const eiei = new Date();
 
   // const goLogin = () => {
   //   navigate("/Login");
@@ -93,56 +93,57 @@ export default function Dashboard_freelance() {
   //   }
   // }, [Value]);
 
-  const setDataOrder = (i) => {
-    let all_work = i?.length;
-    console.log("i:", i);
-    setAll_work(all_work);
-    const ll = i?.filter((item) => item?.Customer_name);
-    setOld_work(ll?.length);
-    const DataOrder = i?.map((item, index) => {
-      try {
-        const formattedDate = moment(item?.Date).format("MM/DD/YYYY");
-        let formattedDate2 = moment(item?.Deadline).format("MM/DD/YYYY");
-        const dateNow = moment(eiei).format("MM/DD/YYYY");
-        const checkDate = dateNow > formattedDate2;
-        setCountry(1);
+  // const setDataOrder = (i) => {
+  //   let all_work = i?.length;
+  //   console.log("i:", i);
+  //   setAll_work(all_work);
+  //   const ll = i?.filter((item) => item?.Customer_name);
+  //   setOld_work(ll?.length);
+  //   const DataOrder = i?.map((item, index) => {
+  //     try {
+  //       const formattedDate = moment(item?.Date).format("MM/DD/YYYY");
+  //       let formattedDate2 = moment(item?.Deadline).format("MM/DD/YYYY");
+  //       const dateNow = moment(eiei).format("MM/DD/YYYY");
+  //       const checkDate = dateNow > formattedDate2;
+  //       setCountry(1);
 
-        return {
-          index: index,
-          orderID: index + 1,
-          orderType: item?.Order_type,
-          orderName: item?.Order_type,
-          translator: item?.Translator_name,
-          orderPrice: item?.Price,
-          orderedDate: formattedDate,
-          status: item?.Status,
-          Customer: item?.Customer_name,
-          orderDeadline: checkDate,
-        };
-      } catch (e) {
-        console.error(e);
-        return null;
-      }
-    });
-    setData1(DataOrder);
-  };
-  const setAllUser = (i) => {
-    const All = i?.filter((item) => item.type === "customer");
-    console.log("All", All.length);
-    // const AllUser = i?.map((item, index) => {
-    //   try {
-    //     const formattedDate = moment(item?.Date).format("MM/DD/YYYY");
-    //     let formattedDate2 = moment(item?.Date).format("h:mm:ss a");
-    //     return {
-    //       All: All,
-    //     };
-    //   } catch (e) {
-    //     console.error(e);
-    //     return null;
-    //   }
-    // });
-    // setData3(All?.length);
-  };
+  //       return {
+  //         index: index,
+  //         orderID: index + 1,
+  //         orderType: item?.Order_type,
+  //         orderName: item?.Order_type,
+  //         translator: item?.Translator_name,
+  //         orderPrice: item?.Price,
+  //         orderedDate: formattedDate,
+  //         status: item?.Status,
+  //         Customer: item?.Customer_name,
+  //         orderDeadline: checkDate,
+  //       };
+  //     } catch (e) {
+  //       console.error(e);
+  //       return null;
+  //     }
+  //   });
+  //   setData1(DataOrder);
+  // };
+
+  // const setAllUser = (i) => {
+  //   const All = i?.filter((item) => item.type === "customer");
+  //   console.log("All", All.length);
+  //   // const AllUser = i?.map((item, index) => {
+  //   //   try {
+  //   //     const formattedDate = moment(item?.Date).format("MM/DD/YYYY");
+  //   //     let formattedDate2 = moment(item?.Date).format("h:mm:ss a");
+  //   //     return {
+  //   //       All: All,
+  //   //     };
+  //   //   } catch (e) {
+  //   //     console.error(e);
+  //   //     return null;
+  //   //   }
+  //   // });
+  //   // setData3(All?.length);
+  // };
 
   // const getOrder = async (values) => {
   //   try {
@@ -187,8 +188,25 @@ export default function Dashboard_freelance() {
         )}
       </header>
 
-      <Box sx={{ display: "flex", width: "100% " }}>
-        <Drawer languages={Doc} value={Value} />
+      <Box className="Drawer_Dashboard_freelance">
+        <Drawer
+          languages={Doc}
+          value={Value}
+          style={{
+            width: "100px",
+            background: "transparent",
+            boxSizing: "unset",
+            boxShadow: "none",
+            borderRight: "0px solid",
+          }}
+          sx={{
+            width: "100px",
+            background: "transparent",
+            boxSizing: "unset",
+            boxShadow: "none",
+            borderRight: "0px solid",
+          }}
+        />
 
         <Box component="main">
           <Modal
@@ -244,6 +262,7 @@ export default function Dashboard_freelance() {
               </div>
             </Box>
           </Modal>
+
           <div className="mainDashboard">
             <div className="HeaderDashboard">
               <p className="HDashboard">Dashboard</p>
@@ -430,7 +449,7 @@ export default function Dashboard_freelance() {
                   <div style={{}}>
                     <TableContainer
                       component={Paper}
-                      style={{ width: "58vw", marginBottom: 20 }}
+                      style={{ width: "56vw", marginBottom: 20 }}
                     >
                       <Table>
                         <TableHead>

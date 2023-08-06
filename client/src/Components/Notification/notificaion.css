@@ -1,17 +1,18 @@
 .bodyNotificaion {
   background: white;
-  width: 90%;
+  width: 92%;
   height: 570px;
   position: absolute;
   top: 180px;
-  left: 122px;
+  left: 110px;
+  border-radius: 16px;
 }
-.headerNotificaion{
-    padding-left: 100px;
+.headerNotificaion {
+  padding-left: 100px;
 }
 .inmocontent {
   position: absolute;
-  top: 90px;
+  top: 15vw;
   left: 28px;
   width: 96%;
 }

@@ -1,17 +1,18 @@
 import * as React from "react";
-import logo from "../../logo.svg";
+import logo from "../../Images/logo2.svg";
+import GlobeLocation from "../../Images/GlobeLocation.svg";
+import Earth from "../../Images//Earth.svg";
 import { Navbar, Container, Form, Nav, NavDropdown } from "react-bootstrap";
-import { FaLanguage, FaMapMarkerAlt, FaUserCircle } from "react-icons/fa";
 
-import { logoutUser } from "../../slices/auth";
-import "./Navbar.css";
+// import { logoutUser } from "../../slices/auth";
+import styles from "./navbarHome2.module.css";
 
 // import { Avatar } from "@mui/material";
 
 const navbarHome2 = (props) => {
   const navigate = props?.navigate;
   const you = props?.languages;
-  const dispatch = props?.dispatch;
+  // const dispatch = props?.dispatch;
   const value = props?.value;
 
   const goHome = (x) => {
@@ -39,13 +40,23 @@ const navbarHome2 = (props) => {
     }
   };
 
-  const Logout = () => {
-    dispatch(logoutUser());
-    window.location.reload();
-  };
+  // const Logout = () => {
+  //   dispatch(logoutUser());
+  //   window.location.reload();
+  // };
 
   return (
-    <Navbar expand="lg" id="navbardb2">
+    <Navbar
+      expand="lg"
+      className={styles?.navbardb2}
+      style={{
+        boxShadow: "none",
+        background: "transparent",
+        zIndex: "unset",
+        position: "unset",
+        boxShadow: "none",
+      }}
+    >
       <Container fluid>
         <Navbar.Brand>
           <img src={logo} alt="Logo" />
@@ -59,12 +70,8 @@ const navbarHome2 = (props) => {
           ></Nav>
 
           <Form className="d-flex">
-            <div className="box4navbarHome2">
-              <FaLanguage
-                size="20px"
-                color="#808080"
-                style={{ float: "left" }}
-              />
+            <div className={styles.box4navbarHome2}>
+              <img src={Earth} alt="Earth" style={{ float: "left" }} />
               {you === "English" ? (
                 <NavDropdown
                   title="EN"
@@ -152,10 +159,10 @@ const navbarHome2 = (props) => {
               )}
             </div>
 
-            <div className="box4navbarHome2">
-              <FaMapMarkerAlt
-                size="20px"
-                color="#808080"
+            <div className={styles.box4navbarHome2}>
+              <img
+                src={GlobeLocation}
+                alt="LoGlobeLocationgo"
                 style={{ float: "left" }}
               />
               <p
@@ -166,29 +173,8 @@ const navbarHome2 = (props) => {
                   float: "left",
                 }}
               >
-                TH
+                Thailand
               </p>
-            </div>
-
-            <div className="box4navbarHome2_1">
-              <NavDropdown
-                title={
-                  <div className="icon_accounts">
-                    <FaUserCircle alt="avatar" className="avatar" />
-                  </div>
-                }
-                style={{
-                  marginLeft: 10,
-                  color: "#808080",
-                  fontSize: 20,
-                  float: "left",
-                  padding: 0,
-                }}
-              >
-                <NavDropdown.Item onClick={() => Logout()} className="Logout">
-                  Logout
-                </NavDropdown.Item>
-              </NavDropdown>
             </div>
           </Form>
         </Navbar.Collapse>

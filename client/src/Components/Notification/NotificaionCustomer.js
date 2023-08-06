@@ -2,7 +2,7 @@ import * as React from "react";
 import "./notificaion.css";
 import { Box, Paper, TextField } from "@mui/material";
 import Navbars from "../Navbar/navbarHome2.js";
-import DrawerInHome from "../Drawer/DrawerCustomer";
+import Drawer from "../Drawer/DrawerTranslate";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { AdapterLuxon } from "@mui/x-date-pickers/AdapterLuxon";
@@ -45,77 +45,76 @@ const Notificaion = () => {
       </header>
       {Doc === "English" ? (
         <Box sx={{ display: "flex", width: "100% " }}>
-          <DrawerInHome languages={Doc}  value={Value}/>
-
-          <div style={{ marginTop: 60, height: 100 }}>
-            <h4
-              style={{
-                fontWeight: 500,
-                fontSize: 36,
-                color: " #333333",
-                marginLeft: 20,
-                position: "absolute",
-                top: "13%",
-              }}
-            >
-              {Notification_CustomerEN[0].label}
-            </h4>
-            <Paper
-              component="form"
-              sx={{
-                p: "2px 4px",
-                display: "flex",
-                alignItems: "center",
-                width: 410,
-                position: "absolute",
-                left: "70%",
-                top: "13%",
-                backgroundColor: "#FBFBFB",
-                boxShadow: "none",
-                //   borderRadius: 10,
-              }}
-            >
-              <LocalizationProvider
-                dateAdapter={AdapterLuxon}
-                //   localeText={{ start: "Check-in", end: "Check-out" }}
-              >
-                <DatePicker
-                  label={Notification_CustomerEN[1].label}
-                  value={value}
-                  // inputFormat="DD/MMM/YYYY"
-                  mask="__/__/___"
-                  onChange={(newValue) => {
-                    setValue(newValue);
-                  }}
-                  renderInput={(Props) => (
-                    <React.Fragment>
-                      <TextField {...Props} />
-                      <Box sx={{ mx: 2 }}>
-                        {Notification_CustomerEN[2].label}{" "}
-                      </Box>
-                    </React.Fragment>
-                  )}
-                />
-                <DatePicker
-                  label={Notification_CustomerEN[3].label}
-                  value={value2}
-                  // inputFormat="DD/MMM/YYYY"
-                  mask="__/__/____"
-                  onChange={(newValue) => {
-                    setValue2(newValue);
-                  }}
-                  renderInput={(Props) => (
-                    <React.Fragment>
-                      <TextField {...Props} />
-                    </React.Fragment>
-                  )}
-                />
-              </LocalizationProvider>
-            </Paper>
-          </div>
+          <Drawer languages={Doc} value={Value} />
 
           <div className="bodyNotificaion">
-            <div style={{ margin: 30 }}>
+            <div style={{ marginTop: 60, height: 100 }}>
+              <h4
+                style={{
+                  fontWeight: 500,
+                  fontSize: 36,
+                  color: " #333333",
+                  marginLeft: 20,
+                  position: "absolute",
+                  top: "13%",
+                }}
+              >
+                {Notification_CustomerEN[0].label}
+              </h4>
+              <Paper
+                component="form"
+                sx={{
+                  p: "2px 4px",
+                  display: "flex",
+                  alignItems: "center",
+                  width: 410,
+                  position: "absolute",
+                  left: "70%",
+                  top: "13%",
+                  backgroundColor: "#FBFBFB",
+                  boxShadow: "none",
+                  //   borderRadius: 10,
+                }}
+              >
+                <LocalizationProvider
+                  dateAdapter={AdapterLuxon}
+                  //   localeText={{ start: "Check-in", end: "Check-out" }}
+                >
+                  <DatePicker
+                    label={Notification_CustomerEN[1].label}
+                    value={value}
+                    // inputFormat="DD/MMM/YYYY"
+                    mask="__/__/___"
+                    onChange={(newValue) => {
+                      setValue(newValue);
+                    }}
+                    renderInput={(Props) => (
+                      <React.Fragment>
+                        <TextField {...Props} />
+                        <Box sx={{ mx: 2 }}>
+                          {Notification_CustomerEN[2].label}{" "}
+                        </Box>
+                      </React.Fragment>
+                    )}
+                  />
+                  <DatePicker
+                    label={Notification_CustomerEN[3].label}
+                    value={value2}
+                    // inputFormat="DD/MMM/YYYY"
+                    mask="__/__/____"
+                    onChange={(newValue) => {
+                      setValue2(newValue);
+                    }}
+                    renderInput={(Props) => (
+                      <React.Fragment>
+                        <TextField {...Props} />
+                      </React.Fragment>
+                    )}
+                  />
+                </LocalizationProvider>
+              </Paper>
+            </div>
+            <div style={{ margin: 30, marginTop: 0 }}>
               {type === "View All" ? (
                 <>
                   <div
@@ -692,7 +691,7 @@ const Notificaion = () => {
         </Box>
       ) : Doc === "Thai" ? (
         <Box sx={{ display: "flex", width: "100% " }}>
-           <DrawerInHome languages={Doc}  value={Value}/>
+          <Drawer languages={Doc} value={Value} />
 
           <div style={{ marginTop: 60, height: 100 }}>
             <h4
@@ -1339,7 +1338,7 @@ const Notificaion = () => {
         </Box>
       ) : Doc === "German" ? (
         <Box sx={{ display: "flex", width: "100% " }}>
-           <DrawerInHome languages={Doc}  value={Value}/>
+          <Drawer languages={Doc} value={Value} />
 
           <div style={{ marginTop: 60, height: 100 }}>
             <h4
@@ -1986,77 +1985,76 @@ const Notificaion = () => {
         </Box>
       ) : (
         <Box sx={{ display: "flex", width: "100% " }}>
-           <DrawerInHome languages={Doc}  value={Value}/>
-
-          <div style={{ marginTop: 60, height: 100 }}>
-            <h4
-              style={{
-                fontWeight: 500,
-                fontSize: 36,
-                color: " #333333",
-                marginLeft: 20,
-                position: "absolute",
-                top: "13%",
-              }}
-            >
-              {Notification_CustomerEN[0].label}
-            </h4>
-            <Paper
-              component="form"
-              sx={{
-                p: "2px 4px",
-                display: "flex",
-                alignItems: "center",
-                width: 410,
-                position: "absolute",
-                left: "70%",
-                top: "13%",
-                backgroundColor: "#FBFBFB",
-                boxShadow: "none",
-                //   borderRadius: 10,
-              }}
-            >
-              <LocalizationProvider
-                dateAdapter={AdapterLuxon}
-                //   localeText={{ start: "Check-in", end: "Check-out" }}
-              >
-                <DatePicker
-                  label={Notification_CustomerEN[1].label}
-                  value={value}
-                  // inputFormat="DD/MMM/YYYY"
-                  mask="__/__/___"
-                  onChange={(newValue) => {
-                    setValue(newValue);
-                  }}
-                  renderInput={(Props) => (
-                    <React.Fragment>
-                      <TextField {...Props} />
-                      <Box sx={{ mx: 2 }}>
-                        {Notification_CustomerEN[2].label}{" "}
-                      </Box>
-                    </React.Fragment>
-                  )}
-                />
-                <DatePicker
-                  label={Notification_CustomerEN[3].label}
-                  value={value2}
-                  // inputFormat="DD/MMM/YYYY"
-                  mask="__/__/____"
-                  onChange={(newValue) => {
-                    setValue2(newValue);
-                  }}
-                  renderInput={(Props) => (
-                    <React.Fragment>
-                      <TextField {...Props} />
-                    </React.Fragment>
-                  )}
-                />
-              </LocalizationProvider>
-            </Paper>
-          </div>
+          <Drawer languages={Doc} value={Value} />
 
           <div className="bodyNotificaion">
-            <div style={{ margin: 30 }}>
+            <div style={{ marginTop: 60, height: 100 }}>
+              <h4
+                style={{
+                  fontWeight: 500,
+                  fontSize: 36,
+                  color: " #333333",
+                  marginLeft: 20,
+                  position: "absolute",
+                  top: "13%",
+                }}
+              >
+                {Notification_CustomerEN[0].label}
+              </h4>
+              <Paper
+                component="form"
+                sx={{
+                  p: "2px 4px",
+                  display: "flex",
+                  alignItems: "center",
+                  width: 410,
+                  position: "absolute",
+                  left: "70%",
+                  top: "13%",
+                  backgroundColor: "#FBFBFB",
+                  boxShadow: "none",
+                  //   borderRadius: 10,
+                }}
+              >
+                <LocalizationProvider
+                  dateAdapter={AdapterLuxon}
+                  //   localeText={{ start: "Check-in", end: "Check-out" }}
+                >
+                  <DatePicker
+                    label={Notification_CustomerEN[1].label}
+                    value={value}
+                    // inputFormat="DD/MMM/YYYY"
+                    mask="__/__/___"
+                    onChange={(newValue) => {
+                      setValue(newValue);
+                    }}
+                    renderInput={(Props) => (
+                      <React.Fragment>
+                        <TextField {...Props} />
+                        <Box sx={{ mx: 2 }}>
+                          {Notification_CustomerEN[2].label}{" "}
+                        </Box>
+                      </React.Fragment>
+                    )}
+                  />
+                  <DatePicker
+                    label={Notification_CustomerEN[3].label}
+                    value={value2}
+                    // inputFormat="DD/MMM/YYYY"
+                    mask="__/__/____"
+                    onChange={(newValue) => {
+                      setValue2(newValue);
+                    }}
+                    renderInput={(Props) => (
+                      <React.Fragment>
+                        <TextField {...Props} />
+                      </React.Fragment>
+                    )}
+                  />
+                </LocalizationProvider>
+              </Paper>
+            </div>
+            <div style={{ margin: 30, marginTop: 0 }}>
               {type === "View All" ? (
                 <>
                   <div

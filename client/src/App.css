@@ -70,7 +70,6 @@ p {
 
 /* loin */
 
-
 /* ForgetPassword */
 
 .textForgetPassword {
@@ -179,34 +178,49 @@ p {
   flex-direction: column;
 }
 .App-body3 {
-  background-color: #cbe9fe;
-  min-height: 130vh;
+  background: linear-gradient(137deg, #3b005f 0%, #1466b1 100%);
+  min-height: 75vw;
   display: flex;
   flex-direction: column;
 }
 .manuTranslate {
   height: 100%;
-  background: #f6fbfe;
+  background: transparent;
 }
 #icons_translate {
   min-width: 100px;
   color: #858585;
   height: 30px;
   padding-top: 5px;
-  padding-left: 5px;
+  display: grid;
+  justify-content: center;
+  justify-items: center;
+  font-size: 10px;
+  color: white;
 }
 #icons_translate2 {
-  min-width: 100px;
+  min-width: 80px;
   color: #0079cc;
-  height: 30px;
+  height: 60px;
   padding-top: 5px;
-  padding-left: 5px;
-  background: #cbe9fe;
+  /* padding-left: 5px; */
+  margin: 10px;
   -webkit-text-fill-color: #034d82;
-  border-width: 0px 3px;
+  border-width: 0px 0px;
   border-style: solid;
   border-color: #0079cc;
-  border-radius: 25px 0px;
+  border-radius: 10px;
+  background: var(--fffffff, #fff);
+  display: grid;
+  justify-content: center;
+  justify-items: center;
+}
+#icons_translate2 p {
+  font-size: 10px;
+  background: var(--bg-3, linear-gradient(138deg, #3b005f 0%, #1466b1 100%));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 #button_icons2 {
   min-width: 100px;
@@ -233,29 +247,38 @@ p {
   padding-bottom: 10px;
 }
 #button_manu_Translate:hover #icons_translate {
-  background: #cbe9fe;
+  min-width: 80px;
+  height: 50px;
+  padding-top: 5px;
+  padding-left: 5px;
+  margin: 10px;
   -webkit-text-fill-color: #034d82;
-  border-width: 0px 3px;
+  border-width: 0px 0px;
   border-style: solid;
   border-color: #0079cc;
-  border-radius: 25px 0px;
+  border-radius: 10px;
+  background: var(--fffffff, #fff);
 }
 
 #button_manu_Translate:focus #icons_translate {
-  background: #cbe9fe;
+  min-width: 80px;
+  height: 50px;
+  padding-top: 5px;
+  padding-left: 5px;
+  margin: 10px;
   -webkit-text-fill-color: #034d82;
-  border-width: 0px 3px;
+  border-width: 0px 0px;
   border-style: solid;
   border-color: #0079cc;
-  border-radius: 25px 0px;
-  color: #0079cc;
+  border-radius: 10px;
+  background: var(--fffffff, #fff);
 }
 /* order */
 .App-body-Order {
   height: 110vh;
   display: flex;
   flex-direction: column;
-  background: #fff3cc;
+  background: linear-gradient(137deg, #3b005f 0%, #1466b1 100%);
 }
 /* .css-1d3z3hw-MuiOutlinedInput-notchedOutline{
   border-style: none;
@@ -770,6 +793,29 @@ p {
   display: contents;
 }
 
+.css-154c95f-MuiDrawer-docked .MuiDrawer-paper  {
+  width: 100px;
+  box-sizing: border-box;
+  background: transparent;
+  box-sizing: unset;
+  box-shadow: none;
+  border-right: 0px solid;
+}
+.css-h4y409-MuiList-root {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  padding-top: 85px;
+  padding-bottom: 10px;
+}
+
+.css-154c95f-MuiDrawer-docked .MuiDrawer-paper {
+  width: 100px;
+  box-sizing: border-box;
+  background: transparent;
+  border: 0px solid;
+}
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

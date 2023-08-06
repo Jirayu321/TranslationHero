@@ -141,7 +141,7 @@ const Login = () => {
                       email === "jyung3221@gmail.com" ||
                       password === "123456"
                     ) {
-                      navigate("/Dashboard_freelance");
+                      navigate("/In");
                     }
                     setSubmitting(false);
                   } else {

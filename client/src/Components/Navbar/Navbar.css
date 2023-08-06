@@ -129,8 +129,13 @@
 }
 
 /* navHome2 */
-#navbardb2 {
-  background: #fffdf7;
+.navbardb2  {
+  background: transparent;
+  /* box-sizing: unset; */
+  box-shadow: none;
+  z-index: unset;
+  position: unset;
+  box-shadow: none;
 }
 #navbarTranslater {
   background: #f6fbfe;

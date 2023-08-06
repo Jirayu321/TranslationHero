@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunktranslate_hero=self.webpackChunktranslate_hero||[]).push([[600],{1600:function(a,e,s){s(7313);e.Z=s.p+"static/media/logo.a522f371d17339d7a3855f17368277c0.svg"}}]);
