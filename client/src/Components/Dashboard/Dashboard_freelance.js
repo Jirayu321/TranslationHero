@@ -329,7 +329,7 @@ export default function Dashboard_freelance() {
               </div>
 
               <button
-                className="box_salary"
+                className="Dashboard_box_salary"
                 onMouseEnter={() => setHovering(true)}
                 onMouseLeave={() => setHovering(false)}
                 onClick={() => setOpen(true)}
