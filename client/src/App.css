@@ -816,6 +816,11 @@ p {
   background: transparent;
   border: 0px solid;
 }
+.css-176ihwt .MuiDrawer-paper {
+  width: 100px;
+  box-sizing: border-box;
+  background: transparent;
+}
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
