@@ -69,7 +69,7 @@ const Notificaion = () => {
                   alignItems: "center",
                   width: 410,
                   position: "absolute",
-                  left: "70%",
+                  left: "64%",
                   top: "13%",
                   backgroundColor: "#FBFBFB",
                   boxShadow: "none",
