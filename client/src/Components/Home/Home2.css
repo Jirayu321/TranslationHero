@@ -14,7 +14,7 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
-.mainDashboard {
+.mainDashboard_Home {
   padding: 2.5rem;
   margin: 100px;
   margin-top: 0px;
@@ -23,7 +23,7 @@
   background: #f2f2ff;
   border-radius: 25px;
   width: 92vw;
-  height: 80vw;
+  height: 60vw;
 }
 .HeaderDashboard {
   width: 60.5vw;

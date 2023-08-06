@@ -267,7 +267,7 @@ export default function Home2() {
             </Box>
           </Modal>
 
-          <div className="mainDashboard">
+          <div className="mainDashboard_Home">
             <div className="HeaderDashboard">
               <p className="HDashboard">Home</p>
             </div>

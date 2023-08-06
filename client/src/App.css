@@ -246,7 +246,7 @@ p {
   padding-top: 10px;
   padding-bottom: 10px;
 }
-#button_manu_Translate:hover #icons_translate {
+/* #button_manu_Translate:hover #icons_translate {
   min-width: 80px;
   height: 50px;
   padding-top: 5px;
@@ -258,9 +258,9 @@ p {
   border-color: #0079cc;
   border-radius: 10px;
   background: var(--fffffff, #fff);
-}
+} */
 
-#button_manu_Translate:focus #icons_translate {
+/* #button_manu_Translate:focus #icons_translate {
   min-width: 80px;
   height: 50px;
   padding-top: 5px;
@@ -272,7 +272,7 @@ p {
   border-color: #0079cc;
   border-radius: 10px;
   background: var(--fffffff, #fff);
-}
+} */
 /* order */
 .App-body-Order {
   height: 110vh;
@@ -806,7 +806,7 @@ p {
   margin: 0;
   padding: 0;
   position: relative;
-  padding-top: 85px;
+  padding-top: 110px;
   padding-bottom: 10px;
 }
 
