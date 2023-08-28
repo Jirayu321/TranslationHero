@@ -1,35 +1,12 @@
 import * as React from "react";
 import {
   Box,
-  // ListItem,
-  // ListItemIcon,
-  // ListItemText,
-  // Rating,
-  // Toolbar,
-  // List,
-  // Avatar,
-  // MenuItem,
-  // Select,
-  // styled,
-  // InputBase,
-  // Paper,
-  // Table,
-  // // TableBody,
-  // TableContainer,
-  // TableCell,
-  // TableRow,
-  // TableHead,
-  // TextField,
-  // Autocomplete,
-  // IconButton,
+  Collapse,
+  Alert,
+  IconButton,
+  AlertTitle,
   Modal,
 } from "@mui/material";
-// import StarIcon from "@mui/icons-material/Star";
-// import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-// import { AdapterLuxon } from "@mui/x-date-pickers/AdapterLuxon";
-// import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-// import { MdArrowDropDown } from "react-icons/md";
-// import { IoIosEye } from "react-icons/io";
 
 import Drawer from "../Drawer/DrawerTranslate";
 import Navbars from "../Navbar/navbarHome2.js";
@@ -37,24 +14,22 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import { Calendar, momentLocalizer } from "react-big-calendar";
-import ProgressBar from "../Dashboard/ProgressBar";
+// import ProgressBar from "../Dashboard/ProgressBar";
 import moment from "moment";
+import "moment/locale/de";
+import "moment/locale/th";
+
 // import axios from "axios";
 
-// import All_online from "../../Images/All_customers.png";
-// import Old_customers from "../../Images//Old_customers.png";
-// import Country from "../../Images/Country.png";
-// import All_work from "../../Images/All_work.png";
-import Map from "../../Images/Map.png";
-
-// import Chart from "./Chart.js";
-// import ProgressBar from "./ProgressBar";
-// import Map1 from "./Map";
 // import { data6 } from "../Data/data";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "./Home2.css";
 
 export default function Home2() {
+  moment.locale("en-US");
+  // moment.locale("de");
+  // moment.locale("th");
+
   const localizer = momentLocalizer(moment);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -62,114 +37,83 @@ export default function Home2() {
   const auth = useSelector((state) => state.auth);
   let Doc = location?.state?.languages;
   let Value = auth?.token;
-  // const name = { Translator_name: auth?.name };
-  // const [data1, setData1] = React.useState([]);
-  // const [all_work, setAll_work] = React.useState(0);
-  // const [old_work, setOld_work] = React.useState(0);
-  // const [country, setCountry] = React.useState(0);
-  // // const [data3, setData3] = React.useState();
-  // // const [type, settype] = React.useState(null);
-  // const [hovering, setHovering] = React.useState(false);
-  const [open, setOpen] = React.useState(false);
-  // const url = "https://54.244.204.59/api";
-  // const url = "http://localhost:3001/api";
 
-  // const eiei = new Date();
+  const events = [
+    {
+      title: "THOG0022534",
+      start: "2023/8/28",
+      end: "2023/8/28",
+      allDay: false,
+      isImportant: true,
+    },
+    {
+      title: "THOG0023535",
+      start: "2023/8/29",
+      end: "2023/8/29",
+      allDay: false,
+      isImportant: false,
+    },
+  ];
 
-  // const goLogin = () => {
-  //   navigate("/Login");
-  // };
-  // const checklogin = () => {
-  //   if (Value) {
-  //     console.log("value :", Value);
-  //   } else {
-  //     goLogin();
-  //   }
-  // };
-  const handleClose = () => {
-    setOpen(false);
+  function eventStyleGetter(event) {
+    let style = {
+      backgroundColor: event.isImportant ? "rgb(199 230 247)" : "#FFFACD",
+      color: event.isImportant ? "rgb(4 84 212)" : "#FFB31F",
+      border: "none",
+      padding: "4px 8px",
+      alignItems: "flex-start",
+      gap: "10px",
+      borderRadius: "10px",
+    };
+    return { style };
+  }
+
+  const messagesTH = {
+    today: "วันนี้",
+    next: "ต่อไป",
+    back: "ย้อนกลับ",
+    month: "เดือน",
+    week: "สัปดาห์",
+    day: "วัน",
+    agenda: "กำหนดการ",
+    date: "วันที่",
+    time: "เวลา",
+    event: "เหตุการณ์",
+  };
+  const messagesDE = {
+    today: "Heute",
+    next: "nächste",
+    back: "zurück",
+    month: "Monat",
+    week: "Woche",
+    day: "Tag",
+    agenda: "Agenda",
+    date: "Datum",
+    time: "Zeit",
+    event: "Ereignis",
   };
 
-  // React.useEffect(() => {
-  //   if (Value) {
-  //     checklogin();
-  //     getOrder(name);
-  //   }
-  // }, [Value]);
+  const [open, setOpen] = React.useState(false);
+  const [open2, setOpen2] = React.useState(false);
+  const [open3, setOpen3] = React.useState(false);
 
-  // const setDataOrder = (i) => {
-  //   let all_work = i?.length;
-  //   console.log("i:", i);
-  //   setAll_work(all_work);
-  //   const ll = i?.filter((item) => item?.Customer_name);
-  //   setOld_work(ll?.length);
-  //   const DataOrder = i?.map((item, index) => {
-  //     try {
-  //       const formattedDate = moment(item?.Date).format("MM/DD/YYYY");
-  //       let formattedDate2 = moment(item?.Deadline).format("MM/DD/YYYY");
-  //       const dateNow = moment(eiei).format("MM/DD/YYYY");
-  //       const checkDate = dateNow > formattedDate2;
-  //       setCountry(1);
+  const [amount, setAmount] = React.useState("");
 
-  //       return {
-  //         index: index,
-  //         orderID: index + 1,
-  //         orderType: item?.Order_type,
-  //         orderName: item?.Order_type,
-  //         translator: item?.Translator_name,
-  //         orderPrice: item?.Price,
-  //         orderedDate: formattedDate,
-  //         status: item?.Status,
-  //         Customer: item?.Customer_name,
-  //         orderDeadline: checkDate,
-  //       };
-  //     } catch (e) {
-  //       console.error(e);
-  //       return null;
-  //     }
-  //   });
-  //   setData1(DataOrder);
-  // };
+  function handleInputChange(event) {
+    let x = event.target.value;
+    let a = x - x * 0.13;
+    setAmount(a);
+  }
 
-  // const setAllUser = (i) => {
-  //   const All = i?.filter((item) => item.type === "customer");
-  //   console.log("All", All.length);
-  //   // const AllUser = i?.map((item, index) => {
-  //   //   try {
-  //   //     const formattedDate = moment(item?.Date).format("MM/DD/YYYY");
-  //   //     let formattedDate2 = moment(item?.Date).format("h:mm:ss a");
-  //   //     return {
-  //   //       All: All,
-  //   //     };
-  //   //   } catch (e) {
-  //   //     console.error(e);
-  //   //     return null;
-  //   //   }
-  //   // });
-  //   // setData3(All?.length);
-  // };
+  const handleClose = (i) => {
+    if (i === 1) {
+      setOpen(false);
+    } else if (i === 2) {
+      setOpen2(false);
+      setOpen3(true);
+    }
+  };
 
-  // const getOrder = async (values) => {
-  //   try {
-  //     const token = await axios.get(`${url}/getOrder`, {
-  //       params: { Translator_name: values.Translator_name },
-  //     });
-  //     const token2 = await axios.get(`${url}/getUsers`, {});
-  //     setDataOrder(token?.data);
-  //     setAllUser(token2?.data);
-  //   } catch (error) {
-  //     if (error.response && error.response.status === 404) {
-  //       throw new Error("Translator not found");
-  //     } else if (error.response && error.response.status === 500) {
-  //       throw new Error("Internal server error");
-  //     } else if (error.response && error.response.status === 400) {
-  //       throw new Error("Bad request");
-  //     } else {
-  //       throw new Error("Something went wrong");
-  //     }
-  //   }
-  // };
-  // console.log("data1", data1);
   return (
     <div className="App-body3">
       <header className="App-headerDashboard">
@@ -213,10 +157,11 @@ export default function Home2() {
         />
 
         <Box component="main">
+          {/* Modal */}
           <Modal
             hideBackdrop
             open={open}
-            onClose={handleClose}
+            // onClose={handleClose(1)}
             aria-labelledby="keep-mounted-modal-title"
             aria-describedby="keep-mounted-modal-description"
           >
@@ -259,7 +204,7 @@ export default function Home2() {
                     background: "#FFFFFF",
                     border: "1px solid #034D82",
                   }}
-                  onClick={() => handleClose(2)}
+                  // onClick={() => handleClose(1)}
                 >
                   Close
                 </button>
@@ -267,6 +212,167 @@ export default function Home2() {
             </Box>
           </Modal>
 
+          <Modal
+            hideBackdrop
+            open={open2}
+            // onClose={handleClose(2)}
+            aria-labelledby="keep-mounted-modal-title"
+            aria-describedby="keep-mounted-modal-description"
+          >
+            <Box
+              sx={{
+                position: "absolute",
+                top: "60%",
+                left: "45%",
+                transform: "translate(-50%, -70%)",
+                width: 800,
+                height: 540,
+                bgcolor: "background.paper",
+                boxShadow: 24,
+                p: 4,
+                borderRadius: 5,
+                border: "1px solid #E5E5E5",
+                textAlign: "center",
+                paddingRight: "25px",
+                paddingLeft: "25px",
+              }}
+            >
+              <div>
+                <p className="Home2ScheduleDetailModalHard">THOG0024534</p>
+              </div>
+              <div className="Home2ScheduleDetailModal">
+                <p className="Home2ScheduleDetailModalInHard">Order 1</p>
+                <div className="Home2ScheduleDetailModalBox">
+                  <div className="Home2ScheduleDetailModalInBox">
+                    <p>Document type : Office Document</p>
+                    <p>Translate from : English</p>
+                    <p>Deadline : 2023/8/28</p>
+                    <p>Additional explanation : -</p>
+                  </div>
+                  <div className="Home2ScheduleDetailModalInBox">
+                    <p>Translation type : Birth Certificate</p>
+                    <p>Translate to : thai</p>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <button className="Home2Schedulebuttonpage">1</button>
+              </div>
+              <div className="Home2Schedulebuttongreu">
+                <button
+                  className="Home2SchedulebuttonCancel"
+                  onClick={() => setOpen2(false)}
+                >
+                  Cancel
+                </button>
+                <button
+                  className="Home2SchedulebuttonAccept"
+                  onClick={() => handleClose(2)}
+                >
+                  Accept
+                </button>
+              </div>
+            </Box>
+          </Modal>
+
+          <Modal
+            hideBackdrop
+            open={open3}
+            // onClose={handleClose(3)}
+            aria-labelledby="keep-mounted-modal-title"
+            aria-describedby="keep-mounted-modal-description"
+          >
+            <Box
+              sx={{
+                position: "absolute",
+                top: "60%",
+                left: "45%",
+                transform: "translate(-50%, -70%)",
+                width: 800,
+                height: 650,
+                bgcolor: "background.paper",
+                boxShadow: 24,
+                p: 4,
+                borderRadius: 5,
+                border: "1px solid #E5E5E5",
+                textAlign: "center",
+                paddingRight: "25px",
+                paddingLeft: "25px",
+              }}
+            >
+              <div>
+                <p className="Home2ScheduleDetailModalHard">THOG0024534</p>
+              </div>
+              <div className="Home2ScheduleDetailModal">
+                <p className="Home2ScheduleDetailModalInHard">Order 1</p>
+                <div className="Home2ScheduleDetailModalBox">
+                  <div className="Home2ScheduleDetailModalInBox">
+                    <p>Document type : Office Document</p>
+                    <p>Translate from : English</p>
+                    <p>Deadline : 2023/8/28</p>
+                    <p>Additional explanation : -</p>
+                  </div>
+                  <div className="Home2ScheduleDetailModalInBox">
+                    <p>Translation type : Birth Certificate</p>
+                    <p>Translate to : thai</p>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <button className="Home2Schedulebuttonpage">1</button>
+              </div>
+              <div className="Home2ScheduleinputBox">
+                <p className="Home2ScheduleinputBoxP">Price</p>
+                <input
+                  className="Home2Scheduleinput"
+                  placeholder="฿ Total Price"
+                  // value={amount}
+                  onChange={handleInputChange}
+                  // onChange={(e) => setamount(e)}
+                />
+                <p>amount of money you will get {amount}</p>
+              </div>
+              <div className="Home2Schedulebuttongreu">
+                <button
+                  className="Home2SchedulebuttonCancel"
+                  onClick={() => setOpen3(false)}
+                >
+                  Cancel
+                </button>
+                <button
+                  className="Home2SchedulebuttonAccept"
+                  onClick={() => setOpen3(false)}
+                >
+                  Sent
+                </button>
+              </div>
+            </Box>
+          </Modal>
+
+          {/* Alert */}
+          {/* <Box className={styles.BoxAlert}>
+            <Collapse in={open}>
+              <Alert
+                severity="info"
+                action={
+                  <IconButton
+                    aria-label="close"
+                    color="inherit"
+                    size="small"
+                    onClick={() => {
+                      setOpen(false);
+                    }}
+                  >
+                    <CloseIcon fontSize="inherit" />
+                  </IconButton>
+                }
+                sx={{ mb: 2 }}
+              >
+                <AlertTitle>Please wait a moment.</AlertTitle>
+                The translator is accepting your work
+              </Alert>
+            </Collapse>
+          </Box> */}
           <div className="mainDashboard_Home">
             <div className="HeaderDashboard">
               <p className="HDashboard">Home</p>
@@ -277,16 +383,13 @@ export default function Home2() {
                 localizer={localizer}
                 defaultDate={new Date()}
                 defaultView="month"
-                // events={this.state.events}
+                events={events}
+                eventPropGetter={eventStyleGetter}
+                // messages={messages}
                 style={{ height: "100vh", width: "60vw", padding: "10px" }}
               />
 
-              <div
-                className="box_salary"
-                // onMouseEnter={() => setHovering(true)}
-                // onMouseLeave={() => setHovering(false)}
-                // onClick={() => setOpen(true)}
-              >
+              <div className="box_salary">
                 <h3>Volume of work this month</h3>
                 <div style={{ textAlign: "center", marginTop: 20 }}>
                   <svg
@@ -303,13 +406,45 @@ export default function Home2() {
                     You can view all your received job or workload dashboards on
                     the dashboard menu.
                   </p>
-                  {/* {hovering ? (
-                    <div className="HoverText">click view map</div>
-                  ) : null} */}
                 </div>
                 <div>
                   <p className="Schedule">Schedule</p>
-                  <div></div>
+                  <div className="Home2Box1Schedule">
+                    <div className="Home2Box1ScheduleDetail">
+                      <p>THOG0022534</p>
+                      <button
+                        className="Home2Schedulebutton1"
+                        onClick={() => setOpen2(true)}
+                      >
+                        Detail
+                      </button>
+                      <div>
+                        <button className="Home2Schedulebutton2">Cancel</button>
+                        <button
+                          className="Home2Schedulebutton3"
+                          onClick={() => setOpen2(true)}
+                        >
+                          Accept
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="Home2Box2Schedule">
+                    <div className="Home2Box2ScheduleDetail">
+                      <p>THOG0023535</p>
+                      <button className="Home2Schedulebutton4">Detail</button>
+                      <div>
+                        <button className="Home2Schedulebutton2">Cancel</button>
+                        <button
+                          className="Home2Schedulebutton3"
+                          onClick={() => setOpen2(true)}
+                        >
+                          Accept
+                        </button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

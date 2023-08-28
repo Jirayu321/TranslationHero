@@ -1,5 +1,5 @@
 .AppBobyTool {
-  background-color: #cbe9fe;
+  background: linear-gradient(137deg, #3b005f 0%, #1466b1 100%);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -50,7 +50,8 @@
   background: #ffffff;
   padding: 50px;
   padding-top: 15px;
-  height: 76vh;
+  height: 83vh;
+  border-radius: 15px;
 }
 .InBoxSunEditor {
   display: flex;
@@ -139,11 +140,222 @@
 }
 
 .Toolsbutton2 {
-  color: #262DBB;
-  border: 1px solid #262DBB;
+  color: #262dbb;
+  border: 1px solid #262dbb;
   width: 100px;
   height: 40px;
   margin: 10px;
   padding: 5px;
   border-radius: 4px;
+}
+.ToolHaed {
+  width: 100%;
+  height: 130px;
+  border-radius: 20px;
+  background: #f2f2ff;
+  display: grid;
+  padding: 15px;
+  grid-template-columns: auto auto;
+}
+.ToolHaed2 {
+  display: grid;
+  grid-template-columns: auto;
+}
+.ToolrowpoinBOX {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  justify-content: start;
+  align-content: space-between;
+}
+.ToolBOX {
+  display: flex;
+  align-items: center;
+  margin-left: 0px;
+  margin-right: 20px;
+}
+.ToolpoinBOX1 {
+  width: 14px;
+  height: 14px;
+  background: #d92d20;
+  border-radius: 10px;
+  margin-right: 10px;
+}
+.ToolpoinBOX2 {
+  width: 14px;
+  height: 14px;
+  background: #fec84b;
+  border-radius: 10px;
+  margin-right: 10px;
+}
+.ToolpoinBOX3 {
+  width: 14px;
+  height: 14px;
+  background: #32d583;
+  border-radius: 10px;
+  margin-right: 10px;
+}
+.ToolpoinBOX4 {
+  width: 14px;
+  height: 14px;
+  background: #eaecf0;
+  border: 1px solid #000;
+  border-radius: 10px;
+  margin-right: 10px;
+}
+.Toolrowbutton {
+  display: grid;
+  grid-template-columns: auto auto auto auto auto;
+  justify-content: start;
+  margin-top: 20px;
+}
+.ToolbuttonHaed1 {
+  display: flex;
+  width: 200px;
+  padding: 10px;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  background: #f2f2ff;
+  margin-left: 0px;
+  margin-right: 10px;
+  border: none;
+}
+.ToolbuttonHaed1 {
+  display: flex;
+  width: 200px;
+  padding: 10px;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  background: #f2f2ff;
+  margin-left: 0px;
+  margin-right: 10px;
+  border: none;
+}
+.ToolbuttonHaed2 {
+  display: flex;
+  width: 200px;
+  padding: 10px;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  background: transparent;
+  margin-left: 0px;
+  margin-right: 10px;
+  border: none;
+}
+.Tooltask {
+  display: flex;
+  padding: 24px;
+  align-items: flex-start;
+  gap: 16px;
+  align-self: stretch;
+  border-radius: 8px;
+  border: 2px solid var(--error-600, #d92d20);
+  background: var(--fffffff, #fff);
+  margin-top: 15px;
+  justify-content: space-between;
+  width: 100%;
+}
+.ToolText1 {
+  color: var(--primary-600, #7f56d9);
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 32px;
+}
+.ToolText2 {
+  color: var(--gray-800, #1d2939);
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+}
+.ToolbuttonOpenFile {
+  display: flex;
+  padding: 8px 12px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 8px;
+  background: var(--bg-3, linear-gradient(138deg, #3b005f 0%, #1466b1 100%));
+  border: none;
+  margin-top: 90%;
+}
+.ToolHaed3 {
+  width: 100%;
+  height: 180px;
+  border-radius: 20px;
+  background: #f2f2ff;
+  display: grid;
+  padding: 15px;
+  grid-template-columns: auto auto;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.ToolHaed4 {
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-content: space-between;
+}
+.ToolInHaed4 {
+  display: flex;
+}
+.ToolInHaed4text1 {
+  color: var(--bg-3, #828282);
+  font-family: "DBHeavent";
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+.ToolInHaed4text2 {
+  background: var(--bg-3, linear-gradient(138deg, #3b005f 0%, #1466b1 100%));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-family: "DBHeavent";
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+.ToolHelper {
+  display: flex;
+  padding: 8px 12px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 8px;
+  background: #fff;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+.ToolSubmit {
+  display: flex;
+  padding: 8px 12px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 8px;
+  border: 1px solid #00a79d;
+  background: #00a79d;
+  margin-bottom: 10px;
+}
+.Toolbobywork {
+  display: grid;
+  grid-template-columns: auto auto;
+}
+.ToolTest {
+  width: 342px;
+  height: 342px;
+}
+.sun-editor .se-wrapper .se-wrapper-wysiwyg {
+  display: block;
+  display: none;
 }

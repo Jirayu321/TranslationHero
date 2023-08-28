@@ -1,8 +1,8 @@
 import * as React from "react";
 import "./notificaion.css";
-import { Box, Paper, TextField } from "@mui/material";
 import Navbars from "../Navbar/navbarHome2.js";
 import Drawer from "../Drawer/DrawerTranslate";
+import { Box, Paper, TextField } from "@mui/material";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { AdapterLuxon } from "@mui/x-date-pickers/AdapterLuxon";
@@ -23,13 +23,7 @@ const Notificaion = () => {
   let Doc = location?.state?.languages;
   let Value = location?.state?.value;
 
-  // React.useEffect(() => {
-  //   if (Value) {
-  //     console.log("value :", Value);
-  //   } else {
-  //     navigate("/Login");
-  //   }
-  // }, [navigate,Value]);
+
   return (
     <div className="App-body-Order">
       <header className="App-header">
@@ -43,6 +37,7 @@ const Notificaion = () => {
           <Navbars navigate={navigate} languages="English" />
         )}
       </header>
+
       {Doc === "English" ? (
         <Box sx={{ display: "flex", width: "100% " }}>
           <Drawer languages={Doc} value={Value} />
