@@ -329,6 +329,24 @@
   margin-left: 10px;
   margin-bottom: 10px;
 }
+.Home2Schedulebuttonpage2 {
+  border-radius: 32px;
+  background: #f2f2ff;
+  height: 32px;
+  display: flex;
+  width: 32px;
+  height: 32px;
+  padding: 10px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  color: #000;
+  border: none;
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
 .Home2Schedulebuttongreu {
   display: flex;
   justify-content: space-between;
@@ -384,3 +402,36 @@
   align-self: stretch;
   width: 750px;
 }
+.Home2buttonview {
+  display: flex;
+  border: 1px solid;
+  border-radius: 6px;
+  padding: 10px;
+  background: transparent;
+  width: 100px;
+  justify-content: center;
+  align-items: center;
+}
+.Home2buttonview p {
+  color: var(--black, #000);
+  font-family: "DBHeavent";
+  font-size: 20px;
+  font-style: normal;
+  line-height: normal;
+  text-transform: capitalize;
+  text-align: left;
+  margin-left: 10px;
+}
+.Home2imgtest1 {
+  width: 400px;
+  display: flex;
+  justify-self: flex-end;
+}
+.Home2ScheduleDetailModal4 {
+  border-radius: 20px;
+  background: var(--blue-50, #eff8ff);
+  height: 550px;
+  margin-top: 20px;
+  padding: 20px;
+}
+

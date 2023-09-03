@@ -22,6 +22,10 @@ import "moment/locale/th";
 // import axios from "axios";
 
 // import { data6 } from "../Data/data";
+import imgtest1 from "../../Images/1.jpeg";
+import imgtest2 from "../../Images/49.jpeg";
+import imgtest3 from "../../Images/dii.jpg";
+
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "./Home2.css";
 
@@ -37,19 +41,21 @@ export default function Home2() {
   const auth = useSelector((state) => state.auth);
   let Doc = location?.state?.languages;
   let Value = auth?.token;
+  const [buttonpage, setButtonpage] = React.useState(1);
+  const [buttonpage2, setButtonpage2] = React.useState(1);
 
   const events = [
     {
       title: "THOG0022534",
-      start: "2023/8/28",
-      end: "2023/8/28",
+      start: "2023/9/4",
+      end: "2023/9/4",
       allDay: false,
       isImportant: true,
     },
     {
       title: "THOG0023535",
-      start: "2023/8/29",
-      end: "2023/8/29",
+      start: "2023/9/5",
+      end: "2023/9/5",
       allDay: false,
       isImportant: false,
     },
@@ -68,34 +74,35 @@ export default function Home2() {
     return { style };
   }
 
-  const messagesTH = {
-    today: "วันนี้",
-    next: "ต่อไป",
-    back: "ย้อนกลับ",
-    month: "เดือน",
-    week: "สัปดาห์",
-    day: "วัน",
-    agenda: "กำหนดการ",
-    date: "วันที่",
-    time: "เวลา",
-    event: "เหตุการณ์",
-  };
-  const messagesDE = {
-    today: "Heute",
-    next: "nächste",
-    back: "zurück",
-    month: "Monat",
-    week: "Woche",
-    day: "Tag",
-    agenda: "Agenda",
-    date: "Datum",
-    time: "Zeit",
-    event: "Ereignis",
-  };
+  // const messagesTH = {
+  //   today: "วันนี้",
+  //   next: "ต่อไป",
+  //   back: "ย้อนกลับ",
+  //   month: "เดือน",
+  //   week: "สัปดาห์",
+  //   day: "วัน",
+  //   agenda: "กำหนดการ",
+  //   date: "วันที่",
+  //   time: "เวลา",
+  //   event: "เหตุการณ์",
+  // };
+  // const messagesDE = {
+  //   today: "Heute",
+  //   next: "nächste",
+  //   back: "zurück",
+  //   month: "Monat",
+  //   week: "Woche",
+  //   day: "Tag",
+  //   agenda: "Agenda",
+  //   date: "Datum",
+  //   time: "Zeit",
+  //   event: "Ereignis",
+  // };
 
   const [open, setOpen] = React.useState(false);
   const [open2, setOpen2] = React.useState(false);
   const [open3, setOpen3] = React.useState(false);
+  const [open4, setOpen4] = React.useState(false);
 
   const [amount, setAmount] = React.useState("");
 
@@ -222,11 +229,11 @@ export default function Home2() {
             <Box
               sx={{
                 position: "absolute",
-                top: "60%",
+                top: "65%",
                 left: "45%",
                 transform: "translate(-50%, -70%)",
                 width: 800,
-                height: 540,
+                height: 640,
                 bgcolor: "background.paper",
                 boxShadow: 24,
                 p: 4,
@@ -240,23 +247,155 @@ export default function Home2() {
               <div>
                 <p className="Home2ScheduleDetailModalHard">THOG0024534</p>
               </div>
-              <div className="Home2ScheduleDetailModal">
-                <p className="Home2ScheduleDetailModalInHard">Order 1</p>
-                <div className="Home2ScheduleDetailModalBox">
-                  <div className="Home2ScheduleDetailModalInBox">
-                    <p>Document type : Office Document</p>
-                    <p>Translate from : English</p>
-                    <p>Deadline : 2023/8/28</p>
-                    <p>Additional explanation : -</p>
-                  </div>
-                  <div className="Home2ScheduleDetailModalInBox">
-                    <p>Translation type : Birth Certificate</p>
-                    <p>Translate to : thai</p>
+              {buttonpage === 1 ? (
+                <div className="Home2ScheduleDetailModal">
+                  <p className="Home2ScheduleDetailModalInHard">Order 1</p>
+                  <div className="Home2ScheduleDetailModalBox">
+                    <div className="Home2ScheduleDetailModalInBox">
+                      <p>Document type : Office Document</p>
+                      <p>Translate from : English</p>
+                      <p>Deadline : 2023/9/4</p>
+                      <p>Additional explanation : -</p>
+                    </div>
+                    <div className="Home2ScheduleDetailModalInBox">
+                      <p>Translation type : Birth Certificate</p>
+                      <p>Translate to : thai</p>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div>
-                <button className="Home2Schedulebuttonpage">1</button>
+              ) : buttonpage === 2 ? (
+                <div className="Home2ScheduleDetailModal">
+                  <p className="Home2ScheduleDetailModalInHard">Order 2</p>
+                  <div className="Home2ScheduleDetailModalBox">
+                    <div className="Home2ScheduleDetailModalInBox">
+                      <p>Document type : Office Document</p>
+                      <p>Translate from : German</p>
+                      <p>Deadline : 2023/9/4</p>
+                      <p>Additional explanation : 12345</p>
+                    </div>
+                    <div className="Home2ScheduleDetailModalInBox">
+                      <p>Translation type : Birth Certificate</p>
+                      <p>Translate to : thai</p>
+                    </div>
+                  </div>
+                </div>
+              ) : buttonpage === 3 ? (
+                <div className="Home2ScheduleDetailModal">
+                  <p className="Home2ScheduleDetailModalInHard">Order 3</p>
+                  <div className="Home2ScheduleDetailModalBox">
+                    <div className="Home2ScheduleDetailModalInBox">
+                      <p>Document type : Office Document</p>
+                      <p>Translate from : thai</p>
+                      <p>Deadline : 2023/9/4</p>
+                      <p>Additional explanation : -</p>
+                    </div>
+                    <div className="Home2ScheduleDetailModalInBox">
+                      <p>Translation type : Birth Certificate</p>
+                      <p>Translate to : English</p>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <></>
+              )}
+
+              {buttonpage === 1 ? (
+                <div style={{ display: "flex" }}>
+                  <button
+                    className="Home2Schedulebuttonpage"
+                    onClick={() => setButtonpage(1)}
+                  >
+                    1
+                  </button>
+                  <button
+                    className="Home2Schedulebuttonpage2"
+                    onClick={() => setButtonpage(2)}
+                  >
+                    2
+                  </button>
+                  <button
+                    className="Home2Schedulebuttonpage2"
+                    onClick={() => setButtonpage(3)}
+                  >
+                    3
+                  </button>
+                </div>
+              ) : buttonpage === 2 ? (
+                <div style={{ display: "flex" }}>
+                  <button
+                    className="Home2Schedulebuttonpage2"
+                    onClick={() => setButtonpage(1)}
+                  >
+                    1
+                  </button>
+                  <button
+                    className="Home2Schedulebuttonpage"
+                    onClick={() => setButtonpage(2)}
+                  >
+                    2
+                  </button>
+                  <button
+                    className="Home2Schedulebuttonpage2"
+                    onClick={() => setButtonpage(3)}
+                  >
+                    3
+                  </button>
+                </div>
+              ) : buttonpage === 3 ? (
+                <div style={{ display: "flex" }}>
+                  <button
+                    className="Home2Schedulebuttonpage2"
+                    onClick={() => setButtonpage(1)}
+                  >
+                    1
+                  </button>
+                  <button
+                    className="Home2Schedulebuttonpage2"
+                    onClick={() => setButtonpage(2)}
+                  >
+                    2
+                  </button>
+                  <button
+                    className="Home2Schedulebuttonpage"
+                    onClick={() => setButtonpage(3)}
+                  >
+                    3
+                  </button>
+                </div>
+              ) : (
+                <></>
+              )}
+
+              <div className="Home2ScheduleinputBox">
+                <p className="Home2ScheduleinputBoxP">All attachments</p>
+                <button
+                  className="Home2buttonview"
+                  onClick={() => setOpen4(true)}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                  >
+                    <path
+                      d="M1.61342 8.47415C1.52262 8.33039 1.47723 8.25851 1.45182 8.14764C1.43273 8.06436 1.43273 7.93303 1.45182 7.84975C1.47723 7.73889 1.52262 7.66701 1.61341 7.52325C2.36369 6.33526 4.59693 3.33203 8.00027 3.33203C11.4036 3.33203 13.6369 6.33526 14.3871 7.52325C14.4779 7.66701 14.5233 7.73889 14.5487 7.84975C14.5678 7.93303 14.5678 8.06436 14.5487 8.14764C14.5233 8.25851 14.4779 8.33039 14.3871 8.47415C13.6369 9.66214 11.4036 12.6654 8.00027 12.6654C4.59693 12.6654 2.36369 9.66214 1.61342 8.47415Z"
+                      stroke="#000"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M8.00027 9.9987C9.10484 9.9987 10.0003 9.10327 10.0003 7.9987C10.0003 6.89413 9.10484 5.9987 8.00027 5.9987C6.8957 5.9987 6.00027 6.89413 6.00027 7.9987C6.00027 9.10327 6.8957 9.9987 8.00027 9.9987Z"
+                      stroke="#000"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                  <p>view</p>
+                </button>
               </div>
               <div className="Home2Schedulebuttongreu">
                 <button
@@ -285,11 +424,11 @@ export default function Home2() {
             <Box
               sx={{
                 position: "absolute",
-                top: "60%",
+                top: "70%",
                 left: "45%",
                 transform: "translate(-50%, -70%)",
                 width: 800,
-                height: 650,
+                height: 740,
                 bgcolor: "background.paper",
                 boxShadow: 24,
                 p: 4,
@@ -303,23 +442,155 @@ export default function Home2() {
               <div>
                 <p className="Home2ScheduleDetailModalHard">THOG0024534</p>
               </div>
-              <div className="Home2ScheduleDetailModal">
-                <p className="Home2ScheduleDetailModalInHard">Order 1</p>
-                <div className="Home2ScheduleDetailModalBox">
-                  <div className="Home2ScheduleDetailModalInBox">
-                    <p>Document type : Office Document</p>
-                    <p>Translate from : English</p>
-                    <p>Deadline : 2023/8/28</p>
-                    <p>Additional explanation : -</p>
-                  </div>
-                  <div className="Home2ScheduleDetailModalInBox">
-                    <p>Translation type : Birth Certificate</p>
-                    <p>Translate to : thai</p>
+              {buttonpage === 1 ? (
+                <div className="Home2ScheduleDetailModal">
+                  <p className="Home2ScheduleDetailModalInHard">Order 1</p>
+                  <div className="Home2ScheduleDetailModalBox">
+                    <div className="Home2ScheduleDetailModalInBox">
+                      <p>Document type : Office Document</p>
+                      <p>Translate from : English</p>
+                      <p>Deadline : 2023/9/4</p>
+                      <p>Additional explanation : -</p>
+                    </div>
+                    <div className="Home2ScheduleDetailModalInBox">
+                      <p>Translation type : Birth Certificate</p>
+                      <p>Translate to : thai</p>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div>
-                <button className="Home2Schedulebuttonpage">1</button>
+              ) : buttonpage === 2 ? (
+                <div className="Home2ScheduleDetailModal">
+
+                  <p className="Home2ScheduleDetailModalInHard">Order 2</p>
+                  <div className="Home2ScheduleDetailModalBox">
+                    <div className="Home2ScheduleDetailModalInBox">
+                      <p>Document type : Office Document</p>
+                      <p>Translate from : German</p>
+                      <p>Deadline : 2023/9/4</p>
+                      <p>Additional explanation : 12345</p>
+                    </div>
+                    <div className="Home2ScheduleDetailModalInBox">
+                      <p>Translation type : Birth Certificate</p>
+                      <p>Translate to : thai</p>
+                    </div>
+                  </div>
+                </div>
+              ) : buttonpage === 3 ? (
+                <div className="Home2ScheduleDetailModal">
+                  <p className="Home2ScheduleDetailModalInHard">Order 3</p>
+                  <div className="Home2ScheduleDetailModalBox">
+                    <div className="Home2ScheduleDetailModalInBox">
+                      <p>Document type : Office Document</p>
+                      <p>Translate from : thai</p>
+                      <p>Deadline : 2023/9/4</p>
+                      <p>Additional explanation : -</p>
+                    </div>
+                    <div className="Home2ScheduleDetailModalInBox">
+                      <p>Translation type : Birth Certificate</p>
+                      <p>Translate to : English</p>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <></>
+              )}
+
+              {buttonpage === 1 ? (
+                <div style={{ display: "flex" }}>
+                  <button
+                    className="Home2Schedulebuttonpage"
+                    onClick={() => setButtonpage(1)}
+                  >
+                    1
+                  </button>
+                  <button
+                    className="Home2Schedulebuttonpage2"
+                    onClick={() => setButtonpage(2)}
+                  >
+                    2
+                  </button>
+                  <button
+                    className="Home2Schedulebuttonpage2"
+                    onClick={() => setButtonpage(3)}
+                  >
+                    3
+                  </button>
+                </div>
+              ) : buttonpage === 2 ? (
+                <div style={{ display: "flex" }}>
+                  <button
+                    className="Home2Schedulebuttonpage2"
+                    onClick={() => setButtonpage(1)}
+                  >
+                    1
+                  </button>
+                  <button
+                    className="Home2Schedulebuttonpage"
+                    onClick={() => setButtonpage(2)}
+                  >
+                    2
+                  </button>
+                  <button
+                    className="Home2Schedulebuttonpage2"
+                    onClick={() => setButtonpage(3)}
+                  >
+                    3
+                  </button>
+                </div>
+              ) : buttonpage === 3 ? (
+                <div style={{ display: "flex" }}>
+                  <button
+                    className="Home2Schedulebuttonpage2"
+                    onClick={() => setButtonpage(1)}
+                  >
+                    1
+                  </button>
+                  <button
+                    className="Home2Schedulebuttonpage2"
+                    onClick={() => setButtonpage(2)}
+                  >
+                    2
+                  </button>
+                  <button
+                    className="Home2Schedulebuttonpage"
+                    onClick={() => setButtonpage(3)}
+                  >
+                    3
+                  </button>
+                </div>
+              ) : (
+                <></>
+              )}
+              <div className="Home2ScheduleinputBox">
+                <p className="Home2ScheduleinputBoxP">All attachments</p>
+                <button
+                  className="Home2buttonview"
+                  onClick={() => setOpen4(true)}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                  >
+                    <path
+                      d="M1.61342 8.47415C1.52262 8.33039 1.47723 8.25851 1.45182 8.14764C1.43273 8.06436 1.43273 7.93303 1.45182 7.84975C1.47723 7.73889 1.52262 7.66701 1.61341 7.52325C2.36369 6.33526 4.59693 3.33203 8.00027 3.33203C11.4036 3.33203 13.6369 6.33526 14.3871 7.52325C14.4779 7.66701 14.5233 7.73889 14.5487 7.84975C14.5678 7.93303 14.5678 8.06436 14.5487 8.14764C14.5233 8.25851 14.4779 8.33039 14.3871 8.47415C13.6369 9.66214 11.4036 12.6654 8.00027 12.6654C4.59693 12.6654 2.36369 9.66214 1.61342 8.47415Z"
+                      stroke="#000"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M8.00027 9.9987C9.10484 9.9987 10.0003 9.10327 10.0003 7.9987C10.0003 6.89413 9.10484 5.9987 8.00027 5.9987C6.8957 5.9987 6.00027 6.89413 6.00027 7.9987C6.00027 9.10327 6.8957 9.9987 8.00027 9.9987Z"
+                      stroke="#000"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                  <p>view</p>
+                </button>
               </div>
               <div className="Home2ScheduleinputBox">
                 <p className="Home2ScheduleinputBoxP">Price</p>
@@ -330,7 +601,7 @@ export default function Home2() {
                   onChange={handleInputChange}
                   // onChange={(e) => setamount(e)}
                 />
-                <p>amount of money you will get {amount}</p>
+                <p>amount of money you will get ฿ {amount}</p>
               </div>
               <div className="Home2Schedulebuttongreu">
                 <button
@@ -344,6 +615,149 @@ export default function Home2() {
                   onClick={() => setOpen3(false)}
                 >
                   Sent
+                </button>
+              </div>
+            </Box>
+          </Modal>
+
+          <Modal
+            hideBackdrop
+            open={open4}
+            // onClose={handleClose(3)}
+            aria-labelledby="keep-mounted-modal-title"
+            aria-describedby="keep-mounted-modal-description"
+          >
+            <Box
+              sx={{
+                position: "absolute",
+                top: "70%",
+                left: "45%",
+                transform: "translate(-50%, -70%)",
+                width: 800,
+                height: 750,
+                bgcolor: "background.paper",
+                boxShadow: 24,
+                padding: "5px",
+                borderRadius: 5,
+                border: "1px solid #E5E5E5",
+                textAlign: "center",
+                paddingRight: "25px",
+                paddingLeft: "25px",
+              }}
+            >
+              <div>
+                <p className="Home2ScheduleDetailModalHard">THOG0024534</p>
+              </div>
+              {buttonpage2 === 1 ? (
+                <div className="Home2ScheduleDetailModal4">
+                  <p className="Home2ScheduleDetailModalInHard">Order 1</p>
+                  <div className="Home2ScheduleDetailModalBox">
+                    <img
+                      src={imgtest1}
+                      alt="imgtest1"
+                      className="Home2imgtest1"
+                    />
+                  </div>
+                </div>
+              ) : buttonpage2 === 2 ? (
+                <div className="Home2ScheduleDetailModal4">
+                  <p className="Home2ScheduleDetailModalInHard">Order 2</p>
+                  <div className="Home2ScheduleDetailModalBox">
+                    <img
+                      src={imgtest2}
+                      alt="imgtest2"
+                      className="Home2imgtest1"
+                    />
+                  </div>
+                </div>
+              ) : buttonpage2 === 3 ? (
+                <div className="Home2ScheduleDetailModal4">
+                  <p className="Home2ScheduleDetailModalInHard">Order 3</p>
+                  <div className="Home2ScheduleDetailModalBox">
+                    <img
+                      src={imgtest3}
+                      alt="imgtest2"
+                      className="Home2imgtest1"
+                    />
+                  </div>
+                </div>
+              ) : (
+                <></>
+              )}
+
+              {buttonpage2 === 1 ? (
+                <div style={{ display: "flex" }}>
+                  <button
+                    className="Home2Schedulebuttonpage"
+                    onClick={() => setButtonpage2(1)}
+                  >
+                    1
+                  </button>
+                  <button
+                    className="Home2Schedulebuttonpage2"
+                    onClick={() => setButtonpage2(2)}
+                  >
+                    2
+                  </button>
+                  <button
+                    className="Home2Schedulebuttonpage2"
+                    onClick={() => setButtonpage2(3)}
+                  >
+                    3
+                  </button>
+                </div>
+              ) : buttonpage2 === 2 ? (
+                <div style={{ display: "flex" }}>
+                  <button
+                    className="Home2Schedulebuttonpage2"
+                    onClick={() => setButtonpage2(1)}
+                  >
+                    1
+                  </button>
+                  <button
+                    className="Home2Schedulebuttonpage"
+                    onClick={() => setButtonpage2(2)}
+                  >
+                    2
+                  </button>
+                  <button
+                    className="Home2Schedulebuttonpage2"
+                    onClick={() => setButtonpage2(3)}
+                  >
+                    3
+                  </button>
+                </div>
+              ) : buttonpage2 === 3 ? (
+                <div style={{ display: "flex" }}>
+                  <button
+                    className="Home2Schedulebuttonpage2"
+                    onClick={() => setButtonpage2(1)}
+                  >
+                    1
+                  </button>
+                  <button
+                    className="Home2Schedulebuttonpage2"
+                    onClick={() => setButtonpage2(2)}
+                  >
+                    2
+                  </button>
+                  <button
+                    className="Home2Schedulebuttonpage"
+                    onClick={() => setButtonpage2(3)}
+                  >
+                    3
+                  </button>
+                </div>
+              ) : (
+                <></>
+              )}
+
+              <div className="Home2Schedulebuttongreu">
+                <button
+                  className="Home2SchedulebuttonAccept"
+                  onClick={() => setOpen4(false)}
+                >
+                  Submit
                 </button>
               </div>
             </Box>
