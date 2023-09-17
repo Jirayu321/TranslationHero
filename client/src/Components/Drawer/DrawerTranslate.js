@@ -7,6 +7,7 @@ import {
   Toolbar,
   List,
 } from "@mui/material";
+import { Form, NavDropdown } from "react-bootstrap";
 import {
   IoChatbubblesSharp,
   //  IoNotifications
@@ -14,6 +15,9 @@ import {
 import { BsTranslate } from "react-icons/bs";
 import { MdSpaceDashboard } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
+import GlobeLocation from "../../Images/GlobeLocation.svg";
+import Earth from "../../Images//Earth.svg";
+import "./Drawer.css";
 
 export default function DrawerTranslate(props) {
   const pathname = window.location.pathname;
@@ -21,6 +25,8 @@ export default function DrawerTranslate(props) {
   const navigate = useNavigate();
   const checkValue = props?.value;
   const languages = props?.languages;
+  const you = props?.languages;
+  const value = props?.value;
 
   // const goLogin = () => {
   //   navigate("/Login");
@@ -35,7 +41,30 @@ export default function DrawerTranslate(props) {
   // React.useEffect(() => {
   //   checklogin();
   // });
-
+  const goHome = (x) => {
+    const pathname = window.location.pathname;
+    if (pathname === "/In") {
+      navigate("/In", { state: { languages: `${x}`, value: `${value}` } });
+    } else if (pathname === "/Matching") {
+      navigate("/Matching", {
+        state: { languages: `${x}`, value: `${value}` },
+      });
+    } else if (pathname === "/Order") {
+      navigate("/Order", { state: { languages: `${x}`, value: `${value}` } });
+    } else if (pathname === "/Chat") {
+      navigate("/Chat", { state: { languages: `${x}`, value: `${value}` } });
+    } else if (pathname === "/Chats") {
+      navigate("/Chats", { state: { languages: `${x}`, value: `${value}` } });
+    } else if (pathname === "/Dashboard_freelance") {
+      navigate("/Dashboard_freelance", {
+        state: { languages: `${x}`, value: `${value}` },
+      });
+    } else {
+      navigate("/Notification", {
+        state: { languages: `${x}`, value: `${value}` },
+      });
+    }
+  };
   return (
     <Drawer
       variant="permanent"
@@ -334,6 +363,114 @@ export default function DrawerTranslate(props) {
                 ) : null}
               </ListItem>
             ))}
+            <div style={{ marginTop: 120 }}>
+              <div className="Drawerbox4navbarHome2">
+                <img src={Earth} alt="Earth" style={{ float: "left" }} />
+                {you === "English" ? (
+                  <NavDropdown
+                    title="EN"
+                    style={{
+                      marginLeft: 10,
+                      color: "#808080",
+                      fontSize: 13,
+                      float: "left",
+                      padding: 0,
+                    }}
+                  >
+                    <NavDropdown.Item onClick={() => goHome("English")}>
+                      English
+                    </NavDropdown.Item>
+                    <NavDropdown.Item onClick={() => goHome("Thai")}>
+                      Thai
+                    </NavDropdown.Item>
+                    <NavDropdown.Item onClick={() => goHome("German")}>
+                      German
+                    </NavDropdown.Item>
+                  </NavDropdown>
+                ) : you === "German" ? (
+                  <NavDropdown
+                    title="DE"
+                    style={{
+                      marginLeft: 10,
+                      color: "#808080",
+                      fontSize: 13,
+                      float: "left",
+                      padding: 0,
+                    }}
+                  >
+                    <NavDropdown.Item onClick={() => goHome("English")}>
+                      English
+                    </NavDropdown.Item>
+                    <NavDropdown.Item onClick={() => goHome("Thai")}>
+                      Thai
+                    </NavDropdown.Item>
+                    <NavDropdown.Item onClick={() => goHome("German")}>
+                      German
+                    </NavDropdown.Item>
+                  </NavDropdown>
+                ) : you === "Thai" ? (
+                  <NavDropdown
+                    title="TH"
+                    style={{
+                      marginLeft: 10,
+                      color: "#808080",
+                      fontSize: 13,
+                      float: "left",
+                      padding: 0,
+                    }}
+                  >
+                    <NavDropdown.Item onClick={() => goHome("English")}>
+                      English
+                    </NavDropdown.Item>
+                    <NavDropdown.Item onClick={() => goHome("Thai")}>
+                      Thai
+                    </NavDropdown.Item>
+                    <NavDropdown.Item onClick={() => goHome("German")}>
+                      German
+                    </NavDropdown.Item>
+                  </NavDropdown>
+                ) : (
+                  <NavDropdown
+                    title="EN"
+                    style={{
+                      marginLeft: 10,
+                      color: "#808080",
+                      fontSize: 13,
+                      float: "left",
+                      padding: 0,
+                    }}
+                  >
+                    <NavDropdown.Item onClick={() => goHome("English")}>
+                      English
+                    </NavDropdown.Item>
+                    <NavDropdown.Item onClick={() => goHome("Thai")}>
+                      Thai
+                    </NavDropdown.Item>
+                    <NavDropdown.Item onClick={() => goHome("German")}>
+                      German
+                    </NavDropdown.Item>
+                  </NavDropdown>
+                )}
+              </div>
+
+              <div className="Drawerbox4navbarHome2">
+                <img
+                  src={GlobeLocation}
+                  alt="LoGlobeLocationgo"
+                  style={{ float: "left" }}
+                />
+                <p
+                  style={{
+                    marginLeft: 10,
+                    color: "#808080",
+                    fontSize: 13,
+                    float: "left",
+                  }}
+                >
+                  Thailand
+                </p>
+              </div>
+            </div>
           </List>
         ) : pathname === "/In" ? (
           <List>

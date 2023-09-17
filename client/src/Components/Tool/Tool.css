@@ -5,9 +5,9 @@
   flex-direction: column;
 }
 .BobyTool {
-  margin-top: 10px;
+  margin-top: -88px;
   margin-left: 10px;
-  width: 90vw;
+  width: 91.4vw;
 }
 .TextHTool {
   text-align: left;
@@ -50,9 +50,9 @@
   background: #ffffff;
   padding: 50px;
   padding-top: 15px;
-  height: 89vh;
-  border-top-left-radius: 15px;
-  border-top-right-radius: 15px;
+  height: 100vh;
+  /* border-top-left-radius: 15px;
+  border-top-right-radius: 15px; */
 }
 .InBoxSunEditor {
   display: flex;
@@ -185,6 +185,7 @@ BoxModal3 {
   display: grid;
   padding: 15px;
   grid-template-columns: auto auto;
+  margin-top: 20px;
 }
 .ToolHaed2 {
   display: grid;
@@ -380,6 +381,24 @@ BoxModal3 {
   border: 1px solid var(--BG3, #3b005f);
   background: #fff;
 }
+
+.ToolHelper2 {
+  display: flex;
+  padding: 8px 12px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 8px;
+  margin-right: 10px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  border: 1px solid var(--BG3, #3b005f);
+  background: var(
+    --BG3,
+    linear-gradient(98deg, #3b005f 5.13%, #1466b1 100.51%)
+  );
+}
 .ToolSubmit {
   display: flex;
   padding: 8px 12px;
@@ -411,6 +430,9 @@ BoxModal3 {
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+.TooltextHelper2 {
+  color: #fff;
 }
 /* .sun-editor .se-wrapper .se-wrapper-wysiwyg {
   display: none;
@@ -446,4 +468,69 @@ BoxModal3 {
   color: #fff;
   width: 80px;
   height: 42px;
+}
+
+.ToolbuttonEdit {
+  border: none;
+  background: var(--BG2, linear-gradient(92deg, #ff725a 1.03%, #eca51f 99.01%));
+  width: 100px;
+  height: 40px;
+  margin: 10px;
+  padding: 5px;
+  border-radius: 4px;
+  margin-left: 50%;
+  color: #fff;
+}
+.ToolText {
+  width: 45vw;
+}
+.ToolSelectfile2 {
+  border-radius: 20px;
+  border: 1px solid #e5e5e5;
+  background: #fff;
+  display: flex;
+  padding: 10px 10px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex: 1 0;
+  align-self: stretch;
+  margin-right: 40px;
+  width: 85vw;
+  height: 30vw;
+  overflow-y: scroll;
+}
+.ToolTest3 {
+  width: 70%;
+  height: auto;
+  background-repeat: no-repeat;
+  margin-top: 45%;
+}
+.ToolbuttonDownloadFile {
+  display: flex;
+  padding: 8px 12px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 8px;
+  background: var(--bg-3, linear-gradient(138deg, #3b005f 0%, #1466b1 100%));
+  border: none;
+  margin-top: 70%;
+  color: #fff;
+}
+.ToolbuttonDownloadFile a {
+  color: #fff;
+  text-decoration: none;
+}
+.ToolSelectFileBox {
+  margin-top: 20px;
+  border-radius: 20px;
+  border: 1px solid #e5e5e5;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 25vw;
+  width: 85vw;
 }

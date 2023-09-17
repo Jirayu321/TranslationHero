@@ -48,6 +48,7 @@ const Home = () => {
       setOpen(false);
     }
   };
+  
   const check_cookei = () => {
     if (Aoc === true) {
       setOpen(false);
@@ -113,7 +114,7 @@ const Home = () => {
                 >
                   {overviewEN[8].label}
                 </Typography>
-                
+
                 <div
                   style={{
                     textAlign: "left",

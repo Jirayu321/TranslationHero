@@ -47,15 +47,15 @@ export default function Home2() {
   const events = [
     {
       title: "THOG0022534",
-      start: "2023/9/4",
-      end: "2023/9/4",
+      start: "2023/9/15",
+      end: "2023/9/15",
       allDay: false,
       isImportant: true,
     },
     {
       title: "THOG0023535",
-      start: "2023/9/5",
-      end: "2023/9/5",
+      start: "2023/9/15",
+      end: "2023/9/15",
       allDay: false,
       isImportant: false,
     },
@@ -254,7 +254,7 @@ export default function Home2() {
                     <div className="Home2ScheduleDetailModalInBox">
                       <p>Document type : Office Document</p>
                       <p>Translate from : English</p>
-                      <p>Deadline : 2023/9/4</p>
+                      <p>Deadline : 2023/9/15</p>
                       <p>Additional explanation : -</p>
                     </div>
                     <div className="Home2ScheduleDetailModalInBox">
@@ -270,7 +270,7 @@ export default function Home2() {
                     <div className="Home2ScheduleDetailModalInBox">
                       <p>Document type : Office Document</p>
                       <p>Translate from : German</p>
-                      <p>Deadline : 2023/9/4</p>
+                      <p>Deadline : 2023/9/15</p>
                       <p>Additional explanation : 12345</p>
                     </div>
                     <div className="Home2ScheduleDetailModalInBox">
@@ -286,7 +286,7 @@ export default function Home2() {
                     <div className="Home2ScheduleDetailModalInBox">
                       <p>Document type : Office Document</p>
                       <p>Translate from : thai</p>
-                      <p>Deadline : 2023/9/4</p>
+                      <p>Deadline : 2023/9/15</p>
                       <p>Additional explanation : -</p>
                     </div>
                     <div className="Home2ScheduleDetailModalInBox">
@@ -449,7 +449,7 @@ export default function Home2() {
                     <div className="Home2ScheduleDetailModalInBox">
                       <p>Document type : Office Document</p>
                       <p>Translate from : English</p>
-                      <p>Deadline : 2023/9/4</p>
+                      <p>Deadline : 2023/9/15</p>
                       <p>Additional explanation : -</p>
                     </div>
                     <div className="Home2ScheduleDetailModalInBox">
@@ -482,7 +482,7 @@ export default function Home2() {
                     <div className="Home2ScheduleDetailModalInBox">
                       <p>Document type : Office Document</p>
                       <p>Translate from : thai</p>
-                      <p>Deadline : 2023/9/4</p>
+                      <p>Deadline : 2023/9/15</p>
                       <p>Additional explanation : -</p>
                     </div>
                     <div className="Home2ScheduleDetailModalInBox">

@@ -240,11 +240,11 @@ p {
   background: -webkit-linear-gradient(#034d82, #047acf);
   background-clip: text;
   /* -webkit-text-fill-color: transparent; */
-  margin-top: 30px;
+  margin-top: 40px;
   margin-bottom: 30px;
   padding: 0;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  /* padding-top: 10px;
+  padding-bottom: 10px; */
 }
 /* #button_manu_Translate:hover #icons_translate {
   min-width: 80px;

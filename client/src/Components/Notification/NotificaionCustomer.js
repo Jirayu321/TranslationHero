@@ -64,7 +64,7 @@ const Notificaion = () => {
                   alignItems: "center",
                   width: 410,
                   position: "absolute",
-                  left: "64%",
+                  left: "67%",
                   top: "13%",
                   backgroundColor: "#FBFBFB",
                   boxShadow: "none",
@@ -190,7 +190,7 @@ const Notificaion = () => {
                       float: "left",
                       borderBottom: "2px solid #8B8B8B",
                       marginBottom: 10,
-                      width: "21%",
+                      width: "25%",
                     }}
                     onClick={() => setType("Work")}
                   >
@@ -288,7 +288,7 @@ const Notificaion = () => {
                       float: "left",
                       borderBottom: "2px solid #8B8B8B",
                       marginBottom: 10,
-                      width: "21%",
+                      width: "25%",
                     }}
                     onClick={() => setType("Work")}
                   >
@@ -386,7 +386,7 @@ const Notificaion = () => {
                       float: "left",
                       borderBottom: "2px solid #8B8B8B",
                       marginBottom: 10,
-                      width: "21%",
+                      width: "25%",
                     }}
                     onClick={() => setType("Work")}
                   >
@@ -484,7 +484,7 @@ const Notificaion = () => {
                       float: "left",
                       borderBottom: "2px solid #FFC100",
                       marginBottom: 10,
-                      width: "21%",
+                      width: "25%",
                     }}
                     onClick={() => setType("Work")}
                   >
@@ -582,7 +582,7 @@ const Notificaion = () => {
                       float: "left",
                       borderBottom: "2px solid #8B8B8B",
                       marginBottom: 10,
-                      width: "21%",
+                      width: "25%",
                     }}
                     onClick={() => setType("Work")}
                   >
@@ -709,7 +709,7 @@ const Notificaion = () => {
                 alignItems: "center",
                 width: 4100,
                 position: "absolute",
-                left: "70%",
+                left: "67%",
                 top: "13%",
                 backgroundColor: "#FBFBFB",
                 boxShadow: "none",
@@ -837,7 +837,7 @@ const Notificaion = () => {
                       float: "left",
                       borderBottom: "2px solid #8B8B8B",
                       marginBottom: 10,
-                      width: "21%",
+                      width: "25%",
                     }}
                     onClick={() => setType("Work")}
                   >
@@ -935,7 +935,7 @@ const Notificaion = () => {
                       float: "left",
                       borderBottom: "2px solid #8B8B8B",
                       marginBottom: 10,
-                      width: "21%",
+                      width: "25%",
                     }}
                     onClick={() => setType("Work")}
                   >
@@ -1033,7 +1033,7 @@ const Notificaion = () => {
                       float: "left",
                       borderBottom: "2px solid #8B8B8B",
                       marginBottom: 10,
-                      width: "21%",
+                      width: "25%",
                     }}
                     onClick={() => setType("Work")}
                   >
@@ -1131,7 +1131,7 @@ const Notificaion = () => {
                       float: "left",
                       borderBottom: "2px solid #FFC100",
                       marginBottom: 10,
-                      width: "21%",
+                      width: "25%",
                     }}
                     onClick={() => setType("Work")}
                   >
@@ -1229,7 +1229,7 @@ const Notificaion = () => {
                       float: "left",
                       borderBottom: "2px solid #8B8B8B",
                       marginBottom: 10,
-                      width: "21%",
+                      width: "25%",
                     }}
                     onClick={() => setType("Work")}
                   >
@@ -1356,7 +1356,7 @@ const Notificaion = () => {
                 alignItems: "center",
                 width: 410,
                 position: "absolute",
-                left: "70%",
+                left: "67%",
                 top: "13%",
                 backgroundColor: "#FBFBFB",
                 boxShadow: "none",
@@ -1484,7 +1484,7 @@ const Notificaion = () => {
                       float: "left",
                       borderBottom: "2px solid #8B8B8B",
                       marginBottom: 10,
-                      width: "21%",
+                      width: "25%",
                     }}
                     onClick={() => setType("Work")}
                   >
@@ -1582,7 +1582,7 @@ const Notificaion = () => {
                       float: "left",
                       borderBottom: "2px solid #8B8B8B",
                       marginBottom: 10,
-                      width: "21%",
+                      width: "25%",
                     }}
                     onClick={() => setType("Work")}
                   >
@@ -1680,7 +1680,7 @@ const Notificaion = () => {
                       float: "left",
                       borderBottom: "2px solid #8B8B8B",
                       marginBottom: 10,
-                      width: "21%",
+                      width: "25%",
                     }}
                     onClick={() => setType("Work")}
                   >
@@ -1778,7 +1778,7 @@ const Notificaion = () => {
                       float: "left",
                       borderBottom: "2px solid #FFC100",
                       marginBottom: 10,
-                      width: "21%",
+                      width: "25%",
                     }}
                     onClick={() => setType("Work")}
                   >
@@ -1876,7 +1876,7 @@ const Notificaion = () => {
                       float: "left",
                       borderBottom: "2px solid #8B8B8B",
                       marginBottom: 10,
-                      width: "21%",
+                      width: "25%",
                     }}
                     onClick={() => setType("Work")}
                   >
@@ -2004,7 +2004,7 @@ const Notificaion = () => {
                   alignItems: "center",
                   width: 410,
                   position: "absolute",
-                  left: "70%",
+                  left: "67%",
                   top: "13%",
                   backgroundColor: "#FBFBFB",
                   boxShadow: "none",
@@ -2130,7 +2130,7 @@ const Notificaion = () => {
                       float: "left",
                       borderBottom: "2px solid #8B8B8B",
                       marginBottom: 10,
-                      width: "21%",
+                      width: "25%",
                     }}
                     onClick={() => setType("Work")}
                   >
@@ -2228,7 +2228,7 @@ const Notificaion = () => {
                       float: "left",
                       borderBottom: "2px solid #8B8B8B",
                       marginBottom: 10,
-                      width: "21%",
+                      width: "25%",
                     }}
                     onClick={() => setType("Work")}
                   >
@@ -2326,7 +2326,7 @@ const Notificaion = () => {
                       float: "left",
                       borderBottom: "2px solid #8B8B8B",
                       marginBottom: 10,
-                      width: "21%",
+                      width: "25%",
                     }}
                     onClick={() => setType("Work")}
                   >
@@ -2424,7 +2424,7 @@ const Notificaion = () => {
                       float: "left",
                       borderBottom: "2px solid #FFC100",
                       marginBottom: 10,
-                      width: "21%",
+                      width: "25%",
                     }}
                     onClick={() => setType("Work")}
                   >
@@ -2522,7 +2522,7 @@ const Notificaion = () => {
                       float: "left",
                       borderBottom: "2px solid #8B8B8B",
                       marginBottom: 10,
-                      width: "21%",
+                      width: "25%",
                     }}
                     onClick={() => setType("Work")}
                   >

@@ -1,5 +1,5 @@
 // overview page
-export const overviewEN = [
+export const OverviewEN = [
   { label: "Home" },
   { label: "About us" },
   { label: "Services" },
@@ -33,7 +33,7 @@ export const overviewEN = [
       "translate many documents Official documents with more than 50 forms to choose from, or general translations such as articles, movies,thesis, letters, etc.",
   },
 ];
-export const overviewTH = [
+export const OverviewTH = [
   { label: "หน้าหลัก" },
   { label: "เกี่ยวกับเรา" },
   { label: "บริการ" },
@@ -67,7 +67,7 @@ export const overviewTH = [
       "แปลเอกสารมากมาย เอกสารราชการ มีให้เลือกมากกว่า 50 แบบฟอร์ม หรือแปลทั่วไป เช่น บทความ ภาพยนตร์ วิทยานิพนธ์ จดหมาย ฯลฯ.",
   },
 ];
-export const overviewDE = [
+export const OverviewDE = [
   { label: "Start Seite" },
   { label: "Über uns" },
   { label: "Dienstleistungen" },
@@ -103,19 +103,63 @@ export const overviewDE = [
 ];
 
 // Order page
-
+export const OrderEN = [
+  { label: "Customer" },
+  {
+    label:
+      "For customers who want to translate documents translator hero There is a translation system that calculates all costs. Including professional translators who guarantee excellent translation quality.",
+  },
+  { label: "Subscribe" },
+  { label: "YOUR ORDER" },
+  { label: "Document Type" },
+  { label: "Translation Type" },
+  { label: "Select Type" },
+  { label: "Translate from" },
+  { label: "Translate to" },
+  { label: "Select language" },
+  { label: "Additional explanation" },
+  { label: "Get Quote" },
+  { label: "Rating" },
+  { label: "5 Star" },
+  { label: "4 Star" },
+  { label: "3 Star" },
+  { label: "2 Star" },
+  { label: "1 Star" },
+  { label: "No Rating" },
+  { label: "Rating" },
+  { label: "Skills" },
+  { label: "Languages" },
+  { label: "Price" },
+  { label: "Deal" },
+  { label: "Receipt confirming the order of translation" },
+  { label: "Pay" },
+  { label: "Cancel" },
+  { label: "Mobile Banking" },
+  { label: "Atome" },
+  { label: "Atome QR" },
+  { label: "Google Pay" },
+  { label: "Bill Payment" },
+  { label: "Prompt pay" },
+  { label: "Wechat Pay" },
+  { label: "Ali Pay (bar code)" },
+  { label: "Rabbit Line Pay" },
+  { label: "Ali Pay" },
+  { label: "True money Wallet" },
+  { label: "Thank you." },
+  { label: "Your payment has been successfully processed." },
+  { label: "TRANSACTION NO." },
+  { label: "AMOUNT" },
+  { label: "Back to home" },
+];
 // About us page
 // Services page
 // Price page
+// FAQs page
+
 // Login page
 // register page
 // home page
 // Dashboard
-
 // Notification page
-
 // edit profile page
-// FAQs page
-
 // Tools page
-
