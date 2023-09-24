@@ -138,7 +138,7 @@ const Login = () => {
                     const email = values?.email;
                     const password = values?.password;
                     if (
-                      email === "jyung3221@gmail.com" ||
+                      email === "jyung3221@gmail.com" &&
                       password === "123456"
                     ) {
                       navigate("/In");
