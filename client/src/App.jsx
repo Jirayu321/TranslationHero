@@ -3,6 +3,8 @@ import { StyledEngineProvider } from "@mui/material/styles";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { loadUser } from "./slices/auth";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import "./App.css";
 
@@ -53,6 +55,7 @@ function App() {
         <BrowserRouter>
           <div className="App-body">
             <StyledEngineProvider injectFirst>
+              <ToastContainer />
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/Home/Order/Customer" element={<Customer />} />

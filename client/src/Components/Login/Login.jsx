@@ -5,7 +5,7 @@ import Navbars from "../Navbar/navbarLogin";
 import { FiEyeOff, FiEye } from "react-icons/fi";
 
 // import Login1 from "../../Images/login.png";
-
+import { toast } from "react-toastify";
 import { Formik } from "formik";
 import IconButton from "@mui/material/IconButton";
 // import { BsArrowRightShort, BsArrowLeftShort } from "react-icons/bs";
@@ -24,11 +24,26 @@ import {
 import styles from "./Login.module.css";
 
 const Login = () => {
-  // const { innerWidth: width } = window;
+  const { innerWidth: width } = window;
   const navigate = useNavigate();
   // const dispatch = useDispatch();
   const location = useLocation();
 
+  function chcek_width() {
+    if (width < 768) {
+      navigate("/");
+      toast.error("Please change your login tool.", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+    }
+  }
   // const auth = useSelector((state) => state.auth);
 
   const [type, setType] = React.useState("password");
@@ -73,6 +88,9 @@ const Login = () => {
   //     navigate("/Dashboard_freelance");
   //   }
   // }
+  React.useEffect(() => {
+    chcek_width();
+  });
 
   return (
     <>
@@ -123,13 +141,16 @@ const Login = () => {
                 validate={(values) => {
                   const errors = {};
                   if (!values.email) {
-                    errors.email = "Required";
+                    errors.email = "Please enter your email.";
                   } else if (
                     !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(
                       values.email
                     )
                   ) {
                     errors.email = "Invalid email address";
+                  }
+                  if (!values.password) {
+                    errors.password = "Please enter your password.";
                   }
                   return errors;
                 }}
@@ -142,10 +163,25 @@ const Login = () => {
                       password === "123456"
                     ) {
                       navigate("/In");
+                    } else if (email !== "jyung3221@gmail.com") {
+                      toast.error(
+                        "Please enter your email or password again.",
+                        {
+                          position: "top-right",
+                          autoClose: 5000,
+                          hideProgressBar: false,
+                          closeOnClick: true,
+                          pauseOnHover: true,
+                          draggable: true,
+                          progress: undefined,
+                          theme: "dark",
+                        }
+                      );
                     }
                     setSubmitting(false);
                   } else {
                     console.log("err:", "มันไม่ได้");
+
                     setSubmitting(false);
                   }
                 }}
@@ -171,28 +207,60 @@ const Login = () => {
                     >
                       {LOGI01_Box1EN[3].label}
                     </p>
-                    <input
-                      type="email"
-                      name="email"
-                      placeholder="Example@mail.com"
-                      style={{
-                        background: "#FFFFFF",
-                        border: "1px solid #F1F1F1",
-                        borderRadius: 20,
-                        width: "100%",
-                        height: 30,
-                        padding: 20,
-                        paddingLeft: 12,
-                        margin: 10,
-                        marginLeft: 0,
-                      }}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      value={values.email}
-                    />
-                    <p style={{ color: "red", height: 25 }}>
-                      {errors.email && touched.email && errors.email}
-                    </p>
+                    {errors.email && touched.email && errors.email ? (
+                      <>
+                        <input
+                          type="email"
+                          name="email"
+                          placeholder="Example@mail.com"
+                          style={{
+                            background: "#FFFFFF",
+                            border: "1px solid red",
+                            borderRadius: 20,
+                            width: "100%",
+                            height: 30,
+                            padding: 20,
+                            paddingLeft: 12,
+                            margin: 10,
+                            marginLeft: 0,
+                          }}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.email}
+                        />
+                        <p
+                          style={{
+                            fontWeight: 500,
+                            fontSize: 20,
+                            color: "red",
+                            textAlign: "left",
+                            fontFamily: "DBHeavent",
+                          }}
+                        >
+                          {errors.email && touched.email && errors.email}
+                        </p>
+                      </>
+                    ) : (
+                      <input
+                        type="email"
+                        name="email"
+                        placeholder="Example@mail.com"
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid #F1F1F1",
+                          borderRadius: 20,
+                          width: "100%",
+                          height: 30,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          marginLeft: 0,
+                        }}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        value={values.email}
+                      />
+                    )}
                     <p
                       style={{
                         fontWeight: 500,
@@ -205,41 +273,104 @@ const Login = () => {
                       {LOGI01_Box1EN[4].label}
                     </p>
                     <div>
-                      <input
-                        type={type}
-                        name="password"
-                        placeholder="Enter your password"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        autoComplete="on"
-                        value={values.password}
-                        style={{
-                          background: "#FFFFFF",
-                          border: "1px solid #F1F1F1",
-                          borderRadius: 20,
-                          width: "100%",
-                          height: 30,
-                          padding: 20,
-                          paddingLeft: 12,
-                          margin: 10,
-                          marginLeft: 0,
-                        }}
-                      />
-                      <p style={{ color: "red" }}>
-                        {errors.password && touched.password && errors.password}
-                      </p>
-
-                      <IconButton
-                        onClick={handleClickShowPassword}
-                        edge="end"
-                        style={{
-                          position: "relative",
-                          left: 358,
-                          top: "-50px",
-                        }}
-                      >
-                        {value ? <FiEye /> : <FiEyeOff />}
-                      </IconButton>
+                      {errors.password &&
+                      touched.password &&
+                      errors.password ? (
+                        <>
+                          <div
+                            style={{
+                              position: "relative",
+                              margin: "10px 0px 10px 0px",
+                            }}
+                          >
+                            <input
+                              type={type}
+                              name="password"
+                              placeholder="Enter your password"
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              autoComplete="on"
+                              value={values.password}
+                              style={{
+                                background: "#FFFFFF",
+                                border: "1px solid red",
+                                borderRadius: 20,
+                                width: "100%",
+                                height: 40,
+                                padding: 20,
+                                paddingLeft: 12,
+                                margin: 10,
+                                marginLeft: 0,
+                              }}
+                            />
+                            <IconButton
+                              onClick={() => handleClickShowPassword(1)}
+                              style={{
+                                position: "absolute",
+                                top: "50%",
+                                transform: "translateY(-50%)", // Center vertically
+                                right: 12, // Adjust the right position
+                              }}
+                            >
+                              {value ? <FiEye /> : <FiEyeOff />}
+                            </IconButton>
+                          </div>
+                          <p
+                            style={{
+                              fontWeight: 500,
+                              fontSize: 20,
+                              color: "red",
+                              textAlign: "left",
+                              fontFamily: "DBHeavent",
+                            }}
+                          >
+                            {errors.password &&
+                              touched.password &&
+                              errors.password}
+                          </p>
+                        </>
+                      ) : (
+                        <>
+                          <div
+                            style={{
+                              position: "relative",
+                              margin: "10px 0px 10px 0px",
+                            }}
+                          >
+                            <input
+                              type={type}
+                              name="password"
+                              placeholder="Enter your password"
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              autoComplete="on"
+                              value={values.password}
+                              style={{
+                                background: "#FFFFFF",
+                                border: "1px solid #F1F1F1",
+                                borderRadius: 20,
+                                width: "100%",
+                                height: 40,
+                                padding: 20,
+                                paddingLeft: 12,
+                                margin: 10,
+                                marginLeft: 0,
+                              }}
+                            />
+                            <IconButton
+                              onClick={() => handleClickShowPassword(1)}
+                              style={{
+                                position: "absolute",
+                                top: "50%",
+                                transform: "translateY(-50%)", // Center vertically
+                                right: 12, // Adjust the right position
+                              }}
+                            >
+                              {value ? <FiEye /> : <FiEyeOff />}
+                            </IconButton>
+                          </div>
+                        </>
+                      )}
                     </div>
 
                     <Link

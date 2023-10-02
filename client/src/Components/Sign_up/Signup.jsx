@@ -13,13 +13,8 @@ import { data, data2 } from "../Data/data";
 // import { registerUser } from "../../slices/auth";
 
 // import { data, data5 } from "../Data/data";
-// import logo from "../../logo.svg";
-// import { BsArrowRightShort, BsArrowLeftShort } from "react-icons/bs";
-import {
-  FiEyeOff,
-  FiEye,
-  // FiImage
-} from "react-icons/fi";
+
+import { FiEyeOff, FiEye } from "react-icons/fi";
 import { MdArrowDropDown } from "react-icons/md";
 import File from "../../Images/file.svg";
 import Checkcircle from "../../Images/checkcircle.svg";
@@ -34,25 +29,23 @@ import {
 
 import {
   IconButton,
-  // Radio,
-  // RadioGroup,
   FormControlLabel,
   FormGroup,
   Input,
   Modal,
-  // Typography,
   Box,
   Checkbox,
   Autocomplete,
   TextField,
 } from "@mui/material";
 
+import { toast } from "react-toastify";
 import { useNavigate, useLocation } from "react-router-dom";
 import downloadcloud01 from "../../Images/downloadcloud01.jpg";
 import styles from "./Signup.module.css";
 
 const Signup = () => {
-  // const { innerWidth: width } = window;
+  const { innerWidth: width } = window;
   const navigate = useNavigate();
   const location = useLocation();
   let Doc = location?.state?.languages;
@@ -61,15 +54,27 @@ const Signup = () => {
   // const dispatch = useDispatch();
   // const auth = useSelector((state) => state.auth);
 
-  const [images, setImages] = React.useState([]);
+  function chcek_width() {
+    if (width < 768) {
+      navigate("/");
+      toast.error("Please change your Sign up tool.", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+    }
+  }
   const [images2, setImages2] = React.useState([]);
   const [images3, setImages3] = React.useState([]);
   const [images4, setImages4] = React.useState([]);
   const [images5, setImages5] = React.useState([]);
   const [images6, setImages6] = React.useState([]);
   const [images7, setImages7] = React.useState([]);
-  const [images8, setImages8] = React.useState([]);
-  const [imageURLs, setImageURLs] = React.useState([]);
   const [type_User, setType_User] = React.useState("");
 
   const [translators, setTranslators] = React.useState({
@@ -98,7 +103,7 @@ const Signup = () => {
     education: "",
     portfolio: "",
     bookbank: "",
-    documents: "",
+    documents: [],
     answer: "",
     question: "",
     type: "",
@@ -115,128 +120,71 @@ const Signup = () => {
   const [valuestype, setValuestype] = React.useState(false);
   const [valuestype2, setValuestype2] = React.useState(false);
 
-  function setProFile(x, y) {
-    if (y === 1) {
-      setImageURLs(x);
-      setTranslators({ ...translators, imgProfile: imageURLs });
-    } else if (y === 2) {
-      images2.forEach((image) => x.push(URL.createObjectURL(image)));
-      setImageURLs(x);
-      setTranslators({ ...translators, idcard: imageURLs });
-    } else if (y === 3) {
-      images3.forEach((image) => x.push(URL.createObjectURL(image)));
-      setImageURLs(x);
-      setTranslators({ ...translators, education: imageURLs });
-    } else if (y === 4) {
-      images4.forEach((image) => x.push(URL.createObjectURL(image)));
-      setImageURLs(x);
-      setTranslators({ ...translators, portfolio: imageURLs });
-    } else if (y === 5) {
-      images5.forEach((image) => x.push(URL.createObjectURL(image)));
-      setImageURLs(x);
-      setTranslators({ ...translators, bookbank: imageURLs });
-    } else if (y === 6) {
-      images6.forEach((image) => x.push(URL.createObjectURL(image)));
-      setImageURLs(x);
-      setTranslators({ ...translators, watermark: imageURLs });
-    } else if (y === 7) {
-      images7.forEach((image) => x.push(URL.createObjectURL(image)));
-      setImageURLs(x);
-      setTranslators({ ...translators, certificate: imageURLs });
-    }
-  }
-
-  React.useEffect(() => {
-    if (images.length > 0) {
-      console.log("images:", images);
-      const newImageUrls = [];
-      images.forEach((image) => newImageUrls.push(URL.createObjectURL(image)));
-      setProFile(newImageUrls, 1);
-    }
-    if (images2.length > 0) {
-      console.log("images2:", images2);
-      const newImageUrls = [];
-      setProFile(newImageUrls, 2);
-    }
-    if (images3.length > 0) {
-      console.log("images3:", images3);
-      const newImageUrls = [];
-      setProFile(newImageUrls, 3);
-    }
-    if (images4.length > 0) {
-      console.log("images4:", images4);
-      const newImageUrls = [];
-      setProFile(newImageUrls, 4);
-    }
-    if (images5.length > 0) {
-      console.log("images5:", images5);
-      const newImageUrls = [];
-      setProFile(newImageUrls, 5);
-    }
-    if (images6.length > 0) {
-      console.log("images5:", images6);
-      const newImageUrls = [];
-      setProFile(newImageUrls, 6);
-    }
-    if (images7.length > 0) {
-      console.log("images5:", images7);
-      const newImageUrls = [];
-      setProFile(newImageUrls, 7);
-    }
-    if (images8.length > 0) {
-      console.log("images5:", images8);
-      const newImageUrls = [];
-      setProFile(newImageUrls, 8);
-    }
-  }, [images, images2, images3, images4, images5, images6, images7, images8]);
-
   function onImageChange(e, i) {
     const files = [...e.target.files];
-    console.log(i);
+    const ImageURLs = [];
+    console.log("files:", files);
     switch (i) {
       case 1:
         console.log("case 1");
-        setImageURLs([]);
-        setImages(files);
+        files.forEach((image) => ImageURLs.push(URL.createObjectURL(image)));
+        setTranslators({ ...translators, imgProfile: ImageURLs });
         break;
       case 2:
         console.log("case 2");
         setImages2(files);
+        files.forEach((image) => ImageURLs.push(URL.createObjectURL(image)));
+        setTranslators({ ...translators, idcard: ImageURLs });
         break;
       case 3:
         console.log("case 3");
-        setImages3(files);
+        if (files.length !== 0) {
+          setImages3(files);
+          files.forEach((image) => ImageURLs.push(URL.createObjectURL(image)));
+          setTranslators({ ...translators, education: ImageURLs });
+        }
         break;
       case 4:
         console.log("case 4");
-        setImages4(files);
+        if (files.length !== 0) {
+          setImages4(files);
+          files.forEach((image) => ImageURLs.push(URL.createObjectURL(image)));
+          setTranslators({ ...translators, portfolio: ImageURLs });
+        }
         break;
       case 5:
         console.log("case 5");
-        setImages5(files);
+        if (files.length !== 0) {
+          setImages5(files);
+          files.forEach((image) => ImageURLs.push(URL.createObjectURL(image)));
+          setTranslators({ ...translators, bookbank: ImageURLs });
+        }
         break;
       case 6:
         console.log("case 6");
-        setImages6(files);
+        if (files.length !== 0) {
+          setImages6(files);
+          files.forEach((image) => ImageURLs.push(URL.createObjectURL(image)));
+          setTranslators({ ...translators, watermark: ImageURLs });
+        }
         break;
       case 7:
         console.log("case 7");
-        setImages7(files);
+        if (files.length !== 0) {
+          setImages7(files);
+          files.forEach((image) => ImageURLs.push(URL.createObjectURL(image)));
+          setTranslators({ ...translators, certificate: ImageURLs });
+        }
         break;
-      case 8:
-        console.log("case 8");
-        setImages8(files);
-        break;
+
       default:
         console.log("Invalid case");
-        setImages([]);
         setImages2([]);
         setImages3([]);
         setImages4([]);
         setImages5([]);
         setImages6([]);
         setImages7([]);
-        setImages8([]);
     }
   }
 
@@ -272,8 +220,6 @@ const Signup = () => {
         setScreen("2");
         break;
       case 2:
-        setImages([]);
-        setImageURLs([]);
         setScreen("3");
         break;
       case 3:
@@ -322,9 +268,19 @@ const Signup = () => {
       }, 3000);
     }
   }
+  const handleInputDocumentsChange = (e) => {
+    const newValue = e.target.value;
 
-  console.log("screen", screen, translators?.type);
+    setTranslators((prevTranslators) => ({
+      ...prevTranslators,
+      documents: prevTranslators.answer + newValue, // Concatenate the new answer
+    }));
+  };
+  console.log("screen", screen, translators?.type, translators);
 
+  React.useEffect(() => {
+    chcek_width();
+  });
   return (
     <>
       <header className={styles?.header}>
@@ -474,7 +430,7 @@ const Signup = () => {
                     validate={(values) => {
                       const errors = {};
                       if (!values.email) {
-                        errors.email = "Required";
+                        errors.email = "Please enter your email.";
                       } else if (
                         !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(
                           values.email
@@ -482,11 +438,30 @@ const Signup = () => {
                       ) {
                         errors.email = "Invalid email address";
                       }
+
+                      if (!values.name) {
+                        errors.name = "Please enter your name.";
+                      }
+
+                      if (!values.password) {
+                        errors.password = "Please enter your password.";
+                      }
+
+                      if (!values.confirmPassword) {
+                        errors.confirmPassword =
+                          "Please enter your confirmPassword";
+                      }
+
+                      if (!values.mobilePhone) {
+                        errors.mobilePhone = "Please enter your mobilePhone.";
+                      } else if (!/^\d{10}$/i.test(values.mobilePhone)) {
+                        errors.mobilePhone = "Invalid phone number";
+                      }
                       return errors;
                     }}
                     onSubmit={(values, { setSubmitting }) => {
                       if (values) {
-                        console.log("values:", values);
+                        // console.log("values:", values);
                         setTranslators({
                           ...translators,
                           name: values.name,
@@ -525,26 +500,62 @@ const Signup = () => {
                           >
                             {REGI01_box1EN[5].label}
                           </p>
-                          <input
-                            type="text"
-                            name="name"
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            value={values.name}
-                            placeholder={REGI01_box1EN[5].label}
-                            style={{
-                              background: "#FFFFFF",
-                              border: "1px solid #F1F1F1 ",
-                              borderRadius: 20,
-                              width: "100%",
-                              height: 30,
-                              padding: 20,
-                              paddingLeft: 12,
-                              margin: 10,
-                              marginLeft: 0,
-                              fontSize: 13,
-                            }}
-                          />
+                          {errors.name && touched.name && errors.name ? (
+                            <>
+                              <input
+                                type="text"
+                                name="name"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values.name}
+                                placeholder={REGI01_box1EN[5].label}
+                                style={{
+                                  background: "#FFFFFF",
+                                  border: "1px solid red ",
+                                  borderRadius: 20,
+                                  width: "100%",
+                                  height: 30,
+                                  padding: 20,
+                                  paddingLeft: 12,
+                                  margin: 10,
+                                  marginLeft: 0,
+                                  fontSize: 13,
+                                }}
+                              />
+                              <p
+                                style={{
+                                  fontWeight: 500,
+                                  fontSize: 20,
+                                  color: "red",
+                                  textAlign: "left",
+                                  fontFamily: "DBHeavent",
+                                }}
+                              >
+                                {errors.name && touched.name && errors.name}
+                              </p>
+                            </>
+                          ) : (
+                            <input
+                              type="text"
+                              name="name"
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              value={values.name}
+                              placeholder={REGI01_box1EN[5].label}
+                              style={{
+                                background: "#FFFFFF",
+                                border: "1px solid #F1F1F1 ",
+                                borderRadius: 20,
+                                width: "100%",
+                                height: 30,
+                                padding: 20,
+                                paddingLeft: 12,
+                                margin: 10,
+                                marginLeft: 0,
+                                fontSize: 13,
+                              }}
+                            />
+                          )}
                         </div>
 
                         <div style={{ textAlign: "left" }}>
@@ -559,26 +570,62 @@ const Signup = () => {
                           >
                             {REGI01_box1EN[6].label}
                           </p>
-                          <input
-                            type="email"
-                            name="email"
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            value={values.email}
-                            placeholder={REGI01_box1EN[7].label}
-                            style={{
-                              background: "#FFFFFF",
-                              border: "1px solid #F1F1F1",
-                              borderRadius: 20,
-                              width: "100%",
-                              height: 30,
-                              padding: 20,
-                              paddingLeft: 12,
-                              margin: 10,
-                              marginLeft: 0,
-                              fontSize: 13,
-                            }}
-                          />
+                          {errors.email && touched.email && errors.email ? (
+                            <>
+                              <input
+                                type="email"
+                                name="email"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values.email}
+                                placeholder={REGI01_box1EN[7].label}
+                                style={{
+                                  background: "#FFFFFF",
+                                  border: "1px solid red",
+                                  borderRadius: 20,
+                                  width: "100%",
+                                  height: 30,
+                                  padding: 20,
+                                  paddingLeft: 12,
+                                  margin: 10,
+                                  marginLeft: 0,
+                                  fontSize: 13,
+                                }}
+                              />
+                              <p
+                                style={{
+                                  fontWeight: 500,
+                                  fontSize: 20,
+                                  color: "red",
+                                  textAlign: "left",
+                                  fontFamily: "DBHeavent",
+                                }}
+                              >
+                                {errors.email && touched.email && errors.email}
+                              </p>
+                            </>
+                          ) : (
+                            <input
+                              type="email"
+                              name="email"
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              value={values.email}
+                              placeholder={REGI01_box1EN[7].label}
+                              style={{
+                                background: "#FFFFFF",
+                                border: "1px solid #F1F1F1",
+                                borderRadius: 20,
+                                width: "100%",
+                                height: 30,
+                                padding: 20,
+                                paddingLeft: 12,
+                                margin: 10,
+                                marginLeft: 0,
+                                fontSize: 13,
+                              }}
+                            />
+                          )}
                         </div>
 
                         <div style={{ textAlign: "left" }}>
@@ -593,41 +640,116 @@ const Signup = () => {
                           >
                             {REGI01_box1EN[8].label}
                           </p>
-
-                          <input
-                            type={type}
-                            name="password"
-                            autoComplete="password"
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            value={values.password}
-                            placeholder={REGI01_box1EN[9].label}
-                            style={{
-                              background: "#FFFFFF",
-                              border: "1px solid #F1F1F1 ",
-                              borderRadius: 20,
-                              borderColor: "#F1F1F1",
-                              width: "100%",
-                              height: 30,
-                              padding: 20,
-                              paddingLeft: 12,
-                              margin: 10,
-                              marginLeft: 0,
-                              fontSize: 13,
-                            }}
-                          />
-
-                          <IconButton
-                            onClick={() => handleClickShowPassword(1)}
-                            edge="end"
-                            style={{
-                              position: "absolute",
-                              right: 50,
-                              top: 344,
-                            }}
-                          >
-                            {valuestype ? <FiEye /> : <FiEyeOff />}
-                          </IconButton>
+                          {errors.password &&
+                          touched.password &&
+                          errors.password ? (
+                            <>
+                              <div
+                                style={{
+                                  position: "relative",
+                                  margin: "10px 0px 10px 0px",
+                                }}
+                              >
+                                <input
+                                  type={type}
+                                  name="password"
+                                  autoComplete="password"
+                                  onChange={handleChange}
+                                  onBlur={handleBlur}
+                                  value={values.password}
+                                  placeholder={REGI01_box1EN[9].label}
+                                  style={{
+                                    background: "#FFFFFF",
+                                    border: "1px solid  red",
+                                    borderRadius: 20,
+                                    borderColor: "#F1F1F1",
+                                    width: "100%",
+                                    height: 40,
+                                    padding: "5px 12px", // Adjusted padding for a better look
+                                    fontSize: 13,
+                                    boxSizing: "border-box", // Include padding in the width calculation
+                                  }}
+                                />
+                                <IconButton
+                                  onClick={() => handleClickShowPassword(1)}
+                                  style={{
+                                    position: "absolute",
+                                    top: "50%",
+                                    transform: "translateY(-50%)", // Center vertically
+                                    right: 12, // Adjust the right position
+                                  }}
+                                >
+                                  {valuestype2 ? <FiEye /> : <FiEyeOff />}
+                                </IconButton>
+                              </div>
+                              <p
+                                style={{
+                                  fontWeight: 500,
+                                  fontSize: 20,
+                                  color: "red",
+                                  textAlign: "left",
+                                  fontFamily: "DBHeavent",
+                                }}
+                              >
+                                {errors.password &&
+                                  touched.password &&
+                                  errors.password}
+                              </p>
+                            </>
+                          ) : (
+                            <>
+                              <div
+                                style={{
+                                  position: "relative",
+                                  margin: "10px 0px 10px 0px",
+                                }}
+                              >
+                                <input
+                                  type={type}
+                                  name="password"
+                                  autoComplete="password"
+                                  onChange={handleChange}
+                                  onBlur={handleBlur}
+                                  value={values.password}
+                                  placeholder={REGI01_box1EN[9].label}
+                                  style={{
+                                    background: "#FFFFFF",
+                                    border: "1px solid red",
+                                    borderRadius: 20,
+                                    borderColor: "#F1F1F1",
+                                    width: "100%",
+                                    height: 40,
+                                    padding: "5px 12px", // Adjusted padding for a better look
+                                    fontSize: 13,
+                                    boxSizing: "border-box", // Include padding in the width calculation
+                                  }}
+                                />
+                                <IconButton
+                                  onClick={() => handleClickShowPassword(1)}
+                                  style={{
+                                    position: "absolute",
+                                    top: "50%",
+                                    transform: "translateY(-50%)", // Center vertically
+                                    right: 12, // Adjust the right position
+                                  }}
+                                >
+                                  {valuestype ? <FiEye /> : <FiEyeOff />}
+                                </IconButton>
+                              </div>
+                              {/* <IconButton
+                                onClick={() => handleClickShowPassword(1)}
+                                edge="end"
+                                style={{
+                                  position: "absolute",
+                                  right: 50,
+                                  top: 344,
+                                }}
+                              >
+                                {valuestype ? <FiEye /> : <FiEyeOff />}
+                              </IconButton>
+                            </> */}
+                            </>
+                          )}
                         </div>
 
                         <div style={{ textAlign: "left" }}>
@@ -642,41 +764,104 @@ const Signup = () => {
                           >
                             {REGI01_box1EN[10].label}
                           </p>
-
-                          <input
-                            type={type2}
-                            name="confirmPassword"
-                            autoComplete="confirmPassword"
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            value={values.confirmPassword}
-                            placeholder={REGI01_box1EN[9].label}
-                            style={{
-                              background: "#FFFFFF",
-                              border: "1px solid #F1F1F1 ",
-                              borderRadius: 20,
-                              borderColor: "#F1F1F1",
-                              width: "100%",
-                              height: 30,
-                              padding: 20,
-                              paddingLeft: 12,
-                              margin: 10,
-                              marginLeft: 0,
-                              fontSize: 13,
-                            }}
-                          />
-
-                          <IconButton
-                            onClick={() => handleClickShowPassword(2)}
-                            edge="end"
-                            style={{
-                              position: "absolute",
-                              right: 50,
-                              top: 435,
-                            }}
-                          >
-                            {valuestype2 ? <FiEye /> : <FiEyeOff />}
-                          </IconButton>
+                          {errors.confirmPassword &&
+                          touched.confirmPassword &&
+                          errors.confirmPassword ? (
+                            <>
+                              <div
+                                style={{
+                                  position: "relative",
+                                  margin: "10px 0px 10px 0px",
+                                }}
+                              >
+                                <input
+                                  type={type2}
+                                  name="confirmPassword"
+                                  autoComplete="confirmPassword"
+                                  onChange={handleChange}
+                                  onBlur={handleBlur}
+                                  value={values.confirmPassword}
+                                  placeholder={REGI01_box1EN[9].label}
+                                  style={{
+                                    background: "#FFFFFF",
+                                    border: "1px solid red",
+                                    borderRadius: 20,
+                                    borderColor: "#F1F1F1",
+                                    width: "100%",
+                                    height: 40,
+                                    padding: "5px 12px", // Adjusted padding for a better look
+                                    fontSize: 13,
+                                    boxSizing: "border-box", // Include padding in the width calculation
+                                  }}
+                                />
+                                <IconButton
+                                  onClick={() => handleClickShowPassword(2)}
+                                  style={{
+                                    position: "absolute",
+                                    top: "50%",
+                                    transform: "translateY(-50%)", // Center vertically
+                                    right: 12, // Adjust the right position
+                                  }}
+                                >
+                                  {valuestype2 ? <FiEye /> : <FiEyeOff />}
+                                </IconButton>
+                              </div>
+                              <p
+                                style={{
+                                  fontWeight: 500,
+                                  fontSize: 20,
+                                  color: "red",
+                                  textAlign: "left",
+                                  fontFamily: "DBHeavent",
+                                }}
+                              >
+                                {errors.confirmPassword &&
+                                  touched.confirmPassword &&
+                                  errors.confirmPassword}
+                              </p>
+                            </>
+                          ) : (
+                            <>
+                              <div
+                                style={{
+                                  position: "relative",
+                                  margin: "10px 0px 10px 0px",
+                                }}
+                              >
+                                <input
+                                  type={type2}
+                                  name="confirmPassword"
+                                  autoComplete="confirmPassword"
+                                  onChange={handleChange}
+                                  onBlur={handleBlur}
+                                  value={values.confirmPassword}
+                                  placeholder={REGI01_box1EN[9].label}
+                                  style={{
+                                    background: "#FFFFFF",
+                                    border: "1px solid #F1F1F1",
+                                    borderRadius: 20,
+                                    borderColor: "#F1F1F1",
+                                    width: "100%",
+                                    height: 40,
+                                    padding: "5px 12px", // Adjusted padding for a better look
+                                    fontSize: 13,
+                                    boxSizing: "border-box", // Include padding in the width calculation
+                                  }}
+                                />
+                                <IconButton
+                                  onClick={() => handleClickShowPassword(2)}
+                                  style={{
+                                    position: "absolute",
+                                    top: "50%",
+                                    transform: "translateY(-50%)", // Center vertically
+                                    right: 12, // Adjust the right position
+                                  }}
+                                >
+                                  {valuestype2 ? <FiEye /> : <FiEyeOff />}
+                                </IconButton>
+                              </div>
+                            </>
+                          )}
                         </div>
 
                         <div style={{ textAlign: "left", marginBottom: 10 }}>
@@ -691,28 +876,67 @@ const Signup = () => {
                           >
                             {REGI01_box1EN[11].label}
                           </p>
-
-                          <input
-                            type="text"
-                            name="mobilePhone"
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            value={values.mobilePhone}
-                            placeholder={REGI01_box1EN[11].label}
-                            style={{
-                              background: "#FFFFFF",
-                              border: "1px solid #F1F1F1 ",
-                              borderRadius: 20,
-                              borderColor: "#F1F1F1",
-                              width: "100%",
-                              height: 30,
-                              padding: 20,
-                              paddingLeft: 12,
-                              margin: 10,
-                              marginLeft: 0,
-                              fontSize: 13,
-                            }}
-                          />
+                          {errors.mobilePhone &&
+                          touched.mobilePhone &&
+                          errors.mobilePhone ? (
+                            <>
+                              <input
+                                type="text"
+                                name="mobilePhone"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values.mobilePhone}
+                                placeholder={REGI01_box1EN[11].label}
+                                style={{
+                                  background: "#FFFFFF",
+                                  border: "1px solid #dc3545",
+                                  borderRadius: 20,
+                                  width: "100%",
+                                  height: 30,
+                                  padding: 20,
+                                  paddingLeft: 12,
+                                  margin: 10,
+                                  marginLeft: 0,
+                                  fontSize: 13,
+                                }}
+                              />
+                              <p
+                                style={{
+                                  fontWeight: 500,
+                                  fontSize: 20,
+                                  color: "red",
+                                  textAlign: "left",
+                                  fontFamily: "DBHeavent",
+                                }}
+                              >
+                                {errors.mobilePhone &&
+                                  touched.mobilePhone &&
+                                  errors.mobilePhone}
+                              </p>
+                            </>
+                          ) : (
+                            <input
+                              type="text"
+                              name="mobilePhone"
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              value={values.mobilePhone}
+                              placeholder={REGI01_box1EN[11].label}
+                              style={{
+                                background: "#FFFFFF",
+                                border: "1px solid #F1F1F1 ",
+                                borderRadius: 20,
+                                borderColor: "#F1F1F1",
+                                width: "100%",
+                                height: 30,
+                                padding: 20,
+                                paddingLeft: 12,
+                                margin: 10,
+                                marginLeft: 0,
+                                fontSize: 13,
+                              }}
+                            />
+                          )}
                         </div>
 
                         <button
@@ -805,7 +1029,21 @@ const Signup = () => {
                   ) : (
                     <button
                       className={styles.button}
-                      // onClick={() => setScreenNumber("type")}
+                      onClick={() =>
+                        toast.error(
+                          "Choose the type of account you want to apply for.",
+                          {
+                            position: "top-right",
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "dark",
+                          }
+                        )
+                      }
                     >
                       Next
                     </button>
@@ -840,7 +1078,7 @@ const Signup = () => {
 
                   <div style={{ textAlign: "left", marginTop: 10 }}>
                     <div style={{ textAlign: "center" }}>
-                      {images.length < 1 ? (
+                      {translators.imgProfile === "" ? (
                         <div
                           style={{
                             background: "#FFFFFF",
@@ -901,33 +1139,27 @@ const Signup = () => {
                             marginLeft: 0,
                           }}
                         >
-                          <Input
-                            accept="image/*"
-                            id="icon-button-file"
-                            type="file"
-                            style={{ display: "none" }}
-                            onChange={(e) =>
-                              setTranslators({
-                                ...translators,
-                                portfolio: e.target.value,
-                              })
-                            }
-                          />
-                          <IconButton
-                            color="primary"
-                            aria-label="upload picture"
-                            component="span"
-                            className={styles.BoximgProfile}
-                          >
-                            {imageURLs.map((imageSrc, idx) => (
+                          <label htmlFor="icon-button-file">
+                            <Input
+                              accept="image/*"
+                              id="icon-button-file"
+                              type="file"
+                              style={{ display: "none" }}
+                              onChange={(e) => onImageChange(e, 1)}
+                            />
+                            <IconButton
+                              color="primary"
+                              aria-label="upload picture"
+                              component="span"
+                              className={styles.BoximgProfile}
+                            >
                               <img
-                                key={idx}
-                                src={imageSrc}
-                                alt="imageURLs"
+                                src={translators?.imgProfile?.at(0)}
+                                alt="imgProflie"
                                 className={styles.imgProflie}
                               />
-                            ))}
-                          </IconButton>
+                            </IconButton>
+                          </label>
                         </div>
                       )}
                     </div>
@@ -969,6 +1201,7 @@ const Signup = () => {
                       (such as JPG, PDF, PNG and the file size does not exceed
                       25Mb.)
                     </p>
+
                     <div style={{ textAlign: "left", marginTop: 10 }}>
                       <div style={{ textAlign: "center" }}>
                         {images2.length < 1 ? (
@@ -1011,12 +1244,7 @@ const Signup = () => {
                                 id="icon-button-file"
                                 type="file"
                                 style={{ display: "none" }}
-                                onChange={(e) =>
-                                  setTranslators({
-                                    ...translators,
-                                    idcard: e.target.value,
-                                  })
-                                }
+                                onChange={(e) => onImageChange(e, 2)}
                               />
                               <IconButton
                                 color="primary"
@@ -1043,12 +1271,13 @@ const Signup = () => {
                         )}
                       </div>
                     </div>
-                    {translators.idcard !== "" ? (
+
+                    {translators?.idcard !== "" ? (
                       <>
                         <div className={styles.BoxSuccessFile}>
                           <img src={File} alt="file" />
                           <div>
-                            <p>{images2[0]?.name}</p>
+                            <p>{images2.at(0)?.name}</p>
                           </div>
                           <img src={Checkcircle} alt="checkcircle" />
                         </div>
@@ -1062,7 +1291,21 @@ const Signup = () => {
                     ) : (
                       <button
                         className={styles.button}
-                        // onClick={() => setScreenNumber(2)}
+                        onClick={() =>
+                          toast.error(
+                            "Please re-upload your ID card picture.",
+                            {
+                              position: "top-right",
+                              autoClose: 5000,
+                              hideProgressBar: false,
+                              closeOnClick: true,
+                              pauseOnHover: true,
+                              draggable: true,
+                              progress: undefined,
+                              theme: "dark",
+                            }
+                          )
+                        }
                       >
                         Next
                       </button>
@@ -1096,11 +1339,25 @@ const Signup = () => {
                         juristicPersonNumber: "",
                         website: "",
                       }}
+                      validate={(values) => {
+                        const errors = {};
+                        if (!values.companyName) {
+                          errors.companyName =
+                            "Please enter your Company name.";
+                        }
+
+                        if (!values.juristicPersonNumber) {
+                          errors.juristicPersonNumber =
+                            "Please enter your Juristic Person Number.";
+                        }
+
+                        return errors;
+                      }}
                       onSubmit={(values, { setSubmitting, resetForm }) => {
                         if (
                           values.companyName !== "" &&
-                          values.juristicPersonNumber !== "" &&
-                          values.website !== ""
+                          values.juristicPersonNumber !== ""
+                          // && values.website !== ""
                         ) {
                           console.log("values:", values);
                           setTranslators({
@@ -1140,26 +1397,68 @@ const Signup = () => {
                             >
                               Company name
                             </p>
-                            <input
-                              type="text"
-                              name="companyName"
-                              onChange={handleChange}
-                              onBlur={handleBlur}
-                              value={values.companyName}
-                              placeholder="Enter your account name"
-                              style={{
-                                background: "#FFFFFF",
-                                border: "1px solid #F1F1F1 ",
-                                borderRadius: 20,
-                                width: "100%",
-                                height: 30,
-                                padding: 20,
-                                paddingLeft: 12,
-                                margin: 10,
-                                marginLeft: 0,
-                                fontSize: 13,
-                              }}
-                            />
+                            {errors.companyName &&
+                            touched.companyName &&
+                            errors.companyName ? (
+                              <>
+                                <input
+                                  type="text"
+                                  name="companyName"
+                                  onChange={handleChange}
+                                  onBlur={handleBlur}
+                                  value={values.companyName}
+                                  placeholder="Enter your account name"
+                                  style={{
+                                    background: "#FFFFFF",
+                                    border: "1px solid #fe0000",
+                                    borderRadius: 20,
+                                    width: "100%",
+                                    height: 30,
+                                    padding: 20,
+                                    paddingLeft: 12,
+                                    margin: 10,
+                                    marginLeft: 0,
+                                    fontSize: 13,
+                                  }}
+                                />
+                                <p
+                                  style={{
+                                    fontWeight: 500,
+                                    fontSize: 20,
+                                    color: "red",
+                                    textAlign: "left",
+                                    fontFamily: "DBHeavent",
+                                  }}
+                                >
+                                  {errors.companyName &&
+                                    touched.companyName &&
+                                    errors.companyName}
+                                </p>
+                              </>
+                            ) : (
+                              <>
+                                <input
+                                  type="text"
+                                  name="companyName"
+                                  onChange={handleChange}
+                                  onBlur={handleBlur}
+                                  value={values.companyName}
+                                  placeholder="Enter your account name"
+                                  style={{
+                                    background: "#FFFFFF",
+                                    border: "1px solid #F1F1F1 ",
+                                    borderRadius: 20,
+                                    width: "100%",
+                                    height: 30,
+                                    padding: 20,
+                                    paddingLeft: 12,
+                                    margin: 10,
+                                    marginLeft: 0,
+                                    fontSize: 13,
+                                  }}
+                                />
+                              </>
+                            )}
                           </div>
 
                           <div style={{ textAlign: "left" }}>
@@ -1174,26 +1473,68 @@ const Signup = () => {
                             >
                               Juristic Person Number
                             </p>
-                            <input
-                              type="text"
-                              name="juristicPersonNumber"
-                              onChange={handleChange}
-                              onBlur={handleBlur}
-                              value={values.juristicPersonNumber}
-                              placeholder="Enter your Juristic Person Number"
-                              style={{
-                                background: "#FFFFFF",
-                                border: "1px solid #F1F1F1",
-                                borderRadius: 20,
-                                width: "100%",
-                                height: 30,
-                                padding: 20,
-                                paddingLeft: 12,
-                                margin: 10,
-                                marginLeft: 0,
-                                fontSize: 13,
-                              }}
-                            />
+                            {errors.juristicPersonNumber &&
+                            touched.juristicPersonNumber &&
+                            errors.juristicPersonNumber ? (
+                              <>
+                                <input
+                                  type="text"
+                                  name="juristicPersonNumber"
+                                  onChange={handleChange}
+                                  onBlur={handleBlur}
+                                  value={values.juristicPersonNumber}
+                                  placeholder="Enter your Juristic Person Number"
+                                  style={{
+                                    background: "#FFFFFF",
+                                    border: "1px solid #fe0000",
+                                    borderRadius: 20,
+                                    width: "100%",
+                                    height: 30,
+                                    padding: 20,
+                                    paddingLeft: 12,
+                                    margin: 10,
+                                    marginLeft: 0,
+                                    fontSize: 13,
+                                  }}
+                                />
+                                <p
+                                  style={{
+                                    fontWeight: 500,
+                                    fontSize: 20,
+                                    color: "red",
+                                    textAlign: "left",
+                                    fontFamily: "DBHeavent",
+                                  }}
+                                >
+                                  {errors.juristicPersonNumber &&
+                                    touched.juristicPersonNumber &&
+                                    errors.juristicPersonNumber}
+                                </p>
+                              </>
+                            ) : (
+                              <>
+                                <input
+                                  type="text"
+                                  name="juristicPersonNumber"
+                                  onChange={handleChange}
+                                  onBlur={handleBlur}
+                                  value={values.juristicPersonNumber}
+                                  placeholder="Enter your Juristic Person Number"
+                                  style={{
+                                    background: "#FFFFFF",
+                                    border: "1px solid #F1F1F1",
+                                    borderRadius: 20,
+                                    width: "100%",
+                                    height: 30,
+                                    padding: 20,
+                                    paddingLeft: 12,
+                                    margin: 10,
+                                    marginLeft: 0,
+                                    fontSize: 13,
+                                  }}
+                                />
+                              </>
+                            )}
                           </div>
 
                           <div style={{ textAlign: "left", marginBottom: 20 }}>
@@ -1274,6 +1615,7 @@ const Signup = () => {
                       (such as JPG, PDF, PNG and the file size does not exceed
                       25Mb.)
                     </p>
+
                     <div style={{ textAlign: "left", marginTop: 10 }}>
                       <div style={{ textAlign: "center" }}>
                         {images3.length < 1 ? (
@@ -1316,12 +1658,7 @@ const Signup = () => {
                                 id="icon-button-file"
                                 type="file"
                                 style={{ display: "none" }}
-                                onChange={(e) =>
-                                  setTranslators({
-                                    ...translators,
-                                    education: e.target.value,
-                                  })
-                                }
+                                onChange={(e) => onImageChange(e, 3)}
                               />
                               <IconButton
                                 color="primary"
@@ -1349,12 +1686,12 @@ const Signup = () => {
                       </div>
                     </div>
 
-                    {translators.education !== "" ? (
+                    {translators?.education !== "" ? (
                       <>
                         <div className={styles.BoxSuccessFile}>
                           <img src={File} alt="file" />
                           <div>
-                            <p>{images3[0]?.name}</p>
+                            <p>{images3.at(0)?.name}</p>
                           </div>
                           <img src={Checkcircle} alt="checkcircle" />
                         </div>
@@ -1368,11 +1705,26 @@ const Signup = () => {
                     ) : (
                       <button
                         className={styles.button}
-                        // onClick={() => setScreenNumber(2)}
+                        onClick={() =>
+                          toast.error(
+                            "Please re-upload your provide education/certificates/proof of language ability.",
+                            {
+                              position: "top-right",
+                              autoClose: 5000,
+                              hideProgressBar: false,
+                              closeOnClick: true,
+                              pauseOnHover: true,
+                              draggable: true,
+                              progress: undefined,
+                              theme: "dark",
+                            }
+                          )
+                        }
                       >
                         Next
                       </button>
                     )}
+
                     <button
                       className={styles.button}
                       onClick={() => setScreen("2")}
@@ -1402,6 +1754,28 @@ const Signup = () => {
                         province: "",
                         district: "",
                         postalCode: "",
+                      }}
+                      validate={(values) => {
+                        const errors = {};
+                        if (!values.Address) {
+                          errors.Address = "Please enter your Address.";
+                        }
+
+                        if (!values.country) {
+                          errors.country = "Please enter your Country.";
+                        }
+                        if (!values.province) {
+                          errors.province = "Please enter Province.";
+                        }
+
+                        if (!values.district) {
+                          errors.district = "Please enter your District.";
+                        }
+                        if (!values.postalCode) {
+                          errors.postalCode = "Please enter your Postal Code.";
+                        }
+
+                        return errors;
                       }}
                       onSubmit={(values, { setSubmitting }) => {
                         if (
@@ -1450,26 +1824,68 @@ const Signup = () => {
                             >
                               Address
                             </p>
-                            <input
-                              type="text"
-                              name="Address"
-                              onChange={handleChange}
-                              onBlur={handleBlur}
-                              value={values.address}
-                              placeholder="Enter your company address"
-                              style={{
-                                background: "#FFFFFF",
-                                border: "1px solid #F1F1F1 ",
-                                borderRadius: 20,
-                                width: "100%",
-                                height: 30,
-                                padding: 20,
-                                paddingLeft: 12,
-                                margin: 10,
-                                marginLeft: 0,
-                                fontSize: 13,
-                              }}
-                            />
+                            {errors.Address &&
+                            touched.Address &&
+                            errors.Address ? (
+                              <>
+                                <input
+                                  type="text"
+                                  name="Address"
+                                  onChange={handleChange}
+                                  onBlur={handleBlur}
+                                  value={values.address}
+                                  placeholder="Enter your company address"
+                                  style={{
+                                    background: "#FFFFFF",
+                                    border: "1px solid #fe0000 ",
+                                    borderRadius: 20,
+                                    width: "100%",
+                                    height: 30,
+                                    padding: 20,
+                                    paddingLeft: 12,
+                                    margin: 10,
+                                    marginLeft: 0,
+                                    fontSize: 13,
+                                  }}
+                                />
+                                <p
+                                  style={{
+                                    fontWeight: 500,
+                                    fontSize: 20,
+                                    color: "red",
+                                    textAlign: "left",
+                                    fontFamily: "DBHeavent",
+                                  }}
+                                >
+                                  {errors.Address &&
+                                    touched.Address &&
+                                    errors.Address}
+                                </p>
+                              </>
+                            ) : (
+                              <>
+                                <input
+                                  type="text"
+                                  name="Address"
+                                  onChange={handleChange}
+                                  onBlur={handleBlur}
+                                  value={values.address}
+                                  placeholder="Enter your company address"
+                                  style={{
+                                    background: "#FFFFFF",
+                                    border: "1px solid #F1F1F1 ",
+                                    borderRadius: 20,
+                                    width: "100%",
+                                    height: 30,
+                                    padding: 20,
+                                    paddingLeft: 12,
+                                    margin: 10,
+                                    marginLeft: 0,
+                                    fontSize: 13,
+                                  }}
+                                />
+                              </>
+                            )}
                           </div>
 
                           <div style={{ textAlign: "left" }}>
@@ -1484,26 +1900,68 @@ const Signup = () => {
                             >
                               Country
                             </p>
-                            <input
-                              type="text"
-                              name="country"
-                              onChange={handleChange}
-                              onBlur={handleBlur}
-                              value={values.country}
-                              placeholder="Enter your Country"
-                              style={{
-                                background: "#FFFFFF",
-                                border: "1px solid #F1F1F1",
-                                borderRadius: 20,
-                                width: "100%",
-                                height: 30,
-                                padding: 20,
-                                paddingLeft: 12,
-                                margin: 10,
-                                marginLeft: 0,
-                                fontSize: 13,
-                              }}
-                            />
+                            {errors.country &&
+                            touched.country &&
+                            errors.country ? (
+                              <>
+                                <input
+                                  type="text"
+                                  name="country"
+                                  onChange={handleChange}
+                                  onBlur={handleBlur}
+                                  value={values.country}
+                                  placeholder="Enter your Country"
+                                  style={{
+                                    background: "#FFFFFF",
+                                    border: "1px solid #fe0000",
+                                    borderRadius: 20,
+                                    width: "100%",
+                                    height: 30,
+                                    padding: 20,
+                                    paddingLeft: 12,
+                                    margin: 10,
+                                    marginLeft: 0,
+                                    fontSize: 13,
+                                  }}
+                                />
+                                <p
+                                  style={{
+                                    fontWeight: 500,
+                                    fontSize: 20,
+                                    color: "red",
+                                    textAlign: "left",
+                                    fontFamily: "DBHeavent",
+                                  }}
+                                >
+                                  {errors.country &&
+                                    touched.country &&
+                                    errors.country}
+                                </p>
+                              </>
+                            ) : (
+                              <>
+                                <input
+                                  type="text"
+                                  name="country"
+                                  onChange={handleChange}
+                                  onBlur={handleBlur}
+                                  value={values.country}
+                                  placeholder="Enter your Country"
+                                  style={{
+                                    background: "#FFFFFF",
+                                    border: "1px solid #F1F1F1",
+                                    borderRadius: 20,
+                                    width: "100%",
+                                    height: 30,
+                                    padding: 20,
+                                    paddingLeft: 12,
+                                    margin: 10,
+                                    marginLeft: 0,
+                                    fontSize: 13,
+                                  }}
+                                />
+                              </>
+                            )}
                           </div>
 
                           <div style={{ textAlign: "left" }}>
@@ -1518,26 +1976,68 @@ const Signup = () => {
                             >
                               Province
                             </p>
-                            <input
-                              type="text"
-                              name="province"
-                              onChange={handleChange}
-                              onBlur={handleBlur}
-                              value={values.province}
-                              placeholder="Enter your  Province"
-                              style={{
-                                background: "#FFFFFF",
-                                border: "1px solid #F1F1F1",
-                                borderRadius: 20,
-                                width: "100%",
-                                height: 30,
-                                padding: 20,
-                                paddingLeft: 12,
-                                margin: 10,
-                                marginLeft: 0,
-                                fontSize: 13,
-                              }}
-                            />
+                            {errors.province &&
+                            touched.province &&
+                            errors.province ? (
+                              <>
+                                <input
+                                  type="text"
+                                  name="province"
+                                  onChange={handleChange}
+                                  onBlur={handleBlur}
+                                  value={values.province}
+                                  placeholder="Enter your  Province"
+                                  style={{
+                                    background: "#FFFFFF",
+                                    border: "1px solid #fe0000",
+                                    borderRadius: 20,
+                                    width: "100%",
+                                    height: 30,
+                                    padding: 20,
+                                    paddingLeft: 12,
+                                    margin: 10,
+                                    marginLeft: 0,
+                                    fontSize: 13,
+                                  }}
+                                />
+                                <p
+                                  style={{
+                                    fontWeight: 500,
+                                    fontSize: 20,
+                                    color: "red",
+                                    textAlign: "left",
+                                    fontFamily: "DBHeavent",
+                                  }}
+                                >
+                                  {errors.province &&
+                                    touched.province &&
+                                    errors.province}
+                                </p>
+                              </>
+                            ) : (
+                              <>
+                                <input
+                                  type="text"
+                                  name="province"
+                                  onChange={handleChange}
+                                  onBlur={handleBlur}
+                                  value={values.province}
+                                  placeholder="Enter your  Province"
+                                  style={{
+                                    background: "#FFFFFF",
+                                    border: "1px solid #F1F1F1",
+                                    borderRadius: 20,
+                                    width: "100%",
+                                    height: 30,
+                                    padding: 20,
+                                    paddingLeft: 12,
+                                    margin: 10,
+                                    marginLeft: 0,
+                                    fontSize: 13,
+                                  }}
+                                />
+                              </>
+                            )}
                           </div>
 
                           <div style={{ textAlign: "left" }}>
@@ -1552,26 +2052,68 @@ const Signup = () => {
                             >
                               District
                             </p>
-                            <input
-                              type="text"
-                              name="district"
-                              onChange={handleChange}
-                              onBlur={handleBlur}
-                              value={values.district}
-                              placeholder="Enter your  District"
-                              style={{
-                                background: "#FFFFFF",
-                                border: "1px solid #F1F1F1",
-                                borderRadius: 20,
-                                width: "100%",
-                                height: 30,
-                                padding: 20,
-                                paddingLeft: 12,
-                                margin: 10,
-                                marginLeft: 0,
-                                fontSize: 13,
-                              }}
-                            />
+                            {errors.district &&
+                            touched.district &&
+                            errors.district ? (
+                              <>
+                                <input
+                                  type="text"
+                                  name="district"
+                                  onChange={handleChange}
+                                  onBlur={handleBlur}
+                                  value={values.district}
+                                  placeholder="Enter your  District"
+                                  style={{
+                                    background: "#FFFFFF",
+                                    border: "1px solid #fe0000",
+                                    borderRadius: 20,
+                                    width: "100%",
+                                    height: 30,
+                                    padding: 20,
+                                    paddingLeft: 12,
+                                    margin: 10,
+                                    marginLeft: 0,
+                                    fontSize: 13,
+                                  }}
+                                />
+                                <p
+                                  style={{
+                                    fontWeight: 500,
+                                    fontSize: 20,
+                                    color: "red",
+                                    textAlign: "left",
+                                    fontFamily: "DBHeavent",
+                                  }}
+                                >
+                                  {errors.district &&
+                                    touched.district &&
+                                    errors.district}
+                                </p>
+                              </>
+                            ) : (
+                              <>
+                                <input
+                                  type="text"
+                                  name="district"
+                                  onChange={handleChange}
+                                  onBlur={handleBlur}
+                                  value={values.district}
+                                  placeholder="Enter your  District"
+                                  style={{
+                                    background: "#FFFFFF",
+                                    border: "1px solid #F1F1F1",
+                                    borderRadius: 20,
+                                    width: "100%",
+                                    height: 30,
+                                    padding: 20,
+                                    paddingLeft: 12,
+                                    margin: 10,
+                                    marginLeft: 0,
+                                    fontSize: 13,
+                                  }}
+                                />
+                              </>
+                            )}
                           </div>
 
                           <div style={{ textAlign: "left", marginBottom: 20 }}>
@@ -1586,33 +2128,74 @@ const Signup = () => {
                             >
                               Postal Code
                             </p>
-                            <input
-                              type="text"
-                              name="postalCode"
-                              onChange={handleChange}
-                              onBlur={handleBlur}
-                              value={values.postalCode}
-                              placeholder="Enter your  Postal Code"
-                              style={{
-                                background: "#FFFFFF",
-                                border: "1px solid #F1F1F1",
-                                borderRadius: 20,
-                                width: "100%",
-                                height: 30,
-                                padding: 20,
-                                paddingLeft: 12,
-                                margin: 10,
-                                marginLeft: 0,
-                                fontSize: 13,
-                              }}
-                            />
+                            {errors.postalCode &&
+                            touched.postalCode &&
+                            errors.postalCode ? (
+                              <>
+                                <input
+                                  type="text"
+                                  name="postalCode"
+                                  onChange={handleChange}
+                                  onBlur={handleBlur}
+                                  value={values.postalCode}
+                                  placeholder="Enter your  Postal Code"
+                                  style={{
+                                    background: "#FFFFFF",
+                                    border: "1px solid #fe0000",
+                                    borderRadius: 20,
+                                    width: "100%",
+                                    height: 30,
+                                    padding: 20,
+                                    paddingLeft: 12,
+                                    margin: 10,
+                                    marginLeft: 0,
+                                    fontSize: 13,
+                                  }}
+                                />
+                                <p
+                                  style={{
+                                    fontWeight: 500,
+                                    fontSize: 20,
+                                    color: "red",
+                                    textAlign: "left",
+                                    fontFamily: "DBHeavent",
+                                  }}
+                                >
+                                  {errors.postalCode &&
+                                    touched.postalCode &&
+                                    errors.postalCode}
+                                </p>
+                              </>
+                            ) : (
+                              <>
+                                <input
+                                  type="text"
+                                  name="postalCode"
+                                  onChange={handleChange}
+                                  onBlur={handleBlur}
+                                  value={values.postalCode}
+                                  placeholder="Enter your  Postal Code"
+                                  style={{
+                                    background: "#FFFFFF",
+                                    border: "1px solid #F1F1F1",
+                                    borderRadius: 20,
+                                    width: "100%",
+                                    height: 30,
+                                    padding: 20,
+                                    paddingLeft: 12,
+                                    margin: 10,
+                                    marginLeft: 0,
+                                    fontSize: 13,
+                                  }}
+                                />
+                              </>
+                            )}
                           </div>
 
                           <button
                             className={styles.button}
                             type="submit"
                             disabled={isSubmitting}
-                            // onClick={() => setScreenNumber(2)}
                           >
                             Next
                           </button>
@@ -1744,7 +2327,18 @@ const Signup = () => {
                     ) : (
                       <button
                         className={styles.button}
-                        // onClick={() => setScreenNumber(2)}
+                        onClick={() =>
+                          toast.error("Please re-upload your Portfolio/CV.", {
+                            position: "top-right",
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "dark",
+                          })
+                        }
                       >
                         Next
                       </button>
@@ -1817,12 +2411,7 @@ const Signup = () => {
                                 id="icon-button-file"
                                 type="file"
                                 style={{ display: "none" }}
-                                onChange={(e) =>
-                                  setTranslators({
-                                    ...translators,
-                                    watermark: e.target.value,
-                                  })
-                                }
+                                onChange={(e) => onImageChange(e, 6)}
                               />
                               <IconButton
                                 color="primary"
@@ -1854,7 +2443,7 @@ const Signup = () => {
                         <div className={styles.BoxSuccessFile}>
                           <img src={File} alt="file" />
                           <div>
-                            <p>{images6[0]?.name}</p>
+                            <p>{images6.at(0)?.name}</p>
                           </div>
                           <img src={Checkcircle} alt="checkcircle" />
                         </div>
@@ -1868,7 +2457,18 @@ const Signup = () => {
                     ) : (
                       <button
                         className={styles.button}
-                        // onClick={() => setScreenNumber(2)}
+                        onClick={() =>
+                          toast.error("Please re-upload your watermark.", {
+                            position: "top-right",
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "dark",
+                          })
+                        }
                       >
                         Next
                       </button>
@@ -1906,9 +2506,32 @@ const Signup = () => {
                       <Formik
                         initialValues={{
                           bankname: "",
-                          Branchname: "",
+                          branchname: "",
                           accountname: "",
                           accountnumber: "",
+                        }}
+                        validate={(values) => {
+                          const errors = {};
+                          if (!values.bankname) {
+                            errors.bankname = "Please enter your Bank name.";
+                          }
+
+                          if (!values.branchname) {
+                            errors.branchname =
+                              "Please enter your Branch name.";
+                          }
+
+                          if (!values.accountname) {
+                            errors.accountname =
+                              "Please enter your Account name.";
+                          }
+
+                          if (!values.accountnumber) {
+                            errors.accountnumber =
+                              "Please enter your Account number";
+                          }
+
+                          return errors;
                         }}
                         onSubmit={(values, { setSubmitting }) => {
                           if (values) {
@@ -1916,12 +2539,14 @@ const Signup = () => {
                             setTranslators({
                               ...translators,
                               bankname: values.bankname,
-                              Branchname: values.Branchname,
+                              Branchname: values.branchname,
                               accountname: values.accountname,
                               accountnumber: values.accountnumber,
                             });
                             setSubmitting(false);
-                            setScreenNumber(5);
+                            if (translators?.bookbank !== "") {
+                              setScreenNumber(5);
+                            }
                           } else {
                             console.log("err:", "มันไม่ได้");
                             setSubmitting(false);
@@ -1950,26 +2575,68 @@ const Signup = () => {
                               >
                                 Bank name
                               </p>
-                              <input
-                                type="text"
-                                name="bankname"
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                value={values.bankname}
-                                placeholder="Bank name"
-                                style={{
-                                  background: "#FFFFFF",
-                                  border: "1px solid #F1F1F1 ",
-                                  borderRadius: 20,
-                                  width: "100%",
-                                  height: 30,
-                                  padding: 20,
-                                  paddingLeft: 12,
-                                  margin: 10,
-                                  marginLeft: 0,
-                                  fontSize: 13,
-                                }}
-                              />
+                              {errors.bankname &&
+                              touched.bankname &&
+                              errors.bankname ? (
+                                <>
+                                  <input
+                                    type="text"
+                                    name="bankname"
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.bankname}
+                                    placeholder="Bank name"
+                                    style={{
+                                      background: "#FFFFFF",
+                                      border: "1px solid #fe0000",
+                                      borderRadius: 20,
+                                      width: "100%",
+                                      height: 30,
+                                      padding: 20,
+                                      paddingLeft: 12,
+                                      margin: 10,
+                                      marginLeft: 0,
+                                      fontSize: 13,
+                                    }}
+                                  />
+                                  <p
+                                    style={{
+                                      fontWeight: 500,
+                                      fontSize: 20,
+                                      color: "red",
+                                      textAlign: "left",
+                                      fontFamily: "DBHeavent",
+                                    }}
+                                  >
+                                    {errors.bankname &&
+                                      touched.bankname &&
+                                      errors.bankname}
+                                  </p>
+                                </>
+                              ) : (
+                                <>
+                                  <input
+                                    type="text"
+                                    name="bankname"
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.bankname}
+                                    placeholder="Bank name"
+                                    style={{
+                                      background: "#FFFFFF",
+                                      border: "1px solid #F1F1F1",
+                                      borderRadius: 20,
+                                      width: "100%",
+                                      height: 30,
+                                      padding: 20,
+                                      paddingLeft: 12,
+                                      margin: 10,
+                                      marginLeft: 0,
+                                      fontSize: 13,
+                                    }}
+                                  />
+                                </>
+                              )}
                             </div>
 
                             <div style={{ textAlign: "left" }}>
@@ -1984,26 +2651,68 @@ const Signup = () => {
                               >
                                 Branch name
                               </p>
-                              <input
-                                type="text"
-                                name="branchname"
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                value={values.branchname}
-                                placeholder="Branch name"
-                                style={{
-                                  background: "#FFFFFF",
-                                  border: "1px solid #F1F1F1",
-                                  borderRadius: 20,
-                                  width: "100%",
-                                  height: 30,
-                                  padding: 20,
-                                  paddingLeft: 12,
-                                  margin: 10,
-                                  marginLeft: 0,
-                                  fontSize: 13,
-                                }}
-                              />
+                              {errors.branchname &&
+                              touched.branchname &&
+                              errors.branchname ? (
+                                <>
+                                  <input
+                                    type="text"
+                                    name="branchname"
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.branchname}
+                                    placeholder="Branch name"
+                                    style={{
+                                      background: "#FFFFFF",
+                                      border: "1px solid #fe0000",
+                                      borderRadius: 20,
+                                      width: "100%",
+                                      height: 30,
+                                      padding: 20,
+                                      paddingLeft: 12,
+                                      margin: 10,
+                                      marginLeft: 0,
+                                      fontSize: 13,
+                                    }}
+                                  />
+                                  <p
+                                    style={{
+                                      fontWeight: 500,
+                                      fontSize: 20,
+                                      color: "red",
+                                      textAlign: "left",
+                                      fontFamily: "DBHeavent",
+                                    }}
+                                  >
+                                    {errors.branchname &&
+                                      touched.branchname &&
+                                      errors.branchname}
+                                  </p>
+                                </>
+                              ) : (
+                                <>
+                                  <input
+                                    type="text"
+                                    name="branchname"
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.branchname}
+                                    placeholder="Branch name"
+                                    style={{
+                                      background: "#FFFFFF",
+                                      border: "1px solid #F1F1F1",
+                                      borderRadius: 20,
+                                      width: "100%",
+                                      height: 30,
+                                      padding: 20,
+                                      paddingLeft: 12,
+                                      margin: 10,
+                                      marginLeft: 0,
+                                      fontSize: 13,
+                                    }}
+                                  />
+                                </>
+                              )}
                             </div>
 
                             <div style={{ textAlign: "left" }}>
@@ -2018,28 +2727,70 @@ const Signup = () => {
                               >
                                 Account name
                               </p>
-
-                              <input
-                                type="text"
-                                name="accountname"
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                value={values.accountname}
-                                placeholder="Account name"
-                                style={{
-                                  background: "#FFFFFF",
-                                  border: "1px solid #F1F1F1 ",
-                                  borderRadius: 20,
-                                  borderColor: "#F1F1F1",
-                                  width: "100%",
-                                  height: 30,
-                                  padding: 20,
-                                  paddingLeft: 12,
-                                  margin: 10,
-                                  marginLeft: 0,
-                                  fontSize: 13,
-                                }}
-                              />
+                              {errors.accountname &&
+                              touched.accountname &&
+                              errors.accountname ? (
+                                <>
+                                  <input
+                                    type="text"
+                                    name="accountname"
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.accountname}
+                                    placeholder="Account name"
+                                    style={{
+                                      background: "#FFFFFF",
+                                      border: "1px solid #fe0000",
+                                      borderRadius: 20,
+                                      borderColor: "#F1F1F1",
+                                      width: "100%",
+                                      height: 30,
+                                      padding: 20,
+                                      paddingLeft: 12,
+                                      margin: 10,
+                                      marginLeft: 0,
+                                      fontSize: 13,
+                                    }}
+                                  />
+                                  <p
+                                    style={{
+                                      fontWeight: 500,
+                                      fontSize: 20,
+                                      color: "red",
+                                      textAlign: "left",
+                                      fontFamily: "DBHeavent",
+                                    }}
+                                  >
+                                    {errors.accountname &&
+                                      touched.accountname &&
+                                      errors.accountname}
+                                  </p>
+                                </>
+                              ) : (
+                                <>
+                                  <input
+                                    type="text"
+                                    name="accountname"
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.accountname}
+                                    placeholder="Account name"
+                                    style={{
+                                      background: "#FFFFFF",
+                                      border: "1px solid #F1F1F1 ",
+                                      borderRadius: 20,
+                                      borderColor: "#F1F1F1",
+                                      width: "100%",
+                                      height: 30,
+                                      padding: 20,
+                                      paddingLeft: 12,
+                                      margin: 10,
+                                      marginLeft: 0,
+                                      fontSize: 13,
+                                    }}
+                                  />
+                                </>
+                              )}
                             </div>
 
                             <div style={{ textAlign: "left" }}>
@@ -2054,28 +2805,70 @@ const Signup = () => {
                               >
                                 Account number
                               </p>
-
-                              <input
-                                type="text"
-                                name="accountnumber"
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                value={values.accountnumber}
-                                placeholder="Account number"
-                                style={{
-                                  background: "#FFFFFF",
-                                  border: "1px solid #F1F1F1 ",
-                                  borderRadius: 20,
-                                  borderColor: "#F1F1F1",
-                                  width: "100%",
-                                  height: 30,
-                                  padding: 20,
-                                  paddingLeft: 12,
-                                  margin: 10,
-                                  marginLeft: 0,
-                                  fontSize: 13,
-                                }}
-                              />
+                              {errors.accountnumber &&
+                              touched.accountnumber &&
+                              errors.accountnumber ? (
+                                <>
+                                  <input
+                                    type="text"
+                                    name="accountnumber"
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.accountnumber}
+                                    placeholder="Account number"
+                                    style={{
+                                      background: "#FFFFFF",
+                                      border: "1px solid #fe0000 ",
+                                      borderRadius: 20,
+                                      borderColor: "#F1F1F1",
+                                      width: "100%",
+                                      height: 30,
+                                      padding: 20,
+                                      paddingLeft: 12,
+                                      margin: 10,
+                                      marginLeft: 0,
+                                      fontSize: 13,
+                                    }}
+                                  />
+                                  <p
+                                    style={{
+                                      fontWeight: 500,
+                                      fontSize: 20,
+                                      color: "red",
+                                      textAlign: "left",
+                                      fontFamily: "DBHeavent",
+                                    }}
+                                  >
+                                    {errors.accountnumber &&
+                                      touched.accountnumber &&
+                                      errors.accountnumber}
+                                  </p>
+                                </>
+                              ) : (
+                                <>
+                                  <input
+                                    type="text"
+                                    name="accountnumber"
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.accountnumber}
+                                    placeholder="Account number"
+                                    style={{
+                                      background: "#FFFFFF",
+                                      border: "1px solid #F1F1F1 ",
+                                      borderRadius: 20,
+                                      borderColor: "#F1F1F1",
+                                      width: "100%",
+                                      height: 30,
+                                      padding: 20,
+                                      paddingLeft: 12,
+                                      margin: 10,
+                                      marginLeft: 0,
+                                      fontSize: 13,
+                                    }}
+                                  />
+                                </>
+                              )}
                             </div>
 
                             <div style={{ textAlign: "left" }}>
@@ -2127,26 +2920,39 @@ const Signup = () => {
                               </div>
                             </div>
 
-                            {translators.bookbank !== "" ? (
+                            {images5?.length > 0 ? (
                               <>
                                 <div className={styles.BoxSuccessFile}>
                                   <img src={File} alt="file" />
                                   <div>
-                                    <p>{images5[0]?.name}</p>
+                                    <p>{images5.at(0)?.name}</p>
                                   </div>
                                   <img src={Checkcircle} alt="checkcircle" />
                                 </div>
-                                <button
-                                  className={styles.button}
-                                  type="submit"
-                                  disabled={isSubmitting}
-                                  // onClick={() => setScreen("type")}
-                                >
-                                  Next
-                                </button>
+
+                                <button className={styles.button}>Next</button>
                               </>
                             ) : (
-                              <button className={styles.button}>Next</button>
+                              <button
+                                className={styles.button}
+                                onClick={() =>
+                                  toast.error(
+                                    "Please re-upload your bank book page.",
+                                    {
+                                      position: "top-right",
+                                      autoClose: 5000,
+                                      hideProgressBar: false,
+                                      closeOnClick: true,
+                                      pauseOnHover: true,
+                                      draggable: true,
+                                      progress: undefined,
+                                      theme: "dark",
+                                    }
+                                  )
+                                }
+                              >
+                                Next
+                              </button>
                             )}
 
                             <button
@@ -2221,12 +3027,7 @@ const Signup = () => {
                                 id="icon-button-file"
                                 type="file"
                                 style={{ display: "none" }}
-                                onChange={(e) =>
-                                  setTranslators({
-                                    ...translators,
-                                    certificate: e.target.value,
-                                  })
-                                }
+                                onChange={(e) => onImageChange(e, 7)}
                               />
                               <IconButton
                                 color="primary"
@@ -2272,7 +3073,21 @@ const Signup = () => {
                     ) : (
                       <button
                         className={styles.button}
-                        // onClick={() => setScreenNumber(2)}
+                        onClick={() =>
+                          toast.error(
+                            "Please re-upload your Company Registration Certificate.",
+                            {
+                              position: "top-right",
+                              autoClose: 5000,
+                              hideProgressBar: false,
+                              closeOnClick: true,
+                              pauseOnHover: true,
+                              draggable: true,
+                              progress: undefined,
+                              theme: "dark",
+                            }
+                          )
+                        }
                       >
                         Next
                       </button>
@@ -2411,13 +3226,15 @@ const Signup = () => {
 
                       <input
                         type="text"
-                        // onChange={(e) =>
-                        //   // setTranslators([
-                        //   //   { ...translators, documents: e.target.value },
-                        //   // ])
-                        //   console.log(e)
-                        // }
-                        // value={translators.documents}
+                        onChange={
+                          (e) =>
+                            setTranslators({
+                              ...translators,
+                              documents: e.target.value,
+                            })
+                          // console.log(e)
+                        }
+                        value={translators.documents}
                         placeholder="Enter your service"
                         style={{
                           background: "#FFFFFF",
@@ -2472,13 +3289,31 @@ const Signup = () => {
                           accountname: "",
                           accountnumber: "",
                         }}
+                        validate={(values) => {
+                          const errors = {};
+                          if (!values.bankname) {
+                            errors.bankname = "Please enter your Bank name.";
+                          }
+
+                          if (!values.branchname) {
+                            errors.branchname =
+                              "Please enter your Branch name.";
+                          }
+
+                          if (!values.accountname) {
+                            errors.accountname =
+                              "Please enter your Account name.";
+                          }
+
+                          if (!values.accountnumber) {
+                            errors.accountnumber =
+                              "Please enter your Account number";
+                          }
+
+                          return errors;
+                        }}
                         onSubmit={(values, { setSubmitting }) => {
-                          if (
-                            values.bankname !== "" &&
-                            values.branchname !== "" &&
-                            values.accountname !== "" &&
-                            values.accountnumber !== ""
-                          ) {
+                          if (values) {
                             console.log("values:", values);
                             setTranslators({
                               ...translators,
@@ -2488,7 +3323,9 @@ const Signup = () => {
                               accountnumber: values.accountnumber,
                             });
                             setSubmitting(false);
-                            setScreenNumber(6);
+                            if (translators?.bookbank !== "") {
+                              setScreenNumber(6);
+                            }
                           } else {
                             console.log("err:", "มันไม่ได้");
                             setSubmitting(false);
@@ -2517,26 +3354,68 @@ const Signup = () => {
                               >
                                 Bank name
                               </p>
-                              <input
-                                type="text"
-                                name="bankname"
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                value={values.bankname}
-                                placeholder="Bank name"
-                                style={{
-                                  background: "#FFFFFF",
-                                  border: "1px solid #F1F1F1 ",
-                                  borderRadius: 20,
-                                  width: "100%",
-                                  height: 30,
-                                  padding: 20,
-                                  paddingLeft: 12,
-                                  margin: 10,
-                                  marginLeft: 0,
-                                  fontSize: 13,
-                                }}
-                              />
+                              {errors.bankname &&
+                              touched.bankname &&
+                              errors.bankname ? (
+                                <>
+                                  <input
+                                    type="text"
+                                    name="bankname"
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.bankname}
+                                    placeholder="Bank name"
+                                    style={{
+                                      background: "#FFFFFF",
+                                      border: "1px solid #fe0000",
+                                      borderRadius: 20,
+                                      width: "100%",
+                                      height: 30,
+                                      padding: 20,
+                                      paddingLeft: 12,
+                                      margin: 10,
+                                      marginLeft: 0,
+                                      fontSize: 13,
+                                    }}
+                                  />
+                                  <p
+                                    style={{
+                                      fontWeight: 500,
+                                      fontSize: 20,
+                                      color: "red",
+                                      textAlign: "left",
+                                      fontFamily: "DBHeavent",
+                                    }}
+                                  >
+                                    {errors.bankname &&
+                                      touched.bankname &&
+                                      errors.bankname}
+                                  </p>
+                                </>
+                              ) : (
+                                <>
+                                  <input
+                                    type="text"
+                                    name="bankname"
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.bankname}
+                                    placeholder="Bank name"
+                                    style={{
+                                      background: "#FFFFFF",
+                                      border: "1px solid #F1F1F1",
+                                      borderRadius: 20,
+                                      width: "100%",
+                                      height: 30,
+                                      padding: 20,
+                                      paddingLeft: 12,
+                                      margin: 10,
+                                      marginLeft: 0,
+                                      fontSize: 13,
+                                    }}
+                                  />
+                                </>
+                              )}
                             </div>
 
                             <div style={{ textAlign: "left" }}>
@@ -2551,26 +3430,68 @@ const Signup = () => {
                               >
                                 Branch name
                               </p>
-                              <input
-                                type="text"
-                                name="branchname"
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                value={values.branchname}
-                                placeholder="Branch name"
-                                style={{
-                                  background: "#FFFFFF",
-                                  border: "1px solid #F1F1F1",
-                                  borderRadius: 20,
-                                  width: "100%",
-                                  height: 30,
-                                  padding: 20,
-                                  paddingLeft: 12,
-                                  margin: 10,
-                                  marginLeft: 0,
-                                  fontSize: 13,
-                                }}
-                              />
+                              {errors.branchname &&
+                              touched.branchname &&
+                              errors.branchname ? (
+                                <>
+                                  <input
+                                    type="text"
+                                    name="branchname"
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.branchname}
+                                    placeholder="Branch name"
+                                    style={{
+                                      background: "#FFFFFF",
+                                      border: "1px solid #fe0000",
+                                      borderRadius: 20,
+                                      width: "100%",
+                                      height: 30,
+                                      padding: 20,
+                                      paddingLeft: 12,
+                                      margin: 10,
+                                      marginLeft: 0,
+                                      fontSize: 13,
+                                    }}
+                                  />
+                                  <p
+                                    style={{
+                                      fontWeight: 500,
+                                      fontSize: 20,
+                                      color: "red",
+                                      textAlign: "left",
+                                      fontFamily: "DBHeavent",
+                                    }}
+                                  >
+                                    {errors.branchname &&
+                                      touched.branchname &&
+                                      errors.branchname}
+                                  </p>
+                                </>
+                              ) : (
+                                <>
+                                  <input
+                                    type="text"
+                                    name="branchname"
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.branchname}
+                                    placeholder="Branch name"
+                                    style={{
+                                      background: "#FFFFFF",
+                                      border: "1px solid #F1F1F1",
+                                      borderRadius: 20,
+                                      width: "100%",
+                                      height: 30,
+                                      padding: 20,
+                                      paddingLeft: 12,
+                                      margin: 10,
+                                      marginLeft: 0,
+                                      fontSize: 13,
+                                    }}
+                                  />
+                                </>
+                              )}
                             </div>
 
                             <div style={{ textAlign: "left" }}>
@@ -2585,28 +3506,70 @@ const Signup = () => {
                               >
                                 Account name
                               </p>
-
-                              <input
-                                type="text"
-                                name="accountname"
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                value={values.accountname}
-                                placeholder="Account name"
-                                style={{
-                                  background: "#FFFFFF",
-                                  border: "1px solid #F1F1F1 ",
-                                  borderRadius: 20,
-                                  borderColor: "#F1F1F1",
-                                  width: "100%",
-                                  height: 30,
-                                  padding: 20,
-                                  paddingLeft: 12,
-                                  margin: 10,
-                                  marginLeft: 0,
-                                  fontSize: 13,
-                                }}
-                              />
+                              {errors.accountname &&
+                              touched.accountname &&
+                              errors.accountname ? (
+                                <>
+                                  <input
+                                    type="text"
+                                    name="accountname"
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.accountname}
+                                    placeholder="Account name"
+                                    style={{
+                                      background: "#FFFFFF",
+                                      border: "1px solid #fe0000",
+                                      borderRadius: 20,
+                                      borderColor: "#F1F1F1",
+                                      width: "100%",
+                                      height: 30,
+                                      padding: 20,
+                                      paddingLeft: 12,
+                                      margin: 10,
+                                      marginLeft: 0,
+                                      fontSize: 13,
+                                    }}
+                                  />
+                                  <p
+                                    style={{
+                                      fontWeight: 500,
+                                      fontSize: 20,
+                                      color: "red",
+                                      textAlign: "left",
+                                      fontFamily: "DBHeavent",
+                                    }}
+                                  >
+                                    {errors.accountname &&
+                                      touched.accountname &&
+                                      errors.accountname}
+                                  </p>
+                                </>
+                              ) : (
+                                <>
+                                  <input
+                                    type="text"
+                                    name="accountname"
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.accountname}
+                                    placeholder="Account name"
+                                    style={{
+                                      background: "#FFFFFF",
+                                      border: "1px solid #F1F1F1 ",
+                                      borderRadius: 20,
+                                      borderColor: "#F1F1F1",
+                                      width: "100%",
+                                      height: 30,
+                                      padding: 20,
+                                      paddingLeft: 12,
+                                      margin: 10,
+                                      marginLeft: 0,
+                                      fontSize: 13,
+                                    }}
+                                  />
+                                </>
+                              )}
                             </div>
 
                             <div style={{ textAlign: "left" }}>
@@ -2621,28 +3584,70 @@ const Signup = () => {
                               >
                                 Account number
                               </p>
-
-                              <input
-                                type="text"
-                                name="accountnumber"
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                value={values.accountnumber}
-                                placeholder="Account number"
-                                style={{
-                                  background: "#FFFFFF",
-                                  border: "1px solid #F1F1F1 ",
-                                  borderRadius: 20,
-                                  borderColor: "#F1F1F1",
-                                  width: "100%",
-                                  height: 30,
-                                  padding: 20,
-                                  paddingLeft: 12,
-                                  margin: 10,
-                                  marginLeft: 0,
-                                  fontSize: 13,
-                                }}
-                              />
+                              {errors.accountnumber &&
+                              touched.accountnumber &&
+                              errors.accountnumber ? (
+                                <>
+                                  <input
+                                    type="text"
+                                    name="accountnumber"
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.accountnumber}
+                                    placeholder="Account number"
+                                    style={{
+                                      background: "#FFFFFF",
+                                      border: "1px solid #fe0000 ",
+                                      borderRadius: 20,
+                                      borderColor: "#F1F1F1",
+                                      width: "100%",
+                                      height: 30,
+                                      padding: 20,
+                                      paddingLeft: 12,
+                                      margin: 10,
+                                      marginLeft: 0,
+                                      fontSize: 13,
+                                    }}
+                                  />
+                                  <p
+                                    style={{
+                                      fontWeight: 500,
+                                      fontSize: 20,
+                                      color: "red",
+                                      textAlign: "left",
+                                      fontFamily: "DBHeavent",
+                                    }}
+                                  >
+                                    {errors.accountnumber &&
+                                      touched.accountnumber &&
+                                      errors.accountnumber}
+                                  </p>
+                                </>
+                              ) : (
+                                <>
+                                  <input
+                                    type="text"
+                                    name="accountnumber"
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.accountnumber}
+                                    placeholder="Account number"
+                                    style={{
+                                      background: "#FFFFFF",
+                                      border: "1px solid #F1F1F1 ",
+                                      borderRadius: 20,
+                                      borderColor: "#F1F1F1",
+                                      width: "100%",
+                                      height: 30,
+                                      padding: 20,
+                                      paddingLeft: 12,
+                                      margin: 10,
+                                      marginLeft: 0,
+                                      fontSize: 13,
+                                    }}
+                                  />
+                                </>
+                              )}
                             </div>
 
                             <div style={{ textAlign: "left" }}>
@@ -2676,7 +3681,7 @@ const Signup = () => {
                                     id="icon-button-file"
                                     type="file"
                                     style={{ display: "none" }}
-                                    onChange={(e) => onImageChange(e, 8)}
+                                    onChange={(e) => onImageChange(e, 5)}
                                   />
                                   <IconButton
                                     color="primary"
@@ -2694,31 +3699,44 @@ const Signup = () => {
                               </div>
                             </div>
 
-                            {images8.length > 0 ? (
+                            {images5?.length > 0 ? (
                               <>
                                 <div className={styles.BoxSuccessFile}>
                                   <img src={File} alt="file" />
                                   <div>
-                                    <p>{images8[0]?.name}</p>
+                                    <p>{images5.at(0)?.name}</p>
                                   </div>
                                   <img src={Checkcircle} alt="checkcircle" />
                                 </div>
-                                <button
-                                  className={styles.button}
-                                  type="submit"
-                                  disabled={isSubmitting}
-                                  // onClick={() => setScreen("type")}
-                                >
-                                  Next
-                                </button>
+
+                                <button className={styles.button}>Next</button>
                               </>
                             ) : (
-                              <button className={styles.button}>Next</button>
+                              <button
+                                className={styles.button}
+                                onClick={() =>
+                                  toast.error(
+                                    "Please re-upload your bank book page.",
+                                    {
+                                      position: "top-right",
+                                      autoClose: 5000,
+                                      hideProgressBar: false,
+                                      closeOnClick: true,
+                                      pauseOnHover: true,
+                                      draggable: true,
+                                      progress: undefined,
+                                      theme: "dark",
+                                    }
+                                  )
+                                }
+                              >
+                                Next
+                              </button>
                             )}
 
                             <button
                               className={styles.button}
-                              onClick={() => setScreen("5")}
+                              onClick={() => setScreen("4")}
                             >
                               Back
                             </button>
@@ -2783,7 +3801,6 @@ const Signup = () => {
                         renderInput={(params) => (
                           <TextField {...params} label="languages" />
                         )}
-                        // sx={{ width: "500px" }}
                       />
                     </div>
 
@@ -2856,11 +3873,7 @@ const Signup = () => {
 
                       <input
                         type="text"
-                        onChange={(e) =>
-                          setTranslators([
-                            { ...translators, documents: e.target.value },
-                          ])
-                        }
+                        onChange={handleInputDocumentsChange}
                         value={translators.documents}
                         placeholder="Enter your service"
                         style={{
@@ -2969,18 +3982,16 @@ const Signup = () => {
                         learning a language? And what is each language's unique
                         difficulty? Explain.
                       </p>
-
-                      <textarea
+                      <input
                         type="text"
-                        maxLength={300}
-                        // onChange={(e) =>
-                        //   setTranslators([
-                        //     { ...translators, answer: e.target.value },
-                        //   ])
-                        // }
-                        // value={translators.answer}
+                        value={translators.answer || ""}
+                        onChange={(e) =>
+                          setTranslators({
+                            ...translators,
+                            answer: e.target.value,
+                          })
+                        }
                         placeholder="Enter your answer"
-                        className={styles.Additional_explanation}
                       />
                     </div>
                     <button
