@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import Navbars from "../Navbar/navbarLogin";
+import { Formik } from "formik";
 
 import { useNavigate, useLocation } from "react-router-dom";
 import { FiEyeOff, FiEye } from "react-icons/fi";
@@ -16,31 +17,34 @@ const CreateNewPassword = () => {
   const [confirm, setConfirm] = React.useState("");
   const [type, setType] = React.useState("password");
   const [type2, setType2] = React.useState("password");
-  const [values, setValues] = React.useState(false);
-  const [values2, setValues2] = React.useState(false);
+  const [valuestype, setValuestype] = React.useState(false);
+  const [valuestype2, setValuestype2] = React.useState(false);
   const [saved, setSaved] = React.useState(false);
 
   let Email = location?.state?.email;
   let Type = location?.state?.type;
   console.log("test01:", Email, Type);
 
-  const handleClickShowPassword = () => {
-    if (type === "password") {
-      setValues(!values);
-      setType("text");
-    } else if (type === "text") {
-      setValues(!values);
-      setType("password");
-    }
-  };
+  
 
-  const handleClickShowConfirmPassword = () => {
-    if (type2 === "password") {
-      setValues2(!values2);
-      setType2("text");
-    } else if (type2 === "text") {
-      setValues2(!values2);
-      setType2("password");
+  const handleClickShowPassword = (i) => {
+    // console.log("i:", i, type, valuestype,valuestype2);
+    if (i === 1) {
+      if (type === "password") {
+        setValuestype(!valuestype);
+        setType("text");
+      } else if (type === "text") {
+        setValuestype(!valuestype);
+        setType("password");
+      }
+    } else if (i === 2) {
+      if (type2 === "password") {
+        setValuestype2(!valuestype2);
+        setType2("text");
+      } else if (type2 === "text") {
+        setValuestype2(!valuestype2);
+        setType2("password");
+      }
     }
   };
 
@@ -99,86 +103,282 @@ const CreateNewPassword = () => {
                 <p className={styles.textLogin2}>
                   Please create a new password.
                 </p>
-                
-                <div style={{ textAlign: "left" }}>
-                  <p
-                    style={{
-                      fontWeight: 500,
-                      fontSize: 20,
-                      color: "#242424",
-                      textAlign: "left",
-                      fontFamily: "DBHeavent",
-                    }}
-                  >
-                    New password
-                  </p>
-                  <input
-                    type={type}
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder="Enter your new password"
-                    style={{
-                      background: "#FFFFFF",
-                      border: "1px solid #F1F1F1",
-                      borderRadius: 20,
-                      width: "100%",
-                      height: 30,
-                      padding: 20,
-                      paddingLeft: 12,
-                      margin: 10,
-                      marginLeft: 0,
-                    }}
-                  />
-                  <IconButton
-                    onClick={handleClickShowPassword}
-                    edge="end"
-                    style={{ position: "absolute", right: 290, top: 220 }}
-                  >
-                    {values ? <FiEye /> : <FiEyeOff />}
-                  </IconButton>
-                </div>
+                <Formik
+                  initialValues={{
+                    password: "",
+                    confirmPassword: "",
+                  }}
+                  validate={(values) => {
+                    const errors = {};
+                    if (!values.password) {
+                      errors.password = "Please enter your password.";
+                    }
 
-                <div style={{ textAlign: "left" }}>
-                  <p
-                    style={{
-                      fontWeight: 500,
-                      fontSize: 20,
-                      color: "#242424",
-                      textAlign: "left",
-                      fontFamily: "DBHeavent",
-                    }}
-                  >
-                    Confirm new password
-                  </p>
-                  <input
-                    type={type2}
-                    value={confirm}
-                    onChange={(e) => setConfirm(e.target.value)}
-                    placeholder="Enter your new password"
-                    style={{
-                      background: "#FFFFFF",
-                      border: "1px solid #F1F1F1",
-                      borderRadius: 20,
-                      width: "100%",
-                      height: 30,
-                      padding: 20,
-                      paddingLeft: 12,
-                      margin: 10,
-                      marginLeft: 0,
-                    }}
-                  />
-                  <IconButton
-                    onClick={handleClickShowConfirmPassword}
-                    edge="end"
-                    style={{ position: "absolute", right: 290, top: 312 }}
-                  >
-                    {values2 ? <FiEye /> : <FiEyeOff />}
-                  </IconButton>
-                </div>
+                    if (!values.confirmPassword) {
+                      errors.confirmPassword =
+                        "Please enter your confirmPassword";
+                    }
+                    if (values.confirmPassword !== values.password) {
+                      errors.confirmPassword = "Invalid  confirm Password";
+                    }
 
-                <button className={styles.button} onClick={Save}>
-                  <p>Save</p>
-                </button>
+                    return errors;
+                  }}
+                  onSubmit={(values, { setSubmitting, resetForm }) => {
+                    if (values) {
+                      setPassword(values.password);
+                      setConfirm(values.confirmPassword);
+                      setSaved(true);
+                    } else {
+                      console.log("err:", "มันไม่ได้");
+                      setSubmitting(false);
+                    }
+                  }}
+                >
+                  {({
+                    values,
+                    errors,
+                    touched,
+                    handleChange,
+                    handleBlur,
+                    handleSubmit,
+                    isSubmitting,
+                  }) => (
+                    <form onSubmit={handleSubmit}>
+                      <div style={{ textAlign: "left" }}>
+                        <p
+                          style={{
+                            fontWeight: 500,
+                            fontSize: 20,
+                            color: "#242424",
+                            textAlign: "left",
+                            fontFamily: "DBHeavent",
+                          }}
+                        >
+                          Password
+                        </p>
+                        {errors.password &&
+                        touched.password &&
+                        errors.password ? (
+                          <>
+                            <div
+                              style={{
+                                position: "relative",
+                                margin: "10px 0px 10px 0px",
+                              }}
+                            >
+                              <input
+                                type={type}
+                                name="password"
+                                autoComplete="password"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values.password}
+                                placeholder="Password"
+                                style={{
+                                  background: "#FFFFFF",
+                                  border: "1px solid  red",
+                                  borderRadius: 20,
+                                  borderColor: "#F1F1F1",
+                                  width: "100%",
+                                  height: 40,
+                                  padding: "5px 12px", // Adjusted padding for a better look
+                                  fontSize: 13,
+                                  boxSizing: "border-box", // Include padding in the width calculation
+                                }}
+                              />
+                              <IconButton
+                                onClick={() => handleClickShowPassword(1)}
+                                style={{
+                                  position: "absolute",
+                                  top: "50%",
+                                  transform: "translateY(-50%)", // Center vertically
+                                  right: 12, // Adjust the right position
+                                }}
+                              >
+                                {valuestype ? <FiEye /> : <FiEyeOff />}
+                              </IconButton>
+                            </div>
+                            <p
+                              style={{
+                                fontWeight: 500,
+                                fontSize: 20,
+                                color: "red",
+                                textAlign: "left",
+                                fontFamily: "DBHeavent",
+                              }}
+                            >
+                              {errors.password &&
+                                touched.password &&
+                                errors.password}
+                            </p>
+                          </>
+                        ) : (
+                          <>
+                            <div
+                              style={{
+                                position: "relative",
+                                margin: "10px 0px 10px 0px",
+                              }}
+                            >
+                              <input
+                                type={type}
+                                name="password"
+                                autoComplete="password"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values.password}
+                                placeholder="Password"
+                                style={{
+                                  background: "#FFFFFF",
+                                  border: "1px solid red",
+                                  borderRadius: 20,
+                                  borderColor: "#F1F1F1",
+                                  width: "100%",
+                                  height: 40,
+                                  padding: "5px 12px", // Adjusted padding for a better look
+                                  fontSize: 13,
+                                  boxSizing: "border-box", // Include padding in the width calculation
+                                }}
+                              />
+                              <IconButton
+                                onClick={() => handleClickShowPassword(1)}
+                                style={{
+                                  position: "absolute",
+                                  top: "50%",
+                                  transform: "translateY(-50%)", // Center vertically
+                                  right: 12, // Adjust the right position
+                                }}
+                              >
+                                {valuestype ? <FiEye /> : <FiEyeOff />}
+                              </IconButton>
+                            </div>
+                          </>
+                        )}
+                      </div>
+
+                      <div style={{ textAlign: "left" }}>
+                        <p
+                          style={{
+                            fontWeight: 500,
+                            fontSize: 20,
+                            color: "#242424",
+                            textAlign: "left",
+                            fontFamily: "DBHeavent",
+                          }}
+                        >
+                          ConfirmPassword
+                        </p>
+                        {errors.confirmPassword &&
+                        touched.confirmPassword &&
+                        errors.confirmPassword ? (
+                          <>
+                            <div
+                              style={{
+                                position: "relative",
+                                margin: "10px 0px 10px 0px",
+                              }}
+                            >
+                              <input
+                                type={type2}
+                                name="confirmPassword"
+                                autoComplete="confirmPassword"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values.confirmPassword}
+                                placeholder="confirm Password"
+                                style={{
+                                  background: "#FFFFFF",
+                                  border: "1px solid red",
+                                  borderRadius: 20,
+                                  borderColor: "#F1F1F1",
+                                  width: "100%",
+                                  height: 40,
+                                  padding: "5px 12px", // Adjusted padding for a better look
+                                  fontSize: 13,
+                                  boxSizing: "border-box", // Include padding in the width calculation
+                                }}
+                              />
+                              <IconButton
+                                onClick={() => handleClickShowPassword(2)}
+                                style={{
+                                  position: "absolute",
+                                  top: "50%",
+                                  transform: "translateY(-50%)", // Center vertically
+                                  right: 12, // Adjust the right position
+                                }}
+                              >
+                                {valuestype2 ? <FiEye /> : <FiEyeOff />}
+                              </IconButton>
+                            </div>
+                            <p
+                              style={{
+                                fontWeight: 500,
+                                fontSize: 20,
+                                color: "red",
+                                textAlign: "left",
+                                fontFamily: "DBHeavent",
+                              }}
+                            >
+                              {errors.confirmPassword &&
+                                touched.confirmPassword &&
+                                errors.confirmPassword}
+                            </p>
+                          </>
+                        ) : (
+                          <>
+                            <div
+                              style={{
+                                position: "relative",
+                                margin: "10px 0px 10px 0px",
+                              }}
+                            >
+                              <input
+                                type={type2}
+                                name="confirmPassword"
+                                autoComplete="confirmPassword"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values.confirmPassword}
+                                placeholder="confirm Password"
+                                style={{
+                                  background: "#FFFFFF",
+                                  border: "1px solid #F1F1F1",
+                                  borderRadius: 20,
+                                  borderColor: "#F1F1F1",
+                                  width: "100%",
+                                  height: 40,
+                                  padding: "5px 12px", // Adjusted padding for a better look
+                                  fontSize: 13,
+                                  boxSizing: "border-box", // Include padding in the width calculation
+                                }}
+                              />
+                              <IconButton
+                                onClick={() => handleClickShowPassword(2)}
+                                style={{
+                                  position: "absolute",
+                                  top: "50%",
+                                  transform: "translateY(-50%)", // Center vertically
+                                  right: 12, // Adjust the right position
+                                }}
+                              >
+                                {valuestype2 ? <FiEye /> : <FiEyeOff />}
+                              </IconButton>
+                            </div>
+                          </>
+                        )}
+                      </div>
+
+                      <button
+                        className={styles.button}
+                        type="submit"
+                        disabled={isSubmitting}
+                      >
+                        <p>Save</p>
+                      </button>
+                    </form>
+                  )}
+                </Formik>
               </div>
             ) : (
               <div style={{ padding: 20 }}>

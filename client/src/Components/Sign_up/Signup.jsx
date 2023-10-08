@@ -30,7 +30,6 @@ import {
 import {
   IconButton,
   FormControlLabel,
-  FormGroup,
   Input,
   Modal,
   Box,
@@ -113,12 +112,12 @@ const Signup = () => {
     openModel2: false,
   });
 
-  const [screen, setScreen] = React.useState("");
+  const [screen, setScreen] = React.useState("7");
   const [type, setType] = React.useState("password");
   const [type2, setType2] = React.useState("password");
-  const [checked, setChecked] = React.useState(false);
   const [valuestype, setValuestype] = React.useState(false);
   const [valuestype2, setValuestype2] = React.useState(false);
+  const [checked, setChecked] = React.useState(false);
 
   function onImageChange(e, i) {
     const files = [...e.target.files];
@@ -314,6 +313,7 @@ const Signup = () => {
       }, 3000);
     }
   }
+
   const handleInputDocumentsChange = (e) => {
     const newValue = e.target.value;
 
@@ -322,11 +322,13 @@ const Signup = () => {
       documents: prevTranslators.answer + newValue, // Concatenate the new answer
     }));
   };
+
   console.log("screen", screen, translators?.type, translators);
 
   React.useEffect(() => {
     chcek_width();
   });
+
   return (
     <>
       <header className={styles?.header}>
@@ -375,7 +377,7 @@ const Signup = () => {
           <div id="keep-mounted-modal-description">
             <div>
               <div className={styles.boxpayment}>
-                <FormGroup>
+                <>
                   <FormControlLabel
                     control={
                       <Checkbox
@@ -385,7 +387,7 @@ const Signup = () => {
                     }
                     label="accept the terms and conditions"
                   />
-                </FormGroup>
+                </>
               </div>
             </div>
             <div className={styles.BoxbuttonModalBoxPayment}>
@@ -1452,6 +1454,7 @@ const Signup = () => {
                               <>
                                 <input
                                   type="text"
+                                  id="companyName"
                                   name="companyName"
                                   onChange={handleChange}
                                   onBlur={handleBlur}
@@ -1528,6 +1531,7 @@ const Signup = () => {
                               <>
                                 <input
                                   type="text"
+                                  id="juristicPersonNumber"
                                   name="juristicPersonNumber"
                                   onChange={handleChange}
                                   onBlur={handleBlur}
@@ -1600,6 +1604,7 @@ const Signup = () => {
                             </p>
                             <input
                               type="text"
+                              id="website"
                               name="website"
                               onChange={handleChange}
                               onBlur={handleBlur}
@@ -1796,9 +1801,10 @@ const Signup = () => {
                     <p className={styles.textLogin2}>
                       Please complete your information.
                     </p>
+           
                     <Formik
                       initialValues={{
-                        Address: "",
+                        address: "",
                         country: "",
                         province: "",
                         district: "",
@@ -1806,34 +1812,29 @@ const Signup = () => {
                       }}
                       validate={(values) => {
                         const errors = {};
-                        if (!values.Address) {
-                          errors.Address = "Please enter your Address.";
+                        if (!values.address) {
+                          errors.address = "Please enter your address.";
                         }
 
                         if (!values.country) {
-                          errors.country = "Please enter your Country.";
+                          errors.country = "Please enter your country.";
                         }
+
                         if (!values.province) {
-                          errors.province = "Please enter Province.";
+                          errors.province = "Please enter your province.";
                         }
 
                         if (!values.district) {
-                          errors.district = "Please enter your District.";
-                        }
-                        if (!values.postalCode) {
-                          errors.postalCode = "Please enter your Postal Code.";
+                          errors.district = "Please enter your district";
                         }
 
+                        if (!values.postalCode) {
+                          errors.postalCode = "Please enter your postalCode.";
+                        }
                         return errors;
                       }}
                       onSubmit={(values, { setSubmitting }) => {
-                        if (
-                          values?.address !== "" &&
-                          values?.country !== "" &&
-                          values?.province !== "" &&
-                          values?.district !== "" &&
-                          values?.postalCode !== ""
-                        ) {
+                        if (values) {
                           console.log("values:", values);
                           setTranslators({
                             ...translators,
@@ -1873,30 +1874,33 @@ const Signup = () => {
                             >
                               Address
                             </p>
-                            {errors.Address &&
-                            touched.Address &&
-                            errors.Address ? (
-                              <>
-                                <input
-                                  type="text"
-                                  name="Address"
-                                  onChange={handleChange}
-                                  onBlur={handleBlur}
-                                  value={values.address}
-                                  placeholder="Enter your company address"
-                                  style={{
-                                    background: "#FFFFFF",
-                                    border: "1px solid #fe0000 ",
-                                    borderRadius: 20,
-                                    width: "100%",
-                                    height: 30,
-                                    padding: 20,
-                                    paddingLeft: 12,
-                                    margin: 10,
-                                    marginLeft: 0,
-                                    fontSize: 13,
-                                  }}
-                                />
+
+                            <>
+                              <input
+                                type="text"
+                                id="address"
+                                name="address"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values.address}
+                                placeholder="Address"
+                                style={{
+                                  background: "#FFFFFF",
+                                  border:
+                                    errors.address && touched.address
+                                      ? "1px solid #fe0000"
+                                      : "1px solid #F1F1F1",
+                                  borderRadius: 20,
+                                  width: "100%",
+                                  height: 30,
+                                  padding: 20,
+                                  paddingLeft: 12,
+                                  margin: 10,
+                                  marginLeft: 0,
+                                  fontSize: 13,
+                                }}
+                              />
+                              {errors.address && touched.address && (
                                 <p
                                   style={{
                                     fontWeight: 500,
@@ -1906,35 +1910,10 @@ const Signup = () => {
                                     fontFamily: "DBHeavent",
                                   }}
                                 >
-                                  {errors.Address &&
-                                    touched.Address &&
-                                    errors.Address}
+                                  {errors.address}
                                 </p>
-                              </>
-                            ) : (
-                              <>
-                                <input
-                                  type="text"
-                                  name="Address"
-                                  onChange={handleChange}
-                                  onBlur={handleBlur}
-                                  value={values.address}
-                                  placeholder="Enter your company address"
-                                  style={{
-                                    background: "#FFFFFF",
-                                    border: "1px solid #F1F1F1 ",
-                                    borderRadius: 20,
-                                    width: "100%",
-                                    height: 30,
-                                    padding: 20,
-                                    paddingLeft: 12,
-                                    margin: 10,
-                                    marginLeft: 0,
-                                    fontSize: 13,
-                                  }}
-                                />
-                              </>
-                            )}
+                              )}
+                            </>
                           </div>
 
                           <div style={{ textAlign: "left" }}>
@@ -1949,30 +1928,33 @@ const Signup = () => {
                             >
                               Country
                             </p>
-                            {errors.country &&
-                            touched.country &&
-                            errors.country ? (
-                              <>
-                                <input
-                                  type="text"
-                                  name="country"
-                                  onChange={handleChange}
-                                  onBlur={handleBlur}
-                                  value={values.country}
-                                  placeholder="Enter your Country"
-                                  style={{
-                                    background: "#FFFFFF",
-                                    border: "1px solid #fe0000",
-                                    borderRadius: 20,
-                                    width: "100%",
-                                    height: 30,
-                                    padding: 20,
-                                    paddingLeft: 12,
-                                    margin: 10,
-                                    marginLeft: 0,
-                                    fontSize: 13,
-                                  }}
-                                />
+
+                            <>
+                              <input
+                                type="text"
+                                name="country"
+                                id="country"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values.country}
+                                placeholder="Country"
+                                style={{
+                                  background: "#FFFFFF",
+                                  border:
+                                    errors.country && touched.country
+                                      ? "1px solid #fe0000"
+                                      : "1px solid #F1F1F1",
+                                  borderRadius: 20,
+                                  width: "100%",
+                                  height: 30,
+                                  padding: 20,
+                                  paddingLeft: 12,
+                                  margin: 10,
+                                  marginLeft: 0,
+                                  fontSize: 13,
+                                }}
+                              />
+                              {errors.country && touched.country && (
                                 <p
                                   style={{
                                     fontWeight: 500,
@@ -1982,35 +1964,10 @@ const Signup = () => {
                                     fontFamily: "DBHeavent",
                                   }}
                                 >
-                                  {errors.country &&
-                                    touched.country &&
-                                    errors.country}
+                                  {errors.country}
                                 </p>
-                              </>
-                            ) : (
-                              <>
-                                <input
-                                  type="text"
-                                  name="country"
-                                  onChange={handleChange}
-                                  onBlur={handleBlur}
-                                  value={values.country}
-                                  placeholder="Enter your Country"
-                                  style={{
-                                    background: "#FFFFFF",
-                                    border: "1px solid #F1F1F1",
-                                    borderRadius: 20,
-                                    width: "100%",
-                                    height: 30,
-                                    padding: 20,
-                                    paddingLeft: 12,
-                                    margin: 10,
-                                    marginLeft: 0,
-                                    fontSize: 13,
-                                  }}
-                                />
-                              </>
-                            )}
+                              )}
+                            </>
                           </div>
 
                           <div style={{ textAlign: "left" }}>
@@ -2025,30 +1982,33 @@ const Signup = () => {
                             >
                               Province
                             </p>
-                            {errors.province &&
-                            touched.province &&
-                            errors.province ? (
-                              <>
-                                <input
-                                  type="text"
-                                  name="province"
-                                  onChange={handleChange}
-                                  onBlur={handleBlur}
-                                  value={values.province}
-                                  placeholder="Enter your  Province"
-                                  style={{
-                                    background: "#FFFFFF",
-                                    border: "1px solid #fe0000",
-                                    borderRadius: 20,
-                                    width: "100%",
-                                    height: 30,
-                                    padding: 20,
-                                    paddingLeft: 12,
-                                    margin: 10,
-                                    marginLeft: 0,
-                                    fontSize: 13,
-                                  }}
-                                />
+
+                            <>
+                              <input
+                                type="text"
+                                name="province"
+                                id="province"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values.province}
+                                placeholder="Province"
+                                style={{
+                                  background: "#FFFFFF",
+                                  border:
+                                    errors.province && touched.province
+                                      ? "1px solid #fe0000"
+                                      : "1px solid #F1F1F1",
+                                  borderRadius: 20,
+                                  width: "100%",
+                                  height: 30,
+                                  padding: 20,
+                                  paddingLeft: 12,
+                                  margin: 10,
+                                  marginLeft: 0,
+                                  fontSize: 13,
+                                }}
+                              />
+                              {errors.province && touched.province && (
                                 <p
                                   style={{
                                     fontWeight: 500,
@@ -2058,35 +2018,10 @@ const Signup = () => {
                                     fontFamily: "DBHeavent",
                                   }}
                                 >
-                                  {errors.province &&
-                                    touched.province &&
-                                    errors.province}
+                                  {errors.province}
                                 </p>
-                              </>
-                            ) : (
-                              <>
-                                <input
-                                  type="text"
-                                  name="province"
-                                  onChange={handleChange}
-                                  onBlur={handleBlur}
-                                  value={values.province}
-                                  placeholder="Enter your  Province"
-                                  style={{
-                                    background: "#FFFFFF",
-                                    border: "1px solid #F1F1F1",
-                                    borderRadius: 20,
-                                    width: "100%",
-                                    height: 30,
-                                    padding: 20,
-                                    paddingLeft: 12,
-                                    margin: 10,
-                                    marginLeft: 0,
-                                    fontSize: 13,
-                                  }}
-                                />
-                              </>
-                            )}
+                              )}
+                            </>
                           </div>
 
                           <div style={{ textAlign: "left" }}>
@@ -2101,30 +2036,33 @@ const Signup = () => {
                             >
                               District
                             </p>
-                            {errors.district &&
-                            touched.district &&
-                            errors.district ? (
-                              <>
-                                <input
-                                  type="text"
-                                  name="district"
-                                  onChange={handleChange}
-                                  onBlur={handleBlur}
-                                  value={values.district}
-                                  placeholder="Enter your  District"
-                                  style={{
-                                    background: "#FFFFFF",
-                                    border: "1px solid #fe0000",
-                                    borderRadius: 20,
-                                    width: "100%",
-                                    height: 30,
-                                    padding: 20,
-                                    paddingLeft: 12,
-                                    margin: 10,
-                                    marginLeft: 0,
-                                    fontSize: 13,
-                                  }}
-                                />
+
+                            <>
+                              <input
+                                type="text"
+                                id="district"
+                                name="district"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values.district}
+                                placeholder="District"
+                                style={{
+                                  background: "#FFFFFF",
+                                  border:
+                                    errors.district && touched.district
+                                      ? "1px solid #fe0000"
+                                      : "1px solid #F1F1F1",
+                                  borderRadius: 20,
+                                  width: "100%",
+                                  height: 30,
+                                  padding: 20,
+                                  paddingLeft: 12,
+                                  margin: 10,
+                                  marginLeft: 0,
+                                  fontSize: 13,
+                                }}
+                              />
+                              {errors.district && touched.district && (
                                 <p
                                   style={{
                                     fontWeight: 500,
@@ -2134,38 +2072,13 @@ const Signup = () => {
                                     fontFamily: "DBHeavent",
                                   }}
                                 >
-                                  {errors.district &&
-                                    touched.district &&
-                                    errors.district}
+                                  {errors.district}
                                 </p>
-                              </>
-                            ) : (
-                              <>
-                                <input
-                                  type="text"
-                                  name="district"
-                                  onChange={handleChange}
-                                  onBlur={handleBlur}
-                                  value={values.district}
-                                  placeholder="Enter your  District"
-                                  style={{
-                                    background: "#FFFFFF",
-                                    border: "1px solid #F1F1F1",
-                                    borderRadius: 20,
-                                    width: "100%",
-                                    height: 30,
-                                    padding: 20,
-                                    paddingLeft: 12,
-                                    margin: 10,
-                                    marginLeft: 0,
-                                    fontSize: 13,
-                                  }}
-                                />
-                              </>
-                            )}
+                              )}
+                            </>
                           </div>
 
-                          <div style={{ textAlign: "left", marginBottom: 20 }}>
+                          <div style={{ textAlign: "left", marginBottom: 10 }}>
                             <p
                               style={{
                                 fontWeight: 500,
@@ -2175,32 +2088,35 @@ const Signup = () => {
                                 fontFamily: "DBHeavent",
                               }}
                             >
-                              Postal Code
+                              PostalCode
                             </p>
-                            {errors.postalCode &&
-                            touched.postalCode &&
-                            errors.postalCode ? (
-                              <>
-                                <input
-                                  type="text"
-                                  name="postalCode"
-                                  onChange={handleChange}
-                                  onBlur={handleBlur}
-                                  value={values.postalCode}
-                                  placeholder="Enter your  Postal Code"
-                                  style={{
-                                    background: "#FFFFFF",
-                                    border: "1px solid #fe0000",
-                                    borderRadius: 20,
-                                    width: "100%",
-                                    height: 30,
-                                    padding: 20,
-                                    paddingLeft: 12,
-                                    margin: 10,
-                                    marginLeft: 0,
-                                    fontSize: 13,
-                                  }}
-                                />
+
+                            <>
+                              <input
+                                type="text"
+                                name="postalCode"
+                                id="postalCode"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values.postalCode}
+                                placeholder="PostalCode"
+                                style={{
+                                  background: "#FFFFFF",
+                                  border:
+                                    errors.postalCode && touched.postalCode
+                                      ? "1px solid #fe0000"
+                                      : "1px solid #F1F1F1",
+                                  borderRadius: 20,
+                                  width: "100%",
+                                  height: 30,
+                                  padding: 20,
+                                  paddingLeft: 12,
+                                  margin: 10,
+                                  marginLeft: 0,
+                                  fontSize: 13,
+                                }}
+                              />
+                              {errors.postalCode && touched.postalCode && (
                                 <p
                                   style={{
                                     fontWeight: 500,
@@ -2210,44 +2126,47 @@ const Signup = () => {
                                     fontFamily: "DBHeavent",
                                   }}
                                 >
-                                  {errors.postalCode &&
-                                    touched.postalCode &&
-                                    errors.postalCode}
+                                  {errors.postalCode}
                                 </p>
-                              </>
-                            ) : (
-                              <>
-                                <input
-                                  type="text"
-                                  name="postalCode"
-                                  onChange={handleChange}
-                                  onBlur={handleBlur}
-                                  value={values.postalCode}
-                                  placeholder="Enter your  Postal Code"
-                                  style={{
-                                    background: "#FFFFFF",
-                                    border: "1px solid #F1F1F1",
-                                    borderRadius: 20,
-                                    width: "100%",
-                                    height: 30,
-                                    padding: 20,
-                                    paddingLeft: 12,
-                                    margin: 10,
-                                    marginLeft: 0,
-                                    fontSize: 13,
-                                  }}
-                                />
-                              </>
-                            )}
+                              )}
+                            </>
                           </div>
-
-                          <button
-                            className={styles.button}
-                            type="submit"
-                            disabled={isSubmitting}
-                          >
-                            Next
-                          </button>
+                          {errors.address &&
+                          errors.country &&
+                          errors.district &&
+                          errors.province &&
+                          errors.postalCode ? (
+                            <button
+                              className={styles.button}
+                              // type="submit"
+                              // disabled={isSubmitting}
+                              onClick={() =>
+                                toast.error(
+                                  "Please fill in your information completely.",
+                                  {
+                                    position: "top-right",
+                                    autoClose: 5000,
+                                    hideProgressBar: false,
+                                    closeOnClick: true,
+                                    pauseOnHover: true,
+                                    draggable: true,
+                                    progress: undefined,
+                                    theme: "dark",
+                                  }
+                                )
+                              }
+                            >
+                              Next
+                            </button>
+                          ) : (
+                            <button
+                              className={styles.button}
+                              type="submit"
+                              disabled={isSubmitting}
+                            >
+                              Next
+                            </button>
+                          )}
 
                           <button
                             className={styles.button}
@@ -2255,6 +2174,7 @@ const Signup = () => {
                           >
                             Back
                           </button>
+
                           <div className={styles.box1}>
                             <p className={styles.textLogin}>
                               Already a member?

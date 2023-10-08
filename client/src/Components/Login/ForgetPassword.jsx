@@ -12,45 +12,49 @@ const ForgetPassword = () => {
   let Doc = location?.state?.languages;
   const [email, setEmail] = React.useState("");
   let Type = location?.state?.type;
+
   console.log("test02:", Type);
+
   const send_Mail = (e) => {
     e.preventDefault();
-    console.log("form.current:", form.current);
-    emailjs
-      .sendForm(
-        "service_u5757dr",
-        "template_xxze5ke",
-        form.current,
-        "Npnv-PIsN0-rxduac"
-      )
-      .then(
-        (result) => {
-          console.log(result.text);
+    console.log("form.current:", email);
+    if (/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(email)) {
+      emailjs
+        .sendForm(
+          "service_u5757dr",
+          "template_xxze5ke",
+          e.target,
+          "Npnv-PIsN0-rxduac"
+        )
+        .then(
+          (result) => {
+            console.log(result.text);
+          },
+          (error) => {
+            console.log(error.text);
+          }
+        );
+      e.target.reset();
+      navigate("/CreateNewPassword", {
+        state: {
+          email: `${email}`,
+          type: `${Type}`,
         },
-        (error) => {
-          console.log(error.text);
-        }
-      );
-    e.target.reset();
-    navigate("/CreateNewPassword", {
-      state: {
-        email: `${email}`,
-        type: `${Type}`,
-      },
-    });
+      });
+    }
   };
 
   return (
     <>
       <header className={styles?.header}>
         {Doc === undefined ? (
-          <Navbars navigate={navigate} languages="English" />
+          <Navbars navigate={navigate} languages="English" accept={false} />
         ) : Doc === "Thai" ? (
-          <Navbars navigate={navigate} languages="Thai" />
+          <Navbars navigate={navigate} languages="Thai" accept={true} />
         ) : Doc === "German" ? (
-          <Navbars navigate={navigate} languages="German" />
+          <Navbars navigate={navigate} languages="German" accept={true} />
         ) : (
-          <Navbars navigate={navigate} languages="English" />
+          <Navbars navigate={navigate} languages="English" accept={true} />
         )}
       </header>
 
