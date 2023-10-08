@@ -28,7 +28,6 @@ const Home = () => {
   const [usertype, setUsertype] = React.useState("Customer");
   const { innerWidth: width } = window;
   const handleClose = (x, y) => {
-    // console.log("x:", x);
     if (x === 1) {
       if (y === "English") {
         navigate("/", { state: { languages: `${y}`, accept: true } });
@@ -48,17 +47,19 @@ const Home = () => {
       setOpen(false);
     }
   };
-  
+
   const check_cookei = () => {
+    console.log("Aoc:", Aoc);
     if (Aoc === true) {
       setOpen(false);
     } else if (Aoc === false) {
-      setOpen(false);
+      setOpen(true);
     } else {
       setOpen(true);
     }
   };
 
+  console.log("Aoc:", Aoc);
   useEffect(() => {
     check_cookei();
   });
@@ -68,20 +69,22 @@ const Home = () => {
   // };
 
   const goCustomer = (x) => {
-    navigate("/Home/Order/Customer", { state: { languages: `${x}` } });
+    navigate("/Home/Order/Customer", {
+      state: { languages: `${x}`, accept: true },
+    });
   };
 
   return (
     <>
       <header className={styles.App_header}>
         {Doc === undefined ? (
-          <Navbars navigate={navigate} languages="English" />
+          <Navbars navigate={navigate} languages="English" accept={false} />
         ) : Doc === "Thai" ? (
-          <Navbars navigate={navigate} languages="Thai" />
+          <Navbars navigate={navigate} languages="Thai" accept={true} />
         ) : Doc === "German" ? (
-          <Navbars navigate={navigate} languages="German" />
+          <Navbars navigate={navigate} languages="German" accept={true} />
         ) : (
-          <Navbars navigate={navigate} languages="English" />
+          <Navbars navigate={navigate} languages="English" accept={true} />
         )}
       </header>
 

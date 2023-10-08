@@ -737,7 +737,7 @@
   }
   .Inbox4_overviwe2 {
     display: grid;
-    width: 100vw;
+    /* width: 100vw; */
   }
   .box4_overviwe0 {
     width: 115vw;
@@ -1182,7 +1182,7 @@
   }
   .Inbox4_overviwe2 {
     display: grid;
-    width: 100vw;
+    /* width: 100vw; */
   }
   .box4_overviwe0 {
     width: 115vw;
@@ -1336,7 +1336,7 @@
     border: 1px solid #e0e0e0;
     border-radius: 15px;
     width: 27vw;
-    height: 15vw;
+    height: 10vw;
     padding: 15px;
     display: grid;
     justify-content: space-around;
@@ -1729,10 +1729,10 @@
 }
 @media only screen and (min-width: 1400px) {
   .box4_overviwe0 {
-    width: 66vw;
+    width: 71vw;
     height: 55vw;
     position: relative;
-    left: 6vw;
+    left: 0vw;
   }
   .box4_overviwe1 {
     position: relative;
@@ -1750,14 +1750,69 @@
     width: 65vw;
     height: 55vw;
     position: relative;
-    left: 8.3vw;
+    left: 2vw;
   }
 }
 @media only screen and (min-width: 1534px) {
   .box4_overviwe0 {
-    width: 65vw;
-    height: 55vw;
+    width: 60vw;
+    height: 50vw;
     position: relative;
-    left: 9.3vw;
+    left: 3.5vw;
+  }
+  .deteilbox4_overviwe {
+    left: 5px;
+  }
+}
+@media only screen and (min-width: 1600px) {
+  .box4_overviwe0 {
+    width: 60vw;
+    height: 50vw;
+    position: relative;
+    left: 4vw;
+  }
+}
+@media only screen and (min-width: 1680px) {
+  .box4_overviwe0 {
+    width: 60vw;
+    height: 50vw;
+    position: relative;
+    left: 4vw;
+  }
+}
+@media only screen and (min-width: 1780px) {
+  .box4_overviwe0 {
+    width: 60vw;
+    height: 45vw;
+    position: relative;
+    left: 6vw;
+  }
+  .imgbox4_overviwe0 {
+    top: 320px;
+    left: -50px;
+  }
+}
+@media only screen and (min-width: 1880px) {
+  .box4_overviwe0 {
+    width: 55vw;
+    height: 40vw;
+    position: relative;
+    left: 6vw;
+  }
+  .imgbox4_overviwe0 {
+    top: 325px;
+    left: -50px;
+  }
+}
+@media only screen and (min-width: 1980px) {
+  .box4_overviwe0 {
+    width: 50vw;
+    height: 40vw;
+    position: relative;
+    left: 7.5vw;
+  }
+  .imgbox4_overviwe0 {
+    top: 340px;
+    left: -35px;
   }
 }

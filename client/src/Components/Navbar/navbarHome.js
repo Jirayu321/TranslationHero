@@ -33,7 +33,7 @@ const navbarHome = (props) => {
   };
 
   const gologin = (x) => {
-    navigate("/Login", { state: { languages: `${x}` } });
+    navigate("/Login", { state: { languages: `${x}`, accept: true } });
   };
 
   const goHome = (x) => {
@@ -67,14 +67,28 @@ const navbarHome = (props) => {
             <>
               <div className={styles.dd}>
                 {pathname === "/" || pathname === "/Home/Order/Customer" ? (
-                  <div className={styles.NavLi} onClick={() => navigate("/")}>
+                  <div
+                    className={styles.NavLi}
+                    onClick={() =>
+                      navigate("/", {
+                        state: { languages: `${you}`, accept: true },
+                      })
+                    }
+                  >
                     <p className={styles.textNavA}>
                       {overviewEN[0].label}
                       {/* home */}
                     </p>
                   </div>
                 ) : (
-                  <div className={styles.NavLi} onClick={() => navigate("/")}>
+                  <div
+                    className={styles.NavLi}
+                    onClick={() =>
+                      navigate("/", {
+                        state: { languages: `${you}`, accept: true },
+                      })
+                    }
+                  >
                     <p className={styles.textNavO}>
                       {overviewEN[0].label}
                       {/* home */}
@@ -118,12 +132,20 @@ const navbarHome = (props) => {
                     }
                   >
                     <NavDropdown.Item
-                      onClick={() => navigate("/Services_general")}
+                      onClick={() =>
+                        navigate("/Services_general", {
+                          state: { languages: `${you}`, accept: true },
+                        })
+                      }
                     >
                       General Document
                     </NavDropdown.Item>
                     <NavDropdown.Item
-                      onClick={() => navigate("/Services_official")}
+                      onClick={() =>
+                        navigate("/Services_official", {
+                          state: { languages: `${you}`, accept: true },
+                        })
+                      }
                     >
                       Official Document
                     </NavDropdown.Item>
@@ -145,12 +167,20 @@ const navbarHome = (props) => {
                     }
                   >
                     <NavDropdown.Item
-                      onClick={() => navigate("/Services_general")}
+                      onClick={() =>
+                        navigate("/Services_general", {
+                          state: { languages: `${you}`, accept: true },
+                        })
+                      }
                     >
                       General Document
                     </NavDropdown.Item>
                     <NavDropdown.Item
-                      onClick={() => navigate("/Services_official")}
+                      onClick={() =>
+                        navigate("/Services_official", {
+                          state: { languages: `${you}`, accept: true },
+                        })
+                      }
                     >
                       Official Document
                     </NavDropdown.Item>
@@ -160,14 +190,22 @@ const navbarHome = (props) => {
                 {pathname === "/Price" ? (
                   <div
                     className={styles.NavLi}
-                    onClick={() => navigate("/Price")}
+                    onClick={() =>
+                      navigate("/Price", {
+                        state: { languages: `${you}`, accept: true },
+                      })
+                    }
                   >
                     <p className={styles.textNavA}>Price</p>
                   </div>
                 ) : (
                   <div
                     className={styles.NavLi}
-                    onClick={() => navigate("/Price")}
+                    onClick={() =>
+                      navigate("/Price", {
+                        state: { languages: `${you}`, accept: true },
+                      })
+                    }
                   >
                     <p className={styles.textNavO}>Price</p>
                   </div>
@@ -177,7 +215,9 @@ const navbarHome = (props) => {
                   <div
                     className={styles.NavLi}
                     style={{ color: "black" }}
-                    onClick={() => navigate("/FAQs")}
+                    onClick={() => navigate("/FAQs" {
+                      state: { languages: `${you}`, accept: true },
+                    })}
                   >
                     <p className={styles.textNavA}>FAQs</p>
                   </div>

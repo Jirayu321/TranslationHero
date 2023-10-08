@@ -123,57 +123,103 @@ const Signup = () => {
   function onImageChange(e, i) {
     const files = [...e.target.files];
     const ImageURLs = [];
-    console.log("files:", files);
+    const allowedTypes = ["image/jpeg", "image/png", "application/pdf"];
+    const maxSizeInBytes = 25 * 1024 * 1024; // 25MB
+
+    const validateAndSetImageState = (files, key) => {
+      const validFiles = [];
+
+      for (let file of files) {
+        // Check file type
+        if (!allowedTypes.includes(file.type)) {
+          toast.error(`Invalid file type for ${file.name}`, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          });
+          continue;
+        }
+
+        // Check file size
+        if (file.size > maxSizeInBytes) {
+          toast.error(`File size exceeds 25MB for ${file.name}`, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          });
+          continue;
+        }
+
+        validFiles.push(file);
+      }
+
+      if (validFiles.length > 0) {
+        const imageURLs = validFiles.map((file) => URL.createObjectURL(file));
+        // setImages(validFiles);
+        setTranslators({ ...translators, [key]: imageURLs });
+      }
+    };
+
     switch (i) {
       case 1:
         console.log("case 1");
         files.forEach((image) => ImageURLs.push(URL.createObjectURL(image)));
         setTranslators({ ...translators, imgProfile: ImageURLs });
         break;
+
       case 2:
         console.log("case 2");
         setImages2(files);
-        files.forEach((image) => ImageURLs.push(URL.createObjectURL(image)));
-        setTranslators({ ...translators, idcard: ImageURLs });
+        validateAndSetImageState(files, "idcard");
         break;
+
       case 3:
         console.log("case 3");
         if (files.length !== 0) {
           setImages3(files);
-          files.forEach((image) => ImageURLs.push(URL.createObjectURL(image)));
-          setTranslators({ ...translators, education: ImageURLs });
+          validateAndSetImageState(files, "education");
         }
         break;
+
       case 4:
         console.log("case 4");
         if (files.length !== 0) {
           setImages4(files);
-          files.forEach((image) => ImageURLs.push(URL.createObjectURL(image)));
-          setTranslators({ ...translators, portfolio: ImageURLs });
+          validateAndSetImageState(files, "portfolio");
         }
         break;
+
       case 5:
         console.log("case 5");
         if (files.length !== 0) {
           setImages5(files);
-          files.forEach((image) => ImageURLs.push(URL.createObjectURL(image)));
-          setTranslators({ ...translators, bookbank: ImageURLs });
+          validateAndSetImageState(files, "bookbank");
         }
         break;
+
       case 6:
         console.log("case 6");
         if (files.length !== 0) {
           setImages6(files);
-          files.forEach((image) => ImageURLs.push(URL.createObjectURL(image)));
-          setTranslators({ ...translators, watermark: ImageURLs });
+          validateAndSetImageState(files, "watermark");
         }
         break;
+
       case 7:
         console.log("case 7");
         if (files.length !== 0) {
           setImages7(files);
-          files.forEach((image) => ImageURLs.push(URL.createObjectURL(image)));
-          setTranslators({ ...translators, certificate: ImageURLs });
+          validateAndSetImageState(files, "certificate");
         }
         break;
 
@@ -450,6 +496,9 @@ const Signup = () => {
                       if (!values.confirmPassword) {
                         errors.confirmPassword =
                           "Please enter your confirmPassword";
+                      }
+                      if (values.confirmPassword !== values.password) {
+                        errors.confirmPassword = "Invalid  confirm Password";
                       }
 
                       if (!values.mobilePhone) {

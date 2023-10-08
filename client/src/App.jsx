@@ -5,6 +5,8 @@ import { useDispatch } from "react-redux";
 import { loadUser } from "./slices/auth";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Lottie from "lottie-react";
+import Loadinganimation from "./Images/Loadinganimation.json";
 
 import "./App.css";
 
@@ -45,12 +47,26 @@ function App() {
   );
   const Tool = lazy(() => import("./Components/Tool/Tool"));
   const Price = lazy(() => import("./Components/Price/Price.jsx"));
+  
   useEffect(() => {
     dispatch(loadUser(null));
   }, [dispatch]);
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense
+      fallback={
+        <div
+          style={{
+            display: "flex",
+            width: "100vw",
+            justifyContent: "center",
+            marginTop: "5vw",
+          }}
+        >
+          <Lottie animationData={Loadinganimation} loop={true} />
+        </div>
+      }
+    >
       <div className="App">
         <BrowserRouter>
           <div className="App-body">
