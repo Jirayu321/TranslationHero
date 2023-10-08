@@ -790,14 +790,14 @@ const Customer = () => {
   return (
     <>
       <header className={styles.App_header}>
-        {Doc === undefined ? (
-          <Navbars navigate={navigate} languages="English" />
+      {Doc === undefined ? (
+          <Navbars navigate={navigate} languages="English" accept={false} />
         ) : Doc === "Thai" ? (
-          <Navbars navigate={navigate} languages="Thai" />
+          <Navbars navigate={navigate} languages="Thai" accept={true} />
         ) : Doc === "German" ? (
-          <Navbars navigate={navigate} languages="German" />
+          <Navbars navigate={navigate} languages="German" accept={true} />
         ) : (
-          <Navbars navigate={navigate} languages="English" />
+          <Navbars navigate={navigate} languages="English" accept={true} />
         )}
       </header>
       {width > 768 ? (

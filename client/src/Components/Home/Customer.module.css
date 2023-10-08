@@ -2288,6 +2288,30 @@
     grid-template-columns: auto auto;
   }
 }
+@media only screen and (min-width: 1680px) {
+.groupbuttonfromdetail {
+    display: grid;
+    grid-template-columns: auto auto;
+    position: relative;
+    left: -25vw;
+    top: 27vw;
+    width: 47vw;
+    height: 73px;
+    justify-content: space-between;
+}
+}
+@media only screen and (min-width: 1880px) {
+  .groupbuttonfromdetail {
+      display: grid;
+      grid-template-columns: auto auto;
+      position: relative;
+      left: -25vw;
+      top: 24vw;
+      width: 47vw;
+      height: 73px;
+      justify-content: space-between;
+  }
+  }
 
 /* @media only screen and (min-width: 1534px) {
 }  */
