@@ -7,13 +7,12 @@ import {
   NavDropdown,
   Offcanvas,
 } from "react-bootstrap";
-import {
-  overviewEN,
-  // overviewTH,
-  //  overviewDE
-} from "../Data/DataLanguage";
+
+import { OverviewEN, OverviewTH, OverviewDE } from "../Data/DataLanguage2";
+
 // import { Link } from "react-router-dom";
 import { AiFillCaretDown } from "react-icons/ai";
+import { GrLanguage } from "react-icons/gr";
 import manu from "../../Images/menu01.svg";
 import styles from "./Navbar.module.css";
 import "./Navbar.css";
@@ -28,7 +27,7 @@ const navbarHome = (props) => {
     if (x === 1) {
       window.scrollTo(0, 0);
     } else {
-      navigate("/About_us");
+      navigate("/About_us", { state: { languages: `${you}`, accept: true } });
     }
   };
 
@@ -40,6 +39,7 @@ const navbarHome = (props) => {
     navigate("/", { state: { languages: `${x}`, accept: true } });
   };
 
+  console.log("you:", you);
   return (
     <Navbar
       expand="lg"
@@ -64,154 +64,175 @@ const navbarHome = (props) => {
         >
           <Offcanvas.Header closeButton></Offcanvas.Header>
           <Offcanvas.Body>
-            <>
-              <div className={styles.dd}>
-                {pathname === "/" || pathname === "/Home/Order/Customer" ? (
-                  <div
-                    className={styles.NavLi}
-                    onClick={() =>
-                      navigate("/", {
-                        state: { languages: `${you}`, accept: true },
-                      })
-                    }
-                  >
-                    <p className={styles.textNavA}>
-                      {overviewEN[0].label}
-                      {/* home */}
-                    </p>
-                  </div>
-                ) : (
-                  <div
-                    className={styles.NavLi}
-                    onClick={() =>
-                      navigate("/", {
-                        state: { languages: `${you}`, accept: true },
-                      })
-                    }
-                  >
-                    <p className={styles.textNavO}>
-                      {overviewEN[0].label}
-                      {/* home */}
-                    </p>
-                  </div>
-                )}
+            {you === undefined ? (
+              <>
+                <div className={styles.dd}>
+                  {pathname === "/" || pathname === "/Home/Order/Customer" ? (
+                    <div
+                      className={styles.NavLi}
+                      onClick={() =>
+                        navigate("/", {
+                          state: { languages: `${you}`, accept: true },
+                        })
+                      }
+                    >
+                      <p className={styles.textNavA}>
+                        {OverviewEN.at(0).label}
+                        {/* home */}
+                      </p>
+                    </div>
+                  ) : (
+                    <div
+                      className={styles.NavLi}
+                      onClick={() =>
+                        navigate("/", {
+                          state: { languages: `${you}`, accept: true },
+                        })
+                      }
+                    >
+                      <p className={styles.textNavO}>
+                        {OverviewEN.at(0).label}
+                        {/* home */}
+                      </p>
+                    </div>
+                  )}
 
-                {pathname === "/About_us" ? (
-                  <div
-                    className={styles.NavLi}
-                    style={{ color: "black" }}
-                    onClick={() => promotion(2)}
-                  >
-                    <p className={styles.textNavA}>About us</p>
-                  </div>
-                ) : (
-                  <div
-                    className={styles.NavLi}
-                    style={{ color: "black" }}
-                    onClick={() => promotion(2)}
-                  >
-                    <p className={styles.textNavO}>About us</p>
-                  </div>
-                )}
-                {pathname === "/Services_general" ||
-                pathname === "/Services_official" ? (
-                  <NavDropdown
-                    className={styles.NavLi}
-                    style={{
-                      marginLeft: 10,
-                      color: "#808080",
-                      fontSize: 20,
-                      float: "left",
-                      padding: 0,
-                    }}
-                    title={
-                      <div className={styles.icon_accounts}>
-                        <p className={styles.textNavA}>Services</p>
-                        <AiFillCaretDown className={styles.AiFillCaretDown1} />
-                      </div>
-                    }
-                  >
-                    <NavDropdown.Item
-                      onClick={() =>
-                        navigate("/Services_general", {
-                          state: { languages: `${you}`, accept: true },
-                        })
+                  {pathname === "/About_us" ? (
+                    <div
+                      className={styles.NavLi}
+                      style={{ color: "black" }}
+                      onClick={() => promotion(2)}
+                    >
+                      <p className={styles.textNavA}>
+                        {OverviewEN.at(1).label}
+                      </p>
+                    </div>
+                  ) : (
+                    <div
+                      className={styles.NavLi}
+                      style={{ color: "black" }}
+                      onClick={() => promotion(2)}
+                    >
+                      <p className={styles.textNavO}>
+                        {" "}
+                        {OverviewEN.at(1).label}
+                      </p>
+                    </div>
+                  )}
+                  {pathname === "/Services_general" ||
+                  pathname === "/Services_official" ? (
+                    <NavDropdown
+                      className={styles.NavLi}
+                      style={{
+                        marginLeft: 10,
+                        color: "#808080",
+                        fontSize: 20,
+                        float: "left",
+                        padding: 0,
+                      }}
+                      title={
+                        <div className={styles.icon_accounts}>
+                          <p className={styles.textNavA}>
+                            {OverviewEN.at(2).label}
+                          </p>
+                          <AiFillCaretDown
+                            className={styles.AiFillCaretDown1}
+                          />
+                        </div>
                       }
                     >
-                      General Document
-                    </NavDropdown.Item>
-                    <NavDropdown.Item
-                      onClick={() =>
-                        navigate("/Services_official", {
-                          state: { languages: `${you}`, accept: true },
-                        })
+                      <NavDropdown.Item
+                        onClick={() =>
+                          navigate("/Services_general", {
+                            state: { languages: `${you}`, accept: true },
+                          })
+                        }
+                      >
+                        {OverviewEN.at(5).label}
+                      </NavDropdown.Item>
+                      <NavDropdown.Item
+                        onClick={() =>
+                          navigate("/Services_official", {
+                            state: { languages: `${you}`, accept: true },
+                          })
+                        }
+                      >
+                        {OverviewEN.at(6).label}
+                      </NavDropdown.Item>
+                    </NavDropdown>
+                  ) : (
+                    <NavDropdown
+                      className={styles.NavLi}
+                      style={{
+                        color: "#808080",
+                        fontSize: 20,
+                        float: "left",
+                        padding: 0,
+                      }}
+                      title={
+                        <div className={styles.icon_accounts}>
+                          <p className={styles.textNavO}>
+                            {" "}
+                            {OverviewEN.at(2).label}
+                          </p>
+                          <AiFillCaretDown
+                            className={styles.AiFillCaretDown2}
+                          />
+                        </div>
                       }
                     >
-                      Official Document
-                    </NavDropdown.Item>
-                  </NavDropdown>
-                ) : (
-                  <NavDropdown
-                    className={styles.NavLi}
-                    style={{
-                      color: "#808080",
-                      fontSize: 20,
-                      float: "left",
-                      padding: 0,
-                    }}
-                    title={
-                      <div className={styles.icon_accounts}>
-                        <p className={styles.textNavO}>Services</p>
-                        <AiFillCaretDown className={styles.AiFillCaretDown2} />
-                      </div>
-                    }
-                  >
-                    <NavDropdown.Item
-                      onClick={() =>
-                        navigate("/Services_general", {
-                          state: { languages: `${you}`, accept: true },
-                        })
-                      }
-                    >
-                      General Document
-                    </NavDropdown.Item>
-                    <NavDropdown.Item
-                      onClick={() =>
-                        navigate("/Services_official", {
-                          state: { languages: `${you}`, accept: true },
-                        })
-                      }
-                    >
-                      Official Document
-                    </NavDropdown.Item>
-                  </NavDropdown>
-                )}
+                      <NavDropdown.Item
+                        onClick={() =>
+                          navigate("/Services_general", {
+                            state: { languages: `${you}`, accept: true },
+                          })
+                        }
+                      >
+                        {OverviewEN.at(5).label}
+                      </NavDropdown.Item>
+                      <NavDropdown.Item
+                        onClick={() =>
+                          navigate("/Services_official", {
+                            state: { languages: `${you}`, accept: true },
+                          })
+                        }
+                      >
+                        {OverviewEN.at(6).label}
+                      </NavDropdown.Item>
+                    </NavDropdown>
+                  )}
 
-                {pathname === "/Price" ? (
-                  <div
-                    className={styles.NavLi}
-                    onClick={() =>
-                      navigate("/Price", {
-                        state: { languages: `${you}`, accept: true },
-                      })
-                    }
-                  >
-                    <p className={styles.textNavA}>Price</p>
-                  </div>
-                ) : (
-                  <div
-                    className={styles.NavLi}
-                    onClick={() =>
-                      navigate("/Price", {
-                        state: { languages: `${you}`, accept: true },
-                      })
-                    }
-                  >
-                    <p className={styles.textNavO}>Price</p>
-                  </div>
-                )}
+                  {pathname === "/Price" ? (
+                    <div
+                      className={styles.NavLi}
+                      onClick={() =>
+                        navigate("/Price", {
+                          state: { languages: `${you}`, accept: true },
+                        })
+                      }
+                    >
+                      <p className={styles.textNavA}>
+                        {" "}
+                        {OverviewEN.at(3).label}
+                      </p>
+                    </div>
+                  ) : (
+                    <div
+                      className={styles.NavLi}
+                      onClick={() =>
+                        navigate("/Price", {
+                          state: { languages: `${you}`, accept: true },
+                        })
+                      }
+                    >
+                      <p className={styles.textNavO}>
+                        {" "}
+                        {OverviewEN.at(3).label}
+                      </p>
+                    </div>
+                  )}
 
-                {/* {pathname === "/FAQs" ? (
+                  {/* {pathname === "/FAQs" ? (
                   <div
                     className={styles.NavLi}
                     style={{ color: "black" }}
@@ -230,16 +251,612 @@ const navbarHome = (props) => {
                     <p className={styles.textNavO}>FAQs</p>
                   </div>
                 )} */}
-                <div className={styles.dd2}>
-                  <button
-                    className={styles.buttonLogin}
-                    onClick={() => gologin("English")}
-                  >
-                    <p className={styles.textP}>{overviewEN[4].label}</p>
-                  </button>
+                  <div className={styles.dd2}>
+                    <button
+                      className={styles.buttonLogin}
+                      onClick={() => gologin("English")}
+                    >
+                      <p className={styles.textP}> {OverviewEN.at(4).label}</p>
+                    </button>
+                  </div>
                 </div>
-              </div>
-            </>
+              </>
+            ) : you === "Thai" ? (
+              <>
+                <div className={styles.dd}>
+                  {pathname === "/" || pathname === "/Home/Order/Customer" ? (
+                    <div
+                      className={styles.NavLi}
+                      onClick={() =>
+                        navigate("/", {
+                          state: { languages: `${you}`, accept: true },
+                        })
+                      }
+                    >
+                      <p className={styles.textNavA}>
+                        {OverviewTH.at(0).label}
+                        {/* home */}
+                      </p>
+                    </div>
+                  ) : (
+                    <div
+                      className={styles.NavLi}
+                      onClick={() =>
+                        navigate("/", {
+                          state: { languages: `${you}`, accept: true },
+                        })
+                      }
+                    >
+                      <p className={styles.textNavO}>
+                        {OverviewTH.at(0).label}
+                        {/* home */}
+                      </p>
+                    </div>
+                  )}
+
+                  {pathname === "/About_us" ? (
+                    <div
+                      className={styles.NavLi}
+                      style={{ color: "black" }}
+                      onClick={() => promotion(2)}
+                    >
+                      <p className={styles.textNavA}>
+                        {OverviewTH.at(1).label}
+                      </p>
+                    </div>
+                  ) : (
+                    <div
+                      className={styles.NavLi}
+                      style={{ color: "black" }}
+                      onClick={() => promotion(2)}
+                    >
+                      <p className={styles.textNavO}>
+                        {" "}
+                        {OverviewTH.at(1).label}
+                      </p>
+                    </div>
+                  )}
+                  {pathname === "/Services_general" ||
+                  pathname === "/Services_official" ? (
+                    <NavDropdown
+                      className={styles.NavLi}
+                      style={{
+                        marginLeft: 10,
+                        color: "#808080",
+                        fontSize: 20,
+                        float: "left",
+                        padding: 0,
+                      }}
+                      title={
+                        <div className={styles.icon_accounts}>
+                          <p className={styles.textNavA}>
+                            {OverviewTH.at(2).label}
+                          </p>
+                          <AiFillCaretDown
+                            className={styles.AiFillCaretDown1}
+                          />
+                        </div>
+                      }
+                    >
+                      <NavDropdown.Item
+                        onClick={() =>
+                          navigate("/Services_general", {
+                            state: { languages: `${you}`, accept: true },
+                          })
+                        }
+                      >
+                        {OverviewTH.at(5).label}
+                      </NavDropdown.Item>
+                      <NavDropdown.Item
+                        onClick={() =>
+                          navigate("/Services_official", {
+                            state: { languages: `${you}`, accept: true },
+                          })
+                        }
+                      >
+                        {OverviewTH.at(6).label}
+                      </NavDropdown.Item>
+                    </NavDropdown>
+                  ) : (
+                    <NavDropdown
+                      className={styles.NavLi}
+                      style={{
+                        color: "#808080",
+                        fontSize: 20,
+                        float: "left",
+                        padding: 0,
+                      }}
+                      title={
+                        <div className={styles.icon_accounts}>
+                          <p className={styles.textNavO}>
+                            {" "}
+                            {OverviewTH.at(2).label}
+                          </p>
+                          <AiFillCaretDown
+                            className={styles.AiFillCaretDown2}
+                          />
+                        </div>
+                      }
+                    >
+                      <NavDropdown.Item
+                        onClick={() =>
+                          navigate("/Services_general", {
+                            state: { languages: `${you}`, accept: true },
+                          })
+                        }
+                      >
+                        {OverviewTH.at(5).label}
+                      </NavDropdown.Item>
+                      <NavDropdown.Item
+                        onClick={() =>
+                          navigate("/Services_official", {
+                            state: { languages: `${you}`, accept: true },
+                          })
+                        }
+                      >
+                        {OverviewTH.at(6).label}
+                      </NavDropdown.Item>
+                    </NavDropdown>
+                  )}
+
+                  {pathname === "/Price" ? (
+                    <div
+                      className={styles.NavLi}
+                      onClick={() =>
+                        navigate("/Price", {
+                          state: { languages: `${you}`, accept: true },
+                        })
+                      }
+                    >
+                      <p className={styles.textNavA}>
+                        {" "}
+                        {OverviewTH.at(3).label}
+                      </p>
+                    </div>
+                  ) : (
+                    <div
+                      className={styles.NavLi}
+                      onClick={() =>
+                        navigate("/Price", {
+                          state: { languages: `${you}`, accept: true },
+                        })
+                      }
+                    >
+                      <p className={styles.textNavO}>
+                        {" "}
+                        {OverviewTH.at(3).label}
+                      </p>
+                    </div>
+                  )}
+
+                  {/* {pathname === "/FAQs" ? (
+                  <div
+                    className={styles.NavLi}
+                    style={{ color: "black" }}
+                    onClick={() => navigate("/FAQs" {
+                      state: { languages: `${you}`, accept: true },
+                    })}
+                  >
+                    <p className={styles.textNavA}>FAQs</p>
+                  </div>
+                ) : (
+                  <div
+                    className={styles.NavLi}
+                    style={{ color: "black" }}
+                    onClick={() => navigate("/FAQs")}
+                  >
+                    <p className={styles.textNavO}>FAQs</p>
+                  </div>
+                )} */}
+                  <div className={styles.dd2}>
+                    <button
+                      className={styles.buttonLogin}
+                      onClick={() => gologin("Thai")}
+                    >
+                      <p className={styles.textP}> {OverviewTH.at(4).label}</p>
+                    </button>
+                  </div>
+                </div>
+              </>
+            ) : you === "German" ? (
+              <>
+                <div className={styles.dd}>
+                  {pathname === "/" || pathname === "/Home/Order/Customer" ? (
+                    <div
+                      className={styles.NavLi}
+                      onClick={() =>
+                        navigate("/", {
+                          state: { languages: `${you}`, accept: true },
+                        })
+                      }
+                    >
+                      <p className={styles.textNavA}>
+                        {OverviewDE.at(0).label}
+                        {/* home */}
+                      </p>
+                    </div>
+                  ) : (
+                    <div
+                      className={styles.NavLi}
+                      onClick={() =>
+                        navigate("/", {
+                          state: { languages: `${you}`, accept: true },
+                        })
+                      }
+                    >
+                      <p className={styles.textNavO}>
+                        {OverviewDE.at(0).label}
+                        {/* home */}
+                      </p>
+                    </div>
+                  )}
+
+                  {pathname === "/About_us" ? (
+                    <div
+                      className={styles.NavLi}
+                      style={{ color: "black" }}
+                      onClick={() => promotion(2)}
+                    >
+                      <p className={styles.textNavA}>
+                        {OverviewDE.at(1).label}
+                      </p>
+                    </div>
+                  ) : (
+                    <div
+                      className={styles.NavLi}
+                      style={{ color: "black" }}
+                      onClick={() => promotion(2)}
+                    >
+                      <p className={styles.textNavO}>
+                        {" "}
+                        {OverviewDE.at(1).label}
+                      </p>
+                    </div>
+                  )}
+                  {pathname === "/Services_general" ||
+                  pathname === "/Services_official" ? (
+                    <NavDropdown
+                      className={styles.NavLi}
+                      style={{
+                        marginLeft: 10,
+                        color: "#808080",
+                        fontSize: 20,
+                        float: "left",
+                        padding: 0,
+                      }}
+                      title={
+                        <div className={styles.icon_accounts}>
+                          <p className={styles.textNavA}>
+                            {OverviewDE.at(2).label}
+                          </p>
+                          <AiFillCaretDown
+                            className={styles.AiFillCaretDown1}
+                          />
+                        </div>
+                      }
+                    >
+                      <NavDropdown.Item
+                        onClick={() =>
+                          navigate("/Services_general", {
+                            state: { languages: `${you}`, accept: true },
+                          })
+                        }
+                      >
+                        {OverviewDE.at(5).label}
+                      </NavDropdown.Item>
+                      <NavDropdown.Item
+                        onClick={() =>
+                          navigate("/Services_official", {
+                            state: { languages: `${you}`, accept: true },
+                          })
+                        }
+                      >
+                        {OverviewDE.at(6).label}
+                      </NavDropdown.Item>
+                    </NavDropdown>
+                  ) : (
+                    <NavDropdown
+                      className={styles.NavLi}
+                      style={{
+                        color: "#808080",
+                        fontSize: 20,
+                        float: "left",
+                        padding: 0,
+                      }}
+                      title={
+                        <div className={styles.icon_accounts}>
+                          <p className={styles.textNavO}>
+                            {" "}
+                            {OverviewDE.at(2).label}
+                          </p>
+                          <AiFillCaretDown
+                            className={styles.AiFillCaretDown2}
+                          />
+                        </div>
+                      }
+                    >
+                      <NavDropdown.Item
+                        onClick={() =>
+                          navigate("/Services_general", {
+                            state: { languages: `${you}`, accept: true },
+                          })
+                        }
+                      >
+                        {OverviewDE.at(5).label}
+                      </NavDropdown.Item>
+                      <NavDropdown.Item
+                        onClick={() =>
+                          navigate("/Services_official", {
+                            state: { languages: `${you}`, accept: true },
+                          })
+                        }
+                      >
+                        {OverviewDE.at(6).label}
+                      </NavDropdown.Item>
+                    </NavDropdown>
+                  )}
+
+                  {pathname === "/Price" ? (
+                    <div
+                      className={styles.NavLi}
+                      onClick={() =>
+                        navigate("/Price", {
+                          state: { languages: `${you}`, accept: true },
+                        })
+                      }
+                    >
+                      <p className={styles.textNavA}>
+                        {" "}
+                        {OverviewDE.at(3).label}
+                      </p>
+                    </div>
+                  ) : (
+                    <div
+                      className={styles.NavLi}
+                      onClick={() =>
+                        navigate("/Price", {
+                          state: { languages: `${you}`, accept: true },
+                        })
+                      }
+                    >
+                      <p className={styles.textNavO}>
+                        {" "}
+                        {OverviewDE.at(3).label}
+                      </p>
+                    </div>
+                  )}
+
+                  {/* {pathname === "/FAQs" ? (
+                  <div
+                    className={styles.NavLi}
+                    style={{ color: "black" }}
+                    onClick={() => navigate("/FAQs" {
+                      state: { languages: `${you}`, accept: true },
+                    })}
+                  >
+                    <p className={styles.textNavA}>FAQs</p>
+                  </div>
+                ) : (
+                  <div
+                    className={styles.NavLi}
+                    style={{ color: "black" }}
+                    onClick={() => navigate("/FAQs")}
+                  >
+                    <p className={styles.textNavO}>FAQs</p>
+                  </div>
+                )} */}
+                  <div className={styles.dd2}>
+                    <button
+                      className={styles.buttonLogin}
+                      onClick={() => gologin("German")}
+                    >
+                      <p className={styles.textP}> {OverviewDE.at(4).label}</p>
+                    </button>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <>
+                <div className={styles.dd}>
+                  {pathname === "/" || pathname === "/Home/Order/Customer" ? (
+                    <div
+                      className={styles.NavLi}
+                      onClick={() =>
+                        navigate("/", {
+                          state: { languages: `${you}`, accept: true },
+                        })
+                      }
+                    >
+                      <p className={styles.textNavA}>
+                        {OverviewEN.at(0).label}
+                        {/* home */}
+                      </p>
+                    </div>
+                  ) : (
+                    <div
+                      className={styles.NavLi}
+                      onClick={() =>
+                        navigate("/", {
+                          state: { languages: `${you}`, accept: true },
+                        })
+                      }
+                    >
+                      <p className={styles.textNavO}>
+                        {OverviewEN.at(0).label}
+                        {/* home */}
+                      </p>
+                    </div>
+                  )}
+
+                  {pathname === "/About_us" ? (
+                    <div
+                      className={styles.NavLi}
+                      style={{ color: "black" }}
+                      onClick={() => promotion(2)}
+                    >
+                      <p className={styles.textNavA}>
+                        {OverviewEN.at(1).label}
+                      </p>
+                    </div>
+                  ) : (
+                    <div
+                      className={styles.NavLi}
+                      style={{ color: "black" }}
+                      onClick={() => promotion(2)}
+                    >
+                      <p className={styles.textNavO}>
+                        {" "}
+                        {OverviewEN.at(1).label}
+                      </p>
+                    </div>
+                  )}
+                  {pathname === "/Services_general" ||
+                  pathname === "/Services_official" ? (
+                    <NavDropdown
+                      className={styles.NavLi}
+                      style={{
+                        marginLeft: 10,
+                        color: "#808080",
+                        fontSize: 20,
+                        float: "left",
+                        padding: 0,
+                      }}
+                      title={
+                        <div className={styles.icon_accounts}>
+                          <p className={styles.textNavA}>
+                            {OverviewEN.at(2).label}
+                          </p>
+                          <AiFillCaretDown
+                            className={styles.AiFillCaretDown1}
+                          />
+                        </div>
+                      }
+                    >
+                      <NavDropdown.Item
+                        onClick={() =>
+                          navigate("/Services_general", {
+                            state: { languages: `${you}`, accept: true },
+                          })
+                        }
+                      >
+                        {OverviewEN.at(5).label}
+                      </NavDropdown.Item>
+                      <NavDropdown.Item
+                        onClick={() =>
+                          navigate("/Services_official", {
+                            state: { languages: `${you}`, accept: true },
+                          })
+                        }
+                      >
+                        {OverviewEN.at(6).label}
+                      </NavDropdown.Item>
+                    </NavDropdown>
+                  ) : (
+                    <NavDropdown
+                      className={styles.NavLi}
+                      style={{
+                        color: "#808080",
+                        fontSize: 20,
+                        float: "left",
+                        padding: 0,
+                      }}
+                      title={
+                        <div className={styles.icon_accounts}>
+                          <p className={styles.textNavO}>
+                            {" "}
+                            {OverviewEN.at(2).label}
+                          </p>
+                          <AiFillCaretDown
+                            className={styles.AiFillCaretDown2}
+                          />
+                        </div>
+                      }
+                    >
+                      <NavDropdown.Item
+                        onClick={() =>
+                          navigate("/Services_general", {
+                            state: { languages: `${you}`, accept: true },
+                          })
+                        }
+                      >
+                        {OverviewEN.at(5).label}
+                      </NavDropdown.Item>
+                      <NavDropdown.Item
+                        onClick={() =>
+                          navigate("/Services_official", {
+                            state: { languages: `${you}`, accept: true },
+                          })
+                        }
+                      >
+                        {OverviewEN.at(6).label}
+                      </NavDropdown.Item>
+                    </NavDropdown>
+                  )}
+
+                  {pathname === "/Price" ? (
+                    <div
+                      className={styles.NavLi}
+                      onClick={() =>
+                        navigate("/Price", {
+                          state: { languages: `${you}`, accept: true },
+                        })
+                      }
+                    >
+                      <p className={styles.textNavA}>
+                        {" "}
+                        {OverviewEN.at(3).label}
+                      </p>
+                    </div>
+                  ) : (
+                    <div
+                      className={styles.NavLi}
+                      onClick={() =>
+                        navigate("/Price", {
+                          state: { languages: `${you}`, accept: true },
+                        })
+                      }
+                    >
+                      <p className={styles.textNavO}>
+                        {" "}
+                        {OverviewEN.at(3).label}
+                      </p>
+                    </div>
+                  )}
+
+                  {/* {pathname === "/FAQs" ? (
+                  <div
+                    className={styles.NavLi}
+                    style={{ color: "black" }}
+                    onClick={() => navigate("/FAQs" {
+                      state: { languages: `${you}`, accept: true },
+                    })}
+                  >
+                    <p className={styles.textNavA}>FAQs</p>
+                  </div>
+                ) : (
+                  <div
+                    className={styles.NavLi}
+                    style={{ color: "black" }}
+                    onClick={() => navigate("/FAQs")}
+                  >
+                    <p className={styles.textNavO}>FAQs</p>
+                  </div>
+                )} */}
+                  <div className={styles.dd2}>
+                    <button
+                      className={styles.buttonLogin}
+                      onClick={() => gologin("English")}
+                    >
+                      <p className={styles.textP}> {OverviewEN.at(4).label}</p>
+                    </button>
+                    {/* <button className={styles.buttonLanguage}> */}
+                      {/* <GrLanguage className={styles.GrLanguage} /> */}
+                      {/* <p className={styles.textP}> {OverviewEN.at(4).label}</p> */}
+                    {/* </button> */}
+                  </div>
+                </div>
+              </>
+            )}
           </Offcanvas.Body>
         </Navbar.Offcanvas>
       </Container>

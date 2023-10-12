@@ -31,7 +31,7 @@ const Login = () => {
 
   function chcek_width() {
     if (width < 768) {
-      navigate("/");
+      navigate("/", { state: { languages: `${Doc}`, accept: true } });
       toast.error("Please change your login tool.", {
         position: "top-right",
         autoClose: 5000,
@@ -95,14 +95,14 @@ const Login = () => {
   return (
     <>
       <header className={styles?.header}>
-        {Doc === undefined ? (
-          <Navbars navigate={navigate} languages="English" />
+      {Doc === undefined ? (
+          <Navbars navigate={navigate} languages="English" accept={false} />
         ) : Doc === "Thai" ? (
-          <Navbars navigate={navigate} languages="Thai" />
+          <Navbars navigate={navigate} languages="Thai" accept={true} />
         ) : Doc === "German" ? (
-          <Navbars navigate={navigate} languages="German" />
+          <Navbars navigate={navigate} languages="German" accept={true} />
         ) : (
-          <Navbars navigate={navigate} languages="English" />
+          <Navbars navigate={navigate} languages="English" accept={true} />
         )}
       </header>
 
@@ -162,7 +162,7 @@ const Login = () => {
                       email === "jyung3221@gmail.com" &&
                       password === "123456"
                     ) {
-                      navigate("/In");
+                      navigate("/In", { state: { languages: `${Doc}`, accept: true } });
                     } else if (email !== "jyung3221@gmail.com") {
                       toast.error(
                         "Please enter your email or password again.",
@@ -391,7 +391,7 @@ const Login = () => {
                       <p className={styles.textLi}>Don’t have an account?</p>
                       <button
                         className={styles.button2}
-                        onClick={() => navigate("/Signup")}
+                        onClick={() => navigate("/Signup", { state: { languages: `${Doc}`, accept: true } })}
                       >
                         <p className={styles.textLogin3}>Signup</p>
                       </button>

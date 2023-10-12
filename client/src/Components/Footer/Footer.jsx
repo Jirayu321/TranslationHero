@@ -23,9 +23,10 @@ const Footer = (props) => {
   let pathname = window.location.pathname;
   const { innerWidth: width } = window;
 
-  // console.log(languages);
+  // console.log("languages", languages);
 
   const switchLanguage = (x) => {
+    console.log("x:", x);
     if (pathname === "/") {
       if (x === "English") {
         navigate("/", { state: { languages: `${x}`, accept: true } });
@@ -38,11 +39,17 @@ const Footer = (props) => {
       }
     } else if (pathname === "/Home/Services/Customer") {
       if (x === "English") {
-        navigate("/Home/Services/Customer", { state: { languages: `${x}` } });
+        navigate("/Home/Services/Customer", {
+          state: { languages: `${x}`, accept: true },
+        });
       } else if (x === "German") {
-        navigate("/Home/Services/Customer", { state: { languages: `${x}` } });
+        navigate("/Home/Services/Customer", {
+          state: { languages: `${x}`, accept: true },
+        });
       } else if (x === "Thai") {
-        navigate("/Home/Services/Customer", { state: { languages: `${x}` } });
+        navigate("/Home/Services/Customer", {
+          state: { languages: `${x}`, accept: true },
+        });
       } else {
         navigate("/Home/Services/Customer", {
           state: { languages: "English" },
@@ -50,13 +57,91 @@ const Footer = (props) => {
       }
     } else if (pathname === "/Home/Services/Translator") {
       if (x === "English") {
-        navigate("/Home/Services/Translator", { state: { languages: `${x}` } });
+        navigate("/Home/Services/Translator", {
+          state: { languages: `${x}`, accept: true },
+        });
       } else if (x === "German") {
-        navigate("/Home/Services/Translator", { state: { languages: `${x}` } });
+        navigate("/Home/Services/Translator", {
+          state: { languages: `${x}`, accept: true },
+        });
       } else if (x === "Thai") {
-        navigate("/Home/Services/Translator", { state: { languages: `${x}` } });
+        navigate("/Home/Services/Translator", {
+          state: { languages: `${x}`, accept: true },
+        });
       } else {
         navigate("/Home/Services/Translator", {
+          state: { languages: "English" },
+        });
+      }
+    } else if (pathname === "/Price") {
+      if (x === "English") {
+        navigate("/Price", {
+          state: { languages: `${x}`, accept: true },
+        });
+      } else if (x === "German") {
+        navigate("/Price", {
+          state: { languages: `${x}`, accept: true },
+        });
+      } else if (x === "Thai") {
+        navigate("/Price", {
+          state: { languages: `${x}`, accept: true },
+        });
+      } else {
+        navigate("/Price", {
+          state: { languages: "English" },
+        });
+      }
+    } else if (pathname === "/Services_general") {
+      if (x === "English") {
+        navigate("/Services_general", {
+          state: { languages: `${x}`, accept: true },
+        });
+      } else if (x === "German") {
+        navigate("/Services_general", {
+          state: { languages: `${x}`, accept: true },
+        });
+      } else if (x === "Thai") {
+        navigate("/Services_general", {
+          state: { languages: `${x}`, accept: true },
+        });
+      } else {
+        navigate("/Services_general", {
+          state: { languages: "English" },
+        });
+      }
+    } else if (pathname === "/Services_official") {
+      if (x === "English") {
+        navigate("/Services_official", {
+          state: { languages: `${x}`, accept: true },
+        });
+      } else if (x === "German") {
+        navigate("/Services_official", {
+          state: { languages: `${x}`, accept: true },
+        });
+      } else if (x === "Thai") {
+        navigate("/Services_official", {
+          state: { languages: `${x}`, accept: true },
+        });
+      } else {
+        navigate("/Services_official", {
+          state: { languages: "English" },
+        });
+      }
+    } else if (pathname === "/About_us") {
+      if (x === "English") {
+        navigate("/About_us", {
+          state: { languages: `${x}`, accept: true },
+        });
+      } else if (x === "German") {
+        navigate("/About_us", {
+          state: { languages: `${x}`, accept: true },
+        });
+      } else if (x === "Thai") {
+        navigate("/About_us", {
+          state: { languages: `${x}`, accept: true },
+        });
+      } else {
+        navigate("/About_us", {
           state: { languages: "English" },
         });
       }

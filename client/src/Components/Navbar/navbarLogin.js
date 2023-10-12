@@ -10,7 +10,7 @@ const navbarLogin = (props) => {
   // const pathname = window.location.pathname;
 
   const goHome = (x) => {
-    navigate("/", { state: { languages: `${x}` } });
+    navigate("/", { state: { languages: `${x}`, accept: true } });
   };
   return (
     <Navbar

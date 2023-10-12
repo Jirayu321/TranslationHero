@@ -55,7 +55,7 @@ const Signup = () => {
 
   function chcek_width() {
     if (width < 768) {
-      navigate("/");
+      navigate("/", { state: { languages: `${Doc}`, accept: true } });
       toast.error("Please change your Sign up tool.", {
         position: "top-right",
         autoClose: 5000,
@@ -309,7 +309,7 @@ const Signup = () => {
           openModel1: false,
           openModel2: false,
         });
-        navigate("/Login");
+        navigate("/Login", { state: { languages: `${Doc}`, accept: true } });
       }, 3000);
     }
   }
@@ -1007,7 +1007,7 @@ const Signup = () => {
 
                     <button
                       className={styles.button2}
-                      onClick={() => navigate("/Login")}
+                      onClick={() => navigate("/Login", { state: { languages: `${Doc}`, accept: true } })}
                     >
                       <p className={styles.textLogin3}>Login</p>
                     </button>
@@ -1111,7 +1111,7 @@ const Signup = () => {
                     <p className={styles.textLogin}>Already a member?</p>
                     <button
                       className={styles.button2}
-                      onClick={() => navigate("/Login")}
+                      onClick={() => navigate("/Login", { state: { languages: `${Doc}`, accept: true } })}
                     >
                       <p className={styles.textLogin3}>Login</p>
                     </button>
@@ -1232,7 +1232,7 @@ const Signup = () => {
                     <p className={styles.textLogin}>Already a member?</p>
                     <button
                       className={styles.button2}
-                      onClick={() => navigate("/Login")}
+                      onClick={() => navigate("/Login", { state: { languages: `${Doc}`, accept: true } })}
                     >
                       <p className={styles.textLogin3}>Login</p>
                     </button>
@@ -1372,7 +1372,7 @@ const Signup = () => {
                       <p className={styles.textLogin}>Already a member?</p>
                       <button
                         className={styles.button2}
-                        onClick={() => navigate("/Login")}
+                        onClick={() => navigate("/Login", { state: { languages: `${Doc}`, accept: true } })}
                       >
                         <p className={styles.textLogin3}>Login</p>
                       </button>
@@ -1645,7 +1645,7 @@ const Signup = () => {
                             </p>
                             <button
                               className={styles.button2}
-                              onClick={() => navigate("/Login")}
+                              onClick={() => navigate("/Login", { state: { languages: `${Doc}`, accept: true } })}
                             >
                               <p className={styles.textLogin3}>Login</p>
                             </button>
@@ -1789,7 +1789,7 @@ const Signup = () => {
                       <p className={styles.textLogin}>Already a member?</p>
                       <button
                         className={styles.button2}
-                        onClick={() => navigate("/Login")}
+                        onClick={() => navigate("/Login", { state: { languages: `${Doc}`, accept: true } })}
                       >
                         <p className={styles.textLogin3}>Login</p>
                       </button>
@@ -2181,7 +2181,7 @@ const Signup = () => {
                             </p>
                             <button
                               className={styles.button2}
-                              onClick={() => navigate("/Login")}
+                              onClick={() => navigate("/Login", { state: { languages: `${Doc}`, accept: true } })}
                             >
                               <p className={styles.textLogin3}>Login</p>
                             </button>
@@ -2323,7 +2323,7 @@ const Signup = () => {
                       <p className={styles.textLogin}>Already a member?</p>
                       <button
                         className={styles.button2}
-                        onClick={() => navigate("/Login")}
+                        onClick={() => navigate("/Login", { state: { languages: `${Doc}`, accept: true } })}
                       >
                         <p className={styles.textLogin3}>Login</p>
                       </button>
@@ -2453,7 +2453,7 @@ const Signup = () => {
                       <p className={styles.textLogin}>Already a member?</p>
                       <button
                         className={styles.button2}
-                        onClick={() => navigate("/Login")}
+                        onClick={() => navigate("/Login", { state: { languages: `${Doc}`, accept: true } })}
                       >
                         <p className={styles.textLogin3}>Login</p>
                       </button>
@@ -2939,7 +2939,7 @@ const Signup = () => {
                       <p className={styles.textLogin}>Already a member?</p>
                       <button
                         className={styles.button2}
-                        onClick={() => navigate("/Login")}
+                        onClick={() => navigate("/Login", { state: { languages: `${Doc}`, accept: true } })}
                       >
                         <p className={styles.textLogin3}>Login</p>
                       </button>
@@ -3072,7 +3072,7 @@ const Signup = () => {
                       <p className={styles.textLogin}>Already a member?</p>
                       <button
                         className={styles.button2}
-                        onClick={() => navigate("/Login")}
+                        onClick={() => navigate("/Login", { state: { languages: `${Doc}`, accept: true } })}
                       >
                         <p className={styles.textLogin3}>Login</p>
                       </button>
@@ -3238,7 +3238,7 @@ const Signup = () => {
                       <p className={styles.textLogin}>Already a member?</p>
                       <button
                         className={styles.button2}
-                        onClick={() => navigate("/Login")}
+                        onClick={() => navigate("/Login", { state: { languages: `${Doc}`, accept: true } })}
                       >
                         <p className={styles.textLogin3}>Login</p>
                       </button>
@@ -3718,7 +3718,7 @@ const Signup = () => {
                       <p className={styles.textLogin}>Already a member?</p>
                       <button
                         className={styles.button2}
-                        onClick={() => navigate("/Login")}
+                        onClick={() => navigate("/Login", { state: { languages: `${Doc}`, accept: true } })}
                       >
                         <p className={styles.textLogin3}>Login</p>
                       </button>
@@ -3878,7 +3878,7 @@ const Signup = () => {
                       <p className={styles.textLogin}>Already a member?</p>
                       <button
                         className={styles.button2}
-                        onClick={() => navigate("/Login")}
+                        onClick={() => navigate("/Login", { state: { languages: `${Doc}`, accept: true } })}
                       >
                         <p className={styles.textLogin3}>Login</p>
                       </button>
@@ -3979,7 +3979,7 @@ const Signup = () => {
                       <p className={styles.textLogin}>Already a member?</p>
                       <button
                         className={styles.button2}
-                        onClick={() => navigate("/Login")}
+                        onClick={() => navigate("/Login", { state: { languages: `${Doc}`, accept: true } })}
                       >
                         <p className={styles.textLogin3}>Login</p>
                       </button>

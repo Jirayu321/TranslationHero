@@ -70,7 +70,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 32px 16px;
+  padding: 24px 16px;
   gap: 12px;
   background: linear-gradient(
     96.37deg,
@@ -83,7 +83,7 @@
   order: 0;
   flex-grow: 0;
   border: transparent;
-  width: 190px;
+  width: 250px;
   height: 200px;
   margin: 15px;
   font-weight: 500;
@@ -96,7 +96,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 32px 16px;
+  padding: 24px 16px;
   gap: 12px;
   background: transparent;
   border-radius: 10px;
@@ -104,7 +104,7 @@
   order: 0;
   flex-grow: 0;
   border: 1px solid #ffffff;
-  width: 190px;
+  width: 250px;
   height: 200px;
   margin: 15px;
   font-weight: 500;
@@ -453,7 +453,7 @@
 }
 .Indetailefram3_1 {
   border-right: 1px solid;
-  padding-right: 100px;
+  padding-right: 25px;
 }
 .Indetailefram3_2 {
   width: 30vw;
@@ -485,13 +485,13 @@
 }
 .textHeading2_overviwe4_2 {
   font-weight: 400;
-  line-height: 38px;
+  line-height: 0px;
   color: #333333;
   width: 73vw;
   height: 10vh;
   font-family: "DBHeavent";
   position: relative;
-  left: 35vw;
+  left: 25vw;
   font-size: 80px;
 }
 .textHeading2_overviwe3 {
@@ -552,7 +552,7 @@
 .Boxfram3_5_2 {
   border-radius: 10px;
   width: 350px;
-  height: 250px;
+  height: 260px;
   text-align: center;
   padding: 48px 32px;
   background: #ffffff;
@@ -685,7 +685,7 @@
   height: 64px;
   position: relative;
   margin-top: 15px;
-  margin-bottom: 30px;
+  margin-bottom:10px;
   display: flex;
   left: 40%;
 }
@@ -825,13 +825,13 @@
 }
 .icon1Boxfram3_3_1 {
   background: url("../../Images/businessman.png");
-  background-repeat: no-repeat;
-  width: 64px;
-  height: 64px;
+  width: 35px;
+  height: 44px;
   background-position: center;
-  background-repeat: repeat-x;
+  background-repeat: no-repeat;
   position: relative;
-  top: -15px;
+  margin-top: -50px;
+  background-size: cover;
 }
 .icon1Boxfram3_3_2 {
   background: url("../../Images/interview.png");
@@ -852,7 +852,7 @@
 .borderBoxfram3_5_2 {
   background: linear-gradient(to right, #3b005f, #1466b1);
   padding: 5px;
-  height: 260px;
+  height: 270px;
   border-radius: 15px;
 }
 .con_detailefram3_5_2 {
@@ -1305,7 +1305,7 @@
     position: absolute;
     left: 15vw;
     font-family: "DBHeaventLi";
-    top: 1020px;
+    top: 1110px;
   }
 }
 @media only screen and (min-width: 1400px) {

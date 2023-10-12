@@ -6,6 +6,7 @@ import Footer from "../Footer/Footer.jsx";
 import { useNavigate, useLocation } from "react-router-dom";
 
 import { data, data2, data2_2, data3, data4, data5 } from "../Data/data";
+
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
@@ -422,7 +423,7 @@ const Customer = () => {
   }
 
   const goSignup = () => {
-    navigate("/Signup");
+    navigate("/Signup", { state: { languages: `${Doc}`, accept: true } });
   };
 
   const cutsting = (x) => {
@@ -522,7 +523,7 @@ const Customer = () => {
         ...openModel,
         openModel5: false,
       });
-      navigate("/");
+      navigate("/", { state: { languages: `${Doc}`, accept: true } });
     } else if (x === "back to receipt") {
       setopenModel({
         ...openModel,
@@ -681,6 +682,7 @@ const Customer = () => {
       formRef.current.reset();
     };
 
+
     // Render the form and credit card preview.
     return (
       <div key="Payment">
@@ -787,6 +789,7 @@ const Customer = () => {
     );
   };
 
+  console.log("Doc:",Doc)
   return (
     <>
       <header className={styles.App_header}>
