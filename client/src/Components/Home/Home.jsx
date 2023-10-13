@@ -46,7 +46,7 @@ const Home = () => {
         setOpen(false);
       }
     } else {
-      navigate("/", { state: { languages: `English`, accept: false } });
+      navigate("/", { state: { languages: `English`, accept: true } });
       setOpen(false);
     }
   };
@@ -598,7 +598,7 @@ const Home = () => {
             <>
               <div className={styles.fram1}>
                 <div className={styles.boxBlue_overviwe}>
-                  <p className={styles.h_text1}> {OverviewTH.at(7).label}</p>
+                  <p className={styles.h_text1}> {OverviewEN.at(7).label}</p>
                   <p className={styles.h_text2}>{OverviewTH.at(8).label}</p>
                   <div className={styles.set_fram1_button}>
                     <button
@@ -819,7 +819,7 @@ const Home = () => {
             <>
               <div className={styles.fram1}>
                 <div className={styles.boxBlue_overviwe}>
-                  <p className={styles.h_text1}> {OverviewDE.at(7).label}</p>
+                  <p className={styles.h_text1}> {OverviewEN.at(7).label}</p>
                   <p className={styles.h_text2}>{OverviewDE.at(8).label}</p>
                   <div className={styles.set_fram1_button}>
                     <button
@@ -1820,7 +1820,7 @@ const Home = () => {
             <>
               <div className={styles.fram1}>
                 <div className={styles.boxBlue_overviwe}>
-                  <p className={styles.h_text1}>{OverviewTH.at(7).label}</p>
+                  <p className={styles.h_text1}>{OverviewEN.at(7).label}</p>
                   <p className={styles.h_text2}>{OverviewTH.at(8).label}</p>
                   <div className={styles.set_fram1_button}>
                     <button
@@ -2041,7 +2041,7 @@ const Home = () => {
             <>
               <div className={styles.fram1}>
                 <div className={styles.boxBlue_overviwe}>
-                  <p className={styles.h_text1}>{OverviewDE.at(7).label}</p>
+                  <p className={styles.h_text1}>{OverviewEN.at(7).label}</p>
                   <p className={styles.h_text2}>{OverviewDE.at(8).label}</p>
                   <div className={styles.set_fram1_button}>
                     <button

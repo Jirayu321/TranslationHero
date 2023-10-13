@@ -790,6 +790,7 @@ const Customer = () => {
   };
 
   console.log("Doc:",Doc)
+  
   return (
     <>
       <header className={styles.App_header}>

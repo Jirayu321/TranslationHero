@@ -843,6 +843,8 @@
   .con_detailefram3_5 {
     display: grid;
     grid-template-columns: auto auto auto auto;
+    margin-left: 50px;
+    justify-content: start;
   }
   .Boxfram3_5 {
     height: 16vw;
