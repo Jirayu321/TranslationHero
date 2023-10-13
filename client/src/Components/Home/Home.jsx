@@ -693,7 +693,7 @@ const Home = () => {
                       onClick={() => setUsertype("Translator")}
                       className={styles.Content_button2}
                     >
-                      {OverviewTH.at(16).label} Translator
+                      {OverviewTH.at(16).label} 
                     </button>
                   </div>
                 ) : (
