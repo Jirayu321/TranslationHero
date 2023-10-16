@@ -7,7 +7,9 @@ import {
   Toolbar,
   List,
 } from "@mui/material";
-import { Form, NavDropdown } from "react-bootstrap";
+import { 
+  // Form,
+   NavDropdown } from "react-bootstrap";
 import {
   IoChatbubblesSharp,
   //  IoNotifications
@@ -142,8 +144,8 @@ export default function DrawerTranslate(props) {
                           y2="4.97231"
                           gradientUnits="userSpaceOnUse"
                         >
-                          <stop stop-color="#3B005F" />
-                          <stop offset="1" stop-color="#1466B1" />
+                          <stop stopColor="#3B005F" />
+                          <stop offset="1" stopColor="#1466B1" />
                         </linearGradient>
                       </defs>
                     </svg>
@@ -327,8 +329,8 @@ export default function DrawerTranslate(props) {
                           y2="4.07804"
                           gradientUnits="userSpaceOnUse"
                         >
-                          <stop stop-color="#3B005F" />
-                          <stop offset="1" stop-color="#1466B1" />
+                          <stop stopColor="#3B005F" />
+                          <stop offset="1" stopColor="#1466B1" />
                         </linearGradient>
                       </defs>
                     </svg>
@@ -508,8 +510,8 @@ export default function DrawerTranslate(props) {
                           y2="4.68988"
                           gradientUnits="userSpaceOnUse"
                         >
-                          <stop stop-color="#3B005F" />
-                          <stop offset="1" stop-color="#1466B1" />
+                          <stop stopColor="#3B005F" />
+                          <stop offset="1" stopColor="#1466B1" />
                         </linearGradient>
                       </defs>
                     </svg>
@@ -733,8 +735,8 @@ export default function DrawerTranslate(props) {
                           y2="4.60391"
                           gradientUnits="userSpaceOnUse"
                         >
-                          <stop stop-color="#3B005F" />
-                          <stop offset="1" stop-color="#1466B1" />
+                          <stop stopColor="#3B005F" />
+                          <stop offset="1" stopColor="#1466B1" />
                         </linearGradient>
                       </defs>
                     </svg>

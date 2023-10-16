@@ -124,24 +124,45 @@ export const updateOrder = createAsyncThunk(
 export const createOrder = createAsyncThunk(
   "auth/createOrder",
   async (values, { rejectWithValue }) => {
+    let y = values.y.at(0);
     try {
+      // console.log("values_y:", values);
       const token = await axios.post(`${url}/createOrder`, {
-        Date: values.Date,
-        Translator_name: values.Translator_name,
-        Customer_name: values.Customer_name,
-        Job_description: values.Job_description,
-        Customers_will_get: values.Customers_will_get,
-        Deadline: values.Deadline,
-        Number_of_edits: values.Number_of_edits,
-        Price: values.Price,
-        Order_type: values.Order_type,
-        Status: values.Status,
-        Send_to: values.Send_to,
-        Review: values.Review,
+        file: y.file.at(0),
+        document_Type: y.document_Type,
+        translation_Type: y.translation_Type,
+        tranfrom: y.tranfrom,
+        tranto: y.tranto,
+        Deadline: y.Deadline,
+        Additional_explanation: y.Additional_explanation,
+        type: y.type,
+        Price: values.x.Price,
+        orderNumber: values.x.orderNumber,
+        Translator_name: y.Translator_name,
+        data: values.y,
       });
       return token.data;
     } catch (error) {
       console.log(error.response.data);
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const getOrder = createAsyncThunk(
+  "auth/getOrder",
+  async (values, { rejectWithValue }) => {
+    console.log("getOrder:", values);
+    try {
+      const token = await axios.get(`${url}/getOrder/`, {
+        params: {
+          Translator_name: values,
+        },
+      });
+      console.log("getOrder:", token.data);
+      return token.data;
+    } catch (error) {
+      console.log(error.response);
       return rejectWithValue(error.response.data);
     }
   }

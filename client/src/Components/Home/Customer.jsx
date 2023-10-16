@@ -67,12 +67,17 @@ import Card from "react-credit-cards-2";
 import Payment from "payment";
 import "react-credit-cards-2/dist/es/styles-compiled.css";
 
+// import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { createOrder } from "../../slices/auth";
+
 import styles from "./Customer.module.css";
 
 const Customer = () => {
   const { innerWidth: width, innerHeight: height } = window;
   const location = useLocation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   let Doc = location?.state?.languages;
 
   const [promo, setPromo] = React.useState(""); //Promo code คือเปิดตัวด้านล่าง
@@ -98,8 +103,12 @@ const Customer = () => {
     tranto: "",
     Deadline: getCurrentDate(),
     Additional_explanation: "",
-    type: "",
-    Price: generatePrice(),
+    type: "1",
+    Translator_name: "Habi Yang",
+  });
+
+  const [from2, setFrom2] = React.useState({
+    Price: "",
     orderNumber: "",
   });
 
@@ -134,6 +143,7 @@ const Customer = () => {
   React.useEffect(() => {
     if (groupData === null) {
       console.log("Data:", groupData);
+
       // window.scrollTo(0, 10);
     } else {
       console.log("add_Data", groupData);
@@ -172,7 +182,7 @@ const Customer = () => {
       let Additional_explanation = groupData[index]?.Additional_explanation;
 
       if (y === 1) {
-        console.log("สดใหม่");
+        // console.log("สดใหม่");
         setFrom({
           file: "",
           document_Type: "",
@@ -181,18 +191,18 @@ const Customer = () => {
           tranto: "",
           Deadline: getCurrentDate(),
           Additional_explanation: "",
-          type: "",
-          Price: "",
+          type: "1",
+          Translator_name: "Habi Yang",
         });
         setPage(x);
       } else if (y === 0) {
-        console.log("เปลี่ยนหน้า");
+        // console.log("เปลี่ยนหน้า");
         if (typeof translation_Type !== "undefined") {
-          console.log("66", Additional_explanation, index);
+          // console.log("66", Additional_explanation, index);
           let j = page - 1;
           let z = groupData[j]?.Additional_explanation;
           if (typeof z !== "undefined") {
-            console.log("5555", z);
+            // console.log("5555", z);
             setFrom({
               file: file,
               document_Type: document_Type,
@@ -201,9 +211,8 @@ const Customer = () => {
               tranto: tranto,
               Deadline: Deadline,
               Additional_explanation: Additional_explanation,
-              type: "",
-              Price: "",
-              orderNumber: "",
+              type: "1",
+              Translator_name: "Habi Yang",
             });
             setPage(x);
           } else {
@@ -216,14 +225,13 @@ const Customer = () => {
               tranto: tranto,
               Deadline: Deadline,
               Additional_explanation: Additional_explanation,
-              type: "",
-              Price: "",
-              orderNumber: "",
+              type: "1",
+              Translator_name: "Habi Yang",
             });
             setPage(x);
           }
         } else {
-          console.log("777");
+          // console.log("777");
           setGroupData([...groupData, from]);
           // console.log("groupData", groupData);
           setPage(x);
@@ -239,8 +247,8 @@ const Customer = () => {
             tranto: "",
             Deadline: getCurrentDate(),
             Additional_explanation: "",
-            type: "",
-            Price: "",
+            type: "1",
+            Translator_name: "Habi Yang",
           });
           setPage(x);
         } else {
@@ -252,9 +260,8 @@ const Customer = () => {
             tranto: tranto,
             Deadline: Deadline,
             Additional_explanation: Additional_explanation,
-            type: "",
-            Price: "",
-            orderNumber: "",
+            type: "1",
+            Translator_name: "Habi Yang",
           });
           setPage(x);
         }
@@ -264,6 +271,14 @@ const Customer = () => {
       setPage(x);
     }
   }
+
+  const onImageChange = (e) => {
+    const files = [...e.target.files];
+    const ImageURLs = [];
+    files.forEach((image) => ImageURLs.push(URL.createObjectURL(image)));
+    // console.log("ImageURLs:", ImageURLs);
+    setFrom({ ...from, file: ImageURLs });
+  };
 
   function Add_data() {
     if (countButtons === 0) {
@@ -279,9 +294,8 @@ const Customer = () => {
           tranto: "",
           Deadline: getCurrentDate(),
           Additional_explanation: "",
-          type: "",
-          Price: "",
-          orderNumber: "",
+          type: "1",
+          Translator_name: "Habi Yang",
         });
         chagngeDataPage(2, 0);
       } else {
@@ -336,7 +350,7 @@ const Customer = () => {
         if (delete_data === false) {
           let z = page - 1;
           let y = countButtons;
-          console.log("false", y);
+          // console.log("false", y);
           if (page < y) {
             chagngeDataPage(countButtons - 1, 2);
             setGroupData([...groupData, from]);
@@ -347,7 +361,7 @@ const Customer = () => {
           }
           setDelete_data(true);
         } else {
-          console.log("true");
+          // console.log("true");
           let z = page - 1;
           chagngeDataPage(z, 2);
           setcCountButtons(d);
@@ -407,19 +421,70 @@ const Customer = () => {
     },
   }));
 
-  function promotion(x) {
-    let y = from?.translation_Type;
+  function generatePrice() {
+    console.log("generatePrice:");
+    const PriceCount = (Math.floor(Math.random() * 999) + 1).toString();
+
+    return PriceCount + "฿";
+  }
+
+  // function generateOrderNumber(length) {
+  //   // Generate a random number
+  //   let orderNumber = Math.floor(Math.random() * Math.pow(10, length));
+
+  //   // Pad the number with zeroes
+  //   return orderNumber.toString().padStart(length, "0");
+  // }
+
+  function generatetTransactionNo() {
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const randomLetter = () => chars[Math.floor(Math.random() * chars.length)];
+
+    const letters = randomLetter() + randomLetter();
+    const language = Math.floor(Math.random() * 100)
+      .toString()
+      .padStart(2, "0");
+
+    const orderCount = Math.floor(Math.random() * 1000)
+      .toString()
+      .padStart(3, "0");
+    let x = letters + language + orderCount;
+    // setFrom([{ ...from, orderNumber: x }]);
+    // console.log(from.orderNumber);
+    return x;
+  }
+
+  function searhTranslator(x) {
     let h = height * 2.3;
-    if (y) {
-      if (groupData === null) {
-        setPromo(x);
-        window.scrollTo(0, h);
-      } else {
-        setGroupData([...groupData, from]);
-        setPromo(x);
-        window.scrollTo(0, h);
-      }
+    if (groupData !== null) {
+      console.log("searhTranslator:", 1);
+      setGroupData([...groupData, from]);
+      setPromo(x);
+      window.scrollTo(0, h);
+      // if (groupData === null) {
+      //   setPromo(x);
+      //   window.scrollTo(0, h);
+      // } else {
+      //   setGroupData([...groupData, from]);
+      //   setPromo(x);
+      //   window.scrollTo(0, h);
+      // }
+    } else {
+      console.log("searhTranslator:", 2);
+      setGroupData([from]);
+      setPromo(x);
+      window.scrollTo(0, h);
     }
+  }
+
+  function promotion(x) {
+    // let y = from?.translation_Type;
+    // setGroupData([...groupData, from]);
+    setFrom2({
+      Price: generatePrice(),
+      orderNumber: generatetTransactionNo(),
+    });
+    searhTranslator(x);
   }
 
   const goSignup = () => {
@@ -435,25 +500,14 @@ const Customer = () => {
     }
   };
 
-  function generatePrice() {
-    const PriceCount = (Math.floor(Math.random() * 999) + 1).toString();
-
-    return PriceCount + "฿";
-  }
-
-  function generateOrderNumber(length) {
-    // Generate a random number
-    let orderNumber = Math.floor(Math.random() * Math.pow(10, length));
-
-    // Pad the number with zeroes
-    return orderNumber.toString().padStart(length, "0");
-  }
-
   function sendEmail() {
     const datatext = {
       email: email,
       subject: "Thank you.",
-      message: "Your payment has been successfully processed.",
+      message: `
+      Your payment has been successfully processed 
+      TRANSACTION NO. ${from2?.orderNumber}
+      `,
     };
     emailjs
       .send(
@@ -473,13 +527,13 @@ const Customer = () => {
   }
 
   function OpneMode(x) {
-    // console.log("x:", x);
+    console.log("OpneMode:", x);
     if (x === 1) {
-      setFrom({
-        ...from,
-        Price: generatePrice(),
-        orderNumber: generateOrderNumber(12),
-      });
+      // setFrom({
+      //   ...from,
+      //   Price: generatePrice(),
+      //   orderNumber: generateOrderNumber(12),
+      // });
       window.scroll(0, 0);
       setOpen(true);
       setTimeout(function () {
@@ -511,6 +565,8 @@ const Customer = () => {
       });
     } else if (x === 5) {
       if (email !== "") {
+        let y = { x: from2, y: groupData };
+        dispatch(createOrder(y));
         sendEmail();
         setopenModel({
           ...openModel,
@@ -537,24 +593,6 @@ const Customer = () => {
         openModel3: false,
       });
     }
-  }
-
-  function generatetTransactionNo() {
-    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    const randomLetter = () => chars[Math.floor(Math.random() * chars.length)];
-
-    const letters = randomLetter() + randomLetter();
-    const language = Math.floor(Math.random() * 100)
-      .toString()
-      .padStart(2, "0");
-
-    const orderCount = Math.floor(Math.random() * 1000)
-      .toString()
-      .padStart(3, "0");
-    let x = letters + language + orderCount;
-    // setFrom([{ ...from, orderNumber: x }]);
-    // console.log(from.orderNumber);
-    return x;
   }
 
   const Cards = () => {
@@ -612,7 +650,7 @@ const Customer = () => {
           )} ${clearValue.slice(8, 12)} ${clearValue.slice(12, 19)}`;
           break;
       }
-      console.log("222 :", nextValue, "issuer", issuer);
+      // console.log("222 :", nextValue, "issuer", issuer);
       return nextValue.trim();
     }
 
@@ -681,7 +719,6 @@ const Customer = () => {
       setState((prevState) => ({ ...prevState, formData }));
       formRef.current.reset();
     };
-
 
     // Render the form and credit card preview.
     return (
@@ -789,12 +826,12 @@ const Customer = () => {
     );
   };
 
-  console.log("Doc:",Doc)
-  
+  console.log("groupData:", groupData);
+
   return (
     <>
       <header className={styles.App_header}>
-      {Doc === undefined ? (
+        {Doc === undefined ? (
           <Navbars navigate={navigate} languages="English" accept={false} />
         ) : Doc === "Thai" ? (
           <Navbars navigate={navigate} languages="Thai" accept={true} />
@@ -844,12 +881,12 @@ const Customer = () => {
                   overflowY: "auto",
                 }}
               >
-                {groupData ? (
+                {groupData?.length > 0 ? (
                   <>
                     <div className={styles.Box_detailH_Model}>
                       <p className={styles.H_Model}>Ref Number</p>
                       <p className={styles.H_Model2}>
-                        {groupData[0]?.orderNumber}
+                        {from2?.orderNumber}
                       </p>
                     </div>
                     <div className={styles.Box_detailH_Model}>
@@ -867,7 +904,7 @@ const Customer = () => {
                   <>
                     <div className={styles.Box_detailH_Model}>
                       <p className={styles.H_Model}>Ref Number</p>
-                      <p className={styles.H_Model2}>000088874612</p>
+                      <p className={styles.H_Model2}>from2?.orderNumber</p>
                     </div>
                     <div className={styles.Box_detailH_Model}>
                       <p className={styles.H_Model}>Date</p>
@@ -881,7 +918,7 @@ const Customer = () => {
                 )}
               </div>
               <div className={styles.borderReceipt}></div>
-              {groupData ? (
+              {groupData?.length > 0 ? (
                 <>
                   <div
                     // key={index}
@@ -891,7 +928,7 @@ const Customer = () => {
                     {groupData?.map((item, index) => (
                       <div key={index}>
                         <div className={styles.Box_detailH_Model}>
-                          <p className={styles.H_Model2}>Order {index + 1}</p>
+                          <p className={styles.H_Model2}>Order{index + 1}</p>
                           <p className={styles.H_Model}></p>
                         </div>
                         <div className={styles.Box_detailH_Model}>
@@ -906,6 +943,11 @@ const Customer = () => {
                           <p className={styles.H_Model2}>
                             {item?.translation_Type}
                           </p>
+                        </div>
+
+                        <div className={styles.Box_detailH_Model}>
+                          <p className={styles.H_Model}>Translate from</p>
+                          <p className={styles.H_Model2}>{item?.tranfrom}</p>
                         </div>
 
                         <div className={styles.Box_detailH_Model}>
@@ -927,7 +969,7 @@ const Customer = () => {
                   <div className={styles.borderReceipt}></div>
                   <div className={styles.Box_detailH_Model2}>
                     <p className={styles.H_Model}>TOTAL :</p>
-                    <p className={styles.H_Model3}>{from?.Price}</p>
+                    <p className={styles.H_Model3}>{from2?.Price}</p>
                   </div>
 
                   <button
@@ -967,6 +1009,11 @@ const Customer = () => {
                       <p className={styles.H_Model2}>
                         {from?.translation_Type}
                       </p>
+                    </div>
+
+                    <div className={styles.Box_detailH_Model}>
+                      <p className={styles.H_Model}>Translate from</p>
+                      <p className={styles.H_Model2}>{from?.tranfrom}</p>
                     </div>
 
                     <div className={styles.Box_detailH_Model}>
@@ -1281,7 +1328,7 @@ const Customer = () => {
                       fontFamily: "DBHeaventLi",
                     }}
                   >
-                    {generatetTransactionNo()}
+                    {from2?.orderNumber}
                   </p>
                 </div>
                 <div style={{ margin: 25 }}>
@@ -1296,31 +1343,17 @@ const Customer = () => {
                   >
                     AMOUNT
                   </p>
-                  {groupData ? (
-                    <p
-                      style={{
-                        fontWeight: 500,
-                        fontSize: 20,
-                        color: "#242424",
+                  <p
+                    style={{
+                      fontWeight: 500,
+                      fontSize: 20,
+                      color: "#242424",
 
-                        fontFamily: "DBHeaventLi",
-                      }}
-                    >
-                      {groupData[0]?.Price}
-                    </p>
-                  ) : (
-                    <p
-                      style={{
-                        fontWeight: 500,
-                        fontSize: 20,
-                        color: "#242424",
-
-                        fontFamily: "DBHeaventLi",
-                      }}
-                    >
-                      {groupData?.Price}
-                    </p>
-                  )}
+                      fontFamily: "DBHeaventLi",
+                    }}
+                  >
+                    {from2?.Price}
+                  </p>
                 </div>
               </div>
               <div id="keep-mounted-modal-description">
@@ -1415,9 +1448,7 @@ const Customer = () => {
                           id="icon-button-file"
                           type="file"
                           style={{ display: "none" }}
-                          onChange={(e) =>
-                            setFrom({ ...from, file: e.target.value })
-                          }
+                          onChange={(e) => onImageChange(e)}
                         />
                         <IconButton
                           color="primary"
@@ -1441,9 +1472,7 @@ const Customer = () => {
                           id="icon-button-file"
                           type="file"
                           style={{ display: "none" }}
-                          onChange={(e) =>
-                            setFrom({ ...from, file: e.target.value })
-                          }
+                          onChange={(e) => onImageChange(e)}
                         />
                         <IconButton
                           color="primary"
@@ -2358,12 +2387,12 @@ const Customer = () => {
                   overflowY: "auto",
                 }}
               >
-                {groupData ? (
+                {groupData?.length > 0  ? (
                   <>
                     <div className={styles.Box_detailH_Model}>
                       <p className={styles.H_Model}>Ref Number</p>
                       <p className={styles.H_Model2}>
-                        {groupData[0]?.orderNumber}
+                        {from2?.orderNumber}
                       </p>
                     </div>
                     <div className={styles.Box_detailH_Model}>
@@ -2381,7 +2410,7 @@ const Customer = () => {
                   <>
                     <div className={styles.Box_detailH_Model}>
                       <p className={styles.H_Model}>Ref Number</p>
-                      <p className={styles.H_Model2}>000088874612</p>
+                      <p className={styles.H_Model2}>{from2?.orderNumber}</p>
                     </div>
                     <div className={styles.Box_detailH_Model}>
                       <p className={styles.H_Model}>Date</p>
@@ -2395,7 +2424,7 @@ const Customer = () => {
                 )}
               </div>
               <div className={styles.borderReceipt}></div>
-              {groupData ? (
+              {groupData?.length > 0 ? (
                 <>
                   <div
                     // key={index}
@@ -2441,7 +2470,7 @@ const Customer = () => {
                   <div className={styles.borderReceipt}></div>
                   <div className={styles.Box_detailH_Model2}>
                     <p className={styles.H_Model}>TOTAL :</p>
-                    <p className={styles.H_Model3}>{from?.Price}</p>
+                    <p className={styles.H_Model3}>{from2?.Price}</p>
                   </div>
 
                   <button
@@ -2795,7 +2824,7 @@ const Customer = () => {
                       fontFamily: "DBHeaventLi",
                     }}
                   >
-                    {generatetTransactionNo()}
+                    {from2}
                   </p>
                 </div>
                 <div style={{ margin: 25 }}>
@@ -2934,9 +2963,7 @@ const Customer = () => {
                           id="icon-button-file"
                           type="file"
                           style={{ display: "none" }}
-                          onChange={(e) =>
-                            setFrom({ ...from, file: e.target.value })
-                          }
+                          onChange={(e) => onImageChange(e)}
                         />
                         <IconButton
                           color="primary"
@@ -2960,9 +2987,7 @@ const Customer = () => {
                           id="icon-button-file"
                           type="file"
                           style={{ display: "none" }}
-                          onChange={(e) =>
-                            setFrom({ ...from, file: e.target.value })
-                          }
+                          onChange={(e) => onImageChange(e)}
                         />
                         <IconButton
                           color="primary"

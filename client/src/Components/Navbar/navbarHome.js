@@ -12,7 +12,7 @@ import { OverviewEN, OverviewTH, OverviewDE } from "../Data/DataLanguage2";
 
 // import { Link } from "react-router-dom";
 import { AiFillCaretDown } from "react-icons/ai";
-import { GrLanguage } from "react-icons/gr";
+// import { GrLanguage } from "react-icons/gr";
 import manu from "../../Images/menu01.svg";
 import styles from "./Navbar.module.css";
 import "./Navbar.css";
@@ -39,7 +39,7 @@ const navbarHome = (props) => {
     navigate("/", { state: { languages: `${x}`, accept: true } });
   };
 
-  console.log("you:", you);
+  // console.log("you:", you);
   return (
     <Navbar
       expand="lg"

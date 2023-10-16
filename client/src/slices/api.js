@@ -1,4 +1,4 @@
-export const url = "https://54.244.204.59/api";
+export const url = "https://sserver-42uf.onrender.com/api";
 
 // export const url = "http://localhost:3001/api";
 
