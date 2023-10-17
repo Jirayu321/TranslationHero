@@ -54,7 +54,7 @@ const navbarHome2 = (props) => {
         background: "transparent",
         zIndex: "unset",
         position: "unset",
-        boxShadow: "none",
+        // boxShadow: "none",/
       }}
     >
       <Container fluid>

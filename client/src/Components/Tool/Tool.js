@@ -37,6 +37,7 @@ import ToolText from "../../Images/ToolText.png";
 import { getOrder } from "../../slices/auth";
 
 import "./Tool.css";
+
 function Tool() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -52,7 +53,7 @@ function Tool() {
   const [open4, setOpen4] = React.useState(false);
   const [groupbutton, setGroupbutton] = React.useState(1);
   const [data, setData] = React.useState("");
-
+  const [imageURLs, setImageURLsa] = React.useState("");
   const [lengthData, setLengthData] = React.useState(0);
   const [showCaes, setShowCaes] = React.useState(null);
   const [option, setOption] = React.useState("1");
@@ -102,7 +103,7 @@ function Tool() {
   };
 
   const switchpage = (p, i) => {
-    console.log("i:", i);
+    console.log("length:", i.data?.length);
     if (p === 2) {
       setShowCaes(i);
       setLengthData(i.data?.length);
@@ -115,20 +116,26 @@ function Tool() {
       <p>{buttonText}</p>
     </button>
   );
-
+  const cutsting = (x) => {
+    if (x !== imageURLs) {
+      setImageURLsa(x.slice(0, 30));
+    }
+  };
   const ArticleDetails = ({ article }) => {
-    console.log("article:", article);
-    const ImageURLs = [];
+    console.log("groupbutton:", groupbutton);
 
-    article.file.forEach((fileArray) => {
-      if (fileArray.length > 0 && fileArray[0] instanceof File) {
-        // Assuming the File object is at the first index of the inner array
-        const file = fileArray[0];
-        ImageURLs.push(URL.createObjectURL(file));
-      }
-    });
-    
-    console.log("ImageURLs:", ImageURLs);
+    cutsting(article?.file);
+    // const ImageURLs = [];
+
+    // article.file.forEach((fileArray) => {
+    //   if (fileArray.length > 0 && fileArray[0] instanceof File) {
+    //     // Assuming the File object is at the first index of the inner array
+    //     const file = fileArray[0];
+    //     ImageURLs.push(URL.createObjectURL(file));
+    //   }
+    // });
+
+    // console.log("ImageURLs:", ImageURLs);
     return (
       <>
         <Modal
@@ -156,11 +163,7 @@ function Tool() {
                 alignItems: "center",
               }}
             >
-              {/* <img
-                src={`${article?.file.at(0)}`}
-                alt="Test"
-                className="ToolTest2"
-              /> */}
+              <img src={`${article?.file}`} alt="Test" className="ToolTest2" />
             </div>
             <div
               style={{
@@ -190,41 +193,43 @@ function Tool() {
         <div className="ToolHaed3_1">
           <div className="ToolHaed2">
             <div>
-              <p className="TextHTool">Article</p>
+              <p className="TextHTool">{article.translation_Type}</p>
             </div>
             <p>Timeline: {article.Deadline}</p>
             <p>Detail: {article.translation_Type}</p>
-            {/* <p>File: {article.file.at(0)}</p> */}
+            <p>File: {imageURLs}</p>
           </div>
           <div>
-            <button
-              className="ToolbuttonOpenFile"
-              onClick={() => setOpen(true)}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                viewBox="0 0 16 16"
-                fill="none"
+            {screen !== 3 ? (
+              <button
+                className="ToolbuttonOpenFile"
+                onClick={() => setOpen(true)}
               >
-                <path
-                  d="M1.61342 8.47806C1.52262 8.3343 1.47723 8.26242 1.45182 8.15155C1.43273 8.06827 1.43273 7.93694 1.45182 7.85366C1.47723 7.74279 1.52262 7.67091 1.61341 7.52715C2.36369 6.33916 4.59693 3.33594 8.00027 3.33594C11.4036 3.33594 13.6369 6.33916 14.3871 7.52715C14.4779 7.67091 14.5233 7.74279 14.5487 7.85366C14.5678 7.93694 14.5678 8.06827 14.5487 8.15155C14.5233 8.26242 14.4779 8.3343 14.3871 8.47806C13.6369 9.66604 11.4036 12.6693 8.00027 12.6693C4.59693 12.6693 2.36369 9.66604 1.61342 8.47806Z"
-                  stroke="white"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="M8.00027 10.0026C9.10484 10.0026 10.0003 9.10717 10.0003 8.0026C10.0003 6.89803 9.10484 6.0026 8.00027 6.0026C6.8957 6.0026 6.00027 6.89803 6.00027 8.0026C6.00027 9.10717 6.8957 10.0026 8.00027 10.0026Z"
-                  stroke="white"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-              <p>Open File</p>
-            </button>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                >
+                  <path
+                    d="M1.61342 8.47806C1.52262 8.3343 1.47723 8.26242 1.45182 8.15155C1.43273 8.06827 1.43273 7.93694 1.45182 7.85366C1.47723 7.74279 1.52262 7.67091 1.61341 7.52715C2.36369 6.33916 4.59693 3.33594 8.00027 3.33594C11.4036 3.33594 13.6369 6.33916 14.3871 7.52715C14.4779 7.67091 14.5233 7.74279 14.5487 7.85366C14.5678 7.93694 14.5678 8.06827 14.5487 8.15155C14.5233 8.26242 14.4779 8.3343 14.3871 8.47806C13.6369 9.66604 11.4036 12.6693 8.00027 12.6693C4.59693 12.6693 2.36369 9.66604 1.61342 8.47806Z"
+                    stroke="white"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M8.00027 10.0026C9.10484 10.0026 10.0003 9.10717 10.0003 8.0026C10.0003 6.89803 9.10484 6.0026 8.00027 6.0026C6.8957 6.0026 6.00027 6.89803 6.00027 8.0026C6.00027 9.10717 6.8957 10.0026 8.00027 10.0026Z"
+                    stroke="white"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+                <p>Open File</p>
+              </button>
+            ) : null}
           </div>
         </div>
       </>
@@ -350,7 +355,7 @@ function Tool() {
                     openbuttonHaed.openbuttonHaed5
                   ) && (
                     <>
-                      <>
+                      <div className="Taks">
                         {data &&
                           data?.map((e) => (
                             <button
@@ -367,7 +372,7 @@ function Tool() {
                               </p>
                             </button>
                           ))}
-                      </>
+                      </div>
                     </>
                   )}
                 </div>
@@ -423,23 +428,9 @@ function Tool() {
                         </svg>
                         <p className="TooltextHelper">Helper</p>
                       </button>
-                      {lengthData > groupbutton ? (
+
+                      {groupbutton === lengthData && lengthData !== 1 ? (
                         <div className="Groupbutton">
-                          <div style={{ display: "flex" }}>
-                            <ToolButton
-                              onClick={() => setGroupbutton(groupbutton + 1)}
-                              // svgPath="..." // Replace with the actual SVG path for this button
-                              // className={
-                              //   index === groupbutton - 1
-                              //     ? "Selected"
-                              //     : "NotSelected"
-                              // }
-                              buttonText={"Naxt"}
-                            />
-                          </div>
-                        </div>
-                      ) : (
-                        <div>
                           <div style={{ display: "flex" }}>
                             <ToolButton
                               className="Groupbutton"
@@ -476,7 +467,71 @@ function Tool() {
                             </button>
                           </div>
                         </div>
-                      )}
+                      ) : lengthData === 1 ? (
+                        <button
+                          className="ToolSubmitoff"
+                          // onClick={() => navigate("/In")}
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            viewBox="0 0 16 16"
+                            fill="none"
+                          >
+                            {/* Replace with the actual SVG path for submission */}
+                            <path
+                              d="M4.99992 7.9987L6.99992 9.9987L10.9999 5.9987M14.6666 7.9987C14.6666 11.6806 11.6818 14.6654 7.99992 14.6654C4.31802 14.6654 1.33325 11.6806 1.33325 7.9987C1.33325 4.3168 4.31802 1.33203 7.99992 1.33203C11.6818 1.33203 14.6666 4.3168 14.6666 7.9987Z"
+                              stroke="white"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                          </svg>
+                          <p>Submit</p>
+                        </button>
+                      ) : lengthData >= groupbutton && groupbutton === 1 ? (
+                        <div className="Groupbutton">
+                          <div style={{ display: "flex" }}>
+                            <ToolButton
+                              onClick={() => setGroupbutton(groupbutton + 1)}
+                              // svgPath="..." // Replace with the actual SVG path for this button
+                              // className={
+                              //   index === groupbutton - 1
+                              //     ? "Selected"
+                              //     : "NotSelected"
+                              // }
+                              buttonText={"Naxt"}
+                            />
+                          </div>
+                        </div>
+                      ) : groupbutton > 1 ? (
+                        <div>
+                          <div style={{ display: "flex" }}>
+                            <ToolButton
+                              className="Groupbutton"
+                              onClick={() => setGroupbutton(groupbutton - 1)}
+                              // svgPath="..." // Replace with the actual SVG path for this button
+                              // className={
+                              //   index === groupbutton - 1
+                              //     ? "Selected"
+                              //     : "NotSelected"
+                              // }
+                              buttonText={"back"}
+                            />
+                            <ToolButton
+                              onClick={() => setGroupbutton(groupbutton + 1)}
+                              // svgPath="..." // Replace with the actual SVG path for this button
+                              // className={
+                              //   index === groupbutton - 1
+                              //     ? "Selected"
+                              //     : "NotSelected"
+                              // }
+                              buttonText={"Naxt"}
+                            />
+                          </div>
+                        </div>
+                      ) : null}
                     </div>
                   </div>
                   {showCaes?.data?.map((item, index) => (
@@ -499,14 +554,83 @@ function Tool() {
                 <div className="ToolHaed4">
                   <div className="ToolInHaed4">
                     <p className="ToolInHaed4text1">Tools</p>
-                    <p className="ToolInHaed4text2">/ THOG0024534</p>
+                    <p className="ToolInHaed4text2">
+                      / {showCaes?.orderNumber}
+                    </p>
                   </div>
 
-                  {groupbutton === 1 ? (
-                    <div style={{ display: "flex" }}>
+                  <div className="ToolInHaed4_2">
+                    <button
+                      className="ToolHelper2"
+                      onClick={() => setScreen(2)}
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        fill="none"
+                      >
+                        <g clipPath="url(#clip0_2420_6985)">
+                          <path
+                            d="M5.9987 1.33594V2.66927M9.9987 1.33594V2.66927M5.9987 13.3359V14.6693M9.9987 13.3359V14.6693M13.332 6.0026H14.6654M13.332 9.33594H14.6654M1.33203 6.0026H2.66536M1.33203 9.33594H2.66536M5.86536 13.3359H10.132C11.2521 13.3359 11.8122 13.3359 12.24 13.118C12.6163 12.9262 12.9223 12.6202 13.114 12.2439C13.332 11.8161 13.332 11.256 13.332 10.1359V5.86927C13.332 4.74917 13.332 4.18911 13.114 3.76129C12.9223 3.38497 12.6163 3.079 12.24 2.88726C11.8122 2.66927 11.2521 2.66927 10.132 2.66927H5.86536C4.74526 2.66927 4.18521 2.66927 3.75738 2.88726C3.38106 3.079 3.0751 3.38497 2.88335 3.76129C2.66536 4.18911 2.66536 4.74917 2.66536 5.86927V10.1359C2.66536 11.256 2.66536 11.8161 2.88335 12.2439C3.0751 12.6202 3.38106 12.9262 3.75738 13.118C4.18521 13.3359 4.74526 13.3359 5.86536 13.3359ZM7.06537 10.0026H8.93203C9.3054 10.0026 9.49208 10.0026 9.63469 9.92994C9.76013 9.86603 9.86212 9.76404 9.92604 9.6386C9.9987 9.49599 9.9987 9.30931 9.9987 8.93594V7.06927C9.9987 6.6959 9.9987 6.50922 9.92604 6.36661C9.86212 6.24117 9.76013 6.13918 9.63469 6.07527C9.49208 6.0026 9.3054 6.0026 8.93203 6.0026H7.06537C6.692 6.0026 6.50531 6.0026 6.3627 6.07527C6.23726 6.13918 6.13528 6.24117 6.07136 6.36661C5.9987 6.50922 5.9987 6.6959 5.9987 7.06927V8.93594C5.9987 9.30931 5.9987 9.49599 6.07136 9.6386C6.13528 9.76404 6.23726 9.86603 6.3627 9.92994C6.50531 10.0026 6.692 10.0026 7.06537 10.0026Z"
+                            stroke="white"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </g>
+                        <defs>
+                          <clipPath id="clip0_2420_6985">
+                            <rect width="16" height="16" fill="white" />
+                          </clipPath>
+                        </defs>
+                      </svg>
+                      <p className="TooltextHelper2">Helper</p>
+                    </button>
+
+                    {groupbutton === lengthData && lengthData !== 1 ? (
+                      <div className="Groupbutton">
+                        <div style={{ display: "flex" }}>
+                          <ToolButton
+                            className="Groupbutton"
+                            onClick={() => setGroupbutton(groupbutton - 1)}
+                            buttonText={"back"}
+                          />
+                          <button
+                            className="ToolSubmit"
+                            onClick={() => navigate("/In")}
+                          >
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="16"
+                              height="16"
+                              viewBox="0 0 16 16"
+                              fill="none"
+                            >
+                              <g clipPath="url(#clip0_1849_18817)">
+                                <path
+                                  d="M4.99992 7.9987L6.99992 9.9987L10.9999 5.9987M14.6666 7.9987C14.6666 11.6806 11.6818 14.6654 7.99992 14.6654C4.31802 14.6654 1.33325 11.6806 1.33325 7.9987C1.33325 4.3168 4.31802 1.33203 7.99992 1.33203C11.6818 1.33203 14.6666 4.3168 14.6666 7.9987Z"
+                                  stroke="white"
+                                  strokeWidth="2"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </g>
+                              <defs>
+                                <clipPath id="clip0_1849_18817">
+                                  <rect width="16" height="16" fill="white" />
+                                </clipPath>
+                              </defs>
+                            </svg>
+                            <p>Submit</p>
+                          </button>
+                        </div>
+                      </div>
+                    ) : lengthData === 1 ? (
                       <button
-                        className="ToolHelper2"
-                        onClick={() => setScreen(2)}
+                        className="ToolSubmitoff"
+                        // onClick={() => navigate("/In")}
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -515,183 +639,70 @@ function Tool() {
                           viewBox="0 0 16 16"
                           fill="none"
                         >
-                          <g clipPath="url(#clip0_2420_6985)">
-                            <path
-                              d="M5.9987 1.33594V2.66927M9.9987 1.33594V2.66927M5.9987 13.3359V14.6693M9.9987 13.3359V14.6693M13.332 6.0026H14.6654M13.332 9.33594H14.6654M1.33203 6.0026H2.66536M1.33203 9.33594H2.66536M5.86536 13.3359H10.132C11.2521 13.3359 11.8122 13.3359 12.24 13.118C12.6163 12.9262 12.9223 12.6202 13.114 12.2439C13.332 11.8161 13.332 11.256 13.332 10.1359V5.86927C13.332 4.74917 13.332 4.18911 13.114 3.76129C12.9223 3.38497 12.6163 3.079 12.24 2.88726C11.8122 2.66927 11.2521 2.66927 10.132 2.66927H5.86536C4.74526 2.66927 4.18521 2.66927 3.75738 2.88726C3.38106 3.079 3.0751 3.38497 2.88335 3.76129C2.66536 4.18911 2.66536 4.74917 2.66536 5.86927V10.1359C2.66536 11.256 2.66536 11.8161 2.88335 12.2439C3.0751 12.6202 3.38106 12.9262 3.75738 13.118C4.18521 13.3359 4.74526 13.3359 5.86536 13.3359ZM7.06537 10.0026H8.93203C9.3054 10.0026 9.49208 10.0026 9.63469 9.92994C9.76013 9.86603 9.86212 9.76404 9.92604 9.6386C9.9987 9.49599 9.9987 9.30931 9.9987 8.93594V7.06927C9.9987 6.6959 9.9987 6.50922 9.92604 6.36661C9.86212 6.24117 9.76013 6.13918 9.63469 6.07527C9.49208 6.0026 9.3054 6.0026 8.93203 6.0026H7.06537C6.692 6.0026 6.50531 6.0026 6.3627 6.07527C6.23726 6.13918 6.13528 6.24117 6.07136 6.36661C5.9987 6.50922 5.9987 6.6959 5.9987 7.06927V8.93594C5.9987 9.30931 5.9987 9.49599 6.07136 9.6386C6.13528 9.76404 6.23726 9.86603 6.3627 9.92994C6.50531 10.0026 6.692 10.0026 7.06537 10.0026Z"
-                              stroke="white"
-                              strokeWidth="2"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                          </g>
-                          <defs>
-                            <clipPath id="clip0_2420_6985">
-                              <rect width="16" height="16" fill="white" />
-                            </clipPath>
-                          </defs>
-                        </svg>
-                        <p className="TooltextHelper2">Helper</p>
-                      </button>
-                      <button
-                        className="ToolbuttonNext"
-                        onClick={() => setGroupbutton(2)}
-                      >
-                        <p>Next</p>
-                      </button>
-                    </div>
-                  ) : groupbutton === 2 ? (
-                    <div style={{ display: "flex" }}>
-                      <button
-                        className="ToolbuttonNext"
-                        onClick={() => setGroupbutton(1)}
-                      >
-                        <p>Back</p>
-                      </button>
-
-                      <button
-                        className="ToolHelper2"
-                        onClick={() => setScreen(2)}
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="16"
-                          height="16"
-                          viewBox="0 0 16 16"
-                          fill="none"
-                        >
-                          <g clipPath="url(#clip0_2420_6985)">
-                            <path
-                              d="M5.9987 1.33594V2.66927M9.9987 1.33594V2.66927M5.9987 13.3359V14.6693M9.9987 13.3359V14.6693M13.332 6.0026H14.6654M13.332 9.33594H14.6654M1.33203 6.0026H2.66536M1.33203 9.33594H2.66536M5.86536 13.3359H10.132C11.2521 13.3359 11.8122 13.3359 12.24 13.118C12.6163 12.9262 12.9223 12.6202 13.114 12.2439C13.332 11.8161 13.332 11.256 13.332 10.1359V5.86927C13.332 4.74917 13.332 4.18911 13.114 3.76129C12.9223 3.38497 12.6163 3.079 12.24 2.88726C11.8122 2.66927 11.2521 2.66927 10.132 2.66927H5.86536C4.74526 2.66927 4.18521 2.66927 3.75738 2.88726C3.38106 3.079 3.0751 3.38497 2.88335 3.76129C2.66536 4.18911 2.66536 4.74917 2.66536 5.86927V10.1359C2.66536 11.256 2.66536 11.8161 2.88335 12.2439C3.0751 12.6202 3.38106 12.9262 3.75738 13.118C4.18521 13.3359 4.74526 13.3359 5.86536 13.3359ZM7.06537 10.0026H8.93203C9.3054 10.0026 9.49208 10.0026 9.63469 9.92994C9.76013 9.86603 9.86212 9.76404 9.92604 9.6386C9.9987 9.49599 9.9987 9.30931 9.9987 8.93594V7.06927C9.9987 6.6959 9.9987 6.50922 9.92604 6.36661C9.86212 6.24117 9.76013 6.13918 9.63469 6.07527C9.49208 6.0026 9.3054 6.0026 8.93203 6.0026H7.06537C6.692 6.0026 6.50531 6.0026 6.3627 6.07527C6.23726 6.13918 6.13528 6.24117 6.07136 6.36661C5.9987 6.50922 5.9987 6.6959 5.9987 7.06927V8.93594C5.9987 9.30931 5.9987 9.49599 6.07136 9.6386C6.13528 9.76404 6.23726 9.86603 6.3627 9.92994C6.50531 10.0026 6.692 10.0026 7.06537 10.0026Z"
-                              stroke="white"
-                              strokeWidth="2"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                          </g>
-                          <defs>
-                            <clipPath id="clip0_2420_6985">
-                              <rect width="16" height="16" fill="white" />
-                            </clipPath>
-                          </defs>
-                        </svg>
-                        <p className="TooltextHelper2">Helper</p>
-                      </button>
-
-                      <button
-                        className="ToolbuttonNext"
-                        onClick={() => setGroupbutton(3)}
-                      >
-                        <p>Next</p>
-                      </button>
-                    </div>
-                  ) : groupbutton === 3 ? (
-                    <div style={{ display: "flex" }}>
-                      <button
-                        className="ToolbuttonNext"
-                        onClick={() => setGroupbutton(2)}
-                      >
-                        <p>Back</p>
-                      </button>
-
-                      <button
-                        className="ToolHelper2"
-                        onClick={() => setScreen(2)}
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="16"
-                          height="16"
-                          viewBox="0 0 16 16"
-                          fill="none"
-                        >
-                          <g clipPath="url(#clip0_2420_6985)">
-                            <path
-                              d="M5.9987 1.33594V2.66927M9.9987 1.33594V2.66927M5.9987 13.3359V14.6693M9.9987 13.3359V14.6693M13.332 6.0026H14.6654M13.332 9.33594H14.6654M1.33203 6.0026H2.66536M1.33203 9.33594H2.66536M5.86536 13.3359H10.132C11.2521 13.3359 11.8122 13.3359 12.24 13.118C12.6163 12.9262 12.9223 12.6202 13.114 12.2439C13.332 11.8161 13.332 11.256 13.332 10.1359V5.86927C13.332 4.74917 13.332 4.18911 13.114 3.76129C12.9223 3.38497 12.6163 3.079 12.24 2.88726C11.8122 2.66927 11.2521 2.66927 10.132 2.66927H5.86536C4.74526 2.66927 4.18521 2.66927 3.75738 2.88726C3.38106 3.079 3.0751 3.38497 2.88335 3.76129C2.66536 4.18911 2.66536 4.74917 2.66536 5.86927V10.1359C2.66536 11.256 2.66536 11.8161 2.88335 12.2439C3.0751 12.6202 3.38106 12.9262 3.75738 13.118C4.18521 13.3359 4.74526 13.3359 5.86536 13.3359ZM7.06537 10.0026H8.93203C9.3054 10.0026 9.49208 10.0026 9.63469 9.92994C9.76013 9.86603 9.86212 9.76404 9.92604 9.6386C9.9987 9.49599 9.9987 9.30931 9.9987 8.93594V7.06927C9.9987 6.6959 9.9987 6.50922 9.92604 6.36661C9.86212 6.24117 9.76013 6.13918 9.63469 6.07527C9.49208 6.0026 9.3054 6.0026 8.93203 6.0026H7.06537C6.692 6.0026 6.50531 6.0026 6.3627 6.07527C6.23726 6.13918 6.13528 6.24117 6.07136 6.36661C5.9987 6.50922 5.9987 6.6959 5.9987 7.06927V8.93594C5.9987 9.30931 5.9987 9.49599 6.07136 9.6386C6.13528 9.76404 6.23726 9.86603 6.3627 9.92994C6.50531 10.0026 6.692 10.0026 7.06537 10.0026Z"
-                              stroke="white"
-                              strokeWidth="2"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                          </g>
-                          <defs>
-                            <clipPath id="clip0_2420_6985">
-                              <rect width="16" height="16" fill="white" />
-                            </clipPath>
-                          </defs>
-                        </svg>
-                        <p className="TooltextHelper2">Helper</p>
-                      </button>
-
-                      <button
-                        className="ToolSubmit"
-                        onClick={() => navigate("/In")}
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="16"
-                          height="16"
-                          viewBox="0 0 16 16"
-                          fill="none"
-                        >
-                          <g clipPath="url(#clip0_1849_18817)">
-                            <path
-                              d="M4.99992 7.9987L6.99992 9.9987L10.9999 5.9987M14.6666 7.9987C14.6666 11.6806 11.6818 14.6654 7.99992 14.6654C4.31802 14.6654 1.33325 11.6806 1.33325 7.9987C1.33325 4.3168 4.31802 1.33203 7.99992 1.33203C11.6818 1.33203 14.6666 4.3168 14.6666 7.9987Z"
-                              stroke="white"
-                              strokeWidth="2"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                          </g>
-                          <defs>
-                            <clipPath id="clip0_1849_18817">
-                              <rect width="16" height="16" fill="white" />
-                            </clipPath>
-                          </defs>
+                          {/* Replace with the actual SVG path for submission */}
+                          <path
+                            d="M4.99992 7.9987L6.99992 9.9987L10.9999 5.9987M14.6666 7.9987C14.6666 11.6806 11.6818 14.6654 7.99992 14.6654C4.31802 14.6654 1.33325 11.6806 1.33325 7.9987C1.33325 4.3168 4.31802 1.33203 7.99992 1.33203C11.6818 1.33203 14.6666 4.3168 14.6666 7.9987Z"
+                            stroke="white"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
                         </svg>
                         <p>Submit</p>
                       </button>
-                    </div>
-                  ) : (
-                    <></>
-                  )}
+                    ) : lengthData >= groupbutton && groupbutton === 1 ? (
+                      <div className="Groupbutton">
+                        <div style={{ display: "flex" }}>
+                          <ToolButton
+                            onClick={() => setGroupbutton(groupbutton + 1)}
+                            // svgPath="..." // Replace with the actual SVG path for this button
+                            // className={
+                            //   index === groupbutton - 1
+                            //     ? "Selected"
+                            //     : "NotSelected"
+                            // }
+                            buttonText={"Naxt"}
+                          />
+                        </div>
+                      </div>
+                    ) : groupbutton > 1 ? (
+                      <div>
+                        <div style={{ display: "flex" }}>
+                          <ToolButton
+                            className="Groupbutton"
+                            onClick={() => setGroupbutton(groupbutton - 1)}
+                            // svgPath="..." // Replace with the actual SVG path for this button
+                            // className={
+                            //   index === groupbutton - 1
+                            //     ? "Selected"
+                            //     : "NotSelected"
+                            // }
+                            buttonText={"back"}
+                          />
+                          <ToolButton
+                            onClick={() => setGroupbutton(groupbutton + 1)}
+                            // svgPath="..." // Replace with the actual SVG path for this button
+                            // className={
+                            //   index === groupbutton - 1
+                            //     ? "Selected"
+                            //     : "NotSelected"
+                            // }
+                            buttonText={"Naxt"}
+                          />
+                        </div>
+                      </div>
+                    ) : null}
+                  </div>
                 </div>
 
-                {groupbutton === 1 ? (
-                  <div className="ToolHaed3_1">
-                    <div className="ToolHaed2">
-                      <div>
-                        <p className="TextHTool">Article</p>
-                      </div>
-                      <p>Timeline : 2023/9/15 </p>
-                      <p>Detail : - </p>
-                      <p>File: 1.jpeg</p>
-                    </div>
-                  </div>
-                ) : groupbutton === 2 ? (
-                  <div className="ToolHaed3_1">
-                    <div className="ToolHaed2">
-                      <div>
-                        <p className="TextHTool">Article</p>
-                      </div>
-                      <p>Timeline : 2023/9/15 </p>
-                      <p>Detail : 12345 </p>
-                      <p>File: 49.jpeg</p>
-                    </div>
-                  </div>
-                ) : groupbutton === 3 ? (
-                  <div className="ToolHaed3_1">
-                    <div className="ToolHaed2">
-                      <div>
-                        <p className="TextHTool">Article</p>
-                      </div>
-                      <p>Timeline : 2023/9/15 </p>
-                      <p>Detail : - </p>
-                      <p>File: dii.jpg</p>
-                    </div>
-                  </div>
-                ) : (
-                  <></>
-                )}
+                {showCaes?.data?.map((item, index) => (
+                  <>
+                    {groupbutton === index + 1 && (
+                      <ArticleDetails article={item} />
+                    )}
+                  </>
+                ))}
+
                 {groupbutton === 1 ? (
                   <div className="Toolbobywork">
                     <div className="ToolSelectfile">

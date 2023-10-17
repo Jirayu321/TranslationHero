@@ -95,7 +95,7 @@ const Login = () => {
   return (
     <>
       <header className={styles?.header}>
-      {Doc === undefined ? (
+        {Doc === undefined ? (
           <Navbars navigate={navigate} languages="English" accept={false} />
         ) : Doc === "Thai" ? (
           <Navbars navigate={navigate} languages="Thai" accept={true} />
@@ -157,14 +157,15 @@ const Login = () => {
                 onSubmit={(values, { setSubmitting }) => {
                   if (values) {
                     const email = values?.email;
-                    // const password = values?.password;
-                    // if (
-                    //   email === "jyung3221@gmail.com" &&
-                    //   password === "123456"
-                    // ) {
-                    //   navigate("/In", { state: { languages: `${Doc}`, accept: true } });
-                    // } else 
-                    if (email !== "jyung3221@gmail.com") {
+                    const password = values?.password;
+                    if (
+                      email === "jyung3221@gmail.com" &&
+                      password === "123456"
+                    ) {
+                      navigate("/In", {
+                        state: { languages: `${Doc}`, accept: true },
+                      });
+                    } else if (email !== "jyung3221@gmail.com") {
                       toast.error(
                         "Please enter your email or password again.",
                         {
@@ -392,7 +393,11 @@ const Login = () => {
                       <p className={styles.textLi}>Don’t have an account?</p>
                       <button
                         className={styles.button2}
-                        onClick={() => navigate("/Signup", { state: { languages: `${Doc}`, accept: true } })}
+                        onClick={() =>
+                          navigate("/Signup", {
+                            state: { languages: `${Doc}`, accept: true },
+                          })
+                        }
                       >
                         <p className={styles.textLogin3}>Signup</p>
                       </button>

@@ -461,9 +461,11 @@ BoxModal3 {
 } */
 
 .ToolTest2 {
-  width: 450px;
-  height: 342px;
+  width: 40%;
+  height: auto;
   background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 .ToolSelectfile {
   border-radius: 20px;
@@ -556,4 +558,9 @@ BoxModal3 {
   align-items: center;
   height: 25vw;
   width: 85vw;
+}
+.Taks {
+  margin: 2rem 0rem;
+  overflow-y: auto;
+  height: 35vw;
 }

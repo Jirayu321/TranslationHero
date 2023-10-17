@@ -273,11 +273,19 @@ const Customer = () => {
   }
 
   const onImageChange = (e) => {
-    const files = [...e.target.files];
-    const ImageURLs = [];
-    files.forEach((image) => ImageURLs.push(URL.createObjectURL(image)));
-    // console.log("ImageURLs:", ImageURLs);
-    setFrom({ ...from, file: ImageURLs });
+    var reader = new FileReader();
+    reader.readAsDataURL(e.target.files[0]);
+    reader.onload = () => {
+      // console.log(reader.result);
+      setFrom({ ...from, file: reader.result });
+    };
+    reader.onerror = (error) => {
+      console.log("Error:", error);
+    };
+    // const files = [...e.target.files];
+    // const ImageURLs = [];
+    // files.forEach((image) => ImageURLs.push(URL.createObjectURL(image)));
+    // // console.log("ImageURLs:", ImageURLs);
   };
 
   function Add_data() {
@@ -491,14 +499,14 @@ const Customer = () => {
     navigate("/Signup", { state: { languages: `${Doc}`, accept: true } });
   };
 
-  const cutsting = (x) => {
-    // console.log(x);
-    if (x !== undefined) {
-      return x.slice(0, 30);
-    } else {
-      setFrom({ ...from, file: "" });
-    }
-  };
+  // const cutsting = (x) => {
+  //   // console.log(x);
+  //   if (x !== undefined) {
+  //     return x.slice(0, 30);
+  //   } else {
+  //     setFrom({ ...from, file: "" });
+  //   }
+  // };
 
   function sendEmail() {
     const datatext = {
@@ -885,9 +893,7 @@ const Customer = () => {
                   <>
                     <div className={styles.Box_detailH_Model}>
                       <p className={styles.H_Model}>Ref Number</p>
-                      <p className={styles.H_Model2}>
-                        {from2?.orderNumber}
-                      </p>
+                      <p className={styles.H_Model2}>{from2?.orderNumber}</p>
                     </div>
                     <div className={styles.Box_detailH_Model}>
                       <p className={styles.H_Model}>Date</p>
@@ -1479,15 +1485,12 @@ const Customer = () => {
                           aria-label="upload picture"
                           component="span"
                         >
-                          <p
-                            style={{
-                              fontWeight: "bold",
-                              fontSize: 16,
-                              color: "#B5B5B5",
-                            }}
-                          >
-                            {cutsting(from?.file)}
-                          </p>
+                          <img
+                            width="60%"
+                            height="100%"
+                            src={from?.file}
+                            alt="Fileimg"
+                          />
                         </IconButton>
                       </label>
                     </div>
@@ -2387,13 +2390,11 @@ const Customer = () => {
                   overflowY: "auto",
                 }}
               >
-                {groupData?.length > 0  ? (
+                {groupData?.length > 0 ? (
                   <>
                     <div className={styles.Box_detailH_Model}>
                       <p className={styles.H_Model}>Ref Number</p>
-                      <p className={styles.H_Model2}>
-                        {from2?.orderNumber}
-                      </p>
+                      <p className={styles.H_Model2}>{from2?.orderNumber}</p>
                     </div>
                     <div className={styles.Box_detailH_Model}>
                       <p className={styles.H_Model}>Date</p>
@@ -2994,15 +2995,12 @@ const Customer = () => {
                           aria-label="upload picture"
                           component="span"
                         >
-                          <p
-                            style={{
-                              fontWeight: "bold",
-                              fontSize: 16,
-                              color: "#B5B5B5",
-                            }}
-                          >
-                            {cutsting(from?.file)}
-                          </p>
+                          <img
+                            width="60%"
+                            height="100%"
+                            src={from?.file}
+                            alt="Fileimg"
+                          />
                         </IconButton>
                       </label>
                     </div>
