@@ -126,7 +126,7 @@ export const createOrder = createAsyncThunk(
   async (values, { rejectWithValue }) => {
     let y = values.y.at(0);
     try {
-      // console.log("values_y:", values);
+      console.log("values:", values);
       const token = await axios.post(`${url}/createOrder`, {
         file: y.file.at(0),
         document_Type: y.document_Type,

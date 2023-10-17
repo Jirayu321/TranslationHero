@@ -52,6 +52,8 @@ function Tool() {
   const [open4, setOpen4] = React.useState(false);
   const [groupbutton, setGroupbutton] = React.useState(1);
   const [data, setData] = React.useState("");
+
+  const [lengthData, setLengthData] = React.useState(0);
   const [showCaes, setShowCaes] = React.useState(null);
   const [option, setOption] = React.useState("1");
   const [screen, setScreen] = React.useState(1);
@@ -103,69 +105,135 @@ function Tool() {
     console.log("i:", i);
     if (p === 2) {
       setShowCaes(i);
+      setLengthData(i.data?.length);
       setScreen(2);
     }
   };
 
   const ToolButton = ({ onClick, svgPath, buttonText }) => (
     <button className="ToolbuttonNext" onClick={onClick}>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="16"
-        height="16"
-        viewBox="0 0 16 16"
-        fill="none"
-      >
-        <path
-          d={svgPath}
-          stroke="url(#paint0_linear)"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
       <p>{buttonText}</p>
     </button>
   );
 
-  const ArticleDetails = ({ article }) => (
-    <div className="ToolHaed3_1">
-      <div className="ToolHaed2">
-        <div>
-          <p className="TextHTool">Article</p>
-        </div>
-        <p>Timeline: {article.timeline}</p>
-        <p>Detail: {article.detail}</p>
-        <p>File: {article.file}</p>
-      </div>
-      <div>
-        <button className="ToolbuttonOpenFile" onClick={() => setOpen(true)}>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            viewBox="0 0 16 16"
-            fill="none"
-          >
-            {/* Replace with the actual SVG path for opening file */}
-            <path
-              d="M1.61342 8.47415C1.52262 8.33039 1.47723 8.25851 1.45182 8.14764C1.43273 8.06436 1.43273 7.93303 1.45182 7.84975C1.47723 7.73889 1.52262 7.66701 1.61341 7.52325C2.36369 6.33526 4.59693 3.33203 8.00027 3.33203C11.4036 3.33203 13.6369 6.33526 14.3871 7.52325C14.4779 7.66701 14.5233 7.73889 14.5487 7.84975C14.5678 7.93303 14.5678 8.06436 14.5487 8.14764C14.5233 8.25851 14.4779 8.33039 14.3871 8.47415C13.6369 9.66214 11.4036 12.6654 8.00027 12.6654C4.59693 12.6654 2.36369 9.66214 1.61342 8.47415Z"
-              stroke="white"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-          <p>Open File</p>
-        </button>
-      </div>
-    </div>
-  );
+  const ArticleDetails = ({ article }) => {
+    console.log("article:", article);
+    const ImageURLs = [];
 
-  console.log("Data:", data);
+    article.file.forEach((fileArray) => {
+      if (fileArray.length > 0 && fileArray[0] instanceof File) {
+        // Assuming the File object is at the first index of the inner array
+        const file = fileArray[0];
+        ImageURLs.push(URL.createObjectURL(file));
+      }
+    });
+    
+    console.log("ImageURLs:", ImageURLs);
+    return (
+      <>
+        <Modal
+          open={open}
+          // onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box className="BoxModal2">
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <p>File: </p>
+            </div>
+
+            <div
+              style={{
+                width: " 100%",
+                height: "500px",
+                background: " #F6FBFE",
+                border: "1px solid #E5E5E5",
+                borderRadius: 5,
+                textAlign: "start",
+                padding: "20px",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              {/* <img
+                src={`${article?.file.at(0)}`}
+                alt="Test"
+                className="ToolTest2"
+              /> */}
+            </div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "flex-end",
+              }}
+            >
+              <button
+                style={{
+                  height: 40,
+                  borderRadius: 5,
+                  color: "#034D82",
+                  fontWeight: 700,
+                  filter: "drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.1))",
+                  background: "#FFFFFF",
+                  border: "1px solid #034D82",
+                  marginTop: 10,
+                  alignContent: "center",
+                }}
+                onClick={() => setOpen(false)}
+              >
+                Close
+              </button>
+            </div>
+          </Box>
+        </Modal>
+        <div className="ToolHaed3_1">
+          <div className="ToolHaed2">
+            <div>
+              <p className="TextHTool">Article</p>
+            </div>
+            <p>Timeline: {article.Deadline}</p>
+            <p>Detail: {article.translation_Type}</p>
+            {/* <p>File: {article.file.at(0)}</p> */}
+          </div>
+          <div>
+            <button
+              className="ToolbuttonOpenFile"
+              onClick={() => setOpen(true)}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 16 16"
+                fill="none"
+              >
+                <path
+                  d="M1.61342 8.47806C1.52262 8.3343 1.47723 8.26242 1.45182 8.15155C1.43273 8.06827 1.43273 7.93694 1.45182 7.85366C1.47723 7.74279 1.52262 7.67091 1.61341 7.52715C2.36369 6.33916 4.59693 3.33594 8.00027 3.33594C11.4036 3.33594 13.6369 6.33916 14.3871 7.52715C14.4779 7.67091 14.5233 7.74279 14.5487 7.85366C14.5678 7.93694 14.5678 8.06827 14.5487 8.15155C14.5233 8.26242 14.4779 8.3343 14.3871 8.47806C13.6369 9.66604 11.4036 12.6693 8.00027 12.6693C4.59693 12.6693 2.36369 9.66604 1.61342 8.47806Z"
+                  stroke="white"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M8.00027 10.0026C9.10484 10.0026 10.0003 9.10717 10.0003 8.0026C10.0003 6.89803 9.10484 6.0026 8.00027 6.0026C6.8957 6.0026 6.00027 6.89803 6.00027 8.0026C6.00027 9.10717 6.8957 10.0026 8.00027 10.0026Z"
+                  stroke="white"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+              <p>Open File</p>
+            </button>
+          </div>
+        </div>
+      </>
+    );
+  };
+
+  // console.log("image:", image);
 
   return (
-    // <></>
     <div className="AppBobyTool">
       <header className="App-header">
         {Doc === "English" ? (
@@ -306,410 +374,110 @@ function Tool() {
               </div>
             ) : screen === 2 ? (
               <div className="BoxSunEditor">
-                {/* <div className="ToolHaed4">
-                  <div className="ToolInHaed4">
-                    <p className="ToolInHaed4text1">Tools</p>
-                    <p className="ToolInHaed4text2">
-                      / {showCaes?.orderNumber}
-                    </p>
-                  </div>
-
-                  {groupbutton === 1 ? (
-                    <div style={{ display: "flex" }}>
-                      <button
-                        className="ToolHelper"
-                        onClick={() => setScreen(3)}
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="16"
-                          height="16"
-                          viewBox="0 0 16 16"
-                          fill="none"
-                        >
-                          <g clipPath="url(#clip0_1849_18814)">
-                            <path
-                              d="M5.99992 1.33203V2.66536M9.99992 1.33203V2.66536M5.99992 13.332V14.6654M9.99992 13.332V14.6654M13.3333 5.9987H14.6666M13.3333 9.33203H14.6666M1.33325 5.9987H2.66659M1.33325 9.33203H2.66659M5.86659 13.332H10.1333C11.2534 13.332 11.8134 13.332 12.2412 13.114C12.6176 12.9223 12.9235 12.6163 13.1153 12.24C13.3333 11.8122 13.3333 11.2521 13.3333 10.132V5.86536C13.3333 4.74526 13.3333 4.18521 13.1153 3.75738C12.9235 3.38106 12.6176 3.0751 12.2412 2.88335C11.8134 2.66536 11.2534 2.66536 10.1333 2.66536H5.86659C4.74648 2.66536 4.18643 2.66536 3.7586 2.88335C3.38228 3.0751 3.07632 3.38106 2.88457 3.75738C2.66659 4.18521 2.66659 4.74526 2.66659 5.86536V10.132C2.66659 11.2521 2.66659 11.8122 2.88457 12.24C3.07632 12.6163 3.38228 12.9223 3.7586 13.114C4.18643 13.332 4.74648 13.332 5.86659 13.332ZM7.06659 9.9987H8.93325C9.30662 9.9987 9.4933 9.9987 9.63591 9.92604C9.76135 9.86212 9.86334 9.76013 9.92726 9.63469C9.99992 9.49208 9.99992 9.3054 9.99992 8.93203V7.06537C9.99992 6.692 9.99992 6.50531 9.92726 6.3627C9.86334 6.23726 9.76135 6.13528 9.63591 6.07136C9.4933 5.9987 9.30662 5.9987 8.93325 5.9987H7.06659C6.69322 5.9987 6.50653 5.9987 6.36393 6.07136C6.23848 6.13528 6.1365 6.23726 6.07258 6.3627C5.99992 6.50531 5.99992 6.692 5.99992 7.06537V8.93203C5.99992 9.3054 5.99992 9.49208 6.07258 9.63469C6.1365 9.76013 6.23848 9.86212 6.36393 9.92604C6.50653 9.9987 6.69322 9.9987 7.06659 9.9987Z"
-                              stroke="url(#paint0_linear_1849_18814)"
-                              strokeWidth="2"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                          </g>
-                          <defs>
-                            <linearGradient
-                              id="paint0_linear_1849_18814"
-                              x1="2.1182"
-                              y1="1.33203"
-                              x2="16.3943"
-                              y2="3.42784"
-                              gradientUnits="userSpaceOnUse"
-                            >
-                              <stop stopColor="#3B005F" />
-                              <stop offset="1" stopColor="#1466B1" />
-                            </linearGradient>
-                            <clipPath id="clip0_1849_18814">
-                              <rect width="16" height="16" fill="white" />
-                            </clipPath>
-                          </defs>
-                        </svg>
-                        <p className="TooltextHelper">Helper</p>
-                      </button>
-                      <button
-                        className="ToolbuttonNext"
-                        onClick={() => setGroupbutton(2)}
-                      >
-                        <p>Next</p>
-                      </button>
-                    </div>
-                  ) : groupbutton === 2 ? (
-                    <div style={{ display: "flex" }}>
-                      <button
-                        className="ToolbuttonNext"
-                        onClick={() => setGroupbutton(1)}
-                      >
-                        <p>Back</p>
-                      </button>
-
-                      <button
-                        className="ToolHelper"
-                        onClick={() => setScreen(3)}
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="16"
-                          height="16"
-                          viewBox="0 0 16 16"
-                          fill="none"
-                        >
-                          <g clipPath="url(#clip0_1849_18814)">
-                            <path
-                              d="M5.99992 1.33203V2.66536M9.99992 1.33203V2.66536M5.99992 13.332V14.6654M9.99992 13.332V14.6654M13.3333 5.9987H14.6666M13.3333 9.33203H14.6666M1.33325 5.9987H2.66659M1.33325 9.33203H2.66659M5.86659 13.332H10.1333C11.2534 13.332 11.8134 13.332 12.2412 13.114C12.6176 12.9223 12.9235 12.6163 13.1153 12.24C13.3333 11.8122 13.3333 11.2521 13.3333 10.132V5.86536C13.3333 4.74526 13.3333 4.18521 13.1153 3.75738C12.9235 3.38106 12.6176 3.0751 12.2412 2.88335C11.8134 2.66536 11.2534 2.66536 10.1333 2.66536H5.86659C4.74648 2.66536 4.18643 2.66536 3.7586 2.88335C3.38228 3.0751 3.07632 3.38106 2.88457 3.75738C2.66659 4.18521 2.66659 4.74526 2.66659 5.86536V10.132C2.66659 11.2521 2.66659 11.8122 2.88457 12.24C3.07632 12.6163 3.38228 12.9223 3.7586 13.114C4.18643 13.332 4.74648 13.332 5.86659 13.332ZM7.06659 9.9987H8.93325C9.30662 9.9987 9.4933 9.9987 9.63591 9.92604C9.76135 9.86212 9.86334 9.76013 9.92726 9.63469C9.99992 9.49208 9.99992 9.3054 9.99992 8.93203V7.06537C9.99992 6.692 9.99992 6.50531 9.92726 6.3627C9.86334 6.23726 9.76135 6.13528 9.63591 6.07136C9.4933 5.9987 9.30662 5.9987 8.93325 5.9987H7.06659C6.69322 5.9987 6.50653 5.9987 6.36393 6.07136C6.23848 6.13528 6.1365 6.23726 6.07258 6.3627C5.99992 6.50531 5.99992 6.692 5.99992 7.06537V8.93203C5.99992 9.3054 5.99992 9.49208 6.07258 9.63469C6.1365 9.76013 6.23848 9.86212 6.36393 9.92604C6.50653 9.9987 6.69322 9.9987 7.06659 9.9987Z"
-                              stroke="url(#paint0_linear_1849_18814)"
-                              strokeWidth="2"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                          </g>
-                          <defs>
-                            <linearGradient
-                              id="paint0_linear_1849_18814"
-                              x1="2.1182"
-                              y1="1.33203"
-                              x2="16.3943"
-                              y2="3.42784"
-                              gradientUnits="userSpaceOnUse"
-                            >
-                              <stop stopColor="#3B005F" />
-                              <stop offset="1" stopColor="#1466B1" />
-                            </linearGradient>
-                            <clipPath id="clip0_1849_18814">
-                              <rect width="16" height="16" fill="white" />
-                            </clipPath>
-                          </defs>
-                        </svg>
-                        <p className="TooltextHelper">Helper</p>
-                      </button>
-
-                      <button
-                        className="ToolbuttonNext"
-                        onClick={() => setGroupbutton(3)}
-                      >
-                        <p>Next</p>
-                      </button>
-                    </div>
-                  ) : groupbutton === 3 ? (
-                    <div style={{ display: "flex" }}>
-                      <button
-                        className="ToolbuttonNext"
-                        onClick={() => setGroupbutton(2)}
-                      >
-                        <p>Back</p>
-                      </button>
-
-                      <button
-                        className="ToolHelper"
-                        onClick={() => setScreen(3)}
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="16"
-                          height="16"
-                          viewBox="0 0 16 16"
-                          fill="none"
-                        >
-                          <g clipPath="url(#clip0_1849_18814)">
-                            <path
-                              d="M5.99992 1.33203V2.66536M9.99992 1.33203V2.66536M5.99992 13.332V14.6654M9.99992 13.332V14.6654M13.3333 5.9987H14.6666M13.3333 9.33203H14.6666M1.33325 5.9987H2.66659M1.33325 9.33203H2.66659M5.86659 13.332H10.1333C11.2534 13.332 11.8134 13.332 12.2412 13.114C12.6176 12.9223 12.9235 12.6163 13.1153 12.24C13.3333 11.8122 13.3333 11.2521 13.3333 10.132V5.86536C13.3333 4.74526 13.3333 4.18521 13.1153 3.75738C12.9235 3.38106 12.6176 3.0751 12.2412 2.88335C11.8134 2.66536 11.2534 2.66536 10.1333 2.66536H5.86659C4.74648 2.66536 4.18643 2.66536 3.7586 2.88335C3.38228 3.0751 3.07632 3.38106 2.88457 3.75738C2.66659 4.18521 2.66659 4.74526 2.66659 5.86536V10.132C2.66659 11.2521 2.66659 11.8122 2.88457 12.24C3.07632 12.6163 3.38228 12.9223 3.7586 13.114C4.18643 13.332 4.74648 13.332 5.86659 13.332ZM7.06659 9.9987H8.93325C9.30662 9.9987 9.4933 9.9987 9.63591 9.92604C9.76135 9.86212 9.86334 9.76013 9.92726 9.63469C9.99992 9.49208 9.99992 9.3054 9.99992 8.93203V7.06537C9.99992 6.692 9.99992 6.50531 9.92726 6.3627C9.86334 6.23726 9.76135 6.13528 9.63591 6.07136C9.4933 5.9987 9.30662 5.9987 8.93325 5.9987H7.06659C6.69322 5.9987 6.50653 5.9987 6.36393 6.07136C6.23848 6.13528 6.1365 6.23726 6.07258 6.3627C5.99992 6.50531 5.99992 6.692 5.99992 7.06537V8.93203C5.99992 9.3054 5.99992 9.49208 6.07258 9.63469C6.1365 9.76013 6.23848 9.86212 6.36393 9.92604C6.50653 9.9987 6.69322 9.9987 7.06659 9.9987Z"
-                              stroke="url(#paint0_linear_1849_18814)"
-                              strokeWidth="2"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                          </g>
-                          <defs>
-                            <linearGradient
-                              id="paint0_linear_1849_18814"
-                              x1="2.1182"
-                              y1="1.33203"
-                              x2="16.3943"
-                              y2="3.42784"
-                              gradientUnits="userSpaceOnUse"
-                            >
-                              <stop stopColor="#3B005F" />
-                              <stop offset="1" stopColor="#1466B1" />
-                            </linearGradient>
-                            <clipPath id="clip0_1849_18814">
-                              <rect width="16" height="16" fill="white" />
-                            </clipPath>
-                          </defs>
-                        </svg>
-                        <p className="TooltextHelper">Helper</p>
-                      </button>
-
-                      <button
-                        className="ToolSubmit"
-                        onClick={() => navigate("/In")}
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="16"
-                          height="16"
-                          viewBox="0 0 16 16"
-                          fill="none"
-                        >
-                          <g clipPath="url(#clip0_1849_18817)">
-                            <path
-                              d="M4.99992 7.9987L6.99992 9.9987L10.9999 5.9987M14.6666 7.9987C14.6666 11.6806 11.6818 14.6654 7.99992 14.6654C4.31802 14.6654 1.33325 11.6806 1.33325 7.9987C1.33325 4.3168 4.31802 1.33203 7.99992 1.33203C11.6818 1.33203 14.6666 4.3168 14.6666 7.9987Z"
-                              stroke="white"
-                              strokeWidth="2"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                          </g>
-                          <defs>
-                            <clipPath id="clip0_1849_18817">
-                              <rect width="16" height="16" fill="white" />
-                            </clipPath>
-                          </defs>
-                        </svg>
-                        <p>Submit</p>
-                      </button>
-                    </div>
-                  ) : (
-                    <></>
-                  )}
-                </div>
-
-                {groupbutton === 1 ? (
-                  <div className="ToolHaed3_1">
-                    <div className="ToolHaed2">
-                      <div>
-                        <p className="TextHTool">Article</p>
-                      </div>
-                      <p>Timeline : 2023/9/15 </p>
-                      <p>Detail : - </p>
-                      <p>File: 1.jpeg</p>
-                    </div>
-                    <div>
-                      <button
-                        className="ToolbuttonOpenFile"
-                        onClick={() => setOpen2(true)}
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="16"
-                          height="16"
-                          viewBox="0 0 16 16"
-                          fill="none"
-                        >
-                          <path
-                            d="M1.61342 8.47415C1.52262 8.33039 1.47723 8.25851 1.45182 8.14764C1.43273 8.06436 1.43273 7.93303 1.45182 7.84975C1.47723 7.73889 1.52262 7.66701 1.61341 7.52325C2.36369 6.33526 4.59693 3.33203 8.00027 3.33203C11.4036 3.33203 13.6369 6.33526 14.3871 7.52325C14.4779 7.66701 14.5233 7.73889 14.5487 7.84975C14.5678 7.93303 14.5678 8.06436 14.5487 8.14764C14.5233 8.25851 14.4779 8.33039 14.3871 8.47415C13.6369 9.66214 11.4036 12.6654 8.00027 12.6654C4.59693 12.6654 2.36369 9.66214 1.61342 8.47415Z"
-                            stroke="white"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                          <path
-                            d="M8.00027 9.9987C9.10484 9.9987 10.0003 9.10327 10.0003 7.9987C10.0003 6.89413 9.10484 5.9987 8.00027 5.9987C6.8957 5.9987 6.00027 6.89413 6.00027 7.9987C6.00027 9.10327 6.8957 9.9987 8.00027 9.9987Z"
-                            stroke="white"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
-                        <p>Open File</p>
-                      </button>
-                    </div>
-                  </div>
-                ) : groupbutton === 2 ? (
-                  <div className="ToolHaed3_1">
-                    <div className="ToolHaed2">
-                      <div>
-                        <p className="TextHTool">Article</p>
-                      </div>
-                      <p>Timeline : 2023/9/15 </p>
-                      <p>Detail : 12345 </p>
-                      <p>File: 49.jpeg</p>
-                    </div>
-                    <div>
-                      <button
-                        className="ToolbuttonOpenFile"
-                        onClick={() => setOpen3(true)}
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="16"
-                          height="16"
-                          viewBox="0 0 16 16"
-                          fill="none"
-                        >
-                          <path
-                            d="M1.61342 8.47415C1.52262 8.33039 1.47723 8.25851 1.45182 8.14764C1.43273 8.06436 1.43273 7.93303 1.45182 7.84975C1.47723 7.73889 1.52262 7.66701 1.61341 7.52325C2.36369 6.33526 4.59693 3.33203 8.00027 3.33203C11.4036 3.33203 13.6369 6.33526 14.3871 7.52325C14.4779 7.66701 14.5233 7.73889 14.5487 7.84975C14.5678 7.93303 14.5678 8.06436 14.5487 8.14764C14.5233 8.25851 14.4779 8.33039 14.3871 8.47415C13.6369 9.66214 11.4036 12.6654 8.00027 12.6654C4.59693 12.6654 2.36369 9.66214 1.61342 8.47415Z"
-                            stroke="white"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                          <path
-                            d="M8.00027 9.9987C9.10484 9.9987 10.0003 9.10327 10.0003 7.9987C10.0003 6.89413 9.10484 5.9987 8.00027 5.9987C6.8957 5.9987 6.00027 6.89413 6.00027 7.9987C6.00027 9.10327 6.8957 9.9987 8.00027 9.9987Z"
-                            stroke="white"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
-                        <p>Open File</p>
-                      </button>
-                    </div>
-                  </div>
-                ) : groupbutton === 3 ? (
-                  <div className="ToolHaed3_1">
-                    <div className="ToolHaed2">
-                      <div>
-                        <p className="TextHTool">Article</p>
-                      </div>
-                      <p>Timeline : 2023/9/15 </p>
-                      <p>Detail : - </p>
-                      <p>File: dii.jpg</p>
-                    </div>
-                    <div>
-                      <button
-                        className="ToolbuttonOpenFile"
-                        onClick={() => setOpen4(true)}
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="16"
-                          height="16"
-                          viewBox="0 0 16 16"
-                          fill="none"
-                        >
-                          <path
-                            d="M1.61342 8.47415C1.52262 8.33039 1.47723 8.25851 1.45182 8.14764C1.43273 8.06436 1.43273 7.93303 1.45182 7.84975C1.47723 7.73889 1.52262 7.66701 1.61341 7.52325C2.36369 6.33526 4.59693 3.33203 8.00027 3.33203C11.4036 3.33203 13.6369 6.33526 14.3871 7.52325C14.4779 7.66701 14.5233 7.73889 14.5487 7.84975C14.5678 7.93303 14.5678 8.06436 14.5487 8.14764C14.5233 8.25851 14.4779 8.33039 14.3871 8.47415C13.6369 9.66214 11.4036 12.6654 8.00027 12.6654C4.59693 12.6654 2.36369 9.66214 1.61342 8.47415Z"
-                            stroke="white"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                          <path
-                            d="M8.00027 9.9987C9.10484 9.9987 10.0003 9.10327 10.0003 7.9987C10.0003 6.89413 9.10484 5.9987 8.00027 5.9987C6.8957 5.9987 6.00027 6.89413 6.00027 7.9987C6.00027 9.10327 6.8957 9.9987 8.00027 9.9987Z"
-                            stroke="white"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
-                        <p>Open File</p>
-                      </button>
-                    </div>
-                  </div>
-                ) : (
-                  <></>
-                )} */}
-
                 <div>
-                  <div className="ToolInHaed4">
-                    <p className="ToolInHaed4text1">Tools</p>
-                    <p className="ToolInHaed4text2">
-                      / {showCaes?.orderNumber}
-                    </p>
-                    <button className="ToolHelper" onClick={() => setScreen(3)}>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="16"
-                        height="16"
-                        viewBox="0 0 16 16"
-                        fill="none"
+                  <div className="ToolHaed4">
+                    <div className="ToolInHaed4">
+                      <p className="ToolInHaed4text1">Tools</p>
+                      <p className="ToolInHaed4text2">
+                        / {showCaes?.orderNumber}
+                      </p>
+                    </div>
+
+                    <div className="ToolInHaed4_2">
+                      <button
+                        className="ToolHelper"
+                        onClick={() => setScreen(3)}
                       >
-                        <g clipPath="url(#clip0_1849_18814)">
-                          <path
-                            d="M5.99992 1.33203V2.66536M9.99992 1.33203V2.66536M5.99992 13.332V14.6654M9.99992 13.332V14.6654M13.3333 5.9987H14.6666M13.3333 9.33203H14.6666M1.33325 5.9987H2.66659M1.33325 9.33203H2.66659M5.86659 13.332H10.1333C11.2534 13.332 11.8134 13.332 12.2412 13.114C12.6176 12.9223 12.9235 12.6163 13.1153 12.24C13.3333 11.8122 13.3333 11.2521 13.3333 10.132V5.86536C13.3333 4.74526 13.3333 4.18521 13.1153 3.75738C12.9235 3.38106 12.6176 3.0751 12.2412 2.88335C11.8134 2.66536 11.2534 2.66536 10.1333 2.66536H5.86659C4.74648 2.66536 4.18643 2.66536 3.7586 2.88335C3.38228 3.0751 3.07632 3.38106 2.88457 3.75738C2.66659 4.18521 2.66659 4.74526 2.66659 5.86536V10.132C2.66659 11.2521 2.66659 11.8122 2.88457 12.24C3.07632 12.6163 3.38228 12.9223 3.7586 13.114C4.18643 13.332 4.74648 13.332 5.86659 13.332ZM7.06659 9.9987H8.93325C9.30662 9.9987 9.4933 9.9987 9.63591 9.92604C9.76135 9.86212 9.86334 9.76013 9.92726 9.63469C9.99992 9.49208 9.99992 9.3054 9.99992 8.93203V7.06537C9.99992 6.692 9.99992 6.50531 9.92726 6.3627C9.86334 6.23726 9.76135 6.13528 9.63591 6.07136C9.4933 5.9987 9.30662 5.9987 8.93325 5.9987H7.06659C6.69322 5.9987 6.50653 5.9987 6.36393 6.07136C6.23848 6.13528 6.1365 6.23726 6.07258 6.3627C5.99992 6.50531 5.99992 6.692 5.99992 7.06537V8.93203C5.99992 9.3054 5.99992 9.49208 6.07258 9.63469C6.1365 9.76013 6.23848 9.86212 6.36393 9.92604C6.50653 9.9987 6.69322 9.9987 7.06659 9.9987Z"
-                            stroke="url(#paint0_linear_1849_18814)"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </g>
-                        <defs>
-                          <linearGradient
-                            id="paint0_linear_1849_18814"
-                            x1="2.1182"
-                            y1="1.33203"
-                            x2="16.3943"
-                            y2="3.42784"
-                            gradientUnits="userSpaceOnUse"
-                          >
-                            <stop stopColor="#3B005F" />
-                            <stop offset="1" stopColor="#1466B1" />
-                          </linearGradient>
-                          <clipPath id="clip0_1849_18814">
-                            <rect width="16" height="16" fill="white" />
-                          </clipPath>
-                        </defs>
-                      </svg>
-                      <p className="TooltextHelper">Helper</p>
-                    </button>
-                    {showCaes?.data?.map((item, index) => (
-                      <div key={index}>
-                        <div style={{ display: "flex" }}>
-                          <ToolButton
-                            onClick={() => setGroupbutton(index + 1)}
-                            svgPath="..." // Replace with the actual SVG path for this button
-                            className={
-                              index === groupbutton - 1
-                                ? "Selected"
-                                : "NotSelected"
-                            }
-                            buttonText={
-                              showCaes?.data === index + 1 ? "Naxt" : `Back`
-                            }
-                          />
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          viewBox="0 0 16 16"
+                          fill="none"
+                        >
+                          <g clipPath="url(#clip0_1849_18814)">
+                            <path
+                              d="M5.99992 1.33203V2.66536M9.99992 1.33203V2.66536M5.99992 13.332V14.6654M9.99992 13.332V14.6654M13.3333 5.9987H14.6666M13.3333 9.33203H14.6666M1.33325 5.9987H2.66659M1.33325 9.33203H2.66659M5.86659 13.332H10.1333C11.2534 13.332 11.8134 13.332 12.2412 13.114C12.6176 12.9223 12.9235 12.6163 13.1153 12.24C13.3333 11.8122 13.3333 11.2521 13.3333 10.132V5.86536C13.3333 4.74526 13.3333 4.18521 13.1153 3.75738C12.9235 3.38106 12.6176 3.0751 12.2412 2.88335C11.8134 2.66536 11.2534 2.66536 10.1333 2.66536H5.86659C4.74648 2.66536 4.18643 2.66536 3.7586 2.88335C3.38228 3.0751 3.07632 3.38106 2.88457 3.75738C2.66659 4.18521 2.66659 4.74526 2.66659 5.86536V10.132C2.66659 11.2521 2.66659 11.8122 2.88457 12.24C3.07632 12.6163 3.38228 12.9223 3.7586 13.114C4.18643 13.332 4.74648 13.332 5.86659 13.332ZM7.06659 9.9987H8.93325C9.30662 9.9987 9.4933 9.9987 9.63591 9.92604C9.76135 9.86212 9.86334 9.76013 9.92726 9.63469C9.99992 9.49208 9.99992 9.3054 9.99992 8.93203V7.06537C9.99992 6.692 9.99992 6.50531 9.92726 6.3627C9.86334 6.23726 9.76135 6.13528 9.63591 6.07136C9.4933 5.9987 9.30662 5.9987 8.93325 5.9987H7.06659C6.69322 5.9987 6.50653 5.9987 6.36393 6.07136C6.23848 6.13528 6.1365 6.23726 6.07258 6.3627C5.99992 6.50531 5.99992 6.692 5.99992 7.06537V8.93203C5.99992 9.3054 5.99992 9.49208 6.07258 9.63469C6.1365 9.76013 6.23848 9.86212 6.36393 9.92604C6.50653 9.9987 6.69322 9.9987 7.06659 9.9987Z"
+                              stroke="url(#paint0_linear_1849_18814)"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                          </g>
+                          <defs>
+                            <linearGradient
+                              id="paint0_linear_1849_18814"
+                              x1="2.1182"
+                              y1="1.33203"
+                              x2="16.3943"
+                              y2="3.42784"
+                              gradientUnits="userSpaceOnUse"
+                            >
+                              <stop stopColor="#3B005F" />
+                              <stop offset="1" stopColor="#1466B1" />
+                            </linearGradient>
+                            <clipPath id="clip0_1849_18814">
+                              <rect width="16" height="16" fill="white" />
+                            </clipPath>
+                          </defs>
+                        </svg>
+                        <p className="TooltextHelper">Helper</p>
+                      </button>
+                      {lengthData > groupbutton ? (
+                        <div className="Groupbutton">
+                          <div style={{ display: "flex" }}>
+                            <ToolButton
+                              onClick={() => setGroupbutton(groupbutton + 1)}
+                              // svgPath="..." // Replace with the actual SVG path for this button
+                              // className={
+                              //   index === groupbutton - 1
+                              //     ? "Selected"
+                              //     : "NotSelected"
+                              // }
+                              buttonText={"Naxt"}
+                            />
+                          </div>
                         </div>
-                      </div>
-                    ))}
-                    <button
-                      className="ToolSubmit"
-                      onClick={() => navigate("/In")}
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="16"
-                        height="16"
-                        viewBox="0 0 16 16"
-                        fill="none"
-                      >
-                        {/* Replace with the actual SVG path for submission */}
-                        <path
-                          d="M4.99992 7.9987L6.99992 9.9987L10.9999 5.9987M14.6666 7.9987C14.6666 11.6806 11.6818 14.6654 7.99992 14.6654C4.31802 14.6654 1.33325 11.6806 1.33325 7.9987C1.33325 4.3168 4.31802 1.33203 7.99992 1.33203C11.6818 1.33203 14.6666 4.3168 14.6666 7.9987Z"
-                          stroke="white"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                      <p>Submit</p>
-                    </button>
+                      ) : (
+                        <div>
+                          <div style={{ display: "flex" }}>
+                            <ToolButton
+                              className="Groupbutton"
+                              onClick={() => setGroupbutton(groupbutton - 1)}
+                              // svgPath="..." // Replace with the actual SVG path for this button
+                              // className={
+                              //   index === groupbutton - 1
+                              //     ? "Selected"
+                              //     : "NotSelected"
+                              // }
+                              buttonText={"back"}
+                            />
+                            <button
+                              className="ToolSubmitoff"
+                              // onClick={() => navigate("/In")}
+                            >
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="16"
+                                height="16"
+                                viewBox="0 0 16 16"
+                                fill="none"
+                              >
+                                {/* Replace with the actual SVG path for submission */}
+                                <path
+                                  d="M4.99992 7.9987L6.99992 9.9987L10.9999 5.9987M14.6666 7.9987C14.6666 11.6806 11.6818 14.6654 7.99992 14.6654C4.31802 14.6654 1.33325 11.6806 1.33325 7.9987C1.33325 4.3168 4.31802 1.33203 7.99992 1.33203C11.6818 1.33203 14.6666 4.3168 14.6666 7.9987Z"
+                                  stroke="white"
+                                  strokeWidth="2"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
+                              <p>Submit</p>
+                            </button>
+                          </div>
+                        </div>
+                      )}
+                    </div>
                   </div>
                   {showCaes?.data?.map((item, index) => (
                     <>
@@ -1429,59 +1197,6 @@ function Tool() {
               </div>
             )}
           </div>
-
-          <Modal
-            open={open}
-            // onClose={handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-          >
-            <Box className="BoxModal2">
-              <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <p>File: </p>
-              </div>
-
-              <div
-                style={{
-                  width: " 100%",
-                  height: "500px",
-                  background: " #F6FBFE",
-                  border: "1px solid #E5E5E5",
-                  borderRadius: 5,
-                  textAlign: "start",
-                  padding: "20px",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <img src={Test} alt="Test" className="ToolTest2" />
-              </div>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "flex-end",
-                }}
-              >
-                <button
-                  style={{
-                    height: 40,
-                    borderRadius: 5,
-                    color: "#034D82",
-                    fontWeight: 700,
-                    filter: "drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.1))",
-                    background: "#FFFFFF",
-                    border: "1px solid #034D82",
-                    marginTop: 10,
-                    alignContent: "center",
-                  }}
-                  onClick={() => setOpen(false)}
-                >
-                  Close
-                </button>
-              </div>
-            </Box>
-          </Modal>
 
           <Modal
             open={open3}

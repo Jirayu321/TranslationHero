@@ -347,7 +347,13 @@ BoxModal3 {
 }
 .ToolInHaed4 {
   display: flex;
+  justify-content: space-between;
 }
+
+.ToolInHaed4_2 {
+  display: flex;
+}
+
 .ToolInHaed4text1 {
   color: var(--bg-3, #828282);
   font-family: "DBHeavent";
@@ -399,6 +405,9 @@ BoxModal3 {
     linear-gradient(98deg, #3b005f 5.13%, #1466b1 100.51%)
   );
 }
+.Groupbutton {
+  margin: 0px 10px;
+}
 .ToolSubmit {
   display: flex;
   padding: 8px 12px;
@@ -411,6 +420,19 @@ BoxModal3 {
   margin-bottom: 10px;
   color: #fff;
 }
+.ToolSubmitoff {
+  display: flex;
+  padding: 8px 12px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 8px;
+  border: 1px solid #a4a4a4;
+  background: #a4a4a4;
+  margin-bottom: 10px;
+  color: #fff;
+}
+
 .Toolbobywork {
   display: grid;
   grid-template-columns: auto auto;
@@ -460,6 +482,7 @@ BoxModal3 {
 }
 .ToolbuttonNext {
   border-radius: 8px;
+  margin: 0px 10px;
   background: var(
     --BG3,
     linear-gradient(98deg, #3b005f 5.13%, #1466b1 100.51%)

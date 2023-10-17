@@ -157,13 +157,14 @@ const Login = () => {
                 onSubmit={(values, { setSubmitting }) => {
                   if (values) {
                     const email = values?.email;
-                    const password = values?.password;
-                    if (
-                      email === "jyung3221@gmail.com" &&
-                      password === "123456"
-                    ) {
-                      navigate("/In", { state: { languages: `${Doc}`, accept: true } });
-                    } else if (email !== "jyung3221@gmail.com") {
+                    // const password = values?.password;
+                    // if (
+                    //   email === "jyung3221@gmail.com" &&
+                    //   password === "123456"
+                    // ) {
+                    //   navigate("/In", { state: { languages: `${Doc}`, accept: true } });
+                    // } else 
+                    if (email !== "jyung3221@gmail.com") {
                       toast.error(
                         "Please enter your email or password again.",
                         {
