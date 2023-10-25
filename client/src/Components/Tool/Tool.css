@@ -1,12 +1,18 @@
 .AppBobyTool {
   background: linear-gradient(137deg, #3b005f 0%, #1466b1 100%);
   min-height: 100vh;
+  width: fit-content;
   display: flex;
   flex-direction: column;
 }
+.BoxBodyTool {
+  display: grid;
+  grid-template-columns: 7% auto;
+  justify-content: start;
+}
 .BobyTool {
   margin-top: -88px;
-  margin-left: 10px;
+  /* margin-left: 10px; */
   width: 91.4vw;
 }
 .TextHTool {
@@ -563,4 +569,24 @@ BoxModal3 {
   margin: 2rem 0rem;
   overflow-y: auto;
   height: 35vw;
+}
+.buttonToolInHaed4text1 {
+  color: var(--bg-3, #828282);
+  font-family: "DBHeavent";
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  background-color: transparent;
+  border: transparent;
+  height: 0px;
+}
+.boxLoadinganimationTool {
+  display: grid;
+  justify-content: center;
+  /* margin-top: 20%; */
+}
+.LoadinganimationTool {
+  width: 41rem;
+  height: 41rem;
 }

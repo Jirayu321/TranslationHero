@@ -10,15 +10,17 @@ import Drawer from "../Drawer/DrawerTranslate";
 import Navbars from "../Navbar/NavbarTool.js";
 import SunEditor from "suneditor-react";
 import "suneditor/dist/css/suneditor.min.css";
+// import moment from "moment";
 // import Icons from "../../Images/icons_ai.png";
 // import { BsFileEarmarkText } from "react-icons/bs";
 // import { ImTextColor } from "react-icons/im";
 // import {
-//   FaRegFileImage,
-//   // FaLongArrowAltLeft,
+//   // FaRegFileImage,
+//   FaLongArrowAltLeft,
 //   // FaLongArrowAltRight,
 // } from "react-icons/fa";
 // import { data } from "../Data/data";
+import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
 
 import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -27,14 +29,17 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { AdapterLuxon } from "@mui/x-date-pickers/AdapterLuxon";
 
-import Test from "../../Images/1.jpeg";
+// import Test from "../../Images/1.jpeg";
 import Test2 from "../../Images/outputImage1.jpg";
 import Test3 from "../../Images/49.jpeg";
 import Test4 from "../../Images/outputImage2.jpg";
 import Test5 from "../../Images/dii.jpg";
 import Test6 from "../../Images/outputImage3.jpg";
 import ToolText from "../../Images/ToolText.png";
-import { getOrder } from "../../slices/auth";
+import Lottie from "lottie-react";
+import Loadinganimation from "../../Images/Loadinganimation.json";
+
+import { getOrder, generationsAI } from "../../slices/auth";
 
 import "./Tool.css";
 
@@ -49,14 +54,16 @@ function Tool() {
   const [value, setValue] = React.useState(new Date());
   const [Ojc, setOjc] = React.useState(false);
   const [open, setOpen] = React.useState(false);
+  const [imageURLs, setImageURLsa] = React.useState("");
+
   const [open3, setOpen3] = React.useState(false);
   const [open4, setOpen4] = React.useState(false);
   const [groupbutton, setGroupbutton] = React.useState(1);
   const [data, setData] = React.useState("");
-  const [imageURLs, setImageURLsa] = React.useState("");
   const [lengthData, setLengthData] = React.useState(0);
   const [showCaes, setShowCaes] = React.useState(null);
-  const [option, setOption] = React.useState("1");
+  const [loading, setLoading] = React.useState(false);
+  // const [option, setOption] = React.useState("1");
   const [screen, setScreen] = React.useState(1);
 
   const [openbuttonHaed, setOpenbuttonHaed] = React.useState({
@@ -85,7 +92,14 @@ function Tool() {
 
   React.useEffect(() => {
     if (Value) {
-      console.log("value :", Value);
+      console.log("value :");
+      const t = dispatch(getOrder("Habi Yang"));
+      t.then((result) => {
+        setData(result?.payload);
+        // console.log("Result:", result.payload);
+      }).catch((error) => {
+        console.error("Error:", error);
+      });
     } else {
       // navigate("/Login");
       const t = dispatch(getOrder("Habi Yang"));
@@ -103,8 +117,8 @@ function Tool() {
   };
 
   const switchpage = (p, i) => {
-    console.log("length:", i.data?.length);
     if (p === 2) {
+      // console.log("i:", i);
       setShowCaes(i);
       setLengthData(i.data?.length);
       setScreen(2);
@@ -116,26 +130,52 @@ function Tool() {
       <p>{buttonText}</p>
     </button>
   );
-  const cutsting = (x) => {
-    if (x !== imageURLs) {
-      setImageURLsa(x.slice(0, 30));
+
+  function handlebuttonTool(i, x) {
+    if (i === 1) {
+      setScreen(1);
+    } else {
+      setGroupbutton(x);
     }
-  };
+  }
+
+  function generations_ai() {
+    // console.log("showCaes:", showCaes?.data);
+    try {
+      setScreen(3);
+      setLoading(true);
+      // let orderNumber = showCaes?.orderNumber;
+      // let data = showCaes?.data;
+      const t = dispatch(generationsAI(showCaes));
+      t.then((result) => {
+        // setData(result?.payload);
+        console.log("Result:", result.payload);
+      }).catch((error) => {
+        console.error("Error:", error);
+      });
+      // setLoading(false);
+    } catch {
+      console.log("error");
+    }
+  }
   const ArticleDetails = ({ article }) => {
-    console.log("groupbutton:", groupbutton);
+    // console.log("groupbutton:", groupbutton);
 
+    function handlebuttonTool(i, x) {
+      if (i === 3) {
+        setOpen(false);
+      } else if (i === 4) {
+        setOpen(true);
+      }
+    }
+
+    const cutsting = (x) => {
+      if (x !== imageURLs) {
+        setImageURLsa(x.slice(0, 30));
+      }
+    };
     cutsting(article?.file);
-    // const ImageURLs = [];
 
-    // article.file.forEach((fileArray) => {
-    //   if (fileArray.length > 0 && fileArray[0] instanceof File) {
-    //     // Assuming the File object is at the first index of the inner array
-    //     const file = fileArray[0];
-    //     ImageURLs.push(URL.createObjectURL(file));
-    //   }
-    // });
-
-    // console.log("ImageURLs:", ImageURLs);
     return (
       <>
         <Modal
@@ -152,7 +192,7 @@ function Tool() {
             <div
               style={{
                 width: " 100%",
-                height: "500px",
+                // height: "500px",
                 background: " #F6FBFE",
                 border: "1px solid #E5E5E5",
                 borderRadius: 5,
@@ -183,13 +223,14 @@ function Tool() {
                   marginTop: 10,
                   alignContent: "center",
                 }}
-                onClick={() => setOpen(false)}
+                onClick={() => handlebuttonTool(3, 0)}
               >
                 Close
               </button>
             </div>
           </Box>
         </Modal>
+
         <div className="ToolHaed3_1">
           <div className="ToolHaed2">
             <div>
@@ -200,10 +241,10 @@ function Tool() {
             <p>File: {imageURLs}</p>
           </div>
           <div>
-            {screen !== 3 ? (
+            {Screen !== 3 ? (
               <button
                 className="ToolbuttonOpenFile"
-                onClick={() => setOpen(true)}
+                onClick={() => handlebuttonTool(4, 0)}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -260,7 +301,7 @@ function Tool() {
         )}
       </header>
 
-      <Box sx={{ display: "flex", width: "100% " }}>
+      <Box sx={{ display: "flex", width: "100% " }} className="BoxBodyTool">
         <Drawer languages={Doc} value={Value} />
 
         <Box component="main">
@@ -382,7 +423,13 @@ function Tool() {
                 <div>
                   <div className="ToolHaed4">
                     <div className="ToolInHaed4">
-                      <p className="ToolInHaed4text1">Tools</p>
+                      <button
+                        className="buttonToolInHaed4text1"
+                        onClick={() => handlebuttonTool(1, 0)}
+                      >
+                        <MdOutlineKeyboardArrowLeft />
+                        Tools
+                      </button>
                       <p className="ToolInHaed4text2">
                         / {showCaes?.orderNumber}
                       </p>
@@ -391,7 +438,7 @@ function Tool() {
                     <div className="ToolInHaed4_2">
                       <button
                         className="ToolHelper"
-                        onClick={() => setScreen(3)}
+                        onClick={() => generations_ai()}
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -434,7 +481,9 @@ function Tool() {
                           <div style={{ display: "flex" }}>
                             <ToolButton
                               className="Groupbutton"
-                              onClick={() => setGroupbutton(groupbutton - 1)}
+                              onClick={() =>
+                                handlebuttonTool(2, groupbutton - 1)
+                              }
                               // svgPath="..." // Replace with the actual SVG path for this button
                               // className={
                               //   index === groupbutton - 1
@@ -454,7 +503,6 @@ function Tool() {
                                 viewBox="0 0 16 16"
                                 fill="none"
                               >
-                                {/* Replace with the actual SVG path for submission */}
                                 <path
                                   d="M4.99992 7.9987L6.99992 9.9987L10.9999 5.9987M14.6666 7.9987C14.6666 11.6806 11.6818 14.6654 7.99992 14.6654C4.31802 14.6654 1.33325 11.6806 1.33325 7.9987C1.33325 4.3168 4.31802 1.33203 7.99992 1.33203C11.6818 1.33203 14.6666 4.3168 14.6666 7.9987Z"
                                   stroke="white"
@@ -479,7 +527,6 @@ function Tool() {
                             viewBox="0 0 16 16"
                             fill="none"
                           >
-                            {/* Replace with the actual SVG path for submission */}
                             <path
                               d="M4.99992 7.9987L6.99992 9.9987L10.9999 5.9987M14.6666 7.9987C14.6666 11.6806 11.6818 14.6654 7.99992 14.6654C4.31802 14.6654 1.33325 11.6806 1.33325 7.9987C1.33325 4.3168 4.31802 1.33203 7.99992 1.33203C11.6818 1.33203 14.6666 4.3168 14.6666 7.9987Z"
                               stroke="white"
@@ -494,14 +541,16 @@ function Tool() {
                         <div className="Groupbutton">
                           <div style={{ display: "flex" }}>
                             <ToolButton
-                              onClick={() => setGroupbutton(groupbutton + 1)}
+                              onClick={() =>
+                                handlebuttonTool(2, groupbutton + 1)
+                              }
                               // svgPath="..." // Replace with the actual SVG path for this button
                               // className={
                               //   index === groupbutton - 1
                               //     ? "Selected"
                               //     : "NotSelected"
                               // }
-                              buttonText={"Naxt"}
+                              buttonText={"Next"}
                             />
                           </div>
                         </div>
@@ -510,7 +559,9 @@ function Tool() {
                           <div style={{ display: "flex" }}>
                             <ToolButton
                               className="Groupbutton"
-                              onClick={() => setGroupbutton(groupbutton - 1)}
+                              onClick={() =>
+                                handlebuttonTool(2, groupbutton - 1)
+                              }
                               // svgPath="..." // Replace with the actual SVG path for this button
                               // className={
                               //   index === groupbutton - 1
@@ -520,27 +571,28 @@ function Tool() {
                               buttonText={"back"}
                             />
                             <ToolButton
-                              onClick={() => setGroupbutton(groupbutton + 1)}
+                              onClick={() =>
+                                handlebuttonTool(2, groupbutton + 1)
+                              }
                               // svgPath="..." // Replace with the actual SVG path for this button
                               // className={
                               //   index === groupbutton - 1
                               //     ? "Selected"
                               //     : "NotSelected"
                               // }
-                              buttonText={"Naxt"}
+                              buttonText={"Next"}
                             />
                           </div>
                         </div>
                       ) : null}
                     </div>
                   </div>
-                  {showCaes?.data?.map((item, index) => (
-                    <>
-                      {groupbutton === index + 1 && (
-                        <ArticleDetails article={item} />
-                      )}
-                    </>
-                  ))}
+
+                  {showCaes?.data?.map((item, index) => {
+                    if (groupbutton === index + 1) {
+                      return <ArticleDetails key={index} article={item} />;
+                    }
+                  })}
                 </div>
 
                 <SunEditor
@@ -550,325 +602,342 @@ function Tool() {
                 />
               </div>
             ) : screen === 3 ? (
-              <div className="BoxSunEditor">
-                <div className="ToolHaed4">
-                  <div className="ToolInHaed4">
-                    <p className="ToolInHaed4text1">Tools</p>
-                    <p className="ToolInHaed4text2">
-                      / {showCaes?.orderNumber}
-                    </p>
-                  </div>
+              // <div className="BoxSunEditor">
+              //   <div className="ToolHaed4">
+              //     <div className="ToolInHaed4">
+              //       <button
+              //         className="buttonToolInHaed4text1"
+              //         onClick={() => setScreen(1)}
+              //       >
+              //         Tools
+              //       </button>
+              //       <p className="ToolInHaed4text2">
+              //         / {showCaes?.orderNumber}
+              //       </p>
+              //     </div>
 
-                  <div className="ToolInHaed4_2">
-                    <button
-                      className="ToolHelper2"
-                      onClick={() => setScreen(2)}
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="16"
-                        height="16"
-                        viewBox="0 0 16 16"
-                        fill="none"
-                      >
-                        <g clipPath="url(#clip0_2420_6985)">
-                          <path
-                            d="M5.9987 1.33594V2.66927M9.9987 1.33594V2.66927M5.9987 13.3359V14.6693M9.9987 13.3359V14.6693M13.332 6.0026H14.6654M13.332 9.33594H14.6654M1.33203 6.0026H2.66536M1.33203 9.33594H2.66536M5.86536 13.3359H10.132C11.2521 13.3359 11.8122 13.3359 12.24 13.118C12.6163 12.9262 12.9223 12.6202 13.114 12.2439C13.332 11.8161 13.332 11.256 13.332 10.1359V5.86927C13.332 4.74917 13.332 4.18911 13.114 3.76129C12.9223 3.38497 12.6163 3.079 12.24 2.88726C11.8122 2.66927 11.2521 2.66927 10.132 2.66927H5.86536C4.74526 2.66927 4.18521 2.66927 3.75738 2.88726C3.38106 3.079 3.0751 3.38497 2.88335 3.76129C2.66536 4.18911 2.66536 4.74917 2.66536 5.86927V10.1359C2.66536 11.256 2.66536 11.8161 2.88335 12.2439C3.0751 12.6202 3.38106 12.9262 3.75738 13.118C4.18521 13.3359 4.74526 13.3359 5.86536 13.3359ZM7.06537 10.0026H8.93203C9.3054 10.0026 9.49208 10.0026 9.63469 9.92994C9.76013 9.86603 9.86212 9.76404 9.92604 9.6386C9.9987 9.49599 9.9987 9.30931 9.9987 8.93594V7.06927C9.9987 6.6959 9.9987 6.50922 9.92604 6.36661C9.86212 6.24117 9.76013 6.13918 9.63469 6.07527C9.49208 6.0026 9.3054 6.0026 8.93203 6.0026H7.06537C6.692 6.0026 6.50531 6.0026 6.3627 6.07527C6.23726 6.13918 6.13528 6.24117 6.07136 6.36661C5.9987 6.50922 5.9987 6.6959 5.9987 7.06927V8.93594C5.9987 9.30931 5.9987 9.49599 6.07136 9.6386C6.13528 9.76404 6.23726 9.86603 6.3627 9.92994C6.50531 10.0026 6.692 10.0026 7.06537 10.0026Z"
-                            stroke="white"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </g>
-                        <defs>
-                          <clipPath id="clip0_2420_6985">
-                            <rect width="16" height="16" fill="white" />
-                          </clipPath>
-                        </defs>
-                      </svg>
-                      <p className="TooltextHelper2">Helper</p>
-                    </button>
+              //     <div className="ToolInHaed4_2">
+              //       <button
+              //         className="ToolHelper2"
+              //         onClick={() => setScreen(2)}
+              //       >
+              //         <svg
+              //           xmlns="http://www.w3.org/2000/svg"
+              //           width="16"
+              //           height="16"
+              //           viewBox="0 0 16 16"
+              //           fill="none"
+              //         >
+              //           <g clipPath="url(#clip0_2420_6985)">
+              //             <path
+              //               d="M5.9987 1.33594V2.66927M9.9987 1.33594V2.66927M5.9987 13.3359V14.6693M9.9987 13.3359V14.6693M13.332 6.0026H14.6654M13.332 9.33594H14.6654M1.33203 6.0026H2.66536M1.33203 9.33594H2.66536M5.86536 13.3359H10.132C11.2521 13.3359 11.8122 13.3359 12.24 13.118C12.6163 12.9262 12.9223 12.6202 13.114 12.2439C13.332 11.8161 13.332 11.256 13.332 10.1359V5.86927C13.332 4.74917 13.332 4.18911 13.114 3.76129C12.9223 3.38497 12.6163 3.079 12.24 2.88726C11.8122 2.66927 11.2521 2.66927 10.132 2.66927H5.86536C4.74526 2.66927 4.18521 2.66927 3.75738 2.88726C3.38106 3.079 3.0751 3.38497 2.88335 3.76129C2.66536 4.18911 2.66536 4.74917 2.66536 5.86927V10.1359C2.66536 11.256 2.66536 11.8161 2.88335 12.2439C3.0751 12.6202 3.38106 12.9262 3.75738 13.118C4.18521 13.3359 4.74526 13.3359 5.86536 13.3359ZM7.06537 10.0026H8.93203C9.3054 10.0026 9.49208 10.0026 9.63469 9.92994C9.76013 9.86603 9.86212 9.76404 9.92604 9.6386C9.9987 9.49599 9.9987 9.30931 9.9987 8.93594V7.06927C9.9987 6.6959 9.9987 6.50922 9.92604 6.36661C9.86212 6.24117 9.76013 6.13918 9.63469 6.07527C9.49208 6.0026 9.3054 6.0026 8.93203 6.0026H7.06537C6.692 6.0026 6.50531 6.0026 6.3627 6.07527C6.23726 6.13918 6.13528 6.24117 6.07136 6.36661C5.9987 6.50922 5.9987 6.6959 5.9987 7.06927V8.93594C5.9987 9.30931 5.9987 9.49599 6.07136 9.6386C6.13528 9.76404 6.23726 9.86603 6.3627 9.92994C6.50531 10.0026 6.692 10.0026 7.06537 10.0026Z"
+              //               stroke="white"
+              //               strokeWidth="2"
+              //               strokeLinecap="round"
+              //               strokeLinejoin="round"
+              //             />
+              //           </g>
+              //           <defs>
+              //             <clipPath id="clip0_2420_6985">
+              //               <rect width="16" height="16" fill="white" />
+              //             </clipPath>
+              //           </defs>
+              //         </svg>
+              //         <p className="TooltextHelper2">Helper</p>
+              //       </button>
 
-                    {groupbutton === lengthData && lengthData !== 1 ? (
-                      <div className="Groupbutton">
-                        <div style={{ display: "flex" }}>
-                          <ToolButton
-                            className="Groupbutton"
-                            onClick={() => setGroupbutton(groupbutton - 1)}
-                            buttonText={"back"}
-                          />
-                          <button
-                            className="ToolSubmit"
-                            onClick={() => navigate("/In")}
-                          >
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="16"
-                              height="16"
-                              viewBox="0 0 16 16"
-                              fill="none"
-                            >
-                              <g clipPath="url(#clip0_1849_18817)">
-                                <path
-                                  d="M4.99992 7.9987L6.99992 9.9987L10.9999 5.9987M14.6666 7.9987C14.6666 11.6806 11.6818 14.6654 7.99992 14.6654C4.31802 14.6654 1.33325 11.6806 1.33325 7.9987C1.33325 4.3168 4.31802 1.33203 7.99992 1.33203C11.6818 1.33203 14.6666 4.3168 14.6666 7.9987Z"
-                                  stroke="white"
-                                  strokeWidth="2"
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                />
-                              </g>
-                              <defs>
-                                <clipPath id="clip0_1849_18817">
-                                  <rect width="16" height="16" fill="white" />
-                                </clipPath>
-                              </defs>
-                            </svg>
-                            <p>Submit</p>
-                          </button>
-                        </div>
-                      </div>
-                    ) : lengthData === 1 ? (
-                      <button
-                        className="ToolSubmitoff"
-                        // onClick={() => navigate("/In")}
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="16"
-                          height="16"
-                          viewBox="0 0 16 16"
-                          fill="none"
-                        >
-                          {/* Replace with the actual SVG path for submission */}
-                          <path
-                            d="M4.99992 7.9987L6.99992 9.9987L10.9999 5.9987M14.6666 7.9987C14.6666 11.6806 11.6818 14.6654 7.99992 14.6654C4.31802 14.6654 1.33325 11.6806 1.33325 7.9987C1.33325 4.3168 4.31802 1.33203 7.99992 1.33203C11.6818 1.33203 14.6666 4.3168 14.6666 7.9987Z"
-                            stroke="white"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
-                        <p>Submit</p>
-                      </button>
-                    ) : lengthData >= groupbutton && groupbutton === 1 ? (
-                      <div className="Groupbutton">
-                        <div style={{ display: "flex" }}>
-                          <ToolButton
-                            onClick={() => setGroupbutton(groupbutton + 1)}
-                            // svgPath="..." // Replace with the actual SVG path for this button
-                            // className={
-                            //   index === groupbutton - 1
-                            //     ? "Selected"
-                            //     : "NotSelected"
-                            // }
-                            buttonText={"Naxt"}
-                          />
-                        </div>
-                      </div>
-                    ) : groupbutton > 1 ? (
-                      <div>
-                        <div style={{ display: "flex" }}>
-                          <ToolButton
-                            className="Groupbutton"
-                            onClick={() => setGroupbutton(groupbutton - 1)}
-                            // svgPath="..." // Replace with the actual SVG path for this button
-                            // className={
-                            //   index === groupbutton - 1
-                            //     ? "Selected"
-                            //     : "NotSelected"
-                            // }
-                            buttonText={"back"}
-                          />
-                          <ToolButton
-                            onClick={() => setGroupbutton(groupbutton + 1)}
-                            // svgPath="..." // Replace with the actual SVG path for this button
-                            // className={
-                            //   index === groupbutton - 1
-                            //     ? "Selected"
-                            //     : "NotSelected"
-                            // }
-                            buttonText={"Naxt"}
-                          />
-                        </div>
-                      </div>
-                    ) : null}
+              //       {groupbutton === lengthData && lengthData !== 1 ? (
+              //         <div className="Groupbutton">
+              //           <div style={{ display: "flex" }}>
+              //             <ToolButton
+              //               className="Groupbutton"
+              //               onClick={() => setGroupbutton(groupbutton - 1)}
+              //               buttonText={"back"}
+              //             />
+              //             <button
+              //               className="ToolSubmit"
+              //               onClick={() => navigate("/In")}
+              //             >
+              //               <svg
+              //                 xmlns="http://www.w3.org/2000/svg"
+              //                 width="16"
+              //                 height="16"
+              //                 viewBox="0 0 16 16"
+              //                 fill="none"
+              //               >
+              //                 <g clipPath="url(#clip0_1849_18817)">
+              //                   <path
+              //                     d="M4.99992 7.9987L6.99992 9.9987L10.9999 5.9987M14.6666 7.9987C14.6666 11.6806 11.6818 14.6654 7.99992 14.6654C4.31802 14.6654 1.33325 11.6806 1.33325 7.9987C1.33325 4.3168 4.31802 1.33203 7.99992 1.33203C11.6818 1.33203 14.6666 4.3168 14.6666 7.9987Z"
+              //                     stroke="white"
+              //                     strokeWidth="2"
+              //                     strokeLinecap="round"
+              //                     strokeLinejoin="round"
+              //                   />
+              //                 </g>
+              //                 <defs>
+              //                   <clipPath id="clip0_1849_18817">
+              //                     <rect width="16" height="16" fill="white" />
+              //                   </clipPath>
+              //                 </defs>
+              //               </svg>
+              //               <p>Submit</p>
+              //             </button>
+              //           </div>
+              //         </div>
+              //       ) : lengthData === 1 ? (
+              //         <button
+              //           className="ToolSubmitoff"
+              //           // onClick={() => navigate("/In")}
+              //         >
+              //           <svg
+              //             xmlns="http://www.w3.org/2000/svg"
+              //             width="16"
+              //             height="16"
+              //             viewBox="0 0 16 16"
+              //             fill="none"
+              //           >
+              //             {/* Replace with the actual SVG path for submission */}
+              //             <path
+              //               d="M4.99992 7.9987L6.99992 9.9987L10.9999 5.9987M14.6666 7.9987C14.6666 11.6806 11.6818 14.6654 7.99992 14.6654C4.31802 14.6654 1.33325 11.6806 1.33325 7.9987C1.33325 4.3168 4.31802 1.33203 7.99992 1.33203C11.6818 1.33203 14.6666 4.3168 14.6666 7.9987Z"
+              //               stroke="white"
+              //               strokeWidth="2"
+              //               strokeLinecap="round"
+              //               strokeLinejoin="round"
+              //             />
+              //           </svg>
+              //           <p>Submit</p>
+              //         </button>
+              //       ) : lengthData >= groupbutton && groupbutton === 1 ? (
+              //         <div className="Groupbutton">
+              //           <div style={{ display: "flex" }}>
+              //             <ToolButton
+              //               onClick={() => setGroupbutton(groupbutton + 1)}
+              //               // svgPath="..." // Replace with the actual SVG path for this button
+              //               // className={
+              //               //   index === groupbutton - 1
+              //               //     ? "Selected"
+              //               //     : "NotSelected"
+              //               // }
+              //               buttonText={"Next"}
+              //             />
+              //           </div>
+              //         </div>
+              //       ) : groupbutton > 1 ? (
+              //         <div>
+              //           <div style={{ display: "flex" }}>
+              //             <ToolButton
+              //               className="Groupbutton"
+              //               onClick={() => setGroupbutton(groupbutton - 1)}
+              //               // svgPath="..." // Replace with the actual SVG path for this button
+              //               // className={
+              //               //   index === groupbutton - 1
+              //               //     ? "Selected"
+              //               //     : "NotSelected"
+              //               // }
+              //               buttonText={"back"}
+              //             />
+              //             <ToolButton
+              //               onClick={() => setGroupbutton(groupbutton + 1)}
+              //               // svgPath="..." // Replace with the actual SVG path for this button
+              //               // className={
+              //               //   index === groupbutton - 1
+              //               //     ? "Selected"
+              //               //     : "NotSelected"
+              //               // }
+              //               buttonText={"Next"}
+              //             />
+              //           </div>
+              //         </div>
+              //       ) : null}
+              //     </div>
+              //   </div>
+
+              //   {showCaes?.data?.map((item, index) => (
+              //     <>
+              //       {groupbutton === index + 1 && (
+              //         <ArticleDetails article={item} />
+              //       )}
+              //     </>
+              //   ))}
+
+              //   {groupbutton === 1 ? (
+              //     <div className="Toolbobywork">
+              //       <div className="ToolSelectfile">
+              //         <img src={Test} alt="img" className="ToolTest" />
+              //       </div>
+              //       <div className="ToolSelectfile">
+              //         <img src={Test2} alt="img2" className="ToolTest2" />
+              //       </div>
+              //     </div>
+              //   ) : groupbutton === 2 ? (
+              //     <div className="Toolbobywork">
+              //       <div className="ToolSelectfile">
+              //         <img src={Test3} alt="img3" className="ToolTest" />
+              //       </div>
+              //       <div className="ToolSelectfile">
+              //         <img src={Test4} alt="img4" className="ToolTest2" />
+              //       </div>
+              //     </div>
+              //   ) : groupbutton === 3 ? (
+              //     <div className="Toolbobywork">
+              //       <div className="ToolSelectfile">
+              //         <img src={Test5} alt="img3" className="ToolTest" />
+              //       </div>
+              //       <div className="ToolSelectfile">
+              //         <img src={Test6} alt="img4" className="ToolTest2" />
+              //       </div>
+              //     </div>
+              //   ) : (
+              //     <></>
+              //   )}
+
+              //   {option === "1" ? (
+              //     <div className="rowbuttonTools">
+              //       <button
+              //         onClick={() => setOption("1")}
+              //         className="Toolsbutton2"
+              //       >
+              //         Option 1
+              //       </button>
+              //       <button
+              //         onClick={() => setOption("2")}
+              //         className="Toolsbutton"
+              //       >
+              //         <p>Option 2</p>
+              //       </button>
+              //       <button
+              //         onClick={() => setOption("3")}
+              //         className="Toolsbutton"
+              //       >
+              //         <p>Option 3</p>
+              //       </button>
+              //       <button
+              //         onClick={() => setOption("4")}
+              //         className="Toolsbutton"
+              //       >
+              //         <p> Option 4</p>
+              //       </button>
+              //       <button
+              //         className="ToolbuttonEdit"
+              //         onClick={() => setScreen("4")}
+              //       >
+              //         Edit
+              //       </button>
+              //     </div>
+              //   ) : option === "2" ? (
+              //     <div className="rowbuttonTools">
+              //       <button
+              //         onClick={() => setOption("1")}
+              //         className="Toolsbutton"
+              //       >
+              //         <p> Option 1</p>
+              //       </button>
+              //       <button
+              //         onClick={() => setOption("2")}
+              //         className="Toolsbutton2"
+              //       >
+              //         Option 2
+              //       </button>
+              //       <button
+              //         onClick={() => setOption("3")}
+              //         className="Toolsbutton"
+              //       >
+              //         <p>Option 3</p>
+              //       </button>
+              //       <button
+              //         onClick={() => setOption("4")}
+              //         className="Toolsbutton"
+              //       >
+              //         <p>Option 4</p>
+              //       </button>
+              //       <button
+              //         className="ToolbuttonEdit"
+              //         onClick={() => setScreen("4")}
+              //       >
+              //         Edit
+              //       </button>
+              //     </div>
+              //   ) : option === "3" ? (
+              //     <div className="rowbuttonTools">
+              //       <button
+              //         onClick={() => setOption("1")}
+              //         className="Toolsbutton"
+              //       >
+              //         <p>Option 1</p>
+              //       </button>
+              //       <button
+              //         onClick={() => setOption("2")}
+              //         className="Toolsbutton"
+              //       >
+              //         <p> Option 2</p>
+              //       </button>
+              //       <button
+              //         onClick={() => setOption("3")}
+              //         className="Toolsbutton2"
+              //       >
+              //         Option 3
+              //       </button>
+              //       <button
+              //         onClick={() => setOption("4")}
+              //         className="Toolsbutton"
+              //       >
+              //         <p> Option 4</p>
+              //       </button>
+              //       <button
+              //         className="ToolbuttonEdit"
+              //         onClick={() => setScreen("4")}
+              //       >
+              //         Edit
+              //       </button>
+              //     </div>
+              //   ) : option === "4" ? (
+              //     <div className="rowbuttonTools">
+              //       <button
+              //         onClick={() => setOption("1")}
+              //         className="Toolsbutton"
+              //       >
+              //         <p> Option 1</p>
+              //       </button>
+              //       <button
+              //         onClick={() => setOption("2")}
+              //         className="Toolsbutton"
+              //       >
+              //         <p> Option 2</p>
+              //       </button>
+              //       <button
+              //         onClick={() => setOption("3")}
+              //         className="Toolsbutton"
+              //       >
+              //         <p> Option 3</p>
+              //       </button>
+              //       <button
+              //         onClick={() => setOption("4")}
+              //         className="Toolsbutton2"
+              //       >
+              //         Option 4
+              //       </button>
+              //       <button
+              //         className="ToolbuttonEdit"
+              //         onClick={() => setScreen("4")}
+              //       >
+              //         Edit
+              //       </button>
+              //     </div>
+              //   ) : null}
+              // </div>
+              <>
+                <div className="BoxSunEditor">
+                  <div className="boxLoadinganimationTool">
+                    <Lottie
+                      animationData={Loadinganimation}
+                      loop={loading}
+                      className="LoadinganimationTool"
+                    />
                   </div>
                 </div>
-
-                {showCaes?.data?.map((item, index) => (
-                  <>
-                    {groupbutton === index + 1 && (
-                      <ArticleDetails article={item} />
-                    )}
-                  </>
-                ))}
-
-                {groupbutton === 1 ? (
-                  <div className="Toolbobywork">
-                    <div className="ToolSelectfile">
-                      <img src={Test} alt="img" className="ToolTest" />
-                    </div>
-                    <div className="ToolSelectfile">
-                      <img src={Test2} alt="img2" className="ToolTest2" />
-                    </div>
-                  </div>
-                ) : groupbutton === 2 ? (
-                  <div className="Toolbobywork">
-                    <div className="ToolSelectfile">
-                      <img src={Test3} alt="img3" className="ToolTest" />
-                    </div>
-                    <div className="ToolSelectfile">
-                      <img src={Test4} alt="img4" className="ToolTest2" />
-                    </div>
-                  </div>
-                ) : groupbutton === 3 ? (
-                  <div className="Toolbobywork">
-                    <div className="ToolSelectfile">
-                      <img src={Test5} alt="img3" className="ToolTest" />
-                    </div>
-                    <div className="ToolSelectfile">
-                      <img src={Test6} alt="img4" className="ToolTest2" />
-                    </div>
-                  </div>
-                ) : (
-                  <></>
-                )}
-
-                {option === "1" ? (
-                  <div className="rowbuttonTools">
-                    <button
-                      onClick={() => setOption("1")}
-                      className="Toolsbutton2"
-                    >
-                      Option 1
-                    </button>
-                    <button
-                      onClick={() => setOption("2")}
-                      className="Toolsbutton"
-                    >
-                      <p>Option 2</p>
-                    </button>
-                    <button
-                      onClick={() => setOption("3")}
-                      className="Toolsbutton"
-                    >
-                      <p>Option 3</p>
-                    </button>
-                    <button
-                      onClick={() => setOption("4")}
-                      className="Toolsbutton"
-                    >
-                      <p> Option 4</p>
-                    </button>
-                    <button
-                      className="ToolbuttonEdit"
-                      onClick={() => setScreen("4")}
-                    >
-                      Edit
-                    </button>
-                  </div>
-                ) : option === "2" ? (
-                  <div className="rowbuttonTools">
-                    <button
-                      onClick={() => setOption("1")}
-                      className="Toolsbutton"
-                    >
-                      <p> Option 1</p>
-                    </button>
-                    <button
-                      onClick={() => setOption("2")}
-                      className="Toolsbutton2"
-                    >
-                      Option 2
-                    </button>
-                    <button
-                      onClick={() => setOption("3")}
-                      className="Toolsbutton"
-                    >
-                      <p>Option 3</p>
-                    </button>
-                    <button
-                      onClick={() => setOption("4")}
-                      className="Toolsbutton"
-                    >
-                      <p>Option 4</p>
-                    </button>
-                    <button
-                      className="ToolbuttonEdit"
-                      onClick={() => setScreen("4")}
-                    >
-                      Edit
-                    </button>
-                  </div>
-                ) : option === "3" ? (
-                  <div className="rowbuttonTools">
-                    <button
-                      onClick={() => setOption("1")}
-                      className="Toolsbutton"
-                    >
-                      <p>Option 1</p>
-                    </button>
-                    <button
-                      onClick={() => setOption("2")}
-                      className="Toolsbutton"
-                    >
-                      <p> Option 2</p>
-                    </button>
-                    <button
-                      onClick={() => setOption("3")}
-                      className="Toolsbutton2"
-                    >
-                      Option 3
-                    </button>
-                    <button
-                      onClick={() => setOption("4")}
-                      className="Toolsbutton"
-                    >
-                      <p> Option 4</p>
-                    </button>
-                    <button
-                      className="ToolbuttonEdit"
-                      onClick={() => setScreen("4")}
-                    >
-                      Edit
-                    </button>
-                  </div>
-                ) : option === "4" ? (
-                  <div className="rowbuttonTools">
-                    <button
-                      onClick={() => setOption("1")}
-                      className="Toolsbutton"
-                    >
-                      <p> Option 1</p>
-                    </button>
-                    <button
-                      onClick={() => setOption("2")}
-                      className="Toolsbutton"
-                    >
-                      <p> Option 2</p>
-                    </button>
-                    <button
-                      onClick={() => setOption("3")}
-                      className="Toolsbutton"
-                    >
-                      <p> Option 3</p>
-                    </button>
-                    <button
-                      onClick={() => setOption("4")}
-                      className="Toolsbutton2"
-                    >
-                      Option 4
-                    </button>
-                    <button
-                      className="ToolbuttonEdit"
-                      onClick={() => setScreen("4")}
-                    >
-                      Edit
-                    </button>
-                  </div>
-                ) : null}
-              </div>
+              </>
             ) : (
+              // screen === 4
               <div className="BoxSunEditor">
                 <div className="ToolHaed4">
                   <div className="ToolInHaed4">
@@ -1486,4 +1555,5 @@ function Tool() {
     </div>
   );
 }
+
 export default Tool;

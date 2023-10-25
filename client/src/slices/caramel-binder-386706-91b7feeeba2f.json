@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "caramel-binder-386706",
+  "private_key_id": "91b7feeeba2ff0b7b1c76384986c6029ab6880d6",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCeJnZt/jwTWKtP\n/WotgZd340wGmX+tML26NTKC8ZkQKjB8C4gw0trCtwLbAL0QWGF/mhEbJ+N8e+Nw\n1BifERwLzV3z+FM/lhbR/E136Wjv6EYGcN4UCKEaYarzKUBgfsc/2uGDf2hwk0FI\nLUUCuRujhgGUY5mz3BjxbCu9Ml3fsDJh734u2ANT5fMfzqoyiT2dKLdZ/QiCQdM5\nGuKX822CPiJtwFc0+vIFUXl5+0ioBzE/7fL5hScidz66+QS2x10FbYKoq0aL6SKs\nOwqzjxTsQD5FOvkQpmrIk6DpiurX3IwOcBg9HbFYxMET9wIbJHs5mlGfAGLIJyaX\nnlE0j6SfAgMBAAECggEAPM2D1ckbdsKt5oyDAGjk/7JTPexRApiNMSSXvXE+jFD0\nIBTc8Qx4D8mF3wY7KigYoBLvRbYBx4/oAy6AItPUqRL1bsGH3BgLwQLUE+iYsDfo\niDxnnWMt8TMgouk2t4K2fy3baw+Wa0WqISJKeIALiMSSIedjJhvWOSeB73UIU2HT\nBzkVIOMwuzMZxEkS7ZlHmhpbLycuMV16bgmw1qVnvZlFsVpLzLkn1XSLHizOTB0O\nLo8Kgt6lg863oHdW8P3ZevydDDk+oY9MRfSb4fHg6gbpARjTwps0zxVqoQomhEZd\n0incaq3/iOHirM7+wINXOVRL7PwXbHBKnBD/ROJ5WQKBgQDW4eYZb+qT4MBQ6x34\nbxw5t9DxUv/SBe1W1n+Wd4Ft2oSuEJDPWOspdp2QHW2wzrHMN1Wgwn/DbCuTKtwO\neBQ2odTYDe+NCpJeMFag67FjF043BdFNB6DpEXXMsMM7Twma8UfyLpXON/DJCz2l\nyN4yyHkHD7hYSg9kfHzeL1hUiQKBgQC8aYP/Wl0/GpfJySrELUhA+DxvTNydlx7e\nKUBcO3LQB4tqff4tH9CkhK5ZID5HPopM8+/qhXx4/OawbtBIxG4BYeTBX/1OA07l\nJW+K8WCviqqaKcx9sg0RE7gFr9gIZAe88PakfoWWvtl4Uv+AJBC2Eryu1RTXAsRO\nssjw3sM15wKBgBPVW+ijJNKrXvTZDrYcg01sgvOTRpt7ApIOUE5yD1c1YSOz0bnh\nqir0kMx5euNj4JNJ1DR3X1WJSWhW/2KygKMeQsgCWUb6X9IjwgsuVfwgbY60kcH7\nX0XD38yZ0BtMS0Wq2Yon9JnJHgdgazs/FAs557nYIJq9kzgiKWBUnGGJAoGAAn7T\nRLqJqaBMilujuV1wK4weIMs/0MaDniWluJMA/khbTFnG2Aon1UX8mSmYKZFme4Zv\nkweZknCnDYcqMwyG+HW3degzjqj0joxkYc64nRqVD92l27RT//nm4gxmLBZHE/WN\nDriuRETa1IEk6SmRHxg4b4ha8k4TE4fCqY4Jv9kCgYAA+EDswf8lIdg3qfhH2rQt\ntKgKZNfR6JQSh4B4uBA6uIgsIDEXK1Mw4b3NmCh+S1oyYLrJNl0o2g8oXuX7ewXi\nht5OmKP6ePhoSP9NyrwEPo4g7CZRqPUJHLhJ4TlgMI9QhMk3LTIJgFM4ogbfY02c\nqghsM4Ri9OFu56vtB02UTg==\n-----END PRIVATE KEY-----\n",
+  "client_email": "ozone-470@caramel-binder-386706.iam.gserviceaccount.com",
+  "client_id": "107116786198859756407",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/ozone-470%40caramel-binder-386706.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

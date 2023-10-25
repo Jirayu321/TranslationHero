@@ -46,7 +46,7 @@ import {
 // import Cards from "./Cards.js";
 
 import Logo from "../../logo.svg";
-import Fileimg from "../../Images/file.png";
+import Fileimg from "../../Images/Fileimg.svg";
 import languages from "../../Images/languages.png";
 import rating from "../../Images/Rating.png";
 import skills from "../../Images/skills.png";
@@ -1444,7 +1444,10 @@ const Customer = () => {
                 <div className={styles.Boxfromdetail}>
                   {/* file */}
                   {from?.file === "" ? (
-                    <div className={styles.Boxfile}>
+                    <label
+                      className={styles.Boxfile}
+                      htmlFor="icon-button-file"
+                    >
                       <label
                         htmlFor="icon-button-file"
                         className={styles.labelBoxfile}
@@ -1456,22 +1459,21 @@ const Customer = () => {
                           style={{ display: "none" }}
                           onChange={(e) => onImageChange(e)}
                         />
-                        <IconButton
-                          color="primary"
-                          aria-label="upload picture"
-                          component="span"
-                        >
-                          <img
-                            src={Fileimg}
-                            alt="Fileimg"
-                            className={styles.BsFileEarmarkFill}
-                          />
-                        </IconButton>
+
+                        <img
+                          src={Fileimg}
+                          alt="Fileimg"
+                          className={styles.BsFileEarmarkFill}
+                        />
+
                         <p>Upload File</p>
                       </label>
-                    </div>
+                    </label>
                   ) : (
-                    <div className={styles.Boxfile}>
+                    <label
+                      className={styles.Boxfile}
+                      htmlFor="icon-button-file"
+                    >
                       <label htmlFor="icon-button-file">
                         <Input
                           accept="image/*"
@@ -1493,7 +1495,7 @@ const Customer = () => {
                           />
                         </IconButton>
                       </label>
-                    </div>
+                    </label>
                   )}
 
                   {/* fromdetail */}
