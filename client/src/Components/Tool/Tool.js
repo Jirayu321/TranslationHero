@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 import * as React from "react";
 import {
   Box,
@@ -92,7 +93,7 @@ function Tool() {
 
   React.useEffect(() => {
     if (Value) {
-      console.log("value :");
+      console.log("value :", Value);
       const t = dispatch(getOrder("Habi Yang"));
       t.then((result) => {
         setData(result?.payload);
@@ -134,6 +135,7 @@ function Tool() {
   function handlebuttonTool(i, x) {
     if (i === 1) {
       setScreen(1);
+      setGroupbutton(1);
     } else {
       setGroupbutton(x);
     }
@@ -192,7 +194,7 @@ function Tool() {
             <div
               style={{
                 width: " 100%",
-                // height: "500px",
+                height: "35rem",
                 background: " #F6FBFE",
                 border: "1px solid #E5E5E5",
                 borderRadius: 5,
@@ -276,8 +278,6 @@ function Tool() {
       </>
     );
   };
-
-  // console.log("image:", image);
 
   return (
     <div className="AppBobyTool">
@@ -590,6 +590,7 @@ function Tool() {
 
                   {showCaes?.data?.map((item, index) => {
                     if (groupbutton === index + 1) {
+                      // console.log("groupbutton:", groupbutton, index + 1);
                       return <ArticleDetails key={index} article={item} />;
                     }
                   })}

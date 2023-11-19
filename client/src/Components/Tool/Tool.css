@@ -354,6 +354,7 @@ BoxModal3 {
 .ToolInHaed4 {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .ToolInHaed4_2 {
@@ -467,8 +468,8 @@ BoxModal3 {
 } */
 
 .ToolTest2 {
-  width: 40%;
-  height: auto;
+  width: auto;
+  height: -webkit-fill-available;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -579,7 +580,7 @@ BoxModal3 {
   line-height: normal;
   background-color: transparent;
   border: transparent;
-  height: 0px;
+  height: 45px;
 }
 .boxLoadinganimationTool {
   display: grid;

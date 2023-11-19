@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import Navbars from "../Navbar/navbarLogin";
+import emailjs from "@emailjs/browser";
 
 import { FiEyeOff, FiEye } from "react-icons/fi";
 
@@ -10,9 +11,9 @@ import { Formik } from "formik";
 import IconButton from "@mui/material/IconButton";
 // import { BsArrowRightShort, BsArrowLeftShort } from "react-icons/bs";
 
-// import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 // import { useSelector } from "react-redux";
-// import { loginUser } from "../../slices/auth";
+import { loginUser } from "../../slices/auth";
 
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import {
@@ -26,7 +27,7 @@ import styles from "./Login.module.css";
 const Login = () => {
   const { innerWidth: width } = window;
   const navigate = useNavigate();
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const location = useLocation();
 
   function chcek_width() {
@@ -72,22 +73,64 @@ const Login = () => {
     }
   };
 
-  // function login(x, y) {
-  //   // const data = { email: x, password: y };
-  //   // dispatch(loginUser(data));
-  //   // const type = auth.type;
-  //   // console.log(type);
-  //   if (x === "jyung3221@gmail.com" || y === "123456") {
-  //     // navigate("/In", {
-  //     //   state: {
-  //     //     languages: `${Doc}`,
-  //     //   },
-  //     // });
-  //     navigate("/In");
-  //   } else if (type === "translators") {
-  //     navigate("/Dashboard_freelance");
-  //   }
-  // }
+  function sendEmail(x) {
+    const email = x;
+    const datatext = {
+      email: email,
+      subject: "Thank you.",
+      message: `
+      You have successfully logged in
+      `,
+    };
+    emailjs
+      .send(
+        "service_u5757dr",
+        "template_dueh1d9",
+        datatext,
+        "BikYNuNxSh4MGJ69-"
+      )
+      .then(
+        (result) => {
+          console.log(result.text);
+        },
+        (error) => {
+          console.log(error.text);
+        }
+      );
+  }
+
+  function Login(x, y) {
+    const data = { email: x, password: y };
+    dispatch(loginUser(data))
+      .then((result) => {
+        if (
+          result?.payload &&
+          result.payload !== "Invalid email or password..."
+        ) {
+          sendEmail(x);
+          navigate("/In", {
+            state: { languages: `${Doc}`, accept: true },
+          });
+        } else {
+          toast.error("Please enter your email or password again.", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          });
+        }
+
+        // console.log("Result:", result);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }
+
   React.useEffect(() => {
     chcek_width();
   });
@@ -158,14 +201,12 @@ const Login = () => {
                   if (values) {
                     const email = values?.email;
                     const password = values?.password;
-                    if (
-                      email === "jyung3221@gmail.com" &&
-                      password === "123456"
-                    ) {
-                      navigate("/In", {
-                        state: { languages: `${Doc}`, accept: true },
-                      });
-                    } else if (email !== "jyung3221@gmail.com") {
+                    if (email !== "" && password !== "") {
+                      Login(email, password);
+                      // navigate("/In", {
+                      //   state: { languages: `${Doc}`, accept: true },
+                      // });
+                    } else if (email === "" || password === "") {
                       toast.error(
                         "Please enter your email or password again.",
                         {

@@ -1,16 +1,19 @@
 import * as React from "react";
-// import emailjs from "@emailjs/browser";
+import emailjs from "@emailjs/browser";
 import Navbars from "../Navbar/navbarLogin";
 import { Formik } from "formik";
 import { data, data2 } from "../Data/data";
 
 //test
-// import {
-//   useDispatch,
-//   // useSelector
-// } from "react-redux";
+import {
+  useDispatch,
+  // useSelector
+} from "react-redux";
 
-// import { registerUser } from "../../slices/auth";
+import {
+  registerUser,
+  //  getEmail
+} from "../../slices/auth";
 
 // import { data, data5 } from "../Data/data";
 
@@ -50,7 +53,7 @@ const Signup = () => {
   let Doc = location?.state?.languages;
 
   //test
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   // const auth = useSelector((state) => state.auth);
 
   function chcek_width() {
@@ -121,59 +124,73 @@ const Signup = () => {
 
   function onImageChange(e, i) {
     const files = [...e.target.files];
-    const ImageURLs = [];
     const allowedTypes = ["image/jpeg", "image/png", "application/pdf"];
     const maxSizeInBytes = 25 * 1024 * 1024; // 25MB
 
-    const validateAndSetImageState = (files, key) => {
+    const toastConfig = {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    };
+
+    const readFile = (file, key) => {
+      // return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      // reader.readAsDataURL(e.target.files[0]);
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        setTranslators({ ...translators, [key]: reader.result });
+      };
+
+      reader.onerror = (error) => {
+        console.log("Error:", error);
+      };
+    };
+
+    const validateAndSetImageState = async (files, key) => {
       const validFiles = [];
 
       for (let file of files) {
-        // Check file type
-        if (!allowedTypes.includes(file.type)) {
-          toast.error(`Invalid file type for ${file.name}`, {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "dark",
-          });
-          continue;
-        }
+        // Check file type and size
+        try {
+          const dataURL = await readFile(file, key);
 
-        // Check file size
-        if (file.size > maxSizeInBytes) {
-          toast.error(`File size exceeds 25MB for ${file.name}`, {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "dark",
-          });
-          continue;
-        }
+          if (!allowedTypes.includes(file.type)) {
+            toast.error(`Invalid file type for ${file.name}`, toastConfig);
+            continue;
+          }
 
-        validFiles.push(file);
+          if (file.size > maxSizeInBytes) {
+            toast.error(`File size exceeds 25MB for ${file.name}`, toastConfig);
+            continue;
+          }
+
+          validFiles.push(dataURL);
+        } catch (error) {
+          console.error("Error reading file:", error);
+        }
       }
 
       if (validFiles.length > 0) {
-        const imageURLs = validFiles.map((file) => URL.createObjectURL(file));
-        // setImages(validFiles);
-        setTranslators({ ...translators, [key]: imageURLs });
+        console.log("validFiles", validFiles);
+        // const imageURLs = validFiles.map((file) => URL.createObjectURL(file));
+        // readFile(file);
       }
     };
 
     switch (i) {
       case 1:
         console.log("case 1");
-        files.forEach((image) => ImageURLs.push(URL.createObjectURL(image)));
-        setTranslators({ ...translators, imgProfile: ImageURLs });
+        validateAndSetImageState(files, "imgProfile");
+        // const imageFilePromises = files.map((image) => readFile(image));
+        // Promise.all(imageFilePromises).then((dataURLs) => {
+        //   setTranslators({ ...translators, imgProfile: dataURLs });
+        // });
         break;
 
       case 2:
@@ -296,21 +313,73 @@ const Signup = () => {
     }
   }
 
+  function sendEmail(x) {
+    const email = x;
+    const datatext = {
+      email: email,
+      subject: "Thank you.",
+      message: `
+      You have completed your registration.
+      `,
+    };
+    emailjs
+      .send(
+        "service_u5757dr",
+        "template_dueh1d9",
+        datatext,
+        "BikYNuNxSh4MGJ69-"
+      )
+      .then(
+        (result) => {
+          console.log(result.text);
+        },
+        (error) => {
+          console.log(error.text);
+        }
+      );
+  }
+
   function OpneMode(x) {
     if (x === 2) {
-      setopenModel({
-        ...openModel,
-        openModel1: false,
-        openModel2: true,
-      });
-      setTimeout(function () {
-        setopenModel({
-          ...openModel,
-          openModel1: false,
-          openModel2: false,
+      dispatch(registerUser(translators))
+        .then((result) => {
+          if (
+            result?.payload &&
+            result.payload !== "Invalid email or password..."
+          ) {
+            setopenModel({
+              ...openModel,
+              openModel1: false,
+              openModel2: true,
+            });
+            sendEmail(translators?.email);
+
+            setTimeout(function () {
+              setopenModel({
+                ...openModel,
+                openModel1: false,
+                openModel2: false,
+              });
+              navigate("/Login", {
+                state: { languages: `${Doc}`, accept: true },
+              });
+            }, 3000);
+          } else {
+            toast.error("Please enter your email or password again.", {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "dark",
+            });
+          }
+        })
+        .catch((error) => {
+          console.error("Error:", error);
         });
-        navigate("/Login", { state: { languages: `${Doc}`, accept: true } });
-      }, 3000);
     }
   }
 
@@ -332,7 +401,7 @@ const Signup = () => {
   return (
     <>
       <header className={styles?.header}>
-      {Doc === undefined ? (
+        {Doc === undefined ? (
           <Navbars navigate={navigate} languages="English" accept={false} />
         ) : Doc === "Thai" ? (
           <Navbars navigate={navigate} languages="Thai" accept={true} />
@@ -486,6 +555,31 @@ const Signup = () => {
                       ) {
                         errors.email = "Invalid email address";
                       }
+                      // else if (values.email !== "") {
+                      //   dispatch(getEmail(values.email))
+                      //     .then((result) => {
+                      //       if (result.payload === "User already exists...") {
+                      //         toast.error(
+                      //           "Please enter another email address. This email address is already in the system.",
+                      //           {
+                      //             position: "top-right",
+                      //             autoClose: 5000,
+                      //             hideProgressBar: false,
+                      //             closeOnClick: true,
+                      //             pauseOnHover: true,
+                      //             draggable: true,
+                      //             progress: undefined,
+                      //             theme: "dark",
+                      //           }
+                      //         );
+                      //       }
+
+                      //       // console.log("Result:", result);
+                      //     })
+                      //     .catch((error) => {
+                      //       console.error("Error:", error);
+                      //     });
+                      // }
 
                       if (!values.name) {
                         errors.name = "Please enter your name.";
@@ -1007,7 +1101,11 @@ const Signup = () => {
 
                     <button
                       className={styles.button2}
-                      onClick={() => navigate("/Login", { state: { languages: `${Doc}`, accept: true } })}
+                      onClick={() =>
+                        navigate("/Login", {
+                          state: { languages: `${Doc}`, accept: true },
+                        })
+                      }
                     >
                       <p className={styles.textLogin3}>Login</p>
                     </button>
@@ -1111,7 +1209,11 @@ const Signup = () => {
                     <p className={styles.textLogin}>Already a member?</p>
                     <button
                       className={styles.button2}
-                      onClick={() => navigate("/Login", { state: { languages: `${Doc}`, accept: true } })}
+                      onClick={() =>
+                        navigate("/Login", {
+                          state: { languages: `${Doc}`, accept: true },
+                        })
+                      }
                     >
                       <p className={styles.textLogin3}>Login</p>
                     </button>
@@ -1232,7 +1334,11 @@ const Signup = () => {
                     <p className={styles.textLogin}>Already a member?</p>
                     <button
                       className={styles.button2}
-                      onClick={() => navigate("/Login", { state: { languages: `${Doc}`, accept: true } })}
+                      onClick={() =>
+                        navigate("/Login", {
+                          state: { languages: `${Doc}`, accept: true },
+                        })
+                      }
                     >
                       <p className={styles.textLogin3}>Login</p>
                     </button>
@@ -1372,7 +1478,11 @@ const Signup = () => {
                       <p className={styles.textLogin}>Already a member?</p>
                       <button
                         className={styles.button2}
-                        onClick={() => navigate("/Login", { state: { languages: `${Doc}`, accept: true } })}
+                        onClick={() =>
+                          navigate("/Login", {
+                            state: { languages: `${Doc}`, accept: true },
+                          })
+                        }
                       >
                         <p className={styles.textLogin3}>Login</p>
                       </button>
@@ -1645,7 +1755,11 @@ const Signup = () => {
                             </p>
                             <button
                               className={styles.button2}
-                              onClick={() => navigate("/Login", { state: { languages: `${Doc}`, accept: true } })}
+                              onClick={() =>
+                                navigate("/Login", {
+                                  state: { languages: `${Doc}`, accept: true },
+                                })
+                              }
                             >
                               <p className={styles.textLogin3}>Login</p>
                             </button>
@@ -1789,7 +1903,11 @@ const Signup = () => {
                       <p className={styles.textLogin}>Already a member?</p>
                       <button
                         className={styles.button2}
-                        onClick={() => navigate("/Login", { state: { languages: `${Doc}`, accept: true } })}
+                        onClick={() =>
+                          navigate("/Login", {
+                            state: { languages: `${Doc}`, accept: true },
+                          })
+                        }
                       >
                         <p className={styles.textLogin3}>Login</p>
                       </button>
@@ -1801,7 +1919,7 @@ const Signup = () => {
                     <p className={styles.textLogin2}>
                       Please complete your information.
                     </p>
-           
+
                     <Formik
                       initialValues={{
                         address: "",
@@ -2181,7 +2299,11 @@ const Signup = () => {
                             </p>
                             <button
                               className={styles.button2}
-                              onClick={() => navigate("/Login", { state: { languages: `${Doc}`, accept: true } })}
+                              onClick={() =>
+                                navigate("/Login", {
+                                  state: { languages: `${Doc}`, accept: true },
+                                })
+                              }
                             >
                               <p className={styles.textLogin3}>Login</p>
                             </button>
@@ -2323,7 +2445,11 @@ const Signup = () => {
                       <p className={styles.textLogin}>Already a member?</p>
                       <button
                         className={styles.button2}
-                        onClick={() => navigate("/Login", { state: { languages: `${Doc}`, accept: true } })}
+                        onClick={() =>
+                          navigate("/Login", {
+                            state: { languages: `${Doc}`, accept: true },
+                          })
+                        }
                       >
                         <p className={styles.textLogin3}>Login</p>
                       </button>
@@ -2453,7 +2579,11 @@ const Signup = () => {
                       <p className={styles.textLogin}>Already a member?</p>
                       <button
                         className={styles.button2}
-                        onClick={() => navigate("/Login", { state: { languages: `${Doc}`, accept: true } })}
+                        onClick={() =>
+                          navigate("/Login", {
+                            state: { languages: `${Doc}`, accept: true },
+                          })
+                        }
                       >
                         <p className={styles.textLogin3}>Login</p>
                       </button>
@@ -2939,7 +3069,11 @@ const Signup = () => {
                       <p className={styles.textLogin}>Already a member?</p>
                       <button
                         className={styles.button2}
-                        onClick={() => navigate("/Login", { state: { languages: `${Doc}`, accept: true } })}
+                        onClick={() =>
+                          navigate("/Login", {
+                            state: { languages: `${Doc}`, accept: true },
+                          })
+                        }
                       >
                         <p className={styles.textLogin3}>Login</p>
                       </button>
@@ -3072,7 +3206,11 @@ const Signup = () => {
                       <p className={styles.textLogin}>Already a member?</p>
                       <button
                         className={styles.button2}
-                        onClick={() => navigate("/Login", { state: { languages: `${Doc}`, accept: true } })}
+                        onClick={() =>
+                          navigate("/Login", {
+                            state: { languages: `${Doc}`, accept: true },
+                          })
+                        }
                       >
                         <p className={styles.textLogin3}>Login</p>
                       </button>
@@ -3113,7 +3251,7 @@ const Signup = () => {
                         onChange={(event, value) =>
                           setTranslators({
                             ...translators,
-                            languages: value?.label ? value.label : "",
+                            languages: value?.label ? value.label : [],
                           })
                         }
                         popupIcon={
@@ -3238,7 +3376,11 @@ const Signup = () => {
                       <p className={styles.textLogin}>Already a member?</p>
                       <button
                         className={styles.button2}
-                        onClick={() => navigate("/Login", { state: { languages: `${Doc}`, accept: true } })}
+                        onClick={() =>
+                          navigate("/Login", {
+                            state: { languages: `${Doc}`, accept: true },
+                          })
+                        }
                       >
                         <p className={styles.textLogin3}>Login</p>
                       </button>
@@ -3718,7 +3860,11 @@ const Signup = () => {
                       <p className={styles.textLogin}>Already a member?</p>
                       <button
                         className={styles.button2}
-                        onClick={() => navigate("/Login", { state: { languages: `${Doc}`, accept: true } })}
+                        onClick={() =>
+                          navigate("/Login", {
+                            state: { languages: `${Doc}`, accept: true },
+                          })
+                        }
                       >
                         <p className={styles.textLogin3}>Login</p>
                       </button>
@@ -3759,7 +3905,7 @@ const Signup = () => {
                         onChange={(event, value) =>
                           setTranslators({
                             ...translators,
-                            languages: value?.label ? value.label : "",
+                            languages: value?.label ? value.label : [],
                           })
                         }
                         popupIcon={
@@ -3878,7 +4024,11 @@ const Signup = () => {
                       <p className={styles.textLogin}>Already a member?</p>
                       <button
                         className={styles.button2}
-                        onClick={() => navigate("/Login", { state: { languages: `${Doc}`, accept: true } })}
+                        onClick={() =>
+                          navigate("/Login", {
+                            state: { languages: `${Doc}`, accept: true },
+                          })
+                        }
                       >
                         <p className={styles.textLogin3}>Login</p>
                       </button>
@@ -3953,14 +4103,28 @@ const Signup = () => {
                       </p>
                       <input
                         type="text"
-                        value={translators.answer || ""}
-                        onChange={(e) =>
-                          setTranslators({
-                            ...translators,
-                            answer: e.target.value,
-                          })
+                        onChange={
+                          (e) =>
+                            setTranslators({
+                              ...translators,
+                              answer: e.target.value,
+                            })
+                          // console.log(e)
                         }
+                        value={translators.answer || ""}
                         placeholder="Enter your answer"
+                        style={{
+                          background: "#FFFFFF",
+                          border: "1px solid rgb(196 196 196",
+                          borderRadius: 0,
+                          width: "100%",
+                          height: 55,
+                          padding: 20,
+                          paddingLeft: 12,
+                          margin: 10,
+                          marginLeft: 0,
+                          fontSize: 13,
+                        }}
                       />
                     </div>
                     <button
@@ -3979,7 +4143,11 @@ const Signup = () => {
                       <p className={styles.textLogin}>Already a member?</p>
                       <button
                         className={styles.button2}
-                        onClick={() => navigate("/Login", { state: { languages: `${Doc}`, accept: true } })}
+                        onClick={() =>
+                          navigate("/Login", {
+                            state: { languages: `${Doc}`, accept: true },
+                          })
+                        }
                       >
                         <p className={styles.textLogin3}>Login</p>
                       </button>

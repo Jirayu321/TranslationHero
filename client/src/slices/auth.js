@@ -1,12 +1,18 @@
 // import fs from "fs";
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import {
+  createSlice,
+  createAsyncThunk,
+  // combineReducers,
+} from "@reduxjs/toolkit";
 import jwtDecode from "jwt-decode";
 import axios from "axios";
 import { url, setHeaders } from "./api";
 
-import { createWorker } from "tesseract.js";
-import { createCanvas, loadImage } from "canvas";
+// import { createWorker } from "tesseract.js";
+// import { createCanvas, loadImage } from "canvas";
 
+// import { translate } from "@vitalets/google-translate-api";
+// import createHttpProxyAgent from "http-proxy-agent";
 // const { Translate } = require("@google-cloud/translate").v2;
 // import { OpenAI } from "openai";
 
@@ -27,12 +33,17 @@ export const registerUser = createAsyncThunk(
   "auth/registerUser",
   async (values, { rejectWithValue }) => {
     try {
+      console.log("auth_values:", values);
       const token = await axios.post(`${url}/register`, {
         name: values.name,
         email: values.email,
         password: values.password,
         confirmPassword: values.confirmPassword,
         mobilePhone: values.mobilePhone,
+        imgProfile: values.imgProfile,
+        companyName: values.companyName,
+        juristicPersonNumber: values.juristicPersonNumber,
+        website: values.website,
         address: values.address,
         district: values.district,
         province: values.province,
@@ -100,6 +111,21 @@ export const getUser = createAsyncThunk(
   }
 );
 
+export const getEmail = createAsyncThunk(
+  "auth/getEmail",
+  async (values, { rejectWithValue }) => {
+    try {
+      const token = await axios.post(`${url}/getEmail`, {
+        email: values,
+      });
+
+      return token.data;
+    } catch (error) {
+      console.log(error.response);
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
 export const updateOrder = createAsyncThunk(
   "auth/updateOrder",
   async (values, { rejectWithValue }) => {
@@ -180,47 +206,13 @@ export const generationsAI = createAsyncThunk(
   async (values, { rejectWithValue }) => {
     try {
       const Data_01 = values.data;
-      const outputData = [];
 
-      for (const inputData of Data_01) {
-        const worker = await createWorker();
-
-        const { data } = await worker.recognize(inputData.file);
-        const lines = data.lines || [];
-        const textArray = [];
-
-        for (const textItem of lines) {
-          const { bbox, text } = textItem;
-          const x = bbox.x0;
-          const y = bbox.y0 + bbox.height;
-          const z = inputData.tranto;
-          const e = inputData.tranfrom;
-          textArray.push({ text, x, y, z, e });
-        }
-
-        await worker.terminate();
-
-        const translateTextArray = await authenticateImplicitWithAdc(textArray);
-
-        const overlayedImage = await overlayTranslatedText(
-          inputData.file,
-          translateTextArray
-        );
-
-        outputData.push({
-          file: overlayedImage,
-          tranfrom: inputData.tranfrom,
-          tranto: inputData.tranto,
-        });
-        console.log("overlayedImage:", overlayedImage);
-      }
-      // const token = await axios.post(`${url}/generationsAi`, {
-      //   orderNumber: values.orderNumber,
-      //   date: getCurrentDate(),
-      //   textArray: outputData,
-      // });
-      // // console.log("hi :", values.orderNumber, getCurrentDate(), outputData);
-      // return token.data;
+      const token = await axios.post(`${url}/generationsAi`, {
+        orderNumber: values.orderNumber,
+        date: getCurrentDate(),
+        textArray: Data_01,
+      });
+      return token.data;
     } catch (error) {
       console.log(error.response.data);
       return rejectWithValue(error.response.data);
@@ -228,108 +220,17 @@ export const generationsAI = createAsyncThunk(
   }
 );
 
-const languagePairs = {
-  English: {
-    Thai: "en|th",
-    German: "en|de",
-  },
-  Thai: {
-    English: "th|en",
-    German: "th|de",
-  },
-  German: {
-    Thai: "de|th",
-    English: "de|en",
-  },
-};
+function getCurrentDate() {
+  const date = new Date();
+  let day = date.getDate();
+  let month = date.getMonth() + 1;
+  const year = date.getFullYear();
 
-async function translateWithMyMemory(text, targetLanguage, sourceLanguage) {
-  const myMemoryApiUrl = "https://api.mymemory.translated.net/get";
+  if (day < 10) day = `0${day}`;
+  if (month < 10) month = `0${month}`;
 
-  try {
-    const langpair = languagePairs[sourceLanguage][targetLanguage];
-    const response = await axios.get(myMemoryApiUrl, {
-      params: {
-        q: text,
-        langpair,
-      },
-    });
-
-    const translatedText = response.data.responseData.translatedText;
-    return translatedText;
-  } catch (error) {
-    console.error("MyMemory Translation Error:", error);
-    throw error;
-  }
+  return `${month}/${day}/${year}`;
 }
-
-async function authenticateImplicitWithAdc(textArray) {
-  const translateTextArray = [];
-
-  for (let i = 0; i < textArray.length; i++) {
-    const { text, z, e } = textArray[i];
-    const translation = await translateWithMyMemory(text, z, e);
-    translateTextArray.push({
-      ...textArray[i],
-      translatedText: translation,
-    });
-  }
-  // console.log("translateTextArray");
-  return translateTextArray;
-}
-
-async function overlayTranslatedText(imagePath, translateTextArray) {
-  const image = await loadImage(imagePath);
-  const canvas = createCanvas(image.width, image.height);
-  const ctx = canvas.getContext("2d");
-
-  ctx.drawImage(image, 0, 0);
-
-  const textColor = "#FFFFFE";
-  const boxColor = "#FF5733";
-  const padding = 10;
-
-  for (let i = 0; i < translateTextArray.length; i++) {
-    const { translatedText, x, y } = translateTextArray[i];
-
-    const textMetrics = ctx.measureText(translatedText);
-    const textWidth = textMetrics.width;
-    const textHeight =
-      textMetrics.actualBoundingBoxAscent +
-      textMetrics.actualBoundingBoxDescent;
-
-    const boxX = x;
-    const boxY = y - padding;
-    const fontSize = 18;
-    const boxWidth = textWidth + 2 * padding;
-    const boxHeight = textHeight;
-
-    ctx.fillStyle = boxColor;
-    ctx.fillRect(boxX, boxY, boxWidth, boxHeight);
-
-    ctx.font = `${fontSize}px Arial`;
-    ctx.fillStyle = textColor;
-    ctx.fillText(translatedText, x, y);
-  }
-  // console.log("Font settings:", ctx.fillStyle);
-  // console.log("translateTextArray:", translateTextArray);
-  // console.log("Canvas dimensions:", canvas.width, canvas.height);
-  // console.log("Image dimensions:", image.width, image.height);
-
-  console.log("canvas:", canvas.toDataURL("image/jpeg", 0.95));
-  return canvas.toDataURL("image/jpeg", 0.95);
-}
-// function getCurrentDate() {
-//   const date = new Date();
-//   let day = date.getDate();
-//   let month = date.getMonth() + 1;
-//   const year = date.getFullYear();
-
-//   if (day < 10) day = `0${day}`;
-//   if (month < 10) month = `0${month}`;
-
-//   return `${month}/${day}/${year}`;
-// }
 
 // Example usage:
 // const token = await dispatch(generationsAI(values));

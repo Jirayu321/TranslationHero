@@ -7,9 +7,10 @@ import {
   Toolbar,
   List,
 } from "@mui/material";
-import { 
+import {
   // Form,
-   NavDropdown } from "react-bootstrap";
+  NavDropdown,
+} from "react-bootstrap";
 import {
   IoChatbubblesSharp,
   //  IoNotifications
@@ -30,19 +31,19 @@ export default function DrawerTranslate(props) {
   const you = props?.languages;
   const value = props?.value;
 
-  // const goLogin = () => {
-  //   navigate("/Login");
-  // };
-  // const checklogin = () => {
-  //   if (checkValue) {
-  //     console.log("value :", checkValue);
-  //   } else {
-  //     goLogin();
-  //   }
-  // };
-  // React.useEffect(() => {
-  //   checklogin();
-  // });
+  const goLogin = () => {
+    navigate("/Login");
+  };
+  const checklogin = () => {
+    if (checkValue) {
+      console.log("value :", checkValue);
+    } else {
+      goLogin();
+    }
+  };
+  React.useEffect(() => {
+    checklogin();
+  });
   const goHome = (x) => {
     const pathname = window.location.pathname;
     if (pathname === "/In") {
