@@ -20,14 +20,21 @@ import { MdSpaceDashboard } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import GlobeLocation from "../../Images/GlobeLocation.svg";
 import Earth from "../../Images//Earth.svg";
+
+import { logoutUser } from "../../slices/auth";
+import { useDispatch, useSelector } from "react-redux";
 import "./Drawer.css";
 
 export default function DrawerTranslate(props) {
   const pathname = window.location.pathname;
   const drawerWidth = 100;
   const navigate = useNavigate();
-  const checkValue = props?.value;
+  // const checkValue = props?.value;
   const languages = props?.languages;
+  // const dispatch = props?.dispatch;
+  const dispatch = useDispatch();
+  const auth = useSelector((state) => state.auth);
+  const checkValue = auth?.token;
   const you = props?.languages;
   const value = props?.value;
 
@@ -41,9 +48,14 @@ export default function DrawerTranslate(props) {
       goLogin();
     }
   };
+  const logout = () => {
+    console.log("Logout button clicked");
+    dispatch(logoutUser);
+    goLogin();
+  };
   React.useEffect(() => {
     checklogin();
-  });
+  }, []);
   const goHome = (x) => {
     const pathname = window.location.pathname;
     if (pathname === "/In") {
@@ -218,6 +230,22 @@ export default function DrawerTranslate(props) {
                 ) : null}
               </ListItem>
             ))}
+            <div style={{ marginTop: 300 }}>
+              <button
+                className="Drawerbox4navbarHome3"
+                onClick={() => logout()}
+              >
+                <p
+                  style={{
+                    color: "#808080",
+                    fontSize: 13,
+                    float: "left",
+                  }}
+                >
+                  logout
+                </p>
+              </button>
+            </div>
           </List>
         ) : pathname === "/Tool" ? (
           <List>
@@ -610,6 +638,22 @@ export default function DrawerTranslate(props) {
                 ) : null}
               </ListItem>
             ))}
+            <div style={{ marginTop: 300 }}>
+              <button
+                className="Drawerbox4navbarHome3"
+                onClick={() => logout()}
+              >
+                <p
+                  style={{
+                    color: "#808080",
+                    fontSize: 13,
+                    float: "left",
+                  }}
+                >
+                  logout
+                </p>
+              </button>
+            </div>
           </List>
         ) : pathname === "/Notification" ? (
           <List>
@@ -746,6 +790,22 @@ export default function DrawerTranslate(props) {
                 ) : null}
               </ListItem>
             ))}
+            <div style={{ marginTop: 300 }}>
+              <button
+                className="Drawerbox4navbarHome3"
+                onClick={() => logout()}
+              >
+                <p
+                  style={{
+                    color: "#808080",
+                    fontSize: 13,
+                    float: "left",
+                  }}
+                >
+                  logout
+                </p>
+              </button>
+            </div>
           </List>
         ) : (
           <List>

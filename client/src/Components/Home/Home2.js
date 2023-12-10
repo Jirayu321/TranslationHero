@@ -147,6 +147,7 @@ export default function Home2() {
         <Drawer
           languages={Doc}
           value={Value}
+          dispatch={useDispatch}
           style={{
             width: "100px",
             background: "transparent",
@@ -823,7 +824,7 @@ export default function Home2() {
                 </div>
                 <div>
                   <p className="Schedule">Schedule</p>
-                  <div className="Home2Box1Schedule">
+                  {/* <div className="Home2Box1Schedule">
                     <div className="Home2Box1ScheduleDetail">
                       <p>THOG0022534</p>
                       <button
@@ -858,7 +859,7 @@ export default function Home2() {
                         </button>
                       </div>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>

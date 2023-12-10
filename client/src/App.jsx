@@ -6,7 +6,7 @@ import { loadUser } from "./slices/auth";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Lottie from "lottie-react";
-import Loadinganimation from "./Images/Loadinganimation.json";
+import Loadinganimation from "./Images/Animation.json";
 
 import "./App.css";
 
@@ -47,7 +47,7 @@ function App() {
   );
   const Tool = lazy(() => import("./Components/Tool/Tool"));
   const Price = lazy(() => import("./Components/Price/Price.jsx"));
-  
+
   useEffect(() => {
     dispatch(loadUser(null));
   }, [dispatch]);
@@ -60,7 +60,10 @@ function App() {
             display: "flex",
             width: "100vw",
             justifyContent: "center",
-            marginTop: "5vw",
+            // marginTop: "5vw",
+            // alignContent: "center",
+            // alignItems: "center",
+            // alignSelf: "center",
           }}
         >
           <Lottie animationData={Loadinganimation} loop={true} />

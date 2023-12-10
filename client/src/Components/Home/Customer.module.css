@@ -71,6 +71,10 @@
   border-radius: 10px;
   width: 86vw;
 }
+.BoxcardTranslator {
+  display: grid;
+  grid-template-columns: auto auto auto;
+}
 .cardTranslator {
   width: 23vw;
   height: 390px;

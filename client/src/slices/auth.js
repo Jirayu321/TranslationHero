@@ -20,6 +20,7 @@ const initialState = {
   token: localStorage.getItem("token"),
   name: "",
   email: "",
+  user: "",
   _id: "",
   type: "",
   registerStatus: "",
@@ -97,12 +98,11 @@ export const loginUser = createAsyncThunk(
 
 export const getUser = createAsyncThunk(
   "auth/getUser",
-  async (id, { rejectWithValue }) => {
+  async (_, { rejectWithValue }) => {
     try {
-      const token = await axios.get(`${url}/user/${id}`, setHeaders());
-
-      localStorage.setItem("token", token.data);
-
+      const token = await axios.get(`${url}/getUsers/`, setHeaders());
+      // localStorage.setItem("user", token.data);
+      // console.log("getUser:", token.data);
       return token.data;
     } catch (error) {
       console.log(error.response);
@@ -379,6 +379,23 @@ const authSlice = createSlice({
         ...state,
         getUserStatus: "rejected",
         getUserError: action.payload,
+      };
+    });
+    
+    builder.addCase(logoutUser, (state, action) => {
+      console.log("Logging out user...");
+      localStorage.removeItem("token");
+      return {
+        ...state,
+        token: null,
+        name: "",
+        email: "",
+        _id: "",
+        type: "",
+        registerStatus: "",
+        registerError: "",
+        loginStatus: "",
+        loginError: "",
       };
     });
   },
