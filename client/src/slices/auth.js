@@ -6,7 +6,7 @@ import {
 } from "@reduxjs/toolkit";
 import jwtDecode from "jwt-decode";
 import axios from "axios";
-import { url, setHeaders } from "./api";
+import { url } from "./api";
 
 // import { createWorker } from "tesseract.js";
 // import { createCanvas, loadImage } from "canvas";
@@ -98,14 +98,18 @@ export const loginUser = createAsyncThunk(
 
 export const getUser = createAsyncThunk(
   "auth/getUser",
-  async (_, { rejectWithValue }) => {
+  async (values, { rejectWithValue }) => {
+    console.log("values :", values);
     try {
-      const token = await axios.get(`${url}/getUsers/`, setHeaders());
-      // localStorage.setItem("user", token.data);
-      // console.log("getUser:", token.data);
+      const token = await axios.get(`${url}/getUsers/`);
+      console.log("getUser:", token.data);
+
+      // Attempt to decode the token
+      const decodedToken = jwtDecode(token.data);
+      console.log("Decoded Token:", decodedToken);
+
       return token.data;
     } catch (error) {
-      console.log(error.response);
       return rejectWithValue(error.response.data);
     }
   }
@@ -381,7 +385,7 @@ const authSlice = createSlice({
         getUserError: action.payload,
       };
     });
-    
+
     builder.addCase(logoutUser, (state, action) => {
       console.log("Logging out user...");
       localStorage.removeItem("token");
@@ -402,5 +406,6 @@ const authSlice = createSlice({
 });
 
 export const { loadUser, logoutUser } = authSlice.actions;
+export const selectUser = (state) => state.auth.user;
 
 export default authSlice.reducer;

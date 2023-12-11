@@ -67,9 +67,10 @@ import Card from "react-credit-cards-2";
 import Payment from "payment";
 import "react-credit-cards-2/dist/es/styles-compiled.css";
 
-// import { useDispatch, useSelector } from "react-redux";
-import { useDispatch, useSelector } from "react-redux";
-import { createOrder, getUser } from "../../slices/auth";
+import { useDispatch } from "react-redux";
+import axios from "axios";
+import { url } from "../../slices/api.js";
+import { createOrder } from "../../slices/auth";
 
 import styles from "./Customer.module.css";
 
@@ -78,10 +79,9 @@ const Customer = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.auth.user);
   let Doc = location?.state?.languages;
 
-  const [promo, setPromo] = React.useState(""); //Promo code คือเปิดตัวด้านล่าง
+  const [promo, setPromo] = React.useState("");
   const [documentType, setDocumentType] = React.useState("");
 
   function getCurrentDate() {
@@ -141,17 +141,21 @@ const Customer = () => {
   const [choose, setChoose] = React.useState(false);
   const [email, setEmail] = React.useState("");
 
-  const [translator, setTranslator] = React.useState({});
+  const [translator, setTranslator] = React.useState(null);
 
   const setUser = async () => {
+    console.log("test");
     try {
-      await dispatch(getUser());
+      const response = await axios.get(`${url}/getUsers/`);
+      // console.log("response.data:", response?.data);
+      setTranslator(response?.data);
     } catch (error) {
       console.error("Error fetching user:", error);
     }
   };
-  
-  console.log("user", user);
+
+  console.log("translator", translator);
+
   React.useEffect(() => {
     if (groupData === null) {
       // console.log("Data:", groupData);
@@ -491,9 +495,11 @@ const Customer = () => {
       // }
     } else {
       console.log("searhTranslator:", 2);
-      setGroupData([from]);
-      setPromo(x);
-      window.scrollTo(0, h);
+      if (from.document_Type !== "" && translator !== null) {
+        setGroupData([from]);
+        setPromo(x);
+        window.scrollTo(0, h);
+      }
     }
   }
 
@@ -546,14 +552,16 @@ const Customer = () => {
       );
   }
 
-  function OpneMode(x) {
+  function OpneMode(x, y) {
     console.log("OpneMode:", x);
+    console.log("OpneMode:", y);
     if (x === 1) {
-      // setFrom({
-      //   ...from,
-      //   Price: generatePrice(),
-      //   orderNumber: generateOrderNumber(12),
-      // });
+      setFrom({
+        ...from,
+        Translator_name: y,
+        // Price: generatePrice(),
+        // orderNumber: generateOrderNumber(12),
+      });
       window.scroll(0, 0);
       setOpen(true);
       setTimeout(function () {
@@ -846,7 +854,8 @@ const Customer = () => {
     );
   };
 
-  // console.log("groupData:", groupData);
+  console.log("groupData:", groupData);
+  console.log("from:", from);
 
   return (
     <>
@@ -2241,517 +2250,125 @@ const Customer = () => {
                             </div>
                           </div>
                         </div>
-                        {/* //edit at */}
                         <div className={styles.BoxcardTranslator}>
-                          <div className={styles.cardTranslator}>
-                            <div>
+                          {translator !== null ? (
+                            translator.map((translatorItem, index) => (
                               <div
-                                style={{
-                                  width: " 100%",
-                                  display: "grid",
-                                  justifyContent: "center",
-                                  textAlign: "center",
-                                  justifyItems: "center",
-                                }}
+                                className={styles.cardTranslator}
+                                key={index}
                               >
-                                <Stack direction="row" spacing={2}>
-                                  <StyledBadge
-                                    overlap="circular"
-                                    anchorOrigin={{
-                                      vertical: "bottom",
-                                      horizontal: "right",
-                                    }}
-                                    variant="dot"
-                                  >
-                                    <FaUserCircle
-                                      alt="avatar"
-                                      className={styles.profile}
-                                    />
-                                  </StyledBadge>
-                                </Stack>
-                                <p
-                                  style={{
-                                    marginTop: 10,
-                                    fontWeight: 400,
-                                    fontSize: 18,
-                                  }}
-                                >
-                                  Habi Yang
-                                </p>
-                              </div>
-
-                              <div className={styles.diviconcardTranslator}>
-                                <div className={styles.iconcardTranslator}>
-                                  <img src={rating} alt="rating" />
-                                </div>
-
-                                <div className={styles.diviconcardTranslator2}>
-                                  <p
+                                <div>
+                                  <div
                                     style={{
-                                      color: "#BDBDBD",
-                                      fontSize: "12px",
+                                      width: " 100%",
+                                      display: "grid",
+                                      justifyContent: "center",
+                                      textAlign: "center",
+                                      justifyItems: "center",
                                     }}
                                   >
-                                    Rating
-                                  </p>
-                                  <p style={{ marginRight: 10 }}>5.0</p>
+                                    <Stack direction="row" spacing={2}>
+                                      <StyledBadge
+                                        overlap="circular"
+                                        anchorOrigin={{
+                                          vertical: "bottom",
+                                          horizontal: "right",
+                                        }}
+                                        variant="dot"
+                                      >
+                                        <FaUserCircle
+                                          alt="avatar"
+                                          className={styles.profile}
+                                        />
+                                      </StyledBadge>
+                                    </Stack>
+                                    <p
+                                      style={{
+                                        marginTop: 10,
+                                        fontWeight: 400,
+                                        fontSize: 18,
+                                      }}
+                                    >
+                                      {translatorItem?.name}
+                                    </p>
+                                  </div>
+
+                                  <div className={styles.diviconcardTranslator}>
+                                    <div className={styles.iconcardTranslator}>
+                                      <img src={rating} alt="rating" />
+                                    </div>
+
+                                    <div
+                                      className={styles.diviconcardTranslator2}
+                                    >
+                                      <p
+                                        style={{
+                                          color: "#BDBDBD",
+                                          fontSize: "12px",
+                                        }}
+                                      >
+                                        Rating
+                                      </p>
+                                      <p style={{ marginRight: 10 }}>5.0</p>
+                                    </div>
+                                  </div>
+
+                                  <div className={styles.diviconcardTranslator}>
+                                    <div className={styles.iconcardTranslator}>
+                                      <img src={skills} alt="skills" />
+                                    </div>
+
+                                    <div
+                                      className={styles.diviconcardTranslator2}
+                                    >
+                                      <p
+                                        style={{
+                                          color: "#BDBDBD",
+                                          fontSize: "12px",
+                                        }}
+                                      >
+                                        Skills
+                                      </p>
+                                      <p>General Document, Official Document</p>
+                                    </div>
+                                  </div>
+
+                                  <div className={styles.diviconcardTranslator}>
+                                    <div className={styles.iconcardTranslator}>
+                                      <img src={languages} alt="languages" />
+                                    </div>
+
+                                    <div
+                                      className={styles.diviconcardTranslator2}
+                                    >
+                                      <p
+                                        style={{
+                                          color: "#BDBDBD",
+                                          fontSize: "12px",
+                                        }}
+                                      >
+                                        Languages
+                                      </p>
+                                      <p>English,汉语 官话,粵語, ไทย,한국어</p>
+                                    </div>
+                                  </div>
+
+                                  <div className={styles.BoxDeal}>
+                                    <button
+                                      className={styles.Deal}
+                                      onClick={() =>
+                                        OpneMode(1, translatorItem?.name)
+                                      }
+                                    >
+                                      Deal
+                                    </button>
+                                  </div>
                                 </div>
                               </div>
-
-                              <div className={styles.diviconcardTranslator}>
-                                <div className={styles.iconcardTranslator}>
-                                  <img src={skills} alt="skills" />
-                                </div>
-
-                                <div className={styles.diviconcardTranslator2}>
-                                  <p
-                                    style={{
-                                      color: "#BDBDBD",
-                                      fontSize: "12px",
-                                    }}
-                                  >
-                                    Skills
-                                  </p>
-                                  <p>General Document, Official Document</p>
-                                </div>
-                              </div>
-
-                              <div className={styles.diviconcardTranslator}>
-                                <div className={styles.iconcardTranslator}>
-                                  <img src={languages} alt="languages" />
-                                </div>
-
-                                <div className={styles.diviconcardTranslator2}>
-                                  <p
-                                    style={{
-                                      color: "#BDBDBD",
-                                      fontSize: "12px",
-                                    }}
-                                  >
-                                    Languages
-                                  </p>
-                                  <p>English,汉语 官话,粵語, ไทย,한국어</p>
-                                </div>
-                              </div>
-
-                              <div className={styles.BoxDeal}>
-                                <button
-                                  className={styles.Deal}
-                                  onClick={() => OpneMode(1)}
-                                >
-                                  Deal
-                                </button>
-                              </div>
-                            </div>
-                          </div>
-
-                          <div className={styles.cardTranslator}>
-                            <div>
-                              <div
-                                style={{
-                                  width: " 100%",
-                                  display: "grid",
-                                  justifyContent: "center",
-                                  textAlign: "center",
-                                  justifyItems: "center",
-                                }}
-                              >
-                                <Stack direction="row" spacing={2}>
-                                  <StyledBadge
-                                    overlap="circular"
-                                    anchorOrigin={{
-                                      vertical: "bottom",
-                                      horizontal: "right",
-                                    }}
-                                    variant="dot"
-                                  >
-                                    <FaUserCircle
-                                      alt="avatar"
-                                      className={styles.profile}
-                                    />
-                                  </StyledBadge>
-                                </Stack>
-                                <p
-                                  style={{
-                                    marginTop: 10,
-                                    fontWeight: 400,
-                                    fontSize: 18,
-                                  }}
-                                >
-                                  ploy
-                                </p>
-                              </div>
-
-                              <div className={styles.diviconcardTranslator}>
-                                <div className={styles.iconcardTranslator}>
-                                  <img src={rating} alt="rating" />
-                                </div>
-
-                                <div className={styles.diviconcardTranslator2}>
-                                  <p
-                                    style={{
-                                      color: "#BDBDBD",
-                                      fontSize: "12px",
-                                    }}
-                                  >
-                                    Rating
-                                  </p>
-                                  <p style={{ marginRight: 10 }}>5.0</p>
-                                </div>
-                              </div>
-
-                              <div className={styles.diviconcardTranslator}>
-                                <div className={styles.iconcardTranslator}>
-                                  <img src={skills} alt="skills" />
-                                </div>
-
-                                <div className={styles.diviconcardTranslator2}>
-                                  <p
-                                    style={{
-                                      color: "#BDBDBD",
-                                      fontSize: "12px",
-                                    }}
-                                  >
-                                    Skills
-                                  </p>
-                                  <p>General Document, Official Document</p>
-                                </div>
-                              </div>
-
-                              <div className={styles.diviconcardTranslator}>
-                                <div className={styles.iconcardTranslator}>
-                                  <img src={languages} alt="languages" />
-                                </div>
-
-                                <div className={styles.diviconcardTranslator2}>
-                                  <p
-                                    style={{
-                                      color: "#BDBDBD",
-                                      fontSize: "12px",
-                                    }}
-                                  >
-                                    Languages
-                                  </p>
-                                  <p>English,汉语 官话,粵語, ไทย,한국어</p>
-                                </div>
-                              </div>
-
-                              <div className={styles.BoxDeal}>
-                                <button
-                                  className={styles.Deal}
-                                  onClick={() => OpneMode(1)}
-                                >
-                                  Deal
-                                </button>
-                              </div>
-                            </div>
-                          </div>
-
-                          <div className={styles.cardTranslator}>
-                            <div>
-                              <div
-                                style={{
-                                  width: " 100%",
-                                  display: "grid",
-                                  justifyContent: "center",
-                                  textAlign: "center",
-                                  justifyItems: "center",
-                                }}
-                              >
-                                <Stack direction="row" spacing={2}>
-                                  <StyledBadge
-                                    overlap="circular"
-                                    anchorOrigin={{
-                                      vertical: "bottom",
-                                      horizontal: "right",
-                                    }}
-                                    variant="dot"
-                                  >
-                                    <FaUserCircle
-                                      alt="avatar"
-                                      className={styles.profile}
-                                    />
-                                  </StyledBadge>
-                                </Stack>
-                                <p
-                                  style={{
-                                    marginTop: 10,
-                                    fontWeight: 400,
-                                    fontSize: 18,
-                                  }}
-                                >
-                                  sukitta ketesaard
-                                </p>
-                              </div>
-
-                              <div className={styles.diviconcardTranslator}>
-                                <div className={styles.iconcardTranslator}>
-                                  <img src={rating} alt="rating" />
-                                </div>
-
-                                <div className={styles.diviconcardTranslator2}>
-                                  <p
-                                    style={{
-                                      color: "#BDBDBD",
-                                      fontSize: "12px",
-                                    }}
-                                  >
-                                    Rating
-                                  </p>
-                                  <p style={{ marginRight: 10 }}>5.0</p>
-                                </div>
-                              </div>
-
-                              <div className={styles.diviconcardTranslator}>
-                                <div className={styles.iconcardTranslator}>
-                                  <img src={skills} alt="skills" />
-                                </div>
-
-                                <div className={styles.diviconcardTranslator2}>
-                                  <p
-                                    style={{
-                                      color: "#BDBDBD",
-                                      fontSize: "12px",
-                                    }}
-                                  >
-                                    Skills
-                                  </p>
-                                  <p>General Document, Official Document</p>
-                                </div>
-                              </div>
-
-                              <div className={styles.diviconcardTranslator}>
-                                <div className={styles.iconcardTranslator}>
-                                  <img src={languages} alt="languages" />
-                                </div>
-
-                                <div className={styles.diviconcardTranslator2}>
-                                  <p
-                                    style={{
-                                      color: "#BDBDBD",
-                                      fontSize: "12px",
-                                    }}
-                                  >
-                                    Languages
-                                  </p>
-                                  <p>English,汉语 官话,粵語, ไทย,한국어</p>
-                                </div>
-                              </div>
-
-                              <div className={styles.BoxDeal}>
-                                <button
-                                  className={styles.Deal}
-                                  onClick={() => OpneMode(1)}
-                                >
-                                  Deal
-                                </button>
-                              </div>
-                            </div>
-                          </div>
-
-                          <div className={styles.cardTranslator}>
-                            <div>
-                              <div
-                                style={{
-                                  width: " 100%",
-                                  display: "grid",
-                                  justifyContent: "center",
-                                  textAlign: "center",
-                                  justifyItems: "center",
-                                }}
-                              >
-                                <Stack direction="row" spacing={2}>
-                                  <StyledBadge
-                                    overlap="circular"
-                                    anchorOrigin={{
-                                      vertical: "bottom",
-                                      horizontal: "right",
-                                    }}
-                                    variant="dot"
-                                  >
-                                    <FaUserCircle
-                                      alt="avatar"
-                                      className={styles.profile}
-                                    />
-                                  </StyledBadge>
-                                </Stack>
-                                <p
-                                  style={{
-                                    marginTop: 10,
-                                    fontWeight: 400,
-                                    fontSize: 18,
-                                  }}
-                                >
-                                  jyung169@gmail.com
-                                </p>
-                              </div>
-
-                              <div className={styles.diviconcardTranslator}>
-                                <div className={styles.iconcardTranslator}>
-                                  <img src={rating} alt="rating" />
-                                </div>
-
-                                <div className={styles.diviconcardTranslator2}>
-                                  <p
-                                    style={{
-                                      color: "#BDBDBD",
-                                      fontSize: "12px",
-                                    }}
-                                  >
-                                    Rating
-                                  </p>
-                                  <p style={{ marginRight: 10 }}>5.0</p>
-                                </div>
-                              </div>
-
-                              <div className={styles.diviconcardTranslator}>
-                                <div className={styles.iconcardTranslator}>
-                                  <img src={skills} alt="skills" />
-                                </div>
-
-                                <div className={styles.diviconcardTranslator2}>
-                                  <p
-                                    style={{
-                                      color: "#BDBDBD",
-                                      fontSize: "12px",
-                                    }}
-                                  >
-                                    Skills
-                                  </p>
-                                  <p>General Document, Official Document</p>
-                                </div>
-                              </div>
-
-                              <div className={styles.diviconcardTranslator}>
-                                <div className={styles.iconcardTranslator}>
-                                  <img src={languages} alt="languages" />
-                                </div>
-
-                                <div className={styles.diviconcardTranslator2}>
-                                  <p
-                                    style={{
-                                      color: "#BDBDBD",
-                                      fontSize: "12px",
-                                    }}
-                                  >
-                                    Languages
-                                  </p>
-                                  <p>English,汉语 官话,粵語, ไทย,한국어</p>
-                                </div>
-                              </div>
-
-                              <div className={styles.BoxDeal}>
-                                <button
-                                  className={styles.Deal}
-                                  onClick={() => OpneMode(1)}
-                                >
-                                  Deal
-                                </button>
-                              </div>
-                            </div>
-                          </div>
-
-                          <div className={styles.cardTranslator}>
-                            <div>
-                              <div
-                                style={{
-                                  width: " 100%",
-                                  display: "grid",
-                                  justifyContent: "center",
-                                  textAlign: "center",
-                                  justifyItems: "center",
-                                }}
-                              >
-                                <Stack direction="row" spacing={2}>
-                                  <StyledBadge
-                                    overlap="circular"
-                                    anchorOrigin={{
-                                      vertical: "bottom",
-                                      horizontal: "right",
-                                    }}
-                                    variant="dot"
-                                  >
-                                    <FaUserCircle
-                                      alt="avatar"
-                                      className={styles.profile}
-                                    />
-                                  </StyledBadge>
-                                </Stack>
-                                <p
-                                  style={{
-                                    marginTop: 10,
-                                    fontWeight: 400,
-                                    fontSize: 18,
-                                  }}
-                                >
-                                  Radej Kanjack
-                                </p>
-                              </div>
-
-                              <div className={styles.diviconcardTranslator}>
-                                <div className={styles.iconcardTranslator}>
-                                  <img src={rating} alt="rating" />
-                                </div>
-
-                                <div className={styles.diviconcardTranslator2}>
-                                  <p
-                                    style={{
-                                      color: "#BDBDBD",
-                                      fontSize: "12px",
-                                    }}
-                                  >
-                                    Rating
-                                  </p>
-                                  <p style={{ marginRight: 10 }}>5.0</p>
-                                </div>
-                              </div>
-
-                              <div className={styles.diviconcardTranslator}>
-                                <div className={styles.iconcardTranslator}>
-                                  <img src={skills} alt="skills" />
-                                </div>
-
-                                <div className={styles.diviconcardTranslator2}>
-                                  <p
-                                    style={{
-                                      color: "#BDBDBD",
-                                      fontSize: "12px",
-                                    }}
-                                  >
-                                    Skills
-                                  </p>
-                                  <p>General Document, Official Document</p>
-                                </div>
-                              </div>
-
-                              <div className={styles.diviconcardTranslator}>
-                                <div className={styles.iconcardTranslator}>
-                                  <img src={languages} alt="languages" />
-                                </div>
-
-                                <div className={styles.diviconcardTranslator2}>
-                                  <p
-                                    style={{
-                                      color: "#BDBDBD",
-                                      fontSize: "12px",
-                                    }}
-                                  >
-                                    Languages
-                                  </p>
-                                  <p>English,汉语 官话,粵語, ไทย,한국어</p>
-                                </div>
-                              </div>
-
-                              <div className={styles.BoxDeal}>
-                                <button
-                                  className={styles.Deal}
-                                  onClick={() => OpneMode(1)}
-                                >
-                                  Deal
-                                </button>
-                              </div>
-                            </div>
-                          </div>
+                            ))
+                          ) : (
+                            <></>
+                          )}
                         </div>
                       </div>
                     </div>
