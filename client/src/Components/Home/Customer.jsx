@@ -86,14 +86,21 @@ const Customer = () => {
 
   function getCurrentDate() {
     const date = new Date();
-    let day = date.getDate();
-    let month = date.getMonth() + 1;
-    const year = date.getFullYear();
 
-    if (day < 10) day = `0${day}`;
-    if (month < 10) month = `0${month}`;
+    const formattedDate = date.toLocaleDateString("en-US", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+    });
+    console.log("formattedDate:", formattedDate);
+    // let day = date.getDate();
+    // let month = date.getMonth() + 1;
+    // const year = date.getFullYear();
 
-    return `${month}/${day}/${year}`;
+    // if (day < 10) day = 0 day;
+    // if (month < 10) month = `0${month}`;
+    // const result = `${month}/${day}/${year}`;
+    return formattedDate;
   }
 
   const [from, setFrom] = React.useState({
@@ -167,10 +174,22 @@ const Customer = () => {
   }, [groupData]);
 
   const handleDateChange = (date) => {
-    setFrom((prevFrom) => ({
-      ...prevFrom,
-      Deadline: date,
-    }));
+    let x = date.$d;
+
+    if (x instanceof Date) {
+      const formattedDate = x.toLocaleDateString("en-US", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+      });
+
+      setFrom((prevFrom) => ({
+        ...prevFrom,
+        Deadline: formattedDate,
+      }));
+    } else {
+      console.error("Invalid date object:", x);
+    }
   };
 
   function chagngeDataPage(x, y) {
@@ -918,28 +937,26 @@ const Customer = () => {
                     </div>
                     <div className={styles.Box_detailH_Model}>
                       <p className={styles.H_Model}>Date</p>
-                      <p className={styles.H_Model2}>
-                        {groupData[0]?.Deadline}
-                      </p>
+                      <p className={styles.H_Model2}>{getCurrentDate()}</p>
                     </div>
                     <div className={styles.Box_detailH_Model}>
                       <p className={styles.H_Model}>Translator</p>
-                      <p className={styles.H_Model2}>Habi Yang</p>
+                      <p className={styles.H_Model2}>{from?.Translator_name}</p>
                     </div>
                   </>
                 ) : (
                   <>
                     <div className={styles.Box_detailH_Model}>
                       <p className={styles.H_Model}>Ref Number</p>
-                      <p className={styles.H_Model2}>from2?.orderNumber</p>
+                      <p className={styles.H_Model2}>{from2?.orderNumber}</p>
                     </div>
                     <div className={styles.Box_detailH_Model}>
                       <p className={styles.H_Model}>Date</p>
-                      <p className={styles.H_Model2}>07-12-2023</p>
+                      <p className={styles.H_Model2}>{getCurrentDate()}</p>
                     </div>
                     <div className={styles.Box_detailH_Model}>
                       <p className={styles.H_Model}>Translator</p>
-                      <p className={styles.H_Model2}>Habi Yang</p>
+                      <p className={styles.H_Model2}>{from?.Translator_name}</p>
                     </div>
                   </>
                 )}

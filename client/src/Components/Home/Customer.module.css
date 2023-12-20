@@ -1555,7 +1555,8 @@
   .fram2 {
     display: grid;
     justify-items: center;
-    background-color: #f8f8f9;
+    background-color: #ffffff;
+    /* แก้ตรงนี้ */
   }
   .Boxfile {
     width: 50vw;
@@ -2088,7 +2089,7 @@
   .Boxinput2 {
     position: relative;
     width: 180%;
-    left: 30px;
+    left: 2.5rem;
   }
   .fromdetail {
     width: 50vw;
