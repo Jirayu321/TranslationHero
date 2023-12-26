@@ -140,7 +140,7 @@ export default function Home2() {
       return {
         title: order.orderNumber,
         start: formattedDate, // replace with the actual property name from your order object
-        end: order.data.at(index).Deadline, // replace with the actual property name from your order object
+        end: order.data.at(index)?.Deadline, // replace with the actual property name from your order object
         allDay: false, // customize as needed
         isImportant: true, // replace with the actual property name from your order object
       };
@@ -164,8 +164,8 @@ export default function Home2() {
       });
 
       console.log("response.data:", response?.data);
-      setevents(response?.data);
       setOrders(response?.data);
+      setevents(response?.data);
     } catch (error) {
       console.error("Error fetching getOrder:", error);
     }
