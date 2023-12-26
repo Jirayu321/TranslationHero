@@ -163,7 +163,7 @@ export const createOrder = createAsyncThunk(
   async (values, { rejectWithValue }) => {
     let y = values.y.at(0);
     try {
-      console.log("values:", values);
+      console.log("values:", values.z);
       const token = await axios.post(`${url}/createOrder`, {
         file: y.file,
         document_Type: y.document_Type,
@@ -175,7 +175,7 @@ export const createOrder = createAsyncThunk(
         type: y.type,
         Price: values.x.Price,
         orderNumber: values.x.orderNumber,
-        Translator_name: y.Translator_name,
+        Translator_name: values.z,
         data: values.y,
       });
       return token.data;
@@ -236,6 +236,20 @@ function getCurrentDate() {
   return `${month}/${day}/${year}`;
 }
 
+// export const logoutUseres = createAsyncThunk(
+//   "auth/logoutUser",
+//   async (values, { rejectWithValue }) => {
+//     try {
+//       console.log("logoutUser:", values);
+
+//       localStorage.removeItem("token");
+
+//     } catch (error) {
+//       console.log(error.response.data);
+//       return rejectWithValue(error.response.data);
+//     }
+//   }
+// );
 // Example usage:
 // const token = await dispatch(generationsAI(values));
 // console.log('Resulting data:', token);
@@ -286,6 +300,7 @@ const authSlice = createSlice({
     },
 
     logoutUser(state, action) {
+      console.log("Logging out user...");
       localStorage.removeItem("token");
       return {
         ...state,
@@ -386,7 +401,7 @@ const authSlice = createSlice({
       };
     });
 
-    builder.addCase(logoutUser, (state, action) => {
+    builder.addCase(logoutUser, (state) => {
       console.log("Logging out user...");
       localStorage.removeItem("token");
       return {

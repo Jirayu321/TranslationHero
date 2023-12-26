@@ -92,7 +92,7 @@ const Customer = () => {
       month: "2-digit",
       year: "numeric",
     });
-    console.log("formattedDate:", formattedDate);
+    // console.log("formattedDate:", formattedDate);
     // let day = date.getDate();
     // let month = date.getMonth() + 1;
     // const year = date.getFullYear();
@@ -151,7 +151,7 @@ const Customer = () => {
   const [translator, setTranslator] = React.useState(null);
 
   const setUser = async () => {
-    console.log("test");
+    // console.log("test");
     try {
       const response = await axios.get(`${url}/getUsers/`);
       // console.log("response.data:", response?.data);
@@ -227,7 +227,7 @@ const Customer = () => {
           Deadline: getCurrentDate(),
           Additional_explanation: "",
           type: "1",
-          Translator_name: "Habi Yang",
+          Translator_name: "",
         });
         setPage(x);
       } else if (y === 0) {
@@ -247,7 +247,7 @@ const Customer = () => {
               Deadline: Deadline,
               Additional_explanation: Additional_explanation,
               type: "1",
-              Translator_name: "Habi Yang",
+              Translator_name: "",
             });
             setPage(x);
           } else {
@@ -261,7 +261,7 @@ const Customer = () => {
               Deadline: Deadline,
               Additional_explanation: Additional_explanation,
               type: "1",
-              Translator_name: "Habi Yang",
+              Translator_name: "",
             });
             setPage(x);
           }
@@ -283,7 +283,7 @@ const Customer = () => {
             Deadline: getCurrentDate(),
             Additional_explanation: "",
             type: "1",
-            Translator_name: "Habi Yang",
+            Translator_name: "",
           });
           setPage(x);
         } else {
@@ -296,7 +296,7 @@ const Customer = () => {
             Deadline: Deadline,
             Additional_explanation: Additional_explanation,
             type: "1",
-            Translator_name: "Habi Yang",
+            Translator_name: "",
           });
           setPage(x);
         }
@@ -338,7 +338,7 @@ const Customer = () => {
           Deadline: getCurrentDate(),
           Additional_explanation: "",
           type: "1",
-          Translator_name: "Habi Yang",
+          Translator_name: "",
         });
         chagngeDataPage(2, 0);
       } else {
@@ -612,7 +612,8 @@ const Customer = () => {
       });
     } else if (x === 5) {
       if (email !== "") {
-        let y = { x: from2, y: groupData };
+        let y = { x: from2, y: groupData, z: from?.Translator_name };
+        console.log("สร้าง oeder...", y);
         dispatch(createOrder(y));
         sendEmail();
         setopenModel({
@@ -873,8 +874,8 @@ const Customer = () => {
     );
   };
 
-  console.log("groupData:", groupData);
-  console.log("from:", from);
+  // console.log("groupData:", groupData);
+  // console.log("from:", from);
 
   return (
     <>

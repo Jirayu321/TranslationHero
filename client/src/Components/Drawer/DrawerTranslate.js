@@ -43,19 +43,22 @@ export default function DrawerTranslate(props) {
   };
   const checklogin = () => {
     if (checkValue) {
-      console.log("value :", checkValue);
+      console.log("value :", auth);
     } else {
       goLogin();
     }
   };
+
   const logout = () => {
     console.log("Logout button clicked");
-    dispatch(logoutUser);
+    dispatch(logoutUser());
     goLogin();
   };
+
   React.useEffect(() => {
     checklogin();
   }, []);
+
   const goHome = (x) => {
     const pathname = window.location.pathname;
     if (pathname === "/In") {

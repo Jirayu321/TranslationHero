@@ -20,6 +20,8 @@ function App() {
   const ServicesOfficial = lazy(() =>
     import("./Components/Services/Services_official.jsx")
   );
+
+  const FAQs = lazy(() => import("./Components/FAQs/FAQs.jsx"));
   const ServicesGeneral = lazy(() =>
     import("./Components/Services/Services_general.jsx")
   );
@@ -83,6 +85,7 @@ function App() {
                   path="/Services_official"
                   element={<ServicesOfficial />}
                 />
+                <Route path="/FAQs" element={<FAQs />} />
                 <Route path="/Services_general" element={<ServicesGeneral />} />
                 <Route path="/Price" element={<Price />} />
                 <Route path="/Notification" element={<Notification />} />

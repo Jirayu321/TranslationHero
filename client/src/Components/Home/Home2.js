@@ -26,8 +26,12 @@ import imgtest1 from "../../Images/1.jpeg";
 import imgtest2 from "../../Images/49.jpeg";
 import imgtest3 from "../../Images/dii.jpg";
 
+import axios from "axios";
+import { url } from "../../slices/api.js";
+
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "./Home2.css";
+import { indexOf } from "lodash";
 
 export default function Home2() {
   moment.locale("en-US");
@@ -44,27 +48,27 @@ export default function Home2() {
   const [buttonpage, setButtonpage] = React.useState(1);
   const [buttonpage2, setButtonpage2] = React.useState(1);
 
-  const events = [
-    {
-      title: "THOG0022534",
-      start: "2023/9/15",
-      end: "2023/9/15",
-      allDay: false,
-      isImportant: true,
-    },
-    {
-      title: "THOG0023535",
-      start: "2023/9/15",
-      end: "2023/9/15",
-      allDay: false,
-      isImportant: false,
-    },
-  ];
+  // const events = [
+  //   {
+  //     title: "THOG0022534",
+  //     start: "2023/9/15",
+  //     end: "2023/9/15",
+  //     allDay: false,
+  //     isImportant: true,
+  //   },
+  //   {
+  //     title: "THOG0023535",
+  //     start: "2023/9/15",
+  //     end: "2023/9/15",
+  //     allDay: false,
+  //     isImportant: false,
+  //   },
+  // ];
 
   function eventStyleGetter(event) {
     let style = {
-      backgroundColor: event.isImportant ? "rgb(199 230 247)" : "#FFFACD",
-      color: event.isImportant ? "rgb(4 84 212)" : "#FFB31F",
+      backgroundColor: event.isImportant ? "#FFFACD" : "rgb(199 230 247)",
+      color: event.isImportant ? "#FFB31F" : "rgb(4 84 212)",
       border: "none",
       padding: "4px 8px",
       alignItems: "flex-start",
@@ -105,12 +109,14 @@ export default function Home2() {
   const [open4, setOpen4] = React.useState(false);
 
   const [amount, setAmount] = React.useState("");
+  const [orders, setOrders] = React.useState("");
+  const [events, setEvents] = React.useState([]);
 
-  function handleInputChange(event) {
-    let x = event.target.value;
-    let a = x - x * 0.13;
-    setAmount(a);
-  }
+  // function handleInputChange(event) {
+  //   let x = event.target.value;
+  //   let a = x - x * 0.13;
+  //   setAmount(a);
+  // }
 
   const handleClose = (i) => {
     if (i === 1) {
@@ -120,6 +126,63 @@ export default function Home2() {
       setOpen3(true);
     }
   };
+
+  const setevents = (x) => {
+    const date = new Date();
+
+    const formattedDate = date.toLocaleDateString("en-US", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+    });
+
+    const newEvents = x.map((order, index) => {
+      return {
+        title: order.orderNumber,
+        start: formattedDate, // replace with the actual property name from your order object
+        end: order.data.at(index).Deadline, // replace with the actual property name from your order object
+        allDay: false, // customize as needed
+        isImportant: true, // replace with the actual property name from your order object
+      };
+    });
+
+    console.log("newEvents:", newEvents);
+
+    // Assuming you want to use newEvents in your component or elsewhere
+    // Update the state or use it in the desired way
+    setEvents(newEvents);
+  };
+
+  const setOrder = async () => {
+    // console.log("test");
+    try {
+      // const response = await axios.get(`${url}/getOrder/`);
+      const response = await axios.get(`${url}/getOrder/`, {
+        params: {
+          Translator_name: auth?.name,
+        },
+      });
+
+      console.log("response.data:", response?.data);
+      setevents(response?.data);
+      setOrders(response?.data);
+    } catch (error) {
+      console.error("Error fetching getOrder:", error);
+    }
+  };
+
+  // console.log("translator", translator);
+
+  React.useEffect(() => {
+    if (orders === "") {
+      // console.log("Data:", groupData);
+      setOrder();
+      // window.scrollTo(0, 10);
+    } else if (orders) {
+      setOrder();
+      // console.log("orders", orders);
+    }
+  }, []);
 
   return (
     <div className="App-body3">
@@ -166,61 +229,8 @@ export default function Home2() {
 
         <Box component="main">
           {/* Modal */}
-          <Modal
-            hideBackdrop
-            open={open}
-            // onClose={handleClose(1)}
-            aria-labelledby="keep-mounted-modal-title"
-            aria-describedby="keep-mounted-modal-description"
-          >
-            <Box
-              sx={{
-                position: "absolute",
-                top: "50%",
-                left: "45%",
-                transform: "translate(-50%, -70%)",
-                width: 700,
-                bgcolor: "background.paper",
-                boxShadow: 24,
-                p: 4,
-                borderRadius: 5,
-                border: "1px solid #E5E5E5",
-                textAlign: "center",
-                paddingRight: 0,
-                paddingLeft: "25px",
-              }}
-            >
-              {/* <Map1 /> */}
 
-              <div
-                style={{ marginTop: 10, textAlign: "left", float: "left" }}
-              ></div>
-              <div
-                style={{
-                  marginTop: 10,
-                  textAlign: "right",
-                  marginRight: "20px",
-                }}
-              >
-                <button
-                  style={{
-                    height: 40,
-                    borderRadius: 5,
-                    color: "#034D82",
-                    fontWeight: 700,
-                    filter: "drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.1))",
-                    background: "#FFFFFF",
-                    border: "1px solid #034D82",
-                  }}
-                  // onClick={() => handleClose(1)}
-                >
-                  Close
-                </button>
-              </div>
-            </Box>
-          </Modal>
-
-          <Modal
+          {/* <Modal
             hideBackdrop
             open={open2}
             // onClose={handleClose(2)}
@@ -413,7 +423,7 @@ export default function Home2() {
                 </button>
               </div>
             </Box>
-          </Modal>
+          </Modal> */}
 
           <Modal
             hideBackdrop
@@ -461,7 +471,6 @@ export default function Home2() {
                 </div>
               ) : buttonpage === 2 ? (
                 <div className="Home2ScheduleDetailModal">
-
                   <p className="Home2ScheduleDetailModalInHard">Order 2</p>
                   <div className="Home2ScheduleDetailModalBox">
                     <div className="Home2ScheduleDetailModalInBox">
@@ -595,14 +604,14 @@ export default function Home2() {
               </div>
               <div className="Home2ScheduleinputBox">
                 <p className="Home2ScheduleinputBoxP">Price</p>
-                <input
+                {/* <input
                   className="Home2Scheduleinput"
                   placeholder="฿ Total Price"
                   // value={amount}
                   onChange={handleInputChange}
                   // onChange={(e) => setamount(e)}
                 />
-                <p>amount of money you will get ฿ {amount}</p>
+                <p>amount of money you will get ฿ {amount}</p> */}
               </div>
               <div className="Home2Schedulebuttongreu">
                 <button
@@ -824,42 +833,48 @@ export default function Home2() {
                 </div>
                 <div>
                   <p className="Schedule">Schedule</p>
-                  {/* <div className="Home2Box1Schedule">
-                    <div className="Home2Box1ScheduleDetail">
-                      <p>THOG0022534</p>
-                      <button
-                        className="Home2Schedulebutton1"
-                        onClick={() => setOpen2(true)}
-                      >
-                        Detail
-                      </button>
-                      <div>
-                        <button className="Home2Schedulebutton2">Cancel</button>
-                        <button
-                          className="Home2Schedulebutton3"
-                          onClick={() => setOpen2(true)}
-                        >
-                          Accept
-                        </button>
-                      </div>
-                    </div>
-                  </div>
 
-                  <div className="Home2Box2Schedule">
-                    <div className="Home2Box2ScheduleDetail">
-                      <p>THOG0023535</p>
-                      <button className="Home2Schedulebutton4">Detail</button>
-                      <div>
-                        <button className="Home2Schedulebutton2">Cancel</button>
-                        <button
-                          className="Home2Schedulebutton3"
-                          onClick={() => setOpen2(true)}
+                  {Array.isArray(orders) && orders.length > 0 && (
+                    <>
+                      {orders.map((order) => (
+                        <div
+                          key={order.orderNumber}
+                          className={
+                            order.data[0].document_Type === "General Document"
+                              ? "Home2Box2Schedule"
+                              : "Home2Box1Schedule"
+                          }
                         >
-                          Accept
-                        </button>
-                      </div>
-                    </div>
-                  </div> */}
+                          <div
+                            className={
+                              order.data[0].document_Type === "General Document"
+                                ? "Home2Box2ScheduleDetail"
+                                : "Home2Box1ScheduleDetail"
+                            }
+                          >
+                            <p>{order.orderNumber}</p>
+                            <button
+                              className="Home2Schedulebutton1"
+                              onClick={() => setOpen2(true)}
+                            >
+                              Detail
+                            </button>
+                            <div>
+                              <button className="Home2Schedulebutton2">
+                                Cancel
+                              </button>
+                              <button
+                                className="Home2Schedulebutton3"
+                                onClick={() => setOpen2(true)}
+                              >
+                                Accept
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </>
+                  )}
                 </div>
               </div>
             </div>
