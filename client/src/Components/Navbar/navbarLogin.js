@@ -19,7 +19,7 @@ const navbarLogin = (props) => {
     >
       <Container fluid style={{ backgroundColor: "transparent" }}>
         <Navbar.Brand href="/" onClick={() => goHome(you)}>
-          <img src={logo} alt="Logo" />
+          <img src={logo} alt="Logo" style={{ marginLeft: "3rem" }} />
         </Navbar.Brand>
         <Navbar.Collapse>
           <button className={styles.button} onClick={() => goHome(you)}>

@@ -152,31 +152,41 @@ const Login = () => {
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "auto auto",
+          gridTemplateColumns: "40% auto",
           justifyContent: "space-between",
         }}
       >
         <div
-          style={{
-            position: "relative",
-            // top: "70px",
-            left: 100,
-            // width: "50%",
-            // height: "100vh",
-          }}
+          style={
+            {
+              // position: "relative",
+              // top: "70px",
+              // left: 100,
+              // width: "50%",
+              // height: "100vh",
+            }
+          }
         >
           <div
             style={{
               // position: "fixed",
-
-              width: 500,
-              background: " #FFFFFF",
+              // width: 500,
               // boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
+              background: " #FFFFFF",
               borderRadius: 20,
               padding: 30,
+              height: "100%",
             }}
           >
-            <div style={{ padding: 20 }}>
+            <div
+              style={{
+                padding: 20,
+                height: "100%",
+                display: "grid",
+                gridTemplateColumns: "100%",
+                gridTemplateRows: "10% 10%",
+              }}
+            >
               <h2 className={styles.textLogin}>Login</h2>
               <p className={styles.textLogin2}>Welcome to Translation Hero!</p>
               <Formik
@@ -242,7 +252,7 @@ const Login = () => {
                     <p
                       style={{
                         fontWeight: 500,
-                        fontSize: 20,
+                        fontSize: 24,
                         color: "#242424",
                         textAlign: "left",
                         fontFamily: "DBHeavent",
@@ -307,7 +317,7 @@ const Login = () => {
                     <p
                       style={{
                         fontWeight: 500,
-                        fontSize: 20,
+                        fontSize: 24,
                         color: "#242424",
                         textAlign: "left",
                         fontFamily: "DBHeavent",
@@ -446,30 +456,36 @@ const Login = () => {
                   </form>
                 )}
               </Formik>
-              <div style={{ position: "relative", right: "48px", top: "35px" }}>
-                <div style={{ float: "right" }}>
-                  <p className={styles.textPolicy}>{LOGI01_Box1EN[8].label}</p>
-                </div>
-                <div style={{ float: "right", marginRight: 50 }}>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "end",
+                }}
+              >
+                <div>
                   <p className={styles.textPolicy}>{LOGI01_Box1EN[7].label}</p>
+                </div>
+                <div style={{ marginLeft: 50 }}>
+                  <p className={styles.textPolicy}>{LOGI01_Box1EN[8].label}</p>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        <div>
-          <div className={styles?.img_login}>
-            <div>
-              <p className={styles.textimg1}>Translation Hero</p>
-              <p className={styles.textimg2}>
-                ...เรายินดีต้อนรับนักแปลทุกท่านเข้าสู่ระบบ
-                และพร้อมรับประสบการณ์ในการทำงานใหม่ๆผ่าน เครื่องมือที่น่าสนใจ...
-              </p>
-            </div>
+        {/* <div> */}
+        <div className={styles?.img_login}>
+          <div>
+            <p className={styles.textimg1}>Translation Hero</p>
+            <p className={styles.textimg2}>
+              ...เรายินดีต้อนรับนักแปลทุกท่านเข้าสู่ระบบ
+              และพร้อมรับประสบการณ์ในการทำงานใหม่ๆผ่าน เครื่องมือที่น่าสนใจ...
+            </p>
           </div>
         </div>
       </div>
+      {/* </div> */}
     </>
   );
 };

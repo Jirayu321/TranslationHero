@@ -3,22 +3,22 @@
   position: "absolute";
 }
 .img_login {
-  background: url("../../Images/login.png");
-  background-repeat:no-repeat;
+  background: url("../../Images/login.jpg");
+  background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  width: 600px;
-  height: 700px;
+  width: 55vw;
+  height: 53.5rem;
   position: relative;
-  right: 20px;
-  top: -55px;
+  right: 1.5rem;
+  top: -3rem;
   padding: 50px;
   border-radius: 15px;
 }
 .img_ForgetPassword {
   background: url("../../Images/ForgetPassword.png");
   background-position: center;
-  background-repeat:no-repeat;
+  background-repeat: no-repeat;
   background-size: cover;
   width: 600px;
   height: 730px;
@@ -31,7 +31,7 @@
 .img_CreateNewPassword {
   background: url("../../Images/CreateNewPassword.png");
   background-position: center;
-  background-repeat:no-repeat;
+  background-repeat: no-repeat;
   background-size: cover;
   width: 600px;
   height: 730px;
@@ -44,24 +44,24 @@
 
 .textimg1 {
   font-weight: 500;
-  font-size: 40px;
+  font-size: 60px;
   color: #ffffff;
   font-family: "DBHeavent";
 }
 .textimg2 {
-  font-size: 20px;
+  font-size: 32px;
   color: #ffffff;
   font-family: "DBHeaventLi";
 }
 
 .textLogin {
   font-weight: 500;
-  font-size: 50px;
+  font-size: 60px;
   font-family: "DBHeavent";
 }
 .textLogin2 {
   font-weight: 500;
-  font-size: 20px;
+  font-size: 24px;
   font-family: "DBHeavent";
   margin-bottom: 30px;
   color: #474747;
@@ -70,7 +70,7 @@
   float: right;
   background: transparent;
   border: none;
-  font-size: 20px;
+  font-size: 24px;
   font-family: "DBHeavent";
   text-decoration-line: underline;
   background: linear-gradient(98.35deg, #3b005f 5.13%, #1466b1 100.51%);
@@ -81,7 +81,7 @@
 .button {
   background: linear-gradient(98.35deg, #3b005f 5.13%, #1466b1 100.51%);
   font-weight: 500;
-  font-size: 20px;
+  font-size: 24px;
   color: #ffffff;
   font-family: "DBHeavent";
   border-radius: 20px;
@@ -119,6 +119,5 @@
 }
 .box {
   display: flex;
-  position: relative;
-  left: 20%;
+  justify-content: center;
 }
