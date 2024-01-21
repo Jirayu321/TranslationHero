@@ -512,14 +512,15 @@ const Signup = () => {
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "auto auto",
+          gridTemplateColumns: "40% auto",
           justifyContent: "space-between",
         }}
       >
         <div
           style={{
-            position: "relative",
-            left: 100,
+            // position: "relative",
+            // left: 100,
+            display: "grid",
           }}
         >
           {screen === "" ? (
@@ -527,7 +528,7 @@ const Signup = () => {
               <div>
                 <div
                   style={{
-                    width: 500,
+                    // width: 500,
                     background: " #FFFFFF",
                     borderRadius: 20,
                     padding: 30,
@@ -1118,7 +1119,7 @@ const Signup = () => {
               <div>
                 <div
                   style={{
-                    width: 500,
+                    // width: 500,
                     background: " #FFFFFF",
                     borderRadius: 20,
                     padding: 30,
@@ -4159,7 +4160,7 @@ const Signup = () => {
           ) : null}
           <>
             {Doc === "English" ? (
-              <div style={{ position: "relative", right: "20%" }}>
+              <div style={{ justifySelf: "center" }}>
                 <div style={{ float: "right" }}>
                   <p className={styles.textPolicy}>{REGI01_box1EN[14].label}</p>
                 </div>
@@ -4168,7 +4169,7 @@ const Signup = () => {
                 </div>
               </div>
             ) : Doc === "Thai" ? (
-              <div style={{ position: "relative", right: "20%" }}>
+              <div style={{ justifySelf: "center" }}>
                 <div style={{ float: "right" }}>
                   <p className={styles.textPolicy}>{REGI01_box1TH[14].label}</p>
                 </div>
@@ -4177,7 +4178,7 @@ const Signup = () => {
                 </div>
               </div>
             ) : Doc === "German" ? (
-              <div style={{ position: "relative", right: "20%" }}>
+              <div style={{ justifySelf: "center" }}>
                 <div style={{ float: "right" }}>
                   <p className={styles.textPolicy}>{REGI01_box1DE[14].label}</p>
                 </div>
@@ -4186,7 +4187,7 @@ const Signup = () => {
                 </div>
               </div>
             ) : (
-              <div style={{ position: "relative", right: "20%" }}>
+              <div style={{ justifySelf: "center" }}>
                 <div style={{ float: "right" }}>
                   <p className={styles.textPolicy}>{REGI01_box1EN[14].label}</p>
                 </div>

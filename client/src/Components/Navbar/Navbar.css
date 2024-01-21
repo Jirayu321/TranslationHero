@@ -252,3 +252,11 @@
     margin-top: 0.125rem;
   }
 }
+@media only screen and (min-width: 1440px) {
+  .dropdown-menu[data-bs-popper] {
+    top: 75%;
+    position: absolute;
+    left: 45rem;
+    margin-top: 0.125rem;
+  }
+}

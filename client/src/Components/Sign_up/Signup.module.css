@@ -3,11 +3,11 @@
   position: "absolute";
 } */
 .img_Signup1 {
-  background: url("../../Images/Register1.png");
+  background: url("../../Images/Register1.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  width: 600px;
+  width: 60rem;
   height: 108%;
   position: relative;
   right: 20px;
@@ -16,11 +16,11 @@
   border-radius: 15px;
 }
 .img_Signup2 {
-  background: url("../../Images/Register2.png");
+  background: url("../../Images/Register2.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  width: 600px;
+  width: 60rem;
   height: 108%;
   position: relative;
   right: 20px;
@@ -29,11 +29,11 @@
   border-radius: 15px;
 }
 .img_Signup3 {
-  background: url("../../Images/Register3.png");
+  background: url("../../Images/Register3.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  width: 600px;
+  width: 60rem;
   height: 108%;
   position: relative;
   right: 20px;
@@ -172,8 +172,7 @@
 }
 .box1 {
   display: flex;
-  position: relative;
-  left: 25%;
+  justify-content: center;
 }
 .cloud_upload {
   background: url("../../Images/cloud_upload.png");
@@ -185,21 +184,21 @@
   margin: 10px;
 }
 .BoxInputImg1 {
-  width: 500px;
+  /* width: 500px; */
   background: #ffffff;
   border-radius: 20px;
   padding: 30px;
   height: 43vw;
 }
 .BoxInputImg2 {
-  width: 550px;
+  /* width: 550px; */
   background: #ffffff;
   border-radius: 20px;
   padding: 30px;
   height: 43vw;
 }
 .BoxInputImg3 {
-  width: 500px;
+  /* width: 500px; */
   background: #ffffff;
   border-radius: 20px;
   padding: 30px;

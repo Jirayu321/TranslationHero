@@ -25,8 +25,6 @@ const CreateNewPassword = () => {
   let Type = location?.state?.type;
   console.log("test01:", Email, Type);
 
-  
-
   const handleClickShowPassword = (i) => {
     // console.log("i:", i, type, valuestype,valuestype2);
     if (i === 1) {
@@ -76,13 +74,21 @@ const CreateNewPassword = () => {
           <Navbars navigate={navigate} languages="English" />
         )}
       </header>
-      <div style={{ display: "flex", justifyContent: "space-between" }}>
+      <div
+        style={{
+          display: "grid",
+          justifyContent: "space-between",
+          gridTemplateColumns: "40% auto",
+        }}
+      >
         <div
           style={{
-            position: "relative",
-            width: "50%",
-            left: 83,
+            // position: "relative",
+            // width: "50%",
+            // left: 83,
             // height: "100vh",
+            display: "grid",
+            gridTemplateRows: "90%",
           }}
         >
           <div
@@ -90,9 +96,9 @@ const CreateNewPassword = () => {
               // position: "fixed",
               // top: 130,
               // left: 100,
-              width: 500,
-              background: " #FFFFFF",
+              // width: 500,
               // boxShadow: " 0px 4px 25px rgba(0, 0, 0, 0.15)",
+              background: " #FFFFFF",
               borderRadius: 20,
               padding: 30,
             }}
@@ -394,7 +400,7 @@ const CreateNewPassword = () => {
             )}
           </div>
 
-          <div style={{ top: "140px", position: "relative", right: "45%" }}>
+          <div style={{ justifySelf: "center" }}>
             <div style={{ float: "right" }}>
               <p className={styles.textPolicy}>Privacy policy</p>
             </div>

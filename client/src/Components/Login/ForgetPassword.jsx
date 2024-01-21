@@ -61,30 +61,38 @@ const ForgetPassword = () => {
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "auto auto",
+          gridTemplateColumns: "40% auto",
           justifyContent: "space-between",
         }}
       >
         <div
-          style={{
-            position: "relative",
-            left: 83,
-            // top: 130,
-            // width: "50%",
-            // height: "100vh",
-          }}
+          style={
+            {
+              // position: "relative",
+              // left: 83,
+              // top: 130,
+              // width: "50%",
+              // height: "100vh",
+            }
+          }
         >
           <div
             style={{
               // position: "fixed",
-
-              width: 500,
+              // width: 500,
               background: " #FFFFFF",
               borderRadius: 20,
               padding: 30,
             }}
           >
-            <div style={{ padding: 20 }}>
+            <div
+              style={{
+                padding: 20,
+                display: " grid",
+                gridTemplateRows: "13% 10% 75%",
+                height: "45rem",
+              }}
+            >
               <h2 className={styles.textLogin}>Forgot Password</h2>
               <p className={styles.textLogin2}>
                 Enter your email to receive a link to change your password.
@@ -124,9 +132,7 @@ const ForgetPassword = () => {
                   </button>
                 </form>
               </div>
-              <div
-                style={{ position: "relative", right: "40px", top: "285px" }}
-              >
+              <div style={{ justifySelf: "center" }}>
                 <div style={{ float: "right" }}>
                   <p className={styles.textPolicy}>Privacy policy</p>
                 </div>

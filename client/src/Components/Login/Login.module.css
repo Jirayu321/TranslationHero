@@ -16,12 +16,12 @@
   border-radius: 15px;
 }
 .img_ForgetPassword {
-  background: url("../../Images/ForgetPassword.png");
+  background: url("../../Images/ForgetPassword.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  width: 600px;
-  height: 730px;
+  /* width: 600px; */
+  height: 50rem;
   position: relative;
   right: 20px;
   top: -55px;
@@ -33,8 +33,8 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  width: 600px;
-  height: 730px;
+  /* width: 600px; */
+  height: 48rem;
   position: relative;
   right: 20px;
   top: -55px;
