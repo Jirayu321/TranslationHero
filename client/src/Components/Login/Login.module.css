@@ -20,11 +20,11 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  /* width: 600px; */
-  height: 50rem;
-  position: relative;
+  width: 55vw;
+  height: 48rem;
+  position: absolute;
   right: 20px;
-  top: -55px;
+  top: 22px;
   padding: 50px;
   border-radius: 15px;
 }
@@ -33,7 +33,7 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  /* width: 600px; */
+  width: 55vw;
   height: 48rem;
   position: relative;
   right: 20px;

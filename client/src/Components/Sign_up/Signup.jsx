@@ -521,6 +521,7 @@ const Signup = () => {
             // position: "relative",
             // left: 100,
             display: "grid",
+            height: "48rem",
           }}
         >
           {screen === "" ? (

@@ -7,11 +7,11 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  width: 60rem;
-  height: 108%;
-  position: relative;
+  width: 55vw;
+  height: 50rem;
+  position: absolute;
   right: 20px;
-  top: -55px;
+  top: 20px;
   padding: 50px;
   border-radius: 15px;
 }
@@ -20,11 +20,11 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  width: 60rem;
-  height: 108%;
-  position: relative;
+  width: 55vw;
+  height: 50rem;
+  position: absolute;
   right: 20px;
-  top: -55px;
+  top: 20px;
   padding: 50px;
   border-radius: 15px;
 }
@@ -33,11 +33,11 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  width: 60rem;
-  height: 108%;
-  position: relative;
+  width: 55vw;
+  height: 50rem;
+  position: absolute;
   right: 20px;
-  top: -55px;
+  top: 20px;
   padding: 50px;
   border-radius: 15px;
 }
@@ -152,7 +152,7 @@
 }
 .textPolicy {
   color: #001e33;
-  font-family: "DBHeavent";
+  font-family: "DBHeaventLi";
   font-size: 20px;
 }
 .textLogin {

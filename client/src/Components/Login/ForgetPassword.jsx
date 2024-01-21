@@ -90,7 +90,7 @@ const ForgetPassword = () => {
                 padding: 20,
                 display: " grid",
                 gridTemplateRows: "13% 10% 75%",
-                height: "45rem",
+                height: "43rem",
               }}
             >
               <h2 className={styles.textLogin}>Forgot Password</h2>
