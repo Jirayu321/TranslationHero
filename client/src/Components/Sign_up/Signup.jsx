@@ -116,6 +116,7 @@ const Signup = () => {
   });
 
   const [screen, setScreen] = React.useState("");
+  
   const [type, setType] = React.useState("password");
   const [type2, setType2] = React.useState("password");
   const [valuestype, setValuestype] = React.useState(false);
@@ -123,7 +124,7 @@ const Signup = () => {
   const [checked, setChecked] = React.useState(false);
 
   function onImageChange(e, i) {
-    const files = [...e.target.files];
+    const files = [e.target.files];
     const allowedTypes = ["image/jpeg", "image/png", "application/pdf"];
     const maxSizeInBytes = 25 * 1024 * 1024; // 25MB
 
@@ -139,10 +140,11 @@ const Signup = () => {
     };
 
     const readFile = (file, key) => {
-      // return new Promise((resolve, reject) => {
+      // console.log("file", file);
       const reader = new FileReader();
-      // reader.readAsDataURL(e.target.files[0]);
-      reader.readAsDataURL(file);
+      reader.readAsDataURL(e.target.files[0]);
+      // return new Promise((resolve, reject) => {
+      // reader.readAsDataURL(file);
       reader.onload = () => {
         setTranslators({ ...translators, [key]: reader.result });
       };
@@ -150,6 +152,7 @@ const Signup = () => {
       reader.onerror = (error) => {
         console.log("Error:", error);
       };
+      
     };
 
     const validateAndSetImageState = async (files, key) => {
@@ -160,10 +163,10 @@ const Signup = () => {
         try {
           const dataURL = await readFile(file, key);
 
-          if (!allowedTypes.includes(file.type)) {
-            toast.error(`Invalid file type for ${file.name}`, toastConfig);
-            continue;
-          }
+          // if (!allowedTypes.includes(file.type)) {
+          //   toast.error(`Invalid file type for ${file.name}`, toastConfig);
+          //   continue;
+          // }
 
           if (file.size > maxSizeInBytes) {
             toast.error(`File size exceeds 25MB for ${file.name}`, toastConfig);
@@ -1309,7 +1312,7 @@ const Signup = () => {
                               className={styles.BoximgProfile}
                             >
                               <img
-                                src={translators?.imgProfile?.at(0)}
+                                src={translators?.imgProfile}
                                 alt="imgProflie"
                                 className={styles.imgProflie}
                               />
