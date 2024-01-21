@@ -10,10 +10,7 @@ import {
   // useSelector
 } from "react-redux";
 
-import {
-  registerUser,
-  //  getEmail
-} from "../../slices/auth";
+import { registerUser, getEmail } from "../../slices/auth";
 
 // import { data, data5 } from "../Data/data";
 
@@ -176,7 +173,7 @@ const Signup = () => {
             setImages7([]);
         }
       }
-      
+
       reader.onload = () => {
         setTranslators({ ...translators, [key]: reader.result });
       };
@@ -641,12 +638,42 @@ const Signup = () => {
                           confirmPassword: values.confirmPassword,
                           mobilePhone: values.mobilePhone,
                         });
-                        setSubmitting(false);
-                        setScreen("type");
+
+                        if (values.email !== "") {
+                          dispatch(getEmail(values.email))
+                            .then((result) => {
+                              console.log(result.payload);
+                              
+                              if (result.payload === "User already exists...") {
+                                toast.error(
+                                  "Please enter another email address. This email address is already in the system.",
+                                  {
+                                    position: "top-right",
+                                    autoClose: 5000,
+                                    hideProgressBar: false,
+                                    closeOnClick: true,
+                                    pauseOnHover: true,
+                                    draggable: true,
+                                    progress: undefined,
+                                    theme: "dark",
+                                  }
+                                );
+                              } else {
+                                // setSubmitting(false);
+                                setScreen("type");
+                              }
+
+                              // console.log("Result:", result);
+                            })
+                            .catch((error) => {
+                              console.error("Error:", error);
+                            });
+                        }
                       } else {
                         console.log("err:", "มันไม่ได้");
                         setSubmitting(false);
                       }
+                      setSubmitting(false);
                     }}
                   >
                     {({
