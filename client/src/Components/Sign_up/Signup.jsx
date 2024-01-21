@@ -116,7 +116,7 @@ const Signup = () => {
   });
 
   const [screen, setScreen] = React.useState("");
-  
+
   const [type, setType] = React.useState("password");
   const [type2, setType2] = React.useState("password");
   const [valuestype, setValuestype] = React.useState(false);
@@ -125,7 +125,7 @@ const Signup = () => {
 
   function onImageChange(e, i) {
     const files = [e.target.files];
-    const allowedTypes = ["image/jpeg", "image/png", "application/pdf"];
+    // const allowedTypes = ["image/jpeg", "image/png", "application/pdf"];
     const maxSizeInBytes = 25 * 1024 * 1024; // 25MB
 
     const toastConfig = {
@@ -139,12 +139,44 @@ const Signup = () => {
       theme: "dark",
     };
 
-    const readFile = (file, key) => {
-      // console.log("file", file);
+    const readFile = (file, key, i) => {
+      // console.log("i", i);
+
       const reader = new FileReader();
+      // console.log(e.target.files[0].name);
       reader.readAsDataURL(e.target.files[0]);
-      // return new Promise((resolve, reject) => {
-      // reader.readAsDataURL(file);
+
+      if (i !== 1) {
+        switch (i) {
+          case 2:
+            setImages2(e.target.files[0].name);
+            break;
+          case 3:
+            setImages3(e.target.files[0].name);
+            break;
+          case 4:
+            setImages4(e.target.files[0].name);
+            break;
+          case 5:
+            setImages5(e.target.files[0].name);
+            break;
+          case 6:
+            setImages6(e.target.files[0].name);
+            break;
+          case 7:
+            setImages7(e.target.files[0].name);
+            break;
+          default:
+            console.log("Invalid case");
+            setImages2([]);
+            setImages3([]);
+            setImages4([]);
+            setImages5([]);
+            setImages6([]);
+            setImages7([]);
+        }
+      }
+      
       reader.onload = () => {
         setTranslators({ ...translators, [key]: reader.result });
       };
@@ -152,16 +184,15 @@ const Signup = () => {
       reader.onerror = (error) => {
         console.log("Error:", error);
       };
-      
     };
 
-    const validateAndSetImageState = async (files, key) => {
+    const validateAndSetImageState = async (files, key, i) => {
       const validFiles = [];
 
       for (let file of files) {
         // Check file type and size
         try {
-          const dataURL = await readFile(file, key);
+          const dataURL = await readFile(file, key, i);
 
           // if (!allowedTypes.includes(file.type)) {
           //   toast.error(`Invalid file type for ${file.name}`, toastConfig);
@@ -189,56 +220,46 @@ const Signup = () => {
     switch (i) {
       case 1:
         console.log("case 1");
-        validateAndSetImageState(files, "imgProfile");
-        // const imageFilePromises = files.map((image) => readFile(image));
-        // Promise.all(imageFilePromises).then((dataURLs) => {
-        //   setTranslators({ ...translators, imgProfile: dataURLs });
-        // });
+        validateAndSetImageState(files, "imgProfile", 1);
         break;
 
       case 2:
         console.log("case 2");
-        setImages2(files);
-        validateAndSetImageState(files, "idcard");
+        validateAndSetImageState(files, "idcard", 2);
         break;
 
       case 3:
         console.log("case 3");
         if (files.length !== 0) {
-          setImages3(files);
-          validateAndSetImageState(files, "education");
+          validateAndSetImageState(files, "education", 3);
         }
         break;
 
       case 4:
         console.log("case 4");
         if (files.length !== 0) {
-          setImages4(files);
-          validateAndSetImageState(files, "portfolio");
+          validateAndSetImageState(files, "portfolio", 4);
         }
         break;
 
       case 5:
         console.log("case 5");
         if (files.length !== 0) {
-          setImages5(files);
-          validateAndSetImageState(files, "bookbank");
+          validateAndSetImageState(files, "bookbank", 5);
         }
         break;
 
       case 6:
         console.log("case 6");
         if (files.length !== 0) {
-          setImages6(files);
-          validateAndSetImageState(files, "watermark");
+          validateAndSetImageState(files, "watermark", 6);
         }
         break;
 
       case 7:
         console.log("case 7");
         if (files.length !== 0) {
-          setImages7(files);
-          validateAndSetImageState(files, "certificate");
+          validateAndSetImageState(files, "certificate", 7);
         }
         break;
 
@@ -1366,7 +1387,7 @@ const Signup = () => {
 
                     <div style={{ textAlign: "left", marginTop: 10 }}>
                       <div style={{ textAlign: "center" }}>
-                        {images2.length < 1 ? (
+                        {typeof images2 !== "string" ? (
                           <div className={styles.BoxIdcard}>
                             <label htmlFor="icon-button-file">
                               <Input
@@ -1439,7 +1460,7 @@ const Signup = () => {
                         <div className={styles.BoxSuccessFile}>
                           <img src={File} alt="file" />
                           <div>
-                            <p>{images2.at(0)?.name}</p>
+                            <p>{images2}</p>
                           </div>
                           <img src={Checkcircle} alt="checkcircle" />
                         </div>
@@ -1791,7 +1812,7 @@ const Signup = () => {
 
                     <div style={{ textAlign: "left", marginTop: 10 }}>
                       <div style={{ textAlign: "center" }}>
-                        {images3.length < 1 ? (
+                        {typeof images3 !== "string" ? (
                           <div className={styles.BoxIdcard}>
                             <label htmlFor="icon-button-file">
                               <Input
@@ -1864,7 +1885,7 @@ const Signup = () => {
                         <div className={styles.BoxSuccessFile}>
                           <img src={File} alt="file" />
                           <div>
-                            <p>{images3.at(0)?.name}</p>
+                            <p>{images3}</p>
                           </div>
                           <img src={Checkcircle} alt="checkcircle" />
                         </div>
@@ -2332,7 +2353,7 @@ const Signup = () => {
                     </p>
                     <div style={{ textAlign: "left", marginTop: 10 }}>
                       <div style={{ textAlign: "center" }}>
-                        {images4.length < 1 ? (
+                        {typeof images4 !== "string" ? (
                           <div className={styles.BoxIdcard}>
                             <label htmlFor="icon-button-file">
                               <Input
@@ -2409,7 +2430,7 @@ const Signup = () => {
                         <div className={styles.BoxSuccessFile}>
                           <img src={File} alt="file" />
                           <div>
-                            <p>{images4[0]?.name}</p>
+                            <p>{images4}</p>
                           </div>
                           <img src={Checkcircle} alt="checkcircle" />
                         </div>
@@ -2471,7 +2492,7 @@ const Signup = () => {
                     </p>
                     <div style={{ textAlign: "left", marginTop: 10 }}>
                       <div style={{ textAlign: "center" }}>
-                        {images6.length < 1 ? (
+                        {typeof images6 !== "string" ? (
                           <div className={styles.BoxIdcard}>
                             <label htmlFor="icon-button-file">
                               <Input
@@ -2543,7 +2564,7 @@ const Signup = () => {
                         <div className={styles.BoxSuccessFile}>
                           <img src={File} alt="file" />
                           <div>
-                            <p>{images6.at(0)?.name}</p>
+                            <p>{images6}</p>
                           </div>
                           <img src={Checkcircle} alt="checkcircle" />
                         </div>
@@ -3024,12 +3045,12 @@ const Signup = () => {
                               </div>
                             </div>
 
-                            {images5?.length > 0 ? (
+                            {typeof images5 === "string" ? (
                               <>
                                 <div className={styles.BoxSuccessFile}>
                                   <img src={File} alt="file" />
                                   <div>
-                                    <p>{images5.at(0)?.name}</p>
+                                    <p>{images5}</p>
                                   </div>
                                   <img src={Checkcircle} alt="checkcircle" />
                                 </div>
@@ -3095,7 +3116,7 @@ const Signup = () => {
                     </p>
                     <div style={{ textAlign: "left", marginTop: 10 }}>
                       <div style={{ textAlign: "center" }}>
-                        {images7.length < 1 ? (
+                        {typeof images7 !== "string" ? (
                           <div className={styles.BoxIdcard}>
                             <label htmlFor="icon-button-file">
                               <Input
@@ -3167,7 +3188,7 @@ const Signup = () => {
                         <div className={styles.BoxSuccessFile}>
                           <img src={File} alt="file" />
                           <div>
-                            <p>{images7[0]?.name}</p>
+                            <p>{images7}</p>
                           </div>
                           <img src={Checkcircle} alt="checkcircle" />
                         </div>
@@ -3815,12 +3836,12 @@ const Signup = () => {
                               </div>
                             </div>
 
-                            {images5?.length > 0 ? (
+                            {typeof images5 === "string" ? (
                               <>
                                 <div className={styles.BoxSuccessFile}>
                                   <img src={File} alt="file" />
                                   <div>
-                                    <p>{images5.at(0)?.name}</p>
+                                    <p>{images5}</p>
                                   </div>
                                   <img src={Checkcircle} alt="checkcircle" />
                                 </div>
