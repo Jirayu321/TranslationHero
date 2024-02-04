@@ -138,7 +138,7 @@ const Customer = () => {
 
   const [open, setOpen] = React.useState(false); // alert
   const [openDatePicker, setOpenDatePicker] = React.useState(false);
-  const [delete_data, setDelete_data] = React.useState(false);
+
   const [openModel, setopenModel] = React.useState({
     openModel1: false,
     openModel2: false,
@@ -192,7 +192,7 @@ const Customer = () => {
     }
   };
 
-  function chagngeDataPage(x, y) {
+  function chagngeDataPage(x, y, delete_data) {
     if (groupData !== null) {
       let index = x - 1;
       console.log(
@@ -206,7 +206,9 @@ const Customer = () => {
         "count:",
         count,
         "groupData:",
-        groupData
+        groupData,
+        "delete_data:",
+        delete_data
       );
       let file = groupData[index]?.file;
       let document_Type = groupData[index]?.document_Type;
@@ -231,13 +233,15 @@ const Customer = () => {
         });
         setPage(x);
       } else if (y === 0) {
-        console.log("เปลี่ยนหน้า");
         if (typeof translation_Type !== "undefined") {
           console.log("666", Additional_explanation, index, translation_Type);
-          let j = page - 1;
-          let z = groupData[j]?.Additional_explanation;
-          if (typeof z !== "undefined") {
+          console.log("เปลี่ยนหน้า", Additional_explanation);
+          if (typeof translation_Type !== "undefined") {
             // console.log("5555", z);
+            if (countButtons > count) {
+              let lastIndex = groupData?.length - 1;
+              groupData?.splice(lastIndex + 1, 0, from);
+            }
             setFrom({
               file: file,
               document_Type: document_Type,
@@ -252,7 +256,7 @@ const Customer = () => {
             setPage(x);
           } else {
             console.log("777");
-            setGroupData([...groupData, from]);
+            // setGroupData([...groupData, from]);
             setFrom({
               file: file,
               document_Type: document_Type,
@@ -268,13 +272,24 @@ const Customer = () => {
           }
         } else {
           console.log("888");
-          setGroupData([...groupData, from]);
+          setFrom({
+            file: "",
+            document_Type: "",
+            translation_Type: "",
+            tranfrom: "",
+            tranto: tranto,
+            Deadline: getCurrentDate(),
+            Additional_explanation: "",
+            type: "1",
+            Translator_name: "",
+          });
+          // setGroupData([...groupData, from]);
           // console.log("groupData", groupData);
           setPage(x);
         }
       } else {
         console.log("อื่นๆ");
-        if (typeof file === "undefined") {
+        if (typeof document_Type === "") {
           console.log("อื่นๆ1");
           setFrom({
             file: "",
@@ -288,7 +303,8 @@ const Customer = () => {
             Translator_name: "",
           });
           setPage(x);
-        } else {
+        } 
+        else {
           console.log("อื่นๆ2");
           setFrom({
             file: file,
@@ -349,12 +365,12 @@ const Customer = () => {
           Translator_name: "",
         });
         //เคลียร์ข้อมูล
-        chagngeDataPage(2, 0);
+        chagngeDataPage(2, 0, false);
       } else {
         let x = page + 1;
         groupData?.splice(lastIndex + 1, 0, from);
         console.log("groupData !== null");
-        chagngeDataPage(x, 1);
+        chagngeDataPage(x, 1, false);
       }
     } else {
       let x = countButtons + 1;
@@ -362,7 +378,7 @@ const Customer = () => {
       if (page === groupData?.length + 1) {
         groupData?.splice(lastIndex + 1, 0, from);
         console.log("groupData :", groupData, "lastIndex :", lastIndex);
-        chagngeDataPage(y, 1);
+        chagngeDataPage(y, 1, false);
         setcCountButtons(x);
       }
     }
@@ -381,7 +397,7 @@ const Customer = () => {
         <button
           key={i}
           className={buttonStyle}
-          onClick={() => chagngeDataPage(buttonNumber, 0)}
+          onClick={() => chagngeDataPage(buttonNumber, 0, false)}
         >
           {buttonNumber}
         </button>
@@ -395,6 +411,8 @@ const Customer = () => {
     let x = e - 1; //เลือกตำแหน่งข้อมูลที่เราเลือก
     groupData.splice(x, 1); //ลบข้อมูลที่เราเลือก
     let d = groupData?.length;
+    console.log("Delete_data", d, x, groupData);
+
     if (countButtons === 1) {
       setPage(1);
       setcCountButtons(1);
@@ -403,26 +421,31 @@ const Customer = () => {
         setPage(1);
         setcCountButtons(1);
       } else {
-        if (delete_data === false) {
-          let z = page - 1;
-          let y = countButtons;
-          // console.log("false", y);
-          if (page < y) {
-            chagngeDataPage(countButtons - 1, 2);
-            setGroupData([...groupData, from]);
-            setcCountButtons(d + 1);
-          } else {
-            chagngeDataPage(z, 2);
-            setcCountButtons(d);
-          }
-          setDelete_data(true);
-        } else {
-          // console.log("true");
-          let z = page - 1;
-          chagngeDataPage(z, 2);
-          setcCountButtons(d);
-        }
+        setcCountButtons(d);
+        chagngeDataPage(page, 2);
       }
+      // else {
+      //   if (delete_data === false) {
+      //     console.log("delete_data === false");
+      //     let z = page - 1;
+      //     let y = countButtons;
+      //     if (page < y) {
+      //       console.log("page < y");
+      //       chagngeDataPage(countButtons - 1, 2);
+      //       // setGroupData([...groupData, from]);
+      //       setcCountButtons(d + 1);
+      //     } else {
+      //       console.log("page > y");
+      //       chagngeDataPage(z, 2);
+      //       setcCountButtons(d);
+      //     }
+      //   } else {
+      //     console.log("delete_data === true");
+      //     let z = page - 1;
+      //     chagngeDataPage(z, 2);
+      //     setcCountButtons(d);
+      //   }
+      // }
     }
   }
 
@@ -433,9 +456,9 @@ const Customer = () => {
         setPage(1);
       } else {
         if (page === countButtons) {
-          chagngeDataPage(page, 0);
+          chagngeDataPage(page, 0, false);
         } else {
-          chagngeDataPage(z, 0);
+          chagngeDataPage(z, 0, false);
         }
       }
     } else if (x === "back") {
@@ -443,7 +466,7 @@ const Customer = () => {
         setPage(1);
       } else {
         let y = page - 1;
-        chagngeDataPage(y, 0);
+        chagngeDataPage(y, 0, false);
       }
     }
   }
@@ -513,15 +536,12 @@ const Customer = () => {
   function searhTranslator(x) {
     let h = height * 2.3;
     let h2 = height * 1.2;
-    let lastIndex = groupData?.length - 1;
+    // let lastIndex = groupData?.length - 1;
     if (groupData !== null) {
       console.log("searhTranslator:", 1);
       if (from.document_Type !== "" && translator !== null) {
-        if (countButtons > groupData?.length) {
-          groupData?.splice(lastIndex + 1, 0, from);
-          setPromo(x);
-          window.scrollTo(0, h);
-        }
+        setPromo(x);
+        window.scrollTo(0, h);
       } else {
         toast.error("Please fill in information first.", {
           position: "top-right",
