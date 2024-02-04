@@ -71,6 +71,7 @@ import { useDispatch } from "react-redux";
 import axios from "axios";
 import { url } from "../../slices/api.js";
 import { createOrder } from "../../slices/auth";
+import { toast } from "react-toastify";
 
 import styles from "./Customer.module.css";
 
@@ -121,6 +122,7 @@ const Customer = () => {
   });
 
   const [groupData, setGroupData] = React.useState(null); //เก็บข้อมูลทั้งหมดที่เราเพิ่มเข้ามา
+
   const [countButtons, setcCountButtons] = React.useState(0);
   const [page, setPage] = React.useState(1);
   let count = groupData?.length; //นับจำนวนข้อมูลทั้งหมดที่เราเพิ่มเข้ามา
@@ -161,13 +163,11 @@ const Customer = () => {
     }
   };
 
-  console.log("translator", translator);
+  // console.log("translator", translator);
 
   React.useEffect(() => {
     if (groupData === null) {
-      // console.log("Data:", groupData);
       setUser();
-      // window.scrollTo(0, 10);
     } else {
       console.log("add_Data", groupData);
     }
@@ -217,7 +217,7 @@ const Customer = () => {
       let Additional_explanation = groupData[index]?.Additional_explanation;
 
       if (y === 1) {
-        // console.log("สดใหม่");
+        console.log("สดใหม่");
         setFrom({
           file: "",
           document_Type: "",
@@ -231,9 +231,9 @@ const Customer = () => {
         });
         setPage(x);
       } else if (y === 0) {
-        // console.log("เปลี่ยนหน้า");
+        console.log("เปลี่ยนหน้า");
         if (typeof translation_Type !== "undefined") {
-          // console.log("66", Additional_explanation, index);
+          console.log("666", Additional_explanation, index, translation_Type);
           let j = page - 1;
           let z = groupData[j]?.Additional_explanation;
           if (typeof z !== "undefined") {
@@ -251,6 +251,7 @@ const Customer = () => {
             });
             setPage(x);
           } else {
+            console.log("777");
             setGroupData([...groupData, from]);
             setFrom({
               file: file,
@@ -266,7 +267,7 @@ const Customer = () => {
             setPage(x);
           }
         } else {
-          // console.log("777");
+          console.log("888");
           setGroupData([...groupData, from]);
           // console.log("groupData", groupData);
           setPage(x);
@@ -274,6 +275,7 @@ const Customer = () => {
       } else {
         console.log("อื่นๆ");
         if (typeof file === "undefined") {
+          console.log("อื่นๆ1");
           setFrom({
             file: "",
             document_Type: "",
@@ -287,6 +289,7 @@ const Customer = () => {
           });
           setPage(x);
         } else {
+          console.log("อื่นๆ2");
           setFrom({
             file: file,
             document_Type: document_Type,
@@ -302,6 +305,7 @@ const Customer = () => {
         }
       }
     } else {
+      console.log("ไง");
       setGroupData([from]);
       setPage(x);
     }
@@ -323,11 +327,15 @@ const Customer = () => {
     // // console.log("ImageURLs:", ImageURLs);
   };
 
-  function Add_data() {
+  function Add_data(page) {
+    let lastIndex = groupData?.length - 1;
+    console.log("page:", page, lastIndex);
     if (countButtons === 0) {
+      console.log("countButtons === 0", groupData);
       let x = countButtons + 2;
       setcCountButtons(x);
       if (groupData === null) {
+        console.log("groupData === null");
         setGroupData([from]);
         setFrom({
           file: "",
@@ -340,18 +348,23 @@ const Customer = () => {
           type: "1",
           Translator_name: "",
         });
+        //เคลียร์ข้อมูล
         chagngeDataPage(2, 0);
       } else {
-        setGroupData([...groupData, from]);
         let x = page + 1;
+        groupData?.splice(lastIndex + 1, 0, from);
+        console.log("groupData !== null");
         chagngeDataPage(x, 1);
       }
     } else {
       let x = countButtons + 1;
-      setGroupData([...groupData, from]);
       let y = page + 1;
-      chagngeDataPage(y, 1);
-      setcCountButtons(x);
+      if (page === groupData?.length + 1) {
+        groupData?.splice(lastIndex + 1, 0, from);
+        console.log("groupData :", groupData, "lastIndex :", lastIndex);
+        chagngeDataPage(y, 1);
+        setcCountButtons(x);
+      }
     }
   }
 
@@ -499,23 +512,31 @@ const Customer = () => {
 
   function searhTranslator(x) {
     let h = height * 2.3;
+    let h2 = height * 1.2;
+    let lastIndex = groupData?.length - 1;
     if (groupData !== null) {
       console.log("searhTranslator:", 1);
-      setGroupData([...groupData, from]);
-      setPromo(x);
-      window.scrollTo(0, h);
-      // if (groupData === null) {
-      //   setPromo(x);
-      //   window.scrollTo(0, h);
-      // } else {
-      //   setGroupData([...groupData, from]);
-      //   setPromo(x);
-      //   window.scrollTo(0, h);
-      // }
+      if (from.document_Type !== "" && translator !== null) {
+        groupData?.splice(lastIndex + 1, 0, from);
+        setPromo(x);
+        window.scrollTo(0, h);
+      } else {
+        toast.error("Please fill in information first.", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+        window.scrollTo(0, h2);
+      }
     } else {
       console.log("searhTranslator:", 2);
       if (from.document_Type !== "" && translator !== null) {
-        setGroupData([from]);
+        // setGroupData([from]);
         setPromo(x);
         window.scrollTo(0, h);
       }
@@ -572,8 +593,7 @@ const Customer = () => {
   }
 
   function OpneMode(x, y) {
-    console.log("OpneMode:", x);
-    console.log("OpneMode:", y);
+    console.log("OpneMode:", x, "y", y);
     if (x === 1) {
       setFrom({
         ...from,
