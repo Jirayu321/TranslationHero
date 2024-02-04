@@ -216,7 +216,6 @@ const Customer = () => {
       let Deadline = groupData[index]?.Deadline;
       let Additional_explanation = groupData[index]?.Additional_explanation;
 
-      
       if (y === 1) {
         console.log("สดใหม่");
         setFrom({
@@ -518,9 +517,11 @@ const Customer = () => {
     if (groupData !== null) {
       console.log("searhTranslator:", 1);
       if (from.document_Type !== "" && translator !== null) {
-        groupData?.splice(lastIndex + 1, 0, from);
-        setPromo(x);
-        window.scrollTo(0, h);
+        if (countButtons > groupData?.length) {
+          groupData?.splice(lastIndex + 1, 0, from);
+          setPromo(x);
+          window.scrollTo(0, h);
+        }
       } else {
         toast.error("Please fill in information first.", {
           position: "top-right",
