@@ -216,6 +216,7 @@ const Customer = () => {
       let Deadline = groupData[index]?.Deadline;
       let Additional_explanation = groupData[index]?.Additional_explanation;
 
+      
       if (y === 1) {
         console.log("สดใหม่");
         setFrom({
