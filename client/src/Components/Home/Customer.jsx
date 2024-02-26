@@ -289,7 +289,7 @@ const Customer = () => {
         }
       } else {
         console.log("อื่นๆ");
-        if (typeof document_Type === "") {
+        if (typeof document_Type === String) {
           console.log("อื่นๆ1");
           setFrom({
             file: "",
@@ -303,8 +303,7 @@ const Customer = () => {
             Translator_name: "",
           });
           setPage(x);
-        } 
-        else {
+        } else {
           console.log("อื่นๆ2");
           setFrom({
             file: file,
@@ -506,14 +505,6 @@ const Customer = () => {
 
     return PriceCount + "฿";
   }
-
-  // function generateOrderNumber(length) {
-  //   // Generate a random number
-  //   let orderNumber = Math.floor(Math.random() * Math.pow(10, length));
-
-  //   // Pad the number with zeroes
-  //   return orderNumber.toString().padStart(length, "0");
-  // }
 
   function generatetTransactionNo() {
     const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -3752,7 +3743,7 @@ const Customer = () => {
               </div>
 
               {/* Footer */}
-              <div style={{ position: "relative", top: "200px" }}>
+              <div style={{ position: "relative" }}>
                 <div>
                   <Footer v="English" />
                 </div>

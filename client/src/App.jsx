@@ -48,6 +48,9 @@ function App() {
     import("./Components/Notification/NotificaionCustomer")
   );
   const Tool = lazy(() => import("./Components/Tool/Tool"));
+  const Management = lazy(() =>
+    import("./Components/Management/Management.jsx")
+  );
   const Price = lazy(() => import("./Components/Price/Price.jsx"));
 
   useEffect(() => {
@@ -106,6 +109,7 @@ function App() {
                 {/* <Route path="/Order" element={<Order />} /> */}
                 <Route path="/Dashboard_freelance" element={<Freelance />} />
                 <Route path="/Tool" element={<Tool />} />
+                <Route path="/Management" element={<Management />} />
                 {/* <Route path="/Chat" element={<Chat />} />
                 <Route path="/Chats" element={<Chats />} /> */}
               </Routes>

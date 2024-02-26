@@ -2033,8 +2033,19 @@
     left: 25vw;
     padding: 40px;
   }
-}
 
+  .labelBoxfile {
+    text-align: center;
+  }
+  .BoxcardTranslator {
+    grid-template-columns: auto auto;
+  }
+}
+@media only screen and (min-width: 1400px) {
+  .BoxcardTranslator {
+    grid-template-columns: auto auto auto;
+  }
+}
 @media only screen and (min-width: 1400px) {
   .Boxbackgroundfram1 {
     text-align: center;
