@@ -907,8 +907,8 @@ const Customer = () => {
     );
   };
 
-  // console.log("groupData:", groupData);
-  // console.log("from:", from);
+  console.log("groupData:", groupData);
+  console.log("from:", from);
 
   return (
     <>
@@ -1194,42 +1194,6 @@ const Customer = () => {
                       <p>Google Pay</p>
                     </button>
                   </div>
-                  {/* <div className={styles.boxpayment}>
-              <div className={styles.cardpayment}>
-                <img src={card} alt="card" />
-                <p>card</p>
-              </div>
-              <div className={styles.cardpayment}>
-                <img src={card} alt="card" />
-                <p>card</p>
-              </div>
-              <div className={styles.cardpayment}>
-                <img src={card} alt="card" />
-                <p>card</p>
-              </div>
-              <div className={styles.cardpayment}>
-                <img src={card} alt="card" />
-                <p>card</p>
-              </div>
-            </div>
-            <div className={styles.boxpayment}>
-              <div className={styles.cardpayment}>
-                <img src={card} alt="card" />
-                <p>card</p>
-              </div>
-              <div className={styles.cardpayment}>
-                <img src={card} alt="card" />
-                <p>card</p>
-              </div>
-              <div className={styles.cardpayment}>
-                <img src={card} alt="card" />
-                <p>card</p>
-              </div>
-              <div className={styles.cardpayment}>
-                <img src={card} alt="card" />
-                <p>card</p>
-              </div>
-            </div> */}
                 </div>
                 <div className={styles.BoxbuttonModalBoxPayment}>
                   <button

@@ -211,10 +211,7 @@ const Login = () => {
                   if (values) {
                     const email = values?.email;
                     const password = values?.password;
-                    if (
-                      email === "ploy_skt_at@hotmail.com" ||
-                      password === "123456"
-                    ) {
+                    if (email === "ploy_skt_at@hotmail.com") {
                       navigate("/Management", {
                         state: { languages: `${Doc}`, accept: true },
                       });

@@ -93,8 +93,8 @@ function Tool() {
 
   React.useEffect(() => {
     if (Value) {
-      console.log("value :", Value);
-      const t = dispatch(getOrder("Habi Yang"));
+      console.log("value :", auth?.name);
+      const t = dispatch(getOrder(auth?.name));
       t.then((result) => {
         setData(result?.payload);
         // console.log("Result:", result.payload);
