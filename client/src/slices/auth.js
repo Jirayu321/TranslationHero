@@ -158,6 +158,31 @@ export const updateOrder = createAsyncThunk(
   }
 );
 
+export const updateOrdertype = createAsyncThunk(
+  "auth/updateOrdertype",
+  async (values, { rejectWithValue }) => {
+    try {
+      console.log("updateOrdertype:", values);
+
+      const response = await axios.put(
+        `${url}/updateOrdertype/${values?.orderNumber}`,
+        {
+          Status: values?.Status,
+        }
+      );
+
+      if (!response.data) {
+        return rejectWithValue("Order update failed."); // Informative error message
+      }
+
+      return response.data;
+    } catch (error) {
+      console.error("Error updating order:", error);
+      return rejectWithValue(error.response?.data || "An error occurred."); // More informative error handling
+    }
+  }
+);
+
 export const createOrder = createAsyncThunk(
   "auth/createOrder",
   async (values, { rejectWithValue }) => {
@@ -175,6 +200,7 @@ export const createOrder = createAsyncThunk(
         type: y.type,
         Price: values.x.Price,
         orderNumber: values.x.orderNumber,
+        Status: values.x.Status,
         Translator_name: values.z,
         data: values.y,
       });

@@ -102,7 +102,6 @@ function Tool() {
         console.error("Error:", error);
       });
     } else {
-      // navigate("/Login");
       const t = dispatch(getOrder("Habi Yang"));
       t.then((result) => {
         setData(result?.payload);

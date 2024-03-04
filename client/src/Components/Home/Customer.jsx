@@ -70,7 +70,7 @@ import "react-credit-cards-2/dist/es/styles-compiled.css";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 import { url } from "../../slices/api.js";
-import { createOrder } from "../../slices/auth";
+import { createOrder, updateOrdertype } from "../../slices/auth";
 import { toast } from "react-toastify";
 
 import styles from "./Customer.module.css";
@@ -119,6 +119,7 @@ const Customer = () => {
   const [from2, setFrom2] = React.useState({
     Price: "",
     orderNumber: "",
+    Status:""
   });
 
   const [groupData, setGroupData] = React.useState(null); //เก็บข้อมูลทั้งหมดที่เราเพิ่มเข้ามา
@@ -562,6 +563,7 @@ const Customer = () => {
     setFrom2({
       Price: generatePrice(),
       orderNumber: generatetTransactionNo(),
+      Status:"1"
     });
     searhTranslator(x);
   }
@@ -607,6 +609,7 @@ const Customer = () => {
 
   function OpneMode(x, y) {
     console.log("OpneMode:", x, "y", y);
+    console.log("from:", from, "groupData:", groupData);
     if (x === 1) {
       setFrom({
         ...from,
@@ -616,6 +619,9 @@ const Customer = () => {
       });
       window.scroll(0, 0);
       setOpen(true);
+      // let z = {orderNumber:"RL52632",Status:"2"}
+      // dispatch(updateOrdertype(z))
+      // setOpen(false);
       setTimeout(function () {
         setOpen(false);
         setopenModel({
@@ -645,15 +651,27 @@ const Customer = () => {
       });
     } else if (x === 5) {
       if (email !== "") {
-        let y = { x: from2, y: groupData, z: from?.Translator_name };
-        console.log("สร้าง oeder...", y);
-        dispatch(createOrder(y));
-        sendEmail();
-        setopenModel({
-          ...openModel,
-          openModel4: false,
-          openModel5: true,
-        });
+        if (groupData !== null) {
+          let y = { x: from2, y: groupData, z: from?.Translator_name };
+          console.log("สร้าง oeder...", y);
+          dispatch(createOrder(y));
+          sendEmail();
+          setopenModel({
+            ...openModel,
+            openModel4: false,
+            openModel5: true,
+          });
+        } else {
+          let y = { x: from2, y: [from], z: from?.Translator_name };
+          console.log("สร้าง oeder...", y);
+          dispatch(createOrder(y));
+          sendEmail();
+          setopenModel({
+            ...openModel,
+            openModel4: false,
+            openModel5: true,
+          });
+        }
       }
     } else if (x === 6) {
       setopenModel({
@@ -2386,6 +2404,13 @@ const Customer = () => {
                           )}
                         </div>
                       </div>
+
+                      {/* Footer */}
+                      <div style={{ position: "relative" }}>
+                        <div>
+                          <Footer v="English" />
+                        </div>
+                      </div>
                     </div>
                   </div>
                 ) : (
@@ -2393,15 +2418,15 @@ const Customer = () => {
                     style={{
                       width: width,
                     }}
-                  ></div>
+                  >
+                    {/* Footer */}
+                    <div style={{ position: "relative" }}>
+                      <div>
+                        <Footer v="English" />
+                      </div>
+                    </div>
+                  </div>
                 )}
-              </div>
-
-              {/* Footer */}
-              <div style={{ position: "relative" }}>
-                <div>
-                  <Footer v="English" />
-                </div>
               </div>
             </div>
           </>
@@ -3695,6 +3720,12 @@ const Customer = () => {
                           </div>
                         </div>
                       </div>
+                      {/* Footer */}
+                      <div style={{ position: "relative" }}>
+                        <div>
+                          <Footer v="English" />
+                        </div>
+                      </div>
                     </div>
                   </div>
                 ) : (
@@ -3702,15 +3733,15 @@ const Customer = () => {
                     style={{
                       width: width,
                     }}
-                  ></div>
+                  >
+                    {/* Footer */}
+                    <div style={{ position: "relative" }}>
+                      <div>
+                        <Footer v="English" />
+                      </div>
+                    </div>
+                  </div>
                 )}
-              </div>
-
-              {/* Footer */}
-              <div style={{ position: "relative" }}>
-                <div>
-                  <Footer v="English" />
-                </div>
               </div>
             </div>
           </>

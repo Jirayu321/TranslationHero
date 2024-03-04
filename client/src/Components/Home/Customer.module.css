@@ -510,7 +510,7 @@
     height: 100vw;
     box-sizing: border-box;
     text-align: left;
-    padding: 20px;
+    /* padding: 20px; */
   }
   .InBoxPromo {
     display: grid;
@@ -733,7 +733,7 @@
     height: auto;
     box-sizing: border-box;
     text-align: left;
-    padding: 20px;
+    /* padding: 20px; */
   }
   .cardTranslator {
     width: 90vw;
@@ -1655,7 +1655,7 @@
     height: 100vw;
     box-sizing: border-box;
     text-align: left;
-    padding: 20px;
+    /* padding: 20px; */
   }
   .InBoxPromo {
     display: grid;
@@ -2045,6 +2045,9 @@
   .BoxcardTranslator {
     grid-template-columns: auto auto auto;
   }
+  .BoxPromo {
+    padding: 0px;
+  }
 }
 @media only screen and (min-width: 1400px) {
   .Boxbackgroundfram1 {
@@ -2205,7 +2208,7 @@
     height: auto;
     box-sizing: border-box;
     text-align: left;
-    padding: 20px;
+    /* padding: 20px; */
   }
   .BoxControStar {
     display: grid;
