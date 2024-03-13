@@ -13,7 +13,7 @@ import Navbars from "../Navbar/navbarHome2.js";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import { Calendar, momentLocalizer } from "react-big-calendar";
+import { Calendar, momentLocalizer, Views } from "react-big-calendar";
 // import ProgressBar from "../Dashboard/ProgressBar";
 import moment from "moment";
 import "moment/locale/de";
@@ -22,16 +22,15 @@ import "moment/locale/th";
 // import axios from "axios";
 
 // import { data6 } from "../Data/data";
-import imgtest1 from "../../Images/1.jpeg";
-import imgtest2 from "../../Images/49.jpeg";
-import imgtest3 from "../../Images/dii.jpg";
+// import imgtest1 from "../../Images/1.jpeg";
+// import imgtest2 from "../../Images/49.jpeg";
+// import imgtest3 from "../../Images/dii.jpg";
 
 import axios from "axios";
 import { url } from "../../slices/api.js";
 
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "./Home2.css";
-import { indexOf } from "lodash";
 
 export default function Home2() {
   moment.locale("en-US");
@@ -51,24 +50,25 @@ export default function Home2() {
   // const events = [
   //   {
   //     title: "THOG0022534",
-  //     start: "2023/9/15",
-  //     end: "2023/9/15",
+  //     start: "2024/03/15",
+  //     end: "2024/03/15",
   //     allDay: false,
   //     isImportant: true,
   //   },
   //   {
   //     title: "THOG0023535",
-  //     start: "2023/9/15",
-  //     end: "2023/9/15",
+  //     start: "2024/03/10",
+  //     end: "2024/03/10",
   //     allDay: false,
   //     isImportant: false,
   //   },
   // ];
 
-  function eventStyleGetter(event) {
+  function eventStyleGetter(events) {
+    console.log("event", events);
     let style = {
-      backgroundColor: event.isImportant ? "#FFFACD" : "rgb(199 230 247)",
-      color: event.isImportant ? "#FFB31F" : "rgb(4 84 212)",
+      backgroundColor: events.isImportant ? "#FFFACD" : "rgb(199 230 247)",
+      color: events.isImportant ? "#FFB31F" : "rgb(4 84 212)",
       border: "none",
       padding: "4px 8px",
       alignItems: "flex-start",
@@ -103,14 +103,25 @@ export default function Home2() {
   //   event: "Ereignis",
   // };
 
-  const [open, setOpen] = React.useState(false);
+  const messages = {
+    today: "today",
+    next: "next",
+    back: "back",
+    month: "month",
+    day: "day",
+    agenda: "agenda",
+  };
+
+  // const [open, setOpen] = React.useState(false);
   const [open2, setOpen2] = React.useState(false);
-  const [open3, setOpen3] = React.useState(false);
+  // const [open3, setOpen3] = React.useState(false);
   const [open4, setOpen4] = React.useState(false);
 
   const [amount, setAmount] = React.useState("");
   const [orders, setOrders] = React.useState("");
   const [events, setEvents] = React.useState([]);
+  const [detail, setDetail] = React.useState([]);
+  const [title, setTitle] = React.useState("");
 
   // function handleInputChange(event) {
   //   let x = event.target.value;
@@ -118,38 +129,40 @@ export default function Home2() {
   //   setAmount(a);
   // }
 
-  const handleClose = (i) => {
-    if (i === 1) {
-      setOpen(false);
-    } else if (i === 2) {
-      setOpen2(false);
-      setOpen3(true);
-    }
-  };
+  // const handleClose = (i) => {
+  //   if (i === 1) {
+  //     setOpen(false);
+  //   } else if (i === 2) {
+  //     setOpen2(false);
+  //     setOpen3(true);
+  //   }
+  // };
 
   const setevents = (x) => {
-    const date = new Date();
+    console.log("x", x);
 
-    const formattedDate = date.toLocaleDateString("en-US", {
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric",
-    });
+    // const date = new Date();
+    // const formattedDate = date.toLocaleDateString("en-US", {
+    //   day: "2-digit",
+    //   month: "2-digit",
+    //   year: "numeric",
+    // });
+    function formatDate(inputDate) {
+      var parts = inputDate.split("/");
+      var formattedDate = parts[2] + "/" + parts[0] + "/" + parts[1];
+      return formattedDate;
+    }
 
-    const newEvents = x.map((order, index) => {
+    const newEvents = x.map((order) => {
       return {
         title: order.orderNumber,
-        start: formattedDate, // replace with the actual property name from your order object
-        end: order.data.at(index)?.Deadline, // replace with the actual property name from your order object
-        allDay: false, // customize as needed
-        isImportant: true, // replace with the actual property name from your order object
+        start: formatDate(order?.data.at(0)?.Deadline),
+        end: formatDate(order?.data.at(0)?.Deadline),
+        allDay: false,
+        isImportant: true,
       };
     });
-
-    console.log("newEvents:", newEvents);
-
-    // Assuming you want to use newEvents in your component or elsewhere
-    // Update the state or use it in the desired way
+    console.log("newEvents", newEvents);
     setEvents(newEvents);
   };
 
@@ -171,7 +184,14 @@ export default function Home2() {
     }
   };
 
-  // console.log("translator", translator);
+  function OpenDetail(title, Price, data) {
+    setAmount(Price);
+    setTitle(title);
+    console.log("data", data);
+    setDetail(data);
+    setOpen2(true);
+  }
+  console.log("detail", detail);
 
   React.useEffect(() => {
     if (orders === "") {
@@ -232,7 +252,7 @@ export default function Home2() {
 
           <Modal
             hideBackdrop
-            open={open3}
+            open={open2}
             // onClose={handleClose(3)}
             aria-labelledby="keep-mounted-modal-title"
             aria-describedby="keep-mounted-modal-description"
@@ -255,127 +275,63 @@ export default function Home2() {
                 paddingLeft: "25px",
               }}
             >
-              <div>
-                <p className="Home2ScheduleDetailModalHard">THOG0024534</p>
-              </div>
-              {buttonpage === 1 ? (
-                <div className="Home2ScheduleDetailModal">
-                  <p className="Home2ScheduleDetailModalInHard">Order 1</p>
-                  <div className="Home2ScheduleDetailModalBox">
-                    <div className="Home2ScheduleDetailModalInBox">
-                      <p>Document type : Office Document</p>
-                      <p>Translate from : English</p>
-                      <p>Deadline : 2023/9/15</p>
-                      <p>Additional explanation : -</p>
-                    </div>
-                    <div className="Home2ScheduleDetailModalInBox">
-                      <p>Translation type : Birth Certificate</p>
-                      <p>Translate to : thai</p>
-                    </div>
-                  </div>
-                </div>
-              ) : buttonpage === 2 ? (
-                <div className="Home2ScheduleDetailModal">
-                  <p className="Home2ScheduleDetailModalInHard">Order 2</p>
-                  <div className="Home2ScheduleDetailModalBox">
-                    <div className="Home2ScheduleDetailModalInBox">
-                      <p>Document type : Office Document</p>
-                      <p>Translate from : German</p>
-                      <p>Deadline : 2023/9/4</p>
-                      <p>Additional explanation : 12345</p>
-                    </div>
-                    <div className="Home2ScheduleDetailModalInBox">
-                      <p>Translation type : Birth Certificate</p>
-                      <p>Translate to : thai</p>
-                    </div>
-                  </div>
-                </div>
-              ) : buttonpage === 3 ? (
-                <div className="Home2ScheduleDetailModal">
-                  <p className="Home2ScheduleDetailModalInHard">Order 3</p>
-                  <div className="Home2ScheduleDetailModalBox">
-                    <div className="Home2ScheduleDetailModalInBox">
-                      <p>Document type : Office Document</p>
-                      <p>Translate from : thai</p>
-                      <p>Deadline : 2023/9/15</p>
-                      <p>Additional explanation : -</p>
-                    </div>
-                    <div className="Home2ScheduleDetailModalInBox">
-                      <p>Translation type : Birth Certificate</p>
-                      <p>Translate to : English</p>
-                    </div>
-                  </div>
-                </div>
-              ) : (
-                <></>
+              {Array.isArray(detail) && detail.length > 0 && (
+                <>
+                  {detail?.map((data, index) => (
+                    <>
+                      {buttonpage === index + 1 ? (
+                        <>
+                          <div key={index}>
+                            <p className="Home2ScheduleDetailModalHard">
+                              {title}
+                            </p>
+                          </div>
+                          <div className="Home2ScheduleDetailModal">
+                            <p className="Home2ScheduleDetailModalInHard">
+                              Order {index + 1}
+                            </p>
+                            <div className="Home2ScheduleDetailModalBox">
+                              <div className="Home2ScheduleDetailModalInBox">
+                                <p>Document type :{data?.document_Type}</p>
+                                <p>Translate from : {data?.tranfrom}</p>
+                                <p>Deadline : {data?.Deadline}</p>
+                                <p>
+                                  Additional explanation :
+                                  {data?.Additional_explanation}
+                                </p>
+                              </div>
+                              <div className="Home2ScheduleDetailModalInBox">
+                                <p>
+                                  Translation type :{data?.translation_Type}
+                                </p>
+                                <p>Translate to : {data?.tranto}</p>
+                              </div>
+                            </div>
+                          </div>
+                          <div style={{ display: "flex" }}>
+                            {detail.map((_, buttonIndex) => (
+                              <button
+                                key={buttonIndex}
+                                className={
+                                  buttonpage === buttonIndex + 1
+                                    ? "Home2Schedulebuttonpage"
+                                    : "Home2Schedulebuttonpage2"
+                                }
+                                onClick={() => setButtonpage(buttonIndex + 1)}
+                              >
+                                {buttonIndex + 1}
+                              </button>
+                            ))}
+                          </div>
+                        </>
+                      ) : (
+                        <></>
+                      )}
+                    </>
+                  ))}
+                </>
               )}
 
-              {buttonpage === 1 ? (
-                <div style={{ display: "flex" }}>
-                  <button
-                    className="Home2Schedulebuttonpage"
-                    onClick={() => setButtonpage(1)}
-                  >
-                    1
-                  </button>
-                  <button
-                    className="Home2Schedulebuttonpage2"
-                    onClick={() => setButtonpage(2)}
-                  >
-                    2
-                  </button>
-                  <button
-                    className="Home2Schedulebuttonpage2"
-                    onClick={() => setButtonpage(3)}
-                  >
-                    3
-                  </button>
-                </div>
-              ) : buttonpage === 2 ? (
-                <div style={{ display: "flex" }}>
-                  <button
-                    className="Home2Schedulebuttonpage2"
-                    onClick={() => setButtonpage(1)}
-                  >
-                    1
-                  </button>
-                  <button
-                    className="Home2Schedulebuttonpage"
-                    onClick={() => setButtonpage(2)}
-                  >
-                    2
-                  </button>
-                  <button
-                    className="Home2Schedulebuttonpage2"
-                    onClick={() => setButtonpage(3)}
-                  >
-                    3
-                  </button>
-                </div>
-              ) : buttonpage === 3 ? (
-                <div style={{ display: "flex" }}>
-                  <button
-                    className="Home2Schedulebuttonpage2"
-                    onClick={() => setButtonpage(1)}
-                  >
-                    1
-                  </button>
-                  <button
-                    className="Home2Schedulebuttonpage2"
-                    onClick={() => setButtonpage(2)}
-                  >
-                    2
-                  </button>
-                  <button
-                    className="Home2Schedulebuttonpage"
-                    onClick={() => setButtonpage(3)}
-                  >
-                    3
-                  </button>
-                </div>
-              ) : (
-                <></>
-              )}
               <div className="Home2ScheduleinputBox">
                 <p className="Home2ScheduleinputBoxP">All attachments</p>
                 <button
@@ -407,6 +363,7 @@ export default function Home2() {
                   <p>view</p>
                 </button>
               </div>
+
               <div className="Home2ScheduleinputBox">
                 <p className="Home2ScheduleinputBoxP">Price</p>
                 {/* <input
@@ -416,18 +373,20 @@ export default function Home2() {
                   onChange={handleInputChange}
                   // onChange={(e) => setamount(e)}
                 />
-                <p>amount of money you will get ฿ {amount}</p> */}
+               */}
+                <p>amount of money you will get {amount}</p>
               </div>
+
               <div className="Home2Schedulebuttongreu">
                 <button
                   className="Home2SchedulebuttonCancel"
-                  onClick={() => setOpen3(false)}
+                  onClick={() => setOpen2(false)}
                 >
                   Cancel
                 </button>
                 <button
                   className="Home2SchedulebuttonAccept"
-                  onClick={() => setOpen3(false)}
+                  onClick={() => setOpen2(false)}
                 >
                   Sent
                 </button>
@@ -460,111 +419,51 @@ export default function Home2() {
                 paddingLeft: "25px",
               }}
             >
-              <div>
-                <p className="Home2ScheduleDetailModalHard">THOG0024534</p>
-              </div>
-              {buttonpage2 === 1 ? (
-                <div className="Home2ScheduleDetailModal4">
-                  <p className="Home2ScheduleDetailModalInHard">Order 1</p>
-                  <div className="Home2ScheduleDetailModalBox">
-                    <img
-                      src={imgtest1}
-                      alt="imgtest1"
-                      className="Home2imgtest1"
-                    />
-                  </div>
-                </div>
-              ) : buttonpage2 === 2 ? (
-                <div className="Home2ScheduleDetailModal4">
-                  <p className="Home2ScheduleDetailModalInHard">Order 2</p>
-                  <div className="Home2ScheduleDetailModalBox">
-                    <img
-                      src={imgtest2}
-                      alt="imgtest2"
-                      className="Home2imgtest1"
-                    />
-                  </div>
-                </div>
-              ) : buttonpage2 === 3 ? (
-                <div className="Home2ScheduleDetailModal4">
-                  <p className="Home2ScheduleDetailModalInHard">Order 3</p>
-                  <div className="Home2ScheduleDetailModalBox">
-                    <img
-                      src={imgtest3}
-                      alt="imgtest2"
-                      className="Home2imgtest1"
-                    />
-                  </div>
-                </div>
-              ) : (
-                <></>
-              )}
-
-              {buttonpage2 === 1 ? (
-                <div style={{ display: "flex" }}>
-                  <button
-                    className="Home2Schedulebuttonpage"
-                    onClick={() => setButtonpage2(1)}
-                  >
-                    1
-                  </button>
-                  <button
-                    className="Home2Schedulebuttonpage2"
-                    onClick={() => setButtonpage2(2)}
-                  >
-                    2
-                  </button>
-                  <button
-                    className="Home2Schedulebuttonpage2"
-                    onClick={() => setButtonpage2(3)}
-                  >
-                    3
-                  </button>
-                </div>
-              ) : buttonpage2 === 2 ? (
-                <div style={{ display: "flex" }}>
-                  <button
-                    className="Home2Schedulebuttonpage2"
-                    onClick={() => setButtonpage2(1)}
-                  >
-                    1
-                  </button>
-                  <button
-                    className="Home2Schedulebuttonpage"
-                    onClick={() => setButtonpage2(2)}
-                  >
-                    2
-                  </button>
-                  <button
-                    className="Home2Schedulebuttonpage2"
-                    onClick={() => setButtonpage2(3)}
-                  >
-                    3
-                  </button>
-                </div>
-              ) : buttonpage2 === 3 ? (
-                <div style={{ display: "flex" }}>
-                  <button
-                    className="Home2Schedulebuttonpage2"
-                    onClick={() => setButtonpage2(1)}
-                  >
-                    1
-                  </button>
-                  <button
-                    className="Home2Schedulebuttonpage2"
-                    onClick={() => setButtonpage2(2)}
-                  >
-                    2
-                  </button>
-                  <button
-                    className="Home2Schedulebuttonpage"
-                    onClick={() => setButtonpage2(3)}
-                  >
-                    3
-                  </button>
-                </div>
-              ) : (
-                <></>
+              {Array.isArray(detail) && detail.length > 0 && (
+                <>
+                  {detail?.map((data, index) => (
+                    <>
+                      {buttonpage2 === index + 1 ? (
+                        <>
+                          <div key={index}>
+                            <p className="Home2ScheduleDetailModalHard">
+                              {title}
+                            </p>
+                          </div>
+                          <div className="Home2ScheduleDetailModal4">
+                            <p className="Home2ScheduleDetailModalInHard">
+                              Order {index + 1}
+                            </p>
+                            <div className="Home2ScheduleDetailModalBox">
+                              <img
+                                src={data?.file}
+                                alt="imgtest1"
+                                className="Home2imgtest1"
+                              />
+                            </div>
+                          </div>
+                          <div style={{ display: "flex" }}>
+                            {detail.map((_, buttonIndex) => (
+                              <button
+                                key={buttonIndex}
+                                className={
+                                  buttonpage === buttonIndex + 1
+                                    ? "Home2Schedulebuttonpage"
+                                    : "Home2Schedulebuttonpage2"
+                                }
+                                onClick={() => setButtonpage(buttonIndex + 1)}
+                              >
+                                {buttonIndex + 1}
+                              </button>
+                            ))}
+                          </div>
+                        </>
+                      ) : (
+                        <></>
+                      )}
+                    </>
+                  ))}
+                </>
               )}
 
               <div className="Home2Schedulebuttongreu">
@@ -613,6 +512,7 @@ export default function Home2() {
                 localizer={localizer}
                 defaultDate={new Date()}
                 defaultView="month"
+                views={[Views.MONTH, Views.DAY]}
                 events={events}
                 eventPropGetter={eventStyleGetter}
                 // messages={messages}
@@ -661,7 +561,13 @@ export default function Home2() {
                             <p>{order.orderNumber}</p>
                             <button
                               className="Home2Schedulebutton1"
-                              onClick={() => setOpen2(true)}
+                              onClick={() =>
+                                OpenDetail(
+                                  order.orderNumber,
+                                  order.Price,
+                                  order.data
+                                )
+                              }
                             >
                               Detail
                             </button>
@@ -671,7 +577,13 @@ export default function Home2() {
                               </button>
                               <button
                                 className="Home2Schedulebutton3"
-                                onClick={() => setOpen2(true)}
+                                onClick={() =>
+                                  OpenDetail(
+                                    order.orderNumber,
+                                    order.Price,
+                                    order.data
+                                  )
+                                }
                               >
                                 Accept
                               </button>

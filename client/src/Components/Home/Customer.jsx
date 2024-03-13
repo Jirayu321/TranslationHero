@@ -119,7 +119,7 @@ const Customer = () => {
   const [from2, setFrom2] = React.useState({
     Price: "",
     orderNumber: "",
-    Status:""
+    Status: "",
   });
 
   const [groupData, setGroupData] = React.useState(null); //เก็บข้อมูลทั้งหมดที่เราเพิ่มเข้ามา
@@ -403,7 +403,7 @@ const Customer = () => {
         </button>
       );
     }
-
+    console.log("buttons", buttons);
     return buttons;
   };
 
@@ -563,7 +563,7 @@ const Customer = () => {
     setFrom2({
       Price: generatePrice(),
       orderNumber: generatetTransactionNo(),
-      Status:"1"
+      Status: "1",
     });
     searhTranslator(x);
   }
