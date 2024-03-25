@@ -11,6 +11,8 @@ import Drawer from "../Drawer/DrawerTranslate";
 import Navbars from "../Navbar/NavbarTool.js";
 import SunEditor from "suneditor-react";
 import "suneditor/dist/css/suneditor.min.css";
+import { toast } from "react-toastify";
+
 // import moment from "moment";
 // import Icons from "../../Images/icons_ai.png";
 // import { BsFileEarmarkText } from "react-icons/bs";
@@ -140,25 +142,53 @@ function Tool() {
     }
   }
 
+  function showMessage() {
+    toast.error("Please reload this page", {
+      position: "top-right",
+      autoClose: 12000,
+      hideProgressBar: false,
+      closeOnClick: false,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
+    setTimeout(function () {
+      window.location.reload();
+    }, 12000);
+  }
+
   function generations_ai() {
     // console.log("showCaes:", showCaes?.data);
     try {
       setScreen(3);
       setLoading(true);
+      toast.warning("Please wait for processing.", {
+        position: "top-right",
+        autoClose: 12000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+      setTimeout(showMessage, 12000);
       // let orderNumber = showCaes?.orderNumber;
       // let data = showCaes?.data;
-      const t = dispatch(generationsAI(showCaes));
-      t.then((result) => {
-        // setData(result?.payload);
-        console.log("Result:", result.payload);
-      }).catch((error) => {
-        console.error("Error:", error);
-      });
+      // const t = dispatch(generationsAI(showCaes));
+      // t.then((result) => {
+      //   // setData(result?.payload);
+      //   console.log("Result:", result.payload);
+      // }).catch((error) => {
+      //   console.error("Error:", error);
+      // });
       // setLoading(false);
     } catch {
       console.log("error");
     }
   }
+
   const ArticleDetails = ({ article }) => {
     // console.log("groupbutton:", groupbutton);
 

@@ -70,7 +70,9 @@ import "react-credit-cards-2/dist/es/styles-compiled.css";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 import { url } from "../../slices/api.js";
-import { createOrder, updateOrdertype } from "../../slices/auth";
+import { createOrder, 
+  // updateOrdertype 
+} from "../../slices/auth";
 import { toast } from "react-toastify";
 
 import styles from "./Customer.module.css";
@@ -331,7 +333,6 @@ const Customer = () => {
     var reader = new FileReader();
     reader.readAsDataURL(e.target.files[0]);
     reader.onload = () => {
-      // console.log(reader.result);
       setFrom({ ...from, file: reader.result });
     };
     reader.onerror = (error) => {
